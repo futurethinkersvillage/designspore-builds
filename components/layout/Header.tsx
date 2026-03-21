@@ -67,7 +67,7 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-5">
           <Link
             href="/contact"
-            className="text-xs text-white/40 hover:text-white/70 transition-colors duration-200 tracking-wide font-medium uppercase letter-spacing-wide"
+            className="nav-link text-sm"
           >
             Contact
           </Link>

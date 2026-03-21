@@ -502,7 +502,7 @@ h1, h2, h3, h4 { text-wrap: balance; }
 ───────────────────────────────────────────────────────── */
 .stat-number {
   font-family: var(--font-archivo), system-ui, sans-serif;
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   color: #C9A227;

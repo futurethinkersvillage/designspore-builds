@@ -5,6 +5,7 @@ export interface CaseStudy {
   tags: string[];
   thumbnail: string;
   heroImage?: string;
+  logo?: string;
   problem: string;
   whatWeDid: string[];
   outcomes: string[];
@@ -20,6 +21,7 @@ export const caseStudies: CaseStudy[] = [
     name: "Future Thinkers",
     tagline: "From zero to visionary global brand",
     tags: ["launch", "branding", "content", "media", "fundraising"],
+    logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0003_FTP-Blue-Logo-light-Euvie-I.s-conflicted-copy-2022-06-02-150x150.png",
     thumbnail: "https://designspore.co/wp-content/uploads/2025/12/Village-Ecosystem-Long-1024x576.jpg",
     problem:
       "\"We're learning about all these amazing ideas that could have a positive impact on the world, but nobody has heard of them, and they're often too complex and never found in the same place.\"",
@@ -51,8 +53,14 @@ export const caseStudies: CaseStudy[] = [
     name: "Portal.Place",
     tagline: "From visionary concept to scalable Smart Village network",
     tags: ["launch", "branding", "ai-systems", "website", "community"],
+    logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0004_Portal-DAO-Logo4x-150x150.png",
     thumbnail: "https://designspore.co/wp-content/uploads/2025/12/Village-Ecosystem-Long-1-1024x576.jpg",
     heroImage: "https://designspore.co/wp-content/uploads/2025/12/Screenshot-2025-12-31-152645-1024x591.png",
+    images: [
+      "https://designspore.co/wp-content/uploads/2025/12/Village-Ecosystem-Long-1024x576.jpg",
+      "https://designspore.co/wp-content/uploads/2025/12/Village-Ecosystem-Long-1-1024x576.jpg",
+      "https://designspore.co/wp-content/uploads/2025/12/Screenshot-2025-12-31-152645-1024x591.png",
+    ],
     problem:
       "\"We have a compelling vision for seasonal village living — but we need a clear offer, brand narrative, and repeatable operating system that can scale beyond one location without drifting into vague 'community' language or inconsistent guest experiences.\"",
     whatWeDid: [
@@ -76,7 +84,11 @@ export const caseStudies: CaseStudy[] = [
     name: "Aeternity",
     tagline: "Blockchain launch that raised $79M USD",
     tags: ["launch", "content", "media", "fundraising", "blockchain"],
+    logo: "https://designspore.co/wp-content/uploads/2024/09/aeternity-logo-150x150.png",
     thumbnail: "https://designspore.co/wp-content/uploads/2024/08/aeternity-results-1024x621.png",
+    images: [
+      "https://designspore.co/wp-content/uploads/2024/08/aeternity-results-1024x621.png",
+    ],
     problem:
       "\"We've got this groundbreaking technology that could change the world, but nobody knows who we are or how it works.\"",
     whatWeDid: [
@@ -131,6 +143,7 @@ export const caseStudies: CaseStudy[] = [
     name: "Equalli",
     tagline: "Craft jewellery brand from commodity to visionary",
     tags: ["branding", "launch", "content", "video"],
+    logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0001_Equalli_Logo-150x150.png",
     thumbnail: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0001_Equalli_Logo-150x150.png",
     problem:
       "\"I produce a world-class bespoke product, but nobody knows the heart, soul, blood, sweat, and tears that go into making it, and so they see it as a commodity.\"",
@@ -153,6 +166,7 @@ export const caseStudies: CaseStudy[] = [
     name: "Empire Flippers",
     tagline: "Becoming the #1 online business broker through content",
     tags: ["content", "website", "media", "launch"],
+    logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0002_ef-logo-white-150x150.png",
     thumbnail: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0002_ef-logo-white-150x150.png",
     problem:
       "\"I've got a working business, but the sales process is complex and time consuming, and we have to do a lot of education and trust-building before we can make the sale.\"",

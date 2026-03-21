@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRightIcon,
   PhoneIcon,
@@ -12,7 +13,6 @@ import {
 import { caseStudies } from "@/lib/case-studies";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import CountUp from "@/components/ui/CountUp";
-import Marquee from "@/components/ui/Marquee";
 
 export const metadata: Metadata = {
   title: "Design Spore — AI Systems & Launch Studio",
@@ -33,7 +33,15 @@ const steps = [
   { number: "03", title: "Run", body: "Your systems run continuously. We monitor, improve, and iterate as your business grows." },
 ];
 
-const clients = ["Future Thinkers", "Aeternity", "Empire Flippers", "Equalli", "Portal DAO", "Wells Gray", "Game B Movement"];
+const clientLogos = [
+  { name: "Future Thinkers", logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0003_FTP-Blue-Logo-light-Euvie-I.s-conflicted-copy-2022-06-02-150x150.png" },
+  { name: "Aeternity",       logo: "https://designspore.co/wp-content/uploads/2024/09/aeternity-logo-150x150.png" },
+  { name: "Empire Flippers", logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0002_ef-logo-white-150x150.png" },
+  { name: "Equalli",         logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0001_Equalli_Logo-150x150.png" },
+  { name: "Portal DAO",      logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0004_Portal-DAO-Logo4x-150x150.png" },
+  { name: "Wells Gray",      logo: null },
+  { name: "Game B",          logo: null },
+];
 
 const featuredSlugs = ["future-thinkers", "aeternity", "game-b-movement"];
 const featuredCaseStudies = caseStudies.filter((cs) => featuredSlugs.includes(cs.slug));
@@ -69,11 +77,11 @@ export default function HomePage() {
 
             {/* Headline */}
             <h1
-              className="hero-in hero-in-2 font-bold text-white leading-[0.88] mb-8"
+              className="hero-in hero-in-2 font-bold text-white leading-[0.9] mb-8"
               style={{
                 fontFamily: "var(--font-archivo)",
-                fontSize: "clamp(3.5rem, 9vw, 7.5rem)",
-                letterSpacing: "-0.05em",
+                fontSize: "clamp(2.4rem, 5.5vw, 4.5rem)",
+                letterSpacing: "-0.04em",
               }}
             >
               Automate the work.<br />
@@ -121,14 +129,35 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CLIENT MARQUEE ────────────────────────────────────────── */}
-      <section className="py-8 bg-raised border-y border-white/6">
-        <div className="mb-4 text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-white/20 font-semibold">
-            Trusted by forward-thinking brands
-          </p>
+      {/* ── CLIENT LOGO MARQUEE ───────────────────────────────────── */}
+      <section className="py-10 bg-raised border-y border-white/6">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/20 font-semibold text-center mb-7">
+          Trusted by forward-thinking brands
+        </p>
+        {/* Inline marquee with logos */}
+        <div className="marquee-wrap overflow-hidden" style={{ WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)", maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)" }}>
+          <div className="marquee-track flex items-center">
+            {[...clientLogos, ...clientLogos].map((client, i) => (
+              <div key={i} className="flex items-center gap-10 px-10 shrink-0">
+                {client.logo ? (
+                  <Image
+                    src={client.logo}
+                    alt={client.name}
+                    width={120}
+                    height={48}
+                    className="h-8 w-auto object-contain opacity-40 hover:opacity-70 transition-opacity duration-300 grayscale brightness-200"
+                    unoptimized
+                  />
+                ) : (
+                  <span className="text-white/25 font-semibold text-xs uppercase tracking-widest whitespace-nowrap select-none">
+                    {client.name}
+                  </span>
+                )}
+                <span className="text-gold/25 select-none">·</span>
+              </div>
+            ))}
+          </div>
         </div>
-        <Marquee items={clients} />
       </section>
 
       {/* ── WHO WE HELP ──────────────────────────────────────────── */}
@@ -388,9 +417,19 @@ export default function HomePage() {
             my colleagues, and most importantly, my clients. Expectation surpassed.
             Mind blown. This is why you hire the experts.
           </blockquote>
-          <cite className="not-italic">
-            <p className="font-bold text-white text-base">Gabrielle K.</p>
-            <p className="text-white/35 text-sm mt-0.5 tracking-wide">Design Spore client</p>
+          <cite className="not-italic flex flex-col items-center gap-3">
+            <Image
+              src="https://designspore.co/wp-content/uploads/2024/09/Asset-1-750x1024.png"
+              alt="Gabrielle K."
+              width={56}
+              height={56}
+              className="w-14 h-14 rounded-full object-cover object-top border-2 border-gold/30"
+              unoptimized
+            />
+            <div>
+              <p className="font-bold text-white text-base">Gabrielle K.</p>
+              <p className="text-white/35 text-sm mt-0.5 tracking-wide">Design Spore client</p>
+            </div>
           </cite>
         </ScrollReveal>
       </section>
