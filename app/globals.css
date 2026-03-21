@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   THEME TOKENS (for reference / IDE completions)
+   The actual utility classes are defined explicitly below.
+───────────────────────────────────────────────────────────── */
+@theme inline {
+  --color-dark:       #14191F;
+  --color-darker:     #0D1115;
+  --color-raised:     #1C2229;
+  --color-card:       #222B34;
+  --color-gold:       #C9A227;
+  --color-gold-light: #E5C04A;
+  --color-gold-dark:  #9E7D1C;
+  --color-white:      #FFFFFF;
+  --color-offwhite:   #EBE9E3;
+  --color-muted:      #7A8A98;
+
+  --font-sans:    var(--font-archivo);
+  --font-display: var(--font-bangers);
+  --font-body:    var(--font-montserrat);
+  --font-mono:    var(--font-geist-mono);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BASE
+───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; background-color: #14191F; }
+
+body {
+  background-color: #14191F !important;
+  color: #FFFFFF;
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-archivo), system-ui, sans-serif;
+}
+p { text-wrap: pretty; }
+h1, h2, h3, h4 { text-wrap: balance; }
+
+/* ─────────────────────────────────────────────────────────────
+   EXPLICIT BACKGROUND UTILITIES
+   (Tailwind v4 @theme inline doesn't always generate these)
+───────────────────────────────────────────────────────── */
+.bg-dark    { background-color: #14191F; }
+.bg-darker  { background-color: #0D1115; }
+.bg-raised  { background-color: #1C2229; }
+.bg-card    { background-color: #222B34; }
+.bg-gold    { background-color: #C9A227; }
+.bg-gold-light { background-color: #E5C04A; }
+
+/* Opacity variants */
+.bg-dark\/5  { background-color: rgba(20, 25, 31, 0.05); }
+.bg-dark\/90 { background-color: rgba(20, 25, 31, 0.90); }
+.bg-gold\/5  { background-color: rgba(201, 162, 39, 0.05); }
+.bg-gold\/10 { background-color: rgba(201, 162, 39, 0.10); }
+.bg-gold\/15 { background-color: rgba(201, 162, 39, 0.15); }
+.bg-gold\/20 { background-color: rgba(201, 162, 39, 0.20); }
+.bg-gold\/25 { background-color: rgba(201, 162, 39, 0.25); }
+
+/* Hover states */
+.hover\:bg-gold-light:hover { background-color: #E5C04A; }
+.hover\:bg-raised:hover     { background-color: #1C2229; }
+.hover\:bg-gold:hover       { background-color: #C9A227; }
+.hover\:bg-dark:hover       { background-color: #14191F; }
+
+/* ─────────────────────────────────────────────────────────────
+   EXPLICIT TEXT UTILITIES
+───────────────────────────────────────────────────────── */
+.text-gold       { color: #C9A227; }
+.text-gold-light { color: #E5C04A; }
+.text-gold-dark  { color: #9E7D1C; }
+.text-dark       { color: #14191F; }
+
+/* Opacity variants */
+.text-gold\/60  { color: rgba(201, 162, 39, 0.60); }
+.text-dark\/60  { color: rgba(20, 25, 31, 0.60); }
+
+/* Hover states */
+.hover\:text-gold:hover       { color: #C9A227; }
+.hover\:text-gold-light:hover { color: #E5C04A; }
+.hover\:text-white:hover      { color: #FFFFFF; }
+
+/* Group-hover states */
+.group:hover .group-hover\:text-gold { color: #C9A227; }
+.group:hover .group-hover\:bg-gold   { background-color: #C9A227; }
+
+/* ─────────────────────────────────────────────────────────────
+   EXPLICIT BORDER UTILITIES
+───────────────────────────────────────────────────────── */
+.border-gold     { border-color: #C9A227; }
+.border-gold-light { border-color: #E5C04A; }
+
+/* Opacity variants */
+.border-gold\/20 { border-color: rgba(201, 162, 39, 0.20); }
+.border-gold\/30 { border-color: rgba(201, 162, 39, 0.30); }
+.border-gold\/40 { border-color: rgba(201, 162, 39, 0.40); }
+.border-gold\/60 { border-color: rgba(201, 162, 39, 0.60); }
+.border-dark\/20 { border-color: rgba(20, 25, 31, 0.20); }
+.border-dark\/40 { border-color: rgba(20, 25, 31, 0.40); }
+
+/* Hover states */
+.hover\:border-gold\/40:hover { border-color: rgba(201, 162, 39, 0.40); }
+.hover\:border-dark\/40:hover { border-color: rgba(20, 25, 31, 0.40); }
+
+/* ─────────────────────────────────────────────────────────────
+   COMPONENT UTILITIES
+───────────────────────────────────────────────────────── */
+.section-pad {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+@media (min-width: 768px) {
+  .section-pad {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/* Tag chips */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(201, 162, 39, 0.12);
+  color: #C9A227;
+  border: 1px solid rgba(201, 162, 39, 0.25);
+}
+
+/* Button press feedback */
+.btn-press:active { transform: scale(0.97); }
+
+/* Divider */
+.divider { border-top: 1px solid rgba(255,255,255,0.08); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #14191F; }
+::-webkit-scrollbar-thumb { background: #2A3440; border-radius: 2px; }
