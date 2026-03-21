@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import { Bangers, Archivo, Montserrat, Geist_Mono } from "next/font/google";
+import { Archivo, Montserrat, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-
-const bangers = Bangers({
-  variable: "--font-bangers",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
+import Spotlight from "@/components/ui/Spotlight";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -52,9 +46,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bangers.variable} ${archivo.variable} ${montserrat.variable} ${geistMono.variable}`}
+      className={`${archivo.variable} ${montserrat.variable} ${geistMono.variable}`}
     >
       <body className="min-h-screen flex flex-col bg-dark text-white antialiased" style={{ backgroundColor: '#14191F', color: '#FFFFFF' }}>
+        {/* Grain texture — premium tactile overlay */}
+        <div className="grain-overlay" aria-hidden="true" />
+        {/* Cursor glow spotlight */}
+        <Spotlight />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
