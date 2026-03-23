@@ -5,6 +5,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { ListIcon, XIcon } from "@phosphor-icons/react";
+// Font selector — uncomment to re-enable the live font switcher in the header
+// import FontSelector from "@/components/ui/FontSelector";
 
 const navLinks = [
   { href: "/ai-services",     label: "AI Services" },
@@ -36,19 +38,25 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between gap-6">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center shrink-0 transition-opacity duration-200 hover:opacity-75">
+        <Link href="/" className="flex items-center gap-2.5 shrink-0 transition-opacity duration-200 hover:opacity-75">
           <Image
-            src="https://designspore.co/wp-content/uploads/2023/06/DesignSpore-Logo.png"
-            alt="Design Spore"
-            width={140}
-            height={36}
-            className="h-8 w-auto object-contain"
+            src="/uploads/2023/06/DesignSpore-Logo.png"
+            alt=""
+            width={32}
+            height={32}
+            className="h-8 w-8 object-contain"
             priority
           />
+          <span
+            className="font-bold text-white text-base tracking-tight"
+            style={{ fontFamily: "var(--font-archivo)" }}
+          >
+            Design Spore
+          </span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+        <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
           {navLinks.map(({ href, label }) => {
             const active = pathname === href || pathname.startsWith(href + "/");
             return (
@@ -65,6 +73,7 @@ export default function Header() {
 
         {/* CTA */}
         <div className="hidden md:flex items-center gap-5">
+          {/* <FontSelector /> */}
           <Link
             href="/contact"
             className="nav-link text-sm"

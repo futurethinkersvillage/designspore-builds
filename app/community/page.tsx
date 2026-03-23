@@ -20,8 +20,8 @@ const programs = [
   },
   {
     icon: MapPinIcon,
-    title: "Clearwater Innovation Hub",
-    desc: "Based in Clearwater, BC — a small town with an outsized concentration of forward-thinking builders. Come for the mountains. Stay for the community.",
+    title: "Music & Arts Festivals",
+    desc: "We help organize and amplify music and arts festivals in the region — bringing creative culture to Clearwater and connecting local artists with wider audiences.",
   },
   {
     icon: CalendarIcon,
@@ -38,7 +38,7 @@ export default function CommunityPage() {
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-5">Community</p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.9] mb-6" style={{ fontFamily: "var(--font-archivo)" }}>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.9] mb-6" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
               The future is built in community.
             </h1>
             <p className="text-xl md:text-2xl text-white/50 leading-relaxed mb-10">
@@ -58,7 +58,7 @@ export default function CommunityPage() {
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <div className="mb-14">
             <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">What we run</p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-archivo)" }}>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
               Spaces for builders to connect.
             </h2>
           </div>
@@ -66,7 +66,7 @@ export default function CommunityPage() {
             {programs.map(({ icon: Icon, title, desc }) => (
               <div key={title} className="p-8 rounded-xl border border-white/8 bg-raised hover:border-gold/30 transition-all group">
                 <Icon size={28} weight="duotone" className="text-gold mb-5" />
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors" style={{ fontFamily: "var(--font-archivo)" }}>{title}</h3>
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>{title}</h3>
                 <p className="text-white/50 leading-relaxed">{desc}</p>
               </div>
             ))}
@@ -80,7 +80,7 @@ export default function CommunityPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
             <div className="md:col-span-6">
               <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">Physical Space</p>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight mb-6" style={{ fontFamily: "var(--font-archivo)" }}>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight mb-6" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
                 Portal.Place — where it all happens.
               </h2>
               <p className="text-white/60 leading-relaxed text-lg mb-6">
@@ -100,7 +100,7 @@ export default function CommunityPage() {
             <div className="md:col-span-5 md:col-start-8">
               <div className="p-8 rounded-xl border border-gold/20 bg-gold/5 space-y-6">
                 <div>
-                  <p className="text-3xl font-bold text-gold" style={{ fontFamily: "var(--font-archivo)" }}>Clearwater, BC</p>
+                  <p className="text-3xl font-bold text-gold" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>Clearwater, BC</p>
                   <p className="text-white/40 text-sm mt-1">Home base</p>
                 </div>
                 <div className="border-t border-white/8 pt-6 space-y-4">
@@ -133,7 +133,7 @@ export default function CommunityPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">Connected Ecosystem</p>
-              <h2 className="text-4xl font-bold tracking-tight text-white leading-tight mb-5" style={{ fontFamily: "var(--font-archivo)" }}>
+              <h2 className="text-4xl font-bold tracking-tight text-white leading-tight mb-5" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
                 Part of a larger movement.
               </h2>
               <p className="text-white/60 leading-relaxed text-lg mb-6">
@@ -148,14 +148,9 @@ export default function CommunityPage() {
             </div>
             <div className="space-y-4">
               <div className="p-6 rounded-xl border border-white/8 bg-raised">
-                <p className="text-2xl font-bold text-white mb-1" style={{ fontFamily: "var(--font-archivo)" }}>Future Thinkers Podcast</p>
+                <p className="text-2xl font-bold text-white mb-1" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>Future Thinkers Podcast</p>
                 <p className="text-white/40 text-sm mb-3">50M+ downloads · 500+ episodes</p>
                 <p className="text-white/60 text-sm leading-relaxed">In-depth conversations with scientists, technologists, entrepreneurs, and artists on the leading edge of what&apos;s possible.</p>
-              </div>
-              <div className="p-6 rounded-xl border border-white/8 bg-raised">
-                <p className="text-2xl font-bold text-white mb-1" style={{ fontFamily: "var(--font-archivo)" }}>Future Thinkers Community</p>
-                <p className="text-white/40 text-sm mb-3">Global · Online + in-person</p>
-                <p className="text-white/60 text-sm leading-relaxed">Membership community with courses, events, and a curated network of people building a better future.</p>
               </div>
             </div>
           </div>
@@ -165,7 +160,7 @@ export default function CommunityPage() {
       {/* CTA */}
       <section className="section-pad bg-raised border-t border-white/8">
         <div className="max-w-7xl mx-auto px-5 md:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5" style={{ fontFamily: "var(--font-archivo)" }}>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
             Come build with us.
           </h2>
           <p className="text-white/50 text-lg max-w-lg mx-auto mb-10">

@@ -3,15 +3,15 @@ export interface CaseStudy {
   name: string;
   tagline: string;
   tags: string[];
-  thumbnail: string;
-  heroImage?: string;
+  thumbnail?: string;       // optional — shown in sidebar only
   logo?: string;
   problem: string;
   whatWeDid: string[];
   outcomes: string[];
   stats?: { value: string; label: string }[];
-  videos?: string[]; // YouTube video IDs
+  videos?: string[];        // YouTube video IDs
   images?: string[];
+  instagramReels?: string[]; // Instagram reel URLs
   relatedServices: ("ai-services" | "launch-services")[];
 }
 
@@ -21,8 +21,8 @@ export const caseStudies: CaseStudy[] = [
     name: "Future Thinkers",
     tagline: "From zero to visionary global brand",
     tags: ["launch", "branding", "content", "media", "fundraising"],
-    logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0003_FTP-Blue-Logo-light-Euvie-I.s-conflicted-copy-2022-06-02-150x150.png",
-    thumbnail: "https://designspore.co/wp-content/uploads/2025/12/Village-Ecosystem-Long-1024x576.jpg",
+    logo: "/uploads/2023/06/Client-Logos_0003_FTP-Blue-Logo-light-Euvie-I.s-conflicted-copy-2022-06-02-150x150.png",
+    // No confirmed case-study cover image — videos below should be verified
     problem:
       "\"We're learning about all these amazing ideas that could have a positive impact on the world, but nobody has heard of them, and they're often too complex and never found in the same place.\"",
     whatWeDid: [
@@ -41,11 +41,15 @@ export const caseStudies: CaseStudy[] = [
       "Raised $2 Million CAD in a crowdfunding campaign",
     ],
     stats: [
-      { value: "$2M CAD", label: "Raised in crowdfunding" },
-      { value: "2M+", label: "Video views" },
-      { value: "100+", label: "Thought leaders featured" },
+      { value: "$2.6M CAD", label: "Raised in crowdfunding" },
+      { value: "15M+", label: "Channel views" },
+      { value: "150+", label: "Thought leaders featured" },
     ],
-    videos: ["G3psxs3gyf8", "GYp81d0vFKY"],
+    videos: ["G3psxs3gyf8"],
+    images: [
+      "/uploads/2025/12/Village-Ecosystem-Long-1024x576.jpg",
+      "/uploads/2025/12/Village-Ecosystem-Long-1-1024x576.jpg",
+    ],
     relatedServices: ["launch-services"],
   },
   {
@@ -53,14 +57,8 @@ export const caseStudies: CaseStudy[] = [
     name: "Portal.Place",
     tagline: "From visionary concept to scalable Smart Village network",
     tags: ["launch", "branding", "ai-systems", "website", "community"],
-    logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0004_Portal-DAO-Logo4x-150x150.png",
-    thumbnail: "https://designspore.co/wp-content/uploads/2025/12/Village-Ecosystem-Long-1-1024x576.jpg",
-    heroImage: "https://designspore.co/wp-content/uploads/2025/12/Screenshot-2025-12-31-152645-1024x591.png",
-    images: [
-      "https://designspore.co/wp-content/uploads/2025/12/Village-Ecosystem-Long-1024x576.jpg",
-      "https://designspore.co/wp-content/uploads/2025/12/Village-Ecosystem-Long-1-1024x576.jpg",
-      "https://designspore.co/wp-content/uploads/2025/12/Screenshot-2025-12-31-152645-1024x591.png",
-    ],
+    logo: "/uploads/2023/06/Client-Logos_0004_Portal-DAO-Logo4x-150x150.png",
+    thumbnail: "/uploads/2025/12/Village-Ecosystem-Long-1024x576.jpg",
     problem:
       "\"We have a compelling vision for seasonal village living — but we need a clear offer, brand narrative, and repeatable operating system that can scale beyond one location without drifting into vague 'community' language or inconsistent guest experiences.\"",
     whatWeDid: [
@@ -76,7 +74,10 @@ export const caseStudies: CaseStudy[] = [
       "Created a clear membership offer, partner-ready standards, and scalable roadmap",
       "Built narrative and system foundation for near-term traction and long-term expansion",
     ],
-    videos: ["xrL-wL5Bueg"],
+    images: [
+      "/uploads/2025/12/Screenshot-2025-12-31-152645-1024x591.png",
+    ],
+    videos: ["GYp81d0vFKY", "xrL-wL5Bueg", "Tf_YNgph84o", "rQwOshB6J3M"],
     relatedServices: ["launch-services", "ai-services"],
   },
   {
@@ -84,11 +85,8 @@ export const caseStudies: CaseStudy[] = [
     name: "Aeternity",
     tagline: "Blockchain launch that raised $79M USD",
     tags: ["launch", "content", "media", "fundraising", "blockchain"],
-    logo: "https://designspore.co/wp-content/uploads/2024/09/aeternity-logo-150x150.png",
-    thumbnail: "https://designspore.co/wp-content/uploads/2024/08/aeternity-results-1024x621.png",
-    images: [
-      "https://designspore.co/wp-content/uploads/2024/08/aeternity-results-1024x621.png",
-    ],
+    logo: "/uploads/2024/09/aeternity-logo-150x150.png",
+    thumbnail: "/uploads/2024/08/aeternity-results-1024x621.png",
     problem:
       "\"We've got this groundbreaking technology that could change the world, but nobody knows who we are or how it works.\"",
     whatWeDid: [
@@ -103,10 +101,14 @@ export const caseStudies: CaseStudy[] = [
       "Marketing campaign helped raise over $79 Million USD",
     ],
     stats: [
-      { value: "$79M USD", label: "Raised in campaign" },
-      { value: "2M+", label: "Video views on sponsored segment" },
+      { value: "$79M+", label: "Raised in campaign" },
+      { value: "32,600", label: "Community members" },
+      { value: "67M+", label: "Transactions to date" },
     ],
-    videos: ["Tf_YNgph84o"],
+    images: [
+      "/uploads/2024/08/aeternity-results-1024x621.png",
+    ],
+    videos: [],
     relatedServices: ["launch-services"],
   },
   {
@@ -114,7 +116,7 @@ export const caseStudies: CaseStudy[] = [
     name: "Wells Gray Resort & Village",
     tagline: "Real-world builds at our home base in Clearwater, BC",
     tags: ["tourism", "hospitality", "local-business", "launch"],
-    thumbnail: "https://designspore.co/wp-content/uploads/2026/01/PXL_20260101_195310069-1024x767.jpg",
+    thumbnail: "/uploads/2026/01/PXL_20260101_195310069-1024x767.jpg",
     problem:
       "\"We want to build a maker space to assist with village build projects, create new signage, build a dome and sauna, and develop a treasure hunt for our guests.\"",
     whatWeDid: [
@@ -130,12 +132,16 @@ export const caseStudies: CaseStudy[] = [
       "Established Wells Gray as a test site for innovative place-based projects",
     ],
     images: [
-      "https://designspore.co/wp-content/uploads/2026/01/PXL_20260101_195310069-1024x767.jpg",
-      "https://designspore.co/wp-content/uploads/2026/01/PXL_20250419_163130129.PORTRAIT-1-1024x908.jpg",
-      "https://designspore.co/wp-content/uploads/2026/01/PXL_20250914_213519050-771x1024.jpg",
-      "https://designspore.co/wp-content/uploads/2026/01/PXL_20241116_220444665-EDIT-1024x771.jpg",
+      "/uploads/2026/01/PXL_20260101_195310069-1024x767.jpg",
+      "/uploads/2026/01/PXL_20250419_163130129.PORTRAIT-1-1024x908.jpg",
+      "/uploads/2026/01/PXL_20250914_213519050-1157x1536.jpg",
+      "/uploads/2026/01/PXL_20241116_220444665-EDIT-1024x771.jpg",
     ],
-    videos: ["rQwOshB6J3M"],
+    stats: [
+      { value: "$3M", label: "Current fundraise" },
+      { value: "3k+", label: "Yearly visitors" },
+    ],
+    videos: ["wSuO2PmAKHA", "wshy8i0mATs"],
     relatedServices: ["launch-services"],
   },
   {
@@ -143,8 +149,8 @@ export const caseStudies: CaseStudy[] = [
     name: "Equalli",
     tagline: "Craft jewellery brand from commodity to visionary",
     tags: ["branding", "launch", "content", "video"],
-    logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0001_Equalli_Logo-150x150.png",
-    thumbnail: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0001_Equalli_Logo-150x150.png",
+    logo: "/uploads/2023/06/Client-Logos_0001_Equalli_Logo-150x150.png",
+    // No confirmed case study image beyond logo
     problem:
       "\"I produce a world-class bespoke product, but nobody knows the heart, soul, blood, sweat, and tears that go into making it, and so they see it as a commodity.\"",
     whatWeDid: [
@@ -158,7 +164,10 @@ export const caseStudies: CaseStudy[] = [
       "Launched a successful business with a differentiated market position",
       "Established authority and trust in the craft jewellery space",
     ],
-    videos: ["wSuO2PmAKHA"],
+    stats: [
+      { value: "#1", label: "Brand in their category" },
+    ],
+    videos: ["51VAPoHIbWo", "eAXrSUH2G9A"],
     relatedServices: ["launch-services"],
   },
   {
@@ -166,8 +175,7 @@ export const caseStudies: CaseStudy[] = [
     name: "Empire Flippers",
     tagline: "Becoming the #1 online business broker through content",
     tags: ["content", "website", "media", "launch"],
-    logo: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0002_ef-logo-white-150x150.png",
-    thumbnail: "https://designspore.co/wp-content/uploads/2023/06/Client-Logos_0002_ef-logo-white-150x150.png",
+    logo: "/uploads/2023/06/Client-Logos_0002_ef-logo-white-150x150.png",
     problem:
       "\"I've got a working business, but the sales process is complex and time consuming, and we have to do a lot of education and trust-building before we can make the sale.\"",
     whatWeDid: [
@@ -179,7 +187,16 @@ export const caseStudies: CaseStudy[] = [
       "Elevated customer education and multimedia content strategy",
       "Helped Empire Flippers become the leader in their field",
     ],
-    videos: ["wshy8i0mATs", "51VAPoHIbWo"],
+    stats: [
+      { value: "$582M+", label: "Total sales volume" },
+      { value: "$14.8B+", label: "In verified liquidity" },
+      { value: "2,605", label: "Businesses sold" },
+      { value: "325K", label: "Buyers and sellers" },
+    ],
+    images: [
+      "/uploads/2024/08/Off-site-Marketing.drawio-2.jpg",
+    ],
+    videos: [],
     relatedServices: ["launch-services"],
   },
   {
@@ -187,7 +204,7 @@ export const caseStudies: CaseStudy[] = [
     name: "Game B Movement",
     tagline: "Complex philosophy turned viral — 4M views in 3 months",
     tags: ["launch", "content", "video", "community", "media"],
-    thumbnail: "https://designspore.co/wp-content/uploads/2024/07/9653-e1723773032417.jpg",
+    // No confirmed images for Game B — only social media content
     problem:
       "\"Game B ideas are gaining attention in niche circles but are too abstract and fragmented for a wider audience.\"",
     whatWeDid: [
@@ -209,7 +226,8 @@ export const caseStudies: CaseStudy[] = [
       { value: "21,500+", label: "Total interactions" },
       { value: "50+", label: "Custom videos" },
     ],
-    videos: ["eAXrSUH2G9A"],
+    videos: [],
+    instagramReels: ["https://www.instagram.com/reels/DE5yKMfJIhN/"],
     relatedServices: ["launch-services"],
   },
 ];

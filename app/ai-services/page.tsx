@@ -53,7 +53,7 @@ export default function AIServicesPage() {
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-5">AI Services</p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.9] mb-6" style={{ fontFamily: "var(--font-archivo)" }}>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.9] mb-6" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
               Practical AI for real business operations.
             </h1>
             <p className="text-xl md:text-2xl text-white/50 leading-relaxed mb-10">
@@ -78,14 +78,14 @@ export default function AIServicesPage() {
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <div className="mb-14">
             <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">What we build</p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-archivo)" }}>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
               The full AI services stack.
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/8 rounded-xl overflow-hidden border border-white/8">
             {services.map(({ title, desc }) => (
               <div key={title} className="p-7 md:p-8 bg-dark hover:bg-raised transition-colors group">
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors" style={{ fontFamily: "var(--font-archivo)" }}>{title}</h3>
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>{title}</h3>
                 <p className="text-white/50 leading-relaxed">{desc}</p>
               </div>
             ))}
@@ -98,7 +98,7 @@ export default function AIServicesPage() {
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <div className="mb-14">
             <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">Packages</p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-archivo)" }}>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
               Pick a starting point.
             </h2>
             <p className="mt-4 text-white/50 text-lg max-w-xl">
@@ -109,7 +109,7 @@ export default function AIServicesPage() {
             {packages.map(({ name, tagline, includes, cta, featured }) => (
               <div key={name} className={`rounded-xl p-8 border flex flex-col ${featured ? "bg-dark border-gold/40 ring-1 ring-gold/20" : "bg-dark border-white/10"}`}>
                 {featured && <span className="tag mb-4 self-start">Most popular</span>}
-                <h3 className="text-2xl font-bold text-white mb-2" style={{ fontFamily: "var(--font-archivo)" }}>{name}</h3>
+                <h3 className="text-2xl font-bold text-white mb-2" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>{name}</h3>
                 <p className="text-white/40 text-sm mb-6">{tagline}</p>
                 <ul className="flex flex-col gap-3 mb-8 flex-1">
                   {includes.map((item) => (
@@ -135,7 +135,7 @@ export default function AIServicesPage() {
           <div className="max-w-7xl mx-auto px-5 md:px-8">
             <div className="mb-14">
               <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">Proof</p>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-archivo)" }}>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
                 Results from the field.
               </h2>
             </div>
@@ -145,7 +145,7 @@ export default function AIServicesPage() {
                   <div className="flex flex-wrap gap-2 mb-4">
                     {tags.slice(0, 3).map((t) => <span key={t} className="tag">{t}</span>)}
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-gold transition-colors" style={{ fontFamily: "var(--font-archivo)" }}>{name}</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-gold transition-colors" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>{name}</h3>
                   <p className="text-white/40">{tagline}</p>
                 </Link>
               ))}
@@ -157,7 +157,7 @@ export default function AIServicesPage() {
       {/* Final CTA */}
       <section className="section-pad bg-raised border-t border-white/8">
         <div className="max-w-7xl mx-auto px-5 md:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5" style={{ fontFamily: "var(--font-archivo)" }}>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
             Ready to build your AI stack?
           </h2>
           <p className="text-white/50 text-lg max-w-lg mx-auto mb-10">

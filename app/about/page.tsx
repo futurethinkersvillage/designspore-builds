@@ -16,10 +16,9 @@ const values = [
 ];
 
 const stats = [
-  { value: "$10M+", label: "Raised for client campaigns" },
-  { value: "50M+", label: "Content views generated" },
-  { value: "100+", label: "Brands and campaigns launched" },
-  { value: "15+", label: "Years of combined experience" },
+  { value: "$100M+", label: "Raised for client campaigns" },
+  { value: "50M+",   label: "Content views generated" },
+  { value: "25+",    label: "Years of combined experience" },
 ];
 
 export default function AboutPage() {
@@ -30,7 +29,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-5">About Design Spore</p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.9] mb-6" style={{ fontFamily: "var(--font-archivo)" }}>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.9] mb-6" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
               We build the brands that build the future.
             </h1>
             <p className="text-xl md:text-2xl text-white/50 leading-relaxed">
@@ -44,10 +43,10 @@ export default function AboutPage() {
       {/* Stats */}
       <section className="bg-raised border-b border-white/8">
         <div className="max-w-7xl mx-auto px-5 md:px-8 py-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
             {stats.map(({ value, label }) => (
               <div key={label}>
-                <p className="text-3xl md:text-4xl font-bold text-gold" style={{ fontFamily: "var(--font-archivo)" }}>{value}</p>
+                <p className="text-3xl md:text-4xl font-bold text-gold" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>{value}</p>
                 <p className="text-white/40 text-sm mt-1">{label}</p>
               </div>
             ))}
@@ -63,17 +62,18 @@ export default function AboutPage() {
 
             {/* Euvie */}
             <div className="flex flex-col gap-6">
-              <div className="relative h-96 rounded-xl overflow-hidden">
+              <div className="relative rounded-xl overflow-hidden" style={{ aspectRatio: "3/4" }}>
                 <Image
-                  src="https://designspore.co/wp-content/uploads/2024/09/EuvieIvanova-bw-682x1024.jpg"
+                  src="/uploads/2024/09/EuvieIvanova-bw-682x1024.jpg"
                   alt="Euvie Ivanova"
                   fill
-                  className="object-cover object-top"
+                  className="object-cover"
+                  style={{ objectPosition: "50% 10%" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/10 to-transparent" />
               </div>
               <div>
-                <h2 className="text-3xl font-bold text-white mb-1" style={{ fontFamily: "var(--font-archivo)" }}>Euvie Ivanova</h2>
+                <h2 className="text-3xl font-bold text-white mb-1" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>Euvie Ivanova</h2>
                 <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-4">Co-Founder · Strategy & Media</p>
                 <p className="text-white/60 leading-relaxed text-lg">
                   Co-host of the Future Thinkers podcast with 50M+ downloads. Euvie has spent over a decade
@@ -85,17 +85,18 @@ export default function AboutPage() {
 
             {/* Mike */}
             <div className="flex flex-col gap-6">
-              <div className="relative h-96 rounded-xl overflow-hidden">
+              <div className="relative rounded-xl overflow-hidden" style={{ aspectRatio: "3/4" }}>
                 <Image
-                  src="https://designspore.co/wp-content/uploads/2024/07/9653-e1723773032417.jpg"
+                  src="/uploads/2024/07/9653-e1723773032417.jpg"
                   alt="Mike Gilliland"
                   fill
-                  className="object-cover object-top"
+                  className="object-cover"
+                  style={{ objectPosition: "50% 15%" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/10 to-transparent" />
               </div>
               <div>
-                <h2 className="text-3xl font-bold text-white mb-1" style={{ fontFamily: "var(--font-archivo)" }}>Mike Gilliland</h2>
+                <h2 className="text-3xl font-bold text-white mb-1" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>Mike Gilliland</h2>
                 <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-4">Co-Founder · Technology & AI</p>
                 <p className="text-white/60 leading-relaxed text-lg">
                   Builder, technologist, and community organizer. Mike leads AI implementation, technical
@@ -114,7 +115,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
             <div className="md:col-span-5">
               <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">Our Story</p>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight" style={{ fontFamily: "var(--font-archivo)" }}>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
                 Built from the inside of real ventures.
               </h2>
             </div>
@@ -143,14 +144,14 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <div className="mb-14">
             <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">How We Work</p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-archivo)" }}>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
               The principles behind the work.
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/8 rounded-xl overflow-hidden border border-white/8">
             {values.map(({ title, desc }) => (
               <div key={title} className="p-7 md:p-8 bg-dark hover:bg-raised transition-colors group">
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors" style={{ fontFamily: "var(--font-archivo)" }}>{title}</h3>
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>{title}</h3>
                 <p className="text-white/50 leading-relaxed">{desc}</p>
               </div>
             ))}
@@ -161,7 +162,7 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="section-pad bg-raised border-t border-white/8">
         <div className="max-w-7xl mx-auto px-5 md:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5" style={{ fontFamily: "var(--font-archivo)" }}>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
             Want to work with us?
           </h2>
           <p className="text-white/50 text-lg max-w-lg mx-auto mb-10">

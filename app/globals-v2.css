@@ -1,22 +1,58 @@
 @import "tailwindcss";
 
+/*
+  ═══════════════════════════════════════════════════════════════
+  globals-v2.css  —  PREMIUM AMBER-GOLD PALETTE
+  ═══════════════════════════════════════════════════════════════
+
+  WHAT CHANGED vs globals.css:
+  ─────────────────────────────
+  Gold family replaced entirely:
+
+    OLD (yellow-gold)         NEW (amber-gold)
+    ──────────────────────    ─────────────────────────────────
+    #C9A227  gold             #BE8C2A  rich amber gold
+    #E5C04A  gold-light       #D4A44A  warm champagne (hover)
+    #9E7D1C  gold-dark        #7E5C18  deep cognac accent
+
+  Why it reads more premium:
+  • Hue shifted 44° → 38°  — less yellow, more amber/cognac
+  • Saturation pulled back ~10%  — eliminates cartoonish pop
+  • Slightly deeper base value — feels heavier and more metallic
+  • Backgrounds: tiny warmth added to dark layers so the gold
+    feels at home (removed the blue-gray cast from base darks)
+
+  HOW TO ACTIVATE:
+  ─────────────────
+  In app/layout.tsx, change:
+    import "./globals.css";
+  to:
+    import "./globals-v2.css";
+
+  HOW TO REVERT:
+  ───────────────
+  Change it back. No other files touched.
+
+  ═══════════════════════════════════════════════════════════════
+*/
+
 /* ─────────────────────────────────────────────────────────────
    THEME TOKENS
 ───────────────────────────────────────────────────────── */
 @theme inline {
-  --color-dark:       #14191F;
-  --color-darker:     #0D1115;
-  --color-raised:     #1C2229;
-  --color-card:       #222B34;
-  --color-gold:       #C9A227;
-  --color-gold-light: #E5C04A;
-  --color-gold-dark:  #9E7D1C;
+  --color-dark:       #131719;
+  --color-darker:     #0C1012;
+  --color-raised:     #1B2126;
+  --color-card:       #212A31;
+  --color-gold:       #BE8C2A;
+  --color-gold-light: #D4A44A;
+  --color-gold-dark:  #7E5C18;
   --color-white:      #FFFFFF;
   --color-muted:      #7A8A98;
 
-  --font-sans:    var(--font-archivo);
-  --font-display: var(--font-archivo);
-  --font-body:    var(--font-montserrat);
+  --font-sans:    var(--font-outfit);
+  --font-display: var(--font-outfit);
+  --font-body:    var(--font-jakarta);
   --font-mono:    var(--font-geist-mono);
 }
 
@@ -27,15 +63,14 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #14191F;
-  /* Prevent content flash */
+  background-color: #131719;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background-color: #14191F !important;
+  background-color: #131719 !important;
   color: #FFFFFF;
-  font-family: var(--font-montserrat), system-ui, sans-serif;
+  font-family: var(--font-body-active, var(--font-jakarta, system-ui)), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -43,20 +78,22 @@ body {
 
 /* ─────────────────────────────────────────────────────────────
    PREMIUM TYPOGRAPHY
+   --font-display-active / --font-body-active are set dynamically
+   by the FontSelector component. Defaults to Archivo + Inter.
 ───────────────────────────────────────────────────────── */
-h1, h2, h3, h4, h5 {
-  font-family: var(--font-archivo), system-ui, sans-serif;
-  font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display-active, var(--font-outfit, system-ui));
+  font-weight: 700;
   font-optical-sizing: auto;
 }
 
 h1 {
-  letter-spacing: -0.04em;
-  line-height: 0.92;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
 }
 h2 {
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
 }
 h3 {
   letter-spacing: -0.02em;
@@ -69,7 +106,6 @@ p {
 }
 h1, h2, h3, h4 { text-wrap: balance; }
 
-/* Tabular numbers for stats/data */
 .num {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum' on;
@@ -82,11 +118,16 @@ h1, h2, h3, h4 { text-wrap: balance; }
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
+  font-family: var(--font-body-active, inherit);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #C9A227;
+  background: linear-gradient(90deg, #C49030 0%, #F0C848 50%, #C49030 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #BE8C2A;
   margin-bottom: 1.25rem;
 }
 .section-label::before {
@@ -94,69 +135,79 @@ h1, h2, h3, h4 { text-wrap: balance; }
   display: block;
   width: 2rem;
   height: 1px;
-  background: currentColor;
+  /* The ::before pseudo-element can't use background-clip:text, so use explicit gradient */
+  background: linear-gradient(90deg, #BE8C2A, #F0C848);
   flex-shrink: 0;
+  -webkit-text-fill-color: initial;
 }
 
 /* ─────────────────────────────────────────────────────────────
    EXPLICIT COLOR UTILITIES
-   (Tailwind v4 @theme inline not reliably generating these)
 ───────────────────────────────────────────────────────── */
 
 /* Backgrounds */
-.bg-dark    { background-color: #14191F; }
-.bg-darker  { background-color: #0D1115; }
-.bg-raised  { background-color: #1C2229; }
-.bg-card    { background-color: #222B34; }
-.bg-gold    { background-color: #C9A227; }
-.bg-gold-light { background-color: #E5C04A; }
+.bg-dark    { background-color: #131719; }
+.bg-darker  { background-color: #0C1012; }
+.bg-raised  { background-color: #1B2126; }
+.bg-card    { background-color: #212A31; }
+.bg-gold    { background-color: #BE8C2A; }
+.bg-gold-light { background-color: #D4A44A; }
 
-.bg-dark\/5  { background-color: rgba(20, 25, 31, 0.05); }
-.bg-dark\/90 { background-color: rgba(20, 25, 31, 0.90); }
-.bg-gold\/5  { background-color: rgba(201, 162, 39, 0.05); }
-.bg-gold\/8  { background-color: rgba(201, 162, 39, 0.08); }
-.bg-gold\/10 { background-color: rgba(201, 162, 39, 0.10); }
-.bg-gold\/12 { background-color: rgba(201, 162, 39, 0.12); }
-.bg-gold\/15 { background-color: rgba(201, 162, 39, 0.15); }
-.bg-gold\/20 { background-color: rgba(201, 162, 39, 0.20); }
-.bg-gold\/22 { background-color: rgba(201, 162, 39, 0.22); }
-.bg-gold\/25 { background-color: rgba(201, 162, 39, 0.25); }
-.bg-dark\/6  { background-color: rgba(20, 25, 31, 0.06); }
+.bg-dark\/5  { background-color: rgba(19, 23, 25, 0.05); }
+.bg-dark\/90 { background-color: rgba(19, 23, 25, 0.90); }
+.bg-gold\/5  { background-color: rgba(190, 140, 42, 0.05); }
+.bg-gold\/8  { background-color: rgba(190, 140, 42, 0.08); }
+.bg-gold\/10 { background-color: rgba(190, 140, 42, 0.10); }
+.bg-gold\/12 { background-color: rgba(190, 140, 42, 0.12); }
+.bg-gold\/15 { background-color: rgba(190, 140, 42, 0.15); }
+.bg-gold\/20 { background-color: rgba(190, 140, 42, 0.20); }
+.bg-gold\/22 { background-color: rgba(190, 140, 42, 0.22); }
+.bg-gold\/25 { background-color: rgba(190, 140, 42, 0.25); }
+.bg-dark\/6  { background-color: rgba(19, 23, 25, 0.06); }
 
 /* Text */
-.text-gold       { color: #C9A227; }
-.text-gold-light { color: #E5C04A; }
-.text-gold-dark  { color: #9E7D1C; }
-.text-dark       { color: #14191F; }
-.text-gold\/60   { color: rgba(201, 162, 39, 0.60); }
-.text-dark\/60   { color: rgba(20, 25, 31, 0.60); }
+.text-gold {
+  /* Metallic gradient: shadow → mid → highlight → mid → shadow */
+  background: linear-gradient(135deg, #8A6018 0%, #C49030 28%, #F0C84A 52%, #C49030 72%, #8A6018 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Fallback color for contexts where background-clip:text fails (e.g. SVG icons) */
+  color: #BE8C2A;
+}
+.text-gold-light { color: #D4A44A; }
+.text-gold-dark  { color: #7E5C18; }
+.text-dark       { color: #131719; }
+/* These bypass the gradient where a plain opacity variant is needed */
+.text-gold\/60   { color: rgba(190, 140, 42, 0.60); -webkit-text-fill-color: rgba(190, 140, 42, 0.60); }
+.text-dark\/60   { color: rgba(19, 23, 25, 0.60); }
 
 /* Borders */
-.border-gold       { border-color: #C9A227; }
-.border-gold-light { border-color: #E5C04A; }
-.border-gold\/20   { border-color: rgba(201, 162, 39, 0.20); }
-.border-gold\/25   { border-color: rgba(201, 162, 39, 0.25); }
-.border-gold\/28   { border-color: rgba(201, 162, 39, 0.28); }
-.border-gold\/30   { border-color: rgba(201, 162, 39, 0.30); }
-.border-gold\/40   { border-color: rgba(201, 162, 39, 0.40); }
-.border-gold\/60   { border-color: rgba(201, 162, 39, 0.60); }
-.border-dark\/20   { border-color: rgba(20, 25, 31, 0.20); }
-.border-dark\/40   { border-color: rgba(20, 25, 31, 0.40); }
+.border-gold       { border-color: #BE8C2A; }
+.border-gold-light { border-color: #D4A44A; }
+.border-gold\/20   { border-color: rgba(190, 140, 42, 0.20); }
+.border-gold\/25   { border-color: rgba(190, 140, 42, 0.25); }
+.border-gold\/28   { border-color: rgba(190, 140, 42, 0.28); }
+.border-gold\/30   { border-color: rgba(190, 140, 42, 0.30); }
+.border-gold\/40   { border-color: rgba(190, 140, 42, 0.40); }
+.border-gold\/60   { border-color: rgba(190, 140, 42, 0.60); }
+.border-dark\/20   { border-color: rgba(19, 23, 25, 0.20); }
+.border-dark\/40   { border-color: rgba(19, 23, 25, 0.40); }
 
 /* Hover variants */
-.hover\:bg-gold-light:hover  { background-color: #E5C04A; }
-.hover\:bg-raised:hover      { background-color: #1C2229; }
-.hover\:bg-gold:hover        { background-color: #C9A227; }
-.hover\:bg-dark:hover        { background-color: #14191F; }
-.hover\:text-gold:hover      { color: #C9A227; }
-.hover\:text-gold-light:hover { color: #E5C04A; }
+.hover\:bg-gold-light:hover  { background-color: #D4A44A; }
+.hover\:bg-raised:hover      { background-color: #1B2126; }
+.hover\:bg-gold:hover        { background-color: #BE8C2A; }
+.hover\:bg-dark:hover        { background-color: #131719; }
+.hover\:text-gold:hover      { color: #BE8C2A; }
+.hover\:text-gold-light:hover { color: #D4A44A; }
 .hover\:text-white:hover     { color: #FFFFFF; }
-.hover\:border-gold\/40:hover { border-color: rgba(201, 162, 39, 0.40); }
-.hover\:border-dark\/40:hover { border-color: rgba(20, 25, 31, 0.40); }
+.hover\:border-gold\/40:hover { border-color: rgba(190, 140, 42, 0.40); }
+.hover\:border-dark\/40:hover { border-color: rgba(19, 23, 25, 0.40); }
 
 /* Group hover */
-.group:hover .group-hover\:text-gold { color: #C9A227; }
-.group:hover .group-hover\:bg-gold   { background-color: #C9A227; }
+.group:hover .group-hover\:text-gold { color: #BE8C2A; }
+.group:hover .group-hover\:bg-gold   { background-color: #BE8C2A; }
 
 /* ─────────────────────────────────────────────────────────────
    ANIMATION KEYFRAMES
@@ -192,8 +243,8 @@ h1, h2, h3, h4 { text-wrap: balance; }
 }
 
 @keyframes glow-breathe {
-  0%, 100% { opacity: 0.35; transform: scale(1); }
-  50%       { opacity: 0.55; transform: scale(1.05); }
+  0%, 100% { opacity: 0.30; transform: scale(1); }
+  50%       { opacity: 0.48; transform: scale(1.05); }
 }
 
 @keyframes spin-slow {
@@ -202,13 +253,12 @@ h1, h2, h3, h4 { text-wrap: balance; }
 }
 
 @keyframes border-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0); }
-  50%       { box-shadow: 0 0 20px 2px rgba(201, 162, 39, 0.15); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(190, 140, 42, 0); }
+  50%       { box-shadow: 0 0 20px 2px rgba(190, 140, 42, 0.15); }
 }
 
 /* ─────────────────────────────────────────────────────────────
    SCROLL REVEAL SYSTEM
-   JS adds .is-visible when element enters viewport
 ───────────────────────────────────────────────────────── */
 .reveal {
   opacity: 0;
@@ -222,7 +272,6 @@ h1, h2, h3, h4 { text-wrap: balance; }
   transform: none;
 }
 
-/* Stagger variant — children animate in sequence */
 .reveal-stagger > * {
   opacity: 0;
   transform: translateY(18px);
@@ -243,7 +292,6 @@ h1, h2, h3, h4 { text-wrap: balance; }
   transform: none;
 }
 
-/* Scale in variant for images/cards */
 .reveal-scale {
   opacity: 0;
   transform: scale(0.97);
@@ -256,7 +304,6 @@ h1, h2, h3, h4 { text-wrap: balance; }
   transform: none;
 }
 
-/* Hero entrance — plays on page load, no .is-visible needed */
 .hero-in {
   animation: fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -293,37 +340,60 @@ h1, h2, h3, h4 { text-wrap: balance; }
   gap: 0.6rem;
   padding: 0.875rem 2rem;
   border-radius: 4px;
-  background: #C9A227;
-  color: #14191F;
+  /* Metallic gold: dark edge → mid → bright highlight → mid → dark edge */
+  background: linear-gradient(160deg,
+    #7A5515 0%,
+    #C09030 28%,
+    #EDBE44 52%,
+    #BE8C2A 72%,
+    #7A5515 100%
+  );
+  color: #0C1012;
+  font-family: var(--font-body-active, inherit);
   font-weight: 700;
   font-size: 0.875rem;
   letter-spacing: 0.04em;
   text-transform: none;
   overflow: hidden;
-  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 130, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  /* Only transition box-shadow and transform — no filter, no background */
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
 }
+/* Subtle metallic shimmer — background-position shift, no animation */
 .btn-primary::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.25) 50%,
-    transparent 70%
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(255, 255, 255, 0.12) 45%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.12) 55%,
+    transparent 65%,
+    transparent 100%
   );
-  background-size: 300% 100%;
-  background-position: -300% center;
-  transition: none;
-}
-.btn-primary:hover {
-  background: #E5C04A;
-  box-shadow: 0 0 0 1px rgba(201, 162, 39, 0.4), 0 8px 24px rgba(201, 162, 39, 0.25);
-  transform: translateY(-1px);
+  background-size: 250% 100%;
+  background-position: 100% center;
+  transition: background-position 0.6s ease;
+  pointer-events: none;
 }
 .btn-primary:hover::after {
-  animation: shimmer 0.6s ease forwards;
+  background-position: -100% center;
+}
+.btn-primary:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 140, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(190, 140, 42, 0.45),
+    0 6px 24px rgba(190, 140, 42, 0.32);
+  transform: translateY(-2px);
 }
 .btn-primary:active { transform: translateY(0) scale(0.98); }
+.btn-primary:active::after { background-position: 100% center; }
 
 .btn-outline {
   display: inline-flex;
@@ -346,8 +416,51 @@ h1, h2, h3, h4 { text-wrap: balance; }
 }
 .btn-outline:active { transform: translateY(0) scale(0.98); }
 
-/* Legacy compat */
 .btn-press:active { transform: scale(0.97); }
+
+/*
+  Metallic gold treatment for all inline bg-gold buttons sitewide.
+  Other pages use class="... bg-gold hover:bg-gold-light btn-press"
+  rather than .btn-primary — this catches all of them without TSX edits.
+*/
+.btn-press.bg-gold {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg,
+    #7A5515 0%,
+    #C09030 28%,
+    #EDBE44 52%,
+    #BE8C2A 72%,
+    #7A5515 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 130, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.25s ease, transform 0.2s ease !important;
+}
+.btn-press.bg-gold::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 0%, transparent 35%, rgba(255,255,255,0.12) 45%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.12) 55%, transparent 65%, transparent 100%);
+  background-size: 250% 100%;
+  background-position: 100% center;
+  transition: background-position 0.6s ease;
+  pointer-events: none;
+}
+.btn-press.bg-gold:hover::after {
+  background-position: -100% center;
+}
+.btn-press.bg-gold:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 140, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(190, 140, 42, 0.45),
+    0 6px 24px rgba(190, 140, 42, 0.32) !important;
+  transform: translateY(-2px);
+}
+.btn-press.bg-gold:active { transform: scale(0.97) translateY(0) !important; }
+.btn-press.bg-gold:active::after { background-position: 100% center; }
 
 /* ─────────────────────────────────────────────────────────────
    PREMIUM CARDS
@@ -356,29 +469,31 @@ h1, h2, h3, h4 { text-wrap: balance; }
   position: relative;
   border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.07);
-  background: #1C2229;
+  background: #1B2126;
   transition:
     border-color 0.3s ease,
     transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.35s ease;
 }
 .card-premium:hover {
-  border-color: rgba(201, 162, 39, 0.28);
+  border-color: rgba(190, 140, 42, 0.35);
   transform: translateY(-3px);
   box-shadow:
-    0 16px 40px rgba(0,0,0,0.35),
-    0 0 0 1px rgba(201, 162, 39, 0.12),
-    inset 0 1px 0 rgba(255,255,255,0.06);
+    0 16px 40px rgba(0,0,0,0.4),
+    0 0 0 1px rgba(190, 140, 42, 0.14),
+    0 0 30px rgba(190, 140, 42, 0.07),
+    inset 0 1px 0 rgba(255, 220, 100, 0.08);
 }
 
 /* ─────────────────────────────────────────────────────────────
    AMBIENT GOLD GLOW
+   Slightly reduced intensity — amber is stronger-feeling
 ───────────────────────────────────────────────────────── */
 .glow-gold {
   pointer-events: none;
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 162, 39, 0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(190, 140, 42, 0.15) 0%, transparent 70%);
   animation: glow-breathe 6s ease-in-out infinite;
 }
 
@@ -407,17 +522,18 @@ h1, h2, h3, h4 { text-wrap: balance; }
   transition: opacity 0.5s ease;
   background: radial-gradient(
     600px circle at var(--x, 50%) var(--y, 50%),
-    rgba(201, 162, 39, 0.045) 0%,
+    rgba(190, 140, 42, 0.04) 0%,
     transparent 70%
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   NAVIGATION UNDERLINE ANIMATION
+   NAVIGATION
 ───────────────────────────────────────────────────────── */
 .nav-link {
   position: relative;
   color: rgba(255,255,255,0.55);
+  font-family: var(--font-body-active, inherit);
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -431,7 +547,7 @@ h1, h2, h3, h4 { text-wrap: balance; }
   left: 0;
   right: 0;
   height: 1px;
-  background: #C9A227;
+  background: #BE8C2A;
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -446,10 +562,10 @@ h1, h2, h3, h4 { text-wrap: balance; }
   transform-origin: left;
 }
 .nav-link.active {
-  color: #C9A227;
+  color: #BE8C2A;
 }
 .nav-link.active::after {
-  background: #C9A227;
+  background: #BE8C2A;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -478,14 +594,15 @@ h1, h2, h3, h4 { text-wrap: balance; }
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  background: rgba(201, 162, 39, 0.10);
-  color: #C9A227;
-  border: 1px solid rgba(201, 162, 39, 0.22);
-  transition: background 0.2s ease, border-color 0.2s ease;
+  background: rgba(190, 140, 42, 0.10);
+  color: #C49030;
+  border: 1px solid rgba(190, 140, 42, 0.22);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .tag:hover {
-  background: rgba(201, 162, 39, 0.18);
-  border-color: rgba(201, 162, 39, 0.4);
+  background: rgba(190, 140, 42, 0.18);
+  border-color: rgba(190, 140, 42, 0.4);
+  box-shadow: 0 0 8px rgba(190, 140, 42, 0.12);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -494,18 +611,23 @@ h1, h2, h3, h4 { text-wrap: balance; }
 .gold-rule {
   border: none;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201, 162, 39, 0.35), transparent);
+  background: linear-gradient(to right, transparent, rgba(190, 140, 42, 0.35), transparent);
 }
 
 /* ─────────────────────────────────────────────────────────────
-   DECORATIVE COUNTER
+   STAT NUMBERS
 ───────────────────────────────────────────────────────── */
 .stat-number {
-  font-family: var(--font-archivo), system-ui, sans-serif;
-  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: #C9A227;
+  font-family: var(--font-display-active, var(--font-outfit, system-ui));
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  /* Stronger metallic gradient on large numbers — most visible at this size */
+  background: linear-gradient(160deg, #7A5515 0%, #C49030 30%, #F5CC50 52%, #C49030 72%, #7A5515 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #BE8C2A;
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
@@ -514,18 +636,18 @@ h1, h2, h3, h4 { text-wrap: balance; }
    SCROLLBAR
 ───────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: #0D1115; }
+::-webkit-scrollbar-track { background: #0C1012; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, rgba(201,162,39,0.5), rgba(201,162,39,0.2));
+  background: linear-gradient(to bottom, rgba(190,140,42,0.5), rgba(190,140,42,0.2));
   border-radius: 2px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(201,162,39,0.7); }
+::-webkit-scrollbar-thumb:hover { background: rgba(190,140,42,0.7); }
 
 /* ─────────────────────────────────────────────────────────────
    SELECTION
 ───────────────────────────────────────────────────────── */
 ::selection {
-  background: rgba(201, 162, 39, 0.3);
+  background: rgba(190, 140, 42, 0.28);
   color: #FFFFFF;
 }
 
@@ -533,7 +655,7 @@ h1, h2, h3, h4 { text-wrap: balance; }
    FOCUS STYLES (accessibility)
 ───────────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid rgba(201, 162, 39, 0.7);
+  outline: 2px solid rgba(190, 140, 42, 0.7);
   outline-offset: 3px;
   border-radius: 2px;
 }

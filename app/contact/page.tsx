@@ -25,7 +25,7 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <div className="max-w-2xl">
             <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-5">Contact</p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.9] mb-6" style={{ fontFamily: "var(--font-archivo)" }}>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.9] mb-6" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
               Let&apos;s talk.
             </h1>
             <p className="text-xl text-white/50 leading-relaxed">
@@ -42,7 +42,7 @@ export default function ContactPage() {
 
             {/* Form */}
             <div className="md:col-span-7">
-              <form className="space-y-6" action="mailto:hello@designspore.co" method="POST" encType="text/plain">
+              <form className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-xs uppercase tracking-widest text-white/40 font-semibold mb-2">Your Name</label>
@@ -115,7 +115,7 @@ export default function ContactPage() {
                 {/* Book a Call */}
                 <div className="p-6 rounded-xl border border-gold/20 bg-gold/5">
                   <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">Faster path</p>
-                  <h3 className="text-xl font-bold text-white mb-3" style={{ fontFamily: "var(--font-archivo)" }}>
+                  <h3 className="text-xl font-bold text-white mb-3" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
                     Book a Strategy Call
                   </h3>
                   <p className="text-white/50 text-sm mb-5 leading-relaxed">
@@ -129,12 +129,6 @@ export default function ContactPage() {
 
                 {/* Details */}
                 <div className="p-6 rounded-xl border border-white/10 bg-raised space-y-5">
-                  <div>
-                    <p className="text-xs uppercase tracking-widest text-white/30 font-semibold mb-1">Email</p>
-                    <a href="mailto:hello@designspore.co" className="text-white/70 hover:text-gold transition-colors text-sm">
-                      hello@designspore.co
-                    </a>
-                  </div>
                   <div>
                     <p className="text-xs uppercase tracking-widest text-white/30 font-semibold mb-1">Based in</p>
                     <p className="text-white/70 text-sm">Clearwater, BC · Canada</p>

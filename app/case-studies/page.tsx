@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { caseStudies, tagLabels } from "@/lib/case-studies";
 
@@ -16,7 +15,7 @@ export default function CaseStudiesPage() {
       <section className="section-pad bg-darker border-b border-white/8">
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-5">Our Work</p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.9] mb-6" style={{ fontFamily: "var(--font-archivo)" }}>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.9] mb-6" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
             Results that speak for themselves.
           </h1>
           <p className="text-xl text-white/50 max-w-2xl leading-relaxed">
@@ -29,26 +28,15 @@ export default function CaseStudiesPage() {
       {/* Case studies grid */}
       <section className="section-pad bg-dark">
         <div className="max-w-7xl mx-auto px-5 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {caseStudies.map(({ slug, name, tagline, thumbnail, stats, tags }) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {caseStudies.map(({ slug, name, tagline, stats, tags }) => (
               <Link
                 key={slug}
                 href={`/case-studies/${slug}`}
-                className="group block rounded-xl overflow-hidden border border-white/8 bg-raised hover:border-gold/30 transition-all"
+                className="card-premium group block p-7"
               >
-                {/* Thumbnail */}
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={thumbnail}
-                    alt={name}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-raised via-raised/40 to-transparent" />
-                </div>
-
                 {/* Content */}
-                <div className="p-7">
+                <div>
                   <div className="flex flex-wrap gap-1.5 mb-4">
                     {tags.slice(0, 4).map((tag) => (
                       <span key={tag} className="text-xs px-2 py-0.5 rounded border border-white/10 text-white/30 font-medium uppercase tracking-wide">
@@ -56,7 +44,7 @@ export default function CaseStudiesPage() {
                       </span>
                     ))}
                   </div>
-                  <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-gold transition-colors" style={{ fontFamily: "var(--font-archivo)" }}>
+                  <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-gold transition-colors" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
                     {name}
                   </h2>
                   <p className="text-white/40 mb-5 leading-relaxed">{tagline}</p>
@@ -85,7 +73,7 @@ export default function CaseStudiesPage() {
       {/* CTA */}
       <section className="section-pad bg-raised border-t border-white/8">
         <div className="max-w-7xl mx-auto px-5 md:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5" style={{ fontFamily: "var(--font-archivo)" }}>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5" style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}>
             Want results like these?
           </h2>
           <div className="flex flex-wrap justify-center gap-4">

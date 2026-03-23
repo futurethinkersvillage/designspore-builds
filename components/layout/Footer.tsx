@@ -22,14 +22,20 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="md:col-span-5">
-            <Link href="/" className="inline-block mb-5 transition-opacity hover:opacity-80">
+            <Link href="/" className="inline-flex items-center gap-2.5 mb-5 transition-opacity hover:opacity-80">
               <Image
-                src="https://designspore.co/wp-content/uploads/2023/06/DesignSpore-Logo.png"
-                alt="Design Spore"
-                width={140}
-                height={36}
-                className="h-8 w-auto object-contain"
+                src="/uploads/2023/06/DesignSpore-Logo.png"
+                alt=""
+                width={32}
+                height={32}
+                className="h-8 w-8 object-contain"
               />
+              <span
+                className="font-bold text-white text-base tracking-tight"
+                style={{ fontFamily: "var(--font-archivo)" }}
+              >
+                Design Spore
+              </span>
             </Link>
             <p className="text-sm leading-relaxed max-w-xs text-white/40">
               AI systems, websites, and automations for real businesses.
