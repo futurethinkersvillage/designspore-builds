@@ -17,8 +17,6 @@ import {
   Outfit,
 } from "next/font/google";
 import "./globals-v2.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -145,9 +143,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-dark text-white antialiased" style={{ backgroundColor: '#14191F', color: '#FFFFFF' }}>
         {/* Grain texture — premium tactile overlay */}
         <div className="grain-overlay" aria-hidden="true" />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
