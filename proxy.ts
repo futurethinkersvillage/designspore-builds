@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -6,19 +6,22 @@ const protectedPaths = ["/dashboard", "/modules", "/my-modules", "/account"];
 const authPaths = ["/login", "/signup"];
 
 export async function proxy(request: NextRequest) {
-  const session = await auth();
-  const { pathname } = request.nextUrl;
+  const token = await getToken({
+    req: request,
+    secret: process.env.AUTH_SECRET,
+  });
 
+  const { pathname } = request.nextUrl;
   const isProtected = protectedPaths.some((p) => pathname.startsWith(p));
   const isAuthPath = authPaths.some((p) => pathname === p);
 
-  if (isProtected && !session) {
+  if (isProtected && !token) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  if (isAuthPath && session) {
+  if (isAuthPath && token) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
