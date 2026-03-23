@@ -15,15 +15,16 @@ export async function proxy(request: NextRequest) {
   const isProtected = protectedPaths.some((p) => pathname.startsWith(p));
   const isAuthPath = authPaths.some((p) => pathname === p);
 
-  if (isProtected && !token) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("callbackUrl", pathname);
-    return NextResponse.redirect(loginUrl);
-  }
-
-  if (isAuthPath && token) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
+  // DEMO MODE — auth redirects disabled until Google OAuth is configured
+  // Re-enable by uncommenting these blocks:
+  // if (isProtected && !token) {
+  //   const loginUrl = new URL("/login", request.url);
+  //   loginUrl.searchParams.set("callbackUrl", pathname);
+  //   return NextResponse.redirect(loginUrl);
+  // }
+  // if (isAuthPath && token) {
+  //   return NextResponse.redirect(new URL("/dashboard", request.url));
+  // }
 
   return NextResponse.next();
 }
