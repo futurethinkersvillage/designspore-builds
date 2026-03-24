@@ -62,6 +62,7 @@ export function ChatWidget() {
   const [streamingText, setStreamingText] = useState("");
   const [usedStarters, setUsedStarters] = useState<Set<string>>(new Set());
   const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const lastUserMsgRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const prevStreamingRef = useRef("");
@@ -79,15 +80,20 @@ export function ChatWidget() {
 
   // Scroll to bottom when user sends (shows typing indicator)
   useEffect(() => {
-    if (loading && bottomRef.current) {
-      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    if (loading && scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
     }
   }, [loading]);
 
-  // When streaming first starts, scroll so the user's question is at the top
+  // When streaming first starts, scroll so user's question is at the top of the container
   useEffect(() => {
-    if (streamingText && !prevStreamingRef.current && lastUserMsgRef.current) {
-      lastUserMsgRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (streamingText && !prevStreamingRef.current) {
+      const container = scrollContainerRef.current;
+      const userMsg = lastUserMsgRef.current;
+      if (container && userMsg) {
+        const offset = userMsg.offsetTop - container.offsetTop;
+        container.scrollTo({ top: offset, behavior: "smooth" });
+      }
     }
     prevStreamingRef.current = streamingText;
   }, [streamingText]);
@@ -248,7 +254,7 @@ export function ChatWidget() {
 
             {/* Messages + starters */}
             {available === true && (
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 scrollbar-thin"
+            <div ref={scrollContainerRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-3 scrollbar-thin"
               style={{
                 scrollbarWidth: "thin",
                 scrollbarColor: "rgba(234,130,78,0.25) transparent",
