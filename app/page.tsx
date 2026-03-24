@@ -55,8 +55,10 @@ export default function HomePage() {
       <section
         className="relative min-h-[100dvh] flex items-center"
         style={{
-          background: `radial-gradient(ellipse 70% 50% at 30% -5%, color-mix(in srgb, var(--accent, #BE8C2A) 10%, transparent), transparent 65%),
-            linear-gradient(180deg, #0C1012 0%, #131719 100%)`,
+          background: `
+            radial-gradient(ellipse 80% 60% at 20% 100%, color-mix(in srgb, var(--accent, #BE8C2A) 7%, transparent), transparent 60%),
+            radial-gradient(ellipse 60% 40% at 80% 0%, color-mix(in srgb, var(--accent, #BE8C2A) 5%, transparent), transparent 55%),
+            var(--bg-body)`,
         }}
       >
         <div
@@ -109,8 +111,8 @@ export default function HomePage() {
                 <div
                   className="aspect-[4/3] rounded-2xl overflow-hidden flex items-end p-6"
                   style={{
-                    background: "linear-gradient(135deg, #1B2126, #212A31)",
-                    border: "1px solid rgba(255,255,255,0.07)",
+                    background: "var(--bg-raised)",
+                    border: "1px solid var(--border-base)",
                   }}
                 >
                   {/* Image goes here — add via config.heroImageUrl */}
@@ -119,7 +121,7 @@ export default function HomePage() {
                   </div>
                   <div
                     className="relative z-10 rounded-xl px-4 py-3 w-full"
-                    style={{ background: "rgba(12,16,18,0.85)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.08)" }}
+                    style={{ background: "color-mix(in srgb, var(--bg-section) 90%, transparent)", backdropFilter: "blur(8px)", border: "1px solid var(--border-base)" }}
                   >
                     <p className="text-white font-semibold text-sm">{config.businessName}</p>
                     <p className="text-white/45 text-xs mt-0.5">{config.location}</p>
@@ -161,12 +163,12 @@ export default function HomePage() {
           </ScrollReveal>
 
           <ScrollReveal variant="stagger">
-            <div className="grid sm:grid-cols-2 gap-px" style={{ background: "rgba(255,255,255,0.06)", borderRadius: "1rem", overflow: "hidden" }}>
+            <div className="grid sm:grid-cols-2 gap-px" style={{ background: "var(--border-base)", borderRadius: "1rem", overflow: "hidden" }}>
               {config.services.map((service, i) => (
                 <div
                   key={service.name}
                   className="p-7 group"
-                  style={{ background: "#0F1416" }}
+                  style={{ background: "var(--bg-card)" }}
                 >
                   <div className="flex items-start gap-4">
                     <span
@@ -293,8 +295,8 @@ export default function HomePage() {
                   key={review.name}
                   className="rounded-xl p-6 flex flex-col gap-4"
                   style={{
-                    background: "#0F1416",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: "var(--bg-card)",
+                    border: "1px solid var(--border-base)",
                   }}
                 >
                   <Quotes size={24} style={{ color: "color-mix(in srgb, var(--accent, #BE8C2A) 35%, transparent)" }} />
@@ -334,8 +336,8 @@ export default function HomePage() {
               <div
                 className="rounded-2xl p-7"
                 style={{
-                  background: "#0F1416",
-                  border: "1px solid rgba(255,255,255,0.07)",
+                  background: "var(--bg-card)",
+                  border: "1px solid var(--border-base)",
                 }}
               >
                 <ContactForm />
@@ -359,8 +361,8 @@ export default function HomePage() {
                       href={item.href}
                       className="flex items-center gap-4 rounded-xl p-4 transition-all"
                       style={{
-                        background: "#0F1416",
-                        border: "1px solid rgba(255,255,255,0.07)",
+                        background: "var(--bg-card)",
+                        border: "1px solid var(--border-base)",
                         textDecoration: "none",
                       }}
                     >
@@ -380,7 +382,7 @@ export default function HomePage() {
 
                 {/* Google Maps embed */}
                 {config.address && (
-                  <div className="rounded-xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+                  <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--border-base)" }}>
                     <iframe
                       title={`${config.businessName} location`}
                       src={`https://maps.google.com/maps?q=${encodeURIComponent(config.address)}&output=embed&hl=en`}
@@ -402,7 +404,7 @@ export default function HomePage() {
       {/* ── FOOTER ────────────────────────────────────────────────── */}
       <footer
         className="py-8 px-5 md:px-8 text-center"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "#0C1012" }}
+        style={{ borderTop: "1px solid var(--border-base)", background: "var(--bg-section)" }}
       >
         <p className="text-white/25 text-xs">
           © {new Date().getFullYear()} {config.businessName} · {config.location}
