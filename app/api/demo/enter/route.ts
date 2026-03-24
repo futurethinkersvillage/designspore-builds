@@ -1,5 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 
+function getPublicOrigin(request: NextRequest): string {
+  const proto =
+    request.headers.get("x-forwarded-proto") ??
+    (request.nextUrl.protocol.replace(":", "") || "https");
+  const host =
+    request.headers.get("x-forwarded-host") ??
+    request.headers.get("host") ??
+    "designspore.co";
+  return `${proto}://${host}`;
+}
+
 export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get("token");
   const secret = process.env.DEMO_SECRET;
@@ -8,7 +19,9 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
-  const response = NextResponse.redirect(new URL("/dashboard", request.url));
+  const response = NextResponse.redirect(
+    new URL("/dashboard", getPublicOrigin(request))
+  );
   response.cookies.set("ds_demo", secret, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
