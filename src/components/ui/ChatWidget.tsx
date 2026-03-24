@@ -62,7 +62,9 @@ export function ChatWidget() {
   const [streamingText, setStreamingText] = useState("");
   const [usedStarters, setUsedStarters] = useState<Set<string>>(new Set());
   const bottomRef = useRef<HTMLDivElement>(null);
+  const streamTopRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const prevStreamingRef = useRef("");
 
   const remainingStarters = ALL_STARTERS.filter((q) => !usedStarters.has(q));
 
@@ -75,11 +77,20 @@ export function ChatWidget() {
     }
   }, [open, available]);
 
+  // Scroll to bottom when user sends (shows typing indicator)
   useEffect(() => {
-    if (bottomRef.current) {
+    if (loading && bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages, streamingText, loading]);
+  }, [loading]);
+
+  // Scroll to top of assistant response when streaming first starts
+  useEffect(() => {
+    if (streamingText && !prevStreamingRef.current && streamTopRef.current) {
+      streamTopRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    prevStreamingRef.current = streamingText;
+  }, [streamingText]);
 
   useEffect(() => {
     if (open && available && inputRef.current) {
@@ -340,7 +351,7 @@ export function ChatWidget() {
 
               {/* Streaming response */}
               {streamingText && (
-                <div className="flex justify-start">
+                <div ref={streamTopRef} className="flex justify-start">
                   <div className="max-w-[85%] rounded-xl bg-white/8 px-3.5 py-2.5 text-sm leading-relaxed text-white/85 whitespace-pre-wrap">
                     {streamingText}
                   </div>
