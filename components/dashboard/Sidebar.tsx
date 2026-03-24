@@ -8,9 +8,13 @@ const navItems = [
   { href: "/account", label: "Account" },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  isDemo?: boolean;
+}
+
+export default function Sidebar({ isDemo }: SidebarProps) {
   return (
-    <aside className="hidden lg:flex flex-col w-64 min-h-screen bg-darker border-r border-white/[0.06] px-6 py-8 shrink-0">
+    <aside className="hidden lg:flex flex-col w-64 min-h-full bg-darker border-r border-white/[0.06] px-6 py-8 shrink-0">
       {/* Logo */}
       <div className="mb-10">
         <span
@@ -37,20 +41,29 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* Sign out */}
-      <form
-        action={async () => {
-          "use server";
-          await signOut({ redirectTo: "/login" });
-        }}
-      >
-        <button
-          type="submit"
-          className="w-full text-left px-3 py-2.5 rounded-lg text-sm text-white/40 hover:text-white/70 hover:bg-white/[0.04] transition-colors"
+      {/* Sign out / Exit demo */}
+      {isDemo ? (
+        <a
+          href="/api/demo/exit"
+          className="w-full text-left px-3 py-2.5 rounded-lg text-sm text-white/40 hover:text-white/70 hover:bg-white/[0.04] transition-colors block"
         >
-          Sign out
-        </button>
-      </form>
+          Exit demo
+        </a>
+      ) : (
+        <form
+          action={async () => {
+            "use server";
+            await signOut({ redirectTo: "/login" });
+          }}
+        >
+          <button
+            type="submit"
+            className="w-full text-left px-3 py-2.5 rounded-lg text-sm text-white/40 hover:text-white/70 hover:bg-white/[0.04] transition-colors"
+          >
+            Sign out
+          </button>
+        </form>
+      )}
     </aside>
   );
 }

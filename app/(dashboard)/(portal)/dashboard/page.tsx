@@ -1,49 +1,69 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { db } from "@/lib/db";
 import { activations } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
 import { modules } from "@/lib/modules";
+import { DEMO_USER, DEMO_ACTIVATIONS } from "@/lib/demo";
 import Link from "next/link";
 
 export default async function DashboardPage() {
-  const session = await auth();
-  if (!session?.user) redirect("/login");
+  const cookieStore = await cookies();
+  const demoCookie = cookieStore.get("ds_demo");
+  const isDemo =
+    !!process.env.DEMO_SECRET && demoCookie?.value === process.env.DEMO_SECRET;
 
-  const user = session.user as {
-    id?: string;
-    name?: string | null;
-    email?: string | null;
-    monthlyBudget?: number;
-    subscriptionTier?: string;
-    businessName?: string;
-  };
+  let userName: string | null | undefined;
+  let businessName: string | undefined;
+  let budget: number;
+  let userActivations: { moduleId: string; status: string | null; valueConsumed: number }[];
 
-  const periodMonth = new Date().toISOString().slice(0, 7);
-  const budget = user.monthlyBudget ?? 1500;
+  if (isDemo) {
+    userName = DEMO_USER.name;
+    businessName = DEMO_USER.businessName;
+    budget = DEMO_USER.monthlyBudget;
+    userActivations = DEMO_ACTIVATIONS;
+  } else {
+    const session = await auth();
+    if (!session?.user) redirect("/login");
 
-  let userActivations: { moduleId: string; status: string | null; valueConsumed: number }[] = [];
-  if (user.id) {
-    userActivations = await db
-      .select({
-        moduleId: activations.moduleId,
-        status: activations.status,
-        valueConsumed: activations.valueConsumed,
-      })
-      .from(activations)
-      .where(
-        and(
-          eq(activations.userId, user.id),
-          eq(activations.periodMonth, periodMonth)
-        )
-      );
+    const user = session.user as {
+      id?: string;
+      name?: string | null;
+      email?: string | null;
+      monthlyBudget?: number;
+      subscriptionTier?: string;
+      businessName?: string;
+    };
+
+    userName = user.name;
+    businessName = user.businessName;
+    budget = user.monthlyBudget ?? 1500;
+
+    const periodMonth = new Date().toISOString().slice(0, 7);
+    userActivations = [];
+    if (user.id) {
+      userActivations = await db
+        .select({
+          moduleId: activations.moduleId,
+          status: activations.status,
+          valueConsumed: activations.valueConsumed,
+        })
+        .from(activations)
+        .where(
+          and(
+            eq(activations.userId, user.id),
+            eq(activations.periodMonth, periodMonth)
+          )
+        );
+    }
   }
 
   const used = userActivations.reduce((s, r) => s + r.valueConsumed, 0);
   const remaining = budget - used;
   const activatedIds = new Set(userActivations.map((a) => a.moduleId));
 
-  // Simple recommendations: modules not yet activated that fit within remaining budget
   const recommended = modules
     .filter((m) => !activatedIds.has(m.id) && m.estimatedValue <= remaining)
     .slice(0, 3);
@@ -63,10 +83,10 @@ export default async function DashboardPage() {
           Client Portal
         </p>
         <h1 className="text-3xl font-bold text-white mb-1">
-          Welcome back{user.name ? `, ${user.name.split(" ")[0]}` : ""}.
+          Welcome back{userName ? `, ${userName.split(" ")[0]}` : ""}.
         </h1>
-        {user.businessName && (
-          <p className="text-white/40 text-sm">{user.businessName}</p>
+        {businessName && (
+          <p className="text-white/40 text-sm">{businessName}</p>
         )}
       </div>
 
@@ -74,11 +94,7 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <StatCard label="Monthly budget" value={fmt(budget)} />
         <StatCard label="Used this month" value={fmt(used)} />
-        <StatCard
-          label="Available"
-          value={fmt(remaining)}
-          highlight={remaining > 0}
-        />
+        <StatCard label="Available" value={fmt(remaining)} highlight={remaining > 0} />
       </div>
 
       {/* Active modules */}
@@ -99,7 +115,9 @@ export default async function DashboardPage() {
                   <div>
                     <p className="text-sm font-medium text-white">{mod.name}</p>
                     <p className="text-xs text-white/40 mt-0.5">
-                      {a.status ? a.status.charAt(0).toUpperCase() + a.status.slice(1) : "Pending"}
+                      {a.status
+                        ? a.status.charAt(0).toUpperCase() + a.status.slice(1)
+                        : "Pending"}
                     </p>
                   </div>
                   <span className="text-sm font-semibold text-gold tabular-nums">

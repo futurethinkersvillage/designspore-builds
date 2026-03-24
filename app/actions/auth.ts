@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { AuthError } from "next-auth";
+import { sendSignupNotification } from "@/lib/email";
 
 const signupSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -82,6 +83,11 @@ export async function signupWithCredentials(
     businessType,
     isActive: false,
   });
+
+  // Fire-and-forget — don't block the response on email delivery
+  sendSignupNotification({ name, email, businessName, businessType }).catch(
+    () => {}
+  );
 
   return {
     error:
