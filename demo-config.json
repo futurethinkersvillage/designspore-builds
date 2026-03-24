@@ -1,0 +1,87 @@
+{
+  "businessName": "SGM Carpentry and Renovations Ltd",
+  "businessSlug": "sgm-carpentry-kamloops",
+  "industry": "Carpentry & Home Renovations",
+  "location": "Kamloops, BC",
+  "tagline": "Quality carpentry. Transparent communication. Built to last.",
+  "subtagline": "SGM Carpentry treats every renovation as a meaningful transition. From design through completion, you get consistent updates, meticulous craftsmanship, and solutions that respect your home and timeline.",
+  "aboutBlurb": "Founded to fill a gap in BC's renovation market, SGM Carpentry partners with homeowners through every phase of their project. Owner Sean brings hands-on experience and a commitment to clear communication, structural integrity, and finishes that endure. Whether it's a kitchen rebuild or a full home renovation, SGM handles scope with care and delivers results that reflect your vision.",
+  "phone": "(250) 819-7843",
+  "email": "sean@sgmcarpentry.ca",
+  "website": "https://sgmcarpentry.ca",
+  "logoUrl": null,
+  "accentColor": "#6B4423",
+  "accentColorLight": "#9B6F47",
+  "accentColorDark": "#4A2E18",
+  "fontPreset": "outfit-jakarta",
+  "heroStyle": "split",
+  "services": [
+    {
+      "name": "Residential Carpentry",
+      "description": "Custom framing, trim work, built-ins, and structural repairs tailored to your home's unique demands."
+    },
+    {
+      "name": "Kitchen & Bath Renovations",
+      "description": "Complete kitchen and bathroom overhauls: cabinetry, layout redesign, plumbing coordination, and finishing."
+    },
+    {
+      "name": "Whole-Home Renovations",
+      "description": "Multi-phase projects from concept through handoff. Coordinated trades, staged timelines, transparent budgets."
+    },
+    {
+      "name": "Decks & Exterior Carpentry",
+      "description": "Durable outdoor structures: decks, fencing, pergolas, and siding repairs using weather-resistant materials."
+    },
+    {
+      "name": "Flooring Installation & Repair",
+      "description": "Hardwood, laminate, and tile installation; subfloor assessment and replacement."
+    }
+  ],
+  "aiFeatures": [
+    "chatbot",
+    "missed-call-text-back",
+    "estimate-follow-up",
+    "review-automation"
+  ],
+  "industryContext": "Renovation contractors in BC lose 30-40% of qualified leads to slow response times and poor follow-up. Homeowners often feel abandoned after initial contact, leading to decision drift toward competitors. Unmanaged estimates and reviews create friction that erodes referrals — a carpentry business's lifeblood.",
+  "painPoints": [
+    "Missed calls and delayed responses cause leads to shop competitors",
+    "Homeowners struggle to understand project scope and timelines without regular updates",
+    "Estimates sit unanswered; follow-up requires manual effort and tracking",
+    "Review and referral management falls through the cracks during active projects"
+  ],
+  "relevantServices": [
+    "chatbot",
+    "missed-call-text-back",
+    "estimate-follow-up",
+    "review-automation"
+  ],
+  "tourSteps": [
+    {
+      "target": "#demo-chatbot-btn",
+      "title": "Answer Calls 24/7",
+      "text": "Prospects reach your chatbot anytime. It qualifies leads, books consultations, and routes urgent messages — no more missed opportunities.",
+      "position": "bottom"
+    },
+    {
+      "target": "#demo-services",
+      "title": "Show Your Range",
+      "text": "Display residential carpentry, renovations, decks, and flooring in one place. Prospects see your full scope without confusion.",
+      "position": "top"
+    },
+    {
+      "target": "#demo-ai-features",
+      "title": "Automate Follow-Up",
+      "text": "Estimates auto-follow up after 3 days. Reviews are collected and published without extra work. Stay top-of-mind while you're on the job.",
+      "position": "top"
+    },
+    {
+      "target": "#demo-contact",
+      "title": "Convert & Retain",
+      "text": "Missed calls trigger texts. Satisfied clients generate referrals through automated review requests. Your phone and reputation work for you.",
+      "position": "top"
+    }
+  ],
+  "createdAt": "2026-03-24",
+  "bookingUrl": "http://futurethinkers.org/call60"
+}
