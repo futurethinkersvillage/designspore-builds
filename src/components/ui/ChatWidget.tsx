@@ -9,13 +9,34 @@ interface Message {
   content: string;
 }
 
-const STARTER_QUESTIONS = [
+const ALL_STARTERS = [
   "What is Portal.Place?",
   "How can I visit the village?",
   "What is the Work-Stay program?",
   "How do I become a member?",
   "Can I invest in Portal.Place?",
+  "What is the month-long immersion?",
+  "Who are Mike and Euvie?",
+  "What makes Wells Gray special?",
+  "What is a Smart Village?",
+  "Can I host a retreat there?",
+  "What is the Future Thinkers podcast?",
+  "How do I get started?",
 ];
+
+// Strip any residual markdown symbols from AI responses
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/#{1,6}\s+/g, "")        // headings
+    .replace(/\*\*([^*]+)\*\*/g, "$1") // bold
+    .replace(/\*([^*]+)\*/g, "$1")     // italic
+    .replace(/`([^`]+)`/g, "$1")       // inline code
+    .replace(/^[-*+]\s+/gm, "")        // unordered list bullets
+    .replace(/^\d+\.\s+/gm, "")        // ordered list numbers
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // links → just label
+    .replace(/\n{3,}/g, "\n\n")        // collapse excess blank lines
+    .trim();
+}
 
 function TypingDots() {
   return (
@@ -38,8 +59,11 @@ export function ChatWidget() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [streamingText, setStreamingText] = useState("");
+  const [usedStarters, setUsedStarters] = useState<Set<string>>(new Set());
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const remainingStarters = ALL_STARTERS.filter((q) => !usedStarters.has(q));
 
   useEffect(() => {
     if (bottomRef.current) {
@@ -55,6 +79,8 @@ export function ChatWidget() {
 
   async function sendMessage(text: string) {
     if (!text.trim() || loading) return;
+
+    setUsedStarters((prev) => new Set([...prev, text]));
 
     const userMessage: Message = { role: "user", content: text };
     const newMessages = [...messages, userMessage];
@@ -83,12 +109,12 @@ export function ChatWidget() {
         if (done) break;
         const chunk = decoder.decode(value, { stream: true });
         accumulated += chunk;
-        setStreamingText(accumulated);
+        setStreamingText(stripMarkdown(accumulated));
       }
 
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: accumulated },
+        { role: "assistant", content: stripMarkdown(accumulated) },
       ]);
       setStreamingText("");
     } catch {
@@ -104,8 +130,6 @@ export function ChatWidget() {
       ]);
     }
   }
-
-  const showStarters = messages.length === 0 && !loading;
 
   return (
     <>
@@ -150,7 +174,7 @@ export function ChatWidget() {
             exit={{ opacity: 0, y: 24, scale: 0.96 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="fixed bottom-24 right-6 z-50 flex w-[min(380px,calc(100vw-3rem))] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#1A1720] shadow-2xl shadow-black/60"
-            style={{ maxHeight: "min(540px, calc(100dvh - 7rem))" }}
+            style={{ maxHeight: "min(580px, calc(100dvh - 7rem))" }}
           >
             {/* Header */}
             <div className="flex items-center gap-3 border-b border-white/10 px-4 py-3.5">
@@ -167,7 +191,7 @@ export function ChatWidget() {
               </div>
             </div>
 
-            {/* Messages */}
+            {/* Messages + starters */}
             <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
               {/* Welcome */}
               {messages.length === 0 && (
@@ -182,22 +206,24 @@ export function ChatWidget() {
                 </motion.div>
               )}
 
-              {/* Starter questions */}
-              {showStarters && (
+              {/* Starter questions — shown until all used */}
+              {remainingStarters.length > 0 && messages.length === 0 && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.1 }}
-                  className="space-y-2"
+                  className="space-y-1.5"
                 >
-                  {STARTER_QUESTIONS.map((q, i) => (
+                  {remainingStarters.map((q, i) => (
                     <motion.button
                       key={q}
+                      layout
                       initial={{ opacity: 0, x: 8 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + i * 0.05 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ delay: 0.05 + i * 0.04 }}
                       onClick={() => sendMessage(q)}
-                      className="group flex w-full items-center justify-between rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-left text-xs text-white/60 transition-all hover:border-amber/30 hover:bg-amber/5 hover:text-white"
+                      className="group flex w-full items-center justify-between rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-left text-xs text-white/55 transition-all hover:border-amber/30 hover:bg-amber/5 hover:text-white"
                     >
                       <span>{q}</span>
                       <ArrowRight
@@ -218,7 +244,7 @@ export function ChatWidget() {
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                    className={`max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
                       msg.role === "user"
                         ? "bg-amber text-warm-dark font-medium"
                         : "bg-white/8 text-white/85"
@@ -229,10 +255,43 @@ export function ChatWidget() {
                 </motion.div>
               ))}
 
+              {/* Remaining starters — shown after conversation starts */}
+              {messages.length > 0 && remainingStarters.length > 0 && !loading && !streamingText && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <p className="text-xs text-white/25 mb-1.5">More questions</p>
+                  <div className="space-y-1.5">
+                    <AnimatePresence>
+                      {remainingStarters.map((q) => (
+                        <motion.button
+                          key={q}
+                          layout
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.15 }}
+                          onClick={() => sendMessage(q)}
+                          className="group flex w-full items-center justify-between rounded-lg border border-white/8 bg-white/3 px-3 py-2 text-left text-xs text-white/40 transition-all hover:border-amber/25 hover:bg-amber/5 hover:text-white/70"
+                        >
+                          <span>{q}</span>
+                          <ArrowRight
+                            size={10}
+                            className="shrink-0 text-white/15 transition-all group-hover:text-amber/50 group-hover:translate-x-0.5"
+                          />
+                        </motion.button>
+                      ))}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              )}
+
               {/* Streaming response */}
               {streamingText && (
                 <div className="flex justify-start">
-                  <div className="max-w-[85%] rounded-xl bg-white/8 px-3.5 py-2.5 text-sm leading-relaxed text-white/85">
+                  <div className="max-w-[85%] rounded-xl bg-white/8 px-3.5 py-2.5 text-sm leading-relaxed text-white/85 whitespace-pre-wrap">
                     {streamingText}
                   </div>
                 </div>
