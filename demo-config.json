@@ -85,5 +85,6 @@
     }
   ],
   "createdAt": "2026-03-24",
-  "bookingUrl": "http://futurethinkers.org/call60"
+  "bookingUrl": "http://futurethinkers.org/call60",
+  "heroImageUrl": "/images/hero.jpg"
 }
