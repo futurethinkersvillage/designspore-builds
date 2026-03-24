@@ -4,6 +4,7 @@ import { Cormorant } from "next/font/google";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { VariantSwitcher } from "@/components/ui/VariantSwitcher";
+import { ChatWidget } from "@/components/ui/ChatWidget";
 import "./globals.css";
 
 const geist = Geist({
@@ -38,6 +39,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <VariantSwitcher />
+        <ChatWidget />
       </body>
     </html>
   );
