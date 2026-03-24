@@ -184,7 +184,7 @@ export function ChatWidget() {
             exit={{ opacity: 0, y: 24, scale: 0.96 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="fixed bottom-24 right-6 z-50 flex w-[min(380px,calc(100vw-3rem))] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#1A1720] shadow-2xl shadow-black/60"
-            style={{ maxHeight: "min(580px, calc(100dvh - 7rem))" }}
+            style={{ maxHeight: "calc(100dvh - 8rem)", height: "calc(100dvh - 8rem)" }}
           >
             {/* Header */}
             <div className="flex items-center gap-3 border-b border-white/10 px-4 py-3.5">
@@ -237,7 +237,12 @@ export function ChatWidget() {
 
             {/* Messages + starters */}
             {available === true && (
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 scrollbar-thin"
+              style={{
+                scrollbarWidth: "thin",
+                scrollbarColor: "rgba(234,130,78,0.25) transparent",
+              }}
+            >
               {/* Welcome */}
               {messages.length === 0 && (
                 <motion.div
