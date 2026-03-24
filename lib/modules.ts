@@ -3,7 +3,27 @@ export type ModuleCategory =
   | "client-communication"
   | "reputation"
   | "operations"
-  | "automation";
+  | "automation"
+  | "website";
+
+/**
+ * Tier system — shown to clients, dollar values are internal only.
+ *
+ * Tier 1 — Flagship  ($1500): 1 per month. Major build/system.
+ * Tier 2 — Core      ($750):  2 per month. Solid automation or integration.
+ * Tier 3 — Quick Win ($375):  4 per month. Fast, focused wins.
+ *
+ * Monthly credit equivalents: Flagship=4, Core=2, Quick Win=1 (of 4 monthly credits)
+ */
+export type ModuleTier = 1 | 2 | 3;
+
+export const tierConfig: Record<ModuleTier, { label: string; color: string; credits: number; description: string }> = {
+  1: { label: "Flagship",  color: "gold",   credits: 4, description: "Major build — takes your full month" },
+  2: { label: "Core",      color: "blue",   credits: 2, description: "Solid system — 2 fit in a month" },
+  3: { label: "Quick Win", color: "green",  credits: 1, description: "Fast win — stack up to 4 per month" },
+};
+
+export const MONTHLY_CREDITS = 4; // Starter plan ($1,500/mo)
 
 export interface Module {
   id: string;
@@ -11,11 +31,12 @@ export interface Module {
   problemHeadline: string;
   problemDescription: string;
   category: ModuleCategory;
+  tier: ModuleTier;
   shortDescription: string;
   serviceMechanism: string;
   businessOutcome: string;
   whyItMatters: string;
-  estimatedValue: number;
+  estimatedValue: number; // internal only — never shown to clients
   includedDeliverables: string[];
   clientRequirements: string[];
   accessRequirements: string[];
@@ -32,6 +53,7 @@ export const modules: Module[] = [
   {
     id: "missed-call-text-back",
     name: "Missed Call Text-Back",
+    tier: 3 as ModuleTier,
     problemHeadline: "Every missed call is a lead you'll never hear from again.",
     problemDescription:
       "When a potential client calls and hits voicemail, most hang up and call your competitor instead. You're losing work you never even knew was available — and the longer the silence, the colder they go.",
@@ -44,7 +66,7 @@ export const modules: Module[] = [
       "Turn missed calls into booked appointments instead of dead leads. Most clients recapture 20–40% of calls that previously went unanswered.",
     whyItMatters:
       "Speed is trust. A text in 10 seconds says 'we value your time' better than a voicemail that gets returned two days later.",
-    estimatedValue: 600,
+    estimatedValue: 375,
     includedDeliverables: [
       "Missed-call SMS automation setup",
       "Custom message copy (2 variants A/B)",
@@ -79,6 +101,7 @@ export const modules: Module[] = [
   {
     id: "lead-response-automation",
     name: "Lead Response Automation",
+    tier: 2 as ModuleTier,
     problemHeadline:
       "New enquiries are sitting in your inbox for hours — and costing you jobs.",
     problemDescription:
@@ -92,7 +115,7 @@ export const modules: Module[] = [
       "More conversations started, more quotes requested, more jobs booked — without adding to your workload.",
     whyItMatters:
       "First contact sets the tone. An instant, professional response positions you as organised and client-focused before you've even spoken.",
-    estimatedValue: 900,
+    estimatedValue: 750,
     includedDeliverables: [
       "Response automation across up to 3 intake channels",
       "AI message personalisation based on inquiry content",
@@ -131,6 +154,7 @@ export const modules: Module[] = [
   {
     id: "chatbot-setup",
     name: "Website Chatbot",
+    tier: 1 as ModuleTier,
     problemHeadline:
       "Visitors leave your site with unanswered questions — and never come back.",
     problemDescription:
@@ -144,7 +168,7 @@ export const modules: Module[] = [
       "More leads captured from existing traffic, fewer repetitive questions to answer manually, and a professional 24/7 presence that works while you sleep.",
     whyItMatters:
       "Your website is your most valuable sales asset. A chatbot turns passive browsing into active conversations — at scale.",
-    estimatedValue: 1200,
+    estimatedValue: 1500,
     includedDeliverables: [
       "Custom-trained chatbot (your services, FAQs, tone of voice)",
       "Lead capture + qualification flow",
@@ -183,6 +207,7 @@ export const modules: Module[] = [
   {
     id: "review-automation",
     name: "Review Generation System",
+    tier: 3 as ModuleTier,
     problemHeadline:
       "Happy clients forget to leave reviews. Unhappy ones never do.",
     problemDescription:
@@ -196,7 +221,7 @@ export const modules: Module[] = [
       "A steady stream of authentic 5-star reviews that compound over time — improving your search ranking and making it easier for new clients to choose you.",
     whyItMatters:
       "93% of consumers read online reviews before making a purchase decision. More reviews = more trust = more revenue.",
-    estimatedValue: 700,
+    estimatedValue: 375,
     includedDeliverables: [
       "Automated review request SMS + email sequence",
       "Timing logic (trigger-based or scheduled)",
@@ -236,6 +261,7 @@ export const modules: Module[] = [
   {
     id: "estimate-follow-up",
     name: "Estimate Follow-Up Sequence",
+    tier: 3 as ModuleTier,
     problemHeadline:
       "You're sending quotes and then hearing nothing — and assuming they went elsewhere.",
     problemDescription:
@@ -249,7 +275,7 @@ export const modules: Module[] = [
       "More accepted quotes, less chasing, and insight into which prospects are warm vs. gone. Most clients see a 15–30% improvement in quote conversion within the first month.",
     whyItMatters:
       "The fortune is in the follow-up. Most sales happen after the 5th touchpoint — and most businesses give up after the 1st.",
-    estimatedValue: 650,
+    estimatedValue: 375,
     includedDeliverables: [
       "3–5 message follow-up sequence (SMS and/or email)",
       "Trigger integration with your quoting or CRM tool",
@@ -286,6 +312,7 @@ export const modules: Module[] = [
   {
     id: "crm-cleanup",
     name: "CRM Cleanup & Automation Setup",
+    tier: 2 as ModuleTier,
     problemHeadline:
       "Your CRM is a graveyard. Contacts are stale, stages are wrong, and nothing is automated.",
     problemDescription:
@@ -299,7 +326,7 @@ export const modules: Module[] = [
       "A CRM you actually trust and use. Clear pipeline visibility, fewer dropped balls, and a system that nudges your team at the right time without manual management.",
     whyItMatters:
       "A CRM is only valuable if the data in it is accurate. Clean data means better decisions, fewer missed opportunities, and a team that stays aligned.",
-    estimatedValue: 1000,
+    estimatedValue: 750,
     includedDeliverables: [
       "Full CRM audit and data cleanup",
       "Pipeline stage realignment",
@@ -336,6 +363,7 @@ export const modules: Module[] = [
   {
     id: "faq-automation",
     name: "FAQ & Intake Automation",
+    tier: 2 as ModuleTier,
     problemHeadline:
       "You're answering the same 10 questions over and over — every single day.",
     problemDescription:
@@ -349,7 +377,7 @@ export const modules: Module[] = [
       "Hours saved per week, faster client qualification, and a consistent experience regardless of when someone reaches out.",
     whyItMatters:
       "Repetitive questions are a signal, not just an annoyance. Automating them frees you for higher-value interactions and makes your business feel effortlessly organised.",
-    estimatedValue: 750,
+    estimatedValue: 750, // Tier 2
     includedDeliverables: [
       "FAQ audit (top 15 questions identified)",
       "Response copy written and approved",
@@ -389,6 +417,7 @@ export const modules: Module[] = [
   {
     id: "lead-sourcing",
     name: "Lead Sourcing System",
+    tier: 1 as ModuleTier,
     problemHeadline:
       "You're waiting for leads to come to you — but your competitors are going out to get them.",
     problemDescription:
@@ -440,6 +469,86 @@ export const modules: Module[] = [
     ],
     ctaLabel: "Activate Lead Sourcing",
   },
+  {
+    id: "website-edit",
+    name: "Website Edit",
+    tier: 3 as ModuleTier,
+    problemHeadline: "Your website says something about your business — make sure it's the right thing.",
+    problemDescription:
+      "Outdated copy, broken sections, old branding, missing offers — your site is often the first thing a prospect sees. Small inaccuracies erode trust before you even get a chance to talk.",
+    category: "website",
+    shortDescription: "Fast, professional updates to your existing website — copy, layout, offers, or branding.",
+    serviceMechanism:
+      "We make targeted edits to your existing website: update copy, swap images, fix layouts, add new sections, or refresh branding. Scoped, reviewed, and live within days.",
+    businessOutcome:
+      "A website that accurately reflects your current offer and makes the right first impression on every new visitor.",
+    whyItMatters:
+      "Your site works 24/7. Keeping it current costs almost nothing — but an outdated site can silently cost you clients every single week.",
+    estimatedValue: 375,
+    includedDeliverables: [
+      "Up to 4 hours of website edits",
+      "Copy, layout, image, or section updates",
+      "Mobile check post-edit",
+      "Staged preview before publishing",
+    ],
+    clientRequirements: ["List of changes needed (or a call to walk through them)", "Website login or editor access"],
+    accessRequirements: ["CMS or hosting credentials"],
+    dependencies: [],
+    reviewProcess: "We stage all changes for your review before going live.",
+    revisionExpectations: "One round of revisions included within 7 days of delivery.",
+    idealBusinessType: ["home-services", "trades", "consulting", "real-estate", "coaching", "e-commerce", "hospitality"],
+    tags: ["website", "edits", "copy", "design", "quick"],
+    recommendedWhen: [
+      "Your site has outdated pricing, services, or branding",
+      "You've added new offerings that aren't reflected online",
+      "Something is broken or looks wrong",
+    ],
+    ctaLabel: "Activate Website Edit",
+  },
+  {
+    id: "website-build",
+    name: "Website Build",
+    tier: 1 as ModuleTier,
+    problemHeadline: "Your website isn't winning business — it's just taking up space on the internet.",
+    problemDescription:
+      "A generic, slow, or confusing website doesn't just fail to convert — it actively undermines your credibility. If your site doesn't communicate your value clearly in the first 5 seconds, most visitors leave without ever reaching out.",
+    category: "website",
+    shortDescription:
+      "A professionally designed, fast, conversion-focused website built from scratch for your business.",
+    serviceMechanism:
+      "We design and build a full website tailored to your brand, services, and goals. Built on a modern stack (Next.js or equivalent) with clear structure, fast load times, mobile-first design, and a CMS so you can manage content. Includes copy, layout, integrations, and launch.",
+    businessOutcome:
+      "A website that looks professional, loads fast, ranks better, and converts visitors into enquiries — built to grow with your business.",
+    whyItMatters:
+      "Your website is your hardest-working team member. A site built specifically for conversion can meaningfully change your revenue — and a poor one can silently drain it.",
+    estimatedValue: 1500,
+    includedDeliverables: [
+      "Custom website design (up to 6 pages)",
+      "Mobile-first, performance-optimised build",
+      "Copywriting or copy refinement",
+      "CMS integration for easy content updates",
+      "Contact form + lead capture setup",
+      "Basic SEO (meta, structure, speed)",
+      "Launch + 30-day post-launch support",
+    ],
+    clientRequirements: [
+      "Brand assets (logo, colours, fonts — or we'll define them)",
+      "Service descriptions and business overview",
+      "Any reference sites you like",
+    ],
+    accessRequirements: ["Domain access for DNS configuration", "Hosting account (or we provision one)"],
+    dependencies: [],
+    reviewProcess: "Design review at wireframe stage, then again before launch.",
+    revisionExpectations: "2 full revision rounds included; scope adjustments by mutual agreement.",
+    idealBusinessType: ["trades", "home-services", "consulting", "real-estate", "coaching", "agencies", "hospitality"],
+    tags: ["website", "build", "design", "seo", "conversion"],
+    recommendedWhen: [
+      "You don't have a website, or it was built years ago",
+      "Your site doesn't reflect the quality of your work",
+      "You're investing in other marketing but have no strong home base",
+    ],
+    ctaLabel: "Activate Website Build",
+  },
 ];
 
 export function getModuleById(id: string): Module | undefined {
@@ -450,10 +559,19 @@ export function getModulesByCategory(category: ModuleCategory): Module[] {
   return modules.filter((m) => m.category === category);
 }
 
+export function getModulesByTier(tier: ModuleTier): Module[] {
+  return modules.filter((m) => m.tier === tier);
+}
+
+export function creditsForModule(mod: Module): number {
+  return tierConfig[mod.tier].credits;
+}
+
 export const categoryLabels: Record<ModuleCategory, string> = {
   "lead-generation": "Lead Generation",
   "client-communication": "Client Communication",
   reputation: "Reputation",
   operations: "Operations",
   automation: "Automation",
+  website: "Website",
 };

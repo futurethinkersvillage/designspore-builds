@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
 function getPublicOrigin(request: NextRequest): string {
+  // NEXTAUTH_URL is the canonical public origin — always prefer it over headers
+  // which can contain internal Docker addresses (0.0.0.0:3000) behind a proxy
+  if (process.env.NEXTAUTH_URL) {
+    return process.env.NEXTAUTH_URL.replace(/\/$/, "");
+  }
   const proto =
     request.headers.get("x-forwarded-proto") ??
     (request.nextUrl.protocol.replace(":", "") || "https");

@@ -13,6 +13,7 @@ export const subscriptionTierEnum = pgEnum("subscription_tier", [
   "starter",
   "growth",
   "partner",
+  "paused", // Keep the Lights On — hosting + maintenance only
 ]);
 
 export const activationStatusEnum = pgEnum("activation_status", [
