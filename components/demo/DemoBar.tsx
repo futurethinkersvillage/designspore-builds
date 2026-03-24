@@ -1,12 +1,49 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight, MapTrifold } from "@phosphor-icons/react";
+import { ArrowRight, MapTrifold, Sun, Moon } from "@phosphor-icons/react";
 
 interface Props {
   businessName: string;
   bookingUrl: string;
   tourSteps: { target: string }[];
+}
+
+function ThemeToggle() {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const stored = localStorage.getItem("ds-theme") as "dark" | "light" | null;
+    if (stored) {
+      setTheme(stored);
+      document.documentElement.dataset.theme = stored;
+    }
+  }, []);
+
+  function toggle() {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem("ds-theme", next);
+  }
+
+  return (
+    <button
+      onClick={toggle}
+      className="flex items-center justify-center w-7 h-7 rounded transition-all duration-200"
+      style={{
+        color: "rgba(255,255,255,0.4)",
+        background: "transparent",
+        border: "1px solid rgba(255,255,255,0.1)",
+      }}
+      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+      title={theme === "dark" ? "Light mode" : "Dark mode"}
+    >
+      {theme === "dark"
+        ? <Sun size={13} weight="bold" />
+        : <Moon size={13} weight="bold" />}
+    </button>
+  );
 }
 
 const DS_LOGO_SVG = (
@@ -66,6 +103,7 @@ export default function DemoBar({ businessName, bookingUrl, tourSteps }: Props) 
 
         {/* Right: actions */}
         <div className="flex items-center gap-2 shrink-0">
+          <ThemeToggle />
           {tourSteps.length > 0 && (
             <button
               onClick={startTour}

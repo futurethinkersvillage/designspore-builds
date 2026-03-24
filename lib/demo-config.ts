@@ -17,6 +17,7 @@ export interface DemoConfig {
   businessSlug: string;           // "acme-plumbing" (used in URL)
   industry: string;               // "plumbing / home services"
   location: string;               // "Tampa, FL"
+  address?: string;               // Full street address for Maps embed
   tagline: string;                // Rewritten headline for hero
   subtagline: string;             // Supporting subheadline
   aboutBlurb: string;             // 2–3 sentence about section
@@ -30,7 +31,7 @@ export interface DemoConfig {
   accentColorLight: string;       // Lighter variant for hover, e.g. "#3A8FD4"
   accentColorDark: string;        // Darker variant, e.g. "#124E87"
   fontPreset: string;             // One of the fontGroups ids, e.g. "outfit-jakarta"
-  heroStyle: "centered" | "split" | "minimal"; // Layout variant
+  heroStyle: "split" | "minimal"; // Layout variant — "centered" is banned per taste rules
 
   // ── Services shown in the demo ───────────────────────────────
   services: DemoService[];
@@ -49,4 +50,5 @@ export interface DemoConfig {
   // ── Meta ─────────────────────────────────────────────────────
   createdAt: string;              // ISO date
   bookingUrl: string;             // Mike's call link
+  portalDemoUrl?: string;         // DS client portal demo link (appended as final tour step)
 }

@@ -9,8 +9,8 @@ const config = demoConfigRaw as DemoConfig;
 
 const navLinks = [
   { href: "#demo-services", label: "Services" },
-  { href: "#demo-ai-features", label: "AI Features" },
   { href: "#demo-about", label: "About" },
+  { href: "#demo-social-proof", label: "Reviews" },
   { href: "#demo-contact", label: "Contact" },
 ];
 

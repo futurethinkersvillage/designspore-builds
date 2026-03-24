@@ -56,29 +56,31 @@
     "estimate-follow-up",
     "review-automation"
   ],
+  "address": "674 Sycamore Drive, Kamloops, BC V2B 6R5",
+  "portalDemoUrl": "https://designspore.co/api/demo/enter?token=9063e5cd74b4752dc8a96c0d6123917d",
   "tourSteps": [
     {
       "target": "#demo-chatbot-btn",
-      "title": "Answer Calls 24/7",
-      "text": "Prospects reach your chatbot anytime. It qualifies leads, books consultations, and routes urgent messages — no more missed opportunities.",
-      "position": "bottom"
-    },
-    {
-      "target": "#demo-services",
-      "title": "Show Your Range",
-      "text": "Display residential carpentry, renovations, decks, and flooring in one place. Prospects see your full scope without confusion.",
+      "title": "Your 24/7 First Responder",
+      "text": "62% of homeowners hire the first contractor who responds. This chatbot replies in seconds — qualifying leads, answering scope questions, and capturing contact details while you're on the job.",
       "position": "top"
     },
     {
-      "target": "#demo-ai-features",
-      "title": "Automate Follow-Up",
-      "text": "Estimates auto-follow up after 3 days. Reviews are collected and published without extra work. Stay top-of-mind while you're on the job.",
+      "target": "#demo-services",
+      "title": "Scope at a Glance",
+      "text": "Homeowners often contact 3+ contractors simultaneously. A clear service breakdown reduces back-and-forth and lets the right clients self-qualify before they even call.",
+      "position": "top"
+    },
+    {
+      "target": "#demo-social-proof",
+      "title": "Reviews That Compound",
+      "text": "73% of homeowners won't contact a contractor with fewer than 10 Google reviews. Automated review requests sent 48 hours after project completion can triple monthly review velocity.",
       "position": "top"
     },
     {
       "target": "#demo-contact",
-      "title": "Convert & Retain",
-      "text": "Missed calls trigger texts. Satisfied clients generate referrals through automated review requests. Your phone and reputation work for you.",
+      "title": "Never Miss a Lead Again",
+      "text": "Missed calls auto-trigger a text within 90 seconds. Estimates that go quiet get a follow-up at day 3. Most renovation businesses recover 15–25% of lost leads just from these two automations.",
       "position": "top"
     }
   ],

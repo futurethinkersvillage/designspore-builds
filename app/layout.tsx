@@ -19,11 +19,10 @@ import "./globals.css";
 import demoConfig from "@/demo-config.json";
 import type { DemoConfig } from "@/lib/demo-config";
 import DemoBar from "@/components/demo/DemoBar";
-import ChatbotWidget from "@/components/demo/ChatbotWidget";
 import GuidedTour from "@/components/demo/GuidedTour";
 import { fontGroups } from "@/lib/font-groups";
 
-const config = demoConfig as DemoConfig;
+const config = demoConfig as DemoConfig & { portalDemoUrl?: string };
 
 const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
@@ -44,7 +43,6 @@ const fontVars = [archivo, geistMono, cormorant, inter, playfair, dmSans, dmSeri
   .map(f => f.variable)
   .join(" ");
 
-// Resolve selected font pairing from preset
 const selectedFont = fontGroups.find(g => g.id === config.fontPreset) ?? fontGroups[0];
 
 export const metadata: Metadata = {
@@ -53,7 +51,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Accent color CSS variables injected into :root at SSR time
   const accentStyles = `
     :root {
       --accent: ${config.accentColor};
@@ -65,14 +62,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   `;
 
   return (
-    <html lang="en" className={fontVars}>
+    <html lang="en" className={fontVars} data-theme="dark">
       <head>
         <style dangerouslySetInnerHTML={{ __html: accentStyles }} />
       </head>
-      <body className="min-h-screen flex flex-col bg-dark text-white antialiased" style={{ backgroundColor: "#14191F" }}>
+      <body className="min-h-screen flex flex-col antialiased" style={{ backgroundColor: "var(--bg-body)", color: "var(--fg-primary-hex)" }}>
         <div className="grain-overlay" aria-hidden="true" />
 
-        {/* Design Spore branded demo bar — always at the very top */}
+        {/* Design Spore branded bar — always at the top, always dark */}
         <DemoBar
           businessName={config.businessName}
           bookingUrl={config.bookingUrl}
@@ -81,14 +78,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <main className="flex-1">{children}</main>
 
-        {/* Floating chatbot widget */}
-        <ChatbotWidget
-          businessName={config.businessName}
-          industry={config.industry}
+        {/* Guided tour — triggered by DemoBar "Take a Tour" */}
+        <GuidedTour
+          steps={config.tourSteps}
+          portalDemoUrl={config.portalDemoUrl}
+          bookingUrl={config.bookingUrl}
         />
-
-        {/* Guided tour — triggered by DemoBar */}
-        <GuidedTour steps={config.tourSteps} />
       </body>
     </html>
   );

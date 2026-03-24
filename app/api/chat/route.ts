@@ -1,119 +1,83 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
-import { readFileSync } from "fs";
-import { join } from "path";
 import demoConfig from "@/demo-config.json";
 import type { DemoConfig } from "@/lib/demo-config";
 
 const config = demoConfig as DemoConfig;
-
-// Load services KB once at module level (cached for lifetime of server)
-let servicesKnowledge: string;
-try {
-  servicesKnowledge = readFileSync(join(process.cwd(), "lib/services-knowledge.md"), "utf-8");
-} catch {
-  servicesKnowledge = "Design Spore provides AI-powered services for small businesses.";
-}
-
 const client = new Anthropic();
 
-// ── Scope enforcement ──────────────────────────────────────────────────────
-const PERSONA = `You are a demo assistant for Design Spore, an AI services agency.
-You are presenting a custom website demo to the team at ${config.businessName}, a ${config.industry} business in ${config.location}.
+// ── Customer-facing assistant persona ─────────────────────────────────────────
+// The chatbot represents THIS BUSINESS, not Design Spore.
+// It helps the business's potential customers — not Design Spore's prospects.
 
-Your ONLY job is to help them understand:
-1. What's in this demo website and why it was built this way
-2. What AI features Design Spore has integrated (or could integrate) for their business
-3. What it would be like to work with Design Spore
-4. How to take the next step (book a call with Mike)
+const PERSONA = `You are a friendly and helpful AI assistant for ${config.businessName}, a ${config.industry} business in ${config.location}.
+
+Your job is to help potential customers:
+- Understand what services ${config.businessName} offers
+- Get answers to common questions about the work
+- Know how to request a quote or get in touch
+- Feel confident about hiring ${config.businessName}
+
+You speak as if you are part of the ${config.businessName} team. Use "we" and "our".
+Keep answers concise — 2–4 sentences max unless a detailed list is genuinely helpful.
+Maintain a professional but warm, human tone. No corporate fluff.
+
+CONTACT INFO (use when relevant):
+${config.phone ? `- Phone: ${config.phone}` : ""}
+${config.email ? `- Email: ${config.email}` : ""}
+- Location: ${config.location}
+${(config as DemoConfig & { address?: string }).address ? `- Address: ${(config as DemoConfig & { address?: string }).address}` : ""}
 
 DO NOT:
-- Answer general knowledge questions unrelated to this demo or Design Spore services
-- Write code, solve math problems, or help with tasks unrelated to this context
-- Discuss other AI tools, companies, or services (OpenAI, ChatGPT, etc.)
-- Give away specifics about pricing (say "let's discuss on a call" instead)
+- Mention Design Spore, AI tools, or this being a demo website
+- Discuss pricing in specifics — say "we provide free quotes, just reach out"
+- Invent services they don't offer
+- Answer questions completely unrelated to the business or hiring a contractor`;
 
-If asked about anything outside this scope, say exactly:
-"I'm focused on helping you explore what AI can do for ${config.businessName} — what would you like to know about the demo or our services?"`;
+const SERVICES_CONTEXT = `
+## Our Services
+${config.services.map(s => `- **${s.name}**: ${s.description}`).join("\n")}
 
-const CLIENT_CONTEXT = `
-## About ${config.businessName}
-Industry: ${config.industry}
-Location: ${config.location}
+## Service Area
+${config.location} and surrounding area.
 
-${config.industryContext}
+## About Us
+${config.aboutBlurb}`;
 
-Key pain points for businesses like theirs:
-${config.painPoints.map(p => `- ${p}`).join("\n")}
+const QUOTE_NUDGE = `
+When a user asks about pricing, cost, or is clearly ready to hire, respond helpfully then end with:
+"The best next step is to reach out for a free quote — call us at ${config.phone ?? "the number on this page"} or use the contact form below."`;
 
-AI features shown in this demo: ${config.aiFeatures.join(", ")}
+const MAX_HISTORY = 8;
 
-Design Spore services most relevant to this business:
-${config.relevantServices.join(", ")}`;
-
-const CTA_INSTRUCTIONS = `
-## When to recommend booking a call
-Always end responses that discuss pricing, next steps, or implementation with:
-"Ready to talk about making this real? [Book a call with Mike](${config.bookingUrl})"
-
-If the user expresses strong interest or asks "how do we get started", lead with the CTA rather than burying it.`;
-
-// ── CTA keyword detection ─────────────────────────────────────────────────
-const PRICING_WORDS = ["cost", "how much", "price", "pricing", "afford", "budget", "monthly", "pay", "fee", "charge"];
-const INTEREST_WORDS = ["love it", "looks great", "interested", "next steps", "when can", "how do we", "get started", "sign up", "move forward", "want this"];
-
-function detectCTATrigger(text: string): boolean {
-  const lower = text.toLowerCase();
-  return (
-    PRICING_WORDS.some(w => lower.includes(w)) ||
-    INTEREST_WORDS.some(w => lower.includes(w))
-  );
-}
-
-// ── Sliding window history ─────────────────────────────────────────────────
-const MAX_HISTORY = 6; // Keep last 6 messages (3 exchanges)
-
-// ── Handler ───────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json() as { messages: { role: "user" | "assistant"; content: string }[] };
     const allMessages = body.messages ?? [];
-
     if (!allMessages.length) {
-      return NextResponse.json({ reply: "Hi! What would you like to know about this demo?" });
+      return NextResponse.json({ reply: `Hi! What can I help you with?` });
     }
 
-    // Apply sliding window — keep last N messages
     const windowedMessages = allMessages.slice(-MAX_HISTORY);
 
-    // Detect CTA trigger from the latest user message
-    const latestUser = [...windowedMessages].reverse().find(m => m.role === "user");
-    const shouldTriggerCTA = latestUser ? detectCTATrigger(latestUser.content) : false;
-
-    const systemPrompt = [
-      PERSONA,
-      CLIENT_CONTEXT,
-      servicesKnowledge,
-      CTA_INSTRUCTIONS,
-      shouldTriggerCTA
-        ? `\n[IMPORTANT: The user's message signals pricing or buying intent. Include a prominent call-to-action to book a call with Mike (${config.bookingUrl}) in your response.]`
-        : "",
-    ].join("\n\n");
+    const systemPrompt = [PERSONA, SERVICES_CONTEXT, QUOTE_NUDGE].join("\n\n");
 
     const response = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
-      max_tokens: 280,
+      max_tokens: 300,
       system: systemPrompt,
       messages: windowedMessages,
     });
 
-    const reply = response.content[0].type === "text" ? response.content[0].text : "Let me know if you have questions about the demo.";
+    const reply = response.content[0].type === "text"
+      ? response.content[0].text
+      : "Let me know if you have any questions about our services.";
 
     return NextResponse.json({ reply });
   } catch (err) {
     console.error("[chat/route]", err);
     return NextResponse.json(
-      { reply: "Something went wrong on my end. You can always [book a call directly](http://futurethinkers.org/call60) with Mike." },
+      { reply: `Sorry, I'm having trouble right now. Please call us at ${config.phone ?? "the number on this page"} and we'll be happy to help.` },
       { status: 500 }
     );
   }
