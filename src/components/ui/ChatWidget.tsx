@@ -62,7 +62,7 @@ export function ChatWidget() {
   const [streamingText, setStreamingText] = useState("");
   const [usedStarters, setUsedStarters] = useState<Set<string>>(new Set());
   const bottomRef = useRef<HTMLDivElement>(null);
-  const streamTopRef = useRef<HTMLDivElement>(null);
+  const lastUserMsgRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const prevStreamingRef = useRef("");
 
@@ -84,10 +84,10 @@ export function ChatWidget() {
     }
   }, [loading]);
 
-  // Scroll to top of assistant response when streaming first starts
+  // When streaming first starts, scroll so the user's question is at the top
   useEffect(() => {
-    if (streamingText && !prevStreamingRef.current && streamTopRef.current) {
-      streamTopRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (streamingText && !prevStreamingRef.current && lastUserMsgRef.current) {
+      lastUserMsgRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     prevStreamingRef.current = streamingText;
   }, [streamingText]);
@@ -300,6 +300,7 @@ export function ChatWidget() {
               {messages.map((msg, i) => (
                 <motion.div
                   key={i}
+                  ref={msg.role === "user" && i === messages.length - 1 ? lastUserMsgRef : null}
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
@@ -351,7 +352,7 @@ export function ChatWidget() {
 
               {/* Streaming response */}
               {streamingText && (
-                <div ref={streamTopRef} className="flex justify-start">
+                <div className="flex justify-start">
                   <div className="max-w-[85%] rounded-xl bg-white/8 px-3.5 py-2.5 text-sm leading-relaxed text-white/85 whitespace-pre-wrap">
                     {streamingText}
                   </div>
