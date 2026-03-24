@@ -4,54 +4,17 @@ const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const FALLBACK_KNOWLEDGE = `
-Portal.Place is a Smart Village network being built by Mike Gilliland and Euvie Ivanova in the wilderness of Wells Gray, BC — a stunning mountain valley with hot springs, waterfalls, and old-growth forest. It's a living experiment in next-generation human community: where regenerative land stewardship meets intentional living, cutting-edge technology, and deep human connection.
-
-The physical home is the Wells Gray Village — a 160-acre property at the edge of Wells Gray Provincial Park, currently operating as Wells Gray Resort (a glamping and RV destination) while being transformed into a permanent village.
-
-Portal.Place is building a network of Smart Villages — intentional communities that combine off-grid resilience (solar, water, food production), AI and technology integration for abundance, conscious community and personal growth, nature immersion and wellness, and economic innovation (crypto, remote work, new models). Wells Gray is the first node. More villages will follow globally.
-
-Ways to get involved:
-
-Village Stays: RV sites, glamping cabins, event spaces at Wells Gray Village. Book directly at wellsgrayresort.ca. Great for anyone wanting to visit, attend an event, or experience the land.
-
-Month-Long Immersion: A 30-day family residency package at the village. Full access to land, community, workshops, and programming. Ideal for families wanting a deep taste of village life. Contact Mike to apply.
-
-Work-Stay Program (2026 cohort): 3 to 6 month immersive work-stay for skilled contributors. Trade skills (building, tech, growing, teaching, creating) for housing, food, and stipend. Applications open for the 2026 cohort. Ideal for people who want to live and build the village, not just visit.
-
-Membership: Founding Member tier offers deep access, priority on future properties, and community governance. Village Member tier offers annual access passes, event discounts, and network benefits. Ideal for people who want ongoing connection to the project and network.
-
-Investment and Partnership: Equity investment in the Wells Gray property and Portal.Place network. Land partnerships and joint ventures for new village nodes. Ideal for investors aligned with regenerative real estate and future-of-living thesis.
-
-Smart Village Consulting: Mike offers advisory at $150/hr for founders, developers, and organizations building intentional communities or smart villages. Book a call at futurethinkers.org/call60.
-
-Host an Event: Bring a retreat, workshop, gathering, or corporate offsite to Wells Gray. The venue sleeps around 40 people in a stunning wilderness setting. Contact Mike directly.
-
-Media and Press: Mike and Euvie are experienced podcast hosts, speakers, and authors. Available for interviews, keynotes, collaborations. Media kit at portal.place/media-kit.
-
-About Mike Gilliland: Co-founder of Portal.Place. Former tech entrepreneur, host of Future Thinkers podcast (2M+ downloads). Deep background in AI, crypto, consciousness, and systems thinking. Has spent years studying intentional communities, smart cities, and regenerative economies. Now building one.
-
-About Euvie Ivanova: Co-founder. Filmmaker, podcaster, and author. Created Future Thinkers with Mike. Background in health optimization, systems thinking, and creative media. Leading the culture and media side of Portal.Place.
-
-Wells Gray Provincial Park is one of BC's most spectacular wilderness areas — cascading waterfalls (including Helmcken Falls, Canada's 4th highest), ancient lava flows, abundant wildlife, and virtually no crowds. The village property borders the park, giving residents and guests direct access to thousands of kilometers of wilderness.
-
-Contact: WhatsApp +1 778 881 8088 (fastest), email mike@portal.place, book a call at futurethinkers.org/call60, reservations at wellsgrayresort.ca.
-`;
-
-async function getKnowledge(): Promise<string> {
+async function getKnowledge(): Promise<string | null> {
   const url = process.env.KNOWLEDGE_DOC_URL;
-  if (url) {
-    try {
-      const res = await fetch(url, { next: { revalidate: 3600 } });
-      if (res.ok) {
-        const text = await res.text();
-        if (text.trim().length > 100) return text;
-      }
-    } catch {
-      // fall through to fallback
-    }
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { next: { revalidate: 3600 } });
+    if (!res.ok) return null;
+    const text = await res.text();
+    return text.trim().length > 100 ? text : null;
+  } catch {
+    return null;
   }
-  return FALLBACK_KNOWLEDGE;
 }
 
 function buildSystemPrompt(knowledge: string): string {
@@ -74,10 +37,22 @@ KNOWLEDGE BASE:
 ${knowledge}`;
 }
 
+export async function GET() {
+  const knowledge = await getKnowledge();
+  if (!knowledge) {
+    return Response.json({ available: false }, { status: 503 });
+  }
+  return Response.json({ available: true });
+}
+
 export async function POST(req: Request) {
+  const knowledge = await getKnowledge();
+  if (!knowledge) {
+    return new Response("Knowledge base unavailable", { status: 503 });
+  }
+
   try {
     const { messages } = await req.json();
-    const knowledge = await getKnowledge();
     const systemPrompt = buildSystemPrompt(knowledge);
 
     const stream = client.messages.stream({

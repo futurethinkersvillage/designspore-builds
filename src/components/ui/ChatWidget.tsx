@@ -55,6 +55,7 @@ function TypingDots() {
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
+  const [available, setAvailable] = useState<boolean | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -65,6 +66,15 @@ export function ChatWidget() {
 
   const remainingStarters = ALL_STARTERS.filter((q) => !usedStarters.has(q));
 
+  // Check availability once on first open
+  useEffect(() => {
+    if (open && available === null) {
+      fetch("/api/chat")
+        .then((r) => setAvailable(r.ok))
+        .catch(() => setAvailable(false));
+    }
+  }, [open, available]);
+
   useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
@@ -72,10 +82,10 @@ export function ChatWidget() {
   }, [messages, streamingText, loading]);
 
   useEffect(() => {
-    if (open && inputRef.current) {
+    if (open && available && inputRef.current) {
       setTimeout(() => inputRef.current?.focus(), 300);
     }
-  }, [open]);
+  }, [open, available]);
 
   async function sendMessage(text: string) {
     if (!text.trim() || loading) return;
@@ -191,7 +201,42 @@ export function ChatWidget() {
               </div>
             </div>
 
+            {/* Unavailable state */}
+            {available === false && (
+              <div className="flex flex-1 flex-col items-center justify-center px-6 py-10 text-center">
+                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/8">
+                  <ChatCircle size={20} weight="light" className="text-white/30" />
+                </div>
+                <p className="text-sm text-white/50 leading-relaxed">
+                  The guide is temporarily unavailable.
+                </p>
+                <p className="mt-1 text-xs text-white/25">
+                  Reach Mike directly at{" "}
+                  <a href="mailto:mike@portal.place" className="text-amber/60 hover:text-amber transition-colors">
+                    mike@portal.place
+                  </a>
+                </p>
+              </div>
+            )}
+
+            {/* Checking state */}
+            {available === null && (
+              <div className="flex flex-1 items-center justify-center py-10">
+                <div className="flex items-center gap-1.5">
+                  {[0, 1, 2].map((i) => (
+                    <motion.span
+                      key={i}
+                      className="h-1 w-1 rounded-full bg-white/25"
+                      animate={{ opacity: [0.2, 0.7, 0.2] }}
+                      transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Messages + starters */}
+            {available === true && (
             <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
               {/* Welcome */}
               {messages.length === 0 && (
@@ -308,9 +353,10 @@ export function ChatWidget() {
 
               <div ref={bottomRef} />
             </div>
+            )}
 
-            {/* Input */}
-            <div className="border-t border-white/10 p-3">
+            {/* Input — only shown when available */}
+            {available === true && <div className="border-t border-white/10 p-3">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -335,7 +381,7 @@ export function ChatWidget() {
                   <PaperPlaneTilt size={15} weight="fill" />
                 </button>
               </form>
-            </div>
+            </div>}
           </motion.div>
         )}
       </AnimatePresence>
