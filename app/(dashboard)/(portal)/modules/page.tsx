@@ -2,18 +2,16 @@ import { cookies } from "next/headers";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { activations } from "@/lib/db/schema";
-import { eq, and } from "drizzle-orm";
+import { activations, users } from "@/lib/db/schema";
+import { eq, and, gte } from "drizzle-orm";
 import {
   modules,
   categoryLabels,
   tierConfig,
-  creditsForModule,
-  MONTHLY_CREDITS,
   type ModuleCategory,
   type ModuleTier,
 } from "@/lib/modules";
-import { DEMO_USER, DEMO_ACTIVATIONS } from "@/lib/demo";
+import { getMonthKey } from "@/lib/queue";
 import ModuleCard from "@/components/dashboard/ModuleCard";
 import ModulesFilter from "@/components/dashboard/ModulesFilter";
 
@@ -28,36 +26,29 @@ export default async function ModulesPage({
   const isDemo =
     !!process.env.DEMO_SECRET && demoCookie?.value === process.env.DEMO_SECRET;
 
-  let monthlyCredits = MONTHLY_CREDITS;
+  // Modules queued in any current or future month
   let activatedIds = new Set<string>();
-  let creditsUsed = 0;
 
-  if (isDemo) {
-    monthlyCredits = Math.floor(DEMO_USER.monthlyBudget / 375);
-    activatedIds = new Set(DEMO_ACTIVATIONS.map((a) => a.moduleId));
-    creditsUsed = DEMO_ACTIVATIONS.reduce(
-      (sum, a) => sum + creditsForModule(modules.find((m) => m.id === a.moduleId)!),
-      0
-    );
-  } else {
+  if (!isDemo) {
     const session = await auth();
     if (!session?.user) redirect("/login");
-    const user = session.user as { id?: string; monthlyBudget?: number };
-    monthlyCredits = Math.floor((user.monthlyBudget ?? 1500) / 375);
+    const user = session.user as { id?: string };
 
     if (user.id) {
-      const periodMonth = new Date().toISOString().slice(0, 7);
+      const currentMonth = getMonthKey(0);
       const rows = await db
-        .select({ moduleId: activations.moduleId, valueConsumed: activations.valueConsumed })
+        .select({ moduleId: activations.moduleId, status: activations.status })
         .from(activations)
-        .where(and(eq(activations.userId, user.id), eq(activations.periodMonth, periodMonth)));
-      activatedIds = new Set(rows.map((r) => r.moduleId));
-      creditsUsed = rows.reduce((sum, r) => {
-        const mod = modules.find((m) => m.id === r.moduleId);
-        return sum + (mod ? creditsForModule(mod) : 0);
-      }, 0);
+        .where(and(eq(activations.userId, user.id), gte(activations.periodMonth, currentMonth)));
+
+      activatedIds = new Set(
+        rows
+          .filter((r) => r.status !== "cancelled" && r.status !== "completed")
+          .map((r) => r.moduleId)
+      );
     }
   }
+  // Demo: activatedIds stays empty — detail page DemoActivateWrapper handles queue state via localStorage
 
   const tierFilter = params.tier ? parseInt(params.tier) as ModuleTier : null;
   const catFilter = params.category as ModuleCategory | null;
@@ -75,9 +66,9 @@ export default async function ModulesPage({
       {/* Header */}
       <div>
         <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-2">Services</p>
-        <h1 className="text-3xl font-bold text-white mb-1">Browse Modules</h1>
+        <h1 className="text-3xl font-bold text-white mb-1">Browse Services</h1>
         <p className="text-sm text-white/40">
-          {MONTHLY_CREDITS - creditsUsed} of {monthlyCredits} build credits remaining this month
+          Select a service to view details and add it to your queue.
         </p>
       </div>
 
@@ -108,7 +99,7 @@ export default async function ModulesPage({
       {/* Grid */}
       {filtered.length === 0 ? (
         <div className="text-center py-16 border border-white/[0.06] rounded-2xl">
-          <p className="text-white/40">No modules match this filter.</p>
+          <p className="text-white/40">No services match this filter.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -116,8 +107,6 @@ export default async function ModulesPage({
             <ModuleCard
               key={mod.id}
               module={mod}
-              creditsUsed={creditsUsed}
-              monthlyCredits={monthlyCredits}
               isActivated={activatedIds.has(mod.id)}
             />
           ))}

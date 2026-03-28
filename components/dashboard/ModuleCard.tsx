@@ -7,26 +7,17 @@ import TierBadge from "./TierBadge";
 
 interface ModuleCardProps {
   module: Module;
-  /** credits already consumed this month */
-  creditsUsed: number;
-  /** total monthly credits */
-  monthlyCredits: number;
   isActivated?: boolean;
 }
 
-export default function ModuleCard({ module: mod, creditsUsed, monthlyCredits, isActivated }: ModuleCardProps) {
+export default function ModuleCard({ module: mod, isActivated }: ModuleCardProps) {
   const [expanded, setExpanded] = useState(false);
-  const creditsNeeded = tierConfig[mod.tier].credits;
-  const canAfford = creditsUsed + creditsNeeded <= monthlyCredits;
-  const isLocked = !canAfford && !isActivated;
 
   return (
     <div
       className={`group relative flex flex-col bg-card border rounded-2xl transition-all duration-200 ${
         isActivated
           ? "border-gold/30 ring-1 ring-gold/10"
-          : isLocked
-          ? "border-white/[0.04] opacity-60"
           : "border-white/[0.07] hover:border-white/[0.14]"
       }`}
     >
@@ -105,23 +96,15 @@ export default function ModuleCard({ module: mod, creditsUsed, monthlyCredits, i
         <span className="text-xs text-white/30">
           {tierConfig[mod.tier].description}
         </span>
-        {isActivated ? (
-          <Link
-            href={`/modules/${mod.id}`}
-            className="text-xs font-semibold text-gold/70 hover:text-gold transition-colors shrink-0"
-          >
-            View details →
-          </Link>
-        ) : isLocked ? (
-          <span className="text-xs text-white/20 shrink-0">No credits remaining</span>
-        ) : (
-          <Link
-            href={`/modules/${mod.id}`}
-            className="shrink-0 px-3.5 py-1.5 bg-gold/10 hover:bg-gold/20 text-gold text-xs font-semibold rounded-lg transition-colors"
-          >
-            Select →
-          </Link>
-        )}
+        <Link
+          href={`/modules/${mod.id}`}
+          className={isActivated
+            ? "text-xs font-semibold text-gold/70 hover:text-gold transition-colors shrink-0"
+            : "shrink-0 px-3.5 py-1.5 bg-gold/10 hover:bg-gold/20 text-gold text-xs font-semibold rounded-lg transition-colors"
+          }
+        >
+          {isActivated ? "View details →" : "Select →"}
+        </Link>
       </div>
     </div>
   );
