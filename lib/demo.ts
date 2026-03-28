@@ -12,11 +12,11 @@ export const DEMO_ACTIVATIONS = [
   {
     moduleId: "chatbot-setup",
     status: "active" as const,
-    valueConsumed: 1200,
+    valueConsumed: 1500, // Tier 1 Flagship
   },
   {
     moduleId: "missed-call-text-back",
     status: "pending" as const,
-    valueConsumed: 600,
+    valueConsumed: 375, // Tier 3 Quick Win
   },
 ];
