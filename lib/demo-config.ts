@@ -32,6 +32,7 @@ export interface DemoConfig {
   accentColorDark: string;        // Darker variant, e.g. "#124E87"
   fontPreset: string;             // One of the fontGroups ids, e.g. "outfit-jakarta"
   heroStyle: "split" | "minimal"; // Layout variant — "centered" is banned per taste rules
+  heroImageUrl?: string;          // Path to enhanced hero image, e.g. "/images/hero.jpg"
 
   // ── Services shown in the demo ───────────────────────────────
   services: DemoService[];

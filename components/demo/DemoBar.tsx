@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight, MapTrifold, Sun, Moon } from "@phosphor-icons/react";
+import { ArrowRight, MapTrifold } from "@phosphor-icons/react";
 
 interface Props {
   businessName: string;
@@ -9,40 +9,45 @@ interface Props {
   tourSteps: { target: string }[];
 }
 
-function ThemeToggle() {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+function VariantSelector() {
+  const [active, setActive] = useState(1);
 
   useEffect(() => {
-    const stored = localStorage.getItem("ds-theme") as "dark" | "light" | null;
-    if (stored) {
-      setTheme(stored);
-      document.documentElement.dataset.theme = stored;
-    }
+    const stored = localStorage.getItem("ds-variant");
+    if (stored) setActive(parseInt(stored));
   }, []);
 
-  function toggle() {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem("ds-theme", next);
+  function select(v: number) {
+    setActive(v);
+    window.dispatchEvent(new CustomEvent("ds-variant-change", { detail: v }));
   }
 
+  const labels = ["Dark", "Bold", "Light"];
+
   return (
-    <button
-      onClick={toggle}
-      className="flex items-center justify-center w-7 h-7 rounded transition-all duration-200"
-      style={{
-        color: "rgba(255,255,255,0.4)",
-        background: "transparent",
-        border: "1px solid rgba(255,255,255,0.1)",
-      }}
-      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-      title={theme === "dark" ? "Light mode" : "Dark mode"}
+    <div
+      className="flex items-center rounded overflow-hidden"
+      style={{ border: "1px solid rgba(255,255,255,0.1)" }}
+      title="Design variant"
     >
-      {theme === "dark"
-        ? <Sun size={13} weight="bold" />
-        : <Moon size={13} weight="bold" />}
-    </button>
+      {[1, 2, 3].map((v) => (
+        <button
+          key={v}
+          onClick={() => select(v)}
+          className="text-xs font-bold px-2.5 py-1 transition-all duration-150"
+          style={{
+            background: active === v ? "#BE8C2A" : "transparent",
+            color: active === v ? "#0C1012" : "rgba(255,255,255,0.35)",
+            borderRight: v < 3 ? "1px solid rgba(255,255,255,0.1)" : "none",
+          }}
+          title={labels[v - 1]}
+          aria-label={`Design ${v}: ${labels[v - 1]}`}
+          aria-pressed={active === v}
+        >
+          {v}
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -103,7 +108,7 @@ export default function DemoBar({ businessName, bookingUrl, tourSteps }: Props) 
 
         {/* Right: actions */}
         <div className="flex items-center gap-2 shrink-0">
-          <ThemeToggle />
+          <VariantSelector />
           {tourSteps.length > 0 && (
             <button
               onClick={startTour}

@@ -26,7 +26,7 @@ export default function DemoHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-40 w-full transition-all duration-500 ${
+      className={`sticky top-[48px] z-40 w-full transition-all duration-500 ${
         scrolled
           ? "border-b border-white/6 bg-darker/95 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.04)]"
           : "border-b border-transparent bg-dark/80 backdrop-blur-sm"
@@ -47,7 +47,7 @@ export default function DemoHeader() {
               {config.businessName.charAt(0)}
             </div>
           )}
-          <span className="font-bold text-white text-base tracking-tight" style={{ fontFamily: "var(--font-display-active, inherit)" }}>
+          <span className="font-bold text-white text-base tracking-tight" style={{ fontFamily: "var(--font-display-active, var(--font-fraunces, inherit))" }}>
             {config.businessName}
           </span>
         </a>
