@@ -39,7 +39,7 @@ function Hero() {
             transition={{ duration: 0.5 }}
             className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-8"
           >
-            Advisory — $150 / hour
+            Advisory — Hospitality & Resilient Communities
           </motion.p>
 
           <div className="overflow-hidden pb-[0.15em] -mb-[0.15em]">
@@ -69,8 +69,7 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 max-w-[48ch] text-base leading-relaxed text-white/55"
           >
-            Upgrade your land project into a revenue-generating, community-centered,
-            tech-enabled village destination. $150/hour, no retainer required.
+            Strategic advisory for owners of existing hospitality operations who want to differentiate, build community, and unlock new revenue — from people who have done it firsthand.
           </motion.p>
 
           <motion.div
@@ -102,10 +101,10 @@ function Hero() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
           <div className="grid grid-cols-2 divide-x divide-white/10 sm:grid-cols-4">
             {[
-              { value: "$150", unit: "/hr", label: "Flat rate" },
-              { value: "No", unit: "retainer", label: "Required" },
+              { value: "5+", unit: "yrs", label: "Operating resort" },
+              { value: "10+", unit: "yrs", label: "Hospitality experience" },
               { value: "Video", unit: "call", label: "Format" },
-              { value: "10+", unit: "yrs", label: "Experience" },
+              { value: "Real", unit: "results", label: "Operational expertise" },
             ].map((s) => (
               <div key={s.label} className="px-6 py-5 first:pl-0">
                 <div className="font-mono text-xl font-light text-white tabular-nums">
@@ -132,31 +131,30 @@ function WhoItsFor() {
               Who this is for
             </p>
             <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-              Land-based<br />
-              <span className="italic">project owners</span>
+              Hospitality<br />
+              <span className="italic">operators</span>
             </h2>
             <div className="mt-8 space-y-4 text-sm leading-relaxed text-white/45 max-w-[48ch]">
               <p>
-                If you own or operate a land-based project that wants to become
-                a lifestyle-first destination, this is for you. Not theory —
-                practical strategy from someone who built this from scratch.
+                We work primarily with owners of existing hospitality operations — resorts, lodges, RV parks, campsites, and coliving facilities — who want to differentiate, attract long-stay guests, and build real community around their property.
               </p>
               <p>
-                We work with RV parks, resorts, campsites, land developers,
-                retreat centers, and land-based communities who want to attract
-                long-stay guests, generate more revenue, and build real community.
+                We also work with high-net-worth families who want to make rural properties more resilient and purposeful — going beyond a bunker to something that actually works as a community asset.
+              </p>
+              <p>
+                This is not for dreamers starting from scratch. This is for operators who already have something and want to make it significantly better.
               </p>
             </div>
           </div>
 
           <div className="divide-y divide-white/10 border-y border-white/10">
             {[
+              "Resorts, lodges & retreat centers",
               "RV parks & campgrounds",
-              "Resorts & retreat centers",
-              "Land developers & land trusts",
-              "Permaculture & intentional communities",
-              "Eco-lodges & glamping operations",
-              "Rural land & homestead projects",
+              "Glamping & eco-lodge operators",
+              "Coliving & co-hospitality facilities",
+              "High-net-worth families with rural properties",
+              "Rural land developers & operators",
             ].map((item, i) => (
               <motion.div
                 key={item}
@@ -354,12 +352,13 @@ function BookSession() {
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_auto]">
           <div>
             <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
-              Ready to upgrade<br />
-              <span className="italic">your land project?</span>
+              Let&apos;s talk about<br />
+              <span className="italic">your operation.</span>
             </h2>
             <p className="mt-8 max-w-[45ch] text-base leading-relaxed text-white/75">
-              $150/hour. No retainer. No commitments beyond the session. Book
-              a video call and bring your project — we&apos;ll make it worth your time.
+              Book a video call to explore how we can help you differentiate your
+              property, attract better guests, and build something that stands out.
+              We bring firsthand operational experience, not theory.
             </p>
             <div className="mt-10">
               <a

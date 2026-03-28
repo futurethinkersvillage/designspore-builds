@@ -65,9 +65,7 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 max-w-[44ch] text-base leading-relaxed text-white/55"
           >
-            Everything you need to cover Portal.Place, Future Thinkers, and the
-            Smart Village Movement. Founder bios, brand assets, key facts,
-            and booking info for interviews.
+            Everything you need to cover Portal.Place, Future Thinkers, Wells Gray Village, and Design Spore. Founder bios, brand assets, key facts, and booking info for interviews.
           </motion.p>
 
           <motion.div
@@ -137,21 +135,27 @@ function KeyFacts() {
 function ThreeOrgs() {
   const orgs = [
     {
-      name: "Future Thinkers",
-      type: "Media platform & global community",
-      description: "A podcast and global community exploring the future of civilization through technology, consciousness, systems thinking, and culture design. Over a decade, it has reached millions of listeners and featured hundreds of thinkers and innovators worldwide. Provides the narrative and intellectual backbone behind the Smart Village Movement.",
-      logo: "/images/ftp-blue-logo-dark.png",
-    },
-    {
       name: "Portal.Place",
-      type: "Smart Village network platform",
-      description: "The membership-powered platform building a network of Smart Villages — regenerative, culturally rich, AI-supported communities designed for the post-AI world. Members get early access to village programs, seasonal immersions, long-stay opportunities, and development of new locations across bioregions.",
+      type: "Seasonal village community & membership platform",
+      description: "The membership-powered platform anchored at Wells Gray Village near Clearwater, BC — a seasonal, recreational community on 400 acres. Members get access to village programs, golf, sauna on community days, seasonal immersions, and early-supporter recognition. The platform is just launching.",
       logo: "/images/portalplace-logo-horizontal.png",
     },
     {
-      name: "The Smart Village Movement",
-      type: "Model & standard",
-      description: "A new model for living that blends nature, community, wellness, regeneration, and technology. An alternative to the rising costs and disconnection of city life. Designed to be walkable, intergenerational, resilient, culturally vibrant, and supported by AI-powered coordination tools. The Smart Village Standard defines the blueprint.",
+      name: "Future Thinkers",
+      type: "Media platform & global community",
+      description: "A podcast and global community exploring the future of civilization through technology, consciousness, systems thinking, and culture design. Over a decade, it has reached millions of listeners and featured hundreds of thinkers and innovators worldwide. Provides the narrative and intellectual backbone behind the community building work.",
+      logo: "/images/ftp-blue-logo-dark.png",
+    },
+    {
+      name: "Wells Gray Resort / Village",
+      type: "Operating property near Clearwater, BC",
+      description: "A 400-acre resort and seasonal village at the gateway to Wells Gray Provincial Park — known for 40+ waterfalls, hiking, horseback riding, canoeing, and whitewater rafting. Operating since 2019 as Wells Gray Resort, now being developed into the first Portal.Place village.",
+      logo: null,
+    },
+    {
+      name: "Design Spore",
+      type: "Design & technology studio",
+      description: "The design and technology studio behind Portal.Place — responsible for brand, digital product, AI systems, and Village OS development. Founded by Mike Gilliland.",
       logo: null,
     },
   ];
@@ -164,8 +168,8 @@ function ThreeOrgs() {
             The organizations
           </p>
           <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            Three<br />
-            <span className="italic">pillars</span>
+            The<br />
+            <span className="italic">entities</span>
           </h2>
         </div>
 
@@ -408,7 +412,7 @@ function BookInterview() {
             </div>
             <div className="flex items-center gap-2">
               <FileText size={14} weight="light" />
-              <span>Portal.Place Documentary</span>
+              <span>Portal.Place Documentary (in production)</span>
             </div>
             <div className="flex items-center gap-2">
               <Images size={14} weight="light" />

@@ -45,7 +45,7 @@ function Hero() {
             transition={{ duration: 0.5 }}
             className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-8"
           >
-            Wells Gray, BC — Interior BC, Canada
+            Near Clearwater, BC — 2 hours north of Kamloops
           </motion.p>
 
           <div className="overflow-hidden pb-[0.15em] -mb-[0.15em]">
@@ -75,9 +75,7 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 max-w-[48ch] text-base leading-relaxed text-white/55"
           >
-            400 acres of mountains, old-growth forest, and private lake in the
-            heart of Wells Gray Provincial Park. An operating resort for 5 years —
-            now becoming the first node in the Portal.Place Smart Village network.
+            400 acres near Clearwater, BC — gateway to Wells Gray Provincial Park, home to over 40 waterfalls, world-class hiking, horseback riding, canoeing, and whitewater rafting. A seasonal recreational village, operating since 2019.
           </motion.p>
 
           <motion.div
@@ -147,17 +145,15 @@ function About() {
               <p>
                 Wells Gray Village sits at the gateway to Wells Gray Provincial
                 Park — one of BC&apos;s largest and most spectacular wilderness areas,
-                known for its waterfalls, volcanic landscape, and old-growth forest.
+                known for its 40+ waterfalls, volcanic landscape, hiking, horseback riding, canoeing, and whitewater rafting.
               </p>
               <p>
                 The property has been welcoming guests since 2019: campers, families,
-                corporate retreats, and events. It&apos;s the first and most advanced
-                prototype of the Portal.Place village model.
+                corporate retreats, and events. It&apos;s a seasonal, recreational village — and the first prototype of the Portal.Place community model.
               </p>
               <p>
                 Everything you experience here — the sauna, the programs, the
-                community rhythms — is the foundation of what scales into the
-                broader network.
+                community rhythms — is the foundation of what we&apos;re building together.
               </p>
             </div>
           </div>
@@ -224,13 +220,13 @@ function Amenities() {
     },
     {
       icon: Wrench,
-      label: "Maker space & woodshop",
-      body: "A working maker space and woodworking shop for prototyping, building, and creative projects.",
+      label: "Maker space & woodshop — Coming Soon",
+      body: "A planned maker space and woodworking shop for prototyping, building, and creative projects. Part of our near-future build-out.",
     },
     {
       icon: TreeEvergreen,
       label: "Forest trails & mountain views",
-      body: "Trails through old-growth forest with direct access into Wells Gray Provincial Park.",
+      body: "Trails through the property with direct access into Wells Gray Provincial Park — home to 40+ waterfalls and world-class hiking.",
     },
     {
       icon: Leaf,
@@ -244,8 +240,8 @@ function Amenities() {
     },
     {
       icon: House,
-      label: "Coworking & family spaces",
-      body: "Smaller gazebos and covered spaces for focused work, kids' activities, and family gatherings.",
+      label: "Coworking gazebo — Coming Soon",
+      body: "A dedicated coworking gazebo for focused work and family gatherings is part of our near-future roadmap.",
     },
     {
       icon: Campfire,
@@ -379,18 +375,29 @@ function BookStay() {
             </h2>
             <p className="mt-8 max-w-[45ch] text-base leading-relaxed text-white/75">
               The best way to understand village life is to experience it.
-              Book a stay at Wells Gray Resort — from a single night to a
-              full month — and arrive as a guest, leave as a believer.
+              Wells Gray Village is a seasonal, recreational community — come for a weekend, a week, or a full program. Arrive as a guest, leave as a believer.
             </p>
-            <div className="mt-10">
+            <div className="mt-10 flex flex-wrap gap-4">
               <a
                 href="https://wellsgrayresort.ca"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-medium text-amber transition-all hover:bg-white/90 active:scale-[0.98]"
               >
-                Book at wellsgrayresort.ca <ArrowUpRight size={14} weight="bold" />
+                Visit — Book at wellsgrayresort.ca <ArrowUpRight size={14} weight="bold" />
               </a>
+              <Link
+                href="/membership"
+                className="inline-flex items-center gap-2 rounded-full border border-white/40 px-8 py-4 text-sm font-medium text-white transition-all hover:bg-white/10"
+              >
+                Become a Member <ArrowRight size={14} />
+              </Link>
+              <Link
+                href="/partner"
+                className="inline-flex items-center gap-2 text-sm font-medium text-white/70 transition-colors hover:text-white"
+              >
+                Request Investor Access <ArrowRight size={14} />
+              </Link>
             </div>
           </div>
 

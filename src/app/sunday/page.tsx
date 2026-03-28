@@ -37,7 +37,7 @@ function Hero() {
             transition={{ duration: 0.5 }}
             className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-8"
           >
-            Wells Gray Village — Weekly Program
+            Wells Gray Village — Village Rhythm
           </motion.p>
 
           <div className="overflow-hidden pb-[0.15em] -mb-[0.15em]">
@@ -47,7 +47,7 @@ function Hero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-[clamp(3.5rem,9vw,8rem)] font-light leading-[0.9] tracking-tighter text-white"
             >
-              Sunday at
+              Village
             </motion.h1>
           </div>
           <div className="overflow-hidden pb-[0.15em] -mb-[0.15em]">
@@ -57,7 +57,7 @@ function Hero() {
               transition={{ duration: 0.8, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-[clamp(3.5rem,9vw,8rem)] italic font-light leading-[0.9] tracking-tighter text-amber"
             >
-              the village.
+              Rhythm.
             </motion.h1>
           </div>
 
@@ -68,8 +68,7 @@ function Hero() {
             className="mt-10 max-w-[48ch] text-base leading-relaxed text-white/55"
           >
             Forest school for the kids. Wood-fired sauna for you. Campfire to end
-            the day. Every Sunday — a low-commitment taste of village life for
-            locals, guests, and curious visitors.
+            the day. We&apos;re testing a regular village rhythm — a recurring community gathering open to locals, guests, and curious visitors. Days may vary.
           </motion.p>
 
           <motion.div
@@ -101,7 +100,7 @@ function Hero() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
           <div className="grid grid-cols-2 divide-x divide-white/10 sm:grid-cols-4">
             {[
-              { value: "Every", unit: "Sun", label: "Weekly program" },
+              { value: "Regular", unit: "", label: "Village rhythm" },
               { value: "$249", unit: "/6wks", label: "Forest school" },
               { value: "$10", unit: "/person", label: "Sauna session" },
               { value: "Free", unit: "", label: "Campfire" },
@@ -128,12 +127,12 @@ function Schedule() {
       label: "Golf",
       icon: Golf,
       price: "$30/round",
-      body: "Come early and make a full Sunday of it. 9-hole scenic course winding through the trees. Carts available at extra cost.",
+      body: "Come early and make a full day of it. 9-hole scenic course winding through the trees. Carts available at extra cost.",
       cta: "Book a tee time",
       href: "https://wellsgrayresort.ca",
     },
     {
-      time: "2:30–5:00pm",
+      time: "Afternoon",
       label: "Forest School",
       icon: Tree,
       price: "$249 / 6 weeks",
@@ -142,16 +141,16 @@ function Schedule() {
       href: "https://wellsgrayresort.ca",
     },
     {
-      time: "5:00–6:00pm",
+      time: "Late afternoon",
       label: "Community Sauna",
       icon: Waves,
       price: "$10 / person",
-      body: "Wood-fired barrel sauna with natural river cold plunge. Open to locals and guests. Kids under 12 are free. Reserve your spot in advance.",
+      body: "Wood-fired barrel sauna by the creek with a natural cold plunge. Open to locals and guests. Kids under 12 are free. Reserve your spot in advance.",
       cta: "Reserve a sauna spot",
       href: "https://wellsgrayresort.ca",
     },
     {
-      time: "6:00–7:00pm",
+      time: "Evening",
       label: "Campfire",
       icon: Flame,
       price: "Free",
@@ -169,8 +168,8 @@ function Schedule() {
             What&apos;s happening
           </p>
           <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            The Sunday<br />
-            <span className="italic">schedule</span>
+            The village<br />
+            <span className="italic">rhythm</span>
           </h2>
         </div>
 
@@ -231,7 +230,7 @@ function ForestSchoolDetail() {
             </h2>
             <div className="mt-8 space-y-4 text-sm leading-relaxed text-white/45 max-w-[48ch]">
               <p>
-                A simple drop-off outdoor program running every Sunday from 2:30–5pm.
+                A simple drop-off outdoor program running on community gathering days.
                 Nature play, seasonal activities, stories, games, crafts, and free
                 exploration in the forest.
               </p>
@@ -294,7 +293,7 @@ function MakeADay() {
             </h2>
             <p className="mt-8 max-w-[45ch] text-base leading-relaxed text-white/75">
               Golf in the morning, forest school for the kids in the afternoon,
-              sauna at 5, campfire at 6. That&apos;s a Sunday.
+              sauna by the creek, campfire in the evening. That&apos;s a village day.
             </p>
           </div>
 

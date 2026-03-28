@@ -33,7 +33,7 @@ function Hero() {
             transition={{ duration: 0.5 }}
             className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-8"
           >
-            Portal.Place — Documentary Series
+            Portal.Place — Documentary Series (In Production)
           </motion.p>
 
           <div className="overflow-hidden pb-[0.15em] -mb-[0.15em]">
@@ -63,9 +63,10 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 max-w-[48ch] text-base leading-relaxed text-white/55"
           >
-            A documentary series following the creation of Canada&apos;s first Smart
-            Village — from raw land to living community. Real footage, real people,
-            real building.
+            A documentary series currently in the making — following the creation
+            of Canada&apos;s first village of this kind, from raw land to living community.
+            Real footage, real people, real building. Episodes will be released as
+            production progresses.
           </motion.p>
         </div>
       </div>
@@ -142,12 +143,17 @@ function Series() {
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
-            The documentary
+            Documentary series — in production
           </p>
           <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            Episode<br />
-            <span className="italic">guide</span>
+            Planned<br />
+            <span className="italic">episode guide</span>
           </h2>
+          <p className="mt-6 text-sm leading-relaxed text-white/40 max-w-[52ch]">
+            The documentary is currently being filmed. The episodes below represent
+            our planned arc — not yet released. Social media clips are published
+            separately and are distinct from the documentary series.
+          </p>
         </div>
 
         <div className="divide-y divide-white/10 border-y border-white/10">
@@ -163,9 +169,9 @@ function Series() {
               <div className="font-mono text-xs text-amber/50">{ep.episode}</div>
               <div className="text-base font-medium text-white">{ep.title}</div>
               <p className="text-sm leading-relaxed text-white/35 max-w-[52ch]">{ep.description}</p>
-              <button className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-white/25 transition-all hover:text-amber hover:gap-3">
-                <Play size={13} weight="fill" /> Watch
-              </button>
+              <span className="inline-flex shrink-0 items-center gap-2 text-xs font-medium text-white/20 uppercase tracking-wider">
+                Coming soon
+              </span>
             </motion.div>
           ))}
         </div>
@@ -209,7 +215,7 @@ function MediaCTA() {
           <div className="flex flex-col justify-end">
             <div className="flex items-center gap-3 text-white/60">
               <FilmSlate size={16} weight="light" />
-              <span className="text-sm">Future Thinkers Podcast · Portal.Place Documentary</span>
+              <span className="text-sm">Future Thinkers Podcast · Portal.Place Documentary (in production)</span>
             </div>
           </div>
         </div>

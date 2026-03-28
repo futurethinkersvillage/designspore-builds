@@ -25,12 +25,12 @@ import {
 
 function Marquee() {
   const items = [
-    "Wells Gray, BC",
+    "Near Clearwater, BC",
     "400 Acres",
-    "Smart Village Network",
+    "Seasonal · Recreational · Community",
     "Founded 2019",
     "Membership Now Open",
-    "Remote Work · Nature · Community",
+    "Builders · Families · Entrepreneurs",
   ];
   const repeated = [...items, ...items];
 
@@ -77,7 +77,7 @@ function Hero() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif text-[clamp(4rem,13vw,12rem)] font-light leading-[0.88] tracking-tighter text-white"
           >
-            The
+            Building
           </motion.h1>
         </div>
         <div className="overflow-hidden pb-[0.15em] -mb-[0.15em] pl-[0.08em] -ml-[0.08em]">
@@ -85,9 +85,9 @@ function Hero() {
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-[clamp(4rem,13vw,12rem)] font-light leading-[0.88] tracking-tighter text-white"
+            className="font-serif text-[clamp(4rem,13vw,12rem)] italic font-light leading-[0.88] tracking-tighter text-amber"
           >
-            Future
+            resilient
           </motion.h1>
         </div>
         <div className="overflow-hidden pb-[0.15em] -mb-[0.15em] pl-[0.08em] -ml-[0.08em]">
@@ -95,9 +95,9 @@ function Hero() {
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-[clamp(4rem,13vw,12rem)] italic font-light leading-[0.88] tracking-tighter text-amber"
+            className="font-serif text-[clamp(4rem,13vw,12rem)] font-light leading-[0.88] tracking-tighter text-white"
           >
-            of Human
+            communities
           </motion.h1>
         </div>
         <div className="overflow-hidden pb-[0.15em] -mb-[0.15em] pl-[0.08em] -ml-[0.08em]">
@@ -107,7 +107,7 @@ function Hero() {
             transition={{ duration: 0.8, delay: 0.21, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif text-[clamp(4rem,13vw,12rem)] font-light leading-[0.88] tracking-tighter text-white"
           >
-            Living.
+            for what comes next.
           </motion.h1>
         </div>
 
@@ -119,8 +119,7 @@ function Hero() {
           className="mt-16 flex flex-col items-start justify-between gap-8 border-t border-white/10 pt-8 sm:flex-row sm:items-end"
         >
           <p className="max-w-[40ch] text-sm leading-relaxed text-white/40">
-            A membership network of villages for remote workers, families, and
-            builders. Real land. Real programs. Wells Gray, BC.
+            A seasonal village and membership community for builders, entrepreneurs, and families — on 400 acres near Clearwater, BC, 2 hours north of Kamloops.
           </p>
           <div className="flex items-center gap-6 shrink-0">
             <Link
@@ -133,13 +132,13 @@ function Hero() {
               href="/partner"
               className="text-sm font-medium text-white/40 transition-colors hover:text-white"
             >
-              Invest
+              Request Investor Access
             </Link>
             <Link
               href="/membership"
               className="inline-flex items-center gap-2 rounded-full bg-amber px-7 py-3 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
             >
-              Apply <ArrowRight size={13} weight="bold" />
+              Become a Member <ArrowRight size={13} weight="bold" />
             </Link>
           </div>
         </motion.div>
@@ -167,15 +166,13 @@ function CoreIdea() {
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">The core idea</p>
             <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl">
-              A network of villages<br />
-              <span className="italic">for the post-AI world</span>
+              A real place.<br />
+              <span className="italic">A real community.</span>
             </h2>
           </div>
           <div className="flex items-end">
             <p className="text-sm leading-relaxed text-white/40 max-w-[45ch]">
-              Not a commune. Not a co-op. A membership platform for village living —
-              backed by real land, a clear economic model, and a replicable blueprint.
-              Think of it as a country club with 21st-century values.
+              Not a commune. Not a co-op. A seasonal village and membership community — backed by real land, real programs, and real people building something worth returning to. Think of it as a country club with 21st-century values.
             </p>
           </div>
         </div>
@@ -225,21 +222,19 @@ function TheVillage() {
               Our first village
             </p>
             <h2 className="font-serif text-5xl font-light leading-tight text-white lg:text-6xl">
-              Wells Gray, BC.<br />
+              Near Clearwater, BC.<br />
               <span className="italic text-white/40">400 acres.</span>
             </h2>
             <p className="mt-8 text-sm leading-relaxed text-white/40 max-w-[42ch]">
-              Mountains, lakes, and old-growth forest in Interior BC. Operating for
-              5 years as a resort — now being built out as the first node in the
-              Portal.Place network.
+              Waterfalls, hiking, horseback riding, canoeing, and whitewater rafting in Interior BC — 2 hours north of Kamloops. Operating for 5 years as a resort, now becoming the first Portal.Place village.
             </p>
 
             <div className="mt-12 grid grid-cols-2 gap-6">
               {[
                 { value: "400", unit: "ac", label: "Owned & operating" },
                 { value: "5+", unit: "yrs", label: "Running programs" },
-                { value: "23", unit: "eps", label: "Documentary series" },
-                { value: "100+", unit: "", label: "Founder network" },
+                { value: "40+", unit: "", label: "Waterfalls nearby" },
+                { value: "2026", unit: "", label: "Membership open" },
               ].map((s) => (
                 <div key={s.label} className="border-b border-white/10 pb-5">
                   <div className="font-mono text-3xl font-light tabular-nums text-white">
@@ -296,7 +291,7 @@ function DayInVillage() {
     { time: "9:30", label: "Forest school for the kids", icon: TreeEvergreen },
     { time: "10:00", label: "Deep work, coworking space", icon: Laptop },
     { time: "15:00", label: "Golf round or trail walk", icon: Golf },
-    { time: "17:00", label: "Sauna session by the lake", icon: Sun },
+    { time: "17:00", label: "Sauna by the creek & cold plunge", icon: Sun },
     { time: "19:00", label: "Campfire & community dinner", icon: Campfire },
   ];
 
@@ -338,16 +333,16 @@ function GetInvolved() {
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_40%]">
           <div>
             <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
-              This is the life<br />
-              <span className="italic">you&apos;ve been</span><br />
-              looking for.
+              Come and see<br />
+              <span className="italic">what we&apos;re</span><br />
+              building.
             </h2>
           </div>
           <div className="flex flex-col justify-center gap-4">
             {[
-              { label: "Visit the village", sub: "Book a stay or join a program", href: "/village" },
-              { label: "Apply for membership", sub: "Founding membership now open", href: "/membership" },
-              { label: "Request investor access", sub: "Private materials available", href: "/partner" },
+              { label: "Visit", sub: "Book a stay or join a seasonal program", href: "/village" },
+              { label: "Become a Member", sub: "Founding membership now open — buy instantly", href: "/membership" },
+              { label: "Request Investor Access", sub: "Private materials available", href: "/partner" },
             ].map((item) => (
               <Link
                 key={item.href}

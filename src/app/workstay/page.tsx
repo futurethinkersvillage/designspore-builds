@@ -69,9 +69,9 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 max-w-[48ch] text-base leading-relaxed text-white/55"
           >
-            A season-long work-stay for builders, makers, and contributors.
-            May 1–September 30, 2026. Trade skilled work for free accommodation
-            on 400 acres in Interior BC.
+            A project-based work-stay for builders, makers, and contributors.
+            Come for a few weeks, or stay for the full season. Bring your skills,
+            trade them for accommodation on 400 acres in Interior BC near Clearwater.
           </motion.p>
 
           <motion.div
@@ -102,7 +102,7 @@ function Hero() {
           <div className="grid grid-cols-2 divide-x divide-white/10 sm:grid-cols-4">
             {[
               { value: "May 1", unit: "", label: "2026 start" },
-              { value: "5", unit: "mo", label: "Season length" },
+              { value: "2–5", unit: "mo", label: "Flexible duration" },
               { value: "6", unit: "roles", label: "Open positions" },
               { value: "400", unit: "ac", label: "Private land" },
             ].map((s) => (
@@ -136,15 +136,17 @@ function WhatItIs() {
             </h2>
             <div className="mt-8 space-y-4 text-sm leading-relaxed text-white/45 max-w-[48ch]">
               <p>
-                The 2026 Work-Stay Cohort is for people who want to be part of
-                building Canada&apos;s first Smart Village — not just visiting it.
+                The 2026 Work-Stay is for people who want to be part of building
+                something real — not just passing through. Whether you can come for
+                a few weeks or the full season, there&apos;s a place for you here.
               </p>
               <p>
                 You bring a specific skillset. We put it to work building and running
-                Wells Gray Village. In return, you live on 400 acres of mountain
-                land in Interior BC for the full season, no rent required.
+                Wells Gray Village near Clearwater, BC. In return, you stay on 400 acres of
+                mountain land in Interior BC — no rent required.
               </p>
               <p>
+                It&apos;s project-based: show up, contribute, and be part of a living community.
                 Outstanding contributors may be invited into paid roles or deeper
                 involvement as the village grows.
               </p>
@@ -156,12 +158,12 @@ function WhatItIs() {
               {
                 label: "What you get",
                 items: [
-                  "Free RV site for the season (power, water, sani)",
+                  "Free RV site for your stay (power, water, sani)",
                   "Full village amenity access",
                   "Community participation",
-                  "Hands-on Smart Village experience",
+                  "Hands-on village-building experience",
                   "Real portfolio work",
-                  "Possibility of paid role for top contributors",
+                  "Possibility of paid role for outstanding contributors",
                 ],
               },
               {
@@ -170,7 +172,7 @@ function WhatItIs() {
                   "Your own RV",
                   "Ability to cook your own food",
                   "A specific skill (see roles below)",
-                  "Full-season commitment (May 1–Sep 30)",
+                  "A few weeks minimum — full season welcome",
                   "Builder mindset",
                 ],
               },
@@ -339,13 +341,13 @@ function Apply() {
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_42%]">
           <div>
             <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
-              Apply for the<br />
-              <span className="italic">2026 cohort.</span>
+              Come and<br />
+              <span className="italic">build with us.</span>
             </h2>
             <p className="mt-8 max-w-[45ch] text-base leading-relaxed text-white/75">
-              Tell us who you are, what you build, and why you want to spend a
-              season here. We&apos;re looking for people who want to be part of
-              something real.
+              Tell us who you are, what you build, and when you can come.
+              A few weeks or a full season — we&apos;re looking for people who
+              want to be part of something real.
             </p>
             <div className="mt-10">
               <a
@@ -361,7 +363,7 @@ function Apply() {
             <div className="mt-12 space-y-3">
               {[
                 "Must have your own RV",
-                "Full season commitment required (May 1–Sep 30)",
+                "A few weeks minimum — full season (May 1–Sep 30) welcome",
                 "All skill levels welcome — we value attitude over résumé",
               ].map((note) => (
                 <div key={note} className="flex items-start gap-2 text-sm text-white/60">

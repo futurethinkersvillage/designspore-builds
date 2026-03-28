@@ -82,9 +82,7 @@ function Hero() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="mt-10 max-w-[45ch] text-base leading-relaxed text-white/45"
             >
-              Membership is for people who want to participate — to be part of
-              building something new. Not just visitors. Members help shape the
-              culture, rhythms, and future of Wells Gray Village.
+              Membership is open to anyone — locals near Clearwater, BC, out-of-towners, and early supporters worldwide. Come for the season, or support from afar. Be part of something being built.
             </motion.p>
           </div>
 
@@ -104,15 +102,17 @@ function Hero() {
               </div>
               <p className="text-sm leading-relaxed text-white/60 mb-8">
                 The first wave of members will be recognized as Founding Members —
-                a status that will not be available later.
+                a status that will not be available later. Join now and lock in
+                founding pricing.
               </p>
               <ul className="space-y-3 mb-10">
                 {[
-                  "Recognition as part of the first wave",
-                  "Priority access to future programs",
-                  "Invitations to early gatherings",
-                  "Opportunities to influence culture & rhythms",
-                  "Early access to private materials & innovation previews",
+                  "Golf access — play the 9-hole course",
+                  "Free sauna access on community days",
+                  "Member pricing on paid programs (forest school, immersions, etc.)",
+                  "Priority access to future programs & events",
+                  "Recognition as part of the founding wave",
+                  "Early access to private materials & network updates",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-amber" />
@@ -121,10 +121,12 @@ function Hero() {
                 ))}
               </ul>
               <a
-                href="#apply"
+                href="https://wellsgrayresort.ca"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-amber px-7 py-3.5 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
               >
-                Apply for membership <ArrowRight size={14} weight="bold" />
+                Buy Now — Become a Member <ArrowRight size={14} weight="bold" />
               </a>
             </div>
           </motion.div>
@@ -216,28 +218,28 @@ function WhyMembership() {
 function WhatYouGet() {
   const benefits = [
     {
-      title: "Access to Wells Gray Village & future network",
-      body: "Stay at the flagship property and, as the network grows, access future village locations on the same membership.",
+      title: "Golf access",
+      body: "Members can play the 9-hole golf course at Wells Gray Village — a beautiful course winding through the trees.",
+    },
+    {
+      title: "Free sauna on community days",
+      body: "Members get complimentary access to the wood-fired barrel sauna by the creek on scheduled community days.",
+    },
+    {
+      title: "Member pricing on paid programs",
+      body: "Discounts on forest school, immersions, workshops, and seasonal programs. The more you participate, the more you save.",
     },
     {
       title: "Priority access to programs & stays",
       body: "Members get first pick on seasonal residencies, immersions, workshops, and events before they open to the public.",
     },
     {
-      title: "Member pricing",
-      body: "Discounted rates on stays, programs, and experiences. The more you participate, the more you save.",
-    },
-    {
-      title: "Co-creation opportunities",
-      body: "Contribute ideas, skills, and energy to what gets built. Members who show up help shape the culture.",
-    },
-    {
-      title: "A backup plan for uncertain times",
-      body: "A real place with land, food, shelter, and community — available when you need it most.",
+      title: "Access to Wells Gray Village & future network",
+      body: "Stay at the flagship seasonal village near Clearwater, BC and, as the network grows, access future locations.",
     },
     {
       title: "Community connections",
-      body: "A growing network of founders, families, makers, and thinkers who are building this together.",
+      body: "A growing network of builders, families, entrepreneurs, and thinkers who are building this together.",
     },
   ];
 
@@ -254,8 +256,7 @@ function WhatYouGet() {
               <span className="italic">included</span>
             </h2>
             <p className="mt-8 text-sm leading-relaxed text-white/40 max-w-[38ch]">
-              Membership is annual and tiered based on desired involvement.
-              A call determines fit and tier before you commit.
+              Membership is annual. The entry tier is open to everyone — buy instantly with no review process. Higher tiers are available for deeper involvement.
             </p>
           </div>
 
@@ -331,11 +332,11 @@ function WhoItsFor() {
 
 function HowItWorks() {
   const steps = [
-    { n: "1", label: "Apply", body: "Tell us who you are and what you're looking for." },
-    { n: "2", label: "Conversation", body: "A call to ensure alignment and determine your membership tier." },
-    { n: "3", label: "Onboarding", body: "Access the portal, opportunities, and member event calendar." },
-    { n: "4", label: "Participate", body: "Join gatherings, programs, and seasonal events." },
-    { n: "5", label: "Opportunities", body: "Early invitations to residencies and deeper involvement." },
+    { n: "1", label: "Buy Now", body: "Choose your membership tier and purchase instantly — no application or call required for the entry tier." },
+    { n: "2", label: "Welcome", body: "Receive your welcome email with access details, the member calendar, and what's coming." },
+    { n: "3", label: "Show Up", body: "Visit Wells Gray Village, join community days, use your golf and sauna benefits." },
+    { n: "4", label: "Participate", body: "Join gatherings, programs, and seasonal events at member pricing." },
+    { n: "5", label: "Go Deeper", body: "Early invitations to immersions, residencies, and higher-tier membership options." },
   ];
 
   return (
@@ -376,71 +377,44 @@ function Apply() {
               <span className="italic">invitation.</span>
             </h2>
             <p className="mt-8 max-w-[45ch] text-base leading-relaxed text-white/75">
-              If you&apos;re feeling the pull toward seasonal village life — toward
-              meaningful connection, nature, creativity, and a more resilient way of
-              living — membership is the doorway.
+              If you&apos;re drawn to seasonal village life — to nature, meaningful connection, hands-on skills, and a more resilient way of living — membership is the doorway. Open to builders, families, entrepreneurs, and anyone who cares about community.
             </p>
             <p className="mt-4 max-w-[45ch] text-base leading-relaxed text-white/75">
-              Help shape the next evolution of how we live.
+              Be part of it from the beginning.
             </p>
           </div>
 
-          {/* Application form */}
-          <div className="rounded-2xl bg-white/10 p-8 lg:p-10">
-            <h3 className="text-lg font-medium text-white mb-6">Apply for membership</h3>
-            <form className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-medium uppercase tracking-wider text-white/50">
-                    First name
-                  </label>
-                  <input
-                    type="text"
-                    className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors"
-                    placeholder="Jane"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-medium uppercase tracking-wider text-white/50">
-                    Last name
-                  </label>
-                  <input
-                    type="text"
-                    className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors"
-                    placeholder="Horváth"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-medium uppercase tracking-wider text-white/50">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors"
-                  placeholder="jane@example.com"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-medium uppercase tracking-wider text-white/50">
-                  Tell us about yourself
-                </label>
-                <textarea
-                  rows={4}
-                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors resize-none"
-                  placeholder="Who are you, what draws you to this, and what you're hoping for from village life..."
-                />
-              </div>
-              <button
-                type="submit"
-                className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-medium text-amber transition-all hover:bg-white/90 active:scale-[0.98]"
-              >
-                Submit application <ArrowRight size={14} weight="bold" />
-              </button>
-              <p className="text-center text-xs text-white/40">
-                We review every application personally and reply within a few days.
-              </p>
-            </form>
+          {/* Buy Now */}
+          <div className="rounded-2xl bg-white/10 p-8 lg:p-10 flex flex-col justify-center">
+            <h3 className="text-lg font-medium text-white mb-4">Founding Membership</h3>
+            <p className="text-sm leading-relaxed text-white/60 mb-8">
+              The entry tier is publicly available — no application, no review call. Buy now and become a Founding Member. Higher tiers with deeper involvement are available — reach out directly.
+            </p>
+            <ul className="space-y-3 mb-10">
+              {[
+                "Golf access",
+                "Free sauna on community days",
+                "Member pricing on programs",
+                "Priority program access",
+                "Founding Member recognition",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-amber" />
+                  <span className="text-sm text-white/55">{item}</span>
+                </li>
+              ))}
+            </ul>
+            <a
+              href="https://wellsgrayresort.ca"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-medium text-amber transition-all hover:bg-white/90 active:scale-[0.98]"
+            >
+              Buy Now — Become a Member <ArrowRight size={14} weight="bold" />
+            </a>
+            <p className="text-center text-xs text-white/40 mt-4">
+              Open to locals near Clearwater, out-of-towners, and early supporters everywhere.
+            </p>
           </div>
         </div>
       </div>

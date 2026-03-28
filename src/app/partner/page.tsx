@@ -96,10 +96,10 @@ function Hero() {
             className="flex flex-col justify-center divide-y divide-white/10 border-y border-white/10"
           >
             {[
-              { label: "400-acre flagship site", sub: "Interior BC, operating for 5+ years" },
+              { label: "400-acre flagship site", sub: "Near Clearwater, BC — operating for 5+ years" },
               { label: "10M+ content views", sub: "Future Thinkers podcast & media ecosystem" },
               { label: "Phase 2 planning underway", sub: "Investor conversations in progress" },
-              { label: "Multi-entity ecosystem", sub: "Portal.Place · Wells Gray Village · Future Thinkers" },
+              { label: "Multi-entity ecosystem", sub: "Portal.Place · Future Thinkers · Wells Gray Resort / Village · Design Spore" },
             ].map((item) => (
               <div key={item.label} className="py-5">
                 <div className="text-sm font-medium text-white">{item.label}</div>
