@@ -37,14 +37,19 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div>
-            <Link href="/" className="inline-block">
-              <Image
-                src="/images/portalplace-logo-horizontal.png"
-                alt="Portal.Place"
-                width={140}
-                height={36}
-                className="h-7 w-auto"
-              />
+            <Link href="/" className="inline-flex items-center gap-2">
+              <div className="overflow-hidden shrink-0" style={{ height: "36px", width: "26px" }}>
+                <Image
+                  src="/images/portalplace-logo-vertical-white-738x1024.png"
+                  alt=""
+                  width={26}
+                  height={36}
+                  style={{ height: "63px", width: "auto" }}
+                />
+              </div>
+              <span className="text-[0.9rem] font-semibold tracking-tight text-white">
+                Portal.Place
+              </span>
             </Link>
             <p className="mt-4 text-sm text-white/60">
               A Smart Village in Wells Gray, BC.
