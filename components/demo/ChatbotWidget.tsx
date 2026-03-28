@@ -148,16 +148,16 @@ export default function ChatbotWidget({ config }: Props) {
             maxWidth: "calc(100vw - 2rem)",
             height: "calc(100dvh - 8rem)",
             maxHeight: "520px",
-            background: "#131719",
-            border: "1px solid rgba(var(--accent-rgb, 190,140,42), 0.2)",
-            boxShadow: "0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(190,140,42,0.06)",
+            background: "var(--bg-body, #131719)",
+            border: "1px solid color-mix(in srgb, var(--accent, #BE8C2A) 20%, transparent)",
+            boxShadow: "0 24px 64px rgba(0,0,0,0.6)",
           }}
         >
           {/* Header */}
           <div
             className="flex items-center justify-between px-4 py-3 shrink-0"
             style={{
-              background: "#0C1012",
+              background: "var(--bg-section, #0C1012)",
               borderBottom: "1px solid rgba(255,255,255,0.07)",
             }}
           >
@@ -209,8 +209,8 @@ export default function ChatbotWidget({ config }: Props) {
                     className="text-sm leading-relaxed rounded-xl px-3.5 py-2.5 max-w-[85%] whitespace-pre-wrap"
                     style={
                       msg.role === "user"
-                        ? { background: "var(--accent, #BE8C2A)", color: "#0C1012", fontWeight: 500 }
-                        : { background: "#1B2126", color: "rgba(255,255,255,0.85)", border: "1px solid rgba(255,255,255,0.07)" }
+                        ? { background: "var(--accent, #BE8C2A)", color: "var(--fg-primary-hex, #0C1012)", fontWeight: 500 }
+                        : { background: "var(--bg-raised, #1B2126)", color: "rgba(255,255,255,0.85)", border: "1px solid rgba(255,255,255,0.07)" }
                     }
                   >
                     {msg.content}
@@ -223,7 +223,7 @@ export default function ChatbotWidget({ config }: Props) {
               <div className="flex justify-start">
                 <div
                   className="rounded-xl px-3.5 py-3 flex gap-1 items-center"
-                  style={{ background: "#1B2126", border: "1px solid rgba(255,255,255,0.07)" }}
+                  style={{ background: "var(--bg-raised, #1B2126)", border: "1px solid rgba(255,255,255,0.07)" }}
                 >
                   {[0, 150, 300].map(delay => (
                     <span
@@ -277,7 +277,7 @@ export default function ChatbotWidget({ config }: Props) {
           >
             <div
               className="flex items-center gap-2 rounded-xl px-3 py-2.5"
-              style={{ background: "#1B2126", border: "1px solid rgba(255,255,255,0.09)" }}
+              style={{ background: "var(--bg-raised, #1B2126)", border: "1px solid rgba(255,255,255,0.09)" }}
             >
               <input
                 ref={inputRef}

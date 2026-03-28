@@ -165,13 +165,15 @@ export default function GuidedTour({ steps, portalDemoUrl, bookingUrl }: Props) 
     tooltipTop = Math.max(60, Math.min(tooltipTop, vh - TOOLTIP_H - 8));
   }
 
+  // Use a fragment — any wrapper div with an opacity animation creates a stacking
+  // context that traps child z-indices, causing the tour to render below z-50 elements.
   return (
-    <div className="tour-overlay">
+    <>
       {/* Dark overlay with elliptical cutout — all positions are viewport coords */}
       <div
-        className="fixed inset-0 z-[100] pointer-events-none"
+        className="fixed inset-0 z-[9000] pointer-events-none"
         style={{
-          background: "rgba(0,0,0,0.75)",
+          background: "rgba(0,0,0,0.78)",
           backdropFilter: "blur(1px)",
           WebkitMaskImage: targetRect
             ? `radial-gradient(ellipse ${targetRect.width / 2 + PADDING * 2}px ${targetRect.height / 2 + PADDING * 2}px at ${targetRect.left + targetRect.width / 2}px ${targetRect.top + targetRect.height / 2}px, transparent 60%, black 100%)`
@@ -185,28 +187,29 @@ export default function GuidedTour({ steps, portalDemoUrl, bookingUrl }: Props) 
       {/* Highlight ring */}
       {targetRect && (
         <div
-          className="fixed z-[101] pointer-events-none rounded-lg"
+          className="fixed z-[9001] pointer-events-none rounded-lg"
           style={{
             top: targetRect.top - PADDING,
             left: targetRect.left - PADDING,
             width: targetRect.width + PADDING * 2,
             height: targetRect.height + PADDING * 2,
-            border: "2px solid rgba(190,140,42,0.8)",
-            boxShadow: "0 0 0 4px rgba(190,140,42,0.12), 0 0 24px rgba(190,140,42,0.25)",
+            border: "2px solid color-mix(in srgb, var(--accent, #BE8C2A) 80%, transparent)",
+            boxShadow: "0 0 0 4px color-mix(in srgb, var(--accent, #BE8C2A) 12%, transparent), 0 0 24px color-mix(in srgb, var(--accent, #BE8C2A) 25%, transparent)",
           }}
         />
       )}
 
       {/* Tooltip */}
       <div
-        className="fixed z-[102] rounded-xl shadow-2xl"
+        className="fixed z-[9002] rounded-xl shadow-2xl"
         style={{
           top: tooltipTop,
           left: tooltipLeft,
           width: TOOLTIP_WIDTH,
-          background: "#1B2126",
-          border: "1px solid rgba(190,140,42,0.4)",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(190,140,42,0.08)",
+          background: "var(--bg-raised, #1B2126)",
+          border: "1px solid color-mix(in srgb, var(--accent, #BE8C2A) 35%, transparent)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.7)",
+          animation: "tour-spotlight 0.2s ease both",
         }}
       >
         {/* Arrow */}
@@ -223,7 +226,7 @@ export default function GuidedTour({ steps, portalDemoUrl, bookingUrl }: Props) 
                   width: 14, height: 7,
                   borderLeft: "7px solid transparent",
                   borderRight: "7px solid transparent",
-                  borderBottom: "7px solid rgba(190,140,42,0.4)",
+                  borderBottom: "7px solid color-mix(in srgb, var(--accent, #BE8C2A) 35%, transparent)",
                 }
               : {
                   bottom: -7,
@@ -234,7 +237,7 @@ export default function GuidedTour({ steps, portalDemoUrl, bookingUrl }: Props) 
                   width: 14, height: 7,
                   borderLeft: "7px solid transparent",
                   borderRight: "7px solid transparent",
-                  borderTop: "7px solid rgba(190,140,42,0.4)",
+                  borderTop: "7px solid color-mix(in srgb, var(--accent, #BE8C2A) 35%, transparent)",
                 }
           }
         />
@@ -242,7 +245,7 @@ export default function GuidedTour({ steps, portalDemoUrl, bookingUrl }: Props) 
         <div className="p-5">
           {/* Step counter */}
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "#BE8C2A" }}>
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "var(--accent, #BE8C2A)" }}>
               {stepIndex + 1} / {steps.length}
             </span>
             <button
@@ -276,7 +279,7 @@ export default function GuidedTour({ steps, portalDemoUrl, bookingUrl }: Props) 
                   style={{
                     width: i === stepIndex ? 16 : 6,
                     height: 6,
-                    background: i === stepIndex ? "#BE8C2A" : "rgba(255,255,255,0.18)",
+                    background: i === stepIndex ? "var(--accent, #BE8C2A)" : "rgba(255,255,255,0.18)",
                   }}
                   aria-label={`Go to step ${i + 1}`}
                 />
@@ -285,7 +288,7 @@ export default function GuidedTour({ steps, portalDemoUrl, bookingUrl }: Props) 
 
             <button
               onClick={next}
-              className="btn-gold text-xs flex items-center gap-1"
+              className="btn-primary text-xs flex items-center gap-1 px-3 py-1.5"
             >
               {!isLastStep ? (
                 <>Next <ArrowRight size={11} weight="bold" /></>
@@ -303,9 +306,9 @@ export default function GuidedTour({ steps, portalDemoUrl, bookingUrl }: Props) 
               rel="noopener noreferrer"
               className="mt-3 flex items-center justify-center gap-1.5 w-full rounded-lg py-2 text-xs font-semibold transition-all"
               style={{
-                background: "rgba(190,140,42,0.1)",
-                border: "1px solid rgba(190,140,42,0.3)",
-                color: "#BE8C2A",
+                background: "color-mix(in srgb, var(--accent, #BE8C2A) 10%, transparent)",
+                border: "1px solid color-mix(in srgb, var(--accent, #BE8C2A) 30%, transparent)",
+                color: "var(--accent, #BE8C2A)",
               }}
             >
               See Your Client Dashboard <ArrowRight size={11} weight="bold" />
@@ -315,7 +318,7 @@ export default function GuidedTour({ steps, portalDemoUrl, bookingUrl }: Props) 
       </div>
 
       {/* Click backdrop to advance */}
-      <div className="fixed inset-0 z-[99] cursor-pointer" onClick={next} aria-hidden="true" />
-    </div>
+      <div className="fixed inset-0 z-[8999] cursor-pointer" onClick={next} aria-hidden="true" />
+    </>
   );
 }
