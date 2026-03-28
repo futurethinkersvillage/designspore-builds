@@ -1,147 +1,143 @@
 "use client";
 
 import { useDemoQueue } from "./DemoQueueProvider";
-import { buildSchedule, type QueueEntry, type ScheduledMonth } from "@/lib/queue";
-import { getModuleById, tierConfig, type ModuleTier } from "@/lib/modules";
+import { buildSchedule, type QueueEntry } from "@/lib/queue";
+import { getModuleById, type ModuleTier } from "@/lib/modules";
 import TierBadge from "./TierBadge";
+import AllocationMeter from "./AllocationMeter";
 import Link from "next/link";
 
 interface QueueVisualProps {
   creditsPerMonth: number;
-  // For live users: server-fetched entries
   serverEntries?: QueueEntry[];
   isDemo?: boolean;
 }
 
-function CreditSlots({ used, total }: { used: number; total: number }) {
+function QueueEntry({
+  entry,
+  onRemove,
+}: {
+  entry: QueueEntry;
+  onRemove?: (moduleId: string) => void;
+}) {
+  const mod = getModuleById(entry.moduleId);
+  if (!mod) return null;
   return (
-    <div className="flex gap-1">
-      {Array.from({ length: total }).map((_, i) => (
-        <div
-          key={i}
-          className={`h-1.5 w-5 rounded-full transition-all ${
-            i < used ? "bg-gold" : "bg-white/[0.08]"
-          }`}
-        />
-      ))}
-    </div>
+    <li className="flex items-center justify-between gap-3 bg-card border border-white/[0.05] rounded-xl px-4 py-3">
+      <div className="flex items-center gap-2.5 min-w-0">
+        <TierBadge tier={mod.tier as ModuleTier} />
+        <span className="text-sm text-white truncate">{mod.name}</span>
+        {mod.recurring && (
+          <span className="text-[10px] text-white/25 shrink-0">↻ monthly</span>
+        )}
+      </div>
+      {onRemove && (
+        <button
+          onClick={() => onRemove(entry.moduleId)}
+          className="shrink-0 text-white/20 hover:text-red-400 transition-colors text-lg leading-none"
+          aria-label="Remove from queue"
+        >
+          ×
+        </button>
+      )}
+    </li>
   );
 }
 
-function MonthCard({
-  month,
+function QueueLayout({
+  entries,
+  creditsPerMonth,
   onRemove,
-  canRemove,
 }: {
-  month: ScheduledMonth;
+  entries: QueueEntry[];
+  creditsPerMonth: number;
   onRemove?: (moduleId: string) => void;
-  canRemove?: boolean;
 }) {
-  const empty = month.entries.length === 0;
-  const remaining = month.creditsTotal - month.creditsUsed;
+  const schedule = buildSchedule(entries, creditsPerMonth);
+  const currentMonth = schedule[0];
+  const futureEntries = schedule
+    .slice(1)
+    .flatMap((m) => m.entries);
+
+  const creditsUsed = currentMonth?.creditsUsed ?? 0;
 
   return (
-    <div
-      className={`rounded-2xl border p-5 space-y-4 transition-all ${
-        month.isCurrent
-          ? "border-gold/20 bg-gold/[0.03]"
-          : "border-white/[0.06] bg-raised"
-      }`}
-    >
-      {/* Month header */}
-      <div className="flex items-center justify-between gap-2">
-        <div>
-          <p
-            className={`text-xs font-semibold uppercase tracking-widest ${
-              month.isCurrent ? "text-gold" : "text-white/40"
-            }`}
-          >
-            {month.isCurrent ? "This month" : month.label.split(" — ")[0] ?? month.label}
+    <div className="space-y-5">
+      {/* Credit meter for this cycle */}
+      <div className="bg-raised border border-white/[0.06] rounded-2xl p-5 space-y-4">
+        <div className="flex items-center justify-between gap-4">
+          <p className="text-xs uppercase tracking-widest text-white/40 font-semibold">
+            This cycle · {currentMonth?.label ?? ""}
           </p>
-          {month.isCurrent && (
-            <p className="text-[11px] text-white/30 mt-0.5">
-              {month.label.replace("This month — ", "")}
-            </p>
-          )}
+          <p className="text-xs text-white/30 tabular-nums">
+            {creditsUsed} / {creditsPerMonth} credits
+          </p>
         </div>
-        <CreditSlots used={month.creditsUsed} total={month.creditsTotal} />
+        <AllocationMeter creditsUsed={creditsUsed} creditsTotal={creditsPerMonth} />
+
+        {/* Current month entries */}
+        {(currentMonth?.entries.length ?? 0) > 0 ? (
+          <ul className="space-y-2 pt-1">
+            {currentMonth.entries.map((e) => (
+              <QueueEntry key={e.moduleId} entry={e} onRemove={onRemove} />
+            ))}
+          </ul>
+        ) : (
+          <div className="border border-dashed border-white/[0.08] rounded-xl px-4 py-5 text-center">
+            <p className="text-xs text-white/25 mb-1">Nothing queued yet</p>
+            <Link
+              href="/modules"
+              className="text-xs text-gold/50 hover:text-gold transition-colors"
+            >
+              + Browse services
+            </Link>
+          </div>
+        )}
       </div>
 
-      {/* Entries */}
-      {empty ? (
-        <div className="border border-dashed border-white/[0.08] rounded-xl px-4 py-6 text-center">
-          <p className="text-xs text-white/25">
-            {remaining} credit{remaining !== 1 ? "s" : ""} available
+      {/* Next cycle overflow */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between gap-4">
+          <p className="text-xs uppercase tracking-widest text-white/30 font-semibold">
+            Next up in the following cycle
           </p>
           <Link
             href="/modules"
-            className="text-xs text-gold/50 hover:text-gold transition-colors mt-1 inline-block"
+            className="text-xs text-gold/50 hover:text-gold transition-colors"
           >
-            + Add a service
+            + Add service
           </Link>
         </div>
-      ) : (
-        <ul className="space-y-2">
-          {month.entries.map((entry) => {
-            const mod = getModuleById(entry.moduleId);
-            if (!mod) return null;
-            return (
-              <li
-                key={entry.moduleId}
-                className="flex items-center justify-between gap-3 bg-card border border-white/[0.05] rounded-xl px-4 py-3"
-              >
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <TierBadge tier={mod.tier as ModuleTier} />
-                  <span className="text-sm text-white truncate">{mod.name}</span>
-                  {mod.recurring && (
-                    <span className="text-[10px] text-white/25 shrink-0">↻ monthly</span>
-                  )}
-                </div>
-                {canRemove && onRemove && (
-                  <button
-                    onClick={() => onRemove(entry.moduleId)}
-                    className="shrink-0 text-white/20 hover:text-red-400 transition-colors text-lg leading-none"
-                    aria-label="Remove from queue"
-                  >
-                    ×
-                  </button>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      )}
 
-      {/* Remaining slots hint */}
-      {!empty && remaining > 0 && (
-        <p className="text-[11px] text-white/25">
-          {remaining} credit{remaining !== 1 ? "s" : ""} still available this month
-        </p>
-      )}
+        {futureEntries.length > 0 ? (
+          <ul className="space-y-2">
+            {futureEntries.map((e) => (
+              <QueueEntry key={e.moduleId} entry={e} onRemove={onRemove} />
+            ))}
+          </ul>
+        ) : (
+          <div className="border border-dashed border-white/[0.06] rounded-xl px-4 py-5 text-center">
+            <p className="text-xs text-white/20">
+              Services added beyond this month's credits will queue here automatically.
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
-// Demo version — reads from localStorage context
 function DemoQueueVisual({ creditsPerMonth }: { creditsPerMonth: number }) {
   const { entries, removeFromQueue } = useDemoQueue();
-  const schedule = buildSchedule(entries, creditsPerMonth);
-
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-      {schedule.map((month) => (
-        <MonthCard
-          key={month.month}
-          month={month}
-          onRemove={removeFromQueue}
-          canRemove
-        />
-      ))}
-    </div>
+    <QueueLayout
+      entries={entries}
+      creditsPerMonth={creditsPerMonth}
+      onRemove={removeFromQueue}
+    />
   );
 }
 
-// Live version — uses server-fetched entries (read-only visual)
 function LiveQueueVisual({
   creditsPerMonth,
   serverEntries,
@@ -149,15 +145,7 @@ function LiveQueueVisual({
   creditsPerMonth: number;
   serverEntries: QueueEntry[];
 }) {
-  const schedule = buildSchedule(serverEntries, creditsPerMonth);
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-      {schedule.map((month) => (
-        <MonthCard key={month.month} month={month} />
-      ))}
-    </div>
-  );
+  return <QueueLayout entries={serverEntries} creditsPerMonth={creditsPerMonth} />;
 }
 
 export default function QueueVisual({ creditsPerMonth, serverEntries, isDemo }: QueueVisualProps) {

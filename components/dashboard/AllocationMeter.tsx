@@ -22,7 +22,7 @@ export default function AllocationMeter({ creditsUsed, creditsTotal, compact }: 
           <div
             key={i}
             className={`rounded-full transition-all duration-300 ${
-              compact ? "w-2.5 h-2.5" : "w-3 h-3"
+              compact ? "w-5 h-1.5" : "w-3 h-3"
             } ${
               i < creditsUsed
                 ? "bg-gold"
