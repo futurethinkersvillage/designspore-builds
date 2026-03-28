@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { activations, users } from "@/lib/db/schema";
-import { eq, and } from "drizzle-orm";
+import { eq, and, gte } from "drizzle-orm";
 import {
   getModuleById,
   modules,
@@ -12,9 +12,11 @@ import {
   categoryLabels,
   type ModuleTier,
 } from "@/lib/modules";
-import { DEMO_USER, DEMO_ACTIVATIONS } from "@/lib/demo";
+import { getMonthKey } from "@/lib/queue";
+import { DEMO_USER } from "@/lib/demo";
 import TierBadge from "@/components/dashboard/TierBadge";
 import ActivateButton from "@/components/dashboard/ActivateButton";
+import DemoActivateWrapper from "@/components/dashboard/DemoActivateWrapper";
 import Link from "next/link";
 
 export function generateStaticParams() {
@@ -35,43 +37,48 @@ export default async function ModuleDetailPage({
   const isDemo =
     !!process.env.DEMO_SECRET && demoCookie?.value === process.env.DEMO_SECRET;
 
-  let creditsUsed = 0;
-  let monthlyCredits = 4;
+  let creditsNeeded = creditsForModule(mod);
   let isActivated = false;
 
-  if (isDemo) {
-    monthlyCredits = Math.floor(DEMO_USER.monthlyBudget / 375);
-    isActivated = DEMO_ACTIVATIONS.some((a) => a.moduleId === moduleId);
-    creditsUsed = DEMO_ACTIVATIONS.reduce((sum, a) => {
-      const m = getModuleById(a.moduleId);
-      return sum + (m ? creditsForModule(m) : 0);
-    }, 0);
-  } else {
+  if (!isDemo) {
     const session = await auth();
     if (!session?.user) redirect("/login");
-    const user = session.user as { id?: string; monthlyBudget?: number };
-    const [dbUser] = await db.select({ monthlyBudget: users.monthlyBudget })
-      .from(users).where(eq(users.id, user.id!));
-    monthlyCredits = Math.floor((dbUser?.monthlyBudget ?? 1500) / 375);
-    const periodMonth = new Date().toISOString().slice(0, 7);
-    const rows = await db.select({ moduleId: activations.moduleId })
-      .from(activations)
-      .where(and(eq(activations.userId, user.id!), eq(activations.periodMonth, periodMonth)));
-    isActivated = rows.some((r) => r.moduleId === moduleId);
-    creditsUsed = rows.reduce((sum, r) => {
-      const m = getModuleById(r.moduleId);
-      return sum + (m ? creditsForModule(m) : 0);
-    }, 0);
-  }
+    const user = session.user as { id?: string };
+    const currentMonth = getMonthKey(0);
 
-  const creditsNeeded = creditsForModule(mod);
-  const creditsRemaining = monthlyCredits - creditsUsed;
+    const [dbUser] = await db
+      .select({ monthlyBudget: users.monthlyBudget })
+      .from(users)
+      .where(eq(users.id, user.id!));
+
+    const rows = await db
+      .select({ moduleId: activations.moduleId, status: activations.status })
+      .from(activations)
+      .where(
+        and(
+          eq(activations.userId, user.id!),
+          gte(activations.periodMonth, currentMonth)
+        )
+      );
+
+    isActivated = rows.some(
+      (r) =>
+        r.moduleId === moduleId &&
+        r.status !== "cancelled" &&
+        r.status !== "completed"
+    );
+  }
 
   return (
     <div className="max-w-3xl mx-auto space-y-10">
       {/* Back */}
-      <Link href="/modules" className="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white transition-colors">
-        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+      <Link
+        href="/modules"
+        className="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white transition-colors"
+      >
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
         All services
       </Link>
 
@@ -79,6 +86,11 @@ export default async function ModuleDetailPage({
       <div className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
           <TierBadge tier={mod.tier as ModuleTier} showCredits />
+          {mod.recurring && (
+            <span className="text-[10px] uppercase tracking-widest text-white/30 font-medium border border-white/[0.08] rounded-full px-2 py-0.5">
+              ↻ Recurring monthly
+            </span>
+          )}
           <span className="text-[10px] uppercase tracking-widest text-white/30 font-medium">
             {categoryLabels[mod.category]}
           </span>
@@ -87,32 +99,45 @@ export default async function ModuleDetailPage({
         <p className="text-xl text-white/50 leading-relaxed">{mod.problemHeadline}</p>
       </div>
 
-      {/* Activate CTA — sticky feel at the top */}
+      {/* CTA box */}
       <div className="bg-raised border border-white/[0.07] rounded-2xl p-6 space-y-4">
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <div>
-            <p className="text-xs uppercase tracking-widest text-white/30 font-semibold mb-1">Cost</p>
+            <p className="text-xs uppercase tracking-widest text-white/30 font-semibold mb-1">
+              Cost
+            </p>
             <p className="text-lg font-semibold text-white">
               {creditsNeeded} credit{creditsNeeded > 1 ? "s" : ""}{" "}
-              <span className="text-sm font-normal text-white/40">— {tierConfig[mod.tier as ModuleTier].description}</span>
+              <span className="text-sm font-normal text-white/40">
+                — {tierConfig[mod.tier as ModuleTier].description}
+              </span>
             </p>
           </div>
-          <div className="text-right">
-            <p className="text-xs uppercase tracking-widest text-white/30 font-semibold mb-1">Remaining</p>
-            <p className="text-lg font-semibold text-white">
-              {creditsRemaining} / {monthlyCredits}
+          {mod.recurring && (
+            <p className="text-xs text-white/30 bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-1.5">
+              Renews each month · cancel anytime
             </p>
-          </div>
+          )}
         </div>
-        <ActivateButton
-          moduleId={mod.id}
-          moduleName={mod.name}
-          tier={mod.tier as ModuleTier}
-          creditsNeeded={creditsNeeded}
-          creditsRemaining={creditsRemaining}
-          isActivated={isActivated}
-          isDemo={isDemo}
-        />
+
+        {/* Demo wraps ActivateButton with queue context; live renders directly */}
+        {isDemo ? (
+          <DemoActivateWrapper
+            moduleId={mod.id}
+            moduleName={mod.name}
+            tier={mod.tier as ModuleTier}
+            creditsNeeded={creditsNeeded}
+          />
+        ) : (
+          <ActivateButton
+            moduleId={mod.id}
+            moduleName={mod.name}
+            tier={mod.tier as ModuleTier}
+            creditsNeeded={creditsNeeded}
+            isActivated={isActivated}
+            isDemo={false}
+          />
+        )}
       </div>
 
       {/* Problem */}
@@ -133,7 +158,7 @@ export default async function ModuleDetailPage({
         <p className="text-white/70 leading-relaxed">{mod.serviceMechanism}</p>
       </section>
 
-      {/* Business Outcome */}
+      {/* Outcome */}
       <section className="bg-gold/[0.04] border border-gold/10 rounded-2xl p-6 space-y-2">
         <h2 className="text-xs uppercase tracking-widest text-gold font-semibold">The Outcome</h2>
         <p className="text-white/80 leading-relaxed">{mod.businessOutcome}</p>
@@ -162,7 +187,10 @@ export default async function ModuleDetailPage({
               const dep = getModuleById(depId);
               return dep ? (
                 <li key={depId}>
-                  <Link href={`/modules/${depId}`} className="text-sm text-white/70 hover:text-gold transition-colors underline underline-offset-2">
+                  <Link
+                    href={`/modules/${depId}`}
+                    className="text-sm text-white/70 hover:text-gold transition-colors underline underline-offset-2"
+                  >
                     {dep.name}
                   </Link>
                 </li>
@@ -172,7 +200,7 @@ export default async function ModuleDetailPage({
         </section>
       )}
 
-      {/* Client requirements */}
+      {/* Requirements */}
       <section className="space-y-4">
         <h2 className="text-xs uppercase tracking-widest text-gold font-semibold">What We Need From You</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -216,15 +244,23 @@ export default async function ModuleDetailPage({
 
       {/* Bottom CTA */}
       <div className="pt-4">
-        <ActivateButton
-          moduleId={mod.id}
-          moduleName={mod.name}
-          tier={mod.tier as ModuleTier}
-          creditsNeeded={creditsNeeded}
-          creditsRemaining={creditsRemaining}
-          isActivated={isActivated}
-          isDemo={isDemo}
-        />
+        {isDemo ? (
+          <DemoActivateWrapper
+            moduleId={mod.id}
+            moduleName={mod.name}
+            tier={mod.tier as ModuleTier}
+            creditsNeeded={creditsNeeded}
+          />
+        ) : (
+          <ActivateButton
+            moduleId={mod.id}
+            moduleName={mod.name}
+            tier={mod.tier as ModuleTier}
+            creditsNeeded={creditsNeeded}
+            isActivated={isActivated}
+            isDemo={false}
+          />
+        )}
       </div>
     </div>
   );

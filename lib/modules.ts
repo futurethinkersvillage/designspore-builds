@@ -32,6 +32,12 @@ export interface Module {
   problemDescription: string;
   category: ModuleCategory;
   tier: ModuleTier;
+  /**
+   * If true, this module renews automatically each month once activated.
+   * Clients can cancel recurring modules from My Modules.
+   * Mike manages fulfillment on a monthly cadence.
+   */
+  recurring?: boolean;
   shortDescription: string;
   serviceMechanism: string;
   businessOutcome: string;
@@ -549,6 +555,164 @@ export const modules: Module[] = [
     ],
     ctaLabel: "Activate Website Build",
   },
+
+  // ── Recurring modules ────────────────────────────────────────────────
+  // These renew each month automatically. 1 credit = 1 Quick Win slot.
+  {
+    id: "chatbot-maintenance",
+    name: "Chatbot Maintenance",
+    tier: 3 as ModuleTier,
+    recurring: true,
+    problemHeadline: "Your chatbot is only as good as its last update.",
+    problemDescription:
+      "Services change, prices shift, new FAQs emerge — a chatbot that was accurate six months ago is quietly giving wrong answers today. Without ongoing tuning, it erodes trust instead of building it.",
+    category: "automation",
+    shortDescription: "Monthly tuning, content updates, and performance review for your active chatbot.",
+    serviceMechanism:
+      "Each month we review your chatbot's conversation logs, update it with any new information you provide, adjust responses that are underperforming, and confirm it's routing enquiries correctly.",
+    businessOutcome: "A chatbot that stays accurate, relevant, and effective month after month without you having to think about it.",
+    whyItMatters: "A well-maintained chatbot compounds in value — it gets smarter about your business over time.",
+    estimatedValue: 375,
+    includedDeliverables: [
+      "Monthly conversation log review",
+      "Content and FAQ updates",
+      "Response quality adjustments",
+      "Performance summary",
+    ],
+    clientRequirements: ["Active chatbot from DesignSpore", "Monthly updates or changes (if any)"],
+    accessRequirements: ["Chatbot platform access"],
+    dependencies: ["chatbot-setup"],
+    reviewProcess: "We review logs proactively — you only need to flag anything specific.",
+    revisionExpectations: "Changes applied within 5 business days of each month.",
+    idealBusinessType: ["trades", "home-services", "medical", "consulting", "real-estate", "coaching"],
+    tags: ["chatbot", "maintenance", "recurring", "monthly"],
+    recommendedWhen: ["You have an active chatbot", "Your services or pricing change regularly"],
+    ctaLabel: "Subscribe Monthly",
+  },
+  {
+    id: "reputation-management",
+    name: "Reputation Management",
+    tier: 3 as ModuleTier,
+    recurring: true,
+    problemHeadline: "Reviews are coming in — but no one's responding.",
+    problemDescription:
+      "Unanswered reviews signal to Google and to future customers that you don't care. A single negative review left sitting for weeks can quietly cost you more than you'd expect.",
+    category: "reputation",
+    shortDescription: "Monthly review monitoring, response writing, and flagging for your business.",
+    serviceMechanism:
+      "We monitor your Google, Facebook, and other review platforms monthly. We write and post professional responses to new reviews (positive and negative) in your brand voice, flag anything that needs your direct attention, and track your overall rating trend.",
+    businessOutcome: "A business that looks responsive, professional, and trustworthy to every prospective customer who checks your reviews.",
+    whyItMatters: "93% of consumers read reviews before buying. Responding to them boosts your ranking and your conversion rate.",
+    estimatedValue: 375,
+    includedDeliverables: [
+      "Review monitoring (Google, Facebook, + 1 other)",
+      "Professional responses written in your voice",
+      "Monthly review summary",
+      "Escalation of concerning reviews",
+    ],
+    clientRequirements: ["Access to review platforms or management tool"],
+    accessRequirements: ["Google Business Profile access", "Facebook Page access"],
+    dependencies: [],
+    reviewProcess: "We handle all responses directly. You receive a monthly summary.",
+    revisionExpectations: "Responses can be adjusted within 48 hours of posting if needed.",
+    idealBusinessType: ["trades", "home-services", "medical", "hospitality", "real-estate", "e-commerce"],
+    tags: ["reviews", "reputation", "google", "recurring", "monthly"],
+    recommendedWhen: ["You get regular reviews but don't respond", "You've had a negative review recently"],
+    ctaLabel: "Subscribe Monthly",
+  },
+  {
+    id: "seo-health-check",
+    name: "SEO Health Check",
+    tier: 3 as ModuleTier,
+    recurring: true,
+    problemHeadline: "Your website could be losing rankings and you'd never know.",
+    problemDescription:
+      "Search engines change their algorithms constantly. Broken links, slow pages, missing schema, and outdated content gradually push you down the results page — silently costing you leads.",
+    category: "website",
+    shortDescription: "Monthly SEO audit and small fixes to keep your site ranking well.",
+    serviceMechanism:
+      "Each month we run a technical SEO audit on your site — checking speed, broken links, meta tags, schema markup, and crawl errors. We fix anything minor directly and flag anything requiring larger work.",
+    businessOutcome: "A website that holds and grows its search rankings without you having to understand SEO.",
+    whyItMatters: "Organic search is the highest-ROI traffic channel. Letting it decay costs you compounding leads over time.",
+    estimatedValue: 375,
+    includedDeliverables: [
+      "Monthly technical SEO audit",
+      "Fix of minor issues (meta, broken links, redirects)",
+      "Speed check",
+      "Monthly ranking snapshot",
+    ],
+    clientRequirements: ["Website built by DesignSpore (or access to your CMS)"],
+    accessRequirements: ["Google Search Console access", "Website CMS access"],
+    dependencies: [],
+    reviewProcess: "Audit and fixes handled proactively. Monthly report delivered to your inbox.",
+    revisionExpectations: "Minor fixes applied within 5 business days.",
+    idealBusinessType: ["trades", "home-services", "consulting", "real-estate", "e-commerce", "medical"],
+    tags: ["seo", "website", "maintenance", "recurring", "monthly"],
+    recommendedWhen: ["You rely on Google search for leads", "Your site hasn't been touched in months"],
+    ctaLabel: "Subscribe Monthly",
+  },
+  {
+    id: "lead-list-refresh",
+    name: "Lead List Refresh",
+    tier: 2 as ModuleTier,
+    recurring: true,
+    problemHeadline: "Your outbound list goes stale faster than you think.",
+    problemDescription:
+      "People change jobs, businesses move, and contact details go cold. An outbound list that was accurate 90 days ago may have 30%+ decay — and emailing dead addresses kills your deliverability.",
+    category: "lead-generation",
+    shortDescription: "Monthly refresh of your lead list with new verified contacts matching your ICP.",
+    serviceMechanism:
+      "Each month we pull a fresh batch of verified contacts matching your ideal client profile — correct job titles, industry, company size, and location. We clean existing contacts, add new ones, and remove bounces or unsubscribes.",
+    businessOutcome: "A live, growing pipeline of fresh contacts who match exactly who you want to work with.",
+    whyItMatters: "A healthy outbound list is your most reliable source of predictable new business — but only if it's current.",
+    estimatedValue: 750,
+    includedDeliverables: [
+      "50–100 new verified contacts per month",
+      "Existing list cleaning (removes bounces, duplicates)",
+      "ICP-matched filtering",
+      "Delivery to your CRM or spreadsheet",
+    ],
+    clientRequirements: ["Defined ideal client profile (ICP)", "Existing CRM or spreadsheet"],
+    accessRequirements: ["CRM access for import"],
+    dependencies: ["lead-sourcing"],
+    reviewProcess: "List delivered by the 5th of each month for review before use.",
+    revisionExpectations: "ICP filters can be adjusted monthly based on your feedback.",
+    idealBusinessType: ["agencies", "consulting", "b2b-services", "financial-services", "real-estate"],
+    tags: ["leads", "outbound", "list", "recurring", "monthly"],
+    recommendedWhen: ["You're running outbound campaigns", "Your lead volume is inconsistent"],
+    ctaLabel: "Subscribe Monthly",
+  },
+  {
+    id: "monthly-analytics",
+    name: "Monthly Analytics Report",
+    tier: 3 as ModuleTier,
+    recurring: true,
+    problemHeadline: "You're flying blind on what's actually working.",
+    problemDescription:
+      "Without a clear monthly view of what's driving leads and what's not, you make guesses instead of decisions. Most business owners have data — they just never look at it in one place.",
+    category: "operations",
+    shortDescription: "A clear monthly report covering website traffic, leads, chatbot performance, and campaign results.",
+    serviceMechanism:
+      "Each month we pull data from your active systems (website, chatbot, lead gen, ads if applicable), synthesise it into a plain-English report, and give you 3 specific recommendations for the next month.",
+    businessOutcome: "A monthly 10-minute read that tells you exactly what's working, what's not, and what to do about it.",
+    whyItMatters: "The businesses that grow fastest aren't necessarily doing more — they're doing more of what works and less of what doesn't.",
+    estimatedValue: 375,
+    includedDeliverables: [
+      "Monthly performance report (website, leads, chatbot)",
+      "Top 3 recommendations for next month",
+      "Trend vs. prior month",
+      "Plain-English summary — no jargon",
+    ],
+    clientRequirements: ["Active DesignSpore systems (at least 1 service running)"],
+    accessRequirements: ["Google Analytics / Search Console access", "Access to any active platform dashboards"],
+    dependencies: [],
+    reviewProcess: "Delivered by the 7th of each month via email.",
+    revisionExpectations: "Report format can be adjusted after the first delivery.",
+    idealBusinessType: ["trades", "home-services", "consulting", "real-estate", "agencies", "e-commerce"],
+    tags: ["analytics", "reporting", "insights", "recurring", "monthly"],
+    recommendedWhen: ["You have 2+ active services running", "You want to know if your investment is working"],
+    ctaLabel: "Subscribe Monthly",
+  },
 ];
 
 export function getModuleById(id: string): Module | undefined {
@@ -561,6 +725,14 @@ export function getModulesByCategory(category: ModuleCategory): Module[] {
 
 export function getModulesByTier(tier: ModuleTier): Module[] {
   return modules.filter((m) => m.tier === tier);
+}
+
+export function getRecurringModules(): Module[] {
+  return modules.filter((m) => m.recurring);
+}
+
+export function getOneTimeModules(): Module[] {
+  return modules.filter((m) => !m.recurring);
 }
 
 export function creditsForModule(mod: Module): number {

@@ -1,10 +1,10 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { DEMO_USER } from "@/lib/demo";
 import Sidebar from "@/components/dashboard/Sidebar";
 import Topbar from "@/components/dashboard/Topbar";
 import DemoBanner from "@/components/dashboard/DemoBanner";
+import { DemoQueueProvider } from "@/components/dashboard/DemoQueueProvider";
 
 export default async function PortalLayout({
   children,
@@ -21,7 +21,7 @@ export default async function PortalLayout({
     if (!session) redirect("/login");
   }
 
-  return (
+  const inner = (
     <div className="flex flex-col min-h-screen bg-dark">
       {isDemo && <DemoBanner />}
       <div className="flex flex-1 min-h-0">
@@ -33,4 +33,6 @@ export default async function PortalLayout({
       </div>
     </div>
   );
+
+  return isDemo ? <DemoQueueProvider>{inner}</DemoQueueProvider> : inner;
 }
