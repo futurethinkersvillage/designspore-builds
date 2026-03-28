@@ -42,7 +42,7 @@ function Hero() {
             Advisory — Hospitality & Resilient Communities
           </motion.p>
 
-          <div className="overflow-hidden pb-[0.15em] -mb-[0.15em]">
+          <div className="overflow-hidden pb-10 -mb-10">
             <motion.h1
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
@@ -52,7 +52,7 @@ function Hero() {
               Smart Village
             </motion.h1>
           </div>
-          <div className="overflow-hidden pb-[0.15em] -mb-[0.15em]">
+          <div className="overflow-hidden pb-10 -mb-10">
             <motion.h1
               initial={{ y: "100%" }}
               animate={{ y: 0 }}

@@ -3,7 +3,6 @@ import { Geist } from "next/font/google";
 import { Cormorant } from "next/font/google";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
-import { VariantSwitcher } from "@/components/ui/VariantSwitcher";
 import { ChatWidget } from "@/components/ui/ChatWidget";
 import "./globals.css";
 
@@ -38,8 +37,7 @@ export default function RootLayout({
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
-        <VariantSwitcher />
-        <ChatWidget />
+<ChatWidget />
       </body>
     </html>
   );
