@@ -41,14 +41,19 @@ export function Nav() {
     <header className="fixed top-0 z-50 w-full">
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 lg:px-16">
         {/* Logo */}
-        <Link href="/" className="shrink-0">
-          <Image
-            src="/images/portalplace-logo-horizontal.png"
-            alt="Portal.Place"
-            width={140}
-            height={36}
-            className="h-8 w-auto"
-          />
+        <Link href="/" className="shrink-0 flex items-center gap-2.5">
+          <div className="h-8 overflow-hidden shrink-0" style={{ width: "42px" }}>
+            <Image
+              src="/images/portalplace-logo-vertical-white-738x1024.png"
+              alt=""
+              width={42}
+              height={58}
+              style={{ height: "58px", width: "auto" }}
+            />
+          </div>
+          <span className="font-serif text-[1.05rem] font-light tracking-wide text-white">
+            Portal.Place
+          </span>
         </Link>
 
         {/* Desktop nav */}

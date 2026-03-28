@@ -75,7 +75,7 @@ function Hero() {
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-[clamp(4rem,13vw,12rem)] font-light leading-[0.88] tracking-tighter text-white"
+            className="font-serif text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[0.88] tracking-tighter text-white"
           >
             Building
           </motion.h1>
@@ -85,7 +85,7 @@ function Hero() {
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-[clamp(4rem,13vw,12rem)] italic font-light leading-[0.88] tracking-tighter text-amber"
+            className="font-serif text-[clamp(2.5rem,5vw,4.5rem)] italic font-light leading-[0.88] tracking-tighter text-amber"
           >
             resilient
           </motion.h1>
@@ -95,7 +95,7 @@ function Hero() {
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-[clamp(4rem,13vw,12rem)] font-light leading-[0.88] tracking-tighter text-white"
+            className="font-serif text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[0.88] tracking-tighter text-white"
           >
             communities
           </motion.h1>
@@ -105,7 +105,7 @@ function Hero() {
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.21, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-[clamp(4rem,13vw,12rem)] font-light leading-[0.88] tracking-tighter text-white"
+            className="font-serif text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[0.88] tracking-tighter text-white"
           >
             for what comes next.
           </motion.h1>
@@ -313,7 +313,7 @@ function DayInVillage() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
-              className="flex items-center gap-6 px-0 py-6 lg:px-8 lg:first:pl-0 lg:even:pl-8"
+              className="flex items-center gap-6 px-0 py-6 lg:px-8"
             >
               <span className="w-14 shrink-0 font-mono text-sm text-white/20">{item.time}</span>
               <item.icon size={14} weight="light" className="shrink-0 text-amber" />
