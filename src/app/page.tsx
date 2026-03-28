@@ -70,7 +70,7 @@ function Hero() {
 
       <div className="relative mx-auto max-w-[1400px] px-6 pt-32 pb-0 lg:px-16">
         {/* Oversized headline — left aligned, intentionally large */}
-        <div className="overflow-hidden pb-[0.35em] -mb-[0.35em] pl-[0.08em] -ml-[0.08em]">
+        <div className="overflow-hidden pb-10 -mb-10 pl-[0.08em] -ml-[0.08em]">
           <motion.h1
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
@@ -80,7 +80,7 @@ function Hero() {
             Building
           </motion.h1>
         </div>
-        <div className="overflow-hidden pb-[0.35em] -mb-[0.35em] pl-[0.08em] -ml-[0.08em]">
+        <div className="overflow-hidden pb-10 -mb-10 pl-[0.08em] -ml-[0.08em]">
           <motion.h1
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
@@ -90,7 +90,7 @@ function Hero() {
             resilient
           </motion.h1>
         </div>
-        <div className="overflow-hidden pb-[0.35em] -mb-[0.35em] pl-[0.08em] -ml-[0.08em]">
+        <div className="overflow-hidden pb-10 -mb-10 pl-[0.08em] -ml-[0.08em]">
           <motion.h1
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
@@ -100,7 +100,7 @@ function Hero() {
             communities
           </motion.h1>
         </div>
-        <div className="overflow-hidden pb-[0.35em] -mb-[0.35em] pl-[0.08em] -ml-[0.08em]">
+        <div className="overflow-hidden pb-10 -mb-10 pl-[0.08em] -ml-[0.08em]">
           <motion.h1
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
