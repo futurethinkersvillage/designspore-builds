@@ -10,6 +10,7 @@
   "email": "sean@sgmcarpentry.ca",
   "website": "https://sgmcarpentry.ca",
   "logoUrl": null,
+  "heroImageUrl": "/images/hero.jpg",
   "accentColor": "#A07850",
   "accentColorLight": "#C4986A",
   "accentColorDark": "#7A5A38",
