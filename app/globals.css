@@ -52,7 +52,7 @@ body {
    TYPOGRAPHY
 ───────────────────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display-active, var(--font-outfit, system-ui));
+  font-family: var(--font-display-active, var(--font-fraunces, var(--font-outfit, system-ui)));
   font-weight: 700;
   font-optical-sizing: auto;
 }
@@ -98,6 +98,11 @@ h1, h2, h3, h4 { text-wrap: balance; }
   --bg-raised:        #1B2126;
   --bg-card-alt:      #212A31;
 
+  --bg-warm-dark:     #13100E;
+  --bg-warm-section:  #1C1510;
+  --bg-warm-card:     #231A13;
+  --bg-warm-raised:   #2A1F18;
+
   --fg-primary-hex:   #FFFFFF;
   --fg-r: 255; --fg-g: 255; --fg-b: 255;   /* RGB channels for opacity math */
 
@@ -124,6 +129,11 @@ html[data-theme="light"] {
   --bg-card:          #FFFFFF;
   --bg-raised:        #F0EDE9;
   --bg-card-alt:      #E8E5E0;
+
+  --bg-warm-dark:     #F7F4EF;
+  --bg-warm-section:  #EDE9E3;
+  --bg-warm-card:     #FFFFFF;
+  --bg-warm-raised:   #F0EBE4;
 
   --fg-primary-hex:   #0C1012;
   --fg-r: 12; --fg-g: 16; --fg-b: 18;

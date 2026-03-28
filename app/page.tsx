@@ -3,6 +3,7 @@ import type { DemoConfig } from "@/lib/demo-config";
 import DemoHeader from "@/components/layout/DemoHeader";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ContactForm from "@/components/ui/ContactForm";
+import FAQAccordion from "@/components/ui/FAQAccordion";
 import ChatbotWidget from "@/components/demo/ChatbotWidget";
 import {
   ArrowRight,
@@ -14,33 +15,31 @@ import {
   Quotes,
 } from "@phosphor-icons/react/dist/ssr";
 
-const config = demoConfigRaw as DemoConfig & { address?: string; portalDemoUrl?: string };
+const config = demoConfigRaw as DemoConfig & { address?: string; portalDemoUrl?: string; heroImageUrl?: string };
 
-// ── Process steps — override via config in future if needed ──────────────────
 const PROCESS_STEPS = [
-  { num: "01", title: "Get in Touch", desc: "Call, email, or fill out the form. We respond the same day." },
-  { num: "02", title: "Free Quote", desc: "We visit the site, assess the scope, and give you a detailed estimate." },
-  { num: "03", title: "We Get to Work", desc: "Skilled crew, quality materials, and consistent communication throughout." },
-  { num: "04", title: "Final Walkthrough", desc: "We review every detail with you before signing off. No surprises." },
+  { num: "01", title: "Get in Touch", desc: "Call, text, or fill out the form. We get back to you the same day." },
+  { num: "02", title: "Free Site Visit", desc: "We come to you, assess the scope, and give you a detailed written estimate." },
+  { num: "03", title: "We Build It", desc: "Skilled crew, quality materials, clear communication at every stage." },
+  { num: "04", title: "Final Sign-Off", desc: "We walk through every detail with you before the job is done. No surprises." },
 ];
 
-// ── Placeholder reviews — swap for real ones via config ───────────────────────
 const REVIEWS = [
   {
     name: "D. Hartmann",
-    text: "Sean was communicative from start to finish. The deck turned out better than we imagined — solid craftsmanship and they left the site clean.",
+    text: "Sean was communicative from day one. The deck came out better than we imagined — solid craftsmanship, clean site, done on schedule.",
     rating: 5,
     project: "Deck Build",
   },
   {
     name: "T. Renwick",
-    text: "Got quotes from three contractors. SGM was upfront about costs, stuck to the timeline, and the kitchen reno came out exactly as planned.",
+    text: "Got quotes from three contractors. SGM was the most upfront about costs, stuck to the timeline, and the kitchen reno came out exactly as planned.",
     rating: 5,
     project: "Kitchen Renovation",
   },
   {
     name: "M. Calloway",
-    text: "Responsive, respectful of our home, and genuinely good work. We've already referred two neighbours.",
+    text: "Respectful of our home, great attention to detail, and genuinely good craftsmanship. We've already referred two neighbours.",
     rating: 5,
     project: "Interior Carpentry",
   },
@@ -56,169 +55,260 @@ export default function HomePage() {
         className="relative min-h-[100dvh] flex items-center"
         style={{
           background: `
-            radial-gradient(ellipse 80% 60% at 20% 100%, color-mix(in srgb, var(--accent, #BE8C2A) 7%, transparent), transparent 60%),
-            radial-gradient(ellipse 60% 40% at 80% 0%, color-mix(in srgb, var(--accent, #BE8C2A) 5%, transparent), transparent 55%),
-            var(--bg-body)`,
+            radial-gradient(ellipse 70% 55% at 5% 95%, color-mix(in srgb, var(--accent, #6B4423) 9%, transparent), transparent 60%),
+            radial-gradient(ellipse 50% 40% at 90% 5%, color-mix(in srgb, var(--accent, #6B4423) 5%, transparent), transparent 55%),
+            var(--bg-warm-dark, #13100E)`,
         }}
       >
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.035]"
-          style={{
-            backgroundImage: "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-          }}
-          aria-hidden="true"
-        />
+        <div className="relative max-w-6xl mx-auto px-5 md:px-10 py-28 md:py-36 w-full">
+          <div className="grid md:grid-cols-[1fr_420px] gap-14 lg:gap-20 items-center">
 
-        <div className="relative max-w-6xl mx-auto px-5 md:px-8 py-24 md:py-32 w-full">
-          {config.heroStyle === "split" ? (
-            <div className="grid md:grid-cols-[3fr_2fr] gap-12 items-center">
-              {/* Left: copy */}
-              <div>
-                <p className="hero-in hero-in-1 section-label mb-5">
-                  {config.location} · {config.industry}
-                </p>
-                <h1 className="hero-in hero-in-2 text-4xl md:text-5xl lg:text-[3.5rem] font-black mb-6 text-white" style={{ lineHeight: "1.05" }}>
-                  {config.tagline}
-                </h1>
-                <p className="hero-in hero-in-3 text-lg text-white/60 mb-8 leading-relaxed max-w-lg">
-                  {config.subtagline}
-                </p>
-                <div className="hero-in hero-in-4 flex flex-col sm:flex-row gap-3">
-                  <a href="#demo-contact" className="btn-primary text-base px-7 py-4 flex items-center gap-2">
-                    Get a Free Quote <ArrowRight size={18} weight="bold" />
-                  </a>
-                  {config.phone && (
-                    <a href={`tel:${config.phone}`} className="btn-outline text-base px-7 py-4 flex items-center gap-2">
-                      <Phone size={16} /> {config.phone}
-                    </a>
-                  )}
-                </div>
+            {/* Left: copy */}
+            <div>
+              <p
+                className="hero-in hero-in-1 text-xs font-bold tracking-widest uppercase mb-7"
+                style={{ color: "color-mix(in srgb, var(--accent, #6B4423) 70%, #fff)" }}
+              >
+                {config.location} &nbsp;·&nbsp; {config.industry}
+              </p>
 
-                {/* Trust signals */}
-                <div className="hero-in hero-in-4 flex flex-wrap items-center gap-4 mt-8">
-                  {["Licensed & Insured", "Free Estimates", "Kamloops & BC Interior"].map(badge => (
-                    <div key={badge} className="flex items-center gap-1.5">
-                      <CheckCircle size={14} style={{ color: "var(--accent, #BE8C2A)" }} />
-                      <span className="text-white/50 text-sm">{badge}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right: image placeholder */}
-              <div className="hero-in hero-in-3 relative">
-                <div
-                  className="aspect-[4/3] rounded-2xl overflow-hidden flex items-end p-6"
-                  style={{
-                    background: "var(--bg-raised)",
-                    border: "1px solid var(--border-base)",
-                  }}
-                >
-                  {/* Image goes here — add via config.heroImageUrl */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <p className="text-white/15 text-sm text-center px-6">Hero image<br />goes here</p>
-                  </div>
-                  <div
-                    className="relative z-10 rounded-xl px-4 py-3 w-full"
-                    style={{ background: "color-mix(in srgb, var(--bg-section) 90%, transparent)", backdropFilter: "blur(8px)", border: "1px solid var(--border-base)" }}
-                  >
-                    <p className="text-white font-semibold text-sm">{config.businessName}</p>
-                    <p className="text-white/45 text-xs mt-0.5">{config.location}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            /* minimal */
-            <div className="max-w-3xl">
-              <p className="hero-in hero-in-1 section-label mb-5">{config.location} · {config.industry}</p>
-              <h1 className="hero-in hero-in-2 text-5xl md:text-6xl font-black mb-6 text-white" style={{ lineHeight: "1.05" }}>
+              <h1
+                className="hero-in hero-in-2 text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-white"
+                style={{ lineHeight: "0.95", letterSpacing: "-0.025em" }}
+              >
                 {config.tagline}
               </h1>
-              <p className="hero-in hero-in-3 text-xl text-white/60 mb-8 leading-relaxed">{config.subtagline}</p>
+
+              <p className="hero-in hero-in-3 text-lg text-white/55 mb-10 leading-relaxed max-w-md">
+                {config.subtagline}
+              </p>
+
               <div className="hero-in hero-in-4 flex flex-col sm:flex-row gap-3">
-                <a href="#demo-contact" className="btn-primary text-base px-8 py-4 flex items-center gap-2">
-                  Get a Free Quote <ArrowRight size={18} weight="bold" />
+                <a href="#demo-contact" className="btn-primary text-sm px-7 py-4 flex items-center gap-2">
+                  Get a Free Quote <ArrowRight size={16} weight="bold" />
                 </a>
                 {config.phone && (
-                  <a href={`tel:${config.phone}`} className="btn-outline text-base px-8 py-4 flex items-center gap-2">
-                    <Phone size={16} /> {config.phone}
+                  <a href={`tel:${config.phone}`} className="btn-outline text-sm px-7 py-4 flex items-center gap-2">
+                    <Phone size={15} /> {config.phone}
                   </a>
                 )}
               </div>
+
+              <div className="hero-in hero-in-4 flex flex-wrap items-center gap-5 mt-9">
+                {["Licensed & Insured", "Free Estimates", `${config.location} & BC Interior`].map(badge => (
+                  <div key={badge} className="flex items-center gap-1.5">
+                    <CheckCircle size={13} weight="fill" style={{ color: "color-mix(in srgb, var(--accent, #6B4423) 80%, #fff)" }} />
+                    <span className="text-white/40 text-xs font-medium">{badge}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          )}
+
+            {/* Right: hero image */}
+            <div className="hero-in hero-in-3 relative hidden md:block">
+              <div
+                className="relative aspect-[3/4] rounded-2xl overflow-hidden"
+                style={{
+                  background: "var(--bg-warm-card, #231A13)",
+                  border: "1px solid color-mix(in srgb, var(--accent, #6B4423) 20%, transparent)",
+                  boxShadow: "0 32px 80px rgba(0,0,0,0.45)",
+                }}
+              >
+                {config.heroImageUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={config.heroImageUrl}
+                    alt={config.businessName}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: `
+                        radial-gradient(ellipse 80% 60% at 30% 70%, color-mix(in srgb, var(--accent, #6B4423) 18%, transparent), transparent),
+                        var(--bg-warm-card, #231A13)`,
+                    }}
+                  >
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <p className="text-white/10 text-xs text-center px-6 leading-relaxed">
+                        Hero photo<br />goes here
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {/* Business nameplate overlay */}
+                <div
+                  className="absolute bottom-5 left-5 right-5 rounded-xl px-4 py-3"
+                  style={{
+                    background: "color-mix(in srgb, var(--bg-warm-dark, #13100E) 85%, transparent)",
+                    backdropFilter: "blur(12px)",
+                    border: "1px solid color-mix(in srgb, var(--accent, #6B4423) 15%, transparent)",
+                  }}
+                >
+                  <p className="text-white font-semibold text-sm">{config.businessName}</p>
+                  <p className="text-white/35 text-xs mt-0.5">{config.location}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ── SERVICES ──────────────────────────────────────────────── */}
-      <section id="demo-services" className="section-pad bg-darker">
-        <div className="max-w-6xl mx-auto px-5 md:px-8">
+      <section
+        id="demo-services"
+        className="section-pad"
+        style={{ background: "var(--bg-warm-section, #1C1510)" }}
+      >
+        <div className="max-w-5xl mx-auto px-5 md:px-10">
           <ScrollReveal>
-            <p className="section-label">What We Do</p>
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-12">
-              Our Services
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal variant="stagger">
-            <div className="grid sm:grid-cols-2 gap-px" style={{ background: "var(--border-base)", borderRadius: "1rem", overflow: "hidden" }}>
-              {config.services.map((service, i) => (
-                <div
-                  key={service.name}
-                  className="p-7 group"
-                  style={{ background: "var(--bg-card)" }}
+            <div className="flex items-end justify-between gap-6 mb-14 flex-wrap">
+              <div>
+                <p
+                  className="text-xs font-bold tracking-widest uppercase mb-3"
+                  style={{ color: "color-mix(in srgb, var(--accent, #6B4423) 70%, #fff)" }}
                 >
-                  <div className="flex items-start gap-4">
-                    <span
-                      className="text-xs font-black mt-0.5 shrink-0 w-6 h-6 rounded flex items-center justify-center"
-                      style={{
-                        color: "var(--accent, #BE8C2A)",
-                        background: "color-mix(in srgb, var(--accent, #BE8C2A) 10%, transparent)",
-                      }}
-                    >
-                      {(i + 1).toString().padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h3 className="text-white font-bold text-base mb-1.5">{service.name}</h3>
-                      <p className="text-white/50 text-sm leading-relaxed">{service.description}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  What We Do
+                </p>
+                <h2
+                  className="text-3xl md:text-4xl lg:text-5xl font-black text-white"
+                  style={{ lineHeight: "1.0", letterSpacing: "-0.02em" }}
+                >
+                  Our Services
+                </h2>
+              </div>
+              <a
+                href="#demo-contact"
+                className="text-sm font-semibold flex items-center gap-1.5 shrink-0 pb-1"
+                style={{ color: "var(--accent, #6B4423)", textDecoration: "none" }}
+              >
+                Request a Quote <ArrowRight size={14} weight="bold" />
+              </a>
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={100}>
-            <div className="mt-8 text-center">
-              <a href="#demo-contact" className="btn-outline inline-flex items-center gap-2 px-6 py-3">
-                Request a Free Quote <ArrowRight size={15} weight="bold" />
-              </a>
+          <ScrollReveal variant="stagger">
+            <div>
+              {config.services.map((service, i) => (
+                <a
+                  key={service.name}
+                  href="#demo-contact"
+                  className="group flex items-start gap-6 md:gap-10 py-7 transition-colors duration-200"
+                  style={{
+                    borderTop: "1px solid var(--border-base)",
+                    textDecoration: "none",
+                  }}
+                >
+                  <span
+                    className="text-xs font-black shrink-0 mt-1 tabular-nums"
+                    style={{ color: "color-mix(in srgb, var(--accent, #6B4423) 50%, transparent)", minWidth: "2rem" }}
+                  >
+                    {(i + 1).toString().padStart(2, "0")}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <h3
+                      className="text-lg font-bold mb-1.5 group-hover:text-white transition-colors"
+                      style={{ color: "rgba(255,255,255,0.85)" }}
+                    >
+                      {service.name}
+                    </h3>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
+                      {service.description}
+                    </p>
+                  </div>
+                  <ArrowRight
+                    size={16}
+                    weight="bold"
+                    className="shrink-0 mt-1.5 opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:translate-x-0.5"
+                    style={{ color: "var(--accent, #6B4423)" }}
+                  />
+                </a>
+              ))}
+              <div style={{ borderTop: "1px solid var(--border-base)" }} />
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ──────────────────────────────────────────── */}
-      <section className="section-pad bg-dark">
-        <div className="max-w-6xl mx-auto px-5 md:px-8">
+      {/* ── PROCESS ───────────────────────────────────────────────── */}
+      <section className="section-pad" style={{ background: "var(--bg-warm-dark, #13100E)" }}>
+        <div className="max-w-5xl mx-auto px-5 md:px-10">
           <ScrollReveal>
-            <p className="section-label">Our Process</p>
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-14">
-              How it works
+            <p
+              className="text-xs font-bold tracking-widest uppercase mb-3"
+              style={{ color: "color-mix(in srgb, var(--accent, #6B4423) 70%, #fff)" }}
+            >
+              Our Process
+            </p>
+            <h2
+              className="text-3xl md:text-4xl font-black text-white mb-16"
+              style={{ lineHeight: "1.0", letterSpacing: "-0.02em" }}
+            >
+              What to expect
             </h2>
           </ScrollReveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Desktop: horizontal with connecting line */}
+          <div className="hidden md:grid grid-cols-4 gap-0 relative">
+            <div
+              className="absolute top-5 left-[15%] right-[15%] h-px"
+              style={{ background: "var(--border-strong)" }}
+              aria-hidden="true"
+            />
             {PROCESS_STEPS.map((step, i) => (
-              <ScrollReveal key={step.num} delay={i * 70}>
-                <div className="relative">
-                  <p className="text-5xl font-black mb-4 leading-none" style={{ color: "color-mix(in srgb, var(--accent, #BE8C2A) 25%, transparent)" }}>
-                    {step.num}
+              <ScrollReveal key={step.num} delay={i * 80}>
+                <div className="flex flex-col items-center text-center px-5">
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center mb-7 relative z-10"
+                    style={{
+                      background: i === 0
+                        ? "var(--accent, #6B4423)"
+                        : "var(--bg-warm-card, #231A13)",
+                      border: `1px solid ${i === 0 ? "transparent" : "var(--border-strong)"}`,
+                    }}
+                  >
+                    <span
+                      className="text-xs font-black tabular-nums"
+                      style={{ color: i === 0 ? "#fff" : "rgba(255,255,255,0.4)" }}
+                    >
+                      {step.num}
+                    </span>
+                  </div>
+                  <h3 className="text-sm font-bold text-white mb-2">{step.title}</h3>
+                  <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
+                    {step.desc}
                   </p>
-                  <h3 className="text-white font-bold text-base mb-2">{step.title}</h3>
-                  <p className="text-white/50 text-sm leading-relaxed">{step.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Mobile: stacked */}
+          <div className="md:hidden space-y-8">
+            {PROCESS_STEPS.map((step, i) => (
+              <ScrollReveal key={step.num} delay={i * 60}>
+                <div className="flex items-start gap-5">
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                    style={{
+                      background: i === 0 ? "var(--accent, #6B4423)" : "var(--bg-warm-card, #231A13)",
+                      border: `1px solid ${i === 0 ? "transparent" : "var(--border-strong)"}`,
+                    }}
+                  >
+                    <span
+                      className="text-xs font-black"
+                      style={{ color: i === 0 ? "#fff" : "rgba(255,255,255,0.4)" }}
+                    >
+                      {step.num}
+                    </span>
+                  </div>
+                  <div className="pt-1.5">
+                    <h3 className="text-sm font-bold text-white mb-1">{step.title}</h3>
+                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
+                      {step.desc}
+                    </p>
+                  </div>
                 </div>
               </ScrollReveal>
             ))}
@@ -226,50 +316,141 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── FEATURED REVIEW ───────────────────────────────────────── */}
+      <section id="demo-social-proof" className="section-pad" style={{ background: "var(--bg-warm-section, #1C1510)" }}>
+        <div className="max-w-4xl mx-auto px-5 md:px-10">
+          <ScrollReveal>
+            <div
+              className="text-center py-4 md:py-8"
+              style={{ borderBottom: "1px solid var(--border-base)" }}
+            >
+              <Quotes
+                size={36}
+                className="mx-auto mb-8"
+                style={{ color: "color-mix(in srgb, var(--accent, #6B4423) 45%, transparent)" }}
+              />
+              <p
+                className="text-xl md:text-2xl lg:text-3xl font-medium italic leading-relaxed mb-8 text-white"
+                style={{ fontFamily: "var(--font-display-active, inherit)" }}
+              >
+                &ldquo;{REVIEWS[0].text}&rdquo;
+              </p>
+              <div className="flex items-center justify-center gap-3">
+                <div className="flex gap-0.5">
+                  {Array.from({ length: REVIEWS[0].rating }).map((_, i) => (
+                    <Star key={i} size={13} weight="fill" style={{ color: "var(--accent, #6B4423)" }} />
+                  ))}
+                </div>
+                <span className="text-white/60 text-sm font-semibold">{REVIEWS[0].name}</span>
+                <span className="text-white/25 text-sm">·</span>
+                <span className="text-white/35 text-sm">{REVIEWS[0].project}</span>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={80}>
+            <div className="grid md:grid-cols-2 gap-0 mt-0 pt-0">
+              {REVIEWS.slice(1).map((review, i) => (
+                <div
+                  key={review.name}
+                  className="py-8 flex flex-col gap-4"
+                  style={{
+                    borderRight: i === 0 ? "1px solid var(--border-base)" : "none",
+                    paddingLeft: i === 1 ? "2.5rem" : "0",
+                    paddingRight: i === 0 ? "2.5rem" : "0",
+                  }}
+                >
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+                    &ldquo;{review.text}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-2.5 mt-auto">
+                    <div className="flex gap-0.5">
+                      {Array.from({ length: review.rating }).map((_, j) => (
+                        <Star key={j} size={11} weight="fill" style={{ color: "var(--accent, #6B4423)" }} />
+                      ))}
+                    </div>
+                    <span className="text-white/65 text-sm font-semibold">{review.name}</span>
+                    <span className="text-white/20 text-sm">·</span>
+                    <span className="text-white/30 text-xs">{review.project}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* ── ABOUT ─────────────────────────────────────────────────── */}
-      <section id="demo-about" className="section-pad bg-darker">
-        <div className="max-w-6xl mx-auto px-5 md:px-8">
-          <div className="grid md:grid-cols-[3fr_2fr] gap-12 items-start">
+      <section id="demo-about" className="section-pad" style={{ background: "var(--bg-warm-dark, #13100E)" }}>
+        <div className="max-w-5xl mx-auto px-5 md:px-10">
+          <div className="grid md:grid-cols-[1fr_360px] gap-14 lg:gap-20 items-start">
             <ScrollReveal>
-              <p className="section-label">About Us</p>
-              <h2 className="text-3xl md:text-4xl font-black text-white mb-6">
+              <p
+                className="text-xs font-bold tracking-widest uppercase mb-3"
+                style={{ color: "color-mix(in srgb, var(--accent, #6B4423) 70%, #fff)" }}
+              >
+                About Us
+              </p>
+              <h2
+                className="text-3xl md:text-4xl font-black text-white mb-7"
+                style={{ lineHeight: "1.0", letterSpacing: "-0.02em" }}
+              >
                 {config.businessName}
               </h2>
-              <p className="text-white/65 text-lg leading-relaxed mb-8">{config.aboutBlurb}</p>
+              <p className="text-base leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.55)" }}>
+                {config.aboutBlurb}
+              </p>
 
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 pt-2">
                 {config.phone && (
-                  <a href={`tel:${config.phone}`} className="flex items-center gap-3 group w-fit">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "color-mix(in srgb, var(--accent, #BE8C2A) 12%, transparent)" }}>
-                      <Phone size={15} style={{ color: "var(--accent, #BE8C2A)" }} />
-                    </div>
-                    <span className="text-white/65 text-sm group-hover:text-white/90 transition-colors">{config.phone}</span>
+                  <a
+                    href={`tel:${config.phone}`}
+                    className="flex items-center gap-3 group w-fit"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Phone size={15} style={{ color: "var(--accent, #6B4423)" }} />
+                    <span className="text-sm text-white/55 group-hover:text-white/85 transition-colors">
+                      {config.phone}
+                    </span>
                   </a>
                 )}
                 {config.email && (
-                  <a href={`mailto:${config.email}`} className="flex items-center gap-3 group w-fit">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "color-mix(in srgb, var(--accent, #BE8C2A) 12%, transparent)" }}>
-                      <EnvelopeSimple size={15} style={{ color: "var(--accent, #BE8C2A)" }} />
-                    </div>
-                    <span className="text-white/65 text-sm group-hover:text-white/90 transition-colors">{config.email}</span>
+                  <a
+                    href={`mailto:${config.email}`}
+                    className="flex items-center gap-3 group w-fit"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <EnvelopeSimple size={15} style={{ color: "var(--accent, #6B4423)" }} />
+                    <span className="text-sm text-white/55 group-hover:text-white/85 transition-colors">
+                      {config.email}
+                    </span>
                   </a>
                 )}
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "color-mix(in srgb, var(--accent, #BE8C2A) 12%, transparent)" }}>
-                    <MapPin size={15} style={{ color: "var(--accent, #BE8C2A)" }} />
-                  </div>
-                  <span className="text-white/65 text-sm">{config.location}</span>
+                  <MapPin size={15} style={{ color: "var(--accent, #6B4423)" }} />
+                  <span className="text-sm text-white/55">{config.location}</span>
                 </div>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={100}>
-              {/* Values */}
-              <div className="space-y-3 pt-1 md:pt-16">
-                {["Quality craftsmanship on every project", "Clear communication throughout", "Respect for your home and time", "No surprises — honest quotes"].map(value => (
+              <div className="space-y-4 md:pt-20">
+                {[
+                  "Quality craftsmanship — every time, no exceptions",
+                  "Clear communication from quote to final walkthrough",
+                  "Respect for your home, your schedule, and your budget",
+                  "Honest estimates — what we quote is what you pay",
+                ].map(value => (
                   <div key={value} className="flex items-start gap-3">
-                    <CheckCircle size={16} className="shrink-0 mt-0.5" style={{ color: "var(--accent, #BE8C2A)" }} />
-                    <span className="text-white/65 text-sm leading-relaxed">{value}</span>
+                    <CheckCircle
+                      size={15}
+                      weight="fill"
+                      className="shrink-0 mt-0.5"
+                      style={{ color: "var(--accent, #6B4423)" }}
+                    />
+                    <span className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+                      {value}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -278,117 +459,110 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── REVIEWS ───────────────────────────────────────────────── */}
-      <section id="demo-social-proof" className="section-pad bg-dark">
-        <div className="max-w-6xl mx-auto px-5 md:px-8">
+      {/* ── FAQ ───────────────────────────────────────────────────── */}
+      <section className="section-pad" style={{ background: "var(--bg-warm-section, #1C1510)" }}>
+        <div className="max-w-3xl mx-auto px-5 md:px-10">
           <ScrollReveal>
-            <p className="section-label">Reviews</p>
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-12">
-              What clients say
+            <p
+              className="text-xs font-bold tracking-widest uppercase mb-3"
+              style={{ color: "color-mix(in srgb, var(--accent, #6B4423) 70%, #fff)" }}
+            >
+              Questions
+            </p>
+            <h2
+              className="text-3xl md:text-4xl font-black text-white mb-12"
+              style={{ lineHeight: "1.0", letterSpacing: "-0.02em" }}
+            >
+              Common questions
             </h2>
           </ScrollReveal>
-
-          <ScrollReveal variant="stagger">
-            <div className="grid md:grid-cols-3 gap-5">
-              {REVIEWS.map((review) => (
-                <div
-                  key={review.name}
-                  className="rounded-xl p-6 flex flex-col gap-4"
-                  style={{
-                    background: "var(--bg-card)",
-                    border: "1px solid var(--border-base)",
-                  }}
-                >
-                  <Quotes size={24} style={{ color: "color-mix(in srgb, var(--accent, #BE8C2A) 35%, transparent)" }} />
-                  <p className="text-white/70 text-sm leading-relaxed flex-1">{review.text}</p>
-                  <div>
-                    <div className="flex gap-0.5 mb-2">
-                      {Array.from({ length: review.rating }).map((_, i) => (
-                        <Star key={i} size={12} weight="fill" style={{ color: "var(--accent, #BE8C2A)" }} />
-                      ))}
-                    </div>
-                    <p className="text-white/80 text-sm font-semibold">{review.name}</p>
-                    <p className="text-white/35 text-xs mt-0.5">{review.project}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <ScrollReveal delay={60}>
+            <FAQAccordion />
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ── CONTACT + MAPS ────────────────────────────────────────── */}
-      <section id="demo-contact" className="section-pad bg-darker">
-        <div className="max-w-6xl mx-auto px-5 md:px-8">
+      {/* ── CONTACT + MAP ─────────────────────────────────────────── */}
+      <section id="demo-contact" className="section-pad" style={{ background: "var(--bg-warm-dark, #13100E)" }}>
+        <div className="max-w-5xl mx-auto px-5 md:px-10">
           <ScrollReveal>
-            <p className="section-label justify-center text-center">Get in Touch</p>
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-4 text-center">
+            <p
+              className="text-xs font-bold tracking-widest uppercase mb-3"
+              style={{ color: "color-mix(in srgb, var(--accent, #6B4423) 70%, #fff)" }}
+            >
+              Get in Touch
+            </p>
+            <h2
+              className="text-3xl md:text-4xl font-black text-white mb-3"
+              style={{ lineHeight: "1.0", letterSpacing: "-0.02em" }}
+            >
               Request a free quote
             </h2>
-            <p className="text-white/50 text-lg mb-12 max-w-lg mx-auto text-center leading-relaxed">
-              Describe your project and we&apos;ll get back to you the same day with next steps.
+            <p className="text-base text-white/40 mb-12 max-w-md leading-relaxed">
+              Describe your project and we&apos;ll get back to you the same day.
             </p>
           </ScrollReveal>
 
-          <div className="grid md:grid-cols-[1fr_1fr] gap-8 items-start">
-            {/* Contact form */}
+          <div className="grid md:grid-cols-[1fr_340px] gap-10 lg:gap-16 items-start">
+            {/* Form */}
             <ScrollReveal>
-              <div
-                className="rounded-2xl p-7"
-                style={{
-                  background: "var(--bg-card)",
-                  border: "1px solid var(--border-base)",
-                }}
-              >
-                <ContactForm />
-              </div>
+              <ContactForm />
             </ScrollReveal>
 
-            {/* Contact info + map */}
+            {/* Contact info */}
             <ScrollReveal delay={80}>
-              <div className="space-y-4">
-                {/* Contact cards */}
-                {[
-                  config.phone && { icon: Phone, label: "Call or Text", value: config.phone, href: `tel:${config.phone}` },
-                  config.email && { icon: EnvelopeSimple, label: "Email", value: config.email, href: `mailto:${config.email}` },
-                  { icon: MapPin, label: "Location", value: config.location, href: "#" },
-                ].filter(Boolean).map((item) => {
-                  if (!item) return null;
-                  const Icon = item.icon;
-                  return (
+              <div className="space-y-6">
+                {config.phone && (
+                  <div>
+                    <p className="text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: "rgba(255,255,255,0.2)" }}>
+                      Call or Text
+                    </p>
                     <a
-                      key={item.label}
-                      href={item.href}
-                      className="flex items-center gap-4 rounded-xl p-4 transition-all"
-                      style={{
-                        background: "var(--bg-card)",
-                        border: "1px solid var(--border-base)",
-                        textDecoration: "none",
-                      }}
+                      href={`tel:${config.phone}`}
+                      className="text-base font-semibold text-white/80 hover:text-white transition-colors"
+                      style={{ textDecoration: "none" }}
                     >
-                      <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-                        style={{ background: "color-mix(in srgb, var(--accent, #BE8C2A) 12%, transparent)" }}
-                      >
-                        <Icon size={18} style={{ color: "var(--accent, #BE8C2A)" }} />
-                      </div>
-                      <div>
-                        <p className="text-white/35 text-xs mb-0.5">{item.label}</p>
-                        <p className="text-white font-medium text-sm">{item.value}</p>
-                      </div>
+                      {config.phone}
                     </a>
-                  );
-                })}
+                  </div>
+                )}
+                {config.email && (
+                  <div>
+                    <p className="text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: "rgba(255,255,255,0.2)" }}>
+                      Email
+                    </p>
+                    <a
+                      href={`mailto:${config.email}`}
+                      className="text-base font-semibold text-white/80 hover:text-white transition-colors"
+                      style={{ textDecoration: "none" }}
+                    >
+                      {config.email}
+                    </a>
+                  </div>
+                )}
+                <div>
+                  <p className="text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: "rgba(255,255,255,0.2)" }}>
+                    Location
+                  </p>
+                  <p className="text-base font-semibold text-white/80">{config.location}</p>
+                </div>
 
-                {/* Google Maps embed */}
+                {/* Google Maps */}
                 {config.address && (
-                  <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--border-base)" }}>
+                  <div
+                    className="rounded-xl overflow-hidden mt-2"
+                    style={{ border: "1px solid var(--border-base)" }}
+                  >
                     <iframe
                       title={`${config.businessName} location`}
                       src={`https://maps.google.com/maps?q=${encodeURIComponent(config.address)}&output=embed&hl=en`}
                       width="100%"
-                      height="220"
-                      style={{ border: 0, display: "block", filter: "invert(90%) hue-rotate(180deg) saturate(0.6) brightness(0.85)" }}
+                      height="200"
+                      style={{
+                        border: 0,
+                        display: "block",
+                        filter: "invert(90%) hue-rotate(180deg) saturate(0.5) brightness(0.8)",
+                      }}
                       allowFullScreen
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
@@ -403,19 +577,26 @@ export default function HomePage() {
 
       {/* ── FOOTER ────────────────────────────────────────────────── */}
       <footer
-        className="py-8 px-5 md:px-8 text-center"
-        style={{ borderTop: "1px solid var(--border-base)", background: "var(--bg-section)" }}
+        className="py-7 px-5 md:px-10"
+        style={{ borderTop: "1px solid var(--border-base)", background: "var(--bg-warm-section, #1C1510)" }}
       >
-        <p className="text-white/25 text-xs">
-          © {new Date().getFullYear()} {config.businessName} · {config.location}
-          <span className="mx-2 text-white/10">·</span>
-          <span>
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-4 flex-wrap">
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
+            © {new Date().getFullYear()} {config.businessName}
+          </p>
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.15)" }}>
             Website by{" "}
-            <a href="https://designspore.co" target="_blank" rel="noopener noreferrer" className="transition-colors" style={{ color: "rgba(190,140,42,0.5)" }}>
+            <a
+              href="https://designspore.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white/40"
+              style={{ color: "rgba(255,255,255,0.2)", textDecoration: "none" }}
+            >
               Design Spore
             </a>
-          </span>
-        </p>
+          </p>
+        </div>
       </footer>
 
       {/* ── CHATBOT (floating) ────────────────────────────────────── */}
