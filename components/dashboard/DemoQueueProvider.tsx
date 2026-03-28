@@ -58,8 +58,6 @@ export function DemoQueueProvider({ children }: { children: ReactNode }) {
     persist([]);
   }, []);
 
-  if (!hydrated) return <>{children}</>;
-
   return (
     <QueueContext.Provider value={{ entries, addToQueue, removeFromQueue, isQueued, clear }}>
       {children}
