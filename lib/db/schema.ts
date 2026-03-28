@@ -38,7 +38,10 @@ export const users = pgTable("user", {
   subscriptionTier: subscriptionTierEnum("subscription_tier").default("starter"),
   monthlyBudget: integer("monthly_budget").default(1500), // in dollars
   isActive: boolean("is_active").default(false).notNull(),
+  hasCompletedOnboarding: boolean("has_completed_onboarding").default(false).notNull(),
   passwordHash: text("password_hash"),
+  stripeCustomerId: text("stripe_customer_id"),
+  stripeSubscriptionId: text("stripe_subscription_id"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -92,8 +95,26 @@ export const activations = pgTable("activations", {
   status: activationStatusEnum("status").default("pending"),
   activatedAt: timestamp("activated_at").defaultNow(),
   completedAt: timestamp("completed_at"),
-  notes: text("notes"),
-  periodMonth: text("period_month").notNull(), // YYYY-MM
+  notes: text("notes"),               // internal: Mike's admin notes
+  progressUpdate: text("progress_update"), // client-visible: status message from Mike
+  periodMonth: text("period_month").notNull(), // YYYY-MM — can be future month for queuing
   valueConsumed: integer("value_consumed").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
+});
+
+// ── API Usage tracking ──────────────────────────────────────────────────
+export const apiUsage = pgTable("api_usage", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id),
+  service: text("service").notNull(), // e.g. "chatbot", "lead-response", "resend"
+  periodMonth: text("period_month").notNull(), // YYYY-MM
+  requestCount: integer("request_count").default(0).notNull(),
+  tokenCount: integer("token_count").default(0).notNull(),
+  estimatedCredits: integer("estimated_credits").default(0).notNull(), // credits to bill
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });

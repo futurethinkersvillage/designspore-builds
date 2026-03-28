@@ -2,8 +2,9 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { db } from "@/lib/db";
-import { activations } from "@/lib/db/schema";
+import { activations, users } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
+import OnboardingModal from "@/components/dashboard/OnboardingModal";
 import {
   modules,
   tierConfig,
@@ -24,6 +25,7 @@ export default async function DashboardPage() {
   let userName: string | null | undefined;
   let businessName: string | undefined;
   let monthlyCredits: number;
+  let showOnboarding = false;
   let userActivations: { moduleId: string; status: string | null; valueConsumed: number }[];
 
   if (isDemo) {
@@ -40,6 +42,12 @@ export default async function DashboardPage() {
     userName = user.name;
     businessName = user.businessName;
     monthlyCredits = Math.floor((user.monthlyBudget ?? 1500) / 375);
+
+    if (user.id) {
+      const [dbUser] = await db.select({ hasCompletedOnboarding: users.hasCompletedOnboarding })
+        .from(users).where(eq(users.id, user.id));
+      showOnboarding = !(dbUser?.hasCompletedOnboarding ?? false);
+    }
 
     const periodMonth = new Date().toISOString().slice(0, 7);
     userActivations = [];
@@ -63,6 +71,8 @@ export default async function DashboardPage() {
     .slice(0, 3);
 
   return (
+    <>
+    {showOnboarding && <OnboardingModal userName={userName} />}
     <div className="max-w-4xl mx-auto space-y-10">
       {/* Welcome */}
       <div>
@@ -179,5 +189,6 @@ export default async function DashboardPage() {
         </div>
       )}
     </div>
+    </>
   );
 }

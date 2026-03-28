@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { signOut } from "@/auth";
+import { signOut, auth } from "@/auth";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
@@ -8,11 +8,15 @@ const navItems = [
   { href: "/account", label: "Account" },
 ];
 
+const ADMIN_EMAILS = ["mike@designspore.co", "futurethinkerspodcast@gmail.com", "mikenoises@gmail.com"];
+
 interface SidebarProps {
   isDemo?: boolean;
 }
 
-export default function Sidebar({ isDemo }: SidebarProps) {
+export default async function Sidebar({ isDemo }: SidebarProps) {
+  const session = !isDemo ? await auth() : null;
+  const isAdmin = session?.user && ADMIN_EMAILS.includes((session.user as { email?: string | null }).email ?? "");
   return (
     <aside className="hidden lg:flex flex-col w-64 min-h-full bg-darker border-r border-white/[0.06] px-6 py-8 shrink-0">
       {/* Logo */}
@@ -40,6 +44,16 @@ export default function Sidebar({ isDemo }: SidebarProps) {
           </Link>
         ))}
       </nav>
+
+      {/* Admin link */}
+      {isAdmin && (
+        <Link
+          href="/admin"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-red-400/60 hover:text-red-400 hover:bg-red-500/[0.06] transition-colors mb-2"
+        >
+          Admin
+        </Link>
+      )}
 
       {/* Sign out / Exit demo */}
       {isDemo ? (

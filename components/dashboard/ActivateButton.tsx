@@ -4,6 +4,21 @@ import { useState, useTransition } from "react";
 import { activateModule, cancelActivation } from "@/app/actions/modules";
 import { tierConfig, type ModuleTier } from "@/lib/modules";
 
+function getNextMonths(n = 4): string[] {
+  const months = [];
+  const now = new Date();
+  for (let i = 0; i < n; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+    months.push(d.toISOString().slice(0, 7));
+  }
+  return months;
+}
+
+function formatMonth(ym: string) {
+  const [y, m] = ym.split("-");
+  return new Date(parseInt(y), parseInt(m) - 1).toLocaleString("en-US", { month: "long", year: "numeric" });
+}
+
 interface ActivateButtonProps {
   moduleId: string;
   moduleName: string;
@@ -24,6 +39,8 @@ export default function ActivateButton({
   isDemo = false,
 }: ActivateButtonProps) {
   const [showConfirm, setShowConfirm] = useState(false);
+  const months = getNextMonths(4);
+  const [selectedMonth, setSelectedMonth] = useState(months[0]);
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -37,7 +54,7 @@ export default function ActivateButton({
       return;
     }
     startTransition(async () => {
-      const res = await activateModule(moduleId);
+      const res = await activateModule(moduleId, selectedMonth);
       setResult({ success: res.success, message: res.success ? res.message : (res as { error: string }).error });
       setShowConfirm(false);
     });
@@ -74,11 +91,33 @@ export default function ActivateButton({
       <div className="border border-gold/20 rounded-2xl p-5 bg-gold/[0.04] space-y-4">
         <div>
           <p className="text-sm font-semibold text-white mb-1">Confirm activation</p>
-          <p className="text-sm text-white/50">
+          <p className="text-sm text-white/50 mb-3">
             Activating <strong className="text-white">{moduleName}</strong> will use{" "}
             <strong className="text-gold">{creditsNeeded} credit{creditsNeeded > 1 ? "s" : ""}</strong>{" "}
-            ({tierCfg.label}) from your {creditsRemaining}-credit balance this month.
+            ({tierCfg.label}).
           </p>
+
+          {/* Month selector */}
+          <div className="mb-2">
+            <p className="text-xs text-white/30 mb-1.5">Schedule for:</p>
+            <div className="flex flex-wrap gap-2">
+              {months.map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => setSelectedMonth(m)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                    selectedMonth === m
+                      ? "bg-gold text-dark"
+                      : "bg-white/[0.05] text-white/50 hover:text-white hover:bg-white/[0.1]"
+                  }`}
+                >
+                  {m === months[0] ? "This month" : formatMonth(m)}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <p className="text-xs text-white/30 mt-2">
             We'll be in touch within 1–2 business days to kick things off.
           </p>

@@ -22,6 +22,7 @@ type ActivationRow = {
   valueConsumed: number;
   periodMonth: string;
   activatedAt: Date | null;
+  progressUpdate?: string | null;
 };
 
 export default async function MyModulesPage() {
@@ -52,6 +53,7 @@ export default async function MyModulesPage() {
         valueConsumed: activations.valueConsumed,
         periodMonth: activations.periodMonth,
         activatedAt: activations.activatedAt,
+        progressUpdate: activations.progressUpdate,
       })
       .from(activations)
       .where(eq(activations.userId, user.id))
@@ -112,27 +114,30 @@ export default async function MyModulesPage() {
                     const statusStyle = STATUS_STYLES[status] ?? STATUS_STYLES.pending;
 
                     return (
-                      <div
-                        key={i}
-                        className="flex items-center justify-between bg-raised border border-white/[0.06] rounded-xl px-5 py-4 gap-4"
-                      >
-                        <div className="flex items-center gap-3 min-w-0">
-                          {mod && <TierBadge tier={mod.tier as ModuleTier} />}
-                          <div className="min-w-0">
-                            <p className="text-sm font-medium text-white truncate">
-                              {mod?.name ?? row.moduleId}
-                            </p>
-                            {row.activatedAt && (
-                              <p className="text-xs text-white/30 mt-0.5">
-                                Activated {new Date(row.activatedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                      <div key={i} className="bg-raised border border-white/[0.06] rounded-xl px-5 py-4 space-y-2">
+                        <div className="flex items-center justify-between gap-4">
+                          <div className="flex items-center gap-3 min-w-0">
+                            {mod && <TierBadge tier={mod.tier as ModuleTier} />}
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium text-white truncate">
+                                {mod?.name ?? row.moduleId}
                               </p>
-                            )}
+                              {row.activatedAt && (
+                                <p className="text-xs text-white/30 mt-0.5">
+                                  Activated {new Date(row.activatedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                                </p>
+                              )}
+                            </div>
                           </div>
+                          <span className={`shrink-0 px-2.5 py-1 rounded-full text-[11px] font-semibold border ${statusStyle} capitalize`}>
+                            {status}
+                          </span>
                         </div>
-
-                        <span className={`shrink-0 px-2.5 py-1 rounded-full text-[11px] font-semibold border ${statusStyle} capitalize`}>
-                          {status}
-                        </span>
+                        {row.progressUpdate && (
+                          <p className="text-xs text-emerald-300/70 bg-emerald-500/[0.06] border border-emerald-500/10 rounded-lg px-3 py-2">
+                            📝 {row.progressUpdate}
+                          </p>
+                        )}
                       </div>
                     );
                   })}

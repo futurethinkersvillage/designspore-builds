@@ -11,7 +11,7 @@ export type ActivateResult =
   | { success: true; message: string }
   | { success: false; error: string };
 
-export async function activateModule(moduleId: string): Promise<ActivateResult> {
+export async function activateModule(moduleId: string, periodMonth?: string): Promise<ActivateResult> {
   const session = await auth();
   if (!session?.user) return { success: false, error: "Not authenticated." };
 
@@ -21,7 +21,13 @@ export async function activateModule(moduleId: string): Promise<ActivateResult> 
   const mod = getModuleById(moduleId);
   if (!mod) return { success: false, error: "Module not found." };
 
-  const periodMonth = new Date().toISOString().slice(0, 7);
+  // Validate month — must be current or future, max 4 months ahead
+  const currentMonth = new Date().toISOString().slice(0, 7);
+  const targetMonth = periodMonth ?? currentMonth;
+  const maxMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 4, 1).toISOString().slice(0, 7);
+  if (targetMonth < currentMonth || targetMonth > maxMonth) {
+    return { success: false, error: "Invalid month selected." };
+  }
   const creditsNeeded = creditsForModule(mod);
 
   // Fetch user's monthly budget
@@ -36,14 +42,14 @@ export async function activateModule(moduleId: string): Promise<ActivateResult> 
     .where(and(
       eq(activations.userId, user.id),
       eq(activations.moduleId, moduleId),
-      eq(activations.periodMonth, periodMonth)
+      eq(activations.periodMonth, targetMonth)
     ));
   if (existing.length > 0) return { success: false, error: "Already activated this month." };
 
-  // Check credit balance
+  // Check credit balance for the target month
   const activeRows = await db.select({ moduleId: activations.moduleId })
     .from(activations)
-    .where(and(eq(activations.userId, user.id), eq(activations.periodMonth, periodMonth)));
+    .where(and(eq(activations.userId, user.id), eq(activations.periodMonth, targetMonth)));
 
   const { getModuleById: getMod, creditsForModule: credits } = await import("@/lib/modules");
   const creditsUsed = activeRows.reduce((sum, r) => {
@@ -60,7 +66,7 @@ export async function activateModule(moduleId: string): Promise<ActivateResult> 
     userId: user.id,
     moduleId,
     status: "pending",
-    periodMonth,
+    periodMonth: targetMonth,
     valueConsumed: mod.estimatedValue,
   });
 
@@ -73,7 +79,7 @@ export async function activateModule(moduleId: string): Promise<ActivateResult> 
       moduleName: mod.name,
       moduleId,
       tier: mod.tier,
-      periodMonth,
+      periodMonth: targetMonth,
     });
   } catch {
     // notification failure is non-fatal
