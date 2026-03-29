@@ -6,9 +6,29 @@ const colorMap: Record<string, string> = {
   green: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
 };
 
-export default function TierBadge({ tier, showCredits }: { tier: ModuleTier; showCredits?: boolean }) {
+interface TierBadgeProps {
+  tier: ModuleTier;
+  showCredits?: boolean;
+  /** Show only credit count (no tier name). Optionally pass recurring to show ↻ format. */
+  creditOnly?: boolean;
+  recurring?: boolean;
+}
+
+export default function TierBadge({ tier, showCredits, creditOnly, recurring }: TierBadgeProps) {
   const cfg = tierConfig[tier];
   const classes = colorMap[cfg.color] ?? colorMap.gold;
+
+  if (creditOnly) {
+    const label = recurring
+      ? `↻ ${cfg.credits} credit${cfg.credits > 1 ? "s" : ""}/mo`
+      : `${cfg.credits} credit${cfg.credits > 1 ? "s" : ""}`;
+    return (
+      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold border ${classes}`}>
+        {label}
+      </span>
+    );
+  }
+
   return (
     <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold border ${classes}`}>
       {cfg.label}

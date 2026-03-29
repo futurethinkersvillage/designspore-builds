@@ -43,6 +43,8 @@ export interface Module {
   businessOutcome: string;
   whyItMatters: string;
   estimatedValue: number; // internal only — never shown to clients
+  /** Optional fixed monthly platform/usage fee (USD). Shown on detail page as an add-on. */
+  monthlyFee?: number;
   includedDeliverables: string[];
   clientRequirements: string[];
   accessRequirements: string[];

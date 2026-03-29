@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { type Module, tierConfig, categoryLabels } from "@/lib/modules";
+import { type Module, tierConfig, categoryLabels, creditsForModule } from "@/lib/modules";
 import TierBadge from "./TierBadge";
 
 interface ModuleCardProps {
@@ -26,7 +26,7 @@ export default function ModuleCard({ module: mod, isActivated }: ModuleCardProps
         {/* Header row */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex flex-wrap items-center gap-2">
-            <TierBadge tier={mod.tier} />
+            <TierBadge tier={mod.tier} creditOnly recurring={mod.recurring} />
             <span className="text-[10px] uppercase tracking-widest text-white/30 font-medium">
               {categoryLabels[mod.category]}
             </span>
@@ -45,21 +45,6 @@ export default function ModuleCard({ module: mod, isActivated }: ModuleCardProps
         <p className="text-sm text-white/50 leading-relaxed line-clamp-2">
           {mod.problemHeadline}
         </p>
-
-        {/* Expand toggle */}
-        <button
-          onClick={() => setExpanded((v) => !v)}
-          className="mt-3 text-xs text-white/30 hover:text-gold transition-colors flex items-center gap-1"
-          aria-expanded={expanded}
-        >
-          {expanded ? "Less info" : "Learn more"}
-          <svg
-            className={`w-3 h-3 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
-            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
 
         {/* Expandable detail */}
         {expanded && (
@@ -93,17 +78,27 @@ export default function ModuleCard({ module: mod, isActivated }: ModuleCardProps
 
       {/* Footer */}
       <div className="px-5 pb-5 flex items-center justify-between gap-3 border-t border-white/[0.05] pt-4 mt-auto">
-        <span className="text-xs text-white/30">
-          {tierConfig[mod.tier].description}
-        </span>
+        <button
+          onClick={() => setExpanded((v) => !v)}
+          className="text-xs text-white/30 hover:text-white transition-colors flex items-center gap-1"
+          aria-expanded={expanded}
+        >
+          {expanded ? "Less info" : "Learn more"}
+          <svg
+            className={`w-3 h-3 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
         <Link
           href={`/modules/${mod.id}`}
           className={isActivated
-            ? "text-xs font-semibold text-gold/70 hover:text-gold transition-colors shrink-0"
+            ? "shrink-0 px-3.5 py-1.5 bg-white/[0.05] text-white/40 text-xs font-semibold rounded-lg transition-colors"
             : "shrink-0 px-3.5 py-1.5 bg-gold/10 hover:bg-gold/20 text-gold text-xs font-semibold rounded-lg transition-colors"
           }
         >
-          {isActivated ? "View details →" : "Select →"}
+          {isActivated ? "In queue" : "Add to queue →"}
         </Link>
       </div>
     </div>

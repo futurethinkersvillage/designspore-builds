@@ -5,17 +5,10 @@ import { type ModuleCategory } from "@/lib/modules";
 
 interface ModulesFilterProps {
   categories: [ModuleCategory, string][];
-  currentTier: string | null;
   currentCategory: string | null;
 }
 
-const tierLabels = [
-  { value: "1", label: "Flagship" },
-  { value: "2", label: "Core" },
-  { value: "3", label: "Quick Win" },
-];
-
-export default function ModulesFilter({ categories, currentTier, currentCategory }: ModulesFilterProps) {
+export default function ModulesFilter({ categories, currentCategory }: ModulesFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -26,6 +19,8 @@ export default function ModulesFilter({ categories, currentTier, currentCategory
     } else {
       params.set(key, value);
     }
+    // Remove tier param if it exists (legacy)
+    params.delete("tier");
     router.push(`/modules?${params.toString()}`);
   }
 
@@ -38,16 +33,6 @@ export default function ModulesFilter({ categories, currentTier, currentCategory
 
   return (
     <div className="flex flex-wrap gap-2">
-      {/* Tier filters */}
-      {tierLabels.map(({ value, label }) => (
-        <button key={value} className={chip(currentTier === value)} onClick={() => update("tier", value)}>
-          {label}
-        </button>
-      ))}
-
-      <div className="w-px h-6 bg-white/[0.08] self-center mx-1" />
-
-      {/* Category filters */}
       {categories.map(([value, label]) => (
         <button key={value} className={chip(currentCategory === value)} onClick={() => update("category", value)}>
           {label}

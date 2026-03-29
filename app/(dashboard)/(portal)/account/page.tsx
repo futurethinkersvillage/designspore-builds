@@ -6,8 +6,15 @@ import { users, activations, apiUsage } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
 import { PLANS, type PlanKey } from "@/lib/subscription";
 import { DEMO_USER } from "@/lib/demo";
-import { MONTHLY_CREDITS } from "@/lib/modules";
 import PauseButton from "@/components/dashboard/PauseButton";
+
+const UPGRADE_PLANS: PlanKey[] = ["starter", "growth", "partner"];
+
+const planColors: Record<string, string> = {
+  starter: "border-gold/20 text-gold",
+  growth:  "border-blue-500/20 text-blue-300",
+  partner: "border-purple-500/20 text-purple-300",
+};
 
 export default async function AccountPage() {
   const cookieStore = await cookies();
@@ -36,10 +43,10 @@ export default async function AccountPage() {
     userData = { ...row, monthlyBudget: row.monthlyBudget ?? 1500, isActive: row.isActive ?? false };
   }
 
-  const plan = PLANS[(userData.subscriptionTier as PlanKey) ?? "starter"];
+  const currentTierKey = (userData.subscriptionTier as PlanKey) ?? "starter";
+  const plan = PLANS[currentTierKey];
   const periodMonth = new Date().toISOString().slice(0, 7);
 
-  // API usage this month
   const usageRows = isDemo ? [] : await db.select({
     service: apiUsage.service,
     requestCount: apiUsage.requestCount,
@@ -59,7 +66,7 @@ export default async function AccountPage() {
 
       {/* Profile */}
       <section className="bg-raised border border-white/[0.06] rounded-2xl p-6 space-y-4">
-        <h2 className="text-sm font-semibold text-white/60 uppercase tracking-widest text-xs">Profile</h2>
+        <h2 className="text-xs uppercase tracking-widest text-white/30 font-semibold">Profile</h2>
         <div className="grid grid-cols-2 gap-4">
           {[
             { label: "Name", value: userData.name },
@@ -75,7 +82,7 @@ export default async function AccountPage() {
         </div>
       </section>
 
-      {/* Plan */}
+      {/* Current Plan */}
       <section className="bg-raised border border-white/[0.06] rounded-2xl p-6 space-y-5">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -96,7 +103,7 @@ export default async function AccountPage() {
               <div key={i} className="h-1.5 flex-1 rounded-full bg-white/[0.08]" />
             ))}
           </div>
-          <p className="text-xs text-white/25 mt-2">Resets each billing month</p>
+          <p className="text-xs text-white/25 mt-2">Resets each billing cycle</p>
         </div>
 
         {/* Billing link */}
@@ -117,16 +124,68 @@ export default async function AccountPage() {
             <div>
               <p className="text-sm font-medium text-white mb-1">Keep the Lights On</p>
               <p className="text-xs text-white/40 max-w-xs">
-                Pauses new builds for $299/mo. Keeps your site live, secure, and maintained.
+                Pauses new builds. Keeps your site live, secure, and maintained.
                 Unpause anytime — full credits resume next cycle.
               </p>
             </div>
-            <PauseButton
-              isPaused={userData.subscriptionTier === "paused"}
-              isDemo={isDemo}
-            />
+            <PauseButton isPaused={userData.subscriptionTier === "paused"} isDemo={isDemo} />
           </div>
         </div>
+      </section>
+
+      {/* Plan upgrade */}
+      <section className="space-y-4">
+        <h2 className="text-xs uppercase tracking-widest text-white/30 font-semibold">Available Plans</h2>
+        <div className="space-y-3">
+          {UPGRADE_PLANS.map((key) => {
+            const p = PLANS[key];
+            const isCurrent = key === currentTierKey;
+            const colorClasses = planColors[key] ?? "border-white/10 text-white/50";
+            return (
+              <div
+                key={key}
+                className={`bg-raised border rounded-2xl p-5 flex items-center justify-between gap-4 transition-all ${
+                  isCurrent ? "border-gold/30 ring-1 ring-gold/10" : "border-white/[0.06]"
+                }`}
+              >
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className={`text-sm font-semibold ${isCurrent ? "text-white" : "text-white/70"}`}>
+                      {p.label}
+                    </p>
+                    {isCurrent && (
+                      <span className="text-[10px] uppercase tracking-widest text-gold font-semibold border border-gold/30 rounded-full px-1.5 py-0.5">
+                        Current
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-white/40">{p.description}</p>
+                </div>
+                <div className="text-right shrink-0">
+                  <p className={`text-lg font-bold tabular-nums ${isCurrent ? "text-gold" : "text-white/50"}`}>
+                    {p.monthlyCredits}
+                    <span className="text-xs font-normal text-white/30 ml-1">credits/mo</span>
+                  </p>
+                  {!isCurrent && (
+                    <a
+                      href="mailto:hello@designspore.co?subject=Upgrade request"
+                      className="inline-block mt-1.5 px-3 py-1 bg-white/[0.06] hover:bg-white/[0.1] text-white/60 hover:text-white text-xs font-semibold rounded-lg transition-colors"
+                    >
+                      {UPGRADE_PLANS.indexOf(key) > UPGRADE_PLANS.indexOf(currentTierKey) ? "Upgrade" : "Downgrade"}
+                    </a>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <p className="text-xs text-white/25">
+          Plan changes take effect at the start of your next billing cycle.{" "}
+          <a href="mailto:hello@designspore.co" className="text-gold/50 hover:text-gold transition-colors">
+            Contact us
+          </a>{" "}
+          to make changes.
+        </p>
       </section>
 
       {/* API Usage */}
@@ -137,7 +196,6 @@ export default async function AccountPage() {
             <span className="text-xs text-yellow-400 font-medium">{totalUsageCredits} credit{totalUsageCredits !== 1 ? "s" : ""} this month</span>
           )}
         </div>
-
         {usageRows.length === 0 ? (
           <p className="text-sm text-white/30">{isDemo ? "Usage tracked per service (chatbot, lead-gen, etc.)" : "No API usage recorded yet this month."}</p>
         ) : (
@@ -155,7 +213,6 @@ export default async function AccountPage() {
             ))}
           </div>
         )}
-
         <p className="text-xs text-white/20">
           Each active service includes a usage baseline. Overages are billed as Quick Win credits.
         </p>
