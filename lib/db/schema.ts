@@ -40,6 +40,7 @@ export const users = pgTable("user", {
   isActive: boolean("is_active").default(false).notNull(),
   hasCompletedOnboarding: boolean("has_completed_onboarding").default(false).notNull(),
   passwordHash: text("password_hash"),
+  autopilot: boolean("autopilot").default(false).notNull(),
   stripeCustomerId: text("stripe_customer_id"),
   stripeSubscriptionId: text("stripe_subscription_id"),
   createdAt: timestamp("created_at").defaultNow(),

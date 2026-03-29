@@ -10,6 +10,7 @@ import { getMonthKey, type QueueEntry } from "@/lib/queue";
 import AllocationMeter from "@/components/dashboard/AllocationMeter";
 import QueueVisual from "@/components/dashboard/QueueVisual";
 import OnboardingModal from "@/components/dashboard/OnboardingModal";
+import AutopilotToggle from "@/components/dashboard/AutopilotToggle";
 import Link from "next/link";
 
 export default async function DashboardPage() {
@@ -22,6 +23,7 @@ export default async function DashboardPage() {
   let businessName: string | undefined;
   let monthlyCredits: number;
   let showOnboarding = false;
+  let autopilotEnabled = false;
   let currentMonthEntries: QueueEntry[] = [];
   let allQueueEntries: QueueEntry[] = [];
   let creditsUsedThisMonth = 0;
@@ -30,7 +32,6 @@ export default async function DashboardPage() {
     userName = DEMO_USER.name;
     businessName = DEMO_USER.businessName;
     monthlyCredits = Math.floor(DEMO_USER.monthlyBudget / 375);
-    // Demo queue entries come from client localStorage — QueueVisual handles it
   } else {
     const session = await auth();
     if (!session?.user) redirect("/login");
@@ -39,12 +40,13 @@ export default async function DashboardPage() {
     businessName = user.businessName;
 
     const [dbUser] = await db
-      .select({ monthlyBudget: users.monthlyBudget, hasCompletedOnboarding: users.hasCompletedOnboarding })
+      .select({ monthlyBudget: users.monthlyBudget, hasCompletedOnboarding: users.hasCompletedOnboarding, autopilot: users.autopilot })
       .from(users)
       .where(eq(users.id, user.id!));
 
     monthlyCredits = Math.floor((dbUser?.monthlyBudget ?? 1500) / 375);
     showOnboarding = !(dbUser?.hasCompletedOnboarding ?? false);
+    autopilotEnabled = dbUser?.autopilot ?? false;
 
     const currentMonth = getMonthKey(0);
 
@@ -138,6 +140,9 @@ export default async function DashboardPage() {
             isDemo={isDemo}
           />
         </section>
+
+        {/* Autopilot */}
+        <AutopilotToggle enabled={autopilotEnabled} isDemo={isDemo} />
       </div>
     </>
   );

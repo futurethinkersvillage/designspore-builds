@@ -15,6 +15,13 @@
       "when": 1774666809536,
       "tag": "0001_lucky_lady_vermin",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1774819348675,
+      "tag": "0002_eminent_psylocke",
+      "breakpoints": true
     }
   ]
 }
