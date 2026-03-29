@@ -12,11 +12,12 @@ import {
 import { getMonthKey } from "@/lib/queue";
 import ModuleCard from "@/components/dashboard/ModuleCard";
 import ModulesFilter from "@/components/dashboard/ModulesFilter";
+import ModuleDrawer from "@/components/dashboard/ModuleDrawer";
 
 export default async function ModulesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; detail?: string }>;
 }) {
   const params = await searchParams;
   const cookieStore = await cookies();
@@ -24,7 +25,7 @@ export default async function ModulesPage({
   const isDemo =
     !!process.env.DEMO_SECRET && demoCookie?.value === process.env.DEMO_SECRET;
 
-  let activatedIds = new Set<string>();
+  let activatedIds: string[] = [];
 
   if (!isDemo) {
     const session = await auth();
@@ -38,17 +39,15 @@ export default async function ModulesPage({
         .from(activations)
         .where(and(eq(activations.userId, user.id), gte(activations.periodMonth, currentMonth)));
 
-      activatedIds = new Set(
-        rows
-          .filter((r) => r.status !== "cancelled" && r.status !== "completed")
-          .map((r) => r.moduleId)
-      );
+      activatedIds = rows
+        .filter((r) => r.status !== "cancelled" && r.status !== "completed")
+        .map((r) => r.moduleId);
     }
   }
 
+  const activatedSet = new Set(activatedIds);
   const catFilter = params.category as ModuleCategory | null;
 
-  // Group modules by category
   const categoryOrder: ModuleCategory[] = [
     "lead-generation",
     "client-communication",
@@ -75,7 +74,7 @@ export default async function ModulesPage({
         <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-2">Services</p>
         <h1 className="text-3xl font-bold text-white mb-1">Browse Services</h1>
         <p className="text-sm text-white/40">
-          Select a service to view details and add it to your queue.
+          Click any service for details, or add it directly to your queue.
         </p>
       </div>
 
@@ -94,7 +93,7 @@ export default async function ModulesPage({
               <ModuleCard
                 key={mod.id}
                 module={mod}
-                isActivated={activatedIds.has(mod.id)}
+                isActivated={activatedSet.has(mod.id)}
               />
             ))}
           </div>
@@ -106,6 +105,9 @@ export default async function ModulesPage({
           <p className="text-white/40">No services match this filter.</p>
         </div>
       )}
+
+      {/* Detail drawer (reads ?detail= from URL) */}
+      <ModuleDrawer isDemo={isDemo} activatedIds={activatedIds} />
     </div>
   );
 }
