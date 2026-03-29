@@ -12,8 +12,6 @@ import {
 import TierBadge from "./TierBadge";
 import ActivateButton from "./ActivateButton";
 import { useDemoQueue } from "./DemoQueueProvider";
-import Link from "next/link";
-
 interface ModuleDrawerProps {
   isDemo: boolean;
   activatedIds: string[];
@@ -191,15 +189,6 @@ export default function ModuleDrawer({ isDemo, activatedIds }: ModuleDrawerProps
             </ul>
           </section>
 
-          {/* Full details link */}
-          <div className="pt-4 border-t border-white/[0.06]">
-            <Link
-              href={`/modules/${mod.id}`}
-              className="text-xs text-white/30 hover:text-gold transition-colors"
-            >
-              View full details page →
-            </Link>
-          </div>
         </div>
       </div>
     </>

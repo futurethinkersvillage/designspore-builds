@@ -10,7 +10,7 @@ import {
   type ModuleCategory,
 } from "@/lib/modules";
 import { getMonthKey } from "@/lib/queue";
-import ModuleCard from "@/components/dashboard/ModuleCard";
+import ModuleCard, { DemoModuleCard } from "@/components/dashboard/ModuleCard";
 import ModulesFilter from "@/components/dashboard/ModulesFilter";
 import ModuleDrawer from "@/components/dashboard/ModuleDrawer";
 
@@ -89,13 +89,21 @@ export default async function ModulesPage({
         <section key={category}>
           <h2 className="text-xs uppercase tracking-widest text-white/30 font-semibold mb-4">{label}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {items.map((mod) => (
-              <ModuleCard
-                key={mod.id}
-                module={mod}
-                isActivated={activatedSet.has(mod.id)}
-              />
-            ))}
+            {items.map((mod) =>
+              isDemo ? (
+                <DemoModuleCard
+                  key={mod.id}
+                  module={mod}
+                  isActivated={activatedSet.has(mod.id)}
+                />
+              ) : (
+                <ModuleCard
+                  key={mod.id}
+                  module={mod}
+                  isActivated={activatedSet.has(mod.id)}
+                />
+              )
+            )}
           </div>
         </section>
       ))}

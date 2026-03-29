@@ -25,11 +25,8 @@ function QueueEntry({
   return (
     <li className="flex items-center justify-between gap-3 bg-card border border-white/[0.05] rounded-xl px-4 py-3">
       <div className="flex items-center gap-2.5 min-w-0">
-        <TierBadge tier={mod.tier as ModuleTier} />
+        <TierBadge tier={mod.tier as ModuleTier} creditOnly recurring={mod.recurring} />
         <span className="text-sm text-white truncate">{mod.name}</span>
-        {mod.recurring && (
-          <span className="text-[10px] text-white/25 shrink-0">↻ monthly</span>
-        )}
       </div>
       {onRemove && (
         <button
