@@ -1,10 +1,12 @@
 export type ModuleCategory =
   | "lead-generation"
+  | "sales-followup"
   | "client-communication"
   | "reputation"
   | "operations"
   | "automation"
-  | "website";
+  | "website"
+  | "market-intelligence";
 
 /**
  * Tier system — shown to clients, dollar values are internal only.
@@ -715,6 +717,268 @@ export const modules: Module[] = [
     recommendedWhen: ["You have 2+ active services running", "You want to know if your investment is working"],
     ctaLabel: "Subscribe Monthly",
   },
+  // ── Sales & Follow-Up ────────────────────────────────────────────────
+  {
+    id: "lead-qualification",
+    name: "Lead Qualification Assistant",
+    tier: 2 as ModuleTier,
+    category: "sales-followup",
+    problemHeadline: "You're spending time on leads that were never going to buy.",
+    problemDescription:
+      "Not every enquiry is worth pursuing. When you treat every lead equally, you spend the same energy on time-wasters as on your best future clients. A qualification layer filters the noise so you only talk to people who are a real fit.",
+    shortDescription:
+      "An automated qualification flow that scores inbound leads before they reach your calendar.",
+    serviceMechanism:
+      "We build a multi-step qualification sequence — triggered after initial contact — that asks the right questions (budget, timeline, project type, location) and scores responses against your ideal client profile. Qualified leads get routed to booking; poor fits get a polite redirect.",
+    businessOutcome:
+      "You spend your time on high-probability prospects only. Fewer wasted calls, higher close rates, and a pipeline that actually reflects real opportunity.",
+    whyItMatters:
+      "Time is your most valuable resource. Qualification doesn't just protect your calendar — it signals to serious buyers that you run a professional, structured business.",
+    estimatedValue: 750,
+    includedDeliverables: [
+      "Custom qualification questionnaire (5–8 questions)",
+      "Automated scoring logic against your ICP",
+      "Qualified → booking flow integration",
+      "Unqualified → polite redirect message",
+      "Weekly lead quality summary",
+    ],
+    clientRequirements: [
+      "Clear description of your ideal client (budget range, job type, location)",
+      "A booking tool or calendar link for qualified leads",
+    ],
+    accessRequirements: [
+      "Intake form or CRM to plug into",
+      "Email or SMS platform credentials",
+    ],
+    dependencies: [],
+    reviewProcess: "Qualification criteria and message copy reviewed with you before launch.",
+    revisionExpectations: "Scoring logic can be refined after first 30 days of data.",
+    idealBusinessType: ["trades", "home-services", "consulting", "agencies", "coaching", "real-estate"],
+    tags: ["leads", "qualification", "automation", "sales", "filtering"],
+    recommendedWhen: [
+      "You frequently get on calls with leads who aren't a fit",
+      "Your close rate from enquiries feels low",
+      "You're generating leads but struggling to convert them",
+    ],
+    ctaLabel: "Activate Lead Qualification",
+  },
+  {
+    id: "appointment-booking",
+    name: "Appointment Booking Automation",
+    tier: 2 as ModuleTier,
+    category: "sales-followup",
+    problemHeadline: "Back-and-forth scheduling is costing you jobs before they start.",
+    problemDescription:
+      "Every 'What time works for you?' email exchange is a friction point where leads drop off. The longer it takes to get someone booked, the more time they have to change their mind or find someone else.",
+    shortDescription:
+      "A seamless automated booking flow so prospects can schedule instantly — no back-and-forth required.",
+    serviceMechanism:
+      "We set up and configure a professional booking system connected to your availability, with automated confirmation, reminder, and follow-up sequences. Integrated directly into your website, lead flows, and any active automations — so every qualified lead gets a frictionless path to your calendar.",
+    businessOutcome:
+      "More appointments booked with less effort. Fewer no-shows thanks to automated reminders. A professional experience that builds confidence before the first conversation.",
+    whyItMatters:
+      "The best leads act on impulse. If they can't book immediately when they're ready, you lose them. A 24/7 booking system captures them at the moment of intent.",
+    estimatedValue: 750,
+    includedDeliverables: [
+      "Booking system setup and configuration",
+      "Calendar sync and availability management",
+      "Automated confirmation email + SMS",
+      "24-hour and 1-hour reminder sequences",
+      "Post-appointment follow-up message",
+      "Website embed or direct link",
+    ],
+    clientRequirements: [
+      "A Google or Outlook calendar to sync",
+      "Your availability preferences and buffer times",
+    ],
+    accessRequirements: [
+      "Calendar account credentials",
+      "Website access for embed (if applicable)",
+    ],
+    dependencies: [],
+    reviewProcess: "Full booking flow tested end-to-end before going live.",
+    revisionExpectations: "Availability settings and message copy adjustable at any time.",
+    idealBusinessType: ["consulting", "coaching", "medical", "legal", "trades", "home-services", "real-estate"],
+    tags: ["booking", "calendar", "automation", "appointments", "scheduling"],
+    recommendedWhen: [
+      "You spend significant time on scheduling back-and-forth",
+      "Leads go cold between first contact and first meeting",
+      "You have no-show issues with existing appointments",
+    ],
+    ctaLabel: "Activate Appointment Booking",
+  },
+
+  // ── Client Communication additions ───────────────────────────────────
+  {
+    id: "after-hours-response",
+    name: "After-Hours Response System",
+    tier: 2 as ModuleTier,
+    category: "client-communication",
+    problemHeadline: "Enquiries that come in after 5pm are gone by 9am.",
+    problemDescription:
+      "Most service businesses are only reachable during a 9-to-5 window. But your clients' problems don't keep office hours. A prospect who reaches out at 7pm and hears nothing until morning will call someone else — and they'll have found them by the time you reply.",
+    shortDescription:
+      "An intelligent after-hours system that responds to, qualifies, and holds enquiries until you're back — so no lead is left in the dark.",
+    serviceMechanism:
+      "We build an after-hours response layer across your contact channels — website, phone, email, social — that activates outside business hours. It sends an immediate, warm acknowledgement, collects the key details, and either books them into your calendar or queues them for your morning follow-up. Urgent enquiries can be flagged to your phone.",
+    businessOutcome:
+      "Zero leads lost to timing. Every after-hours enquiry gets an immediate response and a clear next step — and you wake up to a prioritised list rather than a cold inbox.",
+    whyItMatters:
+      "Coverage gaps are invisible to you but very visible to prospects. An after-hours system levels the playing field with larger competitors who have staff around the clock.",
+    estimatedValue: 750,
+    includedDeliverables: [
+      "After-hours detection and auto-response across up to 3 channels",
+      "Warm acknowledgement message (branded)",
+      "Lead capture and intake during off-hours",
+      "Morning digest of overnight enquiries",
+      "Urgent escalation alert (optional SMS to you)",
+    ],
+    clientRequirements: [
+      "Your business hours defined",
+      "Preferred channels to cover (website, phone, email, social)",
+    ],
+    accessRequirements: [
+      "Access to relevant platforms (website, email, social)",
+    ],
+    dependencies: [],
+    reviewProcess: "All response messages reviewed and approved before activation.",
+    revisionExpectations: "Message tone and escalation rules adjustable anytime.",
+    idealBusinessType: ["trades", "home-services", "medical", "legal", "consulting", "events"],
+    tags: ["after-hours", "automation", "leads", "response", "coverage"],
+    recommendedWhen: [
+      "You get enquiries in the evenings or weekends",
+      "Your response time to off-hours leads is slow",
+      "You want coverage without hiring staff",
+    ],
+    ctaLabel: "Activate After-Hours Response",
+  },
+
+  // ── Reputation additions ─────────────────────────────────────────────
+  {
+    id: "referral-request",
+    name: "Referral Request System",
+    tier: 3 as ModuleTier,
+    category: "reputation",
+    problemHeadline: "Your happiest clients aren't sending you referrals — because you never asked.",
+    problemDescription:
+      "Word-of-mouth is still the highest-converting lead source for service businesses. But most clients who would happily refer you never do — simply because the moment passed and it was never made easy. A referral system captures that goodwill while it's fresh.",
+    shortDescription:
+      "An automated referral request sent to satisfied clients at exactly the right moment.",
+    serviceMechanism:
+      "We build a post-job referral flow triggered after a completed project or positive review. It sends a warm, personal message asking if they know anyone who could benefit from your services — with a simple way to refer (share a link, forward a message, or make an intro). Referrals are tracked and followed up automatically.",
+    businessOutcome:
+      "A steady stream of warm referred leads — the highest-quality, lowest-cost leads available to a service business.",
+    whyItMatters:
+      "A referred lead converts 3–5× better than a cold one and has a higher lifetime value. You already earned the trust — the referral system just activates it.",
+    estimatedValue: 375,
+    includedDeliverables: [
+      "Referral request message sequence (SMS and/or email)",
+      "Referral tracking link",
+      "Thank-you automation for successful referrals",
+      "Monthly referral volume report",
+    ],
+    clientRequirements: [
+      "A CRM, booking tool, or job management software to trigger from",
+      "Optional: a referral incentive you'd like to offer",
+    ],
+    accessRequirements: ["CRM or job management credentials"],
+    dependencies: [],
+    reviewProcess: "Message copy reviewed and approved before activation.",
+    revisionExpectations: "Up to 2 rounds of copy revisions included.",
+    idealBusinessType: ["trades", "home-services", "consulting", "medical", "coaching", "real-estate"],
+    tags: ["referrals", "word-of-mouth", "automation", "leads", "reputation"],
+    recommendedWhen: [
+      "You rely on referrals but don't have a system to generate them",
+      "You do great work but clients don't naturally refer you",
+      "You want leads without increasing ad spend",
+    ],
+    ctaLabel: "Activate Referral System",
+  },
+
+  // ── Market Intelligence ───────────────────────────────────────────────
+  {
+    id: "market-intel-weekly",
+    name: "Weekly Market & Competitor Intel",
+    tier: 3 as ModuleTier,
+    recurring: true,
+    category: "market-intelligence",
+    problemHeadline: "Your competitors are moving and you're the last to know.",
+    problemDescription:
+      "New offers, price changes, seasonal promotions, Google ad copy shifts — your competitors are constantly adjusting their positioning. Without visibility, you're making decisions based on what the market looked like months ago.",
+    shortDescription:
+      "A weekly digest of what your top competitors are doing — new offers, messaging shifts, and market moves.",
+    serviceMechanism:
+      "Each week we monitor your top 3–5 competitors across their website, Google Business Profile, social media, and ad activity. We summarise meaningful changes — new offers, updated pricing language, promotional pushes, new reviews — into a concise brief delivered to your inbox every Monday.",
+    businessOutcome:
+      "You always know what your competitors are doing before it affects your pipeline. Faster response to market shifts, better positioning, and no more surprises.",
+    whyItMatters:
+      "The businesses that win consistently aren't necessarily the best — they're the most aware. Market intelligence is the difference between reacting and leading.",
+    estimatedValue: 375,
+    includedDeliverables: [
+      "Weekly competitor monitoring (3–5 competitors)",
+      "Plain-English briefing every Monday",
+      "Highlights of new offers, messaging, or promotions",
+      "Recommended action (if any)",
+    ],
+    clientRequirements: [
+      "List of 3–5 competitors to monitor",
+      "Your current positioning and key differentiators",
+    ],
+    accessRequirements: [],
+    dependencies: [],
+    reviewProcess: "Initial competitor list and monitoring scope confirmed with you before launch.",
+    revisionExpectations: "Competitor list can be updated at any time.",
+    idealBusinessType: ["trades", "home-services", "consulting", "agencies", "real-estate", "e-commerce"],
+    tags: ["market-intelligence", "competitors", "monitoring", "recurring", "weekly"],
+    recommendedWhen: [
+      "You operate in a competitive local market",
+      "You've lost clients to competitors without knowing why",
+      "You want to stay ahead of seasonal pricing shifts",
+    ],
+    ctaLabel: "Subscribe Weekly",
+  },
+  {
+    id: "competitor-pricing-monitor",
+    name: "Competitor Offer & Pricing Monitor",
+    tier: 2 as ModuleTier,
+    recurring: true,
+    category: "market-intelligence",
+    problemHeadline: "You don't know if your pricing is winning or losing you work.",
+    problemDescription:
+      "Pricing is one of the most powerful levers in your business — but most service businesses set their rates once and never revisit them. Meanwhile, competitors adjust, new entrants undercut, and the market moves. You could be overpriced, underpriced, or missing offers that would win more jobs.",
+    shortDescription:
+      "Ongoing monitoring of competitor pricing, packages, and special offers — so your pricing strategy is always informed.",
+    serviceMechanism:
+      "We build a structured monitoring system for your top competitors' pricing pages, quote structures, seasonal promotions, and package offers. Monthly we deliver a comparison against your current pricing with specific recommendations — where you're well-positioned, where you're vulnerable, and what offers competitors are using to win work.",
+    businessOutcome:
+      "Pricing decisions backed by real market data. The confidence to charge what your work is worth — and the intelligence to know when to adjust.",
+    whyItMatters:
+      "A 10% pricing adjustment based on market reality can mean tens of thousands of dollars annually. This is one of the highest-ROI things you can do — and almost no small businesses do it systematically.",
+    estimatedValue: 750,
+    includedDeliverables: [
+      "Monthly competitor pricing audit (up to 5 competitors)",
+      "Package and offer comparison matrix",
+      "Pricing recommendations specific to your market position",
+      "Seasonal offer tracking",
+      "Summary report with action items",
+    ],
+    clientRequirements: [
+      "Your current pricing structure or rate card",
+      "List of direct competitors to monitor",
+    ],
+    accessRequirements: [],
+    dependencies: [],
+    reviewProcess: "Initial scope and competitor list confirmed. First report delivered within 2 weeks.",
+    revisionExpectations: "Competitor list and comparison criteria adjustable monthly.",
+    idealBusinessType: ["trades", "home-services", "consulting", "agencies", "real-estate", "e-commerce", "coaching"],
+    tags: ["pricing", "competitors", "market-intelligence", "recurring", "monthly"],
+    recommendedWhen: [
+      "You're unsure if your pricing is competitive",
+      "You've lost quotes on price without understanding why",
+      "You want to introduce packages or seasonal offers",
+    ],
+    ctaLabel: "Subscribe Monthly",
+  },
 ];
 
 export function getModuleById(id: string): Module | undefined {
@@ -743,9 +1007,11 @@ export function creditsForModule(mod: Module): number {
 
 export const categoryLabels: Record<ModuleCategory, string> = {
   "lead-generation": "Lead Generation",
+  "sales-followup": "Sales & Follow-Up",
   "client-communication": "Client Communication",
   reputation: "Reputation",
   operations: "Operations",
   automation: "Automation",
   website: "Website",
+  "market-intelligence": "Market Intelligence",
 };

@@ -50,11 +50,13 @@ export default async function ModulesPage({
 
   const categoryOrder: ModuleCategory[] = [
     "lead-generation",
+    "sales-followup",
     "client-communication",
     "reputation",
     "automation",
     "operations",
     "website",
+    "market-intelligence",
   ];
 
   const grouped = categoryOrder
