@@ -12,9 +12,9 @@ interface ModuleCardProps {
 export default function ModuleCard({ module: mod, isActivated }: ModuleCardProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isSelected = searchParams.get("detail") === mod.id;
 
   function openDrawer(e: React.MouseEvent) {
-    // Don't open drawer if clicking the "Add to queue" button
     if ((e.target as HTMLElement).closest("a")) return;
     const params = new URLSearchParams(searchParams.toString());
     params.set("detail", mod.id);
@@ -25,7 +25,9 @@ export default function ModuleCard({ module: mod, isActivated }: ModuleCardProps
     <div
       onClick={openDrawer}
       className={`group relative flex flex-col bg-card border rounded-2xl transition-all duration-200 cursor-pointer ${
-        isActivated
+        isSelected
+          ? "border-gold/40 ring-1 ring-gold/20 bg-gold/[0.03]"
+          : isActivated
           ? "border-gold/30 ring-1 ring-gold/10"
           : "border-white/[0.07] hover:border-white/[0.14]"
       }`}

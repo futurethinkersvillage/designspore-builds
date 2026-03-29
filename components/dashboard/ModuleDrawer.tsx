@@ -87,13 +87,6 @@ export default function ModuleDrawer({ isDemo, activatedIds }: ModuleDrawerProps
     return () => document.removeEventListener("keydown", handler);
   }, [mod, close]);
 
-  // Lock body scroll when open
-  useEffect(() => {
-    if (mod) {
-      document.body.style.overflow = "hidden";
-      return () => { document.body.style.overflow = ""; };
-    }
-  }, [mod]);
 
   if (!mod) return null;
 
@@ -103,13 +96,6 @@ export default function ModuleDrawer({ isDemo, activatedIds }: ModuleDrawerProps
   return (
     <>
       {/* Backdrop */}
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-      <div
-        className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-200"
-        onClick={close}
-        aria-hidden
-      />
-
       {/* Drawer panel */}
       <div
         className="fixed inset-y-0 right-0 z-50 w-full max-w-lg bg-darker border-l border-white/[0.06] shadow-2xl overflow-y-auto transition-transform duration-300"
