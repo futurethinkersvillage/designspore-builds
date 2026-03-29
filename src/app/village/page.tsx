@@ -170,8 +170,8 @@ function About() {
             </div>
             <div className="relative aspect-square overflow-hidden rounded-xl">
               <Image
-                src="/images/a_young_camphost_202512041422-1024x576.jpeg"
-                alt="Village host at Wells Gray"
+                src="/images/gemini_generated_image_o3gzbko3gzbko3gz-1024x747.png"
+                alt="The geodesic dome at Wells Gray Village"
                 fill
                 className="object-cover"
               />
@@ -236,17 +236,17 @@ function Amenities() {
     {
       icon: Horse,
       label: "Horse corrals",
-      body: "Facilities for guests traveling with horses — a nod to the working ranch history of the land.",
+      body: "Facilities for guests traveling with horses, with access to surrounding forest and trail networks.",
     },
     {
       icon: House,
       label: "Coworking gazebo — Coming Soon",
-      body: "A dedicated coworking gazebo for focused work and family gatherings is part of our near-future roadmap.",
+      body: "The coworking gazebo is planned as an upgrade of the existing 120-person gazebo — a dedicated space for deep work, workshops, and family gatherings.",
     },
     {
       icon: Campfire,
-      label: "Campfire grounds",
-      body: "Dedicated fire pits and communal campfire areas — the heart of village evenings.",
+      label: "Village Rhythm",
+      body: "A weekly schedule of themed activities running through the summer season (May 1–Oct 7) — sauna days, forest school, communal meals, campfires, and more.",
     },
     {
       icon: TreeEvergreen,
@@ -299,11 +299,11 @@ function Programs() {
       cta: "Learn about immersion",
     },
     {
-      label: "Sunday Community Day",
+      label: "Village Rhythm",
       sub: "Weekly program",
       body: "Forest school, sauna, campfire, and golf — every Sunday. A low-commitment entry point for locals, guests, and visitors who want a taste of village life.",
       href: "/sunday",
-      cta: "See Sunday schedule",
+      cta: "See the village rhythm",
     },
     {
       label: "Work-Stay Program",
@@ -404,8 +404,8 @@ function BookStay() {
           {/* Photo */}
           <div className="relative overflow-hidden rounded-2xl" style={{ minHeight: "320px" }}>
             <Image
-              src="/images/76747423_10163561173205725_3017674924459294720_n-1024x577.jpg"
-              alt="Wells Gray Village landscape"
+              src="/images/wells-gray-golf-rv-06-1024x685.jpg"
+              alt="Wells Gray Village — aerial view of the resort"
               fill
               className="object-cover"
             />

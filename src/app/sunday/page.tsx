@@ -6,10 +6,7 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   Tree,
-  Flame,
-  Golf,
   Waves,
-  Clock,
   ArrowUpRight,
   Sun,
 } from "@phosphor-icons/react";
@@ -95,27 +92,6 @@ function Hero() {
         </div>
       </div>
 
-      {/* Stat strip */}
-      <div className="absolute bottom-0 left-0 right-0 border-t border-white/10">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-          <div className="grid grid-cols-2 divide-x divide-white/10 sm:grid-cols-4">
-            {[
-              { value: "Regular", unit: "", label: "Village rhythm" },
-              { value: "$249", unit: "/6wks", label: "Forest school" },
-              { value: "$10", unit: "/person", label: "Sauna session" },
-              { value: "Free", unit: "", label: "Campfire" },
-            ].map((s) => (
-              <div key={s.label} className="px-6 py-5 first:pl-0">
-                <div className="font-mono text-xl font-light text-white tabular-nums">
-                  {s.value}
-                  <span className="ml-1 text-sm text-amber">{s.unit}</span>
-                </div>
-                <div className="text-xs text-white/30 uppercase tracking-wider mt-1">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
     </section>
   );
 }
@@ -123,40 +99,37 @@ function Hero() {
 function Schedule() {
   const events = [
     {
-      time: "All day",
-      label: "Golf",
-      icon: Golf,
-      price: "$30/round",
-      body: "Come early and make a full day of it. 9-hole scenic course winding through the trees. Carts available at extra cost.",
-      cta: "Book a tee time",
-      href: "https://wellsgrayresort.ca",
-    },
-    {
-      time: "Afternoon",
+      days: "Monday–Friday",
       label: "Forest School",
       icon: Tree,
-      price: "$249 / 6 weeks",
-      body: "A 6-week pilot program for ages 4–10. Drop-off outdoor learning with nature play, seasonal activities, stories, games, and free exploration. Small mixed-age group.",
+      season: "May 1–Oct 7",
+      price: "$249 / 6-week session",
+      body: "Weekday drop-off outdoor program for kids — nature play, seasonal crafts, stories, and free exploration in the forest.",
       cta: "Sign up for forest school",
       href: "https://wellsgrayresort.ca",
+      ages: "Ages 4–10",
     },
     {
-      time: "Late afternoon",
-      label: "Community Sauna",
+      days: "Saturdays",
+      label: "Community Sauna & Cold Plunge",
       icon: Waves,
+      season: "May 1–Oct 7",
       price: "$10 / person",
-      body: "Wood-fired barrel sauna by the creek with a natural cold plunge. Open to locals and guests. Kids under 12 are free. Reserve your spot in advance.",
+      body: "Wood-fired barrel sauna by the creek with a natural cold plunge. Open to guests and locals. Kids under 12 free.",
       cta: "Reserve a sauna spot",
       href: "https://wellsgrayresort.ca",
+      ages: null,
     },
     {
-      time: "Evening",
-      label: "Campfire",
-      icon: Flame,
-      price: "Free",
-      body: "An optional all-ages campfire after sauna. S'mores kits, cold drinks, simple snacks. No signup needed — just show up. Subject to fire ban conditions.",
-      cta: "No signup needed",
-      href: null,
+      days: "Sundays",
+      label: "Community Day",
+      icon: Sun,
+      season: "May 1–Oct 7",
+      price: "Free to join",
+      body: "Our signature gathering day — forest school for the kids, sauna for the adults, communal campfire in the evening. Come for one part or stay all day.",
+      cta: "See Sunday schedule",
+      href: "#sunday-sample",
+      ages: null,
     },
   ];
 
@@ -165,7 +138,7 @@ function Schedule() {
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
-            What&apos;s happening
+            Opening season — May 1 – Oct 7
           </p>
           <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
             The village<br />
@@ -181,11 +154,11 @@ function Schedule() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
-              className="group grid grid-cols-1 gap-6 py-10 lg:grid-cols-[10rem_18rem_1fr_auto] lg:items-start"
+              className="group grid grid-cols-1 gap-6 py-10 lg:grid-cols-[12rem_18rem_1fr_auto] lg:items-start"
             >
-              <div className="flex items-center gap-2">
-                <Clock size={14} className="text-amber/60" weight="light" />
-                <span className="text-xs font-mono text-amber/60">{ev.time}</span>
+              <div>
+                <div className="text-sm font-medium text-white">{ev.days}</div>
+                <div className="text-xs font-mono text-amber/60 mt-1">{ev.season}</div>
               </div>
               <div>
                 <div className="flex items-center gap-3 mb-1">
@@ -193,13 +166,21 @@ function Schedule() {
                   <div className="text-base font-medium text-white">{ev.label}</div>
                 </div>
                 <div className="font-mono text-sm text-amber/80">{ev.price}</div>
+                {ev.ages && <div className="text-xs text-white/30 mt-1">{ev.ages}</div>}
               </div>
               <p className="text-sm leading-relaxed text-white/40 max-w-[52ch]">{ev.body}</p>
-              {ev.href ? (
+              {ev.href && ev.href !== "#sunday-sample" ? (
                 <a
                   href={ev.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-white/40 transition-all hover:text-amber hover:gap-3"
+                >
+                  {ev.cta} <ArrowRight size={13} />
+                </a>
+              ) : ev.href === "#sunday-sample" ? (
+                <a
+                  href={ev.href}
                   className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-white/40 transition-all hover:text-amber hover:gap-3"
                 >
                   {ev.cta} <ArrowRight size={13} />
@@ -209,6 +190,17 @@ function Schedule() {
               )}
             </motion.div>
           ))}
+        </div>
+
+        {/* Sample Sunday callout */}
+        <div id="sunday-sample" className="mt-12 rounded-2xl border border-amber/30 bg-amber/5 px-8 py-7">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-3">
+            Sample Sunday
+          </p>
+          <p className="text-base font-medium text-white">
+            Forest School 2–5pm · Community Sauna 4–7pm · Campfire 7pm
+          </p>
+          <p className="mt-2 text-sm text-white/40">Come for one part or stay all day.</p>
         </div>
       </div>
     </section>
@@ -230,7 +222,7 @@ function ForestSchoolDetail() {
             </h2>
             <div className="mt-8 space-y-4 text-sm leading-relaxed text-white/45 max-w-[48ch]">
               <p>
-                A simple drop-off outdoor program running on community gathering days.
+                A simple drop-off outdoor program running on Sundays during the summer season.
                 Nature play, seasonal activities, stories, games, crafts, and free
                 exploration in the forest.
               </p>

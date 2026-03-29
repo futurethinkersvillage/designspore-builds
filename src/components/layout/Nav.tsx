@@ -11,9 +11,9 @@ const navItems = [
     label: "The Village",
     href: "/village",
     children: [
-      { label: "About Wells Gray", href: "/village" },
+      { label: "About Wells Gray Village", href: "/village" },
       { label: "Village Immersion", href: "/immersion" },
-      { label: "Sunday Community Day", href: "/sunday" },
+      { label: "Village Rhythm", href: "/sunday" },
       { label: "Work-Stay Program", href: "/workstay" },
       { label: "Host An Event", href: "/host" },
       { label: "Videos", href: "/videos" },

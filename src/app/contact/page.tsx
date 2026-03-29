@@ -44,7 +44,7 @@ function Hero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-[clamp(3rem,8vw,7rem)] font-light leading-[0.9] tracking-tighter text-white"
             >
-              Talk to Mike
+              Get in
             </motion.h1>
           </div>
           <div className="overflow-hidden pb-10 -mb-10">
@@ -54,7 +54,7 @@ function Hero() {
               transition={{ duration: 0.8, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-[clamp(3rem,8vw,7rem)] italic font-light leading-[0.9] tracking-tighter text-amber"
             >
-              directly.
+              touch.
             </motion.h1>
           </div>
 
@@ -64,7 +64,7 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 max-w-[44ch] text-base leading-relaxed text-white/55"
           >
-            WhatsApp or email — no forms, no ticket systems. If you have a real
+            WhatsApp or email. If you have a real
             question about the village, a partnership, or an idea, just reach out.
           </motion.p>
         </div>

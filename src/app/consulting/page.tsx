@@ -69,7 +69,7 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 max-w-[48ch] text-base leading-relaxed text-white/55"
           >
-            Strategic advisory for owners of existing hospitality operations who want to differentiate, build community, and unlock new revenue — from people who have done it firsthand.
+            Strategic advisory for hospitality operators and rural property owners who want to build something more resilient, differentiated, and alive — from people who have done it firsthand.
           </motion.p>
 
           <motion.div
@@ -101,8 +101,8 @@ function Hero() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
           <div className="grid grid-cols-2 divide-x divide-white/10 sm:grid-cols-4">
             {[
-              { value: "5+", unit: "yrs", label: "Operating resort" },
-              { value: "10+", unit: "yrs", label: "Hospitality experience" },
+              { value: "5+", unit: "yrs", label: "Hospitality ops" },
+              { value: "10+", unit: "yrs", label: "Years of research" },
               { value: "Video", unit: "call", label: "Format" },
               { value: "Real", unit: "results", label: "Operational expertise" },
             ].map((s) => (
