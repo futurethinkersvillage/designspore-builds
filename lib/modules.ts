@@ -1005,6 +1005,42 @@ export function creditsForModule(mod: Module): number {
   return tierConfig[mod.tier].credits;
 }
 
+/**
+ * Returns up to `count` recommended modules for a client.
+ * Excludes already-activated modules and tries to cover different categories.
+ * Priority: tier 2 (Core) first, then tier 3 (Quick Win), then tier 1 (Flagship).
+ */
+export function getRecommendedModules(activatedIds: string[], count = 3): Module[] {
+  const available = modules.filter((m) => !activatedIds.includes(m.id));
+  // Sort: tier 2 first (best value), then tier 3, then tier 1
+  const prioritized = [...available].sort((a, b) => {
+    const priority = (t: ModuleTier) => (t === 2 ? 0 : t === 3 ? 1 : 2);
+    return priority(a.tier) - priority(b.tier);
+  });
+  // Pick one per category until we have `count`
+  const picked: Module[] = [];
+  const usedCategories = new Set<string>();
+  for (const mod of prioritized) {
+    if (picked.length >= count) break;
+    if (!usedCategories.has(mod.category)) {
+      picked.push(mod);
+      usedCategories.add(mod.category);
+    }
+  }
+  // If we still need more, fill from remaining without category constraint
+  if (picked.length < count) {
+    const pickedIds = new Set(picked.map((m) => m.id));
+    for (const mod of prioritized) {
+      if (picked.length >= count) break;
+      if (!pickedIds.has(mod.id)) {
+        picked.push(mod);
+        pickedIds.add(mod.id);
+      }
+    }
+  }
+  return picked;
+}
+
 export const categoryLabels: Record<ModuleCategory, string> = {
   "lead-generation": "Lead Generation",
   "sales-followup": "Sales & Follow-Up",

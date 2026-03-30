@@ -127,7 +127,7 @@ export default async function MyModulesPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-10">
+    <div className="max-w-5xl mx-auto space-y-10">
       <div>
         <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-2">Queue</p>
         <h1 className="text-3xl font-bold text-white mb-1">My Modules</h1>

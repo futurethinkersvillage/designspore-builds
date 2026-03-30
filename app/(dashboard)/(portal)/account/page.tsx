@@ -5,15 +5,22 @@ import { db } from "@/lib/db";
 import { users, activations, apiUsage } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
 import { PLANS, type PlanKey } from "@/lib/subscription";
+import { creditsForModule, getModuleById } from "@/lib/modules";
+import { getMonthKey } from "@/lib/queue";
 import { DEMO_USER } from "@/lib/demo";
 import PauseButton from "@/components/dashboard/PauseButton";
+import BuyCreditsButton from "@/components/dashboard/BuyCreditsButton";
+import DeleteAccountButton from "@/components/dashboard/DeleteAccountButton";
+import AllocationMeter from "@/components/dashboard/AllocationMeter";
 
-const UPGRADE_PLANS: PlanKey[] = ["starter", "growth", "partner"];
+// All plans shown in the Available Plans section (including pause tier)
+const ALL_PLANS: PlanKey[] = ["starter", "growth", "partner", "paused"];
 
 const planColors: Record<string, string> = {
   starter: "border-gold/20 text-gold",
   growth:  "border-blue-500/20 text-blue-300",
   partner: "border-purple-500/20 text-purple-300",
+  paused:  "border-white/10 text-white/40",
 };
 
 export default async function AccountPage() {
@@ -26,6 +33,8 @@ export default async function AccountPage() {
     businessType: string | null; subscriptionTier: string | null; monthlyBudget: number;
     isActive: boolean; stripeCustomerId: string | null;
   };
+
+  let creditsUsedThisMonth = 0;
 
   if (isDemo) {
     userData = { ...DEMO_USER, businessType: "home-services", stripeCustomerId: null, subscriptionTier: "growth" };
@@ -41,11 +50,25 @@ export default async function AccountPage() {
     }).from(users).where(eq(users.id, user.id!));
     if (!row) redirect("/login");
     userData = { ...row, monthlyBudget: row.monthlyBudget ?? 1500, isActive: row.isActive ?? false };
+
+    // Credits used this month
+    const currentMonth = getMonthKey(0);
+    const monthRows = await db
+      .select({ moduleId: activations.moduleId, status: activations.status })
+      .from(activations)
+      .where(and(eq(activations.userId, user.id!), eq(activations.periodMonth, currentMonth)));
+    creditsUsedThisMonth = monthRows
+      .filter((r) => r.status !== "cancelled" && r.status !== "completed")
+      .reduce((sum, r) => {
+        const mod = getModuleById(r.moduleId);
+        return sum + (mod ? creditsForModule(mod) : 0);
+      }, 0);
   }
 
   const currentTierKey = (userData.subscriptionTier as PlanKey) ?? "starter";
   const plan = PLANS[currentTierKey];
   const periodMonth = new Date().toISOString().slice(0, 7);
+  const monthlyCredits = Math.floor(userData.monthlyBudget / 375);
 
   const usageRows = isDemo ? [] : await db.select({
     service: apiUsage.service,
@@ -58,7 +81,7 @@ export default async function AccountPage() {
   const totalUsageCredits = usageRows.reduce((s, r) => s + (r.estimatedCredits ?? 0), 0);
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
+    <div className="max-w-5xl mx-auto space-y-8">
       <div>
         <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-2">Settings</p>
         <h1 className="text-3xl font-bold text-white">My Account</h1>
@@ -91,20 +114,16 @@ export default async function AccountPage() {
             <p className="text-sm text-white/40 mt-1">{plan.description}</p>
           </div>
           <div className="text-right shrink-0">
-            <p className="text-xs text-white/30 mb-0.5">Monthly credits</p>
-            <p className="text-2xl font-bold text-gold">{plan.monthlyCredits}</p>
+            <p className="text-xs text-white/30 mb-0.5">Credits this month</p>
+            <p className="text-2xl font-bold text-gold tabular-nums">
+              {monthlyCredits - creditsUsedThisMonth}
+              <span className="text-white/30 font-normal text-base ml-1">/ {monthlyCredits} left</span>
+            </p>
           </div>
         </div>
 
         {/* Credit bar */}
-        <div>
-          <div className="flex gap-1.5">
-            {Array.from({ length: plan.monthlyCredits }).map((_, i) => (
-              <div key={i} className="h-1.5 flex-1 rounded-full bg-white/[0.08]" />
-            ))}
-          </div>
-          <p className="text-xs text-white/25 mt-2">Resets each billing cycle</p>
-        </div>
+        <AllocationMeter creditsUsed={creditsUsedThisMonth} creditsTotal={monthlyCredits} />
 
         {/* Billing link */}
         {userData.stripeCustomerId && !isDemo && (
@@ -117,38 +136,35 @@ export default async function AccountPage() {
             Manage billing & invoices →
           </a>
         )}
-
-        {/* Pause */}
-        <div className="pt-4 border-t border-white/[0.06]">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-sm font-medium text-white mb-1">Keep the Lights On</p>
-              <p className="text-xs text-white/40 max-w-xs">
-                Pauses new builds. Keeps your site live, secure, and maintained.
-                Unpause anytime — full credits resume next cycle.
-              </p>
-            </div>
-            <PauseButton isPaused={userData.subscriptionTier === "paused"} isDemo={isDemo} />
-          </div>
-        </div>
       </section>
 
-      {/* Plan upgrade */}
+      {/* Buy More Credits */}
+      <section>
+        <h2 className="text-xs uppercase tracking-widest text-white/30 font-semibold mb-4">Top Up Credits</h2>
+        <BuyCreditsButton isDemo={isDemo} />
+      </section>
+
+      {/* Available Plans */}
       <section className="space-y-4">
         <h2 className="text-xs uppercase tracking-widest text-white/30 font-semibold">Available Plans</h2>
         <div className="space-y-3">
-          {UPGRADE_PLANS.map((key) => {
+          {ALL_PLANS.map((key) => {
             const p = PLANS[key];
             const isCurrent = key === currentTierKey;
+            const isPaused = key === "paused";
             const colorClasses = planColors[key] ?? "border-white/10 text-white/50";
+            const upgradeKeys: PlanKey[] = ["starter", "growth", "partner"];
+            const currentIdx = upgradeKeys.indexOf(currentTierKey as PlanKey);
+            const thisIdx = upgradeKeys.indexOf(key);
+
             return (
               <div
                 key={key}
-                className={`bg-raised border rounded-2xl p-5 flex items-center justify-between gap-4 transition-all ${
+                className={`bg-raised border rounded-2xl p-5 flex items-start justify-between gap-4 transition-all ${
                   isCurrent ? "border-gold/30 ring-1 ring-gold/10" : "border-white/[0.06]"
                 }`}
               >
-                <div>
+                <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <p className={`text-sm font-semibold ${isCurrent ? "text-white" : "text-white/70"}`}>
                       {p.label}
@@ -160,19 +176,40 @@ export default async function AccountPage() {
                     )}
                   </div>
                   <p className="text-xs text-white/40">{p.description}</p>
+                  {isPaused && "includes" in p && (
+                    <ul className="mt-2 space-y-0.5">
+                      {(p as typeof PLANS["paused"]).includes.map((item) => (
+                        <li key={item} className="text-xs text-white/30 flex items-center gap-1.5">
+                          <span className="text-white/20">·</span> {item}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
                 <div className="text-right shrink-0">
                   <p className={`text-lg font-bold tabular-nums ${isCurrent ? "text-gold" : "text-white/50"}`}>
-                    {p.monthlyCredits}
-                    <span className="text-xs font-normal text-white/30 ml-1">credits/mo</span>
+                    {isPaused ? (
+                      <span>$299<span className="text-xs font-normal text-white/30">/mo</span></span>
+                    ) : (
+                      <>
+                        {(p as typeof PLANS["starter"]).monthlyCredits}
+                        <span className="text-xs font-normal text-white/30 ml-1">credits/mo</span>
+                      </>
+                    )}
                   </p>
-                  {!isCurrent && (
+                  {!isCurrent && !isPaused && (
                     <a
-                      href="mailto:hello@designspore.co?subject=Upgrade request"
+                      href="mailto:hello@designspore.co?subject=Plan change request"
                       className="inline-block mt-1.5 px-3 py-1 bg-white/[0.06] hover:bg-white/[0.1] text-white/60 hover:text-white text-xs font-semibold rounded-lg transition-colors"
                     >
-                      {UPGRADE_PLANS.indexOf(key) > UPGRADE_PLANS.indexOf(currentTierKey) ? "Upgrade" : "Downgrade"}
+                      {thisIdx > currentIdx ? "Upgrade" : "Downgrade"}
                     </a>
+                  )}
+                  {!isCurrent && isPaused && (
+                    <PauseButton isPaused={false} isDemo={isDemo} />
+                  )}
+                  {isCurrent && isPaused && (
+                    <PauseButton isPaused={true} isDemo={isDemo} />
                   )}
                 </div>
               </div>
@@ -217,6 +254,14 @@ export default async function AccountPage() {
           Each active service includes a usage baseline. Overages are billed as Quick Win credits.
         </p>
       </section>
+
+      {/* Danger Zone */}
+      {!isDemo && (
+        <section className="space-y-3">
+          <h2 className="text-xs uppercase tracking-widest text-white/30 font-semibold">Danger Zone</h2>
+          <DeleteAccountButton />
+        </section>
+      )}
     </div>
   );
 }

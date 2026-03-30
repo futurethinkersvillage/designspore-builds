@@ -43,13 +43,15 @@ export default async function Topbar({ isDemo }: TopbarProps) {
 
     if (user.id) {
       const rows = await db
-        .select({ moduleId: activations.moduleId })
+        .select({ moduleId: activations.moduleId, status: activations.status })
         .from(activations)
         .where(and(eq(activations.userId, user.id), eq(activations.periodMonth, periodMonth)));
-      creditsUsed = rows.reduce((s, r) => {
-        const mod = getModuleById(r.moduleId);
-        return s + (mod ? creditsForModule(mod) : 0);
-      }, 0);
+      creditsUsed = rows
+        .filter((r) => r.status !== "cancelled" && r.status !== "completed")
+        .reduce((s, r) => {
+          const mod = getModuleById(r.moduleId);
+          return s + (mod ? creditsForModule(mod) : 0);
+        }, 0);
     }
   }
 

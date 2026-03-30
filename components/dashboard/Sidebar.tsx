@@ -1,10 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { signOut, auth } from "@/auth";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
-  { href: "/modules", label: "Browse Modules" },
-  { href: "/my-modules", label: "My Modules" },
+  { href: "/modules", label: "Browse Services" },
   { href: "/account", label: "Account" },
 ];
 
@@ -21,13 +21,22 @@ export default async function Sidebar({ isDemo }: SidebarProps) {
     <aside className="hidden lg:flex flex-col w-64 min-h-full bg-darker border-r border-white/[0.06] px-6 py-8 shrink-0">
       {/* Logo */}
       <div className="mb-10">
-        <span
-          className="text-lg font-bold tracking-tight text-white"
-          style={{ fontFamily: "var(--font-outfit, var(--font-sans))" }}
-        >
-          Design<span className="text-gold">Spore</span>
-        </span>
-        <p className="text-[11px] text-white/30 mt-0.5 uppercase tracking-widest">
+        <div className="flex items-center gap-2.5 mb-0.5">
+          <Image
+            src="/uploads/2023/06/DesignSpore-Logo.png"
+            alt="DesignSpore"
+            width={28}
+            height={28}
+            className="rounded-md shrink-0"
+          />
+          <span
+            className="text-lg font-bold tracking-tight text-white"
+            style={{ fontFamily: "var(--font-outfit, var(--font-sans))" }}
+          >
+            Design<span className="text-gold">Spore</span>
+          </span>
+        </div>
+        <p className="text-[11px] text-white/30 mt-0.5 uppercase tracking-widest pl-9">
           Client Portal
         </p>
       </div>

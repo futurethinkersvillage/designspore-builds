@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { db } from "@/lib/db";
 import { activations, users } from "@/lib/db/schema";
-import { eq, and, gte } from "drizzle-orm";
+import { eq, and, gte, lt } from "drizzle-orm";
 import { getModuleById, creditsForModule } from "@/lib/modules";
 import { DEMO_USER, DEMO_ACTIVATIONS } from "@/lib/demo";
 import { getMonthKey, type QueueEntry } from "@/lib/queue";
@@ -11,7 +11,9 @@ import AllocationMeter from "@/components/dashboard/AllocationMeter";
 import QueueVisual from "@/components/dashboard/QueueVisual";
 import OnboardingModal from "@/components/dashboard/OnboardingModal";
 import AutopilotToggle from "@/components/dashboard/AutopilotToggle";
+import TierBadge from "@/components/dashboard/TierBadge";
 import Link from "next/link";
+import type { ModuleTier } from "@/lib/modules";
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
@@ -28,10 +30,19 @@ export default async function DashboardPage() {
   let allQueueEntries: QueueEntry[] = [];
   let creditsUsedThisMonth = 0;
 
+  type CompletedItem = { moduleId: string; periodMonth: string; completedAt: Date | null };
+  let completedItems: CompletedItem[] = [];
+
   if (isDemo) {
     userName = DEMO_USER.name;
     businessName = DEMO_USER.businessName;
     monthlyCredits = Math.floor(DEMO_USER.monthlyBudget / 375);
+    // Show a few demo completions
+    completedItems = DEMO_ACTIVATIONS.slice(0, 3).map((a) => ({
+      moduleId: a.moduleId,
+      periodMonth: getMonthKey(-1),
+      completedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+    }));
   } else {
     const session = await auth();
     if (!session?.user) redirect("/login");
@@ -68,6 +79,23 @@ export default async function DashboardPage() {
       const m = getModuleById(e.moduleId);
       return sum + (m ? creditsForModule(m) : 0);
     }, 0);
+
+    // Completed activations (most recent first, limit 10)
+    const completedRows = await db
+      .select({ moduleId: activations.moduleId, periodMonth: activations.periodMonth, activatedAt: activations.activatedAt })
+      .from(activations)
+      .where(and(eq(activations.userId, user.id!), eq(activations.status, "completed")))
+      .orderBy(activations.periodMonth);
+
+    completedItems = completedRows
+      .reverse()
+      .slice(0, 10)
+      .map((r) => ({ moduleId: r.moduleId, periodMonth: r.periodMonth, completedAt: r.activatedAt }));
+  }
+
+  function formatMonth(ym: string) {
+    const [y, m] = ym.split("-");
+    return new Date(parseInt(y), parseInt(m) - 1).toLocaleString("en-US", { month: "long", year: "numeric" });
   }
 
   return (
@@ -85,6 +113,9 @@ export default async function DashboardPage() {
           </h1>
           {businessName && <p className="text-white/40 text-sm">{businessName}</p>}
         </div>
+
+        {/* Autopilot — at the top so clients see it first */}
+        <AutopilotToggle enabled={autopilotEnabled} isDemo={isDemo} />
 
         {/* Credit meter — this month only */}
         {!isDemo && (
@@ -141,8 +172,38 @@ export default async function DashboardPage() {
           />
         </section>
 
-        {/* Autopilot */}
-        <AutopilotToggle enabled={autopilotEnabled} isDemo={isDemo} />
+        {/* Completed Modules */}
+        {completedItems.length > 0 && (
+          <section className="space-y-4">
+            <div>
+              <h2 className="text-lg font-semibold text-white">Completed</h2>
+              <p className="text-sm text-white/40">Services we've delivered for your business.</p>
+            </div>
+            <div className="space-y-2">
+              {completedItems.map((item, idx) => {
+                const mod = getModuleById(item.moduleId);
+                if (!mod) return null;
+                return (
+                  <div
+                    key={`${item.moduleId}-${item.periodMonth}-${idx}`}
+                    className="flex items-center justify-between gap-3 bg-raised border border-white/[0.04] rounded-xl px-4 py-3"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <TierBadge tier={mod.tier as ModuleTier} creditOnly recurring={mod.recurring} />
+                      <span className="text-sm text-white/70 truncate">{mod.name}</span>
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <span className="text-xs text-white/30">{formatMonth(item.periodMonth)}</span>
+                      <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold border bg-emerald-500/10 text-emerald-300 border-emerald-500/20">
+                        Done
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
       </div>
     </>
   );

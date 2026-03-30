@@ -9,6 +9,7 @@ interface QueueContextValue {
   entries: QueueEntry[];
   addToQueue: (moduleId: string) => void;
   removeFromQueue: (moduleId: string) => void;
+  reorderQueue: (entries: QueueEntry[]) => void;
   isQueued: (moduleId: string) => boolean;
   clear: () => void;
 }
@@ -54,12 +55,16 @@ export function DemoQueueProvider({ children }: { children: ReactNode }) {
     [entries]
   );
 
+  const reorderQueue = useCallback((next: QueueEntry[]) => {
+    persist(next);
+  }, []);
+
   const clear = useCallback(() => {
     persist([]);
   }, []);
 
   return (
-    <QueueContext.Provider value={{ entries, addToQueue, removeFromQueue, isQueued, clear }}>
+    <QueueContext.Provider value={{ entries, addToQueue, removeFromQueue, reorderQueue, isQueued, clear }}>
       {children}
     </QueueContext.Provider>
   );

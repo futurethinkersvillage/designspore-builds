@@ -45,6 +45,26 @@ export async function POST(request: NextRequest) {
       customer_email?: string; customer?: string; metadata?: Record<string, string>;
       subscription?: string;
     };
+
+    // Handle credit top-up purchases
+    if (session.metadata?.type === "credit_topup") {
+      const userId = session.metadata.userId;
+      const creditPack = parseInt(session.metadata.creditPack ?? "0", 10);
+      if (userId && creditPack > 0) {
+        const [existing] = await db
+          .select({ monthlyBudget: users.monthlyBudget })
+          .from(users)
+          .where(eq(users.id, userId));
+        if (existing) {
+          const additionalBudget = creditPack * 375;
+          await db.update(users)
+            .set({ monthlyBudget: (existing.monthlyBudget ?? 1500) + additionalBudget })
+            .where(eq(users.id, userId));
+        }
+      }
+      return new NextResponse("OK", { status: 200 });
+    }
+
     const email = session.customer_email ?? session.metadata?.email;
     if (!email) return new NextResponse("OK", { status: 200 });
 

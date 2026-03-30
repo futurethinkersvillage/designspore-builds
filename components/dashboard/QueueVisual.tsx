@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { Reorder } from "framer-motion";
 import { useDemoQueue } from "./DemoQueueProvider";
 import { buildSchedule, type QueueEntry } from "@/lib/queue";
 import { getModuleById, type ModuleTier } from "@/lib/modules";
@@ -13,18 +15,26 @@ interface QueueVisualProps {
   isDemo?: boolean;
 }
 
-function QueueEntry({
+function QueueItem({
   entry,
   onRemove,
+  draggable,
 }: {
   entry: QueueEntry;
   onRemove?: (moduleId: string) => void;
+  draggable?: boolean;
 }) {
   const mod = getModuleById(entry.moduleId);
   if (!mod) return null;
-  return (
-    <li className="flex items-center justify-between gap-3 bg-card border border-white/[0.05] rounded-xl px-4 py-3">
+
+  const inner = (
+    <div className="flex items-center justify-between gap-3 bg-card border border-white/[0.05] rounded-xl px-4 py-3 w-full">
       <div className="flex items-center gap-2.5 min-w-0">
+        {draggable && (
+          <span className="text-white/20 cursor-grab active:cursor-grabbing shrink-0 select-none text-sm">
+            ⠿
+          </span>
+        )}
         <TierBadge tier={mod.tier as ModuleTier} creditOnly recurring={mod.recurring} />
         <span className="text-sm text-white truncate">{mod.name}</span>
       </div>
@@ -37,18 +47,22 @@ function QueueEntry({
           ×
         </button>
       )}
-    </li>
+    </div>
   );
+
+  return inner;
 }
 
 function QueueLayout({
   entries,
   creditsPerMonth,
   onRemove,
+  onReorder,
 }: {
   entries: QueueEntry[];
   creditsPerMonth: number;
   onRemove?: (moduleId: string) => void;
+  onReorder?: (entries: QueueEntry[]) => void;
 }) {
   const schedule = buildSchedule(entries, creditsPerMonth);
   const currentMonth = schedule[0];
@@ -57,6 +71,7 @@ function QueueLayout({
     .flatMap((m) => m.entries);
 
   const creditsUsed = currentMonth?.creditsUsed ?? 0;
+  const currentEntries = currentMonth?.entries ?? [];
 
   return (
     <div className="space-y-5">
@@ -72,13 +87,31 @@ function QueueLayout({
         </div>
         <AllocationMeter creditsUsed={creditsUsed} creditsTotal={creditsPerMonth} />
 
-        {/* Current month entries */}
-        {(currentMonth?.entries.length ?? 0) > 0 ? (
-          <ul className="space-y-2 pt-1">
-            {currentMonth.entries.map((e) => (
-              <QueueEntry key={e.moduleId} entry={e} onRemove={onRemove} />
-            ))}
-          </ul>
+        {/* Current month entries — draggable */}
+        {currentEntries.length > 0 ? (
+          onReorder ? (
+            <Reorder.Group
+              axis="y"
+              values={entries}
+              onReorder={onReorder}
+              className="space-y-2 pt-1"
+              as="ul"
+            >
+              {currentEntries.map((e) => (
+                <Reorder.Item key={e.moduleId} value={e} as="li">
+                  <QueueItem entry={e} onRemove={onRemove} draggable />
+                </Reorder.Item>
+              ))}
+            </Reorder.Group>
+          ) : (
+            <ul className="space-y-2 pt-1">
+              {currentEntries.map((e) => (
+                <li key={e.moduleId}>
+                  <QueueItem entry={e} onRemove={onRemove} />
+                </li>
+              ))}
+            </ul>
+          )
         ) : (
           <div className="border border-dashed border-white/[0.08] rounded-xl px-4 py-5 text-center">
             <p className="text-xs text-white/25 mb-1">Nothing queued yet</p>
@@ -109,7 +142,9 @@ function QueueLayout({
         {futureEntries.length > 0 ? (
           <ul className="space-y-2">
             {futureEntries.map((e) => (
-              <QueueEntry key={e.moduleId} entry={e} onRemove={onRemove} />
+              <li key={e.moduleId}>
+                <QueueItem entry={e} onRemove={onRemove} />
+              </li>
             ))}
           </ul>
         ) : (
@@ -125,12 +160,13 @@ function QueueLayout({
 }
 
 function DemoQueueVisual({ creditsPerMonth }: { creditsPerMonth: number }) {
-  const { entries, removeFromQueue } = useDemoQueue();
+  const { entries, removeFromQueue, reorderQueue } = useDemoQueue();
   return (
     <QueueLayout
       entries={entries}
       creditsPerMonth={creditsPerMonth}
       onRemove={removeFromQueue}
+      onReorder={reorderQueue}
     />
   );
 }
@@ -142,7 +178,14 @@ function LiveQueueVisual({
   creditsPerMonth: number;
   serverEntries: QueueEntry[];
 }) {
-  return <QueueLayout entries={serverEntries} creditsPerMonth={creditsPerMonth} />;
+  const [entries, setEntries] = useState<QueueEntry[]>(serverEntries);
+  return (
+    <QueueLayout
+      entries={entries}
+      creditsPerMonth={creditsPerMonth}
+      onReorder={setEntries}
+    />
+  );
 }
 
 export default function QueueVisual({ creditsPerMonth, serverEntries, isDemo }: QueueVisualProps) {

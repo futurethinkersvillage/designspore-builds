@@ -76,17 +76,19 @@ export async function activateModule(moduleId: string): Promise<ActivateResult> 
       );
     if (dupe.length > 0) return { success: false, error: "Already queued." };
 
-    // Credits used in this month
+    // Credits used in this month (exclude cancelled/completed)
     const monthRows = await db
-      .select({ moduleId: activations.moduleId })
+      .select({ moduleId: activations.moduleId, status: activations.status })
       .from(activations)
       .where(
         and(eq(activations.userId, user.id), eq(activations.periodMonth, month))
       );
-    const used = monthRows.reduce((sum, r) => {
-      const m = getModuleById(r.moduleId);
-      return sum + (m ? creditsForModule(m) : 0);
-    }, 0);
+    const used = monthRows
+      .filter((r) => r.status !== "cancelled" && r.status !== "completed")
+      .reduce((sum, r) => {
+        const m = getModuleById(r.moduleId);
+        return sum + (m ? creditsForModule(m) : 0);
+      }, 0);
 
     if (used + creditsNeeded <= monthlyCredits) {
       targetMonth = month;

@@ -7,6 +7,7 @@ import { eq, and, gte } from "drizzle-orm";
 import {
   modules,
   categoryLabels,
+  getRecommendedModules,
   type ModuleCategory,
 } from "@/lib/modules";
 import { getMonthKey } from "@/lib/queue";
@@ -48,6 +49,9 @@ export default async function ModulesPage({
   const activatedSet = new Set(activatedIds);
   const catFilter = params.category as ModuleCategory | null;
 
+  // Recommended: 3 modules not yet in queue, picked across different categories
+  const recommendedModules = !catFilter ? getRecommendedModules(activatedIds, 3) : [];
+
   const categoryOrder: ModuleCategory[] = [
     "lead-generation",
     "sales-followup",
@@ -79,6 +83,33 @@ export default async function ModulesPage({
           Click any service for details, or add it directly to your queue.
         </p>
       </div>
+
+      {/* Recommended section — hidden when a category filter is active */}
+      {recommendedModules.length > 0 && (
+        <section>
+          <div className="mb-4">
+            <p className="text-xs uppercase tracking-widest text-gold/70 font-semibold mb-1">Recommended for You</p>
+            <p className="text-sm text-white/40">Highest-impact services based on what's not yet in your queue.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {recommendedModules.map((mod) =>
+              isDemo ? (
+                <DemoModuleCard
+                  key={mod.id}
+                  module={mod}
+                  isActivated={activatedSet.has(mod.id)}
+                />
+              ) : (
+                <ModuleCard
+                  key={mod.id}
+                  module={mod}
+                  isActivated={activatedSet.has(mod.id)}
+                />
+              )
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Category filters */}
       <ModulesFilter
