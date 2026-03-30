@@ -8,14 +8,9 @@ import {
   Campfire,
   TreeEvergreen,
   Mountains,
-  Users,
   Wrench,
   Waves,
   Golf,
-  Coffee,
-  Laptop,
-  Leaf,
-  Sun,
 } from "@phosphor-icons/react";
 
 // ── C: Bold Typographic / Poster ────────────────────────────────────────────
@@ -57,15 +52,17 @@ function Marquee() {
 function Hero() {
   return (
     <section className="relative min-h-[100dvh] bg-warm-dark">
-      {/* Background: photo as subtle texture */}
+      {/* Background: photo as lifestyle backdrop */}
       <div className="absolute inset-0">
         <Image
           src="/images/wells-gray-golf-rv-06-1024x685.jpg"
           alt="Wells Gray"
           fill
           priority
-          className="object-cover opacity-[0.08]"
+          className="object-cover opacity-25"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-warm-dark via-warm-dark/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-warm-dark/70 to-transparent" />
       </div>
 
       <div className="relative mx-auto max-w-[1400px] px-6 pt-32 pb-0 lg:px-16">
@@ -152,13 +149,6 @@ function Hero() {
 }
 
 function CoreIdea() {
-  const pillars = [
-    { n: "01", icon: Users, label: "Community", body: "Real-life social ties beyond cities and social media — intergenerational, family-centred." },
-    { n: "02", icon: Leaf, label: "Health", body: "Nature, movement, better food. Environments that regulate your nervous system." },
-    { n: "03", icon: Wrench, label: "Skills", body: "Maker culture, creativity, collaboration, and adaptability for a changing world." },
-    { n: "04", icon: Mountains, label: "Infrastructure", body: "Local food, energy, shared tools and spaces — resilient by design, not by accident." },
-  ];
-
   return (
     <section className="bg-warm-dark py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
@@ -172,30 +162,75 @@ function CoreIdea() {
           </div>
           <div className="flex items-end">
             <p className="text-sm leading-relaxed text-white/40 max-w-[45ch]">
-              Not a commune. Not a co-op. A seasonal village and membership community — backed by real land, real programs, and real people building something worth returning to. Think of it as a country club with 21st-century values.
+              Not a commune. Not a co-op. A seasonal village and membership community — backed by real land, real programs, and real people. Think of it as dacha culture for the post-AI era.
             </p>
           </div>
         </div>
 
-        {/* Pillars: large numbered rows, no cards */}
-        <div className="divide-y divide-white/10 border-y border-white/10">
-          {pillars.map((p, i) => (
+        {/* Photo grid: image-first, travel magazine style */}
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-[3fr_2fr]">
+          {/* Large left: community gathering spanning full height */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6 }}
+            className="relative overflow-hidden rounded-2xl"
+            style={{ minHeight: "520px" }}
+          >
+            <Image
+              src="/images/many_people_sitting_202512032320-1024x576.jpeg"
+              alt="Community gathering at Portal.Place"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            <p className="absolute bottom-4 left-5 text-xs tracking-wide text-white/40">
+              Where people gather.
+            </p>
+          </motion.div>
+
+          {/* Right column: two stacked images */}
+          <div className="flex flex-col gap-3">
             <motion.div
-              key={p.n}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ delay: i * 0.08, duration: 0.5 }}
-              className="grid grid-cols-[3rem_1fr_1fr] items-start gap-8 py-8 lg:grid-cols-[5rem_1fr_2fr]"
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="relative overflow-hidden rounded-2xl flex-1"
+              style={{ minHeight: "250px" }}
             >
-              <span className="font-mono text-xs text-white/20 pt-0.5">{p.n}</span>
-              <div className="flex items-center gap-4">
-                <p.icon size={16} weight="light" className="text-amber shrink-0" />
-                <span className="text-base font-medium text-white">{p.label}</span>
-              </div>
-              <p className="text-sm leading-relaxed text-white/40 max-w-[55ch]">{p.body}</p>
+              <Image
+                src="/images/gazebo-interior-campfire-1024x771.jpg"
+                alt="Campfire evening at the gazebo"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <p className="absolute bottom-4 left-5 text-xs tracking-wide text-white/40">
+                Evenings by the fire.
+              </p>
             </motion.div>
-          ))}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative overflow-hidden rounded-2xl flex-1"
+              style={{ minHeight: "250px" }}
+            >
+              <Image
+                src="/images/wells-gray-golf-rv-06-1024x685.jpg"
+                alt="Wells Gray Village aerial"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <p className="absolute bottom-4 left-5 text-xs tracking-wide text-white/40">
+                400 acres of Interior BC.
+              </p>
+            </motion.div>
+          </div>
         </div>
 
         <div className="mt-12">
@@ -226,7 +261,7 @@ function TheVillage() {
               <span className="italic text-white/40">400 acres.</span>
             </h2>
             <p className="mt-8 text-sm leading-relaxed text-white/40 max-w-[42ch]">
-              Waterfalls, hiking, horseback riding, canoeing, and whitewater rafting in Interior BC — 2 hours north of Kamloops. Operating for 5 years as a resort, now becoming the first Portal.Place village.
+              Waterfalls, hiking, horseback riding, canoeing, and whitewater rafting in Interior BC — 2 hours north of Kamloops. Operating for 5 years, now opening up for seasonal membership.
             </p>
 
             <div className="mt-12 grid grid-cols-2 gap-6">
@@ -286,40 +321,63 @@ function TheVillage() {
 }
 
 function DayInVillage() {
-  const schedule = [
-    { time: "7:00", label: "Coffee at the gazebo", icon: Coffee },
-    { time: "9:30", label: "Forest school for the kids", icon: TreeEvergreen },
-    { time: "10:00", label: "Deep work, coworking space", icon: Laptop },
-    { time: "15:00", label: "Golf round or trail walk", icon: Golf },
-    { time: "17:00", label: "Sauna by the creek & cold plunge", icon: Sun },
-    { time: "19:00", label: "Campfire & community dinner", icon: Campfire },
+  const images = [
+    {
+      src: "/images/gazebo-interior-campfire-1024x771.jpg",
+      alt: "Evening campfire at the gazebo",
+      caption: "Evening campfire",
+    },
+    {
+      src: "/images/gemini_generated_image_o3gzbko3gzbko3gz-1024x747.png",
+      alt: "The geodesic dome",
+      caption: "The dome",
+    },
+    {
+      src: "/images/many_people_sitting_202512032320-1024x576.jpeg",
+      alt: "Community gathers at Portal.Place",
+      caption: "Community gathers",
+    },
   ];
 
   return (
     <section className="bg-warm-dark py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">Daily rhythm</p>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">Village rhythm</p>
           <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            A day in the village
+            What a community day feels like
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-0 divide-y divide-white/10 border-y border-white/10 lg:grid-cols-2 lg:divide-y-0 lg:[&>*:nth-child(odd)]:border-r lg:[&>*:nth-child(odd)]:border-white/10">
-          {schedule.map((item, i) => (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {images.map((img, i) => (
             <motion.div
-              key={item.time}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              key={img.src}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.06 }}
-              className="flex items-center gap-6 px-0 py-6 lg:px-8"
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="flex flex-col gap-3"
             >
-              <span className="w-14 shrink-0 font-mono text-sm text-white/20">{item.time}</span>
-              <item.icon size={14} weight="light" className="shrink-0 text-amber" />
-              <span className="text-sm text-white/55">{item.label}</span>
+              <div className="relative aspect-square overflow-hidden rounded-xl">
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              </div>
+              <p className="text-xs tracking-wide text-white/40">{img.caption}</p>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-12 border-t border-white/10 pt-8">
+          <p className="text-sm text-white/40">
+            <span className="text-amber">Forest school · Community sauna · Golf · Campfire</span>
+            {" "}— from May through October.
+          </p>
         </div>
       </div>
     </section>

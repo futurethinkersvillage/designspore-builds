@@ -32,6 +32,25 @@ function Hero() {
         />
       </div>
 
+      {/* Stat strip */}
+      <div className="absolute bottom-0 left-0 right-0 border-t border-white/10">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+          <div className="grid grid-cols-2 divide-x divide-white/10 lg:grid-cols-4">
+            {[
+              { label: "Price", value: "From $199 / yr" },
+              { label: "Season", value: "May – Oct" },
+              { label: "Location", value: "Clearwater, BC" },
+              { label: "Status", value: "Open · Join now" },
+            ].map((stat) => (
+              <div key={stat.label} className="px-6 py-5">
+                <div className="text-xs text-white/30">{stat.label}</div>
+                <div className="mt-1 text-sm font-medium text-white">{stat.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="relative mx-auto max-w-[1400px] px-6 pt-36 pb-24 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_42%]">
           {/* Left: headline */}
