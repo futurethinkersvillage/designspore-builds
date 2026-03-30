@@ -5,6 +5,7 @@ import { signOut, auth } from "@/auth";
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/modules", label: "Browse Services" },
+  { href: "/requests", label: "Change Requests" },
   { href: "/account", label: "Account" },
 ];
 

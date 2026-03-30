@@ -103,6 +103,67 @@ export const activations = pgTable("activations", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// ── Change Requests (client → Mike) ────────────────────────────────────
+export const changeRequestTypeEnum = pgEnum("change_request_type", [
+  "content-change",
+  "design-tweak",
+  "bug-issue",
+  "new-feature",
+]);
+
+export const changeRequestPriorityEnum = pgEnum("change_request_priority", [
+  "low",
+  "medium",
+  "high",
+]);
+
+export const changeRequestStatusEnum = pgEnum("change_request_status", [
+  "new",
+  "in-review",
+  "in-progress",
+  "resolved",
+  "closed",
+]);
+
+export const changeRequests = pgTable("change_requests", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id),
+  moduleId: text("module_id"),           // which active service this relates to (optional)
+  type: changeRequestTypeEnum("type").notNull(),
+  priority: changeRequestPriorityEnum("priority").notNull().default("medium"),
+  status: changeRequestStatusEnum("status").notNull().default("new"),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  pageUrl: text("page_url"),             // if website-related
+  adminNotes: text("admin_notes"),       // Mike's internal notes (not shown to client)
+  clientUpdate: text("client_update"),   // visible to client — Mike's status message
+  taskFilePath: text("task_file_path"),  // path to generated anti-gravity MD file
+  resolvedAt: timestamp("resolved_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// ── Mike → Client info requests ─────────────────────────────────────────
+export const clientInfoRequests = pgTable("client_info_requests", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id),
+  moduleId: text("module_id"),           // related service (optional)
+  message: text("message").notNull(),    // "We need your hosting login to proceed"
+  responseText: text("response_text"),   // client's reply
+  isResolved: boolean("is_resolved").default(false).notNull(),
+  dueDate: timestamp("due_date"),
+  createdAt: timestamp("created_at").defaultNow(),
+  respondedAt: timestamp("responded_at"),
+});
+
 // ── API Usage tracking ──────────────────────────────────────────────────
 export const apiUsage = pgTable("api_usage", {
   id: text("id")

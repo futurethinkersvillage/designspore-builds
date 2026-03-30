@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { db } from "@/lib/db";
-import { activations, users } from "@/lib/db/schema";
+import { activations, users, clientInfoRequests } from "@/lib/db/schema";
 import { eq, and, gte, lt } from "drizzle-orm";
 import { getModuleById, creditsForModule } from "@/lib/modules";
 import { DEMO_USER, DEMO_ACTIVATIONS } from "@/lib/demo";
@@ -12,6 +12,7 @@ import QueueVisual from "@/components/dashboard/QueueVisual";
 import OnboardingModal from "@/components/dashboard/OnboardingModal";
 import AutopilotToggle from "@/components/dashboard/AutopilotToggle";
 import TierBadge from "@/components/dashboard/TierBadge";
+import InfoRequestPanel from "@/components/dashboard/InfoRequestPanel";
 import Link from "next/link";
 import type { ModuleTier } from "@/lib/modules";
 
@@ -32,6 +33,9 @@ export default async function DashboardPage() {
 
   type CompletedItem = { moduleId: string; periodMonth: string; completedAt: Date | null };
   let completedItems: CompletedItem[] = [];
+
+  type PendingInfoRequest = { id: string; message: string; moduleId: string | null; dueDate: Date | null; createdAt: Date | null };
+  let pendingInfoRequests: PendingInfoRequest[] = [];
 
   if (isDemo) {
     userName = DEMO_USER.name;
@@ -91,6 +95,20 @@ export default async function DashboardPage() {
       .reverse()
       .slice(0, 10)
       .map((r) => ({ moduleId: r.moduleId, periodMonth: r.periodMonth, completedAt: r.activatedAt }));
+
+    // Pending info requests from Mike
+    const infoRows = await db
+      .select({
+        id: clientInfoRequests.id,
+        message: clientInfoRequests.message,
+        moduleId: clientInfoRequests.moduleId,
+        dueDate: clientInfoRequests.dueDate,
+        createdAt: clientInfoRequests.createdAt,
+      })
+      .from(clientInfoRequests)
+      .where(and(eq(clientInfoRequests.userId, user.id!), eq(clientInfoRequests.isResolved, false)));
+
+    pendingInfoRequests = infoRows;
   }
 
   function formatMonth(ym: string) {
@@ -113,6 +131,21 @@ export default async function DashboardPage() {
           </h1>
           {businessName && <p className="text-white/40 text-sm">{businessName}</p>}
         </div>
+
+        {/* Info requests from Mike — highest priority, shown first */}
+        {pendingInfoRequests.length > 0 && (
+          <InfoRequestPanel
+            requests={pendingInfoRequests}
+            moduleNames={Object.fromEntries(
+              pendingInfoRequests
+                .filter((r) => r.moduleId)
+                .map((r) => {
+                  const mod = getModuleById(r.moduleId!);
+                  return [r.moduleId!, mod?.name ?? r.moduleId!];
+                })
+            )}
+          />
+        )}
 
         {/* Autopilot — at the top so clients see it first */}
         <AutopilotToggle enabled={autopilotEnabled} isDemo={isDemo} />
