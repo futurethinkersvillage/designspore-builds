@@ -45,7 +45,7 @@ export function Nav() {
           <div className="overflow-hidden shrink-0" style={{ height: "40px", width: "29px" }}>
             <Image
               src="/images/portalplace-logo-vertical-white-738x1024.png"
-              alt=""
+              alt="Portal.Place home"
               width={29}
               height={40}
               style={{ height: "70px", width: "auto" }}
@@ -101,12 +101,12 @@ export function Nav() {
         <div className="flex items-center gap-4">
           <Link
             href="/membership"
-            className="hidden rounded-full border border-terracotta px-5 py-2 text-sm font-medium text-terracotta transition-all hover:bg-terracotta hover:text-white active:scale-[0.98] lg:block"
+            className="hidden rounded-full bg-amber px-5 py-2 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98] lg:block"
           >
-            Apply
+            Join
           </Link>
           <button
-            className="lg:hidden text-white/70 hover:text-white transition-colors"
+            className="lg:hidden text-white/70 hover:text-white transition-colors cursor-pointer"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -149,10 +149,10 @@ export function Nav() {
               <div className="pt-4 pb-2">
                 <Link
                   href="/membership"
-                  className="inline-flex rounded-full border border-terracotta px-6 py-2.5 text-sm font-medium text-terracotta"
+                  className="inline-flex rounded-full bg-amber px-6 py-2.5 text-sm font-medium text-white"
                   onClick={() => setMobileOpen(false)}
                 >
-                  Apply for membership
+                  Join
                 </Link>
               </div>
             </div>

@@ -301,7 +301,7 @@ function TheVillage() {
           {/* Right: photo */}
           <div className="relative overflow-hidden rounded-2xl" style={{ minHeight: "500px" }}>
             <Image
-              src="/images/gazebo-interior-campfire-1024x771.jpg"
+              src="/images/remove_the_reserved_202512032320-1024x576.jpeg"
               alt="Portal.Place village"
               fill
               className="object-cover opacity-80"
@@ -333,9 +333,9 @@ function DayInVillage() {
       caption: "The dome",
     },
     {
-      src: "/images/many_people_sitting_202512032320-1024x576.jpeg",
-      alt: "Community gathers at Portal.Place",
-      caption: "Community gathers",
+      src: "/images/wells-gray-golf-rv-06-1024x685.jpg",
+      alt: "Golf and grounds at Wells Gray Village",
+      caption: "400 acres to explore.",
     },
   ];
 

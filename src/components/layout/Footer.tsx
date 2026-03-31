@@ -7,7 +7,7 @@ const footerLinks = [
     links: [
       { label: "The Village", href: "/village" },
       { label: "Village Immersion", href: "/immersion" },
-      { label: "Sunday Community Day", href: "/sunday" },
+      { label: "Village Rhythm", href: "/sunday" },
       { label: "Work-Stay", href: "/workstay" },
       { label: "Host An Event", href: "/host" },
     ],
@@ -41,7 +41,7 @@ export function Footer() {
               <div className="overflow-hidden shrink-0" style={{ height: "36px", width: "26px" }}>
                 <Image
                   src="/images/portalplace-logo-vertical-white-738x1024.png"
-                  alt=""
+                  alt="Portal.Place home"
                   width={26}
                   height={36}
                   style={{ height: "63px", width: "auto" }}
@@ -52,7 +52,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-4 text-sm text-white/60">
-              A Smart Village in Wells Gray, BC.
+              A seasonal village and membership community near Clearwater, BC.
             </p>
           </div>
           {footerLinks.map((group) => (
@@ -77,6 +77,7 @@ export function Footer() {
         </div>
         <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-white/40">
           &copy; {new Date().getFullYear()} Portal.Place. All rights reserved.
+          <p className="text-xs text-white/25 mt-1">Near Clearwater, BC · Canada</p>
         </div>
       </div>
     </footer>

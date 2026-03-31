@@ -201,7 +201,7 @@ function Amenities() {
     {
       icon: Mountains,
       label: "Barrel sauna & cold plunge",
-      body: "Wood-fired barrel sauna with a natural river cold plunge — a staple of the daily village rhythm.",
+      body: "Wood-fired barrel sauna with a natural creek cold plunge — a staple of the daily village rhythm.",
     },
     {
       icon: Waves,
