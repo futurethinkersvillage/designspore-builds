@@ -22,8 +22,10 @@ const PRIORITY_OPTIONS: { value: Priority; label: string; color: string }[] = [
 
 export default function ChangeRequestForm({
   activeModules,
+  isDemo = false,
 }: {
   activeModules: { id: string; name: string }[];
+  isDemo?: boolean;
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -39,6 +41,7 @@ export default function ChangeRequestForm({
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (isDemo) return;
     setError(null);
     startTransition(async () => {
       const result = await submitChangeRequest({
@@ -189,10 +192,10 @@ export default function ChangeRequestForm({
 
       <button
         type="submit"
-        disabled={isPending || !title.trim() || !description.trim()}
-        className="px-6 py-3 bg-gold text-dark font-semibold text-sm rounded-xl hover:bg-gold-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={isDemo || isPending || !title.trim() || !description.trim()}
+        className="px-6 py-3 bg-gold text-dark font-semibold text-sm rounded-xl hover:bg-gold-light transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
       >
-        {isPending ? "Submitting…" : "Submit Request"}
+        {isDemo ? "Sign up to submit requests" : isPending ? "Submitting…" : "Submit Request"}
       </button>
     </form>
   );

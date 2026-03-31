@@ -42,9 +42,13 @@ export default async function RequestsPage() {
           <h1 className="text-3xl font-bold text-white mb-1">Change Requests</h1>
           <p className="text-sm text-white/40">Submit requests to update or improve any of your active services.</p>
         </div>
-        <div className="text-center py-16 border border-white/[0.06] rounded-2xl">
-          <p className="text-white/40">Change requests are available to active clients.</p>
+        <div className="rounded-xl border border-gold/20 bg-gold/[0.04] px-5 py-3 text-sm text-gold/70">
+          Demo mode — form is live but submissions are disabled. Active clients can submit requests directly from this page.
         </div>
+        <section>
+          <h2 className="text-xs uppercase tracking-widest text-white/30 font-semibold mb-6">New Request</h2>
+          <ChangeRequestForm activeModules={[]} isDemo />
+        </section>
       </div>
     );
   }

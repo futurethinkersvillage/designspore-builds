@@ -188,15 +188,14 @@ export default async function AccountPage() {
                 </div>
                 <div className="text-right shrink-0">
                   <p className={`text-lg font-bold tabular-nums ${isCurrent ? "text-gold" : "text-white/50"}`}>
-                    {isPaused ? (
-                      <span>$299<span className="text-xs font-normal text-white/30">/mo</span></span>
-                    ) : (
-                      <>
-                        {(p as typeof PLANS["starter"]).monthlyCredits}
-                        <span className="text-xs font-normal text-white/30 ml-1">credits/mo</span>
-                      </>
-                    )}
+                    ${p.monthlyBudget.toLocaleString()}
+                    <span className="text-xs font-normal text-white/30">/mo</span>
                   </p>
+                  {!isPaused && (
+                    <p className="text-xs text-white/30 mt-0.5">
+                      {(p as typeof PLANS["starter"]).monthlyCredits} credits/mo
+                    </p>
+                  )}
                   {!isCurrent && !isPaused && (
                     <a
                       href="mailto:hello@designspore.co?subject=Plan change request"
