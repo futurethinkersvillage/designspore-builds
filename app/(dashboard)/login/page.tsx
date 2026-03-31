@@ -1,93 +1,120 @@
 "use client";
 
 import { useActionState } from "react";
+import { useSearchParams } from "next/navigation";
 import { loginWithCredentials, loginWithGoogle } from "@/app/actions/auth";
 import Link from "next/link";
+import { Suspense } from "react";
 
-export default function LoginPage() {
+function LoginForm() {
   const [state, action, pending] = useActionState(loginWithCredentials, null);
+  const params = useSearchParams();
+  const welcome = params.get("welcome") === "true";
+  const cancelled = params.get("cancelled") === "true";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-darker px-4">
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">
-            Client Portal
-          </p>
-          <h1
-            className="text-3xl font-bold text-white"
-            style={{ fontFamily: "var(--font-outfit, var(--font-sans))" }}
-          >
-            Sign In
-          </h1>
-        </div>
-
-        {/* Google */}
-        <form action={loginWithGoogle}>
-          <button
-            type="submit"
-            className="w-full flex items-center justify-center gap-3 bg-white text-dark text-sm font-semibold py-3 px-4 rounded-xl hover:bg-white/90 transition-colors mb-5"
-          >
-            <GoogleIcon />
-            Continue with Google
-          </button>
-        </form>
-
-        <div className="flex items-center gap-3 mb-5">
-          <div className="flex-1 h-px bg-white/[0.08]" />
-          <span className="text-xs text-white/30">or</span>
-          <div className="flex-1 h-px bg-white/[0.08]" />
-        </div>
-
-        {/* Credentials */}
-        <form action={action} className="space-y-4">
-          <div>
-            <label className="block text-xs text-white/50 mb-1.5">Email</label>
-            <input
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              className="w-full bg-raised border border-white/[0.08] text-white text-sm rounded-xl px-4 py-3 placeholder-white/20 focus:outline-none focus:border-gold/50 transition-colors"
-              placeholder="you@example.com"
-            />
-          </div>
-          <div>
-            <label className="block text-xs text-white/50 mb-1.5">
-              Password
-            </label>
-            <input
-              name="password"
-              type="password"
-              required
-              autoComplete="current-password"
-              className="w-full bg-raised border border-white/[0.08] text-white text-sm rounded-xl px-4 py-3 placeholder-white/20 focus:outline-none focus:border-gold/50 transition-colors"
-              placeholder="••••••••"
-            />
-          </div>
-
-          {state?.error && (
-            <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3">
-              {state.error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={pending}
-            className="w-full bg-gold text-dark text-sm font-semibold py-3 rounded-xl hover:bg-gold-light disabled:opacity-50 transition-colors"
-          >
-            {pending ? "Signing in…" : "Sign In"}
-          </button>
-        </form>
-
-        <p className="text-center text-sm text-white/30 mt-6">
-          No account?{" "}
-          <Link href="/signup" className="text-gold hover:text-gold-light transition-colors">
-            Request access
-          </Link>
+    <div className="w-full max-w-sm">
+      <div className="text-center mb-8">
+        <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">
+          Client Portal
         </p>
+        <h1
+          className="text-3xl font-bold text-white"
+          style={{ fontFamily: "var(--font-outfit, var(--font-sans))" }}
+        >
+          Sign In
+        </h1>
       </div>
+
+      {welcome && (
+        <div className="mb-6 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] px-5 py-4 text-center">
+          <p className="text-sm font-semibold text-emerald-300 mb-1">Payment confirmed — welcome aboard.</p>
+          <p className="text-xs text-white/50">Your account is active. Sign in below to access your portal.</p>
+        </div>
+      )}
+
+      {cancelled && (
+        <div className="mb-6 rounded-xl border border-white/[0.08] bg-white/[0.03] px-5 py-4 text-center">
+          <p className="text-sm text-white/60 mb-1">Checkout cancelled — no charge was made.</p>
+          <Link href="/signup" className="text-xs text-gold hover:text-gold-light transition-colors">
+            Go back to sign up →
+          </Link>
+        </div>
+      )}
+
+      {/* Google */}
+      <form action={loginWithGoogle}>
+        <button
+          type="submit"
+          className="w-full flex items-center justify-center gap-3 bg-white text-dark text-sm font-semibold py-3 px-4 rounded-xl hover:bg-white/90 transition-colors mb-5"
+        >
+          <GoogleIcon />
+          Continue with Google
+        </button>
+      </form>
+
+      <div className="flex items-center gap-3 mb-5">
+        <div className="flex-1 h-px bg-white/[0.08]" />
+        <span className="text-xs text-white/30">or</span>
+        <div className="flex-1 h-px bg-white/[0.08]" />
+      </div>
+
+      {/* Credentials */}
+      <form action={action} className="space-y-4">
+        <div>
+          <label className="block text-xs text-white/50 mb-1.5">Email</label>
+          <input
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            className="w-full bg-raised border border-white/[0.08] text-white text-sm rounded-xl px-4 py-3 placeholder-white/20 focus:outline-none focus:border-gold/50 transition-colors"
+            placeholder="you@example.com"
+          />
+        </div>
+        <div>
+          <label className="block text-xs text-white/50 mb-1.5">Password</label>
+          <input
+            name="password"
+            type="password"
+            required
+            autoComplete="current-password"
+            className="w-full bg-raised border border-white/[0.08] text-white text-sm rounded-xl px-4 py-3 placeholder-white/20 focus:outline-none focus:border-gold/50 transition-colors"
+            placeholder="••••••••"
+          />
+        </div>
+
+        {state?.error && (
+          <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3">
+            {state.error}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          disabled={pending}
+          className="w-full bg-gold text-dark text-sm font-semibold py-3 rounded-xl hover:bg-gold-light disabled:opacity-50 transition-colors"
+        >
+          {pending ? "Signing in…" : "Sign In"}
+        </button>
+      </form>
+
+      <p className="text-center text-sm text-white/30 mt-6">
+        No account?{" "}
+        <Link href="/signup" className="text-gold hover:text-gold-light transition-colors">
+          Get started
+        </Link>
+      </p>
+    </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-darker px-4">
+      <Suspense fallback={null}>
+        <LoginForm />
+      </Suspense>
     </div>
   );
 }

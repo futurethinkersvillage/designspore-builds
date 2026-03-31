@@ -68,10 +68,24 @@ export async function POST(request: NextRequest) {
     const email = session.customer_email ?? session.metadata?.email;
     if (!email) return new NextResponse("OK", { status: 200 });
 
-    // Determine tier from line items — use metadata if set, else default to starter
+    // Determine tier — use metadata if set, else default to starter
     const tier = (session.metadata?.tier as "starter" | "growth" | "scale") ?? "starter";
     const budget = tier === "growth" ? 3000 : tier === "scale" ? 5000 : 1500;
+    const userId = session.metadata?.userId;
 
+    // If we have a userId (signup flow), activate by ID — most reliable
+    if (userId) {
+      await db.update(users).set({
+        isActive: true,
+        subscriptionTier: tier,
+        monthlyBudget: budget,
+        stripeCustomerId: (session.customer as string) ?? null,
+        stripeSubscriptionId: (session.subscription as string) ?? null,
+      }).where(eq(users.id, userId));
+      return new NextResponse("OK", { status: 200 });
+    }
+
+    // Fallback: match by email
     const [existing] = await db.select({ id: users.id }).from(users).where(eq(users.email, email));
 
     if (existing) {
@@ -94,7 +108,6 @@ export async function POST(request: NextRequest) {
         stripeSubscriptionId: (session.subscription as string) ?? null,
       });
 
-      // Notify Mike
       try {
         await sendSignupNotification({
           name: session.metadata?.name ?? email,
