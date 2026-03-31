@@ -15,7 +15,7 @@ const accommodations = [
     label: 'Glamping Dome',
     desc: 'A spacious geodesic dome with a queen bed and air conditioning, tucked beside the creek. Walls that let the forest in.',
     from: '$129',
-    img: 'https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240518_203127249-EDIT-scaled.jpg',
     size: 'large',
   },
   {
@@ -23,7 +23,7 @@ const accommodations = [
     label: 'Creekside RV Sites',
     desc: '30-amp hookups, water, and fire pit — right on the creek. Fall asleep to the sound of moving water.',
     from: '$65',
-    img: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=700&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/20210924_172621-scaled.jpg',
     size: 'small',
   },
   {
@@ -31,7 +31,7 @@ const accommodations = [
     label: 'Forest Cabins',
     desc: 'Simple wooden sleeping cabins under the trees. Power, a double bed, and nothing between you and the forest.',
     from: '$60',
-    img: 'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=700&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20250504_163611703-EDIT-scaled.jpg',
     size: 'small',
   },
 ]
@@ -76,8 +76,8 @@ export default function Home() {
       <section className="relative min-h-[100dvh] flex items-end section-dark overflow-hidden">
         {/* Background image placeholder — replace with video */}
         <Image
-          src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1800&q=80"
-          alt="Old-growth forest in Wells Gray Provincial Park"
+          src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/dji_fly_20240630_160720_5_1719788849030_photo_optimized-scaled.jpg"
+          alt="Aerial view of Wells Gray Resort"
           fill
           priority
           className="object-cover object-center"
@@ -254,8 +254,8 @@ export default function Home() {
             <div className="md:col-span-2 reveal mt-10 md:mt-0">
               <div className="relative h-[340px] md:h-[420px] rounded-lg overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1526773580928-02c3d48a1d0f?auto=format&fit=crop&w=800&q=80"
-                  alt="Seasonal village community gathering around a fire"
+                  src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/20210620_172133-EDIT-scaled.jpg"
+                  alt="Wells Gray Resort seasonal community"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 40vw"
@@ -270,8 +270,8 @@ export default function Home() {
       {/* ===================== WATERFALLS / EXPLORE HOOK ===================== */}
       <section className="relative section-dark py-20 md:py-28 overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=70"
-          alt="Waterfall in Wells Gray Provincial Park"
+          src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20230621_022025523.MP-EDIT-scaled.jpg"
+          alt="Wells Gray Provincial Park landscape"
           fill
           className="object-cover opacity-25"
           sizes="100vw"
@@ -300,8 +300,8 @@ export default function Home() {
           <div className="md:grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="reveal order-2 md:order-1 relative h-[300px] md:h-[400px] rounded-lg overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1519741347686-c1e331fcb305?auto=format&fit=crop&w=800&q=80"
-                alt="Outdoor forest wedding venue"
+                src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/461692343_10162000088875148_5722285476960156898_n.jpg"
+                alt="Wells Gray Resort wedding venue"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"

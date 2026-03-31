@@ -1,3 +1,6 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -13,6 +16,8 @@ const quickLinks = [
 ]
 
 export default function Footer() {
+  const pathname = usePathname()
+  if (pathname === '/intelligence-report') return null
   return (
     <footer className="bg-bark border-t border-border">
       <div className="container-content py-16 md:py-20">

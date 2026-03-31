@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -13,8 +14,11 @@ const links = [
 ]
 
 export default function Nav() {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+
+  if (pathname === '/intelligence-report') return null
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)

@@ -18,10 +18,20 @@ const config: Config = {
         stone:     '#8A7F70',
         creek:     '#6B9AAD',
         border:    '#2E2B22',
+        // DesignSpore brand tokens (intelligence report)
+        ds: {
+          bg:      '#131719',
+          surface: '#1B2126',
+          gold:    '#BE8C2A',
+          'gold-light': '#D4A44A',
+          border:  '#3D4142',
+          muted:   '#9CA3AF',
+        },
       },
       fontFamily: {
         display: ['var(--font-fraunces)', 'Georgia', 'serif'],
         body:    ['var(--font-plus-jakarta)', 'system-ui', 'sans-serif'],
+        outfit:  ['var(--font-outfit)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'display-lg': ['5rem',    { lineHeight: '1.05', letterSpacing: '-0.02em' }],

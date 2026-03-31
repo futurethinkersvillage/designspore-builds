@@ -17,8 +17,8 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative min-h-[55dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80"
-          alt="Forest path in Wells Gray Provincial Park"
+          src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/dji_fly_20240630_160720_5_1719788849030_photo_optimized-scaled.jpg"
+          alt="Aerial view of Wells Gray Resort"
           fill
           priority
           className="object-cover"
@@ -58,8 +58,8 @@ export default function AboutPage() {
             <div className="md:col-span-2 space-y-4 mt-10 md:mt-0">
               <div className="reveal relative h-[280px] rounded-lg overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=700&q=80"
-                  alt="Waterfall near Wells Gray Resort"
+                  src="https://wellsgrayresort.ca/wp-content/uploads/2024/02/PXL_20230924_013649576-scaled.jpg"
+                  alt="Wells Gray Resort grounds"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 40vw"
@@ -67,8 +67,8 @@ export default function AboutPage() {
               </div>
               <div className="reveal relative h-[220px] rounded-lg overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=700&q=80"
-                  alt="Forest cabin at the resort"
+                  src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240824_0258159262-EDIT-scaled.jpg"
+                  alt="Wells Gray Resort accommodation"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 40vw"

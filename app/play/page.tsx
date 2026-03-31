@@ -14,7 +14,7 @@ const activities = [
     id: 'golf',
     label: '9-Hole Golf Course',
     tag: 'From $30/person',
-    img: 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2021/07/wellsgraygolf8.png',
     desc: 'A relaxed, forested 9-hole course with mountain views in every direction. Not a championship track — something better. The kind of round where you take your time, lose a ball in the trees, and don\'t mind at all.',
     details: [
       '9 holes (play twice for 18)',
@@ -28,7 +28,7 @@ const activities = [
     id: 'disc-golf',
     label: '18-Hole Disc Golf',
     tag: '$10/game',
-    img: 'https://images.unsplash.com/photo-1502904550040-7534597429ae?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2021/07/wellsgraygolf2.png',
     desc: 'Eighteen holes weaving through the forest and open meadows. Disc rentals on-site if you didn\'t bring your own. A perfect afternoon for any skill level.',
     details: [
       '18 holes through forest',
@@ -41,7 +41,7 @@ const activities = [
     id: 'sauna',
     label: 'Wood-Fired Sauna',
     tag: 'Bookable on-site',
-    img: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240701_001257503-scaled.jpg',
     desc: 'A cedar sauna tucked beside the creek. Fire it up, sweat it out, then step straight into the cold running water. It\'s the kind of reset you don\'t get at a hotel. Book a session when you arrive — mornings and evenings both available.',
     details: [
       'Wood-fired cedar sauna',
@@ -54,7 +54,7 @@ const activities = [
     id: 'lake',
     label: 'Private Swimming Lake',
     tag: 'Included with stay',
-    img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240728_033755893-EDIT-scaled.jpg',
     desc: 'A spring-fed lake reserved exclusively for resort guests. No day-trippers, no crowds. Swim, float, watch the dragonflies, and take your time. This is what summer is supposed to be.',
     details: [
       'Spring-fed, clean water',
@@ -67,7 +67,7 @@ const activities = [
     id: 'trails',
     label: 'Forest Trails & Gathering',
     tag: 'Always open',
-    img: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/07/20210620_172133-EDIT-scaled.jpg',
     desc: 'Walk the property, find a shaded spot, let the kids roam. There are fire pits, picnic tables, and room to breathe. Not every adventure needs a map.',
     details: [
       'Forest walking paths',
@@ -86,8 +86,8 @@ export default function PlayPage() {
       {/* Hero */}
       <section className="relative min-h-[55dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=1600&q=80"
-          alt="Golf course in a forested mountain setting"
+          src="https://wellsgrayresort.ca/wp-content/uploads/2021/07/wellsgraygolf12.png"
+          alt="Wells Gray Resort 9-hole golf course"
           fill
           priority
           className="object-cover"

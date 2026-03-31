@@ -63,8 +63,8 @@ export default function ExplorePage() {
       {/* Hero */}
       <section className="relative min-h-[65dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=80"
-          alt="Wells Gray Provincial Park wilderness"
+          src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20230621_022025523.MP-EDIT-scaled.jpg"
+          alt="Wells Gray Provincial Park wilderness and waterfalls"
           fill
           priority
           className="object-cover"
@@ -103,8 +103,8 @@ export default function ExplorePage() {
             </div>
             <div className="relative h-[320px] md:h-[420px] rounded-lg overflow-hidden mt-8 md:mt-0">
               <Image
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80"
-                alt="Waterfall in Wells Gray Provincial Park"
+                src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/dji_fly_20240630_160720_5_1719788849030_photo_optimized-scaled.jpg"
+                alt="Aerial view of Wells Gray Provincial Park"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -196,8 +196,8 @@ export default function ExplorePage() {
             </div>
             <div className="relative h-[300px] md:h-[380px] rounded-lg overflow-hidden mt-8 md:mt-0">
               <Image
-                src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=800&q=80"
-                alt="Quiet moments by the lake"
+                src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240728_033755893-EDIT-scaled.jpg"
+                alt="Private lake at Wells Gray Resort"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"

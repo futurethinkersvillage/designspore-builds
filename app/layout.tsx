@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Fraunces, Plus_Jakarta_Sans } from 'next/font/google'
+import { Fraunces, Plus_Jakarta_Sans, Outfit } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -16,6 +16,13 @@ const plusJakarta = Plus_Jakarta_Sans({
   variable: '--font-plus-jakarta',
   display: 'swap',
   weight: ['400', '500', '600', '700'],
+})
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
 })
 
 export const metadata: Metadata = {
@@ -41,10 +48,10 @@ export const metadata: Metadata = {
     siteName: 'Wells Gray Golf & RV Resort',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80',
+        url: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/dji_fly_20240630_160720_5_1719788849030_photo_optimized-scaled.jpg',
         width: 1200,
         height: 630,
-        alt: 'Wells Gray Resort — forest, creek, and mountains',
+        alt: 'Wells Gray Resort — aerial view of the resort inside Wells Gray Provincial Park',
       },
     ],
   },
@@ -54,7 +61,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${plusJakarta.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${plusJakarta.variable} ${outfit.variable}`}>
       <body>
         <Nav />
         <main>{children}</main>

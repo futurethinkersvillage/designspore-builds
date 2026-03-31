@@ -127,35 +127,56 @@ const designSystem = {
 
 export default function IntelligenceReportPage() {
   return (
-    <div className="bg-parchment min-h-screen">
-      {/* Report Header */}
-      <header className="bg-bark border-b border-border">
-        <div className="container-content py-10">
-          <p className="font-body text-ember text-xs font-semibold uppercase tracking-[0.2em] mb-3">
-            Design Intelligence Report
-          </p>
-          <h1 className="font-display font-light text-parchment text-4xl md:text-5xl mb-3">
-            Wells Gray Golf &amp; RV Resort
-          </h1>
-          <p className="font-body text-parchment/60 text-sm">
-            Website redesign — brand extraction, competitor analysis, strategy, and design system
-          </p>
-          <div className="flex gap-4 mt-6">
-            <Link href="/" className="btn-outline-parchment text-xs py-2">
-              ← View Live Site
+    <div className="bg-ds-bg min-h-screen font-outfit" style={{ fontFamily: 'var(--font-outfit), system-ui, sans-serif' }}>
+
+      {/* DesignSpore Header */}
+      <header className="border-b border-ds-border" style={{ background: '#131719' }}>
+        <div className="max-w-5xl mx-auto px-6 md:px-10 py-5 flex items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: '#BE8C2A' }}>
+              Design Spore
+            </span>
+            <span style={{ color: '#3D4142' }}>·</span>
+            <span className="text-xs" style={{ color: '#9CA3AF' }}>Intelligence Report</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="text-xs px-4 py-2 border transition-colors"
+              style={{ borderColor: '#3D4142', color: '#9CA3AF' }}
+            >
+              View Live Site
             </Link>
             <PrintButton />
           </div>
         </div>
       </header>
 
-      <main className="container-content py-16 space-y-20 max-w-4xl mx-auto">
+      {/* Hero */}
+      <div className="border-b border-ds-border" style={{ background: '#1B2126' }}>
+        <div className="max-w-5xl mx-auto px-6 md:px-10 py-14 md:py-20">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-4" style={{ color: '#BE8C2A' }}>
+            Client / Wells Gray Golf &amp; RV Resort · March 2026
+          </p>
+          <h1 className="text-4xl md:text-5xl font-light text-white mb-4" style={{ letterSpacing: '-0.02em' }}>
+            Website Redesign<br />Intelligence Report
+          </h1>
+          <p className="text-base" style={{ color: '#9CA3AF' }}>
+            Brand extraction · Competitor analysis · Differentiation maps · Strategy · Design system
+          </p>
+        </div>
+      </div>
+
+      <main className="max-w-5xl mx-auto px-6 md:px-10 py-16 space-y-20">
 
         {/* ─── SECTION 1: Brand Snapshot ─── */}
         <section>
-          <h2 className="font-display text-bark text-3xl mb-2 pb-3 border-b border-bark/10">Brand Snapshot</h2>
-          <p className="font-body text-stone text-sm mb-8">Extracted from wellsgrayresort.ca</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="flex items-baseline gap-4 mb-8 pb-4" style={{ borderBottom: '1px solid #3D4142' }}>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: '#BE8C2A' }}>01</span>
+            <h2 className="text-2xl font-semibold text-white">Brand Snapshot</h2>
+            <span className="text-xs ml-auto" style={{ color: '#9CA3AF' }}>Extracted from wellsgrayresort.ca</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
               { label: 'Company', value: 'Wells Gray Golf & RV Resort' },
               { label: 'Industry', value: 'Glamping / RV resort / Golf / Seasonal community' },
@@ -166,25 +187,28 @@ export default function IntelligenceReportPage() {
               { label: 'Core Message', value: 'Creekside camping + glamping + golf + private lake + sauna inside a BC wilderness park' },
               { label: 'Key Differentiator', value: 'Seasonal Village — "Not just a campground, a culture." No competitive equivalent.' },
             ].map(item => (
-              <div key={item.label} className="p-4 bg-white border border-bark/10 rounded">
-                <p className="font-body text-xs text-stone uppercase tracking-wider mb-1">{item.label}</p>
-                <p className="font-body text-sm text-bark">{item.value}</p>
+              <div key={item.label} className="p-4" style={{ background: '#1B2126', border: '1px solid #3D4142' }}>
+                <p className="text-xs uppercase tracking-wider mb-1" style={{ color: '#9CA3AF' }}>{item.label}</p>
+                <p className="text-sm text-white">{item.value}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* ─── SECTION 2: Page Structure ─── */}
+        {/* ─── SECTION 2: Site Architecture ─── */}
         <section>
-          <h2 className="font-display text-bark text-3xl mb-2 pb-3 border-b border-bark/10">Site Architecture</h2>
-          <p className="font-body text-stone text-sm mb-8">Pages rebuilt in this project</p>
-          <div className="overflow-hidden rounded border border-bark/10">
-            <table className="w-full text-sm font-body">
-              <thead className="bg-bark text-parchment">
+          <div className="flex items-baseline gap-4 mb-8 pb-4" style={{ borderBottom: '1px solid #3D4142' }}>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: '#BE8C2A' }}>02</span>
+            <h2 className="text-2xl font-semibold text-white">Site Architecture</h2>
+            <span className="text-xs ml-auto" style={{ color: '#9CA3AF' }}>Pages rebuilt in this project</span>
+          </div>
+          <div className="overflow-hidden" style={{ border: '1px solid #3D4142' }}>
+            <table className="w-full text-sm">
+              <thead style={{ background: '#1B2126' }}>
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-xs uppercase tracking-wide">Page</th>
-                  <th className="text-left px-4 py-3 font-semibold text-xs uppercase tracking-wide">Route</th>
-                  <th className="text-left px-4 py-3 font-semibold text-xs uppercase tracking-wide">Priority</th>
+                  <th className="text-left px-4 py-3 text-xs uppercase tracking-wide font-semibold" style={{ color: '#9CA3AF' }}>Page</th>
+                  <th className="text-left px-4 py-3 text-xs uppercase tracking-wide font-semibold" style={{ color: '#9CA3AF' }}>Route</th>
+                  <th className="text-left px-4 py-3 text-xs uppercase tracking-wide font-semibold" style={{ color: '#9CA3AF' }}>Priority</th>
                 </tr>
               </thead>
               <tbody>
@@ -200,15 +224,14 @@ export default function IntelligenceReportPage() {
                   ['Contact', '/contact', 'High'],
                   ['Intelligence Report', '/intelligence-report', 'Reference'],
                 ].map(([page, route, priority], i) => (
-                  <tr key={route} className={i % 2 === 0 ? 'bg-white' : 'bg-parchment/50'}>
-                    <td className="px-4 py-3 text-bark">{page}</td>
-                    <td className="px-4 py-3 text-stone font-mono text-xs">{route}</td>
+                  <tr key={route} style={{ background: i % 2 === 0 ? 'transparent' : '#1B2126' }}>
+                    <td className="px-4 py-3 text-white text-sm">{page}</td>
+                    <td className="px-4 py-3 text-xs font-mono" style={{ color: '#9CA3AF' }}>{route}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-block px-2 py-0.5 rounded text-xs font-semibold ${
-                        priority === 'Critical' ? 'bg-ember/10 text-ember' :
-                        priority === 'High' ? 'bg-forest/10 text-forest' :
-                        'bg-stone/10 text-stone'
-                      }`}>{priority}</span>
+                      <span className="inline-block px-2 py-0.5 text-xs font-semibold" style={{
+                        background: priority === 'Critical' ? 'rgba(190,140,42,0.15)' : priority === 'High' ? 'rgba(44,74,46,0.3)' : 'rgba(61,65,66,0.5)',
+                        color: priority === 'Critical' ? '#D4A44A' : priority === 'High' ? '#6B9AAD' : '#9CA3AF',
+                      }}>{priority}</span>
                     </td>
                   </tr>
                 ))}
@@ -219,29 +242,32 @@ export default function IntelligenceReportPage() {
 
         {/* ─── SECTION 3: Competitor Analysis ─── */}
         <section>
-          <h2 className="font-display text-bark text-3xl mb-2 pb-3 border-b border-bark/10">Competitor Analysis</h2>
-          <p className="font-body text-stone text-sm mb-8">4 competitors analyzed across the BC glamping and RV resort landscape</p>
-          <div className="space-y-5">
+          <div className="flex items-baseline gap-4 mb-8 pb-4" style={{ borderBottom: '1px solid #3D4142' }}>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: '#BE8C2A' }}>03</span>
+            <h2 className="text-2xl font-semibold text-white">Competitor Analysis</h2>
+            <span className="text-xs ml-auto" style={{ color: '#9CA3AF' }}>4 competitors analyzed</span>
+          </div>
+          <div className="space-y-4">
             {competitors.map(c => (
-              <div key={c.name} className="p-5 md:p-6 bg-white border border-bark/10 rounded-lg">
+              <div key={c.name} className="p-5 md:p-6" style={{ background: '#1B2126', border: '1px solid #3D4142' }}>
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
-                    <h3 className="font-display text-bark text-xl">{c.name}</h3>
-                    <p className="font-body text-xs text-stone mt-0.5">{c.url} · {c.tier}</p>
+                    <h3 className="font-semibold text-white text-lg">{c.name}</h3>
+                    <p className="text-xs mt-0.5" style={{ color: '#9CA3AF' }}>{c.url} · {c.tier}</p>
                   </div>
-                  <span className="font-body text-sm font-bold text-ember shrink-0">{c.score}</span>
+                  <span className="text-sm font-bold shrink-0" style={{ color: '#BE8C2A' }}>{c.score}</span>
                 </div>
                 <div className="flex flex-wrap gap-3 mb-3">
                   {c.colors.map(hex => (
                     <div key={hex} className="flex items-center gap-1.5">
-                      <div className="w-4 h-4 rounded-sm border border-bark/10" style={{ background: hex }} />
-                      <span className="font-mono text-xs text-stone">{hex}</span>
+                      <div className="w-4 h-4" style={{ background: hex, border: '1px solid #3D4142' }} />
+                      <span className="font-mono text-xs" style={{ color: '#9CA3AF' }}>{hex}</span>
                     </div>
                   ))}
-                  <span className="font-body text-xs text-stone">· {c.fonts}</span>
-                  <span className="font-body text-xs text-stone">· radius: {c.radius}</span>
+                  <span className="text-xs" style={{ color: '#9CA3AF' }}>· {c.fonts}</span>
+                  <span className="text-xs" style={{ color: '#9CA3AF' }}>· radius: {c.radius}</span>
                 </div>
-                <p className="font-body text-sm text-stone leading-relaxed">{c.notes}</p>
+                <p className="text-sm leading-relaxed" style={{ color: '#9CA3AF' }}>{c.notes}</p>
               </div>
             ))}
           </div>
@@ -249,36 +275,41 @@ export default function IntelligenceReportPage() {
 
         {/* ─── SECTION 4: Frequency Maps ─── */}
         <section>
-          <h2 className="font-display text-bark text-3xl mb-2 pb-3 border-b border-bark/10">Frequency Maps</h2>
-          <p className="font-body text-stone text-sm mb-8">What patterns are overused — and where the gaps are</p>
+          <div className="flex items-baseline gap-4 mb-8 pb-4" style={{ borderBottom: '1px solid #3D4142' }}>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: '#BE8C2A' }}>04</span>
+            <h2 className="text-2xl font-semibold text-white">Frequency Maps</h2>
+            <span className="text-xs ml-auto" style={{ color: '#9CA3AF' }}>Overuse patterns and gaps</span>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-display text-bark text-xl mb-4">Color Frequency</h3>
-              <div className="space-y-3">
+              <h3 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: '#9CA3AF' }}>Color Frequency</h3>
+              <div className="space-y-2">
                 {colorMap.map(row => (
-                  <div key={row.pattern} className="flex items-start gap-3 p-3 bg-white border border-bark/10 rounded">
-                    <span className={`shrink-0 w-14 text-center font-body text-xs font-bold py-0.5 rounded ${
-                      row.competitors.includes('0/4') ? 'bg-ember/10 text-ember' : 'bg-stone/10 text-stone'
-                    }`}>{row.competitors}</span>
+                  <div key={row.pattern} className="flex items-start gap-3 p-3" style={{ background: '#1B2126', border: '1px solid #3D4142' }}>
+                    <span className="shrink-0 w-12 text-center text-xs font-bold py-0.5" style={{
+                      background: row.competitors.includes('0/4') ? 'rgba(190,140,42,0.15)' : 'rgba(61,65,66,0.5)',
+                      color: row.competitors.includes('0/4') ? '#BE8C2A' : '#9CA3AF',
+                    }}>{row.competitors}</span>
                     <div>
-                      <p className="font-body text-sm text-bark">{row.pattern}</p>
-                      <p className="font-body text-xs text-stone">{row.note}</p>
+                      <p className="text-sm text-white">{row.pattern}</p>
+                      <p className="text-xs" style={{ color: '#9CA3AF' }}>{row.note}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
             <div>
-              <h3 className="font-display text-bark text-xl mb-4">Font Frequency</h3>
-              <div className="space-y-3">
+              <h3 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: '#9CA3AF' }}>Font Frequency</h3>
+              <div className="space-y-2">
                 {fontMap.map(row => (
-                  <div key={row.font} className="flex items-start gap-3 p-3 bg-white border border-bark/10 rounded">
-                    <span className={`shrink-0 w-14 text-center font-body text-xs font-bold py-0.5 rounded ${
-                      row.used === '0/4' ? 'bg-ember/10 text-ember' : 'bg-stone/10 text-stone'
-                    }`}>{row.used}</span>
+                  <div key={row.font} className="flex items-start gap-3 p-3" style={{ background: '#1B2126', border: '1px solid #3D4142' }}>
+                    <span className="shrink-0 w-12 text-center text-xs font-bold py-0.5" style={{
+                      background: row.used === '0/4' ? 'rgba(190,140,42,0.15)' : 'rgba(61,65,66,0.5)',
+                      color: row.used === '0/4' ? '#BE8C2A' : '#9CA3AF',
+                    }}>{row.used}</span>
                     <div>
-                      <p className="font-body text-sm text-bark">{row.font}</p>
-                      <p className="font-body text-xs text-stone">{row.note}</p>
+                      <p className="text-sm text-white">{row.font}</p>
+                      <p className="text-xs" style={{ color: '#9CA3AF' }}>{row.note}</p>
                     </div>
                   </div>
                 ))}
@@ -289,20 +320,21 @@ export default function IntelligenceReportPage() {
 
         {/* ─── SECTION 5: Differentiation Opportunities ─── */}
         <section>
-          <h2 className="font-display text-bark text-3xl mb-2 pb-3 border-b border-bark/10">Differentiation Opportunities</h2>
-          <p className="font-body text-stone text-sm mb-8">Gaps in the competitive set that Wells Gray can own</p>
-          <div className="space-y-4">
+          <div className="flex items-baseline gap-4 mb-8 pb-4" style={{ borderBottom: '1px solid #3D4142' }}>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: '#BE8C2A' }}>05</span>
+            <h2 className="text-2xl font-semibold text-white">Differentiation Opportunities</h2>
+          </div>
+          <div className="space-y-3">
             {differentiators.map(d => (
-              <div key={d.opp} className="p-5 md:p-6 bg-white border border-bark/10 rounded-lg">
+              <div key={d.opp} className="p-5 md:p-6" style={{ background: '#1B2126', border: '1px solid #3D4142' }}>
                 <div className="flex items-center gap-3 mb-2">
-                  <h3 className="font-display text-bark text-lg">{d.opp}</h3>
-                  <span className={`font-body text-xs font-bold px-2 py-0.5 rounded ${
-                    d.impact === 'Highest' ? 'bg-ember/20 text-ember' :
-                    d.impact === 'High' ? 'bg-forest/10 text-forest' :
-                    'bg-stone/10 text-stone'
-                  }`}>{d.impact} Impact</span>
+                  <h3 className="font-semibold text-white">{d.opp}</h3>
+                  <span className="text-xs font-bold px-2 py-0.5" style={{
+                    background: d.impact === 'Highest' ? 'rgba(190,140,42,0.2)' : d.impact === 'High' ? 'rgba(44,74,46,0.3)' : 'rgba(61,65,66,0.5)',
+                    color: d.impact === 'Highest' ? '#BE8C2A' : d.impact === 'High' ? '#6B9AAD' : '#9CA3AF',
+                  }}>{d.impact} Impact</span>
                 </div>
-                <p className="font-body text-sm text-stone leading-relaxed">{d.detail}</p>
+                <p className="text-sm leading-relaxed" style={{ color: '#9CA3AF' }}>{d.detail}</p>
               </div>
             ))}
           </div>
@@ -310,20 +342,22 @@ export default function IntelligenceReportPage() {
 
         {/* ─── SECTION 6: Design System ─── */}
         <section>
-          <h2 className="font-display text-bark text-3xl mb-2 pb-3 border-b border-bark/10">Approved Design System</h2>
-          <p className="font-body text-stone text-sm mb-8">Every decision derived from brand research and competitive analysis</p>
+          <div className="flex items-baseline gap-4 mb-8 pb-4" style={{ borderBottom: '1px solid #3D4142' }}>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: '#BE8C2A' }}>06</span>
+            <h2 className="text-2xl font-semibold text-white">Approved Design System</h2>
+          </div>
 
           <div className="space-y-10">
             <div>
-              <h3 className="font-display text-bark text-xl mb-5">Color Palette</h3>
+              <h3 className="text-sm font-semibold uppercase tracking-wider mb-5" style={{ color: '#9CA3AF' }}>Color Palette</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {designSystem.colors.map(c => (
-                  <div key={c.token} className="rounded overflow-hidden border border-bark/10">
-                    <div className="h-16" style={{ background: c.hex }} />
-                    <div className="p-3 bg-white">
-                      <p className="font-mono text-xs text-bark font-semibold">{c.hex}</p>
-                      <p className="font-body text-xs text-stone mt-0.5">{c.token}</p>
-                      <p className="font-body text-xs text-stone/70 mt-0.5 leading-tight">{c.role}</p>
+                  <div key={c.token} className="overflow-hidden" style={{ border: '1px solid #3D4142' }}>
+                    <div className="h-14" style={{ background: c.hex }} />
+                    <div className="p-3" style={{ background: '#1B2126' }}>
+                      <p className="font-mono text-xs text-white font-semibold">{c.hex}</p>
+                      <p className="text-xs mt-0.5" style={{ color: '#BE8C2A' }}>{c.token}</p>
+                      <p className="text-xs mt-0.5 leading-tight" style={{ color: '#9CA3AF' }}>{c.role}</p>
                     </div>
                   </div>
                 ))}
@@ -331,31 +365,31 @@ export default function IntelligenceReportPage() {
             </div>
 
             <div>
-              <h3 className="font-display text-bark text-xl mb-5">Typography</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="p-5 bg-white border border-bark/10 rounded">
-                  <p className="font-body text-xs text-stone uppercase tracking-wider mb-2">Display / Headings</p>
-                  <p className="font-display text-bark text-3xl mb-2">Fraunces</p>
-                  <p className="font-body text-xs text-stone leading-relaxed">{designSystem.fonts.display}</p>
+              <h3 className="text-sm font-semibold uppercase tracking-wider mb-5" style={{ color: '#9CA3AF' }}>Typography</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-5" style={{ background: '#1B2126', border: '1px solid #3D4142' }}>
+                  <p className="text-xs uppercase tracking-wider mb-2" style={{ color: '#9CA3AF' }}>Display / Headings</p>
+                  <p className="text-3xl font-light text-white mb-2" style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}>Fraunces</p>
+                  <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>{designSystem.fonts.display}</p>
                 </div>
-                <div className="p-5 bg-white border border-bark/10 rounded">
-                  <p className="font-body text-xs text-stone uppercase tracking-wider mb-2">Body</p>
-                  <p className="font-body text-bark text-lg mb-2">Plus Jakarta Sans</p>
-                  <p className="font-body text-xs text-stone leading-relaxed">{designSystem.fonts.body}</p>
+                <div className="p-5" style={{ background: '#1B2126', border: '1px solid #3D4142' }}>
+                  <p className="text-xs uppercase tracking-wider mb-2" style={{ color: '#9CA3AF' }}>Body</p>
+                  <p className="text-2xl text-white mb-2">Plus Jakarta Sans</p>
+                  <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>{designSystem.fonts.body}</p>
                 </div>
               </div>
             </div>
 
             <div>
-              <h3 className="font-display text-bark text-xl mb-5">Aesthetic Dimensions</h3>
-              <div className="space-y-3">
+              <h3 className="text-sm font-semibold uppercase tracking-wider mb-5" style={{ color: '#9CA3AF' }}>Aesthetic Dimensions</h3>
+              <div className="space-y-2">
                 {designSystem.aesthetics.map(a => (
-                  <div key={a.dim} className="flex items-start gap-5 p-4 bg-white border border-bark/10 rounded">
+                  <div key={a.dim} className="flex items-start gap-5 p-4" style={{ background: '#1B2126', border: '1px solid #3D4142' }}>
                     <div className="shrink-0 w-32">
-                      <p className="font-body text-xs text-stone">{a.dim}</p>
-                      <p className="font-body text-sm font-semibold text-bark">{a.pos}</p>
+                      <p className="text-xs" style={{ color: '#9CA3AF' }}>{a.dim}</p>
+                      <p className="text-sm font-semibold text-white">{a.pos}</p>
                     </div>
-                    <p className="font-body text-sm text-stone leading-relaxed">{a.reason}</p>
+                    <p className="text-sm leading-relaxed" style={{ color: '#9CA3AF' }}>{a.reason}</p>
                   </div>
                 ))}
               </div>
@@ -365,34 +399,36 @@ export default function IntelligenceReportPage() {
 
         {/* ─── SECTION 7: Conversion Strategy ─── */}
         <section>
-          <h2 className="font-display text-bark text-3xl mb-2 pb-3 border-b border-bark/10">Conversion Strategy</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="flex items-baseline gap-4 mb-8 pb-4" style={{ borderBottom: '1px solid #3D4142' }}>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: '#BE8C2A' }}>07</span>
+            <h2 className="text-2xl font-semibold text-white">Conversion Strategy</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               { rank: '01', label: 'Primary', goal: 'Reserve a stay', detail: 'Book overnight accommodation — dome, cabin, RV, or tent. CTAs throughout all pages.' },
               { rank: '02', label: 'Secondary', goal: 'Join Seasonal Village waitlist', detail: 'Highest LTV conversion. Dedicated page + waitlist form.' },
               { rank: '03', label: 'Tertiary', goal: 'Inquire about venue', detail: 'Weddings and events. Contact form with subject selector.' },
             ].map(g => (
-              <div key={g.rank} className="p-5 bg-white border border-bark/10 rounded">
-                <span className="font-mono text-3xl text-bark/20 font-bold">{g.rank}</span>
-                <p className="font-body text-xs text-stone uppercase tracking-wider mt-2 mb-1">{g.label}</p>
-                <p className="font-display text-bark text-lg mb-2">{g.goal}</p>
-                <p className="font-body text-sm text-stone leading-relaxed">{g.detail}</p>
+              <div key={g.rank} className="p-5" style={{ background: '#1B2126', border: '1px solid #3D4142' }}>
+                <span className="font-mono text-3xl font-bold" style={{ color: '#3D4142' }}>{g.rank}</span>
+                <p className="text-xs uppercase tracking-wider mt-2 mb-1" style={{ color: '#9CA3AF' }}>{g.label}</p>
+                <p className="font-semibold text-white text-lg mb-2">{g.goal}</p>
+                <p className="text-sm leading-relaxed" style={{ color: '#9CA3AF' }}>{g.detail}</p>
               </div>
             ))}
           </div>
         </section>
 
         {/* Footer */}
-        <footer className="pt-10 border-t border-bark/10 flex flex-col sm:flex-row justify-between gap-4">
-          <p className="font-body text-xs text-stone">
-            Research conducted: March 2026. Competitors: wellsgrayresort.ca, clayoquotwildernesslodge.com, siwashlake.com, tinpoppy.ca, parksvillervresort.ca
+        <footer className="pt-10 flex flex-col sm:flex-row justify-between gap-4" style={{ borderTop: '1px solid #3D4142' }}>
+          <p className="text-xs" style={{ color: '#9CA3AF' }}>
+            Research: March 2026 · Design Spore · wellsgrayresort.ca
           </p>
-          <Link href="/" className="font-body text-xs text-ember hover:underline shrink-0">
+          <Link href="/" className="text-xs shrink-0 hover:underline" style={{ color: '#BE8C2A' }}>
             View Live Site →
           </Link>
         </footer>
       </main>
-
     </div>
   )
 }

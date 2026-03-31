@@ -26,8 +26,8 @@ export default function VenuePage() {
       {/* Hero */}
       <section className="relative min-h-[65dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1519741347686-c1e331fcb305?auto=format&fit=crop&w=1600&q=80"
-          alt="Outdoor forest wedding ceremony"
+          src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/461692343_10162000088875148_5722285476960156898_n.jpg"
+          alt="Wedding ceremony at Wells Gray Resort"
           fill
           priority
           className="object-cover"
@@ -56,8 +56,8 @@ export default function VenuePage() {
             <div className="md:col-span-3 reveal">
               <div className="relative h-[360px] md:h-[500px] rounded-lg overflow-hidden mb-5">
                 <Image
-                  src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=80"
-                  alt="Forest gazebo event space"
+                  src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/20210621_205223-scaled.jpg"
+                  alt="Wells Gray Resort outdoor event gazebo"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 60vw"
@@ -66,8 +66,8 @@ export default function VenuePage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative h-[180px] rounded-lg overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=600&q=80"
-                    alt="Creek view from venue"
+                    src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/461719795_10162000089565148_4909250211936855684_n.jpg"
+                    alt="Wedding reception at Wells Gray Resort"
                     fill
                     className="object-cover"
                     sizes="30vw"
@@ -75,8 +75,8 @@ export default function VenuePage() {
                 </div>
                 <div className="relative h-[180px] rounded-lg overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80"
-                    alt="Evening campfire gathering"
+                    src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/457303431_10161883687870148_8848637454076928890_n.jpg"
+                    alt="Wells Gray Resort venue celebration"
                     fill
                     className="object-cover"
                     sizes="30vw"

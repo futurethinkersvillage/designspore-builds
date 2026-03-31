@@ -14,7 +14,7 @@ const stays = [
     id: 'dome',
     label: 'Glamping Dome',
     from: '$129/night',
-    img: 'https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240518_203127249-EDIT-scaled.jpg',
     desc: 'A spacious geodesic dome perched beside the creek, with a queen bed, air conditioning, and windows that let the forest in. The most private stay on the property.',
     details: ['Queen bed', 'Air conditioning', 'Creek views', 'Private patio'],
   },
@@ -22,7 +22,7 @@ const stays = [
     id: 'rv-creekside',
     label: 'Creekside RV Sites',
     from: '$65/night',
-    img: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/20210924_172621-scaled.jpg',
     desc: '30-amp hookups, water connections, and fire pits on the bank of the creek. Wake up to the sound of moving water. These sites fill first — book early.',
     details: ['30-amp power', 'Water hookup', 'Sani dump access', 'Creekside fire pit'],
   },
@@ -30,7 +30,7 @@ const stays = [
     id: 'rv-full',
     label: 'Full Service RV Sites',
     from: '$65/night',
-    img: 'https://images.unsplash.com/photo-1527786356703-4b100091cd2c?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2021/07/20210713_1838270-scaled.jpg',
     desc: 'Full hookups — power, water, and sewer — for longer stays or larger rigs. Non-creekside, with full access to all resort amenities.',
     details: ['30-amp power', 'Water + sewer hookup', 'WIFI access', 'All amenities'],
   },
@@ -38,7 +38,7 @@ const stays = [
     id: 'cabin',
     label: 'Forest Sleeping Cabins',
     from: '$60/night',
-    img: 'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20250504_163611703-EDIT-scaled.jpg',
     desc: 'Simple, wooden, honest. A double bed, a power outlet, and nothing between you and the sound of the forest. Bring your own bedding and settle in.',
     details: ['Double bed', 'Power outlet', 'No plumbing', 'Forest setting'],
   },
@@ -46,7 +46,7 @@ const stays = [
     id: 'tent',
     label: 'Tent Sites',
     from: '$40/night',
-    img: 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/revslider/video-media/Campsite-4_22.jpeg',
     desc: 'Flat, shaded spots near the creek and facilities. Shared fire pits throughout. Group camping available. This is how camping is supposed to feel.',
     details: ['Shaded creek-side', 'Shared fire pits', 'Clean washrooms', 'Group sites available'],
   },
@@ -54,7 +54,7 @@ const stays = [
     id: 'seasonal',
     label: 'Seasonal Village Pads',
     from: 'Waitlist',
-    img: 'https://images.unsplash.com/photo-1526773580928-02c3d48a1d0f?auto=format&fit=crop&w=900&q=80',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/07/PXL_20250629_025242307-EDIT-scaled.jpg',
     desc: 'Return each year to your own seasonal site. Part campground, part community. Limited pads available — join the waitlist to be notified.',
     details: ['30-amp (50-amp soon)', 'Season: May–October', 'Community access', 'Sauna + golf included'],
     cta: { label: 'Join the Waitlist', href: '/seasonal-village' },
@@ -84,8 +84,8 @@ export default function StayPage() {
       {/* Hero */}
       <section className="relative min-h-[60dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=1600&q=80"
-          alt="Campfire at dusk in the forest"
+          src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/20210620_172133-EDIT-scaled.jpg"
+          alt="Wells Gray Resort campsite aerial view"
           fill
           priority
           className="object-cover"
