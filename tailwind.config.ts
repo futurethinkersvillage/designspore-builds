@@ -10,7 +10,9 @@ const config: Config = {
     extend: {
       colors: {
         // Derived from brand research — 04-design-system.md
-        forest:    '#2C4A2E',
+        // forest + navy match the live wellsgrayresort.ca brand colors (print/business card safe)
+        forest:    '#057C34',   // WG brand green (exact from live site CSS)
+        navy:      '#213C66',   // WG brand blue (exact from live site CSS)
         bark:      '#1C1A14',
         parchment: '#F0EAD9',
         ember:     '#C4703A',

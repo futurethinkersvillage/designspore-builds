@@ -51,6 +51,9 @@
   .section-forest {
     @apply relative bg-forest text-parchment overflow-hidden grain;
   }
+  .section-navy {
+    @apply relative bg-navy text-parchment overflow-hidden grain;
+  }
 
   /* Typography */
   .heading-display {

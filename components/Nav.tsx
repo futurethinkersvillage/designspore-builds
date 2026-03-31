@@ -30,7 +30,7 @@ export default function Nav() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? 'bg-bark/95 backdrop-blur-sm border-b border-border' : 'bg-transparent'
+          scrolled ? 'bg-navy/95 backdrop-blur-sm border-b border-navy/60' : 'bg-transparent'
         }`}
       >
         <div className="container-content flex items-center justify-between h-16 md:h-20">
@@ -82,7 +82,7 @@ export default function Nav() {
 
       {/* Mobile menu */}
       <div
-        className={`fixed inset-0 z-40 bg-bark/98 flex flex-col justify-center px-8 transition-all duration-400 md:hidden ${
+        className={`fixed inset-0 z-40 bg-navy flex flex-col justify-center px-8 transition-all duration-400 md:hidden ${
           open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
