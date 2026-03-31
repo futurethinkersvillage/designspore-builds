@@ -7,7 +7,7 @@
  *   npx tsx scripts/manage-activation.ts status <activationId> <active|completed|cancelled>
  *   npx tsx scripts/manage-activation.ts note <activationId> "Your message to the client"
  *   npx tsx scripts/manage-activation.ts activate-user <email>
- *   npx tsx scripts/manage-activation.ts set-tier <email> <starter|growth|partner|paused>
+ *   npx tsx scripts/manage-activation.ts set-tier <email> <starter|growth|scale|paused>
  *   npx tsx scripts/manage-activation.ts usage <email> <service> <requests> [tokens]
  */
 
@@ -80,13 +80,13 @@ async function main() {
 
     case "set-tier": {
       const [email, tier] = args;
-      if (!email || !tier) { console.error("Usage: set-tier <email> <starter|growth|partner|paused>"); process.exit(1); }
-      const budgets: Record<string, number> = { starter: 1500, growth: 3000, partner: 4500, paused: 299 };
-      if (!budgets[tier]) { console.error("Tier must be: starter | growth | partner | paused"); process.exit(1); }
+      if (!email || !tier) { console.error("Usage: set-tier <email> <starter|growth|scale|paused>"); process.exit(1); }
+      const budgets: Record<string, number> = { starter: 1500, growth: 3000, scale: 5000, paused: 299 };
+      if (!budgets[tier]) { console.error("Tier must be: starter | growth | scale | paused"); process.exit(1); }
       const [user] = await db.select().from(schema.users).where(eq(schema.users.email, email));
       if (!user) { console.error(`User not found: ${email}`); process.exit(1); }
       await db.update(schema.users)
-        .set({ subscriptionTier: tier as "starter" | "growth" | "partner" | "paused", monthlyBudget: budgets[tier] })
+        .set({ subscriptionTier: tier as "starter" | "growth" | "scale" | "paused", monthlyBudget: budgets[tier] })
         .where(eq(schema.users.id, user.id));
       console.log(`✓ ${email} → ${tier} ($${budgets[tier]}/mo)`);
       break;

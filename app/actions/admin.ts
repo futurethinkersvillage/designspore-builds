@@ -68,9 +68,9 @@ export async function addProgressUpdate(activationId: string, update: string) {
 export async function setUserTier(userId: string, tier: string) {
   await assertAdmin();
   const monthlyBudget =
-    tier === "starter" ? 1500 : tier === "growth" ? 3000 : tier === "partner" ? 4500 : 299;
+    tier === "starter" ? 1500 : tier === "growth" ? 3000 : tier === "scale" ? 5000 : 299;
   await db.update(users)
-    .set({ subscriptionTier: tier as "starter" | "growth" | "partner" | "paused", monthlyBudget })
+    .set({ subscriptionTier: tier as "starter" | "growth" | "scale" | "paused", monthlyBudget })
     .where(eq(users.id, userId));
 }
 

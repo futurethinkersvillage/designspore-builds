@@ -14,12 +14,12 @@ import DeleteAccountButton from "@/components/dashboard/DeleteAccountButton";
 import AllocationMeter from "@/components/dashboard/AllocationMeter";
 
 // All plans shown in the Available Plans section (including pause tier)
-const ALL_PLANS: PlanKey[] = ["starter", "growth", "partner", "paused"];
+const ALL_PLANS: PlanKey[] = ["starter", "growth", "scale", "paused"];
 
 const planColors: Record<string, string> = {
   starter: "border-gold/20 text-gold",
   growth:  "border-blue-500/20 text-blue-300",
-  partner: "border-purple-500/20 text-purple-300",
+  scale:   "border-purple-500/20 text-purple-300",
   paused:  "border-white/10 text-white/40",
 };
 
@@ -153,7 +153,7 @@ export default async function AccountPage() {
             const isCurrent = key === currentTierKey;
             const isPaused = key === "paused";
             const colorClasses = planColors[key] ?? "border-white/10 text-white/50";
-            const upgradeKeys: PlanKey[] = ["starter", "growth", "partner"];
+            const upgradeKeys: PlanKey[] = ["starter", "growth", "scale"];
             const currentIdx = upgradeKeys.indexOf(currentTierKey as PlanKey);
             const thisIdx = upgradeKeys.indexOf(key);
 

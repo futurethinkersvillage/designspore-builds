@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { activateModule, cancelActivation } from "@/app/actions/modules";
-import { tierConfig, type ModuleTier } from "@/lib/modules";
+import type { ModuleTier } from "@/lib/modules";
 
 interface ActivateButtonProps {
   moduleId: string;
@@ -31,8 +31,6 @@ export default function ActivateButton({
   const [showConfirm, setShowConfirm] = useState(false);
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
   const [isPending, startTransition] = useTransition();
-  const tierCfg = tierConfig[tier];
-
   // ── Demo mode ────────────────────────────────────────────────────────
   if (isDemo) {
     if (isQueued) {
@@ -89,8 +87,8 @@ export default function ActivateButton({
             <strong className="text-white">{moduleName}</strong> will use{" "}
             <strong className="text-gold">
               {creditsNeeded} credit{creditsNeeded > 1 ? "s" : ""}
-            </strong>{" "}
-            ({tierCfg.label}). It'll be scheduled for the earliest available month.
+            </strong>
+            . It'll be scheduled for the earliest available month.
           </p>
           <p className="text-xs text-white/30 mt-2">
             We'll reach out within 1–2 business days once it's your active month.

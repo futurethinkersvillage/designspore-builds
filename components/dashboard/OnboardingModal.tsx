@@ -2,16 +2,14 @@
 
 import { useState, useTransition } from "react";
 import { completeOnboarding } from "@/app/actions/account";
-import { tierConfig, MONTHLY_CREDITS } from "@/lib/modules";
-
 const STEPS = [
   {
     title: "Welcome to your portal.",
     body: "This is where you choose what gets built each month. You have a monthly credit allowance — spend it on the services that move your business forward.",
   },
   {
-    title: "Pick your tier.",
-    body: "Services come in three tiers — Flagship (full month), Core (2 per month), and Quick Win (up to 4 per month). Mix and match however you like within your credits.",
+    title: "Services have a credit cost.",
+    body: "Each service shows how many credits it costs based on the scope of the work. A quick automation might cost 1 credit. A full system build costs 4. Mix and match however you like within your monthly allowance.",
     visual: true,
   },
   {
@@ -53,21 +51,19 @@ export default function OnboardingModal({ userName }: { userName?: string | null
           </h2>
           <p className="text-sm text-white/60 leading-relaxed">{current.body}</p>
 
-          {/* Tier visual on step 2 */}
+          {/* Credit cost examples on step 2 */}
           {current.visual && (
             <div className="grid grid-cols-3 gap-2 mt-4">
-              {([1, 2, 3] as const).map((tier) => {
-                const cfg = tierConfig[tier];
-                const colorClass = tier === 1 ? "border-gold/20 text-gold" : tier === 2 ? "border-blue-500/20 text-blue-300" : "border-emerald-500/20 text-emerald-300";
-                return (
-                  <div key={tier} className={`border rounded-xl p-3 text-center ${colorClass}`}>
-                    <p className="text-xs font-semibold">{cfg.label}</p>
-                    <p className="text-[10px] text-white/30 mt-0.5">
-                      {cfg.credits === 4 ? "1/mo" : cfg.credits === 2 ? "2/mo" : "4/mo"}
-                    </p>
-                  </div>
-                );
-              })}
+              {([
+                { credits: 1, example: "Quick win", color: "border-emerald-500/20 text-emerald-300" },
+                { credits: 2, example: "Mid system", color: "border-blue-500/20 text-blue-300" },
+                { credits: 4, example: "Full build", color: "border-gold/20 text-gold" },
+              ] as const).map(({ credits, example, color }) => (
+                <div key={credits} className={`border rounded-xl p-3 text-center ${color}`}>
+                  <p className="text-xs font-semibold">{credits} credit{credits > 1 ? "s" : ""}</p>
+                  <p className="text-[10px] text-white/30 mt-0.5">{example}</p>
+                </div>
+              ))}
             </div>
           )}
         </div>

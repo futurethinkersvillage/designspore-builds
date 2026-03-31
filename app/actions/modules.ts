@@ -136,9 +136,7 @@ export async function activateModule(moduleId: string): Promise<ActivateResult> 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          content: `🟡 **Queued** — ${user.name ?? user.email} added **${mod.name}** [${
-            mod.tier === 1 ? "Flagship" : mod.tier === 2 ? "Core" : "Quick Win"
-          }]${monthsAhead}`,
+          content: `🟡 **Queued** — ${user.name ?? user.email} added **${mod.name}** [${creditsNeeded} credit${creditsNeeded > 1 ? "s" : ""}]${monthsAhead}`,
         }),
       });
     } catch { /* non-fatal */ }

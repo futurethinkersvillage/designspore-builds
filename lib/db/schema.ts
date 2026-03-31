@@ -12,7 +12,7 @@ import type { AdapterAccountType } from "next-auth/adapters";
 export const subscriptionTierEnum = pgEnum("subscription_tier", [
   "starter",
   "growth",
-  "partner",
+  "scale",
   "paused", // Keep the Lights On — hosting + maintenance only
 ]);
 

@@ -8,33 +8,23 @@ const colorMap: Record<string, string> = {
 
 interface TierBadgeProps {
   tier: ModuleTier;
-  showCredits?: boolean;
-  /** Show only credit count (no tier name). Optionally pass recurring to show ↻ format. */
-  creditOnly?: boolean;
   recurring?: boolean;
+  /** @deprecated creditOnly is now the only mode — kept for compat */
+  creditOnly?: boolean;
+  /** @deprecated unused */
+  showCredits?: boolean;
 }
 
-export default function TierBadge({ tier, showCredits, creditOnly, recurring }: TierBadgeProps) {
+export default function TierBadge({ tier, recurring }: TierBadgeProps) {
   const cfg = tierConfig[tier];
   const classes = colorMap[cfg.color] ?? colorMap.gold;
-
-  if (creditOnly) {
-    const label = recurring
-      ? `↻ ${cfg.credits} credit${cfg.credits > 1 ? "s" : ""}/mo`
-      : `${cfg.credits} credit${cfg.credits > 1 ? "s" : ""}`;
-    return (
-      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold border ${classes}`}>
-        {label}
-      </span>
-    );
-  }
+  const label = recurring
+    ? `↻ ${cfg.credits} credit${cfg.credits > 1 ? "s" : ""}/mo`
+    : `${cfg.credits} credit${cfg.credits > 1 ? "s" : ""}`;
 
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold border ${classes}`}>
-      {cfg.label}
-      {showCredits && (
-        <span className="opacity-60">· {cfg.credits === 4 ? "Full month" : `${cfg.credits} credit${cfg.credits > 1 ? "s" : ""}`}</span>
-      )}
+    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold border ${classes}`}>
+      {label}
     </span>
   );
 }

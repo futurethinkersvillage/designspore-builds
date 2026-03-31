@@ -10,12 +10,12 @@ import { sendSignupNotification } from "@/lib/email";
  *
  * STRIPE_PRICE_STARTER=price_xxx
  * STRIPE_PRICE_GROWTH=price_xxx
- * STRIPE_PRICE_PARTNER=price_xxx
+ * STRIPE_PRICE_SCALE=price_xxx
  */
-const PRICE_TO_TIER: Record<string, { tier: "starter" | "growth" | "partner"; budget: number }> = {
+const PRICE_TO_TIER: Record<string, { tier: "starter" | "growth" | "scale"; budget: number }> = {
   [process.env.STRIPE_PRICE_STARTER ?? "__unset_starter__"]: { tier: "starter", budget: 1500 },
   [process.env.STRIPE_PRICE_GROWTH ?? "__unset_growth__"]:   { tier: "growth",  budget: 3000 },
-  [process.env.STRIPE_PRICE_PARTNER ?? "__unset_partner__"]: { tier: "partner", budget: 4500 },
+  [process.env.STRIPE_PRICE_SCALE ?? "__unset_scale__"]:     { tier: "scale",   budget: 5000 },
 };
 
 export async function POST(request: NextRequest) {
@@ -69,8 +69,8 @@ export async function POST(request: NextRequest) {
     if (!email) return new NextResponse("OK", { status: 200 });
 
     // Determine tier from line items — use metadata if set, else default to starter
-    const tier = (session.metadata?.tier as "starter" | "growth" | "partner") ?? "starter";
-    const budget = tier === "growth" ? 3000 : tier === "partner" ? 4500 : 1500;
+    const tier = (session.metadata?.tier as "starter" | "growth" | "scale") ?? "starter";
+    const budget = tier === "growth" ? 3000 : tier === "scale" ? 5000 : 1500;
 
     const [existing] = await db.select({ id: users.id }).from(users).where(eq(users.email, email));
 

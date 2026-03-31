@@ -9,23 +9,22 @@ export type ModuleCategory =
   | "market-intelligence";
 
 /**
- * Tier system — shown to clients, dollar values are internal only.
+ * Internal tier — drives credit cost only. Not shown to clients as named tiers.
+ * Services just have a credit cost based on scope.
  *
- * Tier 1 — Flagship  ($1500): 1 per month. Major build/system.
- * Tier 2 — Core      ($750):  2 per month. Solid automation or integration.
- * Tier 3 — Quick Win ($375):  4 per month. Fast, focused wins.
- *
- * Monthly credit equivalents: Flagship=4, Core=2, Quick Win=1 (of 4 monthly credits)
+ * 1 → 4 credits (large build)
+ * 2 → 2 credits (mid-size system)
+ * 3 → 1 credit  (focused win)
  */
 export type ModuleTier = 1 | 2 | 3;
 
-export const tierConfig: Record<ModuleTier, { label: string; color: string; credits: number; description: string }> = {
-  1: { label: "Flagship",  color: "gold",   credits: 4, description: "Major build — takes your full month" },
-  2: { label: "Core",      color: "blue",   credits: 2, description: "Solid system — 2 fit in a month" },
-  3: { label: "Quick Win", color: "green",  credits: 1, description: "Fast win — stack up to 4 per month" },
+export const tierConfig: Record<ModuleTier, { color: string; credits: number }> = {
+  1: { color: "gold",  credits: 4 },
+  2: { color: "blue",  credits: 2 },
+  3: { color: "green", credits: 1 },
 };
 
-export const MONTHLY_CREDITS = 4; // Starter plan ($1,500/mo)
+export const MONTHLY_CREDITS = 4; // Starter plan baseline
 
 export interface Module {
   id: string;
