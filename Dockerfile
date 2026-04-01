@@ -22,5 +22,8 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
+# bcryptjs v3 exports map requires umd/ for CJS but standalone tracing misses it
+COPY --from=deps /app/node_modules/bcryptjs ./node_modules/bcryptjs
+
 EXPOSE 3000
 CMD ["node", "server.js"]
