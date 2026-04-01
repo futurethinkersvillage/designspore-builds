@@ -75,13 +75,24 @@ export async function POST(request: NextRequest) {
 
     // If we have a userId (signup flow), activate by ID — most reliable
     if (userId) {
+      const customerId = (session.customer as string) ?? null;
+      const subscriptionId = (session.subscription as string) ?? null;
       await db.update(users).set({
         isActive: true,
         subscriptionTier: tier,
         monthlyBudget: budget,
-        stripeCustomerId: (session.customer as string) ?? null,
-        stripeSubscriptionId: (session.subscription as string) ?? null,
+        stripeCustomerId: customerId,
+        stripeSubscriptionId: subscriptionId,
       }).where(eq(users.id, userId));
+      // Notify Mike of the new paying client
+      try {
+        await sendSignupNotification({
+          name: session.metadata?.name ?? email,
+          email,
+          businessName: session.metadata?.businessName ?? "",
+          businessType: session.metadata?.businessType ?? "",
+        });
+      } catch { /* non-fatal */ }
       return new NextResponse("OK", { status: 200 });
     }
 

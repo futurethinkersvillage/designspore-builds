@@ -100,41 +100,59 @@ export async function signupAndCheckout(
     isActive: false,
   }).returning({ id: users.id });
 
-  // Create Stripe Checkout — one-time payment representing first month + onboarding fee
-  // TODO: switch to subscription mode once Stripe products/prices are configured
+  // Stripe Checkout — subscription for the plan + one-time onboarding fee
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-03-25.dahlia" });
-  const p = PLANS[plan as PlanKey];
   const baseUrl = process.env.NEXTAUTH_URL ?? "https://designspore.co";
-  const onboardingFee = 500_00; // $500 in cents
-  const monthlyAmount = p.monthlyBudget * 100;
+
+  const priceIdMap: Record<string, string | undefined> = {
+    starter: process.env.STRIPE_PRICE_STARTER,
+    growth:  process.env.STRIPE_PRICE_GROWTH,
+    scale:   process.env.STRIPE_PRICE_SCALE,
+  };
+  const planPriceId = priceIdMap[plan];
+  const onboardingPriceId = process.env.STRIPE_PRICE_ONBOARDING;
+
+  // Build line items — subscription plan is always required
+  // Onboarding fee is added if price ID is configured
+  const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
+
+  if (onboardingPriceId) {
+    lineItems.push({ price: onboardingPriceId, quantity: 1 });
+  } else {
+    // Fallback: inline price if env var not set
+    lineItems.push({
+      quantity: 1,
+      price_data: {
+        currency: "usd",
+        unit_amount: 50000,
+        product_data: { name: "DesignSpore — Onboarding", description: "Discovery, roadmap, and website rebuild" },
+      },
+    });
+  }
+
+  if (planPriceId) {
+    lineItems.push({ price: planPriceId, quantity: 1 });
+  } else {
+    // Fallback: inline recurring price if env var not set
+    const p = PLANS[plan as PlanKey];
+    lineItems.push({
+      quantity: 1,
+      price_data: {
+        currency: "usd",
+        unit_amount: p.monthlyBudget * 100,
+        recurring: { interval: "month" },
+        product_data: { name: `DesignSpore — ${p.label} Plan`, description: `${p.monthlyCredits} credits/month` },
+      },
+    });
+  }
 
   const session = await stripe.checkout.sessions.create({
-    mode: "payment",
+    mode: "subscription",
     customer_email: email,
-    line_items: [
-      {
-        quantity: 1,
-        price_data: {
-          currency: "usd",
-          unit_amount: onboardingFee,
-          product_data: {
-            name: "DesignSpore — Onboarding",
-            description: "Discovery call, 90-day roadmap, and website rebuild included",
-          },
-        },
-      },
-      {
-        quantity: 1,
-        price_data: {
-          currency: "usd",
-          unit_amount: monthlyAmount,
-          product_data: {
-            name: `DesignSpore — ${p.label} Plan (Month 1)`,
-            description: `${p.monthlyCredits} credits/month · ${p.description}`,
-          },
-        },
-      },
-    ],
+    line_items: lineItems,
+    subscription_data: {
+      metadata: { userId: newUser.id, tier: plan },
+    },
     metadata: {
       userId: newUser.id,
       tier: plan,
