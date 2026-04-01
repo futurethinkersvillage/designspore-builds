@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { signupAndCheckout } from "@/app/actions/auth";
 import { PLANS } from "@/lib/subscription";
 import Link from "next/link";
+import PromptGridBackground from "@/components/PromptGridBackground";
 
 const PLAN_KEYS = ["starter", "growth", "scale"] as const;
 type SignupPlan = typeof PLAN_KEYS[number];
@@ -60,8 +61,9 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-darker px-4 py-16">
-      <div className="w-full max-w-lg">
+    <div className="min-h-screen flex items-center justify-center bg-darker px-4 py-16 relative">
+      <PromptGridBackground />
+      <div className="w-full max-w-lg relative z-10">
         <div className="text-center mb-10">
           <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">
             Client Portal
