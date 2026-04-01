@@ -1,7 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useActionState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { loginWithCredentials, loginWithGoogle } from "@/app/actions/auth";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -9,6 +9,13 @@ import { Suspense } from "react";
 function LoginForm() {
   const [state, action, pending] = useActionState(loginWithCredentials, null);
   const params = useSearchParams();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state?.ok) {
+      router.push("/dashboard");
+    }
+  }, [state?.ok, router]);
   const welcome = params.get("welcome") === "true";
   const cancelled = params.get("cancelled") === "true";
 

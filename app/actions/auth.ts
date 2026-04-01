@@ -23,14 +23,14 @@ const signupSchema = z.object({
 export async function loginWithCredentials(
   _prev: unknown,
   formData: FormData
-): Promise<{ error?: string }> {
+): Promise<{ error?: string; ok?: boolean }> {
   try {
     await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
-      redirectTo: "/dashboard",
+      redirect: false,
     });
-    return {};
+    return { ok: true };
   } catch (error) {
     if (error instanceof AuthError) {
       return { error: "Invalid email or password." };
