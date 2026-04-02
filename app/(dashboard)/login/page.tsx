@@ -1,15 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { loginWithGoogle } from "@/app/actions/auth";
 import Link from "next/link";
 import { Suspense } from "react";
 
 function LoginForm() {
   const params = useSearchParams();
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const welcome = params.get("welcome") === "true";
@@ -25,21 +23,35 @@ function LoginForm() {
     const password = formData.get("password") as string;
 
     try {
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
+      // 1. Get CSRF token
+      const csrfRes = await fetch("/api/auth/csrf");
+      const { csrfToken } = await csrfRes.json();
+
+      // 2. POST to credentials callback
+      const res = await fetch("/api/auth/callback/credentials", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "X-Auth-Return-Redirect": "1",
+        },
+        body: new URLSearchParams({
+          email,
+          password,
+          csrfToken,
+          callbackUrl: window.location.origin + "/dashboard",
+        }),
       });
 
-      if (result?.error) {
+      const data = await res.json();
+
+      if (!res.ok || !data.url || new URL(data.url).searchParams.has("error")) {
         setError("Invalid email or password.");
         setPending(false);
         return;
       }
 
-      // Cookie is set — navigate client-side
-      router.push("/dashboard");
-      router.refresh();
+      // Cookie is set by the response — hard navigate to pick it up
+      window.location.href = "/dashboard";
     } catch {
       setError("Something went wrong. Please try again.");
       setPending(false);
