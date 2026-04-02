@@ -147,10 +147,10 @@ function BrickGrid() {
           {row.prompts.map((prompt, c) => (
             <div
               key={`${r}-${c}`}
-              className="shrink-0 rounded-xl border border-white/[0.06] bg-white/[0.025] flex items-center justify-center px-5"
+              className="shrink-0 rounded-xl border border-white/[0.04] bg-white/[0.015] flex items-center justify-center px-5"
               style={{ width: CARD_W, height: CARD_H }}
             >
-              <span className="text-[13px] text-white/[0.10] font-medium text-center leading-snug select-none">
+              <span className="text-[13px] text-white/[0.06] font-medium text-center leading-snug select-none">
                 {prompt}
               </span>
             </div>
@@ -185,9 +185,9 @@ export default function PromptGridBackground() {
             "linear-gradient(to bottom, transparent 0%, transparent 5%, var(--color-darker) 12%, var(--color-darker) 88%, transparent 95%, transparent 100%)",
           ].join(", "),
           maskImage:
-            "linear-gradient(to right, transparent 0%, transparent calc(50% - 300px), black calc(50% - 260px), black calc(50% + 260px), transparent calc(50% + 300px), transparent 100%)",
+            "linear-gradient(to right, transparent 0%, transparent calc(50% - 380px), black calc(50% - 330px), black calc(50% + 330px), transparent calc(50% + 380px), transparent 100%)",
           WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, transparent calc(50% - 300px), black calc(50% - 260px), black calc(50% + 260px), transparent calc(50% + 300px), transparent 100%)",
+            "linear-gradient(to right, transparent 0%, transparent calc(50% - 380px), black calc(50% - 330px), black calc(50% + 330px), transparent calc(50% + 380px), transparent 100%)",
         }}
       />
 
