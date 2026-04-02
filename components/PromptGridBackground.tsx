@@ -106,13 +106,31 @@ const CARD_W = 240;
 const CARD_H = 68;
 const GAP = 12;
 
-function BrickGrid() {
-  const cols = 20;
+function Card({ text }: { text: string }) {
+  return (
+    <div
+      className="shrink-0 rounded-xl border border-white/[0.05] bg-white/[0.02] flex items-center justify-center px-5"
+      style={{ width: CARD_W, height: CARD_H }}
+    >
+      <span className="text-[13px] text-white/[0.08] font-medium text-center leading-snug select-none">
+        {text}
+      </span>
+    </div>
+  );
+}
+
+/**
+ * A single side column of brick-patterned cards.
+ * `side` controls the offset direction so both halves tile correctly.
+ * Cards fade out at the top, bottom, and outer edge.
+ */
+function CardColumn({ side }: { side: "left" | "right" }) {
+  const cols = 10;
   const rows = 20;
-  const totalW = cols * (CARD_W + GAP);
 
   const allRows: { prompts: string[]; offset: boolean }[] = [];
-  let idx = 0;
+  // Offset the starting index so left and right show different prompts
+  let idx = side === "left" ? 0 : 50;
   for (let r = 0; r < rows; r++) {
     const offset = r % 2 === 1;
     const count = offset ? cols + 1 : cols;
@@ -124,65 +142,59 @@ function BrickGrid() {
     allRows.push({ prompts, offset });
   }
 
+  const totalW = cols * (CARD_W + GAP);
+
+  // Fade: top/bottom edges + the outer edge (left side fades left, right side fades right)
+  const edgeFade =
+    side === "left"
+      ? "linear-gradient(to right, transparent 0%, black 15%, black 100%)"
+      : "linear-gradient(to left, transparent 0%, black 15%, black 100%)";
+  const vertFade =
+    "linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)";
+
   return (
     <div
-      className="flex flex-col"
-      style={{ gap: GAP, width: totalW }}
+      className="overflow-hidden h-full"
+      style={{
+        maskImage: `${edgeFade}, ${vertFade}`,
+        WebkitMaskImage: `${edgeFade}, ${vertFade}`,
+        maskComposite: "intersect",
+        WebkitMaskComposite: "destination-in",
+      }}
     >
-      {allRows.map((row, r) => (
-        <div
-          key={r}
-          className="flex"
-          style={{
-            gap: GAP,
-            marginLeft: row.offset ? -(CARD_W + GAP) / 2 : 0,
-          }}
-        >
-          {row.prompts.map((prompt, c) => (
-            <div
-              key={`${r}-${c}`}
-              className="shrink-0 rounded-xl border border-white/[0.04] bg-white/[0.015] flex items-center justify-center px-5"
-              style={{ width: CARD_W, height: CARD_H }}
-            >
-              <span className="text-[13px] text-white/[0.06] font-medium text-center leading-snug select-none">
-                {prompt}
-              </span>
-            </div>
-          ))}
-        </div>
-      ))}
+      <div
+        className="flex flex-col"
+        style={{
+          gap: GAP,
+          width: totalW,
+          // Push the grid so the inner edge aligns flush with the form
+          marginLeft: side === "right" ? 0 : "auto",
+          marginRight: side === "left" ? 0 : "auto",
+          // Vertically center the grid
+          transform: "translateY(-10%)",
+        }}
+      >
+        {allRows.map((row, r) => (
+          <div
+            key={r}
+            className="flex"
+            style={{
+              gap: GAP,
+              marginLeft: row.offset ? -(CARD_W + GAP) / 2 : 0,
+            }}
+          >
+            {row.prompts.map((prompt, c) => (
+              <Card key={`${r}-${c}`} text={prompt} />
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
+export { CardColumn };
 export default function PromptGridBackground() {
-  /*
-    Single-layer approach: apply a mask directly to the grid container.
-    - An inverted radial ellipse in the center hides cards behind the form.
-    - A second radial at full size fades cards toward screen edges.
-    - No stacked overlay divs = no banding or hard lines.
-  */
-  const maskCenter =
-    "radial-gradient(ellipse 340px 460px at 50% 50%, transparent 0%, transparent 70%, black 100%)";
-  const maskEdges =
-    "radial-gradient(ellipse 90% 90% at 50% 50%, black 0%, black 60%, transparent 100%)";
-
-  return (
-    <div
-      className="pointer-events-none fixed inset-0 overflow-hidden"
-      aria-hidden="true"
-    >
-      <div
-        className="absolute inset-0 flex items-center justify-center"
-        style={{
-          maskImage: `${maskCenter}, ${maskEdges}`,
-          WebkitMaskImage: `${maskCenter}, ${maskEdges}`,
-          maskComposite: "intersect",
-          WebkitMaskComposite: "destination-in",
-        }}
-      >
-        <BrickGrid />
-      </div>
-    </div>
-  );
+  // Legacy export kept for easy removal — no longer used as an overlay
+  return null;
 }
