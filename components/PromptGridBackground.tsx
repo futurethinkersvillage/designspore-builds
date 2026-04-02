@@ -109,10 +109,10 @@ const GAP = 12;
 function Card({ text }: { text: string }) {
   return (
     <div
-      className="shrink-0 rounded-xl border border-white/[0.05] bg-white/[0.02] flex items-center justify-center px-5"
+      className="prompt-card pointer-events-auto shrink-0 rounded-xl border flex items-center justify-center px-5"
       style={{ width: CARD_W, height: CARD_H }}
     >
-      <span className="text-[13px] text-white/[0.08] font-medium text-center leading-snug select-none">
+      <span className="prompt-card-text text-[13px] font-medium text-center leading-snug select-none">
         {text}
       </span>
     </div>
