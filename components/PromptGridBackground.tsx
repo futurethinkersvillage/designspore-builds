@@ -106,13 +106,7 @@ const CARD_W = 240;
 const CARD_H = 68;
 const GAP = 12;
 
-/**
- * Renders enough cards to fill any viewport.
- * Uses a large fixed grid that overflows and is centered.
- * Odd rows are offset by half a card for the brick pattern.
- */
 function BrickGrid() {
-  // Enough columns/rows to cover ultra-wide + tall screens
   const cols = 20;
   const rows = 20;
   const totalW = cols * (CARD_W + GAP);
@@ -162,50 +156,33 @@ function BrickGrid() {
 }
 
 export default function PromptGridBackground() {
+  /*
+    Single-layer approach: apply a mask directly to the grid container.
+    - An inverted radial ellipse in the center hides cards behind the form.
+    - A second radial at full size fades cards toward screen edges.
+    - No stacked overlay divs = no banding or hard lines.
+  */
+  const maskCenter =
+    "radial-gradient(ellipse 340px 460px at 50% 50%, transparent 0%, transparent 70%, black 100%)";
+  const maskEdges =
+    "radial-gradient(ellipse 90% 90% at 50% 50%, black 0%, black 60%, transparent 100%)";
+
   return (
     <div
       className="pointer-events-none fixed inset-0 overflow-hidden"
       aria-hidden="true"
     >
-      {/* Center the oversized grid in the viewport */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div
+        className="absolute inset-0 flex items-center justify-center"
+        style={{
+          maskImage: `${maskCenter}, ${maskEdges}`,
+          WebkitMaskImage: `${maskCenter}, ${maskEdges}`,
+          maskComposite: "intersect",
+          WebkitMaskComposite: "destination-in",
+        }}
+      >
         <BrickGrid />
       </div>
-
-      {/*
-        Center mask — hard-edged clear zone matching the form width (~32rem / 512px).
-        Uses a layered gradient: solid in the middle, feathered edges to blend
-        into the cards. Cards butt up against this zone rather than fading underneath.
-      */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: [
-            // Vertical: solid center strip, feather 60px at top/bottom of strip
-            "linear-gradient(to bottom, transparent 0%, transparent 5%, var(--color-darker) 12%, var(--color-darker) 88%, transparent 95%, transparent 100%)",
-          ].join(", "),
-          maskImage:
-            "linear-gradient(to right, transparent 0%, transparent calc(50% - 380px), black calc(50% - 330px), black calc(50% + 330px), transparent calc(50% + 380px), transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, transparent calc(50% - 380px), black calc(50% - 330px), black calc(50% + 330px), transparent calc(50% + 380px), transparent 100%)",
-        }}
-      />
-
-      {/* Thin edge vignettes so cards don't hard-stop at screen borders */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to bottom, var(--color-darker) 0%, transparent 8%, transparent 92%, var(--color-darker) 100%)",
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to right, var(--color-darker) 0%, transparent 4%, transparent 96%, var(--color-darker) 100%)",
-        }}
-      />
     </div>
   );
 }
