@@ -1,23 +1,50 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { loginWithCredentials, loginWithGoogle } from "@/app/actions/auth";
+import { loginWithGoogle } from "@/app/actions/auth";
 import Link from "next/link";
 import { Suspense } from "react";
 
 function LoginForm() {
-  const [state, action, pending] = useActionState(loginWithCredentials, null);
   const params = useSearchParams();
   const router = useRouter();
-
-  useEffect(() => {
-    if (state?.ok) {
-      router.push("/dashboard");
-    }
-  }, [state?.ok, router]);
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
   const welcome = params.get("welcome") === "true";
   const cancelled = params.get("cancelled") === "true";
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+    setPending(true);
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        setError("Invalid email or password.");
+        setPending(false);
+        return;
+      }
+
+      // Cookie is set — navigate client-side
+      router.push("/dashboard");
+      router.refresh();
+    } catch {
+      setError("Something went wrong. Please try again.");
+      setPending(false);
+    }
+  }
 
   return (
     <div className="w-full max-w-sm">
@@ -67,7 +94,7 @@ function LoginForm() {
       </div>
 
       {/* Credentials */}
-      <form action={action} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-xs text-white/50 mb-1.5">Email</label>
           <input
@@ -91,9 +118,9 @@ function LoginForm() {
           />
         </div>
 
-        {state?.error && (
+        {error && (
           <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3">
-            {state.error}
+            {error}
           </p>
         )}
 
