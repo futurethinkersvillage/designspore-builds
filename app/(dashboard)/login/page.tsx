@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { loginWithGoogle } from "@/app/actions/auth";
 import Link from "next/link";
@@ -8,55 +8,19 @@ import { Suspense } from "react";
 
 function LoginForm() {
   const params = useSearchParams();
-  const [error, setError] = useState<string | null>(null);
+  const [csrfToken, setCsrfToken] = useState("");
   const [pending, setPending] = useState(false);
   const welcome = params.get("welcome") === "true";
   const cancelled = params.get("cancelled") === "true";
+  const callbackError = params.get("error");
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setError(null);
-    setPending(true);
-
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-
-    try {
-      // 1. Get CSRF token
-      const csrfRes = await fetch("/api/auth/csrf");
-      const { csrfToken } = await csrfRes.json();
-
-      // 2. POST to credentials callback
-      const res = await fetch("/api/auth/callback/credentials", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "X-Auth-Return-Redirect": "1",
-        },
-        body: new URLSearchParams({
-          email,
-          password,
-          csrfToken,
-          callbackUrl: window.location.origin + "/dashboard",
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok || !data.url || new URL(data.url).searchParams.has("error")) {
-        setError("Invalid email or password.");
-        setPending(false);
-        return;
-      }
-
-      // Cookie is set by the response — hard navigate to pick it up
-      window.location.href = "/dashboard";
-    } catch {
-      setError("Something went wrong. Please try again.");
-      setPending(false);
-    }
-  }
+  // Fetch CSRF token on mount
+  useEffect(() => {
+    fetch("/api/auth/csrf")
+      .then((r) => r.json())
+      .then((data) => setCsrfToken(data.csrfToken))
+      .catch(() => {});
+  }, []);
 
   return (
     <div className="w-full max-w-sm">
@@ -88,6 +52,12 @@ function LoginForm() {
         </div>
       )}
 
+      {callbackError && (
+        <p className="mb-6 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3 text-center">
+          Invalid email or password.
+        </p>
+      )}
+
       {/* Google */}
       <form action={loginWithGoogle}>
         <button
@@ -105,8 +75,16 @@ function LoginForm() {
         <div className="flex-1 h-px bg-white/[0.08]" />
       </div>
 
-      {/* Credentials */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Native form POST — browser handles cookies + redirect natively */}
+      <form
+        method="POST"
+        action="/api/auth/callback/credentials"
+        className="space-y-4"
+        onSubmit={() => setPending(true)}
+      >
+        <input type="hidden" name="csrfToken" value={csrfToken} />
+        <input type="hidden" name="callbackUrl" value="/dashboard" />
+
         <div>
           <label className="block text-xs text-white/50 mb-1.5">Email</label>
           <input
@@ -130,15 +108,9 @@ function LoginForm() {
           />
         </div>
 
-        {error && (
-          <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3">
-            {error}
-          </p>
-        )}
-
         <button
           type="submit"
-          disabled={pending}
+          disabled={pending || !csrfToken}
           className="w-full bg-gold text-dark text-sm font-semibold py-3 rounded-xl hover:bg-gold-light disabled:opacity-50 transition-colors"
         >
           {pending ? "Signing in…" : "Sign In"}
