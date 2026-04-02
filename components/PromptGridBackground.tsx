@@ -83,16 +83,15 @@ const PROMPTS = [
   "Create a media kit",
 ];
 
-// Build rows in a brick pattern — odd rows are offset by half a card width
+// Build rows in a brick pattern — odd rows offset by half a card width
 function BrickGrid() {
   const rows: string[][] = [];
   let idx = 0;
-  const cardsPerRow = 6;
-  const totalRows = 14;
+  const cardsPerRow = 8;
+  const totalRows = 18;
 
   for (let r = 0; r < totalRows; r++) {
     const row: string[] = [];
-    // Offset rows get one extra card to fill the gap
     const count = r % 2 === 1 ? cardsPerRow + 1 : cardsPerRow;
     for (let c = 0; c < count; c++) {
       row.push(PROMPTS[idx % PROMPTS.length]);
@@ -106,17 +105,17 @@ function BrickGrid() {
       {rows.map((row, r) => (
         <div
           key={r}
-          className="flex gap-3"
+          className="flex gap-3 justify-center"
           style={{
-            marginLeft: r % 2 === 1 ? "-100px" : "0",
+            marginLeft: r % 2 === 1 ? "-106px" : "0",
           }}
         >
           {row.map((prompt, c) => (
             <div
               key={`${r}-${c}`}
-              className="shrink-0 w-[200px] h-[56px] rounded-xl border border-white/[0.04] bg-white/[0.02] flex items-center justify-center px-4"
+              className="shrink-0 w-[200px] h-[56px] rounded-xl border border-white/[0.05] bg-white/[0.02] flex items-center justify-center px-4"
             >
-              <span className="text-[13px] text-white/[0.07] font-medium text-center leading-tight select-none whitespace-nowrap overflow-hidden text-ellipsis">
+              <span className="text-[13px] text-white/[0.09] font-medium text-center leading-tight select-none whitespace-nowrap overflow-hidden text-ellipsis">
                 {prompt}
               </span>
             </div>
@@ -135,17 +134,32 @@ export default function PromptGridBackground() {
     >
       {/* Center the grid */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="-rotate-6 scale-110">
-          <BrickGrid />
-        </div>
+        <BrickGrid />
       </div>
 
-      {/* Radial vignette — fades cards out toward edges */}
+      {/* Center cutout — clears the area where the form sits */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 50% 50%, transparent 0%, var(--color-darker) 70%)",
+            "radial-gradient(ellipse 420px 520px at 50% 50%, var(--color-darker) 0%, var(--color-darker) 60%, transparent 100%)",
+        }}
+      />
+
+      {/* Soft edge vignette — fades cards at the screen edges only */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: [
+            "linear-gradient(to bottom, var(--color-darker) 0%, transparent 15%, transparent 85%, var(--color-darker) 100%)",
+          ].join(", "),
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to right, var(--color-darker) 0%, transparent 10%, transparent 90%, var(--color-darker) 100%)",
         }}
       />
     </div>
