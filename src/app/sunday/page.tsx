@@ -99,34 +99,34 @@ function Hero() {
 function Schedule() {
   const events = [
     {
-      days: "Monday–Friday",
+      days: "Sundays",
       label: "Forest School",
       icon: Tree,
       season: "May 1–Oct 7",
       price: "$249 / 6-week session",
-      body: "Weekday drop-off outdoor program for kids — nature play, seasonal crafts, stories, and free exploration in the forest.",
+      body: "A Sunday drop-off outdoor program for kids — nature play, seasonal crafts, stories, and free exploration in the forest. 2:30–5pm.",
       cta: "Sign up for forest school",
       href: "https://wellsgrayresort.ca",
       ages: "Ages 4–10",
     },
     {
-      days: "Saturdays",
-      label: "Community Sauna & Cold Plunge",
+      days: "Sundays",
+      label: "Community Sauna",
       icon: Waves,
       season: "May 1–Oct 7",
-      price: "$10 / person",
-      body: "Wood-fired barrel sauna by the creek with a natural cold plunge. Open to guests and locals. Kids under 12 free.",
+      price: "À la carte",
+      body: "Wood-fired barrel sauna by the creek with a natural cold plunge. Open to guests and locals. 5–6pm following forest school.",
       cta: "Reserve a sauna spot",
       href: "https://wellsgrayresort.ca",
       ages: null,
     },
     {
       days: "Sundays",
-      label: "Community Day",
+      label: "Campfire & Golf",
       icon: Sun,
       season: "May 1–Oct 7",
-      price: "Free to join",
-      body: "Our signature gathering day — forest school for the kids, sauna for the adults, communal campfire in the evening. Come for one part or stay all day.",
+      price: "À la carte",
+      body: "Community campfire from 6pm. Golf available all day as a drop-in. Come for one part or stay all day — each activity is priced individually.",
       cta: "See Sunday schedule",
       href: "#sunday-sample",
       ages: null,
@@ -198,7 +198,7 @@ function Schedule() {
             Sample Sunday
           </p>
           <p className="text-base font-medium text-white">
-            Forest School 2–5pm · Community Sauna 4–7pm · Campfire 7pm
+            Forest School 2:30–5pm · Community Sauna 5–6pm · Campfire 6pm · Golf all day drop-in
           </p>
           <p className="mt-2 text-sm text-white/40">Come for one part or stay all day.</p>
         </div>
@@ -222,7 +222,7 @@ function ForestSchoolDetail() {
             </h2>
             <div className="mt-8 space-y-4 text-sm leading-relaxed text-white/45 max-w-[48ch]">
               <p>
-                A simple drop-off outdoor program running on Sundays during the summer season.
+                A Sunday drop-off outdoor program running during the summer season (2:30–5pm).
                 Nature play, seasonal activities, stories, games, crafts, and free
                 exploration in the forest.
               </p>

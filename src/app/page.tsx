@@ -220,14 +220,14 @@ function CoreIdea() {
               style={{ minHeight: "250px" }}
             >
               <Image
-                src="/images/wells-gray-golf-rv-06-1024x685.jpg"
-                alt="Wells Gray Village aerial"
+                src="/images/pxl_20240518_203625592-edit-819x1024.jpg"
+                alt="Village life at Portal.Place"
                 fill
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <p className="absolute bottom-4 left-5 text-xs tracking-wide text-white/40">
-                400 acres of Interior BC.
+                Village life.
               </p>
             </motion.div>
           </div>
@@ -323,19 +323,19 @@ function TheVillage() {
 function DayInVillage() {
   const images = [
     {
-      src: "/images/gazebo-interior-campfire-1024x771.jpg",
-      alt: "Evening campfire at the gazebo",
-      caption: "Evening campfire",
+      src: "/images/a_young_camphost_202512041422-1024x576.jpeg",
+      alt: "Camp host at the village",
+      caption: "Village life.",
     },
     {
-      src: "/images/gemini_generated_image_o3gzbko3gzbko3gz-1024x747.png",
-      alt: "The geodesic dome",
-      caption: "The dome",
+      src: "/images/bf57b989-df81-4b14-8435-046dec6e4fb1-1024x576.jpg",
+      alt: "The village grounds",
+      caption: "The grounds.",
     },
     {
-      src: "/images/wells-gray-golf-rv-06-1024x685.jpg",
-      alt: "Golf and grounds at Wells Gray Village",
-      caption: "400 acres to explore.",
+      src: "/images/ffec9020-31b4-440a-bf8f-c25af6a392b9-1024x576.jpg",
+      alt: "Community at Wells Gray Village",
+      caption: "Community rhythms.",
     },
   ];
 

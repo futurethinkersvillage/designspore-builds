@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import type { Metadata } from "next";
 import {
   ArrowRight,
   Users,
@@ -28,8 +27,10 @@ function Hero() {
           alt="Community at Portal.Place"
           fill
           priority
-          className="object-cover opacity-[0.08]"
+          className="object-cover opacity-30"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-warm-dark via-warm-dark/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-warm-dark/80 to-transparent" />
       </div>
 
       {/* Stat strip */}
@@ -43,8 +44,8 @@ function Hero() {
               { label: "Status", value: "Open · Join now" },
             ].map((stat) => (
               <div key={stat.label} className="px-6 py-5">
-                <div className="text-xs text-white/30">{stat.label}</div>
-                <div className="mt-1 text-sm font-medium text-white">{stat.value}</div>
+                <div className="text-sm font-medium text-white">{stat.value}</div>
+                <div className="mt-1 text-xs text-white/30">{stat.label}</div>
               </div>
             ))}
           </div>

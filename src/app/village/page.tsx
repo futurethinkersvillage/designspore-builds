@@ -8,6 +8,7 @@ import {
   Waves,
   Mountains,
   TreeEvergreen,
+  Tree,
   Golf,
   Wrench,
   Users,
@@ -249,7 +250,7 @@ function Amenities() {
       body: "A weekly schedule of themed activities running through the summer season (May 1–Oct 7) — sauna days, forest school, communal meals, campfires, and more.",
     },
     {
-      icon: TreeEvergreen,
+      icon: Tree,
       label: "Forest school programs",
       body: "Nature-based learning programs for kids, running seasonally within the village grounds.",
     },
@@ -404,8 +405,8 @@ function BookStay() {
           {/* Photo */}
           <div className="relative overflow-hidden rounded-2xl" style={{ minHeight: "320px" }}>
             <Image
-              src="/images/wells-gray-golf-rv-06-1024x685.jpg"
-              alt="Wells Gray Village — aerial view of the resort"
+              src="/images/76747423_10163561173205725_3017674924459294720_n-1024x577.jpg"
+              alt="Wells Gray Village grounds"
               fill
               className="object-cover"
             />

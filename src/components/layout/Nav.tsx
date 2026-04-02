@@ -103,7 +103,7 @@ export function Nav() {
             href="/membership"
             className="hidden rounded-full bg-amber px-5 py-2 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98] lg:block"
           >
-            Join
+            Become a Member
           </Link>
           <button
             className="lg:hidden text-white/70 hover:text-white transition-colors cursor-pointer"
@@ -152,7 +152,7 @@ export function Nav() {
                   className="inline-flex rounded-full bg-amber px-6 py-2.5 text-sm font-medium text-white"
                   onClick={() => setMobileOpen(false)}
                 >
-                  Join
+                  Become a Member
                 </Link>
               </div>
             </div>
