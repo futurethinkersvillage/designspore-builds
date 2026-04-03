@@ -9,7 +9,7 @@ const STEPS = [
   },
   {
     title: "Services have a credit cost.",
-    body: "Each service shows how many credits it costs based on the scope of the work. A quick automation might cost 1 credit. A full system build costs 4. Mix and match however you like within your monthly allowance.",
+    body: "Each service costs 1, 2, or 4 credits depending on scope. Mix and match however you like within your monthly allowance.",
     visual: true,
   },
   {
@@ -18,7 +18,7 @@ const STEPS = [
   },
   {
     title: "We handle everything.",
-    body: "Once you activate a service, our team gets notified immediately and reaches out within 1–2 business days. You'll see live updates right here.",
+    body: "Once you activate a service, Mike gets notified immediately and reaches out within 1–2 business days. You'll see live updates right here in your portal.",
   },
 ];
 
@@ -36,7 +36,17 @@ export default function OnboardingModal({ userName }: { userName?: string | null
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
-      <div className="w-full max-w-md bg-card border border-white/[0.08] rounded-2xl p-8 space-y-6 shadow-2xl">
+      <div className="relative w-full max-w-md bg-card border border-white/[0.08] rounded-2xl p-8 space-y-6 shadow-2xl">
+        {/* Skip / close */}
+        <button
+          onClick={finish}
+          disabled={isPending}
+          className="absolute top-4 right-4 text-white/25 hover:text-white/60 transition-colors text-sm"
+          aria-label="Skip tour"
+        >
+          Skip
+        </button>
+
         {/* Progress dots */}
         <div className="flex gap-1.5">
           {STEPS.map((_, i) => (
@@ -55,9 +65,9 @@ export default function OnboardingModal({ userName }: { userName?: string | null
           {current.visual && (
             <div className="grid grid-cols-3 gap-2 mt-4">
               {([
-                { credits: 1, example: "Quick win", color: "border-emerald-500/20 text-emerald-300" },
-                { credits: 2, example: "Mid system", color: "border-blue-500/20 text-blue-300" },
-                { credits: 4, example: "Full build", color: "border-gold/20 text-gold" },
+                { credits: 1, example: "Quick Win", color: "border-emerald-500/20 text-emerald-300" },
+                { credits: 2, example: "Core", color: "border-blue-500/20 text-blue-300" },
+                { credits: 4, example: "Flagship", color: "border-gold/20 text-gold" },
               ] as const).map(({ credits, example, color }) => (
                 <div key={credits} className={`border rounded-xl p-3 text-center ${color}`}>
                   <p className="text-xs font-semibold">{credits} credit{credits > 1 ? "s" : ""}</p>
