@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { loginWithCredentials, loginWithGoogle } from "@/app/actions/auth";
 import Link from "next/link";
@@ -12,6 +12,14 @@ function LoginForm() {
   const cancelled = params.get("cancelled") === "true";
 
   const [state, formAction, pending] = useActionState(loginWithCredentials, {});
+
+  // Full page navigation after successful login — ensures the session cookie
+  // set by the server action is included in the next request
+  useEffect(() => {
+    if (state?.ok) {
+      window.location.href = "/dashboard";
+    }
+  }, [state]);
 
   return (
     <div className="w-full max-w-sm">
