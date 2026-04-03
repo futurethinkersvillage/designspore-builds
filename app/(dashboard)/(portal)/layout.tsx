@@ -21,6 +21,9 @@ export default async function PortalLayout({
 
   if (!isDemo) {
     const session = await auth();
+    // DEBUG: log auth result to container stdout
+    console.log("[portal-layout] auth() result:", JSON.stringify(session?.user?.email ?? null));
+    console.log("[portal-layout] cookies:", JSON.stringify(cookieStore.getAll().map(c => c.name)));
     if (!session) redirect("/login");
 
     // Account exists but payment hasn't completed yet
