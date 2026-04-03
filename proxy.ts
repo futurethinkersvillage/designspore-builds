@@ -17,6 +17,7 @@ export async function proxy(request: NextRequest) {
   const token = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET,
+    secureCookie: true,
   });
 
   const isProtected = protectedPaths.some((p) => pathname.startsWith(p));
