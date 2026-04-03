@@ -1,6 +1,8 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+
+export const dynamic = "force-dynamic";
 import Sidebar from "@/components/dashboard/Sidebar";
 import Topbar from "@/components/dashboard/Topbar";
 import DemoBanner from "@/components/dashboard/DemoBanner";
@@ -19,7 +21,6 @@ export default async function PortalLayout({
 
   if (!isDemo) {
     const session = await auth();
-    console.log("[PORTAL LAYOUT] auth() result:", JSON.stringify(session?.user?.email ?? null));
     if (!session) redirect("/login");
 
     // Account exists but payment hasn't completed yet
