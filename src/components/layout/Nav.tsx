@@ -7,26 +7,26 @@ import { AnimatePresence, motion } from "framer-motion";
 import { List, X } from "@phosphor-icons/react";
 
 const navItems = [
+  { label: "Vision", href: "/" },
   {
-    label: "The Village",
+    label: "Wells Gray Village",
     href: "/village",
     children: [
-      { label: "About Wells Gray Village", href: "/village" },
-      { label: "Village Immersion", href: "/immersion" },
-      { label: "Village Rhythm", href: "/sunday" },
-      { label: "Work-Stay Program", href: "/workstay" },
+      { label: "Videos & Photos", href: "/videos" },
+      { label: "Work-Stay Cohorts", href: "/workstay" },
+      { label: "Book A Stay", href: "https://wellsgrayresort.ca", external: true },
       { label: "Host An Event", href: "/host" },
-      { label: "Videos", href: "/videos" },
     ],
   },
-  { label: "Membership", href: "/membership" },
+  { label: "Members", href: "/membership" },
   { label: "Partners", href: "/partner" },
   {
     label: "About",
     href: "/about",
     children: [
-      { label: "Our Story", href: "/about" },
+      { label: "About Us", href: "/about" },
       { label: "Consulting", href: "/consulting" },
+      { label: "Videos & Documentary", href: "/videos" },
       { label: "Media Kit", href: "/media-kit" },
       { label: "Contact", href: "/contact" },
     ],
@@ -81,15 +81,27 @@ export function Nav() {
                     transition={{ duration: 0.15 }}
                     className="absolute left-0 top-full mt-1 w-52 rounded-xl border border-white/10 bg-warm-dark/95 p-2 shadow-2xl backdrop-blur-sm"
                   >
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        className="block rounded-lg px-4 py-2.5 text-sm text-white/50 transition-colors hover:bg-white/5 hover:text-white"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
+                    {item.children.map((child) =>
+                      "external" in child && child.external ? (
+                        <a
+                          key={child.href}
+                          href={child.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block rounded-lg px-4 py-2.5 text-sm text-white/50 transition-colors hover:bg-white/5 hover:text-white"
+                        >
+                          {child.label}
+                        </a>
+                      ) : (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="block rounded-lg px-4 py-2.5 text-sm text-white/50 transition-colors hover:bg-white/5 hover:text-white"
+                        >
+                          {child.label}
+                        </Link>
+                      )
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -134,16 +146,29 @@ export function Nav() {
                   >
                     {item.label}
                   </Link>
-                  {item.children?.map((child) => (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      className="block py-2 pl-4 text-sm text-white/35 hover:text-white/70 transition-colors"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
+                  {item.children?.map((child) =>
+                    "external" in child && child.external ? (
+                      <a
+                        key={child.href}
+                        href={child.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block py-2 pl-4 text-sm text-white/35 hover:text-white/70 transition-colors"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {child.label}
+                      </a>
+                    ) : (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className="block py-2 pl-4 text-sm text-white/35 hover:text-white/70 transition-colors"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {child.label}
+                      </Link>
+                    )
+                  )}
                 </div>
               ))}
               <div className="pt-4 pb-2">

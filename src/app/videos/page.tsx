@@ -16,7 +16,7 @@ function Hero() {
       <div className="absolute inset-0">
         <Image
           src="/images/a_person_filming_202512032314-1024x576.jpeg"
-          alt="Documentary series — Portal.Place"
+          alt="Smart Village Video Series"
           fill
           priority
           className="object-cover opacity-30"
@@ -33,7 +33,7 @@ function Hero() {
             transition={{ duration: 0.5 }}
             className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-8"
           >
-            Portal.Place — Documentary Series (In Production)
+            Video Series
           </motion.p>
 
           <div className="overflow-hidden pb-10 -mb-10">
@@ -43,7 +43,7 @@ function Hero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-[clamp(3rem,8vw,7rem)] font-light leading-[0.9] tracking-tighter text-white"
             >
-              Watch the village
+              Smart Village
             </motion.h1>
           </div>
           <div className="overflow-hidden pb-10 -mb-10">
@@ -53,7 +53,7 @@ function Hero() {
               transition={{ duration: 0.8, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-[clamp(3rem,8vw,7rem)] italic font-light leading-[0.9] tracking-tighter text-amber"
             >
-              being built.
+              Video Series.
             </motion.h1>
           </div>
 
@@ -63,10 +63,9 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 max-w-[48ch] text-base leading-relaxed text-white/55"
           >
-            A documentary series currently in the making — following the creation
-            of Canada&apos;s first village of this kind, from raw land to living community.
-            Real footage, real people, real building. Episodes will be released as
-            production progresses.
+            We&apos;re producing an ongoing short-form video series that documents the
+            creation of Wells Gray Village in real time — the challenges, the
+            breakthroughs, and the people behind the vision.
           </motion.p>
         </div>
       </div>
@@ -74,67 +73,30 @@ function Hero() {
   );
 }
 
-const series = [
-  {
-    episode: "EP 01",
-    title: "Why We Left the City",
-    description: "Mike and Euvie explain what drove them from Vancouver to 400 acres in the BC mountains — and what they were trying to build.",
-  },
-  {
-    episode: "EP 02",
-    title: "The Land",
-    description: "A tour of Wells Gray Village: the forest, the lake, the golf course, and the infrastructure they inherited and are reimagining.",
-  },
-  {
-    episode: "EP 03",
-    title: "What Is a Smart Village?",
-    description: "Defining the model. What makes a village 'smart' — and how does it differ from an eco-commune, an RV park, or a resort?",
-  },
-  {
-    episode: "EP 04",
-    title: "Building Community From Scratch",
-    description: "The social infrastructure of a village: who shows up, how trust is built, and what a real community actually looks like day-to-day.",
-  },
-  {
-    episode: "EP 05",
-    title: "The Village OS",
-    description: "The technology layer: AI-assisted coordination, community dashboards, and the systems that make a village run without burning out its operators.",
-  },
-  {
-    episode: "EP 06",
-    title: "Forest School",
-    description: "What outdoor education looks like when the classroom is 400 acres. Following kids through a day in Wells Gray Village.",
-  },
-  {
-    episode: "EP 07",
-    title: "The Sauna Ritual",
-    description: "Wood-fired heat, cold river plunge, and the social glue that holds the village together every evening.",
-  },
-  {
-    episode: "EP 08",
-    title: "Revenue & Sustainability",
-    description: "How a village pays for itself: the RV park, golf, events, memberships, and the long-stay programs that make it economically viable.",
-  },
-  {
-    episode: "EP 09",
-    title: "The Makers",
-    description: "The builders, fabricators, and tinkerers contributing their skills to the village in exchange for land and community.",
-  },
-  {
-    episode: "EP 10",
-    title: "Village Rhythms",
-    description: "A full day inside the village: morning routines, work blocks, shared meals, afternoon recreation, and evening campfire.",
-  },
-  {
-    episode: "EP 11",
-    title: "Families & Worldschooling",
-    description: "Why remote-working families are choosing the village over city life — and what it means to raise children in this environment.",
-  },
-  {
-    episode: "EP 12",
-    title: "The Network Vision",
-    description: "Beyond one village. How the Portal.Place model scales into a network of Smart Villages across Canada and beyond.",
-  },
+const videos = [
+  { title: "The Post-Job Economy", body: "Explores AI replacing jobs and how smart villages offer regenerative community alternatives with shared infrastructure and coworking." },
+  { title: "The Network Model", body: "Describes seasonal living across multiple connected villages without losing community connections." },
+  { title: "Walkthrough: A Day in the Smart Village", body: "Poetic narration depicting daily life: trees, workspace domes, children, communal kitchens, and evening gatherings." },
+  { title: "What We\u2019ve Built So Far", body: "Documents four years of development on 400 acres including sauna, geodesic dome, permaculture gardens, irrigation, and Village OS tools." },
+  { title: "The Village Moment", body: "Argues villages address job loss, housing costs, and loneliness through shared infrastructure and belonging." },
+  { title: "4 Years on 400 Acres", body: "Reflects on learning resilience, problem-solving, and meta-skills through hands-on land management." },
+  { title: "Not a utopia", body: "Emphasizes the project as a prototype with real failures, not perfect but improving." },
+  { title: "The Real Work of Building A Village", body: "Highlights practical systems development: food, water, power, governance, childcare, housing." },
+  { title: "Village With A Brain", body: "Describes AI\u2019s role using LIDAR drones, environmental sensors, and video to coordinate village operations locally." },
+  { title: "How We Can Adapt", body: "Lists eight adaptations including meaningful work, affordable housing, intergenerational culture, nature-connected childhood, resilience, local food systems, cultural creation, and proactive building." },
+  { title: "The Blue Zones", body: "Connects longevity research with modern village infrastructure combining ancient wisdom and contemporary technology." },
+  { title: "Why Most Communities Fail", body: "Identifies four causes: finances, poor infrastructure, a lack of skills, and the inability to navigate relationships." },
+  { title: "Lifestyle First Living", body: "Describes shift toward wellness-focused living through glamping, nature immersion, and community orientation." },
+  { title: "Third Place Environments", body: "Argues design intentionality creates vibrant spaces where art, music, and food spill into public life." },
+  { title: "The Real Wellness Fix", body: "Critiques symptom-based wellness industry; advocates lifestyle design with real food, natural movement, and purpose-driven work." },
+  { title: "Digital Nomads and the New Ancestral Future", body: "Discusses remote work trends, millennial wealth priorities, and tech-enabled community organization." },
+  { title: "Dacha Culture", body: "Compares village projects to Russian dacha tradition of seasonal countryside living." },
+  { title: "AI In The Village", body: "Explains AI coordination for repairs, harvests, events, and shared tools while supporting rather than automating life." },
+  { title: "The Next Big Asset Class", body: "Positions villages as real estate investment opportunity superior to suburbs, bunkers, or isolated compounds." },
+  { title: "Why do 90% of eco villages fail?", body: "Details practical failures: funding, infrastructure deficiency, skill gaps, and relational conflicts." },
+  { title: "Communities of the future", body: "Proposes community land projects addressing employment, resilience, food quality, and skill-building." },
+  { title: "We bought land to start a community", body: "2020 crowdfunding story for 400-acre Wells Gray property in British Columbia." },
+  { title: "6 Reasons we started a high tech homestead", body: "Motivations: AI disruption concerns, alternative living systems testing, capability development, community strengthening, health improvement, and knowledge sharing." },
 ];
 
 function Series() {
@@ -143,35 +105,28 @@ function Series() {
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
-            Documentary series — in production
+            Short-form series
           </p>
           <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            Planned<br />
-            <span className="italic">episode guide</span>
+            Episodes
           </h2>
-          <p className="mt-6 text-sm leading-relaxed text-white/40 max-w-[52ch]">
-            The documentary is currently being filmed. The episodes below represent
-            our planned arc — not yet released. Social media clips are published
-            separately and are distinct from the documentary series.
-          </p>
         </div>
 
         <div className="divide-y divide-white/10 border-y border-white/10">
-          {series.map((ep, i) => (
+          {videos.map((v, i) => (
             <motion.div
-              key={ep.episode}
+              key={v.title}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ delay: (i % 4) * 0.05, duration: 0.4 }}
-              className="group grid grid-cols-1 gap-4 py-8 lg:grid-cols-[7rem_22rem_1fr_auto] lg:items-center"
+              className="group grid grid-cols-1 gap-4 py-8 lg:grid-cols-[4rem_22rem_1fr] lg:items-center"
             >
-              <div className="font-mono text-xs text-amber/50">{ep.episode}</div>
-              <div className="text-base font-medium text-white">{ep.title}</div>
-              <p className="text-sm leading-relaxed text-white/35 max-w-[52ch]">{ep.description}</p>
-              <span className="inline-flex shrink-0 items-center gap-2 text-xs font-medium text-white/20 uppercase tracking-wider">
-                Coming soon
-              </span>
+              <div className="font-mono text-xs text-amber/50">
+                {String(i + 1).padStart(2, "0")}
+              </div>
+              <div className="text-base font-medium text-white">{v.title}</div>
+              <p className="text-sm leading-relaxed text-white/35 max-w-[52ch]">{v.body}</p>
             </motion.div>
           ))}
         </div>
@@ -215,7 +170,7 @@ function MediaCTA() {
           <div className="flex flex-col justify-end">
             <div className="flex items-center gap-3 text-white/60">
               <FilmSlate size={16} weight="light" />
-              <span className="text-sm">Future Thinkers Podcast · Portal.Place Documentary (in production)</span>
+              <span className="text-sm">Future Thinkers Podcast &middot; Portal.Place Documentary (in production)</span>
             </div>
           </div>
         </div>

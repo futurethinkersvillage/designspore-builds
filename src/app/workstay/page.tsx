@@ -39,7 +39,7 @@ function Hero() {
             transition={{ duration: 0.5 }}
             className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-8"
           >
-            Wells Gray Village — 2026 Cohort
+            May 1, 2026 &ndash; September 30, 2026
           </motion.p>
 
           <div className="overflow-hidden pb-10 -mb-10">
@@ -49,7 +49,7 @@ function Hero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-[clamp(3.5rem,9vw,8rem)] font-light leading-[0.9] tracking-tighter text-white"
             >
-              Build the village.
+              Join the 2026
             </motion.h1>
           </div>
           <div className="overflow-hidden pb-10 -mb-10">
@@ -59,7 +59,7 @@ function Hero() {
               transition={{ duration: 0.8, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-[clamp(3.5rem,9vw,8rem)] italic font-light leading-[0.9] tracking-tighter text-amber"
             >
-              Live it too.
+              Village Builder
             </motion.h1>
           </div>
 
@@ -69,9 +69,11 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 max-w-[48ch] text-base leading-relaxed text-white/55"
           >
-            A project-based work-stay for builders, makers, and contributors.
-            Come for a few weeks, or stay for the full season. Bring your skills,
-            trade them for accommodation on 400 acres in Interior BC near Clearwater.
+            Be part of a select group who will help turn our 400-acre RV park,
+            campsite, and forest into a living Smart Village prototype. We&apos;re
+            inviting hands-on builders, technologists, creatives, and
+            community-minded humans to live on the land, help run the hospitality,
+            and co-create the features and events that will define our first village.
           </motion.p>
 
           <motion.div
@@ -136,19 +138,16 @@ function WhatItIs() {
             </h2>
             <div className="mt-8 space-y-4 text-sm leading-relaxed text-white/45 max-w-[48ch]">
               <p>
-                The 2026 Work-Stay is for people who want to be part of building
-                something real — not just passing through. Whether you can come for
-                a few weeks or the full season, there&apos;s a place for you here.
+                This program is a work-stay arrangement: your RV site is covered,
+                and in return you help us run and build the first Smart Village prototype.
               </p>
               <p>
-                You bring a specific skillset. We put it to work building and running
-                Wells Gray Village near Clearwater, BC. In return, you stay on 400 acres of
-                mountain land in Interior BC — no rent required.
+                While compensation is not available during the program, outstanding
+                contributors may be invited into longer-term paid roles.
               </p>
               <p>
-                It&apos;s project-based: show up, contribute, and be part of a living community.
-                Outstanding contributors may be invited into paid roles or deeper
-                involvement as the village grows.
+                A personal RV is required, and you must be able to cook your own food.
+                Program dates: May 1st – September 30, 2026.
               </p>
             </div>
           </div>
@@ -204,37 +203,37 @@ function Roles() {
       icon: House,
       n: "01",
       label: "Village Operations & Guest Experience",
-      body: "Check-ins, guest support, cleaning, and day-to-day admin. The backbone of a welcoming, well-run village.",
+      body: "You help keep the campsite and small golf course running smoothly \u2014 check-ins, guest support, cleaning, simple admin, and making sure shared spaces feel welcoming and organized.",
     },
     {
       icon: Leaf,
       n: "02",
-      label: "Land, Grounds & Maintenance",
-      body: "Firepits, signage, facilities, repairs, mowing, and trails. Keep 400 acres looking and functioning well.",
+      label: "Land, Grounds & Maintenance Steward",
+      body: "You maintain the physical environment \u2014 firepits, signage, facilities, repairs, mowing, trails, and general upkeep.",
     },
     {
       icon: Wrench,
       n: "03",
       label: "Builder / Maker / Fabrication Lead",
-      body: "Building cabins, domes, platforms, and CNC/makerspace projects. For hands-on builders and fabricators.",
+      body: "You help build cabins, domes, platforms, small structures, and eventually operate the CNC/makerspace setup.",
     },
     {
       icon: Monitor,
       n: "04",
       label: "Tech & Village AI Systems",
-      body: "Internet infrastructure, sensors, communications, dashboards, and AI-assisted workflows. The village OS.",
+      body: "You help to set up and maintain the village\u2019s tech layer \u2014 internet, sensors, comms, walkie system, simple dashboards, and experimental AI-assisted workflows.",
     },
     {
       icon: Camera,
       n: "05",
       label: "Media, Story & Events Producer",
-      body: "Filming, photography, content creation, and event documentation. Tell the village story.",
+      body: "You film, photograph, document builds, create engaging short-form content.",
     },
     {
       icon: Users,
       n: "06",
       label: "Community & Culture Weaver",
-      body: "Hosting events, facilitating community connection, and maintaining the social fabric of village life.",
+      body: "You help shape the rhythms of village life \u2014 helping with hosting events, coordinating between team and guests.",
     },
   ];
 

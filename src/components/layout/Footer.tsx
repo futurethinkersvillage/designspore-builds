@@ -3,28 +3,27 @@ import Image from "next/image";
 
 const footerLinks = [
   {
-    title: "Visit",
+    title: "Wells Gray Village",
     links: [
       { label: "The Village", href: "/village" },
-      { label: "Village Immersion", href: "/immersion" },
-      { label: "Village Rhythm", href: "/sunday" },
-      { label: "Work-Stay", href: "/workstay" },
+      { label: "Videos & Photos", href: "/videos" },
+      { label: "Work-Stay Cohorts", href: "/workstay" },
       { label: "Host An Event", href: "/host" },
     ],
   },
   {
     title: "Join",
     links: [
-      { label: "Membership", href: "/membership" },
+      { label: "Members", href: "/membership" },
       { label: "Partners", href: "/partner" },
       { label: "Consulting", href: "/consulting" },
     ],
   },
   {
-    title: "Learn More",
+    title: "About",
     links: [
-      { label: "About", href: "/about" },
-      { label: "Videos", href: "/videos" },
+      { label: "About Us", href: "/about" },
+      { label: "Videos & Documentary", href: "/videos" },
       { label: "Media Kit", href: "/media-kit" },
       { label: "Contact", href: "/contact" },
     ],

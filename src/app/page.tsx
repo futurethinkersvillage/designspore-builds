@@ -5,27 +5,31 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  Campfire,
-  TreeEvergreen,
-  Mountains,
+  ArrowUpRight,
+  Users,
+  Heart,
+  FirstAid,
   Wrench,
+  CurrencyDollar,
+  Buildings,
+  TreeEvergreen,
   Waves,
+  Mountains,
   Golf,
+  Campfire,
+  Leaf,
+  House,
+  Check,
 } from "@phosphor-icons/react";
-
-// ── C: Bold Typographic / Poster ────────────────────────────────────────────
-// Dark throughout. Huge display type as the primary design element.
-// Amber (#EA824E) as the accent. Photography used as texture, not hero.
-// Horizontal marquee band. Large numbered sections.
 
 function Marquee() {
   const items = [
     "Near Clearwater, BC",
     "400 Acres",
-    "Seasonal · Recreational · Community",
+    "Seasonal \u00B7 Recreational \u00B7 Community",
     "Founded 2019",
     "Membership Now Open",
-    "Builders · Families · Entrepreneurs",
+    "Builders \u00B7 Families \u00B7 Entrepreneurs",
   ];
   const repeated = [...items, ...items];
 
@@ -52,11 +56,10 @@ function Marquee() {
 function Hero() {
   return (
     <section className="relative min-h-[100dvh] bg-warm-dark">
-      {/* Background: photo as lifestyle backdrop */}
       <div className="absolute inset-0">
         <Image
           src="/images/wells-gray-golf-rv-06-1024x685.jpg"
-          alt="Wells Gray"
+          alt="Wells Gray Village"
           fill
           priority
           className="object-cover opacity-25"
@@ -66,78 +69,86 @@ function Hero() {
       </div>
 
       <div className="relative mx-auto max-w-[1400px] px-6 pt-32 pb-0 lg:px-16">
-        {/* Oversized headline — left aligned, intentionally large */}
-        <div className="overflow-hidden pb-10 -mb-10 pl-[0.08em] -ml-[0.08em]">
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-8"
+        >
+          The First in a Membership Network of Villages
+        </motion.p>
+
+        <div className="overflow-hidden pb-10 -mb-10">
           <motion.h1
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif text-[clamp(3.5rem,9vw,8rem)] font-light leading-[0.88] tracking-tighter text-white"
           >
-            Building
+            The Future
           </motion.h1>
         </div>
-        <div className="overflow-hidden pb-10 -mb-10 pl-[0.08em] -ml-[0.08em]">
+        <div className="overflow-hidden pb-10 -mb-10">
           <motion.h1
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif text-[clamp(3.5rem,9vw,8rem)] italic font-light leading-[0.88] tracking-tighter text-amber"
           >
-            resilient
+            of Human
           </motion.h1>
         </div>
-        <div className="overflow-hidden pb-10 -mb-10 pl-[0.08em] -ml-[0.08em]">
+        <div className="overflow-hidden pb-10 -mb-10">
           <motion.h1
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif text-[clamp(3.5rem,9vw,8rem)] font-light leading-[0.88] tracking-tighter text-white"
           >
-            communities
-          </motion.h1>
-        </div>
-        <div className="overflow-hidden pb-10 -mb-10 pl-[0.08em] -ml-[0.08em]">
-          <motion.h1
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.8, delay: 0.21, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-[clamp(3.5rem,9vw,8rem)] font-light leading-[0.88] tracking-tighter text-white"
-          >
-            for what comes next.
+            Living.
           </motion.h1>
         </div>
 
-        {/* Bottom row: descriptor + CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-12 max-w-[56ch]"
+        >
+          <p className="text-base leading-relaxed text-white/45">
+            We&apos;re building a real-world village campus in Interior BC, Canada — with
+            RV&apos;s, tiny homes, cabins, programs, and memberships designed for people
+            who want a healthier, more connected, future-proof lifestyle.
+          </p>
+          <p className="mt-4 text-sm text-white/30">
+            Families &middot; Creators &middot; Regenerative builders &middot; Remote workers &amp; founders &middot; Values-aligned investors.
+          </p>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 flex flex-col items-start justify-between gap-8 border-t border-white/10 pt-8 sm:flex-row sm:items-end"
+          className="mt-10 flex flex-wrap items-center gap-4"
         >
-          <p className="max-w-[40ch] text-sm leading-relaxed text-white/40">
-            A seasonal village and membership community for builders, entrepreneurs, and families — on 400 acres near Clearwater, BC, 2 hours north of Kamloops.
-          </p>
-          <div className="flex items-center gap-6 shrink-0">
-            <Link
-              href="/village"
-              className="text-sm font-medium text-white/40 transition-colors hover:text-white"
-            >
-              Visit
-            </Link>
-            <Link
-              href="/partner"
-              className="text-sm font-medium text-white/40 transition-colors hover:text-white"
-            >
-              Request Investor Access
-            </Link>
-            <Link
-              href="/membership"
-              className="inline-flex items-center gap-2 rounded-full bg-amber px-7 py-3 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
-            >
-              Become a Member <ArrowRight size={13} weight="bold" />
-            </Link>
-          </div>
+          <Link
+            href="/village"
+            className="text-sm font-medium text-white/40 transition-colors hover:text-white"
+          >
+            Visit
+          </Link>
+          <Link
+            href="/membership"
+            className="inline-flex items-center gap-2 rounded-full bg-amber px-7 py-3 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
+          >
+            Explore Membership <ArrowRight size={13} weight="bold" />
+          </Link>
+          <Link
+            href="/partner"
+            className="text-sm font-medium text-white/40 transition-colors hover:text-white"
+          >
+            Investor &amp; Partner Access
+          </Link>
         </motion.div>
       </div>
 
@@ -149,122 +160,245 @@ function Hero() {
 }
 
 function CoreIdea() {
+  const features = [
+    "Each village offers its own natural environment, flavor, and seasonal rhythms",
+    "People can move fluidly between them or return to the same one each year",
+    "Shared systems support skills development, learning, and cooperation",
+    "A membership community connected by a shared culture",
+  ];
+
   return (
     <section className="bg-warm-dark py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-20 grid grid-cols-1 gap-4 lg:grid-cols-[1fr_45%]">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">The core idea</p>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+              The Core Idea
+            </p>
             <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl">
-              A real place.<br />
-              <span className="italic">A real community.</span>
+              A Network of Villages<br />
+              <span className="italic">For The Post-Ai World</span>
             </h2>
           </div>
           <div className="flex items-end">
             <p className="text-sm leading-relaxed text-white/40 max-w-[45ch]">
-              Not a commune. Not a co-op. A seasonal village and membership community — backed by real land, real programs, and real people. Think of it as dacha culture for the post-AI era.
+              We are starting with our existing 400-acre flagship village site in BC,
+              Canada – and adding partner locations with time.
             </p>
           </div>
         </div>
 
-        {/* Photo grid: image-first, travel magazine style */}
-        <div className="grid grid-cols-1 gap-3 lg:grid-cols-[3fr_2fr]">
-          {/* Large left: community gathering spanning full height */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6 }}
-            className="relative overflow-hidden rounded-2xl"
-            style={{ minHeight: "520px" }}
-          >
-            <Image
-              src="/images/many_people_sitting_202512032320-1024x576.jpeg"
-              alt="Community gathering at Portal.Place"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            <p className="absolute bottom-4 left-5 text-xs tracking-wide text-white/40">
-              Where people gather.
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
+          <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+            <p>
+              Portal.Place is building a new kind of village experience — one centered
+              on seasonal living, shared culture, and a deep sense of belonging. It&apos;s a
+              place where families, creators, and purpose-driven people can return to
+              year after year.
             </p>
-          </motion.div>
+            <p>
+              Our village campus is designed around wellness, shared rhythms, learning,
+              and family-oriented community life. You can immerse in nature, build
+              lasting friendships, explore new skills, and participate in meaningful
+              traditions that continue over seasons. Think of it as a country club with
+              21st century values.
+            </p>
+            <div className="mt-8 space-y-3">
+              {features.map((f, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-amber" />
+                  <span className="text-sm text-white/50">{f}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-          {/* Right column: two stacked images */}
-          <div className="flex flex-col gap-3">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="relative overflow-hidden rounded-2xl flex-1"
-              style={{ minHeight: "250px" }}
-            >
+          <div className="grid grid-cols-2 gap-3">
+            <div className="relative col-span-2 overflow-hidden rounded-2xl" style={{ minHeight: "300px" }}>
+              <Image
+                src="/images/many_people_sitting_202512032320-1024x576.jpeg"
+                alt="Community gathering at Portal.Place"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "200px" }}>
               <Image
                 src="/images/gazebo-interior-campfire-1024x771.jpg"
                 alt="Campfire evening at the gazebo"
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <p className="absolute bottom-4 left-5 text-xs tracking-wide text-white/40">
-                Evenings by the fire.
-              </p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative overflow-hidden rounded-2xl flex-1"
-              style={{ minHeight: "250px" }}
-            >
+            </div>
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "200px" }}>
               <Image
-                src="/images/pxl_20240518_203625592-edit-819x1024.jpg"
-                alt="Village life at Portal.Place"
+                src="/images/dome-at-night-scaled.jpg"
+                alt="Geodesic dome at night"
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <p className="absolute bottom-4 left-5 text-xs tracking-wide text-white/40">
-                Village life.
-              </p>
-            </motion.div>
+            </div>
           </div>
-        </div>
-
-        <div className="mt-12">
-          <Link
-            href="/membership"
-            className="inline-flex items-center gap-2 rounded-full bg-amber px-7 py-3.5 text-sm font-medium text-white transition-all hover:bg-amber/90"
-          >
-            Explore membership <ArrowRight size={14} weight="bold" />
-          </Link>
         </div>
       </div>
     </section>
   );
 }
 
-function TheVillage() {
+function WhyNow() {
+  const areas = [
+    { icon: Users, label: "Community", body: "Stronger social ties in real-life, local communities beyond cities and social media, intergenerational & family support." },
+    { icon: Heart, label: "Culture", body: "Shared rhythms & traditions, purpose-driven work, and a do-hard-things philosophy." },
+    { icon: FirstAid, label: "Health", body: "Daily movement, nature, eustress, better food, environments that regulate your nervous system." },
+    { icon: Wrench, label: "Skills", body: "DIY/Maker culture, creativity, collaboration, adaptability, meta-skills." },
+    { icon: CurrencyDollar, label: "Economic structure", body: "Local economies, entrepreneurship, wiser use of technology." },
+    { icon: Buildings, label: "Infrastructure", body: "Local food, water, energy, shared tools and spaces." },
+  ];
+
+  return (
+    <section className="bg-[#0F0E12] py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="mb-16">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
+            The urgency
+          </p>
+          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            Why This<br />
+            <span className="italic">Matters Now</span>
+          </h2>
+          <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+            AI is transforming reality faster than most people can adapt. We are
+            entering a transition that will require new forms of:
+          </p>
+        </div>
+
+        <div className="divide-y divide-white/10 border-y border-white/10">
+          {areas.map((a, i) => (
+            <motion.div
+              key={a.label}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: i * 0.06, duration: 0.5 }}
+              className="grid grid-cols-1 gap-4 py-7 lg:grid-cols-[14rem_1fr] lg:items-center"
+            >
+              <div className="flex items-center gap-4">
+                <a.icon size={16} weight="light" className="text-amber shrink-0" />
+                <span className="text-sm font-medium text-white">{a.label}</span>
+              </div>
+              <p className="text-sm leading-relaxed text-white/40 max-w-[55ch]">{a.body}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <p className="mt-12 text-sm text-white/50 max-w-[48ch]">
+          A village isn&apos;t just a place to visit. It&apos;s a new lifestyle for the post-AI era.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function VillageModel() {
+  const components = [
+    "Blue Zone principles for long life and health",
+    "Local production of housing, energy, and food",
+    "Regenerative land management and ecological design",
+    "AI-assisted operations, safety, logistics, and knowledge sharing",
+    "High-speed digital work infrastructure",
+    "Maker spaces, workshops, coworking, learning environments",
+    "Seasonal community rhythms, culture, and rituals",
+    "A network effect: learnings and innovations flow between villages",
+  ];
+
+  return (
+    <section className="bg-warm-dark py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+              The model
+            </p>
+            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+              The Village<br />
+              <span className="italic">Model</span>
+            </h2>
+            <p className="mt-4 text-sm text-amber/70">
+              The Best of Blue Zones, Modern Tech, and Regenerative Design
+            </p>
+            <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+              Imagine a Network of Villages that combine:
+            </p>
+            <div className="mt-8 space-y-3">
+              {components.map((c, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-amber" />
+                  <span className="text-sm text-white/50">{c}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-10 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+              This creates a new kind of community — flexible, resilient, and built for the future.
+            </p>
+          </div>
+
+          <div className="relative overflow-hidden rounded-2xl" style={{ minHeight: "500px" }}>
+            <Image
+              src="/images/gemini-2e4dc4.png"
+              alt="Smart Village concept"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FirstVillage() {
+  const includes = [
+    "RV sites, glamping, and camping",
+    "Sauna, coworking/event gazebo, and family-friendly spaces",
+    "Community garden",
+    "A growing maker space and upcoming CNC-powered production shop",
+    "Private lake, creeks, trails, and nature immersive environments",
+    "A seasonal rhythm inspired by ancestral villages and modern co-living",
+    "Village Ai \u2014 our Ai-powered system for coordination and workflows",
+    "Next phases: cabins, glamping units, long term RV and tiny home sites, and shared infrastructure for wellness, co-working, learning, art and maker culture",
+  ];
+
   return (
     <section className="bg-[#0F0E12] py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
-          {/* Left: copy + stats */}
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
               Our first village
             </p>
             <h2 className="font-serif text-5xl font-light leading-tight text-white lg:text-6xl">
-              Near Clearwater, BC.<br />
-              <span className="italic text-white/40">400 acres.</span>
+              Wells Gray, BC.<br />
+              <span className="italic text-white/40">The Living Prototype.</span>
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/40 max-w-[42ch]">
-              Waterfalls, hiking, horseback riding, canoeing, and whitewater rafting in Interior BC — 2 hours north of Kamloops. Operating for 5 years, now opening up for seasonal membership.
+            <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+              We are building the first real-world Village on a stunning 400-acre
+              property in the mountains of British Columbia.
             </p>
 
-            <div className="mt-12 grid grid-cols-2 gap-6">
+            <div className="mt-8 space-y-3">
+              {includes.map((item, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-amber" />
+                  <span className="text-sm text-white/50">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-8 text-sm font-medium text-white/60">
+              This village is the first node in the future network.
+            </p>
+
+            <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
               {[
                 { value: "400", unit: "ac", label: "Owned & operating" },
                 { value: "5+", unit: "yrs", label: "Running programs" },
@@ -280,8 +414,17 @@ function TheVillage() {
                 </div>
               ))}
             </div>
+          </div>
 
-            <div className="mt-10 flex flex-wrap gap-2">
+          <div className="relative overflow-hidden rounded-2xl" style={{ minHeight: "500px" }}>
+            <Image
+              src="/images/swimming-lake-scaled.jpg"
+              alt="Private lake at Wells Gray Village"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E12]/60 to-transparent" />
+            <div className="absolute bottom-6 left-6 flex flex-wrap gap-2">
               {[
                 { icon: TreeEvergreen, label: "Forest trails" },
                 { icon: Waves, label: "Private lake" },
@@ -290,29 +433,12 @@ function TheVillage() {
                 { icon: Wrench, label: "Maker space" },
                 { icon: Campfire, label: "Campfire" },
               ].map((item) => (
-                <div key={item.label} className="flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1.5">
+                <div key={item.label} className="flex items-center gap-1.5 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm px-3 py-1.5">
                   <item.icon size={11} weight="light" className="text-amber" />
-                  <span className="text-xs text-white/40">{item.label}</span>
+                  <span className="text-xs text-white/60">{item.label}</span>
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Right: photo */}
-          <div className="relative overflow-hidden rounded-2xl" style={{ minHeight: "500px" }}>
-            <Image
-              src="/images/remove_the_reserved_202512032320-1024x576.jpeg"
-              alt="Portal.Place village"
-              fill
-              className="object-cover opacity-80"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E12]/80 to-transparent" />
-            <Link
-              href="/village"
-              className="absolute bottom-6 left-6 inline-flex items-center gap-2 text-sm font-medium text-white/60 transition-all hover:text-white hover:gap-3"
-            >
-              Explore the village <ArrowRight size={13} />
-            </Link>
           </div>
         </div>
       </div>
@@ -321,63 +447,164 @@ function TheVillage() {
 }
 
 function DayInVillage() {
-  const images = [
-    {
-      src: "/images/a_young_camphost_202512041422-1024x576.jpeg",
-      alt: "Camp host at the village",
-      caption: "Village life.",
-    },
-    {
-      src: "/images/bf57b989-df81-4b14-8435-046dec6e4fb1-1024x576.jpg",
-      alt: "The village grounds",
-      caption: "The grounds.",
-    },
-    {
-      src: "/images/ffec9020-31b4-440a-bf8f-c25af6a392b9-1024x576.jpg",
-      alt: "Community at Wells Gray Village",
-      caption: "Community rhythms.",
-    },
+  return (
+    <section className="bg-warm-dark py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_45%]">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+              The Living Prototype
+            </p>
+            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+              A Day In<br />
+              <span className="italic">The Village</span>
+            </h2>
+            <div className="mt-10 space-y-5 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+              <p>You wake in a cozy cabin overlooking the mountains.</p>
+              <p>The morning is quiet except for birdsong and a stream nearby.</p>
+              <p>
+                You walk a forest trail to the coworking gazebo where other founders,
+                creators, and remote workers gather.
+              </p>
+              <p>
+                In the afternoon people collaborate, build, learn, and work on meaningful
+                projects — supported by tools, nature, and community. Kids are everywhere.
+              </p>
+              <p>
+                Dinner is shared with families and friends using ingredients from local gardens.
+                Nights are for sauna, storytelling, workshops, or music.
+                Season by season, life has rhythm again.
+              </p>
+              <p className="text-white/60 font-medium">
+                This is the next evolution of how humans live.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div className="relative col-span-2 overflow-hidden rounded-xl" style={{ minHeight: "260px" }}>
+              <Image src="/images/cabins-scaled.jpg" alt="Village cabins" fill className="object-cover" />
+            </div>
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "200px" }}>
+              <Image src="/images/gazebo-community-meetup-scaled.jpg" alt="Community meetup" fill className="object-cover" />
+            </div>
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "200px" }}>
+              <Image src="/images/campfire-in-gazebo-scaled.jpg" alt="Campfire evening" fill className="object-cover" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WhyDifferent() {
+  const gaps = [
+    "Economic sustainability",
+    "Clear governance",
+    "Modern infrastructure",
+    "Scalable systems",
+    "A replicable model",
+    "Cultural coherence",
+    "A strong value proposition for families and professionals",
+    "A way to grow beyond a single location",
+  ];
+
+  return (
+    <section className="bg-[#0F0E12] py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+              The difference
+            </p>
+            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+              Why This Is<br />
+              <span className="italic">Different</span>
+            </h2>
+            <div className="mt-8 space-y-5 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+              <p>
+                Portal.Place is not a commune, co-op, or retreat.
+              </p>
+              <p>
+                It&apos;s a membership platform for village living, supported by real land, a
+                clear economic model, and a replicable blueprint. Think of it as a country
+                club with 21st century values, designed for the post-AI era.
+              </p>
+              <p>Most &quot;village&quot; projects fail because they lack:</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-center">
+            <div className="divide-y divide-white/10 border-y border-white/10">
+              {gaps.map((g, i) => (
+                <motion.div
+                  key={g}
+                  initial={{ opacity: 0, x: 10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.04, type: "spring", stiffness: 120, damping: 22 }}
+                  className="flex items-center gap-4 py-4"
+                >
+                  <span className="font-mono text-xs text-white/20 w-6 shrink-0">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-sm text-white/55">{g}</span>
+                </motion.div>
+              ))}
+            </div>
+            <p className="mt-8 text-sm text-white/60 font-medium">
+              Portal.Place was designed from the ground up to address these points.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProofOfProgress() {
+  const achievements = [
+    "400 acre site owned & running for 5 years",
+    "Multi-year tourism & hospitality operations already working",
+    "Dozens of prototypes tested (programming, culture, infrastructure)",
+    "Existing network of creators, technologists, founders, families, and thought leaders",
+    "Village Ai prototypes already built and in use",
+    "Phase 2 planning underway & investor conversations in progress",
   ];
 
   return (
     <section className="bg-warm-dark py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="mb-16">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">Village rhythm</p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            What a community day feels like
-          </h2>
-        </div>
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[40%_1fr]">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+              Track record
+            </p>
+            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+              Proof Of<br />
+              <span className="italic">Progress</span>
+            </h2>
+            <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[38ch]">
+              We&apos;re early — but not starting from zero.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {images.map((img, i) => (
-            <motion.div
-              key={img.src}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="flex flex-col gap-3"
-            >
-              <div className="relative aspect-square overflow-hidden rounded-xl">
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-              </div>
-              <p className="text-xs tracking-wide text-white/40">{img.caption}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="mt-12 border-t border-white/10 pt-8">
-          <p className="text-sm text-white/40">
-            <span className="text-amber">Forest school · Community sauna · Golf · Campfire</span>
-            {" "}— from May through October.
-          </p>
+          <div className="divide-y divide-white/10 border-y border-white/10">
+            {achievements.map((a, i) => (
+              <motion.div
+                key={a}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06, duration: 0.4 }}
+                className="flex items-start gap-4 py-5"
+              >
+                <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-amber" />
+                <span className="text-sm text-white/55">{a}</span>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -391,16 +618,39 @@ function GetInvolved() {
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_40%]">
           <div>
             <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
-              Come and see<br />
-              <span className="italic">what we&apos;re</span><br />
-              building.
+              Get<br />
+              <span className="italic">Involved.</span>
             </h2>
+            <div className="mt-8 max-w-[45ch] space-y-4 text-base leading-relaxed text-white/75">
+              <p>
+                Help us build a new model for human living — one that can spread across
+                regions, countries, and biomes.
+              </p>
+              <p>
+                If you feel the pull toward this way of life — healthier, more meaningful,
+                more connected, more resilient — you&apos;re exactly the kind of person we&apos;re
+                building this for.
+              </p>
+            </div>
           </div>
+
           <div className="flex flex-col justify-center gap-4">
             {[
-              { label: "Visit", sub: "Book a stay or join a seasonal program", href: "/village" },
-              { label: "Become a Member", sub: "Founding membership now open — buy instantly", href: "/membership" },
-              { label: "Request Investor Access", sub: "Private materials available", href: "/partner" },
+              {
+                label: "Visit",
+                sub: "Join a gathering, work-stay program, or village immersion. Get a taste of village life & discover everything that Wells Gray Village has to offer.",
+                href: "/village",
+              },
+              {
+                label: "Apply for Membership",
+                sub: "Access exclusive member benefits, village programs, and private opportunities. Help shape the future of the Village campus from the beginning.",
+                href: "/membership",
+              },
+              {
+                label: "Invest",
+                sub: "Join us as we develop the next phases of the Wells Gray Village campus & Portal.Place network. Request private materials for aligned investors who want to participate in a scalable, high-vision project.",
+                href: "/partner",
+              },
             ].map((item) => (
               <Link
                 key={item.href}
@@ -409,25 +659,34 @@ function GetInvolved() {
               >
                 <div>
                   <div className="text-sm font-medium text-white">{item.label}</div>
-                  <div className="mt-0.5 text-xs text-white/60">{item.sub}</div>
+                  <div className="mt-1 text-xs text-white/60 max-w-[38ch]">{item.sub}</div>
                 </div>
-                <ArrowRight size={14} weight="bold" className="text-white/50 transition-all group-hover:translate-x-1 group-hover:text-white" />
+                <ArrowRight size={14} weight="bold" className="text-white/50 transition-all group-hover:translate-x-1 group-hover:text-white shrink-0 ml-4" />
               </Link>
             ))}
           </div>
         </div>
+
+        <p className="mt-12 text-xs text-white/50 max-w-[60ch]">
+          Because we&apos;re early, we invite serious contributors to request more
+          information. Some materials require a signed NDA.
+        </p>
       </div>
     </section>
   );
 }
 
-export default function VariantC() {
+export default function HomePage() {
   return (
     <>
       <Hero />
       <CoreIdea />
-      <TheVillage />
+      <WhyNow />
+      <VillageModel />
+      <FirstVillage />
       <DayInVillage />
+      <WhyDifferent />
+      <ProofOfProgress />
       <GetInvolved />
     </>
   );

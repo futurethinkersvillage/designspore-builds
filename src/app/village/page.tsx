@@ -2,30 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
-  Waves,
-  Mountains,
-  TreeEvergreen,
-  Tree,
-  Golf,
-  Wrench,
-  Users,
-  Leaf,
-  Campfire,
-  Horse,
-  House,
-  Tent,
   ArrowUpRight,
+  Users,
+  Heart,
+  Wrench,
+  Briefcase,
+  House,
+  WifiHigh,
+  Golf,
+  Star,
+  CaretDown,
 } from "@phosphor-icons/react";
-
-// ── Village ───────────────────────────────────────────────────────────────────
 
 function Hero() {
   return (
     <section className="relative min-h-[100dvh] bg-warm-dark">
-      {/* Full-bleed photo */}
       <div className="absolute inset-0">
         <Image
           src="/images/wells-gray-golf-rv-06-1024x685.jpg"
@@ -46,7 +41,7 @@ function Hero() {
             transition={{ duration: 0.5 }}
             className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-8"
           >
-            Near Clearwater, BC — 2 hours north of Kamloops
+            Explore Village Life &mdash; Just 2 Hours North of Kamloops, BC, Canada
           </motion.p>
 
           <div className="overflow-hidden pb-10 -mb-10">
@@ -56,7 +51,7 @@ function Hero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-[clamp(3.5rem,9vw,8rem)] font-light leading-[0.9] tracking-tighter text-white"
             >
-              Your seasonal
+              Wells Gray
             </motion.h1>
           </div>
           <div className="overflow-hidden pb-10 -mb-10">
@@ -66,7 +61,7 @@ function Hero() {
               transition={{ duration: 0.8, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
               className="font-serif text-[clamp(3.5rem,9vw,8rem)] italic font-light leading-[0.9] tracking-tighter text-amber"
             >
-              sanctuary.
+              Village.
             </motion.h1>
           </div>
 
@@ -76,7 +71,7 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 max-w-[48ch] text-base leading-relaxed text-white/55"
           >
-            400 acres near Clearwater, BC — gateway to Wells Gray Provincial Park, home to over 40 waterfalls, world-class hiking, horseback riding, canoeing, and whitewater rafting. A seasonal recreational village, operating since 2019.
+            Your Seasonal Sanctuary: In Interior BC, Canada
           </motion.p>
 
           <motion.div
@@ -91,27 +86,32 @@ function Hero() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-amber px-7 py-3.5 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
             >
-              Book a stay <ArrowUpRight size={14} weight="bold" />
+              Book Your Stay <ArrowUpRight size={14} weight="bold" />
             </a>
-            <a
-              href="#programs"
+            <Link
+              href="/workstay"
               className="inline-flex items-center gap-2 text-sm font-medium text-white/50 transition-colors hover:text-white"
             >
-              Explore programs <ArrowRight size={14} />
-            </a>
+              Work-Stay Cohorts <ArrowRight size={14} />
+            </Link>
+            <Link
+              href="/membership"
+              className="inline-flex items-center gap-2 text-sm font-medium text-white/50 transition-colors hover:text-white"
+            >
+              Explore Membership <ArrowRight size={14} />
+            </Link>
           </motion.div>
         </div>
       </div>
 
-      {/* Stat strip */}
       <div className="absolute bottom-0 left-0 right-0 border-t border-white/10">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
           <div className="grid grid-cols-2 divide-x divide-white/10 sm:grid-cols-4">
             {[
               { value: "400", unit: "ac", label: "Private land" },
               { value: "5+", unit: "yrs", label: "In operation" },
-              { value: "50°", unit: "N", label: "Latitude" },
-              { value: "24°C", unit: "avg", label: "Summer high" },
+              { value: "50\u00B0", unit: "N", label: "Latitude" },
+              { value: "24\u00B0C", unit: "avg", label: "Summer high" },
             ].map((s) => (
               <div key={s.label} className="px-6 py-5 first:pl-0">
                 <div className="font-mono text-xl font-light text-white tabular-nums">
@@ -128,64 +128,47 @@ function Hero() {
   );
 }
 
-function About() {
+function FirstPrototype() {
+  const values = [
+    { icon: Briefcase, label: "Remote Work & Entrepreneurship", body: "With creativity, freedom, and opportunities." },
+    { icon: Heart, label: "Family and Belonging", body: "Reconnect with the same people year after year." },
+    { icon: Users, label: "Living Well", body: "With health, nature, and rhythm." },
+    { icon: Wrench, label: "Building with Purpose", body: "With your hands and your ideas." },
+  ];
+
   return (
     <section className="bg-[#0F0E12] py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
-          {/* Left */}
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
-              The property
-            </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-              A living prototype<br />
-              <span className="italic">in the mountains</span>
-            </h2>
-            <div className="mt-8 space-y-4 text-sm leading-relaxed text-white/45 max-w-[48ch]">
-              <p>
-                Wells Gray Village sits at the gateway to Wells Gray Provincial
-                Park — one of BC&apos;s largest and most spectacular wilderness areas,
-                known for its 40+ waterfalls, volcanic landscape, hiking, horseback riding, canoeing, and whitewater rafting.
-              </p>
-              <p>
-                The property has been welcoming guests since 2019: campers, families,
-                corporate retreats, and events. It&apos;s a seasonal, recreational village — and the first prototype of the Portal.Place community model.
-              </p>
-              <p>
-                Everything you experience here — the sauna, the programs, the
-                community rhythms — is the foundation of what we&apos;re building together.
-              </p>
-            </div>
-          </div>
+        <div className="mb-16">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
+            The vision
+          </p>
+          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            The First Village<br />
+            <span className="italic">Prototype</span>
+          </h2>
+          <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+            Most places give you scenery. We&apos;re building community. Canada&apos;s missing
+            what many other places have: Village Life — where you return each season,
+            where your kids know the neighbors, and where life feels rich with purpose.
+          </p>
+        </div>
 
-          {/* Right: photo grid */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="relative aspect-square overflow-hidden rounded-xl col-span-2">
-              <Image
-                src="/images/many_people_sitting_202512032320-1024x576.jpeg"
-                alt="Community at Wells Gray Village"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative aspect-square overflow-hidden rounded-xl">
-              <Image
-                src="/images/gemini_generated_image_o3gzbko3gzbko3gz-1024x747.png"
-                alt="The geodesic dome at Wells Gray Village"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative aspect-square overflow-hidden rounded-xl">
-              <Image
-                src="/images/gazebo-interior-campfire-1024x771.jpg"
-                alt="Campfire in the village gazebo"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
+        <div className="grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+          {values.map((v, i) => (
+            <motion.div
+              key={v.label}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: i * 0.08, duration: 0.4 }}
+              className="bg-[#0F0E12] p-8"
+            >
+              <v.icon size={20} weight="light" className="text-amber mb-5" />
+              <div className="text-sm font-medium text-white mb-2">{v.label}</div>
+              <div className="text-sm leading-relaxed text-white/40">{v.body}</div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
@@ -194,66 +177,12 @@ function About() {
 
 function Amenities() {
   const amenities = [
-    {
-      icon: Tent,
-      label: "RV sites, glamping & camping",
-      body: "Powered RV pads, a geodesic glamping dome, tenting sites, and a limited number of on-site bunk cabins.",
-    },
-    {
-      icon: Mountains,
-      label: "Barrel sauna & cold plunge",
-      body: "Wood-fired barrel sauna with a natural creek cold plunge — a staple of the daily village rhythm.",
-    },
-    {
-      icon: Waves,
-      label: "Private lake",
-      body: "A secluded lake on the property for swimming, paddling, and quiet mornings away from the crowds.",
-    },
-    {
-      icon: Golf,
-      label: "9-hole golf & disc golf",
-      body: "A scenic 9-hole golf course and disc golf route winding through the trees. Available to all guests.",
-    },
-    {
-      icon: Users,
-      label: "120-person events gazebo",
-      body: "The main communal hub — used for meals, gatherings, workshops, and evening campfires.",
-    },
-    {
-      icon: Wrench,
-      label: "Maker space & woodshop — Coming Soon",
-      body: "A planned maker space and woodworking shop for prototyping, building, and creative projects. Part of our near-future build-out.",
-    },
-    {
-      icon: TreeEvergreen,
-      label: "Forest trails & mountain views",
-      body: "Trails through the property with direct access into Wells Gray Provincial Park — home to 40+ waterfalls and world-class hiking.",
-    },
-    {
-      icon: Leaf,
-      label: "Community garden",
-      body: "A shared growing space for fresh herbs, vegetables, and experiments in regenerative food production.",
-    },
-    {
-      icon: Horse,
-      label: "Horse corrals",
-      body: "Facilities for guests traveling with horses, with access to surrounding forest and trail networks.",
-    },
-    {
-      icon: House,
-      label: "Coworking gazebo — Coming Soon",
-      body: "The coworking gazebo is planned as an upgrade of the existing 120-person gazebo — a dedicated space for deep work, workshops, and family gatherings.",
-    },
-    {
-      icon: Campfire,
-      label: "Village Rhythm",
-      body: "A weekly schedule of themed activities running through the summer season (May 1–Oct 7) — sauna days, forest school, communal meals, campfires, and more.",
-    },
-    {
-      icon: Tree,
-      label: "Forest school programs",
-      body: "Nature-based learning programs for kids, running seasonally within the village grounds.",
-    },
+    { icon: Users, label: "Community Spaces", body: "Spaces for coworking, community events, and gatherings." },
+    { icon: Heart, label: "Infrastructure That Supports Health", body: "Sauna, cold creek, nature immersion, forest paths." },
+    { icon: House, label: "Your Seasonal Home Base", body: "Full hookup or creek side sites for RVs (30 amp, soon to be 50 amp)" },
+    { icon: WifiHigh, label: "Fast Internet", body: "WIFI access at every site, and a coworking gazebo." },
+    { icon: Golf, label: "Golf & Disc Golf", body: "9-hole golf course and 18-hole disc golf course amidst breathtaking nature." },
+    { icon: Star, label: "Unique Experiences", body: "Geodesic glamping dome, cultural events & gatherings." },
   ];
 
   return (
@@ -264,9 +193,12 @@ function Amenities() {
             On the property
           </p>
           <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            What&apos;s here<br />
-            <span className="italic">right now</span>
+            Village Amenities<br />
+            <span className="italic">What You Get</span>
           </h2>
+          <p className="mt-4 text-sm text-white/40 max-w-[48ch]">
+            Inspired by dacha culture and seasonal cottage living, reimagined for modern life.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
@@ -290,72 +222,140 @@ function Amenities() {
   );
 }
 
-function Programs() {
-  const programs = [
-    {
-      label: "Village Immersion",
-      sub: "Month-long stay",
-      body: "A 30-day village residency for families and remote workers. Live the full village rhythm — forest school for the kids, deep work for adults, shared meals, sauna, and community.",
-      href: "/immersion",
-      cta: "Learn about immersion",
-    },
-    {
-      label: "Village Rhythm",
-      sub: "Weekly program",
-      body: "Forest school, sauna, campfire, and golf — every Sunday. A low-commitment entry point for locals, guests, and visitors who want a taste of village life.",
-      href: "/sunday",
-      cta: "See the village rhythm",
-    },
-    {
-      label: "Work-Stay Program",
-      sub: "2026 cohort",
-      body: "A season-long work-stay for builders, makers, and contributors. Trade skilled work for accommodation, meals, and full village access. Applications open for 2026.",
-      href: "/workstay",
-      cta: "Apply for work-stay",
-    },
-    {
-      label: "Host an Event",
-      sub: "Retreats & gatherings",
-      body: "Bring your team, community, or organization to the village. The 120-person gazebo, forest, and lake make for an unforgettable off-site — corporate, creative, or personal.",
-      href: "/host",
-      cta: "Submit an inquiry",
-    },
-  ];
-
+function WorkStayCTA() {
   return (
-    <section id="programs" className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_42%]">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+              May 1 &ndash; 31, 2026
+            </p>
+            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+              Join the 2026<br />
+              <span className="italic">Village Builder</span><br />
+              Work-stay Cohort
+            </h2>
+            <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+              Be part of a select group of people who will help turn our 400-acre
+              campsite, golf course, and forest into a living Village prototype.
+              We&apos;re inviting hands-on builders, technologists, creatives, and
+              community-minded humans to live on the land, help run the existing
+              hospitality operations, and co-create the events, maker space, art
+              installations, and systems that will define our first village — and the
+              network of villages that follow.
+            </p>
+            <div className="mt-10">
+              <Link
+                href="/workstay"
+                className="inline-flex items-center gap-2 rounded-full bg-amber px-7 py-3.5 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
+              >
+                Apply <ArrowRight size={14} weight="bold" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative overflow-hidden rounded-2xl" style={{ minHeight: "400px" }}>
+            <Image
+              src="/images/wood-working-building-desk-scaled.jpg"
+              alt="Building at the village"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FutureOfLiving() {
+  return (
+    <section className="bg-warm-dark py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
-            Ways to participate
+            The way people live is changing
           </p>
           <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            Village<br />
-            <span className="italic">programs</span>
+            The Future of Living<br />
+            <span className="italic">And Why We&apos;re Building It</span>
           </h2>
         </div>
 
-        <div className="divide-y divide-white/10 border-y border-white/10">
-          {programs.map((p, i) => (
+        <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[60ch]">
+          <p>
+            They want the freedom to work from anywhere, a place to create and live
+            well, and a community that feels like home. We&apos;re building for that
+            future — starting here.
+          </p>
+          <p>
+            Soon, we&apos;ll be expanding the Wells Gray Village with new cabins, long-term
+            RV sites, glamping units, and more shared infrastructure for wellness,
+            co-working, art and maker culture. But that&apos;s just the beginning. This
+            place is a first in a North network of Villages — designed for people who
+            want to live with purpose, build with others, and stay connected across
+            every season.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TheLand() {
+  const images = [
+    { src: "/images/gazebo-campfire.png", alt: "Gazebo campfire" },
+    { src: "/images/gemini-2e4dc4.png", alt: "Village concept" },
+    { src: "/images/gazebo-interior-scaled.jpg", alt: "Gazebo interior" },
+    { src: "/images/the-creek-scaled.jpg", alt: "The creek" },
+    { src: "/images/camper-daytime-scaled.jpg", alt: "Camper during the day" },
+    { src: "/images/cabins-scaled.jpg", alt: "Cabins" },
+    { src: "/images/kids-on-trampoline-scaled.jpg", alt: "Kids on trampoline" },
+    { src: "/images/campfire-in-gazebo-scaled.jpg", alt: "Campfire in gazebo" },
+    { src: "/images/meditation-group.jpg", alt: "Meditation group" },
+    { src: "/images/gazebo-community-meetup-scaled.jpg", alt: "Community meetup" },
+    { src: "/images/dome-interior-scaled.jpg", alt: "Dome interior" },
+    { src: "/images/canada-day-meetup-scaled.jpg", alt: "Canada Day meetup" },
+    { src: "/images/swimming-lake-scaled.jpg", alt: "Swimming lake" },
+    { src: "/images/horses-in-field-scaled.jpg", alt: "Horses in the field" },
+    { src: "/images/dome-at-night-scaled.jpg", alt: "Dome at night" },
+    { src: "/images/golf-course-3.jpg", alt: "Golf course" },
+    { src: "/images/aurora-at-night-scaled.jpg", alt: "Aurora at night" },
+    { src: "/images/gazebo-rainbow-scaled.jpg", alt: "Gazebo rainbow" },
+    { src: "/images/sauna-in-winter-scaled.jpg", alt: "Sauna in winter" },
+    { src: "/images/cabin-scaled.jpg", alt: "Cabin" },
+  ];
+
+  return (
+    <section id="land" className="bg-[#0F0E12] py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="mb-16">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
+            Get a Feel for the Village
+          </p>
+          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            The<br />
+            <span className="italic">Land</span>
+          </h2>
+          <p className="mt-4 text-sm text-white/40 max-w-[48ch]">
+            Browse real images of our dome, sauna, event spaces, RV sites, golf course,
+            and views to experience the landscape that&apos;s already drawing guests and
+            community.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+          {images.map((img, i) => (
             <motion.div
-              key={p.label}
+              key={img.src}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ delay: i * 0.08, duration: 0.5 }}
-              className="group grid grid-cols-1 gap-6 py-10 lg:grid-cols-[16rem_1fr_auto] lg:items-center"
+              viewport={{ once: true, margin: "-20px" }}
+              transition={{ delay: (i % 4) * 0.05, duration: 0.4 }}
+              className="relative aspect-square overflow-hidden rounded-lg"
             >
-              <div>
-                <div className="text-base font-medium text-white">{p.label}</div>
-                <div className="text-xs text-amber mt-1 uppercase tracking-wider">{p.sub}</div>
-              </div>
-              <p className="text-sm leading-relaxed text-white/40 max-w-[55ch]">{p.body}</p>
-              <Link
-                href={p.href}
-                className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-white/40 transition-all hover:text-amber hover:gap-3"
-              >
-                {p.cta} <ArrowRight size={13} />
-              </Link>
+              <Image src={img.src} alt={img.alt} fill className="object-cover transition-transform duration-500 hover:scale-105" />
             </motion.div>
           ))}
         </div>
@@ -364,52 +364,158 @@ function Programs() {
   );
 }
 
-function BookStay() {
+function ComingSoon() {
+  const items = [
+    "Maker space & upgraded co-working gazebo",
+    "Community garden, shared kitchen, and food truck",
+    "Hot tub, outdoor gym, and more wellness facilities",
+    "Mini cabins, domes, and long term RVs sites",
+    "Seasonal gatherings, events & immersions",
+    "Village Ai \u2014 our AI-powered community assistant",
+  ];
+
+  return (
+    <section className="bg-warm-dark py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[40%_1fr]">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+              What&apos;s next
+            </p>
+            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+              Coming Soon<br />
+              <span className="italic">to Wells Gray Village</span>
+            </h2>
+            <p className="mt-8 text-sm text-white/45 max-w-[38ch]">
+              Visit or apply to join &amp; help shape what&apos;s next.
+            </p>
+          </div>
+
+          <div className="divide-y divide-white/10 border-y border-white/10">
+            {items.map((item, i) => (
+              <motion.div
+                key={item}
+                initial={{ opacity: 0, x: 10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="flex items-center gap-4 py-5"
+              >
+                <span className="font-mono text-xs text-white/20 w-6 shrink-0">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-sm text-white/55">{item}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function VisitCTA() {
   return (
     <section className="bg-amber py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_42%]">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_40%]">
           <div>
             <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
               Come see it<br />
               <span className="italic">for yourself.</span>
             </h2>
-            <p className="mt-8 max-w-[45ch] text-base leading-relaxed text-white/75">
-              The best way to understand village life is to experience it.
-              Wells Gray Village is a seasonal, recreational community — come for a weekend, a week, or a full program. Arrive as a guest, leave as a believer.
+          </div>
+          <div className="flex flex-col justify-center gap-4">
+            <a
+              href="https://wellsgrayresort.ca"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between rounded-2xl bg-white/10 px-6 py-5 transition-all hover:bg-white/20"
+            >
+              <div>
+                <div className="text-sm font-medium text-white">Visit</div>
+                <div className="mt-1 text-xs text-white/60 max-w-[38ch]">
+                  Join a gathering, work-stay program, or village immersion. Get a taste
+                  of village life &amp; discover everything that Wells Gray Village has to
+                  offer.
+                </div>
+              </div>
+              <ArrowUpRight size={14} weight="bold" className="text-white/50 shrink-0 ml-4" />
+            </a>
+            <Link
+              href="/membership"
+              className="group flex items-center justify-between rounded-2xl bg-white/10 px-6 py-5 transition-all hover:bg-white/20"
+            >
+              <div>
+                <div className="text-sm font-medium text-white">Explore Membership</div>
+                <div className="mt-1 text-xs text-white/60 max-w-[38ch]">
+                  Access exclusive member benefits, village programs, and private
+                  opportunities. Help shape the future of the Village campus from the
+                  beginning.
+                </div>
+              </div>
+              <ArrowRight size={14} weight="bold" className="text-white/50 shrink-0 ml-4" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FAQ() {
+  const faqs = [
+    { q: "When is the opening season?", a: "Wells Gray Village is open from May 1 to early October every year. We are closed in the winter months." },
+    { q: "What types of accommodation are available at the village?", a: "We currently offer RV sites, on-site RV rentals, a geodesic dome, bunk cabins, horse corrals, and tenting sites. Cabins, long term RV sites, and more glamping options are coming soon." },
+    { q: "What kind of amenities does the village offer?", a: "Amenities include a 120 person gazebo plus several smaller gazebos, a 9 hole golf course and 18 hole disc golf course, pro shop, modern bathrooms and showers, small garden, maker space (members only), private swimming lake, and forest trails." },
+    { q: "What kind of programs or events are there?", a: "The village hosts public gatherings, work-stay programs, village immersions, a number of members-only events, and more. Guests are also able to book the venue for events such as weddings, family reunions, tournaments, and retreats." },
+    { q: "Can I bring pets?", a: "Yes, the village is pet friendly. Dogs are welcome on leash, and we have 20 horse corrals for guests who travel with their horses." },
+  ];
+
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <section className="bg-[#0F0E12] py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[35%_1fr]">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
+              Your questions answered
             </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <a
-                href="https://wellsgrayresort.ca"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-medium text-amber transition-all hover:bg-white/90 active:scale-[0.98]"
-              >
-                Visit — Book at wellsgrayresort.ca <ArrowUpRight size={14} weight="bold" />
-              </a>
-              <Link
-                href="/membership"
-                className="inline-flex items-center gap-2 rounded-full border border-white/40 px-8 py-4 text-sm font-medium text-white transition-all hover:bg-white/10"
-              >
-                Become a Member <ArrowRight size={14} />
-              </Link>
-              <Link
-                href="/partner"
-                className="inline-flex items-center gap-2 text-sm font-medium text-white/70 transition-colors hover:text-white"
-              >
-                Request Investor Access <ArrowRight size={14} />
-              </Link>
-            </div>
+            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+              FAQ
+            </h2>
           </div>
 
-          {/* Photo */}
-          <div className="relative overflow-hidden rounded-2xl" style={{ minHeight: "320px" }}>
-            <Image
-              src="/images/76747423_10163561173205725_3017674924459294720_n-1024x577.jpg"
-              alt="Wells Gray Village grounds"
-              fill
-              className="object-cover"
-            />
+          <div className="divide-y divide-white/10 border-y border-white/10">
+            {faqs.map((faq, i) => (
+              <div key={i}>
+                <button
+                  onClick={() => setOpen(open === i ? null : i)}
+                  className="flex w-full items-center justify-between py-6 text-left cursor-pointer"
+                >
+                  <span className="text-sm font-medium text-white pr-4">{faq.q}</span>
+                  <CaretDown
+                    size={14}
+                    weight="bold"
+                    className={`text-amber shrink-0 transition-transform ${open === i ? "rotate-180" : ""}`}
+                  />
+                </button>
+                <AnimatePresence>
+                  {open === i && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <p className="pb-6 text-sm leading-relaxed text-white/40">{faq.a}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -421,10 +527,14 @@ export default function VillagePage() {
   return (
     <>
       <Hero />
-      <About />
+      <FirstPrototype />
       <Amenities />
-      <Programs />
-      <BookStay />
+      <WorkStayCTA />
+      <FutureOfLiving />
+      <TheLand />
+      <ComingSoon />
+      <VisitCTA />
+      <FAQ />
     </>
   );
 }
