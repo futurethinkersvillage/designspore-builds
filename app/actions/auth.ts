@@ -23,18 +23,20 @@ const signupSchema = z.object({
 export async function loginWithCredentials(
   _prev: unknown,
   formData: FormData
-): Promise<{ error?: string; ok?: boolean }> {
+): Promise<{ error?: string }> {
   try {
     await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
-      redirect: false,
+      redirectTo: "/dashboard",
     });
-    return { ok: true };
+    // signIn with redirectTo throws NEXT_REDIRECT on success — we never reach here
+    return {};
   } catch (error) {
     if (error instanceof AuthError) {
       return { error: "Invalid email or password." };
     }
+    // NEXT_REDIRECT must be re-thrown for the framework to handle it
     throw error;
   }
 }

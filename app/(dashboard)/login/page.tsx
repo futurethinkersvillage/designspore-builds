@@ -1,26 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useActionState } from "react";
 import { useSearchParams } from "next/navigation";
-import { loginWithGoogle } from "@/app/actions/auth";
+import { loginWithCredentials, loginWithGoogle } from "@/app/actions/auth";
 import Link from "next/link";
 import { Suspense } from "react";
 
 function LoginForm() {
   const params = useSearchParams();
-  const [csrfToken, setCsrfToken] = useState("");
-  const [pending, setPending] = useState(false);
   const welcome = params.get("welcome") === "true";
   const cancelled = params.get("cancelled") === "true";
-  const callbackError = params.get("error");
 
-  // Fetch CSRF token on mount
-  useEffect(() => {
-    fetch("/api/auth/csrf")
-      .then((r) => r.json())
-      .then((data) => setCsrfToken(data.csrfToken))
-      .catch(() => {});
-  }, []);
+  const [state, formAction, pending] = useActionState(loginWithCredentials, {});
 
   return (
     <div className="w-full max-w-sm">
@@ -52,9 +43,9 @@ function LoginForm() {
         </div>
       )}
 
-      {callbackError && (
+      {state?.error && (
         <p className="mb-6 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3 text-center">
-          Invalid email or password.
+          {state.error}
         </p>
       )}
 
@@ -75,16 +66,7 @@ function LoginForm() {
         <div className="flex-1 h-px bg-white/[0.08]" />
       </div>
 
-      {/* Native form POST — browser handles cookies + redirect natively */}
-      <form
-        method="POST"
-        action="/api/auth/callback/credentials"
-        className="space-y-4"
-        onSubmit={() => setPending(true)}
-      >
-        <input type="hidden" name="csrfToken" value={csrfToken} />
-        <input type="hidden" name="callbackUrl" value="/dashboard" />
-
+      <form action={formAction} className="space-y-4">
         <div>
           <label className="block text-xs text-white/50 mb-1.5">Email</label>
           <input
@@ -110,7 +92,7 @@ function LoginForm() {
 
         <button
           type="submit"
-          disabled={pending || !csrfToken}
+          disabled={pending}
           className="w-full bg-gold text-dark text-sm font-semibold py-3 rounded-xl hover:bg-gold-light disabled:opacity-50 transition-colors"
         >
           {pending ? "Signing in…" : "Sign In"}
