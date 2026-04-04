@@ -2,7 +2,7 @@ import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const protectedPaths = ["/dashboard", "/modules", "/my-modules", "/account"];
+const protectedPaths = ["/dashboard", "/modules", "/my-modules", "/account", "/requests", "/admin"];
 const authPaths = ["/login", "/signup"];
 
 export async function proxy(request: NextRequest) {
