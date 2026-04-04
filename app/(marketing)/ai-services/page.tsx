@@ -137,7 +137,8 @@ export default function AIServicesPage() {
               automations, chatbots, and lead systems that actually run.
             </p>
             <p className="text-base text-white/30 mb-10">
-              Based in Clearwater, BC. Serving businesses across Canada.
+              You pay a flat monthly fee. We handle everything technical. You just see the results.{" "}
+              <span className="text-white/20">Based in Clearwater, BC.</span>
             </p>
             <div className="flex flex-wrap gap-4">
               <a
@@ -146,7 +147,7 @@ export default function AIServicesPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-8 py-4 rounded bg-gold text-dark font-bold text-lg tracking-wide hover:bg-gold-light btn-press"
               >
-                Book a Strategy Call <ArrowRightIcon size={16} weight="bold" />
+                Start a Plan <ArrowRightIcon size={16} weight="bold" />
               </a>
               <Link
                 href="/signup"
@@ -220,7 +221,7 @@ export default function AIServicesPage() {
                 {
                   step: "01",
                   title: "Pick your plan",
-                  body: "Choose how many credits you want each month. Every plan includes a website rebuild and hosting setup.",
+                  body: "Choose a monthly tier. You get a fixed number of services per month — we handle all the technical details behind the scenes.",
                 },
                 {
                   step: "02",
@@ -550,7 +551,7 @@ export default function AIServicesPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-4 rounded bg-gold text-dark text-lg font-bold tracking-wide hover:bg-gold-light btn-press"
             >
-              Book a Strategy Call <ArrowRightIcon size={18} weight="bold" />
+              Start a Plan <ArrowRightIcon size={18} weight="bold" />
             </a>
             <Link
               href="/signup"

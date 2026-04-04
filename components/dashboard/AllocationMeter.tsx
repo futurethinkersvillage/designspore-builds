@@ -8,10 +8,10 @@ export default function AllocationMeter({ creditsUsed, creditsTotal, compact }: 
   const remaining = Math.max(creditsTotal - creditsUsed, 0);
 
   const hint =
-    remaining >= 4 ? "1 Flagship, 2 Core, or 4 Quick Wins available"
-    : remaining === 3 ? "1 Core + 1 Quick Win, or 3 Quick Wins available"
-    : remaining === 2 ? "1 Core or 2 Quick Wins available"
-    : remaining === 1 ? "1 Quick Win available"
+    remaining >= 4 ? `${remaining} credits available`
+    : remaining === 3 ? "3 credits available"
+    : remaining === 2 ? "2 credits available"
+    : remaining === 1 ? "1 credit available"
     : "Full — queue resets next month";
 
   return (

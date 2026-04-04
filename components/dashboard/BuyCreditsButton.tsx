@@ -4,9 +4,9 @@ import { useState, useTransition } from "react";
 import { createCreditTopupCheckout } from "@/app/actions/account";
 
 const PACKS = [
-  { credits: 1 as const, label: "1 Quick Win", price: "$375", description: "One focused win added to this month" },
-  { credits: 2 as const, label: "2 Core Credits", price: "$750", description: "Core-tier service or two quick wins" },
-  { credits: 4 as const, label: "4 Credits", price: "$1,500", description: "Full month of capacity, one-time" },
+  { credits: 1 as const, label: "1 Credit", price: "$375", description: "One additional service this month" },
+  { credits: 2 as const, label: "2 Credits", price: "$750", description: "Two additional services this month" },
+  { credits: 4 as const, label: "4 Credits", price: "$1,500", description: "Full month of additional capacity" },
 ];
 
 export default function BuyCreditsButton({ isDemo }: { isDemo?: boolean }) {

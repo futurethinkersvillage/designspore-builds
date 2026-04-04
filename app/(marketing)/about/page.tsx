@@ -171,7 +171,7 @@ export default function AboutPage() {
           <div className="flex flex-wrap justify-center gap-4">
             <a href="http://futurethinkers.org/call60" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-4 rounded bg-gold text-dark text-lg font-bold tracking-wide hover:bg-gold-light btn-press">
-              Book a Strategy Call <ArrowRightIcon size={18} weight="bold" />
+              Start a Plan <ArrowRightIcon size={18} weight="bold" />
             </a>
             <Link href="/case-studies" className="inline-flex items-center gap-3 px-10 py-4 rounded border-2 border-white/20 text-white font-semibold hover:border-white/40 hover:bg-white/5 transition-all">
               See Our Work

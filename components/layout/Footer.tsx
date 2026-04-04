@@ -95,7 +95,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="text-xs text-gold hover:text-gold-light transition-colors font-semibold tracking-wide"
           >
-            Book a Strategy Call &rarr;
+            Start a Plan &rarr;
           </a>
         </div>
       </div>

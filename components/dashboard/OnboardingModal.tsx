@@ -65,9 +65,9 @@ export default function OnboardingModal({ userName }: { userName?: string | null
           {current.visual && (
             <div className="grid grid-cols-3 gap-2 mt-4">
               {([
-                { credits: 1, example: "Quick Win", color: "border-emerald-500/20 text-emerald-300" },
-                { credits: 2, example: "Core", color: "border-blue-500/20 text-blue-300" },
-                { credits: 4, example: "Flagship", color: "border-gold/20 text-gold" },
+                { credits: 1, example: "Focused service", color: "border-emerald-500/20 text-emerald-300" },
+                { credits: 2, example: "Standard service", color: "border-blue-500/20 text-blue-300" },
+                { credits: 4, example: "Full build", color: "border-gold/20 text-gold" },
               ] as const).map(({ credits, example, color }) => (
                 <div key={credits} className={`border rounded-xl p-3 text-center ${color}`}>
                   <p className="text-xs font-semibold">{credits} credit{credits > 1 ? "s" : ""}</p>

@@ -250,7 +250,7 @@ export default async function AccountPage() {
           </div>
         )}
         <p className="text-xs text-white/20">
-          Each active service includes a usage baseline. Overages are billed as Quick Win credits.
+          Each active service includes a usage baseline. Overages are billed as single credits ($375 each).
         </p>
       </section>
 

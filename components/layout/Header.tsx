@@ -86,7 +86,7 @@ export default function Header() {
             rel="noopener noreferrer"
             className="btn-primary text-sm"
           >
-            Book a Call
+            Start a Plan
           </a>
         </div>
 

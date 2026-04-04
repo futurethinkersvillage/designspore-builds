@@ -23,7 +23,7 @@ function LoginForm() {
   }, [state]);
 
   return (
-    <div className="w-full max-w-sm">
+    <div className="w-full max-w-md">
       <div className="text-center mb-8">
         <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">
           Client Portal
@@ -127,7 +127,7 @@ export default function LoginPage() {
       </div>
 
       {/* Center form */}
-      <div className="flex-1 lg:flex-none lg:max-w-lg shrink-0 border-x border-white/[0.06] bg-darker overflow-y-auto flex items-center justify-center px-8 py-12">
+      <div className="flex-1 lg:flex-none lg:max-w-xl shrink-0 border-x border-white/[0.06] bg-darker overflow-y-auto flex items-center justify-center px-8 py-12">
         <Suspense fallback={null}>
           <LoginForm />
         </Suspense>

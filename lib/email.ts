@@ -29,7 +29,7 @@ export async function sendActivationEmail({
   periodMonth: string;
 }) {
   if (!resend) return;
-  const tierLabel = tier === 1 ? "Flagship" : tier === 2 ? "Core" : "Quick Win";
+  const tierLabel = tier === 1 ? "4 credits" : tier === 2 ? "2 credits" : "1 credit";
   await resend.emails.send({
     from: FROM,
     to: NOTIFY_EMAIL,

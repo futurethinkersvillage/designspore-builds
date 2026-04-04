@@ -63,9 +63,9 @@ export async function createCreditTopupCheckout(creditPack: 1 | 2 | 4): Promise<
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-03-25.dahlia" });
 
   const priceMap: Record<number, { amount: number; label: string }> = {
-    1: { amount: 37500, label: "1 Quick Win Credit" },
-    2: { amount: 75000, label: "2 Core Credits" },
-    4: { amount: 150000, label: "4 Flagship Credits" },
+    1: { amount: 37500, label: "1 Credit Top-Up" },
+    2: { amount: 75000, label: "2 Credits Top-Up" },
+    4: { amount: 150000, label: "4 Credits Top-Up" },
   };
 
   const pack = priceMap[creditPack];

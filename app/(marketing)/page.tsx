@@ -97,7 +97,7 @@ export default function HomePage() {
             </p>
             <div className="hero-in hero-in-4 flex flex-wrap gap-4">
               <a href="http://futurethinkers.org/call60" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4">
-                Book a Strategy Call <ArrowRightIcon size={16} weight="bold" />
+                Start a Plan <ArrowRightIcon size={16} weight="bold" />
               </a>
               <Link href="/ai-services" className="btn-outline text-base px-8 py-4">Explore AI Services</Link>
             </div>
@@ -514,7 +514,7 @@ export default function HomePage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-4 rounded bg-dark text-white text-base font-bold tracking-wide transition-all hover:bg-raised btn-press"
             >
-              Book a Strategy Call <ArrowRightIcon size={16} weight="bold" />
+              Start a Plan <ArrowRightIcon size={16} weight="bold" />
             </a>
             <Link
               href="/ai-services"
