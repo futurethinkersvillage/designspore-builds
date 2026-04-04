@@ -164,6 +164,31 @@ export const clientInfoRequests = pgTable("client_info_requests", {
   respondedAt: timestamp("responded_at"),
 });
 
+// ── Custom module requests (client-imagined services) ───────────────────
+export const customModuleStatusEnum = pgEnum("custom_module_status", [
+  "pending",      // submitted, waiting for Mike to review
+  "matched",      // matched to an existing module
+  "scoped",       // Mike reviewed and set a credit cost
+  "declined",     // Mike declined (out of scope, etc.)
+]);
+
+export const customModuleRequests = pgTable("custom_module_requests", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id),
+  description: text("description").notNull(),     // what the client wants
+  status: customModuleStatusEnum("status").notNull().default("pending"),
+  matchedModuleId: text("matched_module_id"),     // if matched to existing
+  estimatedCredits: integer("estimated_credits"), // Mike's estimate
+  adminNotes: text("admin_notes"),                // Mike's internal notes
+  clientResponse: text("client_response"),        // Mike's message back to client
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // ── API Usage tracking ──────────────────────────────────────────────────
 export const apiUsage = pgTable("api_usage", {
   id: text("id")

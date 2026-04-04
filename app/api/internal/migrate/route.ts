@@ -66,6 +66,27 @@ export async function POST(request: NextRequest) {
       )
     `);
 
+    await db.execute(sql`
+      DO $$ BEGIN
+        CREATE TYPE custom_module_status AS ENUM ('pending','matched','scoped','declined');
+      EXCEPTION WHEN duplicate_object THEN null; END $$;
+    `);
+
+    await db.execute(sql`
+      CREATE TABLE IF NOT EXISTS custom_module_requests (
+        id TEXT PRIMARY KEY,
+        user_id TEXT NOT NULL REFERENCES "user"(id),
+        description TEXT NOT NULL,
+        status custom_module_status NOT NULL DEFAULT 'pending',
+        matched_module_id TEXT,
+        estimated_credits INTEGER,
+        admin_notes TEXT,
+        client_response TEXT,
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+      )
+    `);
+
     return NextResponse.json({ success: true, message: "Migration complete." });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";

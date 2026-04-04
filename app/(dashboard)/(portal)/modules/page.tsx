@@ -13,9 +13,11 @@ import {
   type ModuleCategory,
 } from "@/lib/modules";
 import { getMonthKey } from "@/lib/queue";
+import { Suspense } from "react";
 import ModuleCard, { DemoModuleCard } from "@/components/dashboard/ModuleCard";
 import ModulesFilter from "@/components/dashboard/ModulesFilter";
 import ModuleDrawer from "@/components/dashboard/ModuleDrawer";
+import RequestCustomModuleButton from "@/components/dashboard/RequestCustomModuleButton";
 
 export default async function ModulesPage({
   searchParams,
@@ -78,12 +80,19 @@ export default async function ModulesPage({
   return (
     <div className="max-w-5xl mx-auto space-y-10">
       {/* Header */}
-      <div>
-        <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-2">Services</p>
-        <h1 className="text-3xl font-bold text-white mb-1">Browse Services</h1>
-        <p className="text-sm text-white/40">
-          Click any service for details, or add it directly to your queue.
-        </p>
+      <div className="flex items-end justify-between gap-4 flex-wrap">
+        <div>
+          <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-2">Services</p>
+          <h1 className="text-3xl font-bold text-white mb-1">Browse Services</h1>
+          <p className="text-sm text-white/40">
+            Click any service for details, or add it directly to your queue.
+          </p>
+        </div>
+        {!isDemo && (
+          <Suspense fallback={null}>
+            <RequestCustomModuleButton />
+          </Suspense>
+        )}
       </div>
 
       {/* Recommended section — hidden when a category filter is active */}

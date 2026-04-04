@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { users, activations } from "@/lib/db/schema";
+import { users, activations, customModuleRequests } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
 import { getModuleById, creditsForModule } from "@/lib/modules";
 import { getMonthKey } from "@/lib/queue";
@@ -78,3 +78,22 @@ export async function setUserActive(userId: string, active: boolean) {
   await assertAdmin();
   await db.update(users).set({ isActive: active }).where(eq(users.id, userId));
 }
+
+export async function respondToCustomModule(
+  requestId: string,
+  status: "scoped" | "declined",
+  clientResponse: string,
+  estimatedCredits?: number
+) {
+  await assertAdmin();
+  await db
+    .update(customModuleRequests)
+    .set({
+      status,
+      clientResponse,
+      estimatedCredits: estimatedCredits ?? null,
+      updatedAt: new Date(),
+    })
+    .where(eq(customModuleRequests.id, requestId));
+}
+

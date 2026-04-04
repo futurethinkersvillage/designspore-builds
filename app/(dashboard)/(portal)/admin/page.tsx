@@ -3,12 +3,13 @@ export const dynamic = "force-dynamic";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { users, activations } from "@/lib/db/schema";
+import { users, activations, customModuleRequests } from "@/lib/db/schema";
 import { eq, desc } from "drizzle-orm";
 import { getModuleById, tierConfig, type ModuleTier } from "@/lib/modules";
 import { PLANS, type PlanKey } from "@/lib/subscription";
 import AdminActivationRow from "@/components/dashboard/AdminActivationRow";
 import AdminUserRow from "@/components/dashboard/AdminUserRow";
+import AdminCustomModuleRow from "@/components/dashboard/AdminCustomModuleRow";
 
 const ADMIN_EMAILS = ["mike@designspore.co", "futurethinkerspodcast@gmail.com", "mikenoises@gmail.com"];
 
@@ -17,6 +18,12 @@ export default async function AdminPage() {
   if (!session?.user) redirect("/login");
   const user = session.user as { email?: string | null };
   if (!user.email || !ADMIN_EMAILS.includes(user.email)) redirect("/dashboard");
+
+  const pendingCustomModules = await db
+    .select()
+    .from(customModuleRequests)
+    .where(eq(customModuleRequests.status, "pending"))
+    .orderBy(desc(customModuleRequests.createdAt));
 
   const allUsers = await db.select({
     id: users.id, name: users.name, email: users.email,
@@ -50,6 +57,28 @@ export default async function AdminPage() {
           Mike only
         </span>
       </div>
+
+      {/* Custom module requests */}
+      {pendingCustomModules.length > 0 && (
+        <section>
+          <h2 className="text-xs uppercase tracking-widest text-purple-400 font-semibold mb-4">
+            💡 Custom Service Requests ({pendingCustomModules.length})
+          </h2>
+          <div className="space-y-2">
+            {pendingCustomModules.map((r) => {
+              const client = allUsers.find((u) => u.id === r.userId);
+              return (
+                <AdminCustomModuleRow
+                  key={r.id}
+                  request={r}
+                  clientName={client?.name ?? client?.email ?? r.userId}
+                  clientEmail={client?.email ?? ""}
+                />
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Pending activations — need action */}
       {pendingActivations.length > 0 && (

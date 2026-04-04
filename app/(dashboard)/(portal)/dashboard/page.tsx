@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { db } from "@/lib/db";
-import { activations, users, clientInfoRequests } from "@/lib/db/schema";
+import { activations, users, clientInfoRequests, customModuleRequests } from "@/lib/db/schema";
 import { eq, and, gte, lt } from "drizzle-orm";
 import { getModuleById, creditsForModule } from "@/lib/modules";
 import { DEMO_USER, DEMO_ACTIVATIONS } from "@/lib/demo";
@@ -38,6 +38,9 @@ export default async function DashboardPage() {
 
   type PendingInfoRequest = { id: string; message: string; moduleId: string | null; dueDate: Date | null; createdAt: Date | null };
   let pendingInfoRequests: PendingInfoRequest[] = [];
+
+  type ScopedCustomRequest = { id: string; description: string; clientResponse: string; estimatedCredits: number | null };
+  let scopedCustomRequests: ScopedCustomRequest[] = [];
 
   if (isDemo) {
     userName = DEMO_USER.name;
@@ -111,6 +114,19 @@ export default async function DashboardPage() {
       .where(and(eq(clientInfoRequests.userId, user.id!), eq(clientInfoRequests.isResolved, false)));
 
     pendingInfoRequests = infoRows;
+
+    // Custom module requests that Mike has scoped (awaiting client review)
+    const scopedRows = await db
+      .select({
+        id: customModuleRequests.id,
+        description: customModuleRequests.description,
+        clientResponse: customModuleRequests.clientResponse,
+        estimatedCredits: customModuleRequests.estimatedCredits,
+      })
+      .from(customModuleRequests)
+      .where(and(eq(customModuleRequests.userId, user.id!), eq(customModuleRequests.status, "scoped")));
+
+    scopedCustomRequests = scopedRows.filter((r) => r.clientResponse) as ScopedCustomRequest[];
   }
 
   function formatMonth(ym: string) {
@@ -147,6 +163,27 @@ export default async function DashboardPage() {
                 })
             )}
           />
+        )}
+
+        {/* Custom module responses from Mike */}
+        {scopedCustomRequests.length > 0 && (
+          <section className="space-y-3">
+            <p className="text-xs uppercase tracking-widest text-purple-400 font-semibold">Custom Service Estimate{scopedCustomRequests.length > 1 ? "s" : ""}</p>
+            {scopedCustomRequests.map((r) => (
+              <div key={r.id} className="bg-raised border border-purple-500/20 rounded-2xl p-5 space-y-2">
+                <p className="text-xs text-white/40 leading-relaxed line-clamp-2">Your request: {r.description}</p>
+                <p className="text-sm text-white leading-relaxed">{r.clientResponse}</p>
+                {r.estimatedCredits && (
+                  <p className="text-xs font-semibold text-purple-300">
+                    Estimated cost: {r.estimatedCredits} credit{r.estimatedCredits > 1 ? "s" : ""}
+                  </p>
+                )}
+                <Link href="/modules" className="text-xs text-gold hover:text-gold-light transition-colors">
+                  Browse services to add to your queue →
+                </Link>
+              </div>
+            ))}
+          </section>
         )}
 
         {/* Autopilot — at the top so clients see it first */}

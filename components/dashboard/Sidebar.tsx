@@ -19,7 +19,7 @@ export default async function Sidebar({ isDemo }: SidebarProps) {
   const session = !isDemo ? await auth() : null;
   const isAdmin = session?.user && ADMIN_EMAILS.includes((session.user as { email?: string | null }).email ?? "");
   return (
-    <aside className="hidden lg:flex flex-col w-64 min-h-full bg-darker border-r border-white/[0.06] px-6 py-8 shrink-0">
+    <aside className="hidden lg:flex flex-col w-64 sticky top-0 h-screen bg-darker border-r border-white/[0.06] px-6 py-8 shrink-0 overflow-y-auto">
       {/* Logo */}
       <div className="mb-10">
         <div className="flex items-center gap-2.5 mb-0.5">
