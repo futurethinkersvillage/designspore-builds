@@ -21,6 +21,7 @@ const navItems = [
   },
   { label: "Members", href: "/membership" },
   { label: "Partners", href: "/partner" },
+  { label: "Intel", href: "https://intel.portal.place", external: true },
   {
     label: "About",
     href: "/about",
@@ -69,15 +70,26 @@ export function Nav() {
               onFocus={() => item.children && setOpenDropdown(item.label)}
               onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpenDropdown(null); }}
             >
-              <Link
-                href={item.href}
-                aria-current={pathname === item.href ? "page" : undefined}
-                aria-haspopup={item.children ? true : undefined}
-                aria-expanded={item.children ? openDropdown === item.label : undefined}
-                className={`rounded-md px-4 py-2 text-sm transition-colors hover:text-white ${pathname === item.href ? "text-white" : "text-white/60"}`}
-              >
-                {item.label}
-              </Link>
+              {"external" in item && item.external ? (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-md px-4 py-2 text-sm transition-colors hover:text-white text-white/60"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  href={item.href}
+                  aria-current={pathname === item.href ? "page" : undefined}
+                  aria-haspopup={item.children ? true : undefined}
+                  aria-expanded={item.children ? openDropdown === item.label : undefined}
+                  className={`rounded-md px-4 py-2 text-sm transition-colors hover:text-white ${pathname === item.href ? "text-white" : "text-white/60"}`}
+                >
+                  {item.label}
+                </Link>
+              )}
 
               <AnimatePresence>
                 {item.children && openDropdown === item.label && (
@@ -146,14 +158,26 @@ export function Nav() {
             <div className="space-y-1 px-6 py-4">
               {navItems.map((item) => (
                 <div key={item.label}>
-                  <Link
-                    href={item.href}
-                    aria-current={pathname === item.href ? "page" : undefined}
-                    className={`block py-3 text-base transition-colors hover:text-white ${pathname === item.href ? "text-white" : "text-white/70"}`}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
+                  {"external" in item && item.external ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block py-3 text-base transition-colors hover:text-white text-white/70"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      aria-current={pathname === item.href ? "page" : undefined}
+                      className={`block py-3 text-base transition-colors hover:text-white ${pathname === item.href ? "text-white" : "text-white/70"}`}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  )}
                   {item.children?.map((child) =>
                     "external" in child && child.external ? (
                       <a

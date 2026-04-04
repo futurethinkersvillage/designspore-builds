@@ -22,6 +22,9 @@ import {
   Leaf,
   House,
   Check,
+  MapPin,
+  Bell,
+  Newspaper,
 } from "@phosphor-icons/react";
 
 function Marquee() {
@@ -614,6 +617,142 @@ function ProofOfProgress() {
   );
 }
 
+function IntelCTA() {
+  const [submitted, setSubmitted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    try {
+      await fetch("https://intel.portal.place/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email }),
+      });
+    } catch {
+      // fail silently — show success regardless
+    }
+    setSubmitted(true);
+  }
+
+  const signals = [
+    { icon: MapPin, label: "Land & property listings in BC & AB" },
+    { icon: Bell, label: "Grants, permits & government programs" },
+    { icon: Users, label: "Operators, builders & aligned projects" },
+    { icon: Newspaper, label: "Weekly AI-curated briefing" },
+  ];
+
+  return (
+    <section className="bg-[#0F0E12] py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
+          {/* Left */}
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
+              Portal.Place Intel &mdash; BC &amp; Alberta
+            </p>
+            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+              Stay Ahead of<br />
+              <span className="italic">The Shift.</span>
+            </h2>
+            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[48ch]">
+              If you&apos;re tracking land, resilience projects, or regenerative
+              opportunities in British Columbia or Alberta — Portal.Place Intel
+              surfaces them for you. An AI-curated weekly briefing covering land
+              deals, operators, grants, events, and infrastructure moves across
+              the region.
+            </p>
+
+            <div className="mt-10 space-y-4">
+              {signals.map((s) => (
+                <div key={s.label} className="flex items-center gap-3">
+                  <s.icon size={15} weight="light" className="text-amber shrink-0" />
+                  <span className="text-sm text-white/60">{s.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <a
+              href="https://intel.portal.place"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-amber/80 transition-colors hover:text-amber"
+            >
+              Explore the Intel Feed <ArrowUpRight size={13} />
+            </a>
+          </div>
+
+          {/* Right — signup form */}
+          <div className="flex items-center">
+            <div className="w-full rounded-2xl border border-white/[0.07] bg-white/[0.03] p-8 lg:p-10">
+              {submitted ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center py-8"
+                >
+                  <div className="mb-4 flex justify-center">
+                    <Check size={32} weight="light" className="text-amber" />
+                  </div>
+                  <h3 className="font-serif text-2xl font-light text-white mb-2">You&apos;re in.</h3>
+                  <p className="text-sm text-white/55">
+                    First briefing lands next week. Welcome to the network.
+                  </p>
+                </motion.div>
+              ) : (
+                <>
+                  <h3 className="text-base font-medium text-white mb-1">Get the weekly briefing</h3>
+                  <p className="text-sm text-white/50 mb-6">Free. Unsubscribe any time.</p>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="intel-name" className="text-xs font-medium uppercase tracking-wider text-white/50">
+                        First name
+                      </label>
+                      <input
+                        id="intel-name"
+                        type="text"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Your name"
+                        className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus-visible:outline-none focus:border-amber focus:ring-1 focus:ring-amber/30 transition-colors"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="intel-email" className="text-xs font-medium uppercase tracking-wider text-white/50">
+                        Email
+                      </label>
+                      <input
+                        id="intel-email"
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus-visible:outline-none focus:border-amber focus:ring-1 focus:ring-amber/30 transition-colors"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-amber px-7 py-3.5 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
+                    >
+                      Subscribe to Intel <ArrowRight size={14} weight="bold" />
+                    </button>
+                  </form>
+                  <p className="mt-4 text-xs text-white/35 text-center">
+                    Focused on BC &amp; Alberta. Powered by Portal.Place.
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function GetInvolved() {
   return (
     <section className="bg-amber py-28 lg:py-36">
@@ -690,6 +829,7 @@ export default function HomePage() {
       <DayInVillage />
       <WhyDifferent />
       <ProofOfProgress />
+      <IntelCTA />
       <GetInvolved />
     </>
   );
