@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { loginWithCredentials, loginWithGoogle } from "@/app/actions/auth";
 import Link from "next/link";
 import { Suspense } from "react";
+import { CardColumn } from "@/components/PromptGridBackground";
 
 function LoginForm() {
   const params = useSearchParams();
@@ -119,10 +120,23 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-darker px-4">
-      <Suspense fallback={null}>
-        <LoginForm />
-      </Suspense>
+    <div className="h-screen flex bg-darker overflow-hidden">
+      {/* Left cards */}
+      <div className="hidden lg:block flex-1 min-w-0 pointer-events-none select-none">
+        <CardColumn side="left" />
+      </div>
+
+      {/* Center form */}
+      <div className="flex-1 lg:flex-none lg:max-w-lg shrink-0 border-x border-white/[0.06] bg-darker overflow-y-auto flex items-center justify-center px-8 py-12">
+        <Suspense fallback={null}>
+          <LoginForm />
+        </Suspense>
+      </div>
+
+      {/* Right cards */}
+      <div className="hidden lg:block flex-1 min-w-0 pointer-events-none select-none">
+        <CardColumn side="right" />
+      </div>
     </div>
   );
 }

@@ -130,9 +130,7 @@ export default async function AccountPage() {
         {/* Billing link */}
         {userData.stripeCustomerId && !isDemo && (
           <a
-            href={`https://billing.stripe.com/p/login/test_xxx?prefilled_email=${userData.email}`}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/api/billing-portal"
             className="inline-block text-xs text-gold hover:text-gold-light transition-colors"
           >
             Manage billing & invoices →
