@@ -277,7 +277,7 @@ function FounderBios() {
             <User size={16} weight="light" className="text-amber" />
             <div className="text-xs font-medium uppercase tracking-[0.2em] text-amber">Combined bio</div>
           </div>
-          <p className="text-sm leading-relaxed text-white/40 max-w-[70ch]">
+          <p className="text-sm leading-relaxed text-white/40 max-w-[55ch]">
             Mike Gilliland and Euvie Ivanova are the creators of Future Thinkers and Portal.Place,
             and the founders of Canada&apos;s first Smart Village project. Over the past decade they&apos;ve
             interviewed global thinkers, built a thriving online community, and developed a visionary

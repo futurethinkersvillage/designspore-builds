@@ -44,7 +44,7 @@ function Marquee() {
       >
         {repeated.map((item, i) => (
           <span key={i} className="inline-flex items-center gap-6 px-8">
-            <span className="text-xs font-medium uppercase tracking-[0.25em] text-white/40">
+            <span className="text-xs font-medium uppercase tracking-[0.25em] text-white/60">
               {item}
             </span>
             <span className="h-1 w-1 rounded-full bg-amber shrink-0" />
@@ -122,7 +122,7 @@ function Hero() {
             RV&apos;s, tiny homes, cabins, programs, and memberships designed for people
             who want a healthier, more connected, future-proof lifestyle.
           </p>
-          <p className="mt-4 text-sm text-white/30">
+          <p className="mt-4 text-sm text-white/50">
             Families &middot; Creators &middot; Regenerative builders &middot; Remote workers &amp; founders &middot; Values-aligned investors.
           </p>
         </motion.div>
@@ -135,7 +135,7 @@ function Hero() {
         >
           <Link
             href="/village"
-            className="text-sm font-medium text-white/40 transition-colors hover:text-white"
+            className="text-sm font-medium text-white/60 transition-colors hover:text-white"
           >
             Visit
           </Link>
@@ -147,7 +147,7 @@ function Hero() {
           </Link>
           <Link
             href="/partner"
-            className="text-sm font-medium text-white/40 transition-colors hover:text-white"
+            className="text-sm font-medium text-white/60 transition-colors hover:text-white"
           >
             Investor &amp; Partner Access
           </Link>
@@ -222,13 +222,13 @@ function CoreIdea() {
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <button className="relative col-span-2 overflow-hidden rounded-2xl cursor-zoom-in" style={{ minHeight: "300px" }} onClick={() => setLightboxIndex(0)}>
+            <button aria-label={`View photo: ${mosaicPhotos[0].alt}`} className="relative col-span-2 overflow-hidden rounded-2xl cursor-zoom-in" style={{ minHeight: "300px" }} onClick={() => setLightboxIndex(0)}>
               <Image src={mosaicPhotos[0].src} alt={mosaicPhotos[0].alt} fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover transition-transform duration-500 hover:scale-105" />
             </button>
-            <button className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(1)}>
+            <button aria-label={`View photo: ${mosaicPhotos[1].alt}`} className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(1)}>
               <Image src={mosaicPhotos[1].src} alt={mosaicPhotos[1].alt} fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover transition-transform duration-500 hover:scale-105" />
             </button>
-            <button className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(2)}>
+            <button aria-label={`View photo: ${mosaicPhotos[2].alt}`} className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(2)}>
               <Image src={mosaicPhotos[2].src} alt={mosaicPhotos[2].alt} fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover transition-transform duration-500 hover:scale-105" />
             </button>
           </div>
@@ -341,6 +341,7 @@ function VillageModel() {
               src="/images/gemini-2e4dc4.png"
               alt="Smart Village concept"
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -404,7 +405,7 @@ function FirstVillage() {
                     {s.value}
                     {s.unit && <span className="ml-1 text-lg text-amber">{s.unit}</span>}
                   </div>
-                  <div className="mt-1.5 text-xs uppercase tracking-wider text-white/25">{s.label}</div>
+                  <div className="mt-1.5 text-xs uppercase tracking-wider text-white/50">{s.label}</div>
                 </div>
               ))}
             </div>
@@ -415,6 +416,7 @@ function FirstVillage() {
               src="/images/swimming-lake-scaled.jpg"
               alt="Private lake at Wells Gray Village"
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E12]/60 to-transparent" />
@@ -482,13 +484,13 @@ function DayInVillage() {
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <button className="relative col-span-2 overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "260px" }} onClick={() => setLightboxIndex(0)}>
+            <button aria-label={`View photo: ${dayPhotos[0].alt}`} className="relative col-span-2 overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "260px" }} onClick={() => setLightboxIndex(0)}>
               <Image src={dayPhotos[0].src} alt={dayPhotos[0].alt} fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover transition-transform duration-500 hover:scale-105" />
             </button>
-            <button className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(1)}>
+            <button aria-label={`View photo: ${dayPhotos[1].alt}`} className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(1)}>
               <Image src={dayPhotos[1].src} alt={dayPhotos[1].alt} fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover transition-transform duration-500 hover:scale-105" />
             </button>
-            <button className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(2)}>
+            <button aria-label={`View photo: ${dayPhotos[2].alt}`} className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(2)}>
               <Image src={dayPhotos[2].src} alt={dayPhotos[2].alt} fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover transition-transform duration-500 hover:scale-105" />
             </button>
           </div>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { List, X } from "@phosphor-icons/react";
 
@@ -36,6 +37,7 @@ const navItems = [
 export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const pathname = usePathname();
 
   return (
     <header className="fixed top-0 z-50 w-full bg-warm-dark/70 backdrop-blur-md border-b border-white/5">
@@ -64,10 +66,15 @@ export function Nav() {
               className="relative"
               onMouseEnter={() => item.children && setOpenDropdown(item.label)}
               onMouseLeave={() => setOpenDropdown(null)}
+              onFocus={() => item.children && setOpenDropdown(item.label)}
+              onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpenDropdown(null); }}
             >
               <Link
                 href={item.href}
-                className="rounded-md px-4 py-2 text-sm text-white/60 transition-colors hover:text-white"
+                aria-current={pathname === item.href ? "page" : undefined}
+                aria-haspopup={item.children ? true : undefined}
+                aria-expanded={item.children ? openDropdown === item.label : undefined}
+                className={`rounded-md px-4 py-2 text-sm transition-colors hover:text-white ${pathname === item.href ? "text-white" : "text-white/60"}`}
               >
                 {item.label}
               </Link>
@@ -88,7 +95,7 @@ export function Nav() {
                           href={child.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block rounded-lg px-4 py-2.5 text-sm text-white/50 transition-colors hover:bg-white/5 hover:text-white"
+                          className="block rounded-lg px-4 py-2.5 text-sm text-white/65 transition-colors hover:bg-white/5 hover:text-white"
                         >
                           {child.label}
                         </a>
@@ -96,7 +103,7 @@ export function Nav() {
                         <Link
                           key={child.href}
                           href={child.href}
-                          className="block rounded-lg px-4 py-2.5 text-sm text-white/50 transition-colors hover:bg-white/5 hover:text-white"
+                          className="block rounded-lg px-4 py-2.5 text-sm text-white/65 transition-colors hover:bg-white/5 hover:text-white"
                         >
                           {child.label}
                         </Link>
@@ -141,7 +148,8 @@ export function Nav() {
                 <div key={item.label}>
                   <Link
                     href={item.href}
-                    className="block py-3 text-base text-white/70 hover:text-white transition-colors"
+                    aria-current={pathname === item.href ? "page" : undefined}
+                    className={`block py-3 text-base transition-colors hover:text-white ${pathname === item.href ? "text-white" : "text-white/70"}`}
                     onClick={() => setMobileOpen(false)}
                   >
                     {item.label}
@@ -153,7 +161,7 @@ export function Nav() {
                         href={child.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block py-2 pl-4 text-sm text-white/35 hover:text-white/70 transition-colors"
+                        className="block border-l border-white/10 ml-2 pl-4 py-2 text-sm text-white/55 hover:text-white transition-colors"
                         onClick={() => setMobileOpen(false)}
                       >
                         {child.label}
@@ -162,7 +170,7 @@ export function Nav() {
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="block py-2 pl-4 text-sm text-white/35 hover:text-white/70 transition-colors"
+                        className="block border-l border-white/10 ml-2 pl-4 py-2 text-sm text-white/55 hover:text-white transition-colors"
                         onClick={() => setMobileOpen(false)}
                       >
                         {child.label}

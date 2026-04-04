@@ -119,7 +119,7 @@ function Hero() {
                   {s.value}
                   <span className="ml-1 text-sm text-amber">{s.unit}</span>
                 </div>
-                <div className="text-xs text-white/30 uppercase tracking-wider mt-1">{s.label}</div>
+                <div className="text-xs text-white/50 uppercase tracking-wider mt-1">{s.label}</div>
               </div>
             ))}
           </div>
@@ -261,6 +261,7 @@ function WorkStayCTA() {
               src="/images/wood-working-building-desk-scaled.jpg"
               alt="Building at the village"
               fill
+              sizes="(max-width: 1024px) 100vw, 42vw"
               className="object-cover"
             />
           </div>
@@ -484,6 +485,8 @@ function FAQ() {
               <div key={i}>
                 <button
                   onClick={() => setOpen(open === i ? null : i)}
+                  aria-expanded={open === i}
+                  aria-controls={`faq-answer-${i}`}
                   className="flex w-full items-center justify-between py-6 text-left cursor-pointer"
                 >
                   <span className="text-sm font-medium text-white pr-4">{faq.q}</span>
@@ -500,6 +503,7 @@ function FAQ() {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.2 }}
+                      id={`faq-answer-${i}`}
                       className="overflow-hidden"
                     >
                       <p className="pb-6 text-sm leading-relaxed text-white/40">{faq.a}</p>

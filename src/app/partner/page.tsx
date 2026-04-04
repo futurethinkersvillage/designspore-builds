@@ -244,6 +244,7 @@ function WhatExists() {
                 src="/images/wells-gray-golf-rv-06-1024x685.jpg"
                 alt="Wells Gray Village property"
                 fill
+                sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"
               />
             </div>
@@ -520,7 +521,7 @@ function RequestAccess() {
                   </label>
                   <input
                     type="text"
-                    className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors"
+                    className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus-visible:outline-none focus:border-amber focus:ring-1 focus:ring-amber/30 transition-colors"
                     placeholder="James"
                   />
                 </div>
@@ -530,7 +531,7 @@ function RequestAccess() {
                   </label>
                   <input
                     type="text"
-                    className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors"
+                    className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus-visible:outline-none focus:border-amber focus:ring-1 focus:ring-amber/30 transition-colors"
                     placeholder="Novotný"
                   />
                 </div>
@@ -541,7 +542,7 @@ function RequestAccess() {
                 </label>
                 <input
                   type="email"
-                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors"
+                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus-visible:outline-none focus:border-amber focus:ring-1 focus:ring-amber/30 transition-colors"
                   placeholder="james@example.com"
                 />
               </div>
@@ -551,7 +552,7 @@ function RequestAccess() {
                 </label>
                 <input
                   type="text"
-                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors"
+                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus-visible:outline-none focus:border-amber focus:ring-1 focus:ring-amber/30 transition-colors"
                   placeholder="Fund name, company, or role"
                 />
               </div>
@@ -561,7 +562,7 @@ function RequestAccess() {
                 </label>
                 <textarea
                   rows={3}
-                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors resize-none"
+                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus-visible:outline-none focus:border-amber focus:ring-1 focus:ring-amber/30 transition-colors resize-none"
                   placeholder="Your investment focus, what excites you about Smart Villages, any relevant context..."
                 />
               </div>

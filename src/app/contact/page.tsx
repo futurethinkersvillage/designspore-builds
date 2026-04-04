@@ -58,6 +58,7 @@ function MikeSection() {
               src="/images/whatsapp-image-2023-04-17-at-7.56.02-pm-e1682551976380-q5lr8rk29co7jik4bsv2kxcsei9qedfve65zflydz8.jpeg"
               alt="Mike Gilliland"
               fill
+              sizes="(max-width: 1024px) 100vw, 33vw"
               className="object-cover"
             />
           </motion.div>
@@ -100,7 +101,7 @@ function MikeSection() {
               </div>
             </div>
 
-            <p className="text-base leading-relaxed text-white/45 max-w-[52ch]">
+            <p className="text-base leading-relaxed text-white/60 max-w-[52ch]">
               Mike Gilliland works at the intersection of regenerative community
               development, technology, and storytelling. His ventures include a
               media platform exploring societal futures, a global network of Smart
@@ -171,7 +172,7 @@ function ContactMethods() {
                     <div className="text-sm font-medium text-white">
                       {method.label}
                     </div>
-                    <div className="text-xs text-white/30 mt-0.5">
+                    <div className="text-xs text-white/55 mt-0.5">
                       {method.detail}
                     </div>
                   </div>
@@ -180,7 +181,7 @@ function ContactMethods() {
                   href={method.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-white/40 transition-all hover:text-amber hover:gap-3"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white/60 transition-all hover:text-amber hover:bg-white/5 hover:gap-3"
                 >
                   {method.action} <ArrowUpRight size={13} />
                 </a>

@@ -20,6 +20,7 @@ function Hero() {
           alt="Mike and Euvie at Portal.Place"
           fill
           priority
+          sizes="100vw"
           className="object-cover opacity-30"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-warm-dark via-warm-dark/60 to-transparent" />
