@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import PhotoGrid from "@/components/ui/PhotoGrid";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -453,21 +454,14 @@ function AboutCredentials() {
           </div>
 
           {/* Image grid */}
-          <div className="grid grid-cols-2 gap-3">
-            {images.map((img) => (
-              <div
-                key={img.src}
-                className="relative overflow-hidden rounded-xl aspect-square"
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
+          <PhotoGrid
+            photos={images}
+            cols="grid-cols-2"
+            gap="gap-3"
+            sizes="(max-width: 1024px) 50vw, 33vw"
+            rounded="rounded-xl"
+            staggerMod={2}
+          />
         </div>
       </div>
     </section>

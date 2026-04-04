@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import PhotoGrid from "@/components/ui/PhotoGrid";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -345,20 +346,11 @@ function TheLand() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-          {images.map((img, i) => (
-            <motion.div
-              key={img.src}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-20px" }}
-              transition={{ delay: (i % 4) * 0.05, duration: 0.4 }}
-              className="relative aspect-square overflow-hidden rounded-lg"
-            >
-              <Image src={img.src} alt={img.alt} fill className="object-cover transition-transform duration-500 hover:scale-105" />
-            </motion.div>
-          ))}
-        </div>
+        <PhotoGrid
+          photos={images}
+          cols="grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        />
       </div>
     </section>
   );

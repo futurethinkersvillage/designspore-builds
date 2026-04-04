@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import PhotoGrid from "@/components/ui/PhotoGrid";
 import {
   ArrowRight,
   Users,
@@ -108,25 +109,14 @@ function ItBeganWithAQuestion() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            {photos.map((photo, i) => (
-              <motion.div
-                key={photo.src}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="relative aspect-square overflow-hidden rounded-2xl"
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-            ))}
-          </div>
+          <PhotoGrid
+            photos={photos}
+            cols="grid-cols-2"
+            gap="gap-3"
+            sizes="(max-width: 1024px) 50vw, 33vw"
+            rounded="rounded-2xl"
+            staggerMod={2}
+          />
         </div>
       </div>
     </section>
@@ -181,25 +171,14 @@ function NomadicLearning() {
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
-            {photos.map((photo, i) => (
-              <motion.div
-                key={photo.src}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
-                className="relative aspect-square overflow-hidden rounded-2xl"
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-            ))}
-          </div>
+          <PhotoGrid
+            photos={photos}
+            cols="grid-cols-3"
+            gap="gap-3"
+            sizes="(max-width: 1024px) 33vw, 25vw"
+            rounded="rounded-2xl"
+            staggerMod={3}
+          />
         </div>
       </div>
     </section>

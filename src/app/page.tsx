@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import Lightbox from "@/components/ui/Lightbox";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -166,6 +168,12 @@ function CoreIdea() {
     "Shared systems support skills development, learning, and cooperation",
     "A membership community connected by a shared culture",
   ];
+  const mosaicPhotos = [
+    { src: "/images/many_people_sitting_202512032320-1024x576.jpeg", alt: "Community gathering at Portal.Place" },
+    { src: "/images/gazebo-interior-campfire-1024x771.jpg", alt: "Campfire evening at the gazebo" },
+    { src: "/images/dome-at-night-scaled.jpg", alt: "Geodesic dome at night" },
+  ];
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   return (
     <section className="bg-warm-dark py-28 lg:py-36">
@@ -214,33 +222,19 @@ function CoreIdea() {
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="relative col-span-2 overflow-hidden rounded-2xl" style={{ minHeight: "300px" }}>
-              <Image
-                src="/images/many_people_sitting_202512032320-1024x576.jpeg"
-                alt="Community gathering at Portal.Place"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "200px" }}>
-              <Image
-                src="/images/gazebo-interior-campfire-1024x771.jpg"
-                alt="Campfire evening at the gazebo"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "200px" }}>
-              <Image
-                src="/images/dome-at-night-scaled.jpg"
-                alt="Geodesic dome at night"
-                fill
-                className="object-cover"
-              />
-            </div>
+            <button className="relative col-span-2 overflow-hidden rounded-2xl cursor-zoom-in" style={{ minHeight: "300px" }} onClick={() => setLightboxIndex(0)}>
+              <Image src={mosaicPhotos[0].src} alt={mosaicPhotos[0].alt} fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover transition-transform duration-500 hover:scale-105" />
+            </button>
+            <button className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(1)}>
+              <Image src={mosaicPhotos[1].src} alt={mosaicPhotos[1].alt} fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover transition-transform duration-500 hover:scale-105" />
+            </button>
+            <button className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(2)}>
+              <Image src={mosaicPhotos[2].src} alt={mosaicPhotos[2].alt} fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover transition-transform duration-500 hover:scale-105" />
+            </button>
           </div>
         </div>
       </div>
+      <Lightbox images={mosaicPhotos} index={lightboxIndex} onClose={() => setLightboxIndex(null)} onNavigate={setLightboxIndex} />
     </section>
   );
 }
@@ -447,6 +441,12 @@ function FirstVillage() {
 }
 
 function DayInVillage() {
+  const dayPhotos = [
+    { src: "/images/cabins-scaled.jpg", alt: "Village cabins" },
+    { src: "/images/gazebo-community-meetup-scaled.jpg", alt: "Community meetup" },
+    { src: "/images/campfire-in-gazebo-scaled.jpg", alt: "Campfire evening" },
+  ];
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   return (
     <section className="bg-warm-dark py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
@@ -482,18 +482,19 @@ function DayInVillage() {
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="relative col-span-2 overflow-hidden rounded-xl" style={{ minHeight: "260px" }}>
-              <Image src="/images/cabins-scaled.jpg" alt="Village cabins" fill className="object-cover" />
-            </div>
-            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "200px" }}>
-              <Image src="/images/gazebo-community-meetup-scaled.jpg" alt="Community meetup" fill className="object-cover" />
-            </div>
-            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "200px" }}>
-              <Image src="/images/campfire-in-gazebo-scaled.jpg" alt="Campfire evening" fill className="object-cover" />
-            </div>
+            <button className="relative col-span-2 overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "260px" }} onClick={() => setLightboxIndex(0)}>
+              <Image src={dayPhotos[0].src} alt={dayPhotos[0].alt} fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover transition-transform duration-500 hover:scale-105" />
+            </button>
+            <button className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(1)}>
+              <Image src={dayPhotos[1].src} alt={dayPhotos[1].alt} fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover transition-transform duration-500 hover:scale-105" />
+            </button>
+            <button className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(2)}>
+              <Image src={dayPhotos[2].src} alt={dayPhotos[2].alt} fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover transition-transform duration-500 hover:scale-105" />
+            </button>
           </div>
         </div>
       </div>
+      <Lightbox images={dayPhotos} index={lightboxIndex} onClose={() => setLightboxIndex(null)} onNavigate={setLightboxIndex} />
     </section>
   );
 }
