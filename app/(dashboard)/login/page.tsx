@@ -127,7 +127,7 @@ export default function LoginPage() {
       </div>
 
       {/* Center form */}
-      <div className="flex-1 lg:flex-none lg:max-w-2xl shrink-0 border-x border-white/[0.06] bg-darker overflow-y-auto flex items-center justify-center px-12 py-12">
+      <div className="flex-1 lg:flex-none lg:w-[38%] shrink-0 border-x border-white/[0.06] bg-darker overflow-y-auto flex items-center justify-center px-12 py-12">
         <Suspense fallback={null}>
           <LoginForm />
         </Suspense>
