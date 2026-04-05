@@ -65,59 +65,41 @@ function Hero() {
 }
 
 function ItBeganWithAQuestion() {
-  const photos = [
-    { src: "/images/about-travel-1.jpg", alt: "Early travels" },
-    { src: "/images/about-travel-2.jpg", alt: "Exploring the world" },
-    { src: "/images/76747423_10163561173205725_3017674924459294720_n-1024x577.jpg", alt: "Mike and Euvie" },
-    { src: "/images/about-travel-3.jpg", alt: "On the road" },
-  ];
-
   return (
     <section className="bg-[#0F0E12] py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
-              The beginning
+        <div className="max-w-3xl">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+            The beginning
+          </p>
+          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl mb-10">
+            It began with<br />
+            <span className="italic">a question</span>
+          </h2>
+          <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+            <p className="text-lg leading-relaxed text-white/60 italic font-serif">
+              How do humans live well — really live well — in a world changing this fast?
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl mb-10">
-              It began with<br />
-              <span className="italic">a question</span>
-            </h2>
-            <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[52ch]">
-              <p className="text-lg leading-relaxed text-white/60 italic font-serif">
-                How do humans live well — really live well — in a world changing this fast?
-              </p>
-              <p>
-                We (Euvie and Mike) met in Vancouver in our early 20s. We were
-                freelancing in creative industries – Mike as a recording engineer
-                and lighting technician on film sets, Euvie as a photographer and
-                actress.
-              </p>
-              <p>
-                We were curious, restless, and painfully aware that modern life —
-                despite convenience and comfort — was making people lonely,
-                disconnected, stressed, and numb to each other and to nature.
-              </p>
-              <p>
-                So we started an online content creation service, and we left.
-                Backpacks and one-way tickets with no plan beyond listening for
-                what mattered.
-              </p>
-              <p className="text-white/60 font-medium">
-                That decision changed everything.
-              </p>
-            </div>
+            <p>
+              We (Euvie and Mike) met in Vancouver in our early 20s. We were
+              freelancing in creative industries – Mike as a recording engineer
+              and lighting technician on film sets, Euvie as a photographer and
+              actress.
+            </p>
+            <p>
+              We were curious, restless, and painfully aware that modern life —
+              despite convenience and comfort — was making people lonely,
+              disconnected, stressed, and numb to each other and to nature.
+            </p>
+            <p>
+              So we started an online content creation service, and we left.
+              Backpacks and one-way tickets with no plan beyond listening for
+              what mattered.
+            </p>
+            <p className="text-white/60 font-medium">
+              That decision changed everything.
+            </p>
           </div>
-
-          <PhotoGrid
-            photos={photos}
-            cols="grid-cols-2"
-            gap="gap-3"
-            sizes="(max-width: 1024px) 50vw, 33vw"
-            rounded="rounded-2xl"
-            staggerMod={2}
-          />
         </div>
       </div>
     </section>
@@ -126,10 +108,14 @@ function ItBeganWithAQuestion() {
 
 function NomadicLearning() {
   const photos = [
+    { src: "/images/76747423_10163561173205725_3017674924459294720_n-1024x577.jpg", alt: "Mike and Euvie traveling" },
     { src: "/images/ft-podcast-cover.jpg", alt: "Future Thinkers Podcast" },
     { src: "/images/about-nomad-1.jpg", alt: "Nomadic life" },
+    { src: "/images/about-travel-1.jpg", alt: "Early travels" },
     { src: "/images/about-nomad-2.jpg", alt: "Exploring cultures" },
+    { src: "/images/about-travel-2.jpg", alt: "Exploring the world" },
     { src: "/images/about-nomad-3.jpg", alt: "Building community abroad" },
+    { src: "/images/about-travel-3.jpg", alt: "On the road" },
     { src: "/images/about-nomad-4.jpg", alt: "Learning freely" },
     { src: "/images/about-nomad-5.jpg", alt: "A decade of travel" },
   ];

@@ -479,6 +479,244 @@ function Phases() {
   );
 }
 
+function Team() {
+  const members = [
+    {
+      name: "Mike Gilliland",
+      role: "Co-founder · Operations & Strategy",
+      src: "/images/gemini_generated_image_j883fhj883fhj883.png",
+    },
+    {
+      name: "Euvie Ivanova",
+      role: "Co-founder · Media & Community",
+      src: "/images/beautyplus_20240811124204769_save-edit-edit-edit-1-1024x1024.jpg",
+    },
+    {
+      name: "Gordon Cory",
+      role: "Advisor",
+      src: "/images/gordon-cory.jpg",
+    },
+    {
+      name: "Dean Clifford",
+      role: "Advisor",
+      src: "/images/306360633_102513715948004_2535655262561801205_n-768x1024.jpg",
+    },
+  ];
+
+  return (
+    <section className="bg-warm-dark py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="mb-16">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
+            The team
+          </p>
+          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            Who&apos;s behind<br />
+            <span className="italic">the project</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+          {members.map((m, i) => (
+            <motion.div
+              key={m.name}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: i * 0.08, duration: 0.45 }}
+              className="text-center"
+            >
+              <div className="relative mx-auto mb-5 h-40 w-40 overflow-hidden rounded-full">
+                <Image
+                  src={m.src}
+                  alt={m.name}
+                  fill
+                  sizes="160px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="text-sm font-medium text-white">{m.name}</div>
+              <div className="mt-1 text-xs text-white/35">{m.role}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Organizations() {
+  const orgs = [
+    {
+      name: "Future Thinkers",
+      src: "/images/ftp-blue-logo-light-1.png",
+    },
+    {
+      name: "Design Spore",
+      src: "/images/designspore-logo-with-text-1024x1024.png",
+    },
+    {
+      name: "Wells Gray Resort",
+      src: "/images/wells-gray-resort-logo-green-vertical-1024x983.png",
+    },
+    {
+      name: "Portal.Place",
+      src: "/images/portalplace-logo-vertical-white-738x1024.png",
+    },
+  ];
+
+  return (
+    <section className="bg-[#0F0E12] py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="mb-16">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
+            Ecosystem
+          </p>
+          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            Our<br />
+            <span className="italic">organizations</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 gap-12 lg:grid-cols-4">
+          {orgs.map((org, i) => (
+            <motion.div
+              key={org.name}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: i * 0.08, duration: 0.45 }}
+              className="flex flex-col items-center"
+            >
+              <div className="relative h-28 w-full">
+                <Image
+                  src={org.src}
+                  alt={org.name}
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  className="object-contain"
+                />
+              </div>
+              <div className="mt-4 text-xs text-white/40">{org.name}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Foundation() {
+  return (
+    <section className="bg-warm-dark py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_38%] items-center">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
+              Non-profit arm
+            </p>
+            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+              The<br />
+              <span className="italic">Foundation</span>
+            </h2>
+            <p className="mt-8 text-sm leading-relaxed text-white/40 max-w-[48ch]">
+              The Future Thinkers Foundation supports education, research, and
+              community development aligned with Smart Village principles —
+              ensuring the long-term mission stays rooted in public benefit.
+            </p>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center justify-center"
+          >
+            <div className="relative h-32 w-64">
+              <Image
+                src="/images/ftp-blue-logo-dark.png"
+                alt="Future Thinkers Foundation"
+                fill
+                sizes="256px"
+                className="object-contain"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StrategicPartnerships() {
+  const partners = [
+    {
+      name: "Carbide 3D",
+      src: "/images/1737499346-d7bca4e8d7918c0c31e43aaf3be9e77e1d07103be327cbcee29d4ce31df5d142-d-300x286.png",
+    },
+    {
+      name: "xTool",
+      src: "/images/xtool-logo-01-300x300.png",
+    },
+    {
+      name: "Wells Gray Resort",
+      src: "/images/wells-gray-resort-logo-green-vertical-300x288.png",
+    },
+    {
+      name: "Design Spore",
+      src: "/images/designspore-logo-with-text-300x300.png",
+    },
+    {
+      name: "Future Thinkers",
+      src: "/images/ftp-blue-logo-light-1-300x195.png",
+    },
+    {
+      name: "HypeDome",
+      src: "/images/hypedome_logo_color-2-300x300.png",
+    },
+  ];
+
+  return (
+    <section className="bg-[#0F0E12] py-28 lg:py-36">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="mb-16">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
+            Collaborators
+          </p>
+          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            Strategic &amp; corporate<br />
+            <span className="italic">partnerships</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-3 gap-10 lg:grid-cols-6 items-center">
+          {partners.map((p, i) => (
+            <motion.div
+              key={p.name}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: i * 0.06, duration: 0.4 }}
+              className="flex items-center justify-center"
+            >
+              <div className="relative h-20 w-full">
+                <Image
+                  src={p.src}
+                  alt={p.name}
+                  fill
+                  sizes="(max-width: 1024px) 33vw, 16vw"
+                  className="object-contain opacity-60 transition-opacity hover:opacity-100"
+                />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function RequestAccess() {
   return (
     <section id="access" className="bg-amber py-28 lg:py-36">
@@ -592,6 +830,10 @@ export default function PartnerPage() {
       <WhyNow />
       <RevenueStreams />
       <Phases />
+      <Team />
+      <Organizations />
+      <Foundation />
+      <StrategicPartnerships />
       <RequestAccess />
     </>
   );

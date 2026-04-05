@@ -144,13 +144,13 @@ function ThreeOrgs() {
       name: "Future Thinkers",
       type: "Media platform & global community",
       description: "A podcast and global community exploring the future of civilization through technology, consciousness, systems thinking, and culture design. Over a decade, it has reached millions of listeners and featured hundreds of thinkers and innovators worldwide. Provides the narrative and intellectual backbone behind the community building work.",
-      logo: "/images/ftp-blue-logo-dark.png",
+      logo: "/images/future-thinkers-logo-wide-dark-and-blue.png",
     },
     {
       name: "Wells Gray Resort / Village",
       type: "Operating property near Clearwater, BC",
       description: "A 400-acre resort and seasonal village at the gateway to Wells Gray Provincial Park — known for 40+ waterfalls, hiking, horseback riding, canoeing, and whitewater rafting. Operating since 2019 as Wells Gray Resort, now being developed into the first Portal.Place village.",
-      logo: null,
+      logo: "/images/logo-green-horizontal.png",
     },
     {
       name: "Design Spore",
@@ -228,13 +228,13 @@ function FounderBios() {
               name: "Mike Gilliland",
               title: "Designer, Entrepreneur, Village Builder, Podcaster — CEO & Co-Founder",
               shortBio: "Mike Gilliland is a futurist and storyteller who spent the last decade exploring how humans can live well in a world transformed by AI, automation, and ecological change. He co-founded Future Thinkers — a podcast that has reached millions globally — with his wife Euvie Ivanova. In 2020, Mike moved to a 400-acre property in the BC mountains to build Canada's first Smart Village prototype, developing practical expertise in land, infrastructure, AI systems, and community design. He now leads design, technology, strategy, and Village OS development at Portal.Place.",
-              img: "/images/mike-and-euvie-headshot.jpg",
+              img: "/images/whatsapp-image-2023-04-17-at-7.56.02-pm-e1682551976380-q5lr8rk29co7jik4bsv2kxcsei9qedfve65zflydz8.jpeg",
             },
             {
               name: "Euvie Ivanova",
               title: "Educator, Writer, Village Builder, Podcaster — Co-Founder",
               shortBio: "Euvie Ivanova is a cultural creator and network weaver dedicated to developing healthier ways for people to live, learn, and grow. She focuses on how communities can raise children, support families, revive ancestral knowledge, and cultivate cultures that reconnect people to land and purpose. Raised in rural Russia and Bulgaria during the USSR collapse, she studied psychology at UBC and the University of Copenhagen before spending a decade of international exploration with Mike. Her commitment to village building deepened through motherhood and the co-creation of Canada's first Smart Village prototype.",
-              img: "/images/the_woman_in_202512041426-1024x576.jpeg",
+              img: "/images/beautyplus_20240811124204769_save-edit-edit-edit-1-scaled-rf3sxtz31356maoyexbh07ujktox47a6yhfitjiq84.jpg",
             },
           ].map((founder, i) => (
             <motion.div
@@ -273,16 +273,28 @@ function FounderBios() {
           transition={{ duration: 0.5 }}
           className="mt-px bg-[#0F0E12] border-t border-white/10 p-8"
         >
-          <div className="flex items-center gap-2 mb-4">
-            <User size={16} weight="light" className="text-amber" />
-            <div className="text-xs font-medium uppercase tracking-[0.2em] text-amber">Combined bio</div>
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "200px" }}>
+              <Image
+                src="/images/mike-and-euvie-headshot.jpg"
+                alt="Mike Gilliland and Euvie Ivanova"
+                fill
+                className="object-cover object-top"
+              />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <User size={16} weight="light" className="text-amber" />
+                <div className="text-xs font-medium uppercase tracking-[0.2em] text-amber">Combined bio</div>
+              </div>
+              <p className="text-sm leading-relaxed text-white/40 max-w-[55ch]">
+                Mike Gilliland and Euvie Ivanova are the creators of Future Thinkers and Portal.Place,
+                and the founders of Canada&apos;s first Smart Village project. Over the past decade they&apos;ve
+                interviewed global thinkers, built a thriving online community, and developed a visionary
+                real-world village in BC that blends wellness, technology, culture, and regenerative design.
+              </p>
+            </div>
           </div>
-          <p className="text-sm leading-relaxed text-white/40 max-w-[55ch]">
-            Mike Gilliland and Euvie Ivanova are the creators of Future Thinkers and Portal.Place,
-            and the founders of Canada&apos;s first Smart Village project. Over the past decade they&apos;ve
-            interviewed global thinkers, built a thriving online community, and developed a visionary
-            real-world village in BC that blends wellness, technology, culture, and regenerative design.
-          </p>
         </motion.div>
       </div>
     </section>
@@ -330,8 +342,14 @@ function BrandAssets() {
               dark: false,
             },
             {
-              label: "Wells Gray Resort",
-              preview: "/images/wells-gray-resort-logo-green-vertical-1024x983.png",
+              label: "Wells Gray Resort — Horizontal",
+              preview: "/images/logo-green-horizontal.png",
+              bg: "bg-warm-dark",
+              dark: true,
+            },
+            {
+              label: "Wells Gray Resort — Vertical",
+              preview: "/images/wells-gray-resort-logo-green-vertical-scaled.png",
               bg: "bg-warm-dark",
               dark: true,
             },

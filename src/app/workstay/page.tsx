@@ -204,36 +204,42 @@ function Roles() {
       n: "01",
       label: "Village Operations & Guest Experience",
       body: "You help keep the campsite and small golf course running smoothly \u2014 check-ins, guest support, cleaning, simple admin, and making sure shared spaces feel welcoming and organized.",
+      image: "/images/a_young_camphost_202512041422-1024x576.jpeg",
     },
     {
       icon: Leaf,
       n: "02",
       label: "Land, Grounds & Maintenance Steward",
       body: "You maintain the physical environment \u2014 firepits, signage, facilities, repairs, mowing, trails, and general upkeep.",
+      image: "/images/remove_the_reserved_202512032320-1024x576.jpeg",
     },
     {
       icon: Wrench,
       n: "03",
       label: "Builder / Maker / Fabrication Lead",
       body: "You help build cabins, domes, platforms, small structures, and eventually operate the CNC/makerspace setup.",
+      image: "/images/bf57b989-df81-4b14-8435-046dec6e4fb1-1024x576.jpg",
     },
     {
       icon: Monitor,
       n: "04",
       label: "Tech & Village AI Systems",
       body: "You help to set up and maintain the village\u2019s tech layer \u2014 internet, sensors, comms, walkie system, simple dashboards, and experimental AI-assisted workflows.",
+      image: "/images/ffec9020-31b4-440a-bf8f-c25af6a392b9-1024x576.jpg",
     },
     {
       icon: Camera,
       n: "05",
       label: "Media, Story & Events Producer",
       body: "You film, photograph, document builds, create engaging short-form content.",
+      image: "/images/a_person_filming_202512032314-1024x576.jpeg",
     },
     {
       icon: Users,
       n: "06",
       label: "Community & Culture Weaver",
       body: "You help shape the rhythms of village life \u2014 helping with hosting events, coordinating between team and guests.",
+      image: "/images/many_people_sitting_202512032320-1024x576.jpeg",
     },
   ];
 
@@ -260,6 +266,14 @@ function Roles() {
               transition={{ delay: (i % 3) * 0.07, duration: 0.4 }}
               className="bg-warm-dark p-7"
             >
+              <div className="relative w-full aspect-video mb-5 overflow-hidden rounded-md">
+                <Image
+                  src={role.image}
+                  alt={role.label}
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <div className="flex items-center gap-3 mb-4">
                 <role.icon size={18} weight="light" className="text-amber" />
                 <span className="font-mono text-xs text-amber/50">{role.n}</span>

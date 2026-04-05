@@ -62,12 +62,12 @@ function Hero() {
   return (
     <section className="relative min-h-[100dvh] bg-warm-dark">
       <div className="absolute inset-0">
-        <Image
-          src="/images/wells-gray-golf-rv-06-1024x685.jpg"
-          alt="Wells Gray Village"
-          fill
-          priority
-          className="object-cover opacity-25"
+        <iframe
+          src="https://www.youtube.com/embed/mcvW_CWry3g?autoplay=1&mute=1&loop=1&playlist=mcvW_CWry3g&controls=0&showinfo=0&modestbranding=1&playsinline=1"
+          title="Smart Village aerial view"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          className="absolute inset-0 h-full w-full scale-150 pointer-events-none"
+          style={{ filter: "brightness(0.3)" }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-warm-dark via-warm-dark/60 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-warm-dark/70 to-transparent" />
@@ -181,22 +181,18 @@ function CoreIdea() {
   return (
     <section className="bg-warm-dark py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="mb-20 grid grid-cols-1 gap-4 lg:grid-cols-[1fr_45%]">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
-              The Core Idea
-            </p>
-            <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl">
-              A Network of Villages<br />
-              <span className="italic">For The Post-Ai World</span>
-            </h2>
-          </div>
-          <div className="flex items-end">
-            <p className="text-sm leading-relaxed text-white/40 max-w-[45ch]">
-              We are starting with our existing 400-acre flagship village site in BC,
-              Canada – and adding partner locations with time.
-            </p>
-          </div>
+        <div className="mb-16">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+            The Core Idea
+          </p>
+          <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl">
+            A Network of Villages<br />
+            <span className="italic">For The Post-Ai World</span>
+          </h2>
+          <p className="mt-6 text-sm leading-relaxed text-white/40 max-w-[52ch]">
+            We are starting with our existing 400-acre flagship village site in BC,
+            Canada – and adding partner locations with time.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
@@ -269,21 +265,19 @@ function WhyNow() {
           </p>
         </div>
 
-        <div className="divide-y divide-white/10 border-y border-white/10">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {areas.map((a, i) => (
             <motion.div
               key={a.label}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ delay: i * 0.06, duration: 0.5 }}
-              className="grid grid-cols-1 gap-4 py-7 lg:grid-cols-[14rem_1fr] lg:items-center"
+              transition={{ delay: (i % 3) * 0.06, duration: 0.5 }}
+              className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-6"
             >
-              <div className="flex items-center gap-4">
-                <a.icon size={16} weight="light" className="text-amber shrink-0" />
-                <span className="text-sm font-medium text-white">{a.label}</span>
-              </div>
-              <p className="text-sm leading-relaxed text-white/40 max-w-[55ch]">{a.body}</p>
+              <a.icon size={18} weight="light" className="text-amber mb-4" />
+              <div className="text-sm font-medium text-white mb-2">{a.label}</div>
+              <p className="text-sm leading-relaxed text-white/45">{a.body}</p>
             </motion.div>
           ))}
         </div>
@@ -339,14 +333,19 @@ function VillageModel() {
             </p>
           </div>
 
-          <div className="relative overflow-hidden rounded-2xl" style={{ minHeight: "500px" }}>
-            <Image
-              src="/images/gemini-2e4dc4.png"
-              alt="Smart Village concept"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
+          <div className="grid grid-cols-2 gap-3">
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "240px" }}>
+              <Image src="/images/gazebo-campfire.png" alt="Gazebo campfire" fill sizes="25vw" className="object-cover" />
+            </div>
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "240px" }}>
+              <Image src="/images/sauna-in-winter-scaled.jpg" alt="Sauna in winter" fill sizes="25vw" className="object-cover" />
+            </div>
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "240px" }}>
+              <Image src="/images/camper-daytime-scaled.jpg" alt="RV living" fill sizes="25vw" className="object-cover" />
+            </div>
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "240px" }}>
+              <Image src="/images/disc-golf-tournament-scaled.jpg" alt="Disc golf tournament" fill sizes="25vw" className="object-cover" />
+            </div>
           </div>
         </div>
       </div>
@@ -414,29 +413,37 @@ function FirstVillage() {
             </div>
           </div>
 
-          <div className="relative overflow-hidden rounded-2xl" style={{ minHeight: "500px" }}>
-            <Image
-              src="/images/swimming-lake-scaled.jpg"
-              alt="Private lake at Wells Gray Village"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E12]/60 to-transparent" />
-            <div className="absolute bottom-6 left-6 flex flex-wrap gap-2">
-              {[
-                { icon: TreeEvergreen, label: "Forest trails" },
-                { icon: Waves, label: "Private lake" },
-                { icon: Mountains, label: "Sauna" },
-                { icon: Golf, label: "9-hole golf" },
-                { icon: Wrench, label: "Maker space" },
-                { icon: Campfire, label: "Campfire" },
-              ].map((item) => (
-                <div key={item.label} className="flex items-center gap-1.5 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm px-3 py-1.5">
-                  <item.icon size={11} weight="light" className="text-amber" />
-                  <span className="text-xs text-white/60">{item.label}</span>
-                </div>
-              ))}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="relative col-span-2 overflow-hidden rounded-xl" style={{ minHeight: "260px" }}>
+              <Image src="/images/swimming-lake-scaled.jpg" alt="Private lake at Wells Gray Village" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E12]/40 to-transparent" />
+              <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
+                {[
+                  { icon: TreeEvergreen, label: "Forest trails" },
+                  { icon: Waves, label: "Private lake" },
+                  { icon: Mountains, label: "Sauna" },
+                  { icon: Golf, label: "9-hole golf" },
+                  { icon: Wrench, label: "Maker space" },
+                  { icon: Campfire, label: "Campfire" },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center gap-1.5 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm px-2.5 py-1">
+                    <item.icon size={10} weight="light" className="text-amber" />
+                    <span className="text-[11px] text-white/60">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "180px" }}>
+              <Image src="/images/dome-at-night-scaled.jpg" alt="Geodesic dome at night" fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover" />
+            </div>
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "180px" }}>
+              <Image src="/images/gazebo-interior-scaled.jpg" alt="Gazebo interior" fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover" />
+            </div>
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "180px" }}>
+              <Image src="/images/cabin-scaled.jpg" alt="Cabin" fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover" />
+            </div>
+            <div className="relative overflow-hidden rounded-xl" style={{ minHeight: "180px" }}>
+              <Image src="/images/the-creek-scaled.jpg" alt="The creek" fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover" />
             </div>
           </div>
         </div>
@@ -488,7 +495,7 @@ function DayInVillage() {
 
           <div className="grid grid-cols-2 gap-3">
             <button aria-label={`View photo: ${dayPhotos[0].alt}`} className="relative col-span-2 overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "260px" }} onClick={() => setLightboxIndex(0)}>
-              <Image src={dayPhotos[0].src} alt={dayPhotos[0].alt} fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover transition-transform duration-500 hover:scale-105" />
+              <Image src={dayPhotos[0].src} alt={dayPhotos[0].alt} fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover object-bottom transition-transform duration-500 hover:scale-105" />
             </button>
             <button aria-label={`View photo: ${dayPhotos[1].alt}`} className="relative overflow-hidden rounded-xl cursor-zoom-in" style={{ minHeight: "200px" }} onClick={() => setLightboxIndex(1)}>
               <Image src={dayPhotos[1].src} alt={dayPhotos[1].alt} fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover transition-transform duration-500 hover:scale-105" />

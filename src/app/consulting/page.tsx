@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import PhotoGrid from "@/components/ui/PhotoGrid";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -151,22 +150,31 @@ function WhyWorkWithUs() {
             <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[48ch]">
               What most projects lack:
             </p>
+
+            <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
+              {gaps.map((item, i) => (
+                <motion.div
+                  key={item}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ delay: i * 0.06, duration: 0.4 }}
+                  className="flex items-center gap-4 py-5"
+                >
+                  <div className="h-1.5 w-1.5 rounded-full bg-amber shrink-0" />
+                  <span className="text-sm text-white/60">{item}</span>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
-          <div className="divide-y divide-white/10 border-y border-white/10">
-            {gaps.map((item, i) => (
-              <motion.div
-                key={item}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: i * 0.06, duration: 0.4 }}
-                className="flex items-center gap-4 py-5"
-              >
-                <div className="h-1.5 w-1.5 rounded-full bg-amber shrink-0" />
-                <span className="text-sm text-white/60">{item}</span>
-              </motion.div>
-            ))}
+          <div className="relative aspect-square overflow-hidden rounded-xl">
+            <Image
+              src="/images/106547744_10165033448205725_3967614752782880468_n-1024x1024.jpg"
+              alt="Mike Gilliland — Smart Village Consulting"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
       </div>
@@ -326,50 +334,61 @@ function VideoCallFormat() {
         </div>
 
         <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
-          {/* Typical session */}
-          <div>
-            <h3 className="text-sm font-medium uppercase tracking-wider text-white mb-6">
-              Typical Session
-            </h3>
-            <div className="divide-y divide-white/10 border-y border-white/10">
-              {sessionItems.map((item, i) => (
-                <motion.div
-                  key={item}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ delay: i * 0.06, duration: 0.4 }}
-                  className="flex items-center gap-4 py-4"
-                >
-                  <div className="font-mono text-xs text-amber/60">
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <span className="text-sm text-white/60">{item}</span>
-                </motion.div>
-              ))}
+          <div className="space-y-12">
+            {/* Typical session */}
+            <div>
+              <h3 className="text-sm font-medium uppercase tracking-wider text-white mb-6">
+                Typical Session
+              </h3>
+              <div className="divide-y divide-white/10 border-y border-white/10">
+                {sessionItems.map((item, i) => (
+                  <motion.div
+                    key={item}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ delay: i * 0.06, duration: 0.4 }}
+                    className="flex items-center gap-4 py-4"
+                  >
+                    <div className="font-mono text-xs text-amber/60">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <span className="text-sm text-white/60">{item}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Deliverables */}
+            <div>
+              <h3 className="text-sm font-medium uppercase tracking-wider text-white mb-6">
+                Deliverables
+              </h3>
+              <div className="divide-y divide-white/10 border-y border-white/10">
+                {deliverables.map((item, i) => (
+                  <motion.div
+                    key={item}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ delay: i * 0.06, duration: 0.4 }}
+                    className="flex items-center gap-4 py-4"
+                  >
+                    <Check size={14} weight="bold" className="text-amber shrink-0" />
+                    <span className="text-sm text-white/60">{item}</span>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Deliverables */}
-          <div>
-            <h3 className="text-sm font-medium uppercase tracking-wider text-white mb-6">
-              Deliverables
-            </h3>
-            <div className="divide-y divide-white/10 border-y border-white/10">
-              {deliverables.map((item, i) => (
-                <motion.div
-                  key={item}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ delay: i * 0.06, duration: 0.4 }}
-                  className="flex items-center gap-4 py-4"
-                >
-                  <Check size={14} weight="bold" className="text-amber shrink-0" />
-                  <span className="text-sm text-white/60">{item}</span>
-                </motion.div>
-              ))}
-            </div>
+          <div className="relative aspect-video overflow-hidden rounded-xl lg:aspect-auto lg:min-h-full">
+            <Image
+              src="/images/the_woman_in_202512041426-1024x576.jpeg"
+              alt="AI-assisted village design consultation"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
       </div>
@@ -391,25 +410,6 @@ function AboutCredentials() {
     "Deep AI expertise applied to village operations and workflows",
     "Developed the Smart Village Standard",
     "Consulting on village design, hospitality ops, and regenerative placemaking",
-  ];
-
-  const images = [
-    {
-      src: "/images/106547744_10165033448205725_3967614752782880468_n-1024x1024.jpg",
-      alt: "Community gathering at the village",
-    },
-    {
-      src: "/images/the_woman_in_202512041426-1024x576.jpeg",
-      alt: "Village life and culture",
-    },
-    {
-      src: "/images/76747423_10163561173205725_3017674924459294720_n-1024x577.jpg",
-      alt: "Land and infrastructure development",
-    },
-    {
-      src: "/images/pxl_20240518_203625592-edit-819x1024.jpg",
-      alt: "On-site operations",
-    },
   ];
 
   return (
@@ -453,15 +453,14 @@ function AboutCredentials() {
             </motion.p>
           </div>
 
-          {/* Image grid */}
-          <PhotoGrid
-            photos={images}
-            cols="grid-cols-2"
-            gap="gap-3"
-            sizes="(max-width: 1024px) 50vw, 33vw"
-            rounded="rounded-xl"
-            staggerMod={2}
-          />
+          <div className="relative aspect-video overflow-hidden rounded-xl lg:aspect-auto lg:min-h-full">
+            <Image
+              src="/images/76747423_10163561173205725_3017674924459294720_n-1024x577.jpg"
+              alt="Travel and nomadic lifestyle — building villages from lived experience"
+              fill
+              className="object-cover"
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -507,30 +506,41 @@ function WhoWeWorkWith() {
   return (
     <section className="bg-warm-dark py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="mb-16">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
-            Ideal clients
-          </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            Who We<br />
-            <span className="italic">Work With</span>
-          </h2>
-        </div>
+        <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
+              Ideal clients
+            </p>
+            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+              Who We<br />
+              <span className="italic">Work With</span>
+            </h2>
 
-        <div className="grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
-          {profiles.map((p, i) => (
-            <motion.div
-              key={p.label}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: (i % 4) * 0.06, duration: 0.4 }}
-              className="bg-warm-dark p-7"
-            >
-              <p.icon size={18} weight="light" className="text-amber mb-4" />
-              <div className="text-sm font-medium text-white/60">{p.label}</div>
-            </motion.div>
-          ))}
+            <div className="mt-10 divide-y divide-white/10 border-y border-white/10">
+              {profiles.map((p, i) => (
+                <motion.div
+                  key={p.label}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ delay: i * 0.06, duration: 0.4 }}
+                  className="flex items-center gap-4 py-5"
+                >
+                  <p.icon size={18} weight="light" className="text-amber shrink-0" />
+                  <span className="text-sm text-white/60">{p.label}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative aspect-[819/1024] overflow-hidden rounded-xl">
+            <Image
+              src="/images/pxl_20240518_203625592-edit-819x1024.jpg"
+              alt="Property and land — potential village site"
+              fill
+              className="object-cover"
+            />
+          </div>
         </div>
       </div>
     </section>
