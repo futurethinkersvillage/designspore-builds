@@ -287,15 +287,15 @@ function FutureOfLiving() {
 
         <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[60ch]">
           <p>
-            They want the freedom to work from anywhere, a place to create and live
-            well, and a community that feels like home. We&apos;re building for that
-            future — starting here.
+            People want to live close to nature and be healthy, raise kids in community,
+            build and learn useful skills together, and be part of a culture of builders,
+            creators, and entrepreneurs.
           </p>
           <p>
             Soon, we&apos;ll be expanding the Wells Gray Village with new cabins, long-term
             RV sites, glamping units, and more shared infrastructure for wellness,
             co-working, art and maker culture. But that&apos;s just the beginning. This
-            place is a first in a North network of Villages — designed for people who
+            place is a first in a network of villages — designed for people who
             want to live with purpose, build with others, and stay connected across
             every season.
           </p>
@@ -307,47 +307,26 @@ function FutureOfLiving() {
 
 function TheLand() {
   const images = [
-    { src: "/images/gazebo-campfire.png", alt: "Gazebo campfire" },
-    { src: "/images/gemini-2e4dc4.png", alt: "Village concept" },
-    { src: "/images/gazebo-interior-scaled.jpg", alt: "Gazebo interior" },
-    { src: "/images/wood-working-building-desk-scaled.jpg", alt: "Woodworking building desk" },
-    { src: "/images/shower-house-scaled.jpg", alt: "Shower house" },
-    { src: "/images/rv-in-campsite-scaled.jpg", alt: "RV in campsite" },
-    { src: "/images/disc-golf-tournament-scaled.jpg", alt: "Disc golf tournament" },
-    { src: "/images/camper-at-night-scaled.jpg", alt: "Camper at night" },
-    { src: "/images/horses.jpg", alt: "Horses" },
-    { src: "/images/the-creek-scaled.jpg", alt: "The creek" },
-    { src: "/images/camper-daytime-scaled.jpg", alt: "Camper during the day" },
-    { src: "/images/cabins-scaled.jpg", alt: "Cabins" },
-    { src: "/images/buildings-in-winter-scaled.jpg", alt: "Buildings in winter" },
-    { src: "/images/creek-view-1-scaled.jpg", alt: "Creek view" },
-    { src: "/images/creek-view-2-scaled.jpg", alt: "Creek view alternate" },
     { src: "/images/swimming-lake-scaled.jpg", alt: "Swimming lake" },
-    { src: "/images/horses-in-field-scaled.jpg", alt: "Horses in the field" },
-    { src: "/images/kids-on-trampoline-scaled.jpg", alt: "Kids on trampoline" },
-    { src: "/images/bear-scaled.jpg", alt: "Bear" },
-    { src: "/images/campfire-in-gazebo-scaled.jpg", alt: "Campfire in gazebo" },
-    { src: "/images/shower-house-in-field-scaled.jpg", alt: "Shower house in field" },
-    { src: "/images/moose-at-lake-scaled.jpg", alt: "Moose at lake" },
-    { src: "/images/meditation-group.jpg", alt: "Meditation group" },
-    { src: "/images/gazebo-community-meetup-scaled.jpg", alt: "Community meetup" },
-    { src: "/images/gazebo-interior-campfire-1024x771.jpg", alt: "Gazebo interior campfire" },
-    { src: "/images/gazebo-disc-golf-tournament-scaled.jpg", alt: "Gazebo disc golf tournament" },
     { src: "/images/dome-interior-scaled.jpg", alt: "Dome interior" },
+    { src: "/images/gazebo-interior-campfire-1024x771.jpg", alt: "Gazebo interior campfire" },
+    { src: "/images/cabins-scaled.jpg", alt: "Cabins" },
+    { src: "/images/the-creek-scaled.jpg", alt: "The creek" },
     { src: "/images/aurora-at-night-scaled.jpg", alt: "Aurora at night" },
-    { src: "/images/kids-playing-golf-scaled.jpg", alt: "Kids playing golf" },
-    { src: "/images/canada-day-meetup-scaled.jpg", alt: "Canada Day meetup" },
-    { src: "/images/gazebo-rainbow-scaled.jpg", alt: "Gazebo rainbow" },
-    { src: "/images/rv-interior.jpg", alt: "RV interior" },
-    { src: "/images/rv-interior-2.jpg", alt: "RV interior alternate" },
-    { src: "/images/dome-movie-watching.jpg", alt: "Dome movie watching" },
+    { src: "/images/disc-golf-tournament-scaled.jpg", alt: "Disc golf tournament" },
+    { src: "/images/horses-in-field-scaled.jpg", alt: "Horses in the field" },
     { src: "/images/dome-at-night-scaled.jpg", alt: "Dome at night" },
+    { src: "/images/canada-day-meetup-scaled.jpg", alt: "Canada Day meetup" },
+    { src: "/images/rv-in-campsite-scaled.jpg", alt: "RV in campsite" },
     { src: "/images/sauna-in-winter-scaled.jpg", alt: "Sauna in winter" },
-    { src: "/images/cabin-scaled.jpg", alt: "Cabin" },
-    { src: "/images/gazebo-view-scaled.jpg", alt: "Gazebo view" },
-    { src: "/images/golf-course-3.jpg", alt: "Golf course" },
-    { src: "/images/picnic-tables-creek.jpg", alt: "Picnic tables by the creek" },
-    { src: "/images/gazebo-interior-2.jpg", alt: "Gazebo interior alternate" },
+    { src: "/images/gazebo-community-meetup-scaled.jpg", alt: "Community meetup" },
+    { src: "/images/kids-playing-golf-scaled.jpg", alt: "Kids playing golf" },
+    { src: "/images/moose-at-lake-scaled.jpg", alt: "Moose at lake" },
+    { src: "/images/wood-working-building-desk-scaled.jpg", alt: "Woodworking" },
+    { src: "/images/meditation-group.jpg", alt: "Meditation group" },
+    { src: "/images/gazebo-rainbow-scaled.jpg", alt: "Gazebo rainbow" },
+    { src: "/images/creek-view-1-scaled.jpg", alt: "Creek view" },
+    { src: "/images/camper-at-night-scaled.jpg", alt: "Camper at night" },
   ];
 
   return (
@@ -480,10 +459,11 @@ function VisitCTA() {
 function FAQ() {
   const faqs = [
     { q: "When is the opening season?", a: "Wells Gray Village is open from May 1 to early October every year. We are closed in the winter months." },
-    { q: "What types of accommodation are available at the village?", a: "We currently offer RV sites, on-site RV rentals, a geodesic dome, bunk cabins, horse corrals, and tenting sites. Cabins, long term RV sites, and more glamping options are coming soon." },
+    { q: "What types of accommodation are available at the village?", a: "We currently offer RV sites, on-site RV rentals, a geodesic dome, bunk cabins, horse corrals, and tenting sites. Cabins, long term RV sites, and more glamping options are coming soon. We currently don't offer full time residential accommodations." },
     { q: "What kind of amenities does the village offer?", a: "Amenities include a 120 person gazebo plus several smaller gazebos, a 9 hole golf course and 18 hole disc golf course, pro shop, modern bathrooms and showers, small garden, maker space (members only), private swimming lake, and forest trails." },
     { q: "What kind of programs or events are there?", a: "The village hosts public gatherings, work-stay programs, village immersions, a number of members-only events, and more. Guests are also able to book the venue for events such as weddings, family reunions, tournaments, and retreats." },
     { q: "Can I bring pets?", a: "Yes, the village is pet friendly. Dogs are welcome on leash, and we have 20 horse corrals for guests who travel with their horses." },
+    { q: "Are there employment opportunities?", a: "We only offer volunteer and work-stay programs at this time. If we do offer paid employment opportunities in the future, they will appear on this site." },
   ];
 
   const [open, setOpen] = useState<number | null>(null);

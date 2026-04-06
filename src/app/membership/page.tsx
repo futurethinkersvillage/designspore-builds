@@ -75,7 +75,7 @@ function Hero() {
               href="#invitation"
               className="inline-flex items-center gap-2 rounded-full bg-amber px-7 py-3.5 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
             >
-              Apply for Membership <ArrowRight size={14} weight="bold" />
+              Become a Member <ArrowRight size={14} weight="bold" />
             </a>
           </motion.div>
         </div>
@@ -110,7 +110,7 @@ function BecomeMember() {
                 The world is changing fast. AI, automation, and the stress of
                 modern life are pushing people toward something more grounded,
                 healthy, and human. More families, creators, remote workers,
-                snowbirds, and future-focused individuals are looking for places
+                and future-focused individuals are looking for places
                 where they can return seasonally, build friendships, learn
                 together, work on projects, and feel part of a real community.
               </motion.p>
@@ -130,12 +130,13 @@ function BecomeMember() {
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 As a member, you join the founding community shaping Wells Gray
-                Village in Interior BC — a nature-immersive, culture-forward
-                lifestyle destination centered around wellness, creativity,
-                shared rhythms, and meaningful community projects. Members
-                receive priority access to immersions, programs, gatherings, and
-                special pricing on stays &amp; services, plus early invitations
-                to future partner locations.
+                Village in Interior BC — a nature-immersive, family-friendly,
+                community destination centered around a shared rhythm, maker
+                culture, wellness, entrepreneurship, and meaningful community
+                projects. Members receive priority access to immersions,
+                programs, gatherings, and special pricing on stays &amp;
+                services, plus early invitations to future offerings and partner
+                locations.
               </motion.p>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -146,8 +147,7 @@ function BecomeMember() {
                 This is neither a resort or not full-time housing — it&apos;s a
                 seasonal, community-driven lifestyle club built for the post-AI
                 world. A place where culture, nature, and creativity come
-                together to form traditions that deepen each year. Think of it as
-                a cultural country club with 21st century values.
+                together to form traditions that deepen each year.
               </motion.p>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -351,7 +351,7 @@ function WhatYouGet() {
     },
     {
       title: "Community Connections",
-      body: "Meet aligned families, creators, snowbirds, founders, and builders.",
+      body: "Meet aligned families, creators, founders, and builders.",
     },
   ];
 
@@ -404,7 +404,7 @@ function WhatMembersDo() {
     "Participate in community discussions",
     "Offer ideas or skills for projects",
     "Access deeper opportunities for involvement",
-    "Be part of the early story of the club",
+    "Be part of the early story of the network",
   ];
 
   return (
@@ -419,9 +419,7 @@ function WhatMembersDo() {
               What Members <span className="italic">Do</span>
             </h2>
             <p className="text-sm leading-relaxed text-white/45 mb-12 max-w-[55ch]">
-              Membership is annual and tiered to fit your life. Think of it as a
-              country club with 21st century values, designed for the post-AI
-              era.
+              Membership is annual and tiered to fit your life.
             </p>
 
             <div className="divide-y divide-white/10 border-y border-white/10">
@@ -572,12 +570,12 @@ function WhatExistsToday() {
 
 function WhoItsFor() {
   const profiles = [
-    "Founders, technologists & remote workers",
-    "Families seeking healthier seasonal rhythms",
-    "Artists, facilitators & creators",
     "Builders & hands-on problem-solvers",
-    "Snowbirds wanting a meaningful seasonal home base",
+    "Families seeking healthier seasonal rhythms",
+    "Artists & creators",
+    "Retirees wanting a meaningful seasonal home base",
     "Regenerative thinkers & designers",
+    "Founders, technologists & remote workers",
     "Values-aligned investors who want to build a better future while hedging against uncertainty & instability",
     "Anyone inspired by nature, community, and culture",
   ];
@@ -709,28 +707,18 @@ function HowItWorks() {
   const steps = [
     {
       n: "1",
-      label: "Apply",
-      body: "Tell us who you are and what you're looking for (join the waitlist).",
+      label: "Join",
+      body: "Sign up and become a member of the Portal.Place community.",
     },
     {
       n: "2",
-      label: "Conversation",
-      body: "A call to ensure alignment and determine your tier (once open).",
+      label: "Access",
+      body: "Access members-only benefits, discounts, and programs.",
     },
     {
       n: "3",
-      label: "Onboarding",
-      body: "Access the portal, opportunities, and members event calendar.",
-    },
-    {
-      n: "4",
       label: "Participate",
-      body: "Join gatherings, programs, and events.",
-    },
-    {
-      n: "5",
-      label: "Opportunities",
-      body: "Members get early invitations to seasonal residencies & other opportunities for involvement.",
+      body: "Participate in village programs, stays, and opportunities.",
     },
   ];
 
@@ -746,7 +734,7 @@ function HowItWorks() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-5">
+        <div className="grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-3">
           {steps.map((s) => (
             <div key={s.n} className="bg-[#0F0E12] p-8">
               <div className="font-mono text-3xl font-light text-white/15 mb-6">
@@ -763,8 +751,7 @@ function HowItWorks() {
         </div>
 
         <p className="mt-8 text-sm leading-relaxed text-white/40">
-          Membership is annual and the cost is tiered based on desired
-          involvement.
+          Starting at $48/month (billed annually).
         </p>
       </div>
     </section>
@@ -830,17 +817,13 @@ function FoundingStatus() {
   );
 }
 
-// ── The Invitation (Form) ────────────────────────────────────────────────────
-
-const inputStyles =
-  "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-amber focus:outline-none";
-const labelStyles = "text-sm text-white/60 mb-2 block";
+// ── The Invitation ───────────────────────────────────────────────────────────
 
 function Invitation() {
   return (
     <section id="invitation" className="bg-amber py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_50%] items-start">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_auto] items-center">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -866,250 +849,14 @@ function Invitation() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
+            className="flex items-start"
           >
-            <form
-              action="#"
-              className="rounded-2xl bg-black/20 p-8 lg:p-10 space-y-6"
+            <a
+              href="/checkout"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-medium text-amber transition-all hover:bg-white/90 active:scale-[0.98]"
             >
-              {/* Name */}
-              <div>
-                <label className={labelStyles}>Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your full name"
-                  className={inputStyles}
-                />
-              </div>
-
-              {/* Email */}
-              <div>
-                <label className={labelStyles}>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="you@email.com"
-                  className={inputStyles}
-                />
-              </div>
-
-              {/* Phone */}
-              <div>
-                <label className={labelStyles}>Phone / WhatsApp</label>
-                <input
-                  type="text"
-                  name="phone"
-                  placeholder="+1 (555) 000-0000"
-                  className={inputStyles}
-                />
-              </div>
-
-              {/* LinkedIn */}
-              <div>
-                <label className={labelStyles}>LinkedIn</label>
-                <input
-                  type="text"
-                  name="linkedin"
-                  placeholder="linkedin.com/in/yourname"
-                  className={inputStyles}
-                />
-              </div>
-
-              {/* Location */}
-              <div>
-                <label className={labelStyles}>Where are you based?</label>
-                <select name="location" className={inputStyles}>
-                  <option value="">Select&hellip;</option>
-                  <option value="BC">BC</option>
-                  <option value="Alberta">Alberta</option>
-                  <option value="Elsewhere in Canada">
-                    Elsewhere in Canada
-                  </option>
-                  <option value="Outside of Canada">Outside of Canada</option>
-                </select>
-              </div>
-
-              {/* Inspiration checkboxes */}
-              <div>
-                <label className={labelStyles}>
-                  What most inspires you about seasonal village life?
-                </label>
-                <div className="space-y-3 mt-2">
-                  {[
-                    "Nature & outdoor living",
-                    "Community & belonging",
-                    "Health & wellness",
-                    "Creativity & learning",
-                    "Resilience & self-sufficiency",
-                    "Seasonal rhythms & traditions",
-                    "A backup plan / rural base",
-                  ].map((opt) => (
-                    <label
-                      key={opt}
-                      className="flex items-center gap-3 text-sm text-white/70 cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        name="inspiration"
-                        value={opt}
-                        className="h-4 w-4 rounded border-white/20 bg-white/5 accent-amber"
-                      />
-                      {opt}
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Seasonal rhythm */}
-              <div>
-                <label className={labelStyles}>
-                  What kind of seasonal rhythm feels realistic?
-                </label>
-                <select name="rhythm" className={inputStyles}>
-                  <option value="">Select&hellip;</option>
-                  <option value="A few weeks per year">
-                    A few weeks per year
-                  </option>
-                  <option value="1-2 months per year">
-                    1-2 months per year
-                  </option>
-                  <option value="Full summer season (May-Oct)">
-                    Full summer season (May-Oct)
-                  </option>
-                  <option value="Year-round (if possible)">
-                    Year-round (if possible)
-                  </option>
-                  <option value="Not sure yet">Not sure yet</option>
-                </select>
-              </div>
-
-              {/* Who coming */}
-              <div>
-                <label className={labelStyles}>
-                  Who would be coming with you?
-                </label>
-                <select name="who" className={inputStyles}>
-                  <option value="">Select&hellip;</option>
-                  <option value="Just me">Just me</option>
-                  <option value="Me and a partner">Me and a partner</option>
-                  <option value="Family with kids">Family with kids</option>
-                  <option value="A group of friends">A group of friends</option>
-                  <option value="Not sure yet">Not sure yet</option>
-                </select>
-              </div>
-
-              {/* Age group */}
-              <div>
-                <label className={labelStyles}>What age group?</label>
-                <select name="age" className={inputStyles}>
-                  <option value="">Select&hellip;</option>
-                  <option value="20s">20s</option>
-                  <option value="30s">30s</option>
-                  <option value="40s">40s</option>
-                  <option value="50s">50s</option>
-                  <option value="60+">60+</option>
-                  <option value="Mixed ages / family">
-                    Mixed ages / family
-                  </option>
-                </select>
-              </div>
-
-              {/* Accommodation */}
-              <div>
-                <label className={labelStyles}>
-                  What kind of accommodation?
-                </label>
-                <select name="accommodation" className={inputStyles}>
-                  <option value="">Select&hellip;</option>
-                  <option value="Tent or RV (bring your own)">
-                    Tent or RV (bring your own)
-                  </option>
-                  <option value="Glamping dome">Glamping dome</option>
-                  <option value="Bunk cabin">Bunk cabin</option>
-                  <option value="Private cabin (future)">
-                    Private cabin (future)
-                  </option>
-                  <option value="Tiny home (future)">
-                    Tiny home (future)
-                  </option>
-                  <option value="Not sure yet">Not sure yet</option>
-                </select>
-              </div>
-
-              {/* Infrastructure checkboxes */}
-              <div>
-                <label className={labelStyles}>
-                  What infrastructure is most important?
-                </label>
-                <div className="space-y-3 mt-2">
-                  {[
-                    "Fast internet / coworking",
-                    "Sauna & wellness",
-                    "Maker space & workshops",
-                    "Kids programs & playground",
-                    "Garden & food systems",
-                    "Event & gathering space",
-                    "Trails & outdoor recreation",
-                  ].map((opt) => (
-                    <label
-                      key={opt}
-                      className="flex items-center gap-3 text-sm text-white/70 cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        name="infrastructure"
-                        value={opt}
-                        className="h-4 w-4 rounded border-white/20 bg-white/5 accent-amber"
-                      />
-                      {opt}
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Skills */}
-              <div>
-                <label className={labelStyles}>
-                  What skills would you contribute?
-                </label>
-                <textarea
-                  name="skills"
-                  rows={3}
-                  placeholder="Building, teaching, gardening, facilitation, tech, cooking..."
-                  className={inputStyles}
-                />
-              </div>
-
-              {/* Anything else */}
-              <div>
-                <label className={labelStyles}>Anything else?</label>
-                <textarea
-                  name="anything_else"
-                  rows={3}
-                  placeholder="Questions, ideas, or anything you'd like us to know..."
-                  className={inputStyles}
-                />
-              </div>
-
-              {/* Timeline */}
-              <div>
-                <label className={labelStyles}>Ideal timeline?</label>
-                <select name="timeline" className={inputStyles}>
-                  <option value="">Select&hellip;</option>
-                  <option value="2026 season">2026 season</option>
-                  <option value="2027 season">2027 season</option>
-                  <option value="Not sure yet">Not sure yet</option>
-                </select>
-              </div>
-
-              {/* Submit */}
-              <button
-                type="submit"
-                className="w-full rounded-full bg-white px-7 py-3.5 text-sm font-medium text-amber transition-all hover:bg-white/90 active:scale-[0.98]"
-              >
-                Join the Waitlist
-              </button>
-            </form>
+              Become a Member <ArrowRight size={14} weight="bold" />
+            </a>
           </motion.div>
         </div>
       </div>
