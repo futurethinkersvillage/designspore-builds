@@ -35,7 +35,7 @@ function QueueItem({
             ⠿
           </span>
         )}
-        <TierBadge tier={mod.tier as ModuleTier} creditOnly recurring={mod.recurring} />
+        <TierBadge tier={mod.tier as ModuleTier} recurring={mod.recurring} />
         <span className="text-sm text-white truncate">{mod.name}</span>
       </div>
       {onRemove && (

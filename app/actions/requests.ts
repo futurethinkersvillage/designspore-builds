@@ -39,21 +39,6 @@ export async function submitChangeRequest(data: {
     pageUrl: data.pageUrl?.trim() || null,
   });
 
-  // Send Discord notification if webhook is set
-  const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
-  if (webhookUrl) {
-    const userName = (session.user as { name?: string }).name ?? "Unknown client";
-    try {
-      await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: `🔔 **New Change Request** — ${userName}\n**[${data.priority.toUpperCase()}] ${data.title}**\nType: ${data.type}\n${data.pageUrl ? `Page: ${data.pageUrl}` : ""}`,
-        }),
-      });
-    } catch { /* non-fatal */ }
-  }
-
   revalidatePath("/requests");
   revalidatePath("/admin/requests");
   return { success: true, message: "Request submitted. Mike will review it shortly.", id };

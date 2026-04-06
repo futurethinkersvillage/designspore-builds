@@ -57,6 +57,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.subscriptionTier = (user as any).subscriptionTier;
         token.monthlyBudget = (user as any).monthlyBudget;
         token.isActive = (user as any).isActive;
+        token.hasCompletedOnboarding = (user as any).hasCompletedOnboarding;
+        token.autopilot = (user as any).autopilot;
       }
       return token;
     },
@@ -67,6 +69,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         (session.user as any).subscriptionTier = token.subscriptionTier;
         (session.user as any).monthlyBudget = token.monthlyBudget;
         (session.user as any).isActive = token.isActive;
+        (session.user as any).hasCompletedOnboarding = token.hasCompletedOnboarding;
+        (session.user as any).autopilot = token.autopilot;
       }
       return session;
     },

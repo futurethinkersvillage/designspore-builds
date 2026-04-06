@@ -14,6 +14,13 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    // Rename 'partner' → 'scale' in subscription_tier enum
+    await db.execute(sql`
+      DO $$ BEGIN
+        ALTER TYPE subscription_tier RENAME VALUE 'partner' TO 'scale';
+      EXCEPTION WHEN invalid_parameter_value THEN null; END $$;
+    `);
+
     await db.execute(sql`
       DO $$ BEGIN
         CREATE TYPE change_request_type AS ENUM ('content-change','design-tweak','bug-issue','new-feature');

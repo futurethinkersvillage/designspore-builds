@@ -100,7 +100,7 @@ export default async function MyModulesPage() {
       <div className="bg-raised border border-white/[0.06] rounded-xl px-5 py-4 space-y-2">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
-            {mod && <TierBadge tier={mod.tier as ModuleTier} creditOnly recurring={mod.recurring} />}
+            {mod && <TierBadge tier={mod.tier as ModuleTier} recurring={mod.recurring} />}
             <div className="min-w-0">
               <p className="text-sm font-medium text-white truncate">{mod?.name ?? row.moduleId}</p>
               {row.activatedAt && (

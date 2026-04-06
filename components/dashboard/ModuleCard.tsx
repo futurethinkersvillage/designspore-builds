@@ -74,7 +74,7 @@ export default function ModuleCard({ module: mod, isActivated, isDemo }: ModuleC
       <div className="p-5 flex-1">
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex flex-wrap items-center gap-2">
-            <TierBadge tier={mod.tier} creditOnly recurring={mod.recurring} />
+            <TierBadge tier={mod.tier} recurring={mod.recurring} />
             <span className="text-[10px] uppercase tracking-widest text-white/30 font-medium">
               {categoryLabels[mod.category]}
             </span>
@@ -134,7 +134,7 @@ export function DemoModuleCard({ module: mod, isActivated }: { module: Module; i
       <div className="p-5 flex-1">
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex flex-wrap items-center gap-2">
-            <TierBadge tier={mod.tier} creditOnly recurring={mod.recurring} />
+            <TierBadge tier={mod.tier} recurring={mod.recurring} />
             <span className="text-[10px] uppercase tracking-widest text-white/30 font-medium">
               {categoryLabels[mod.category]}
             </span>

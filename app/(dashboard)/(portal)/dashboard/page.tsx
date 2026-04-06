@@ -261,7 +261,7 @@ export default async function DashboardPage() {
                     className="flex items-center justify-between gap-3 bg-raised border border-white/[0.04] rounded-xl px-4 py-3"
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <TierBadge tier={mod.tier as ModuleTier} creditOnly recurring={mod.recurring} />
+                      <TierBadge tier={mod.tier as ModuleTier} recurring={mod.recurring} />
                       <span className="text-sm text-white/70 truncate">{mod.name}</span>
                     </div>
                     <div className="flex items-center gap-3 shrink-0">

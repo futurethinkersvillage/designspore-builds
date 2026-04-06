@@ -102,7 +102,8 @@ export async function signupAndCheckout(
 
   // Stripe Checkout — subscription for the plan + one-time onboarding fee
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-03-25.dahlia" });
-  const baseUrl = process.env.NEXTAUTH_URL ?? "https://designspore.co";
+  const rawUrl = process.env.NEXTAUTH_URL ?? process.env.AUTH_URL ?? "https://designspore.co";
+  const baseUrl = rawUrl.replace(/\/api\/auth$/, "");
 
   const priceIdMap: Record<string, string | undefined> = {
     starter: process.env.STRIPE_PRICE_STARTER,

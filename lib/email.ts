@@ -17,7 +17,7 @@ export async function sendActivationEmail({
   businessName,
   moduleName,
   moduleId,
-  tier,
+  valueConsumed,
   periodMonth,
 }: {
   clientName: string;
@@ -25,11 +25,10 @@ export async function sendActivationEmail({
   businessName: string;
   moduleName: string;
   moduleId: string;
-  tier: 1 | 2 | 3;
+  valueConsumed: number;
   periodMonth: string;
 }) {
   if (!resend) return;
-  const tierLabel = tier === 1 ? "4 credits" : tier === 2 ? "2 credits" : "1 credit";
   await resend.emails.send({
     from: FROM,
     to: NOTIFY_EMAIL,
@@ -42,7 +41,7 @@ export async function sendActivationEmail({
           <tr><td style="padding:6px 0;color:#888;">Email</td><td>${clientEmail}</td></tr>
           <tr><td style="padding:6px 0;color:#888;">Business</td><td>${businessName}</td></tr>
           <tr><td style="padding:6px 0;color:#888;">Module</td><td><strong>${moduleName}</strong></td></tr>
-          <tr><td style="padding:6px 0;color:#888;">Tier</td><td>${tierLabel}</td></tr>
+          <tr><td style="padding:6px 0;color:#888;">Value</td><td>$${valueConsumed}</td></tr>
           <tr><td style="padding:6px 0;color:#888;">Month</td><td>${periodMonth}</td></tr>
         </table>
         <p style="margin:20px 0 0;font-size:13px;color:#888;">

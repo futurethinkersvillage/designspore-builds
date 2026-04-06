@@ -22,7 +22,8 @@ export async function GET() {
   }
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  const baseUrl = process.env.AUTH_URL?.replace("/api/auth", "") ?? "https://designspore.co";
+  const rawUrl = process.env.NEXTAUTH_URL ?? process.env.AUTH_URL ?? "https://designspore.co";
+  const baseUrl = rawUrl.replace(/\/api\/auth$/, "");
 
   const portalSession = await stripe.billingPortal.sessions.create({
     customer: row.stripeCustomerId,

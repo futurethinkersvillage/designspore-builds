@@ -124,23 +124,12 @@ export async function activateModule(moduleId: string): Promise<ActivateResult> 
       businessName: (user as { businessName?: string }).businessName ?? "",
       moduleName: mod.name,
       moduleId,
-      tier: mod.tier,
+      valueConsumed: mod.estimatedValue,
       periodMonth: targetMonth,
     });
   } catch { /* non-fatal */ }
 
-  const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
-  if (webhookUrl) {
-    try {
-      await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: `🟡 **Queued** — ${user.name ?? user.email} added **${mod.name}** [${creditsNeeded} credit${creditsNeeded > 1 ? "s" : ""}]${monthsAhead}`,
-        }),
-      });
-    } catch { /* non-fatal */ }
-  }
+
 
   return {
     success: true,
@@ -247,20 +236,6 @@ export async function submitCustomModule(
     description: trimmed,
     status: "pending",
   });
-
-  // Notify Mike
-  const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
-  if (webhookUrl) {
-    try {
-      await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: `💡 **Custom module request** from ${user.name ?? user.email} (${user.businessName ?? ""})\n> ${trimmed.slice(0, 200)}${trimmed.length > 200 ? "…" : ""}`,
-        }),
-      });
-    } catch { /* non-fatal */ }
-  }
 
   const { Resend } = await import("resend");
   const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;

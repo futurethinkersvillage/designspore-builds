@@ -103,7 +103,7 @@ export default function ModuleDrawer({ isDemo, activatedIds }: ModuleDrawerProps
         {/* Close button */}
         <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 py-4 bg-darker/80 backdrop-blur-md border-b border-white/[0.06]">
           <div className="flex items-center gap-2 min-w-0">
-            <TierBadge tier={mod.tier} creditOnly recurring={mod.recurring} />
+            <TierBadge tier={mod.tier} recurring={mod.recurring} />
             <span className="text-[10px] uppercase tracking-widest text-white/30 font-medium truncate">
               {categoryLabels[mod.category]}
             </span>

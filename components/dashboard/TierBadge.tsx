@@ -9,10 +9,6 @@ const colorMap: Record<string, string> = {
 interface TierBadgeProps {
   tier: ModuleTier;
   recurring?: boolean;
-  /** @deprecated creditOnly is now the only mode — kept for compat */
-  creditOnly?: boolean;
-  /** @deprecated unused */
-  showCredits?: boolean;
 }
 
 export default function TierBadge({ tier, recurring }: TierBadgeProps) {
