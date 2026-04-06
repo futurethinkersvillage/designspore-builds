@@ -67,7 +67,7 @@ export default function SignupPage() {
       </div>
 
       {/* Center form */}
-      <div className="relative w-full lg:w-[38%] shrink-0 border-x border-white/[0.06] bg-darker overflow-y-auto">
+      <div className="relative w-full max-w-xl shrink-0 border-x border-white/[0.06] bg-darker overflow-y-auto">
         <div className="px-8 py-16">
           <div className="text-center mb-10">
             <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">
