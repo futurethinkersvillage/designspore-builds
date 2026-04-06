@@ -15,16 +15,14 @@ export async function POST(request: NextRequest) {
 
   try {
     // Rename 'partner' → 'scale' in subscription_tier enum (idempotent)
-    await db.execute(sql`
-      DO $$ BEGIN
-        IF EXISTS (
-          SELECT 1 FROM pg_enum e JOIN pg_type t ON t.oid = e.enumtypid
-          WHERE t.typname = 'subscription_tier' AND e.enumlabel = 'partner'
-        ) THEN
-          ALTER TYPE subscription_tier RENAME VALUE 'partner' TO 'scale';
-        END IF;
-      END $$;
+    const enumCheck = await db.execute(sql`
+      SELECT 1 FROM pg_enum e
+      JOIN pg_type t ON t.oid = e.enumtypid
+      WHERE t.typname = 'subscription_tier' AND e.enumlabel = 'partner'
     `);
+    if (enumCheck.rows.length > 0) {
+      await db.execute(sql`ALTER TYPE subscription_tier RENAME VALUE 'partner' TO 'scale'`);
+    }
 
     await db.execute(sql`
       DO $$ BEGIN
