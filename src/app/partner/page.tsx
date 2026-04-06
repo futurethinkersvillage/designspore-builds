@@ -61,7 +61,7 @@ function Hero() {
                 transition={{ duration: 0.8, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
                 className="font-serif text-[clamp(3.5rem,9vw,8rem)] italic font-light leading-[0.9] tracking-tighter text-amber"
               >
-                partner in
+                partner or
               </motion.h1>
             </div>
             <div className="overflow-hidden pb-10 -mb-10">
@@ -71,7 +71,7 @@ function Hero() {
                 transition={{ duration: 0.8, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
                 className="font-serif text-[clamp(3.5rem,9vw,8rem)] font-light leading-[0.9] tracking-tighter text-white"
               >
-                the network.
+                investor.
               </motion.h1>
             </div>
 
@@ -81,10 +81,12 @@ function Hero() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="mt-10 max-w-[50ch] text-base leading-relaxed text-white/45"
             >
-              Portal.Place is building a network of Smart Villages — flagship sites
-              where families, creators, and purpose-driven people return year after
-              year to live, work, and regenerate in nature. We&apos;re seeking operators,
-              collaborators, and capital partners to help scale this vision globally.
+              Portal.Place is building a network of villages — flagship sites where
+              families, builders, entrepreneurs, creators, and purpose-driven people
+              return year after year to live, work, and regenerate in nature.
+              We&apos;re working with investors, operators, and regional stakeholders who
+              are actively investing in resilience infrastructure to help develop the
+              next phase of the project.
             </motion.p>
           </div>
 
@@ -127,19 +129,19 @@ function Thesis() {
       n: "01",
       icon: Buildings,
       label: "Lifestyle-first real estate",
-      body: "Seasonal villages designed for a world where many jobs are automated — wellness, family environments, coworking, maker spaces, regenerative culture. The next major real estate category.",
+      body: "Seasonal villages designed for a world where many jobs are automated — and where family environments, entrepreneurship, wellness, maker spaces, and regenerative culture shape community life. We see this as the next major real estate category.",
     },
     {
       n: "02",
       icon: Globe,
       label: "Network, not just a single site",
-      body: "A scalable model: multiple villages across regions and biomes sharing culture, systems, and tech — creating brand loyalty and defensibility that a single property can never achieve.",
+      body: "A scalable model: multiple villages across regions and biomes sharing culture, systems, and tech — creating network effects that a single property can never achieve.",
     },
     {
       n: "03",
       icon: Lightning,
       label: "Land + tech + media flywheel",
-      body: "Physical hospitality, Village AI (tech-enabled coordination), and a mature media ecosystem that drives demand and tells the story at scale. Three mutually reinforcing flywheels.",
+      body: "Physical hospitality site, network platform, tech & tools layer, non-profit education arm, and mature media ecosystem that tells the story. A mutually reinforcing flywheel.",
     },
   ];
 
@@ -158,9 +160,8 @@ function Thesis() {
           </div>
           <div className="flex items-end">
             <p className="text-sm leading-relaxed text-white/40 max-w-[50ch]">
-              As AI and automation reshape the global economy, demand is shifting
-              from cities and generic resorts to places that offer belonging, health,
-              and resilience. We are positioned at the leading edge of this shift.
+              Global uncertainty, AI automation, and burnout are redefining how
+              people live. Millions are choosing to decouple from cities.
             </p>
           </div>
         </div>
@@ -397,10 +398,10 @@ function Phases() {
       label: "Phase 2",
       status: "Planning",
       items: [
-        "80 new prefab accommodation units",
+        "New prefab accommodation units",
         "Coworking centre & café",
-        "Wellness upgrades (hot tub, expanded sauna)",
         "Pro operations & land security",
+        "Maker space & local production hub",
         "Festival-ready land preparation",
       ],
     },
@@ -480,27 +481,42 @@ function Phases() {
 }
 
 function Team() {
-  const members = [
+  const coFounders = [
     {
       name: "Mike Gilliland",
-      role: "Co-founder · Operations & Strategy",
+      role: "Co-founder · Strategy & Media",
       src: "/images/gemini_generated_image_j883fhj883fhj883.png",
     },
     {
-      name: "Euvie Ivanova",
-      role: "Co-founder · Media & Community",
+      name: "Euvie Gilliland",
+      role: "Co-founder · Programs & Culture",
       src: "/images/beautyplus_20240811124204769_save-edit-edit-edit-1-1024x1024.jpg",
     },
+  ];
+
+  const advisors = [
     {
       name: "Gordon Cory",
-      role: "Advisor",
+      role: "Advisor · Planning & Development",
       src: "/images/gordon-cory.jpg",
     },
     {
       name: "Dean Clifford",
-      role: "Advisor",
+      role: "Advisor · Infrastructure & Building",
       src: "/images/306360633_102513715948004_2535655262561801205_n-768x1024.jpg",
     },
+    {
+      name: "Kaara Long",
+      role: "Advisor · Business Development & PR",
+      src: "/images/kaara-long.jpg",
+    },
+  ];
+
+  const network = [
+    "Clearwater Chamber of Commerce",
+    "Otherworld Festival",
+    "EthVan",
+    "DWeb",
   ];
 
   return (
@@ -516,29 +532,80 @@ function Team() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
-          {members.map((m, i) => (
-            <motion.div
-              key={m.name}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: i * 0.08, duration: 0.45 }}
-              className="text-center"
-            >
-              <div className="relative mx-auto mb-5 h-40 w-40 overflow-hidden rounded-full">
-                <Image
-                  src={m.src}
-                  alt={m.name}
-                  fill
-                  sizes="160px"
-                  className="object-cover"
-                />
-              </div>
-              <div className="text-sm font-medium text-white">{m.name}</div>
-              <div className="mt-1 text-xs text-white/35">{m.role}</div>
-            </motion.div>
-          ))}
+        {/* Co-founders */}
+        <div className="mb-16">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/30 mb-8">
+            Co-founders
+          </p>
+          <div className="grid grid-cols-2 gap-8 max-w-sm">
+            {coFounders.map((m, i) => (
+              <motion.div
+                key={m.name}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: i * 0.08, duration: 0.45 }}
+                className="text-center"
+              >
+                <div className="relative mx-auto mb-5 h-40 w-40 overflow-hidden rounded-full">
+                  <Image
+                    src={m.src}
+                    alt={m.name}
+                    fill
+                    sizes="160px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-sm font-medium text-white">{m.name}</div>
+                <div className="mt-1 text-xs text-white/35">{m.role}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Advisors */}
+        <div className="mb-16">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/30 mb-8">
+            Advisors
+          </p>
+          <div className="grid grid-cols-2 gap-8 lg:grid-cols-3 max-w-2xl">
+            {advisors.map((m, i) => (
+              <motion.div
+                key={m.name}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: i * 0.08, duration: 0.45 }}
+                className="text-center"
+              >
+                <div className="relative mx-auto mb-5 h-40 w-40 overflow-hidden rounded-full">
+                  <Image
+                    src={m.src}
+                    alt={m.name}
+                    fill
+                    sizes="160px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-sm font-medium text-white">{m.name}</div>
+                <div className="mt-1 text-xs text-white/35">{m.role}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Network & Collaborators */}
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/30 mb-6">
+            Network &amp; Collaborators
+          </p>
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            {network.map((name, i) => (
+              <span key={name} className="text-sm text-white/50">
+                {name}{i < network.length - 1 ? "," : ""}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -743,7 +810,7 @@ function RequestAccess() {
               </div>
               <div className="flex items-center gap-3 text-sm text-white/70">
                 <ArrowUpRight size={14} weight="bold" className="text-white shrink-0" />
-                Strategic & media partners
+                strategic & development partners
               </div>
             </div>
           </div>

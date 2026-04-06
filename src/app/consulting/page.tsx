@@ -1,22 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
-  ArrowRight,
   ArrowUpRight,
-  ChartLineUp,
-  Compass,
   Users,
   Broadcast,
   TreeEvergreen,
   Buildings,
-  VideoCamera,
   Megaphone,
   HandCoins,
-  CalendarBlank,
-  House,
   Campfire,
   Mountains,
   MapPin,
@@ -24,8 +17,6 @@ import {
   Handshake,
   Lightning,
   Check,
-  Play,
-  File,
 } from "@phosphor-icons/react";
 
 /* ─────────────────────────────────────────────
@@ -85,8 +76,8 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 max-w-[56ch] text-lg leading-relaxed text-white/70"
           >
-            Upgrade your land project into a revenue-generating, community-centered,
-            tech-enabled village destination — with expert guidance.
+            Upgrade your land project into a resilient, community-centered,
+            tech-enabled village — with expert guidance.
           </motion.p>
 
           <motion.p
@@ -95,8 +86,8 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mt-6 max-w-[56ch] text-sm leading-relaxed text-white/45"
           >
-            For RV parks, resorts, campsites, land developers, retreat centers, and
-            land-based communities that want to become lifestyle-first destinations —
+            For land developers, hospitality operators, family estates, and local
+            business networks that want to grow into resilient communities —
             culturally, operationally, and technologically.
           </motion.p>
 
@@ -189,44 +180,24 @@ function WhyWorkWithUs() {
 function WhatWeHelpYouBuild() {
   const areas = [
     {
-      icon: ChartLineUp,
-      label: "Revenue uplift & long-stay strategies",
-    },
-    {
-      icon: Compass,
-      label: "Site layout, land use planning & build sequencing",
-    },
-    {
-      icon: House,
-      label: "Accommodation mix",
+      icon: TreeEvergreen,
+      label: "Resilience infrastructure",
     },
     {
       icon: Users,
-      label: "Cultural design, seasonal rhythms & community-building",
-    },
-    {
-      icon: Broadcast,
-      label: "Village OS — operations, communication & AI-assisted workflows",
-    },
-    {
-      icon: TreeEvergreen,
-      label: "Food, wellness & maker infrastructure",
-    },
-    {
-      icon: Megaphone,
-      label: "Marketing, storytelling & positioning",
+      label: "Culture & community building",
     },
     {
       icon: HandCoins,
-      label: "Membership models & promotional partnerships",
+      label: "Membership models",
     },
     {
-      icon: CalendarBlank,
-      label: "Events, retreats, pop-ups & residency programs",
+      icon: Megaphone,
+      label: "Investor narratives & marketing",
     },
     {
-      icon: Buildings,
-      label: "Investor narrative & development roadmap",
+      icon: Broadcast,
+      label: "Village OS & AI tools",
     },
   ];
 
@@ -264,152 +235,18 @@ function WhatWeHelpYouBuild() {
 }
 
 /* ─────────────────────────────────────────────
-   PRICING
-   ───────────────────────────────────────────── */
-
-function Pricing() {
-  return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-16 text-center">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
-          Pricing
-        </p>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="font-serif text-6xl font-light text-white lg:text-7xl"
-        >
-          $150 <span className="italic text-amber">per hour.</span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-          className="mt-6 text-base text-white/45"
-        >
-          Simple, transparent, no retainers required.
-        </motion.p>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   VIDEO CALL FORMAT
-   ───────────────────────────────────────────── */
-
-function VideoCallFormat() {
-  const sessionItems = [
-    "Walkthrough of your site, project, or concept",
-    "Assessment of current gaps and opportunities",
-    "Revenue and accommodation strategy",
-    "Cultural and community design recommendations",
-    "Operations and tech-stack guidance",
-    "Build sequencing and phasing priorities",
-    "Marketing and positioning feedback",
-  ];
-
-  const deliverables = [
-    "Recorded session for your team to review",
-    "Prioritized action items and next steps",
-    "Relevant templates and frameworks",
-    "Network introductions where applicable",
-    "Follow-up notes and resource links",
-  ];
-
-  return (
-    <section className="bg-warm-dark py-28 lg:py-36">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="mb-16">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
-            How it works
-          </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            Video Call<br />
-            <span className="italic">Format</span>
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
-          <div className="space-y-12">
-            {/* Typical session */}
-            <div>
-              <h3 className="text-sm font-medium uppercase tracking-wider text-white mb-6">
-                Typical Session
-              </h3>
-              <div className="divide-y divide-white/10 border-y border-white/10">
-                {sessionItems.map((item, i) => (
-                  <motion.div
-                    key={item}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, margin: "-40px" }}
-                    transition={{ delay: i * 0.06, duration: 0.4 }}
-                    className="flex items-center gap-4 py-4"
-                  >
-                    <div className="font-mono text-xs text-amber/60">
-                      {String(i + 1).padStart(2, "0")}
-                    </div>
-                    <span className="text-sm text-white/60">{item}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Deliverables */}
-            <div>
-              <h3 className="text-sm font-medium uppercase tracking-wider text-white mb-6">
-                Deliverables
-              </h3>
-              <div className="divide-y divide-white/10 border-y border-white/10">
-                {deliverables.map((item, i) => (
-                  <motion.div
-                    key={item}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, margin: "-40px" }}
-                    transition={{ delay: i * 0.06, duration: 0.4 }}
-                    className="flex items-center gap-4 py-4"
-                  >
-                    <Check size={14} weight="bold" className="text-amber shrink-0" />
-                    <span className="text-sm text-white/60">{item}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="relative aspect-video overflow-hidden rounded-xl lg:aspect-auto lg:min-h-full">
-            <Image
-              src="/images/the_woman_in_202512041426-1024x576.jpeg"
-              alt="AI-assisted village design consultation"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
    ABOUT US / CREDENTIALS
    ───────────────────────────────────────────── */
 
 function AboutCredentials() {
   const credentials = [
-    "Crowdfunded a 400-acre site in rural British Columbia",
-    "Operating an active campsite and golf resort",
-    "Designing cabins, saunas, coworking spaces, and maker infrastructure",
-    "Hosting seasonal events, retreats, and community programming",
-    "10+ years building a global network via Future Thinkers",
-    "Deep AI expertise applied to village operations and workflows",
-    "Developed the Smart Village Standard",
-    "Consulting on village design, hospitality ops, and regenerative placemaking",
+    "Crowdfunded a 400-acre resort site in British Columbia",
+    "Operating an active campsite and golf resort for 5 years",
+    "Designed & installed shared infrastructure",
+    "Hosted seasonal events and community programming",
+    "10+ years building a global media brand & network via Future Thinkers",
+    "Global speaking & consulting experience on society, communities, and technology",
+    "Deep AI expertise",
   ];
 
   return (
@@ -665,8 +502,6 @@ export default function ConsultingPage() {
       <Hero />
       <WhyWorkWithUs />
       <WhatWeHelpYouBuild />
-      <Pricing />
-      <VideoCallFormat />
       <AboutCredentials />
       <WhoWeWorkWith />
       <ConsultingSupportsPortal />

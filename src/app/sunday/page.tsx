@@ -17,7 +17,7 @@ function Hero() {
       <div className="absolute inset-0">
         <Image
           src="/images/gazebo-interior-campfire-1024x771.jpg"
-          alt="Sunday Community Day at Wells Gray Village"
+          alt="Village Rhythm at Wells Gray Village"
           fill
           priority
           className="object-cover opacity-30"
@@ -99,18 +99,18 @@ function Hero() {
 function Schedule() {
   const events = [
     {
-      days: "Sundays",
+      days: "Village Day",
       label: "Forest School",
       icon: Tree,
       season: "May 1–Oct 7",
       price: "$249 / 6-week session",
-      body: "A Sunday drop-off outdoor program for kids — nature play, seasonal crafts, stories, and free exploration in the forest. 2:30–5pm.",
+      body: "A drop-off outdoor program for kids — nature play, seasonal crafts, stories, and free exploration in the forest. 2:30–5pm.",
       cta: "Sign up for forest school",
       href: "https://wellsgrayresort.ca",
       ages: "Ages 4–10",
     },
     {
-      days: "Sundays",
+      days: "Village Day",
       label: "Community Sauna",
       icon: Waves,
       season: "May 1–Oct 7",
@@ -121,13 +121,13 @@ function Schedule() {
       ages: null,
     },
     {
-      days: "Sundays",
+      days: "Village Day",
       label: "Campfire & Golf",
       icon: Sun,
       season: "May 1–Oct 7",
       price: "À la carte",
       body: "Community campfire from 6pm. Golf available all day as a drop-in. Come for one part or stay all day — each activity is priced individually.",
-      cta: "See Sunday schedule",
+      cta: "See village day schedule",
       href: "#sunday-sample",
       ages: null,
     },
@@ -192,10 +192,10 @@ function Schedule() {
           ))}
         </div>
 
-        {/* Sample Sunday callout */}
+        {/* Sample Village Day callout */}
         <div id="sunday-sample" className="mt-12 rounded-2xl border border-amber/30 bg-amber/5 px-8 py-7">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-3">
-            Sample Sunday
+            Sample Village Day
           </p>
           <p className="text-base font-medium text-white">
             Forest School 2:30–5pm · Community Sauna 5–6pm · Campfire 6pm · Golf all day drop-in
@@ -222,7 +222,7 @@ function ForestSchoolDetail() {
             </h2>
             <div className="mt-8 space-y-4 text-sm leading-relaxed text-white/45 max-w-[48ch]">
               <p>
-                A Sunday drop-off outdoor program running during the summer season (2:30–5pm).
+                A drop-off outdoor program running during the summer season (2:30–5pm).
                 Nature play, seasonal activities, stories, games, crafts, and free
                 exploration in the forest.
               </p>

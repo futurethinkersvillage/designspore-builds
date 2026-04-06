@@ -129,32 +129,30 @@ function NomadicLearning() {
           </p>
           <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
             A decade of<br />
-            <span className="italic">nomadic learning</span>
+            <span className="italic">living & learning</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
           <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[52ch]">
             <p>
-              From Europe to Southeast Asia to South America, we lived in dozens
-              of countries, launched the Future Thinkers Podcast, built online
-              businesses, lived cheaply, learned freely, and connected with
-              thinkers, artists, technologists, philosophers, and community
-              builders from around the world.
+              From Europe to Southeast Asia to South America, we lived deeply
+              inside other cultures — not as tourists, but as residents. We
+              launched the Future Thinkers Podcast, built online businesses, and
+              connected with thinkers, artists, technologists, philosophers, and
+              community builders from around the world.
             </p>
             <p>
-              We experienced the freedom many people dream of — but also
-              discovered the limits of rootlessness.
+              Living inside other cultures taught us what most Canadians never
+              get to see: what it looks like when people actually live together —
+              with shared rituals, seasonal rhythms, and a real sense of place.
             </p>
             <p className="text-white/60 font-medium">
               Community matters. Stability matters. Shared culture matters.
             </p>
             <p>
-              A life in motion can be expansive, but not always grounding.
-            </p>
-            <p>
-              When we had children, we knew it was time for a deeper kind of
-              home.
+              When we had children, we knew it was time to stop observing and
+              start building.
             </p>
           </div>
 
@@ -266,21 +264,21 @@ function WhySmartVillages() {
 function WhereWereGoing() {
   const ctas = [
     {
+      icon: Mountains,
+      title: "Visit",
+      body: "Experience it for yourself — nature, community, rhythm.",
+      href: "/village",
+    },
+    {
       icon: Users,
       title: "Become A Member",
       body: "Join the founding community shaping this new way of living.",
       href: "/membership",
     },
     {
-      icon: Mountains,
-      title: "Live or Visit",
-      body: "Experience it for yourself — nature, community, rhythm.",
-      href: "/village",
-    },
-    {
       icon: Handshake,
-      title: "Invest",
-      body: "Help bring the next village online and support long-term regeneration.",
+      title: "Invest or Partner",
+      body: "Help develop the next phase of Wells Gray Village.",
       href: "/partner",
     },
   ];
