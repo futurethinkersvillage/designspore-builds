@@ -23,7 +23,7 @@ function LoginForm() {
   }, [state]);
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full">
       <div className="text-center mb-8">
         <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">
           Client Portal
