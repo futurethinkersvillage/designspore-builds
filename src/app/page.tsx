@@ -60,7 +60,7 @@ function Marquee() {
 
 function Hero() {
   return (
-    <section className="relative min-h-[100dvh] bg-warm-dark">
+    <section className="relative min-h-[100dvh] bg-warm-dark overflow-hidden">
       <div className="absolute inset-0">
         <iframe
           src="https://www.youtube.com/embed/mcvW_CWry3g?autoplay=1&mute=1&loop=1&playlist=mcvW_CWry3g&controls=0&showinfo=0&modestbranding=1&playsinline=1"
@@ -134,23 +134,23 @@ function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-10 flex flex-wrap items-center gap-4"
+          className="mt-10 flex flex-wrap items-center gap-3"
         >
           <Link
             href="/village"
-            className="text-sm font-medium text-white/60 transition-colors hover:text-white"
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3 text-sm font-medium text-white/80 transition-all hover:border-white/50 hover:text-white hover:bg-white/5 active:scale-[0.98]"
           >
             Visit
           </Link>
           <Link
             href="/membership"
-            className="inline-flex items-center gap-2 rounded-full bg-amber px-7 py-3 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3 text-sm font-medium text-white/80 transition-all hover:border-white/50 hover:text-white hover:bg-white/5 active:scale-[0.98]"
           >
-            Explore Membership <ArrowRight size={13} weight="bold" />
+            Membership <ArrowRight size={13} weight="bold" />
           </Link>
           <Link
             href="/partner"
-            className="text-sm font-medium text-white/60 transition-colors hover:text-white"
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3 text-sm font-medium text-white/80 transition-all hover:border-white/50 hover:text-white hover:bg-white/5 active:scale-[0.98]"
           >
             Investor &amp; Partner Access
           </Link>
@@ -207,8 +207,7 @@ function CoreIdea() {
               Our village campus is designed around wellness, shared rhythms, learning,
               and family-oriented community life. You can immerse in nature, build
               lasting friendships, explore new skills, and participate in meaningful
-              traditions that continue over seasons. Think of it as a country club with
-              21st century values.
+              traditions that continue over seasons. Think of this as a resilience club for the post-AI era.
             </p>
             <div className="mt-8 space-y-3">
               {features.map((f, i) => (
