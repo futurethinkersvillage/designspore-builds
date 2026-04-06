@@ -33,6 +33,8 @@ export async function POST(request: NextRequest) {
       await db.execute(sql`
         CREATE TYPE subscription_tier_new AS ENUM('starter', 'growth', 'scale', 'paused')
       `);
+      // Drop column default before altering type (default references old enum)
+      await db.execute(sql`ALTER TABLE "user" ALTER COLUMN subscription_tier DROP DEFAULT`);
       await db.execute(sql`
         ALTER TABLE "user"
           ALTER COLUMN subscription_tier TYPE subscription_tier_new
@@ -40,6 +42,8 @@ export async function POST(request: NextRequest) {
       `);
       await db.execute(sql`DROP TYPE subscription_tier`);
       await db.execute(sql`ALTER TYPE subscription_tier_new RENAME TO subscription_tier`);
+      // Restore default
+      await db.execute(sql`ALTER TABLE "user" ALTER COLUMN subscription_tier SET DEFAULT 'starter'`);
     }
 
     const finalValues = await db.execute(sql`
