@@ -14,13 +14,17 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    // Rename 'partner' → 'scale' in subscription_tier enum (idempotent)
-    const enumCheck = await db.execute(sql`
-      SELECT 1 FROM pg_enum e
+    // Check current enum values
+    const enumValues = await db.execute(sql`
+      SELECT e.enumlabel FROM pg_enum e
       JOIN pg_type t ON t.oid = e.enumtypid
-      WHERE t.typname = 'subscription_tier' AND e.enumlabel = 'partner'
+      WHERE t.typname = 'subscription_tier'
+      ORDER BY e.enumsortorder
     `);
-    if (enumCheck.rows.length > 0) {
+    const labels = enumValues.rows.map((r: any) => r.enumlabel);
+
+    // Rename 'partner' → 'scale' only if 'partner' exists and 'scale' doesn't
+    if (labels.includes('partner') && !labels.includes('scale')) {
       await db.execute(sql`ALTER TYPE subscription_tier RENAME VALUE 'partner' TO 'scale'`);
     }
 
@@ -97,7 +101,7 @@ export async function POST(request: NextRequest) {
       )
     `);
 
-    return NextResponse.json({ success: true, message: "Migration complete." });
+    return NextResponse.json({ success: true, message: "Migration complete.", subscriptionTierValues: labels });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json({ error: message }, { status: 500 });
