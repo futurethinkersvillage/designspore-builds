@@ -46,15 +46,13 @@ export function Nav() {
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 lg:px-16">
         {/* Logo */}
         <Link href="/" className="shrink-0 flex items-center gap-2.5">
-          <div className="overflow-hidden shrink-0" style={{ height: "40px", width: "29px" }}>
-            <Image
-              src="/images/portalplace-logo-vertical-white-738x1024.png"
-              alt="Portal.Place home"
-              width={29}
-              height={40}
-              style={{ height: "70px", width: "auto" }}
-            />
-          </div>
+          <Image
+            src="/images/portalplace-logo-vertical-white-738x1024.png"
+            alt="Portal.Place home"
+            width={29}
+            height={40}
+            className="shrink-0"
+          />
           <span className="text-[0.95rem] font-semibold tracking-tight text-white">
             Portal.Place
           </span>
