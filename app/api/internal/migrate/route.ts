@@ -29,7 +29,8 @@ export async function POST(request: NextRequest) {
         UPDATE "user" SET subscription_tier = 'starter'
         WHERE subscription_tier::text = 'partner'
       `);
-      // Recreate the enum without 'partner'
+      // Recreate the enum without 'partner' (drop temp type if leftover from failed run)
+      await db.execute(sql`DROP TYPE IF EXISTS subscription_tier_new`);
       await db.execute(sql`
         CREATE TYPE subscription_tier_new AS ENUM('starter', 'growth', 'scale', 'paused')
       `);
