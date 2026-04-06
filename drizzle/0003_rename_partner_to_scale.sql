@@ -1,1 +1,2 @@
-ALTER TYPE "public"."subscription_tier" RENAME VALUE 'partner' TO 'scale';
+-- Removes stale 'partner' value from subscription_tier enum.
+-- Applied via /api/internal/migrate endpoint (Postgres requires type recreation to drop enum values).
