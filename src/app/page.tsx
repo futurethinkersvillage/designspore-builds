@@ -181,22 +181,21 @@ function CoreIdea() {
   return (
     <section className="bg-warm-dark py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="mb-16">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
-            The Core Idea
-          </p>
-          <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl">
-            A Network of Villages<br />
-            <span className="italic">For The Post-Ai World</span>
-          </h2>
-          <p className="mt-6 text-sm leading-relaxed text-white/40 max-w-[52ch]">
-            We are starting with our existing 400-acre flagship village site in BC,
-            Canada – and adding partner locations with time.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 items-start">
           <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+            <div className="mb-8">
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+                The Core Idea
+              </p>
+              <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl">
+                A Network of Villages<br />
+                <span className="italic">For The Post-Ai World</span>
+              </h2>
+              <p className="mt-6 text-sm leading-relaxed text-white/40 max-w-[52ch]">
+                We are starting with our existing 400-acre flagship village site in BC,
+                Canada – and adding partner locations with time.
+              </p>
+            </div>
             <p>
               Portal.Place is building a new kind of village experience — one centered
               on seasonal living, shared culture, and a deep sense of belonging. It&apos;s a
