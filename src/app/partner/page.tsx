@@ -108,13 +108,19 @@ function Hero() {
                 <div className="mt-0.5 text-xs text-white/35">{item.sub}</div>
               </div>
             ))}
-            <div className="pt-6">
+            <div className="pt-6 flex flex-wrap gap-3">
               <a
                 href="#access"
                 className="inline-flex items-center gap-2 rounded-full bg-amber px-7 py-3 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
               >
                 Request investor access <ArrowRight size={13} weight="bold" />
               </a>
+              <Link
+                href="/deck"
+                className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3 text-sm font-medium text-white transition-all hover:border-white/50 hover:bg-white/5"
+              >
+                View investor deck <ArrowUpRight size={13} weight="bold" />
+              </Link>
             </div>
           </motion.div>
         </div>
