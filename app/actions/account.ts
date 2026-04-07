@@ -6,6 +6,7 @@ import { users, accounts, activations } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
+import { CREDIT_VALUE } from "@/lib/subscription";
 
 type Result = { success: true; message: string } | { success: false; error: string };
 
@@ -63,9 +64,9 @@ export async function createCreditTopupCheckout(creditPack: 1 | 2 | 4): Promise<
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-03-25.dahlia" });
 
   const priceMap: Record<number, { amount: number; label: string }> = {
-    1: { amount: 37500, label: "1 Credit Top-Up" },
-    2: { amount: 75000, label: "2 Credits Top-Up" },
-    4: { amount: 150000, label: "4 Credits Top-Up" },
+    1: { amount: CREDIT_VALUE * 100,     label: "1 Credit Top-Up" },
+    2: { amount: CREDIT_VALUE * 100 * 2, label: "2 Credits Top-Up" },
+    4: { amount: CREDIT_VALUE * 100 * 4, label: "4 Credits Top-Up" },
   };
 
   const pack = priceMap[creditPack];

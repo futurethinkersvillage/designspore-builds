@@ -6,6 +6,9 @@ import { PLANS } from "@/lib/subscription";
 import Link from "next/link";
 import { CardColumn } from "@/components/PromptGridBackground";
 
+// Update this as spots fill up
+const SPOTS_REMAINING = 3;
+
 const PLAN_KEYS = ["starter", "growth", "scale"] as const;
 type SignupPlan = typeof PLAN_KEYS[number];
 
@@ -82,6 +85,14 @@ export default function SignupPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-8">
+            {/* Urgency banner */}
+            <div className="flex items-start gap-3 rounded-xl border border-gold/20 bg-gold/[0.06] px-4 py-3">
+              <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-gold animate-pulse" />
+              <p className="text-sm text-white/80 leading-snug">
+                <span className="font-semibold text-gold">{SPOTS_REMAINING} spots left</span> at founding pricing — we raise rates after every 3 new clients.
+              </p>
+            </div>
+
             {/* Plan selector */}
             <div className="space-y-3">
               <p className="text-xs uppercase tracking-widest text-white/30 font-semibold">Choose your plan</p>
