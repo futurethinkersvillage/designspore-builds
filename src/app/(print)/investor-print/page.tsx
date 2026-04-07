@@ -2,6 +2,17 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import {
+  SUMMARY_ROWS,
+  MARKET_STATS,
+  PROPERTY_ITEMS,
+  BUSINESS_ITEMS,
+  BRIDGE_USES,
+  PROJECTION_ROWS,
+  COMPARISON_ROWS,
+  INVESTMENT_TIERS,
+  FOUNDER_STATS,
+} from "../../one-pager/data";
 
 /* ─── Auto-print on load ─────────────────────────────────────────── */
 function PrintTrigger() {
@@ -70,17 +81,10 @@ export default function InvestorPrintPage() {
 
           {/* Summary table */}
           <div className="mt-6 grid grid-cols-3 gap-0 border border-gray-200 rounded-lg overflow-hidden text-sm">
-            {[
-              ["Raising", "$3M CAD Senior Bridge"],
-              ["Structure", "SPV — Multiple aligned investors"],
-              ["Security", "First position on land title"],
-              ["Return", "Fixed interest + equity kicker"],
-              ["Upside", "~50% target at next round"],
-              ["Timeline", "18–24 months · Min. $100K"],
-            ].map(([label, value], i) => (
-              <div key={label} className={`flex flex-col px-4 py-3 ${i % 2 === 0 ? "bg-gray-50" : "bg-white"} border-b border-gray-100`}>
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-0.5">{label}</span>
-                <span className="text-sm font-medium text-gray-900">{value}</span>
+            {SUMMARY_ROWS.map((row, i) => (
+              <div key={row.label} className={`flex flex-col px-4 py-3 ${i % 2 === 0 ? "bg-gray-50" : "bg-white"} border-b border-gray-100`}>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-0.5">{row.label}</span>
+                <span className="text-sm font-medium text-gray-900">{row.value}</span>
               </div>
             ))}
           </div>
@@ -108,15 +112,10 @@ export default function InvestorPrintPage() {
             <div>
               <p className={EYEBROW}>Why It Works</p>
               <div className="grid grid-cols-2 gap-3 mt-1">
-                {[
-                  ["200,000+", "annual visitors to adjacent Wells Gray Park"],
-                  ["3,000+", "guests/year at our current site (5 seasons)"],
-                  ["$2T+", "wellness tourism market by 2030 (10–12% CAGR)"],
-                  ["40%+", "Canadian workers are now remote-capable"],
-                ].map(([stat, label]) => (
-                  <div key={stat} className="rounded-lg bg-gray-50 p-3 border border-gray-100">
-                    <p className="font-serif text-2xl font-light text-orange-500">{stat}</p>
-                    <p className="text-xs text-gray-500 leading-snug mt-1">{label}</p>
+                {MARKET_STATS.map((stat) => (
+                  <div key={stat.number} className="rounded-lg bg-gray-50 p-3 border border-gray-100">
+                    <p className="font-serif text-2xl font-light text-orange-500">{stat.number}</p>
+                    <p className="text-xs text-gray-500 leading-snug mt-1">{stat.label}</p>
                   </div>
                 ))}
               </div>
@@ -131,17 +130,7 @@ export default function InvestorPrintPage() {
             <div>
               <h3 className={H3}>The Land</h3>
               <ul className="space-y-1.5">
-                {[
-                  "393 acres across 2 titles, Clearwater Valley Rd, BC",
-                  "C-3 + C-4 commercial/recreational zoning",
-                  "45 serviced RV sites + 30 non-serviced",
-                  "3 bunk cabins + 1 geodesic glamping dome",
-                  "120-person event gazebo with commercial kitchen",
-                  "Sauna, cold plunge, makerspace workshop",
-                  "9-hole golf + disc golf, horse corral, private lake",
-                  "2 creeks, Starlink internet, 275 developable acres",
-                  "Held by Giant Supernova Holdings Inc.",
-                ].map((item) => (
+                {PROPERTY_ITEMS.map((item) => (
                   <li key={item} className="flex items-start gap-2 text-xs text-gray-600">
                     <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-orange-400" />
                     {item}
@@ -152,14 +141,7 @@ export default function InvestorPrintPage() {
             <div>
               <h3 className={H3}>The Business</h3>
               <ul className="space-y-1.5">
-                {[
-                  "~$250K annual revenue, seasonal (May–Oct only)",
-                  "Revenue trend: $131K → $177K → $187K (2021–23)",
-                  "~3,000 guests/year with near-zero paid marketing",
-                  "Appraised value: ~$2.25M+ (land, biz, equipment)",
-                  "10+ years: Future Thinkers podcast (10M+ downloads)",
-                  "Founders on-site, deeply operationally committed",
-                ].map((item) => (
+                {BUSINESS_ITEMS.map((item) => (
                   <li key={item} className="flex items-start gap-2 text-xs text-gray-600">
                     <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-orange-400" />
                     {item}
@@ -190,17 +172,12 @@ export default function InvestorPrintPage() {
               </tr>
             </thead>
             <tbody>
-              {[
-                ["Lodging (existing units)", "$187K", "$250K", "$350K"],
-                ["Glamping & Cabins (new)", "—", "$400K", "$1.1M"],
-                ["Wellness & Events", "$20K", "$150K", "$350K"],
-                ["Membership Revenue", "—", "$50K", "$250K"],
-              ].map(([label, cur, y1, y3], i) => (
-                <tr key={label} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                  <td className="px-4 py-2.5 text-xs text-gray-700">{label}</td>
-                  <td className="px-4 py-2.5 text-xs text-right text-gray-500">{cur}</td>
-                  <td className="px-4 py-2.5 text-xs text-right text-gray-700">{y1}</td>
-                  <td className="px-4 py-2.5 text-xs text-right font-medium text-gray-900">{y3}</td>
+              {PROJECTION_ROWS.filter((r) => !r.bold).map((row, i) => (
+                <tr key={row.label} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                  <td className="px-4 py-2.5 text-xs text-gray-700">{row.label}</td>
+                  <td className="px-4 py-2.5 text-xs text-right text-gray-500">{row.current}</td>
+                  <td className="px-4 py-2.5 text-xs text-right text-gray-700">{row.yr1}</td>
+                  <td className="px-4 py-2.5 text-xs text-right font-medium text-gray-900">{row.yr3}</td>
                 </tr>
               ))}
               <tr className="bg-gray-900 text-white">
@@ -246,41 +223,25 @@ export default function InvestorPrintPage() {
             <div>
               <p className={EYEBROW}>Investment Tiers</p>
               <div className="space-y-3 mt-1">
-                {[
-                  {
-                    name: "Trailblazer",
-                    amount: "$100K+",
-                    color: "border-orange-400",
-                    perks: ["1 week annual stay", "Priority booking + off-season access", "Emergency family access", "First right on $20M raise", "Founding membership rate locked", "Annual Founders' Gathering"],
-                  },
-                  {
-                    name: "Homesteader",
-                    amount: "$250K+",
-                    color: "border-red-400",
-                    perks: ["3 weeks annual stay + Founders' Area site", "Personal storage locker on-site", "Full workshop + makerspace access", "Food program participation", "$750 annual spending credit", "Priority unit selection when built"],
-                  },
-                  {
-                    name: "Cornerstone",
-                    amount: "$500K+",
-                    color: "border-purple-400",
-                    perks: ["4 weeks stay + naming rights", "Advisory board seat", "Direct quarterly founder calls", "$1,500 spending credit", "First pick on all units"],
-                  },
-                ].map((tier) => (
-                  <div key={tier.name} className={`rounded-lg border-l-4 ${tier.color} bg-gray-50 px-4 py-3`}>
-                    <div className="flex items-baseline justify-between mb-2">
-                      <span className="text-xs font-semibold text-gray-900">{tier.name}</span>
-                      <span className="font-serif text-lg font-light text-gray-800">{tier.amount}</span>
+                {INVESTMENT_TIERS.map((tier, idx) => {
+                  const colors = ["border-orange-400", "border-red-400", "border-purple-400"];
+                  return (
+                    <div key={tier.name} className={`rounded-lg border-l-4 ${colors[idx]} bg-gray-50 px-4 py-3`}>
+                      <div className="flex items-baseline justify-between mb-2">
+                        <span className="text-xs font-semibold text-gray-900">{tier.name}</span>
+                        <span className="font-serif text-lg font-light text-gray-800">{tier.amount}</span>
+                      </div>
+                      <ul className="space-y-0.5">
+                        {tier.perks.map((p) => (
+                          <li key={p} className="text-[10px] text-gray-500 flex items-start gap-1.5">
+                            <span className="mt-1 h-0.5 w-0.5 shrink-0 rounded-full bg-gray-400" />
+                            {p}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <ul className="space-y-0.5">
-                      {tier.perks.map((p) => (
-                        <li key={p} className="text-[10px] text-gray-500 flex items-start gap-1.5">
-                          <span className="mt-1 h-0.5 w-0.5 shrink-0 rounded-full bg-gray-400" />
-                          {p}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -295,17 +256,10 @@ export default function InvestorPrintPage() {
           <div className="grid grid-cols-2 gap-0 border border-gray-200 rounded-lg overflow-hidden text-xs">
             <div className="bg-gray-100 px-4 py-2 font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-200">Buying Rural Land</div>
             <div className="bg-gray-900 px-4 py-2 font-semibold text-orange-400 uppercase tracking-wider border-b border-gray-200">Investing in Portal.Place</div>
-            {[
-              ["One-time cost, no return", "Fixed interest + ~50% equity upside"],
-              ["Property tax, maintenance, liability", "No ownership costs"],
-              ["Isolated — you build community alone", "Community of like-minded people built in"],
-              ["Used 2–4 weeks/year on average", "1–4 weeks allocated + open access anytime"],
-              ["No emergency infrastructure", "Guaranteed emergency access for family"],
-              ["Static land appreciation only", "Growing network + expansion round priority"],
-            ].map(([bad, good], i) => (
+            {COMPARISON_ROWS.map((row, i) => (
               <>
-                <div key={`bad-${i}`} className={`px-4 py-2.5 text-gray-600 border-b border-gray-100 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>{bad}</div>
-                <div key={`good-${i}`} className={`px-4 py-2.5 text-gray-800 font-medium border-b border-gray-100 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>{good}</div>
+                <div key={`bad-${i}`} className={`px-4 py-2.5 text-gray-600 border-b border-gray-100 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>{row.left}</div>
+                <div key={`good-${i}`} className={`px-4 py-2.5 text-gray-800 font-medium border-b border-gray-100 ${i % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>{row.right}</div>
               </>
             ))}
           </div>
@@ -332,14 +286,10 @@ export default function InvestorPrintPage() {
               </p>
             </div>
             <div className="space-y-4">
-              {[
-                ["10M+", "podcast downloads"],
-                ["iTunes Top 40", "Tech podcast globally"],
-                ["5 years", "operating this destination"],
-              ].map(([stat, label]) => (
-                <div key={stat}>
-                  <p className="font-serif text-2xl font-light text-orange-500">{stat}</p>
-                  <p className="text-xs text-gray-500">{label}</p>
+              {FOUNDER_STATS.map((stat) => (
+                <div key={stat.number}>
+                  <p className="font-serif text-2xl font-light text-orange-500">{stat.number}</p>
+                  <p className="text-xs text-gray-500">{stat.label}</p>
                 </div>
               ))}
             </div>

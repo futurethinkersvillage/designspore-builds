@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const footerLinks = [
   {
@@ -31,6 +34,9 @@ const footerLinks = [
 ];
 
 export function Footer() {
+  const pathname = usePathname();
+  if (pathname === "/investor-print") return null;
+
   return (
     <footer className="bg-warm-dark text-white">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">

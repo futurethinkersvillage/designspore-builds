@@ -41,6 +41,8 @@ export function Nav() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
+  if (pathname === "/investor-print") return null;
+
   return (
     <header className="fixed top-0 z-50 w-full bg-warm-dark/70 backdrop-blur-md border-b border-white/5">
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 lg:px-16">

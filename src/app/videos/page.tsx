@@ -74,35 +74,32 @@ function Hero() {
 }
 
 const shorts = [
-  { id: "H_rMIc57qvg", title: "The Post-Job Economy", thumb: "The-Post-Job-Economy.png" },
-  { id: "hzkvwahhAco", title: "The Network Model", thumb: "The-Network-Model.png" },
-  { id: "TiYIdqt-moU", title: "A Day in the Smart Village", thumb: "A-Day-In-the-Life.png" },
-  { id: "ELARkMW6dO4", title: "What We\u2019ve Built So Far", thumb: "What-weve-built-so-far.png" },
-  { id: "ezAJdYtH2YE", title: "The Village Moment", thumb: "The-Village-Moment.png" },
-  { id: "yKTJNEUO75U", title: "4 Years on 400 Acres", thumb: "4-years-on-400-acres.png" },
-  { id: "1sRsNBrOklI", title: "Not a utopia", thumb: "Not-a-utopia.png" },
-  { id: "15nHWWl3ZcQ", title: "The Real Work of Building A Village", thumb: "The-Real-Work-of-Building-A-Village.png" },
-  { id: "2i019WU41AM", title: "Village With A Brain", thumb: "Village-with-a-brain.png" },
-  { id: "kyAwGB1tJH4", title: "How We Can Adapt", thumb: "How-we-can-Adapt.png" },
-  { id: "03yEnTSJGfA", title: "The Blue Zones", thumb: "The-Blue-Zones.png" },
-  { id: "HHl1WbhYaqI", title: "Why Most Communities Fail", thumb: "Why-Most-Communities-Fail.png" },
-  { id: "kcEHwdWe-dA", title: "Lifestyle First Living", thumb: "Lifestyle-First-Living.png" },
-  { id: "L7rFBx1tfFM", title: "Third Place Environments", thumb: "Third-Place-Environments.png" },
-  { id: "S-SPfZG5bAI", title: "The Real Wellness Fix", thumb: "The-Real-Wellness-Fix.png" },
-  { id: "cpZLfU2GpMY", title: "Digital Nomads and the New Ancestral Future", thumb: "digital-nomads-and-the-new-ancestral-future.png" },
-  { id: "QXzxysQTHbs", title: "Dacha Culture", thumb: "Dacha-Culture.png" },
-  { id: "f3zBVOVrwO8", title: "AI In The Village", thumb: "Ai-in-the-village.png" },
-  { id: "lwvqTHRBMso", title: "The Next Big Asset Class", thumb: "The-Next-Big-Asset-Class-1.png" },
-];
-
-const regularVideos = [
+  { id: "H_rMIc57qvg", title: "The Post-Job Economy" },
+  { id: "hzkvwahhAco", title: "The Network Model" },
+  { id: "TiYIdqt-moU", title: "A Day in the Smart Village" },
+  { id: "ELARkMW6dO4", title: "What We\u2019ve Built So Far" },
+  { id: "ezAJdYtH2YE", title: "The Village Moment" },
+  { id: "yKTJNEUO75U", title: "4 Years on 400 Acres" },
+  { id: "1sRsNBrOklI", title: "Not a utopia" },
+  { id: "15nHWWl3ZcQ", title: "The Real Work of Building A Village" },
+  { id: "2i019WU41AM", title: "Village With A Brain" },
+  { id: "kyAwGB1tJH4", title: "How We Can Adapt" },
+  { id: "03yEnTSJGfA", title: "The Blue Zones" },
+  { id: "HHl1WbhYaqI", title: "Why Most Communities Fail" },
+  { id: "kcEHwdWe-dA", title: "Lifestyle First Living" },
+  { id: "L7rFBx1tfFM", title: "Third Place Environments" },
+  { id: "S-SPfZG5bAI", title: "The Real Wellness Fix" },
+  { id: "cpZLfU2GpMY", title: "Digital Nomads and the New Ancestral Future" },
+  { id: "QXzxysQTHbs", title: "Dacha Culture" },
+  { id: "f3zBVOVrwO8", title: "AI In The Village" },
+  { id: "lwvqTHRBMso", title: "The Next Big Asset Class" },
   { id: "AlElqfrELPQ", title: "Why do 90% of eco villages fail?" },
   { id: "I9BbQNhhkvU", title: "Communities of the future" },
   { id: "B0nPPKMU9tY", title: "We bought land to start a community" },
   { id: "N0nBDkNHhvk", title: "6 Reasons we started a high tech homestead" },
 ];
 
-const longFormVideos = [
+const deepDiveVideos = [
   { id: "xrL-wL5Bueg", title: "Long-Form Episode 1" },
   { id: "lYh18UrSMEE", title: "Long-Form Episode 2" },
   { id: "gdvJFzGUs8Q", title: "Long-Form Episode 3" },
@@ -111,7 +108,7 @@ const longFormVideos = [
   { id: "Tf_YNgph84o", title: "Long-Form Episode 6" },
 ];
 
-function VideoShortCard({ id, title, thumb }: { id: string; title: string; thumb: string }) {
+function VideoShortCard({ id, title }: { id: string; title: string }) {
   const [playing, setPlaying] = useState(false);
 
   return (
@@ -132,7 +129,7 @@ function VideoShortCard({ id, title, thumb }: { id: string; title: string; thumb
         ) : (
           <>
             <Image
-              src={`/images/${thumb}`}
+              src={`https://i.ytimg.com/vi/${id}/oardefault.jpg`}
               alt={title}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -165,7 +162,7 @@ function Series() {
             Episodes
           </h2>
           <p className="mt-6 max-w-[52ch] text-base leading-relaxed text-white/55">
-            19 short-form episodes exploring the ideas, challenges, and vision behind the smart village movement.
+            23 short-form episodes exploring the ideas, challenges, and vision behind the smart village movement.
           </p>
         </div>
 
@@ -178,7 +175,7 @@ function Series() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ delay: (i % 4) * 0.06, duration: 0.5 }}
             >
-              <VideoShortCard id={v.id} title={v.title} thumb={v.thumb} />
+              <VideoShortCard id={v.id} title={v.title} />
             </motion.div>
           ))}
         </div>
@@ -187,59 +184,16 @@ function Series() {
   );
 }
 
-function RegularVideos() {
+function DeepDives() {
   return (
     <section className="bg-warm-dark py-28 lg:py-36">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="mb-16">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
-            Featured videos
-          </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            Deep Dives
-          </h2>
-          <p className="mt-6 max-w-[52ch] text-base leading-relaxed text-white/55">
-            Longer explorations into why communities fail, how ours began, and where we&apos;re headed.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
-          {regularVideos.map((v, i) => (
-            <motion.div
-              key={v.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ delay: (i % 2) * 0.1, duration: 0.5 }}
-            >
-              <div className="relative w-full overflow-hidden rounded-2xl" style={{ aspectRatio: "16/9" }}>
-                <iframe
-                  src={`https://www.youtube.com/embed/${v.id}`}
-                  title={v.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 h-full w-full"
-                />
-              </div>
-              <p className="mt-3 text-sm font-medium text-white">{v.title}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function LongFormVideos() {
-  return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             Long-form content
           </p>
           <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            Full-Length Films
+            Deep Dives
           </h2>
           <p className="mt-6 max-w-[52ch] text-base leading-relaxed text-white/55">
             Extended documentary content and in-depth conversations about the future of intentional living.
@@ -247,7 +201,7 @@ function LongFormVideos() {
         </div>
 
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
-          {longFormVideos.map((v, i) => (
+          {deepDiveVideos.map((v, i) => (
             <motion.div
               key={v.id}
               initial={{ opacity: 0, y: 24 }}
@@ -322,8 +276,7 @@ export default function VideosPage() {
     <>
       <Hero />
       <Series />
-      <RegularVideos />
-      <LongFormVideos />
+      <DeepDives />
       <MediaCTA />
     </>
   );
