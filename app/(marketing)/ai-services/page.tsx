@@ -4,6 +4,10 @@ import { ArrowRightIcon, CheckIcon } from "@phosphor-icons/react/dist/ssr";
 import { caseStudies } from "@/lib/case-studies";
 import { modules, categoryLabels, tierConfig, creditsForModule, type ModuleCategory } from "@/lib/modules";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import ServiceCatalogSection from "@/components/marketing/ServiceCatalogSection";
+
+// Toggle to false to revert to the original 6-card "Popular services" + "Categories" layout
+const USE_FULL_CATALOG = true;
 
 export const metadata: Metadata = {
   title: "AI Services — DesignSpore",
@@ -254,91 +258,98 @@ export default function AIServicesPage() {
         </div>
       </section>
 
-      {/* ── FEATURED SERVICES ───────────────────────────────────────── */}
-      <section className="section-pad bg-raised">
-        <div className="max-w-7xl mx-auto px-5 md:px-8">
-          <div className="mb-14">
-            <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">
-              From the catalog
-            </p>
-            <h2
-              className="text-4xl md:text-5xl font-bold tracking-tight text-white"
-              style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
-            >
-              Popular services.
-            </h2>
-            <p className="mt-4 text-white/40 text-lg">
-              A sample of what's available. 21 services across 8 categories — new ones added regularly.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-            {featuredModules.map((mod) => {
-              const credits = creditsForModule(mod);
-              const creditColor =
-                mod.tier === 1 ? "text-gold border-gold/20 bg-gold/[0.06]" :
-                mod.tier === 2 ? "text-blue-300 border-blue-500/20 bg-blue-500/[0.06]" :
-                "text-emerald-300 border-emerald-500/20 bg-emerald-500/[0.06]";
-              return (
-                <div
-                  key={mod.id}
-                  className="p-6 rounded-2xl border border-white/[0.06] bg-dark hover:border-white/[0.12] hover:bg-raised transition-all group"
+      {/* ── SERVICES (toggle: full catalog vs 6-card preview) ────────── */}
+      {USE_FULL_CATALOG ? (
+        <ServiceCatalogSection modules={modules} />
+      ) : (
+        <>
+          {/* ── FEATURED SERVICES ───────────────────────────────────── */}
+          <section className="section-pad bg-raised">
+            <div className="max-w-7xl mx-auto px-5 md:px-8">
+              <div className="mb-14">
+                <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">
+                  From the catalog
+                </p>
+                <h2
+                  className="text-4xl md:text-5xl font-bold tracking-tight text-white"
+                  style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
                 >
-                  <div className="flex items-start justify-between gap-3 mb-4">
-                    <h3
-                      className="font-bold text-white text-lg leading-snug group-hover:text-gold transition-colors"
-                      style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
-                    >
-                      {mod.name}
-                    </h3>
-                    <span className={`shrink-0 text-xs font-semibold px-2.5 py-1 rounded-full border ${creditColor}`}>
-                      {credits}cr
-                    </span>
-                  </div>
-                  <p className="text-sm text-white/50 leading-relaxed mb-3">{mod.shortDescription}</p>
-                  <p className="text-xs text-white/25 leading-relaxed italic">{mod.businessOutcome}</p>
-                </div>
-              );
-            })}
-          </div>
-
-          <Link
-            href="/signup"
-            className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-gold transition-colors"
-          >
-            See all 21 services in the client portal <ArrowRightIcon size={14} />
-          </Link>
-        </div>
-      </section>
-
-      {/* ── SERVICE CATEGORIES ──────────────────────────────────────── */}
-      <section className="section-pad bg-dark">
-        <div className="max-w-7xl mx-auto px-5 md:px-8">
-          <div className="mb-14">
-            <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">
-              Categories
-            </p>
-            <h2
-              className="text-4xl md:text-5xl font-bold tracking-tight text-white"
-              style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
-            >
-              Every corner of your operations.
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {groupedCategories.map(({ cat, label, icon, count }) => (
-              <div
-                key={cat}
-                className="p-5 rounded-xl border border-white/[0.06] bg-raised hover:border-white/[0.12] transition-colors"
-              >
-                <span className="text-2xl mb-3 block">{icon}</span>
-                <h3 className="font-semibold text-white text-sm mb-1">{label}</h3>
-                <p className="text-xs text-white/30">{count} service{count !== 1 ? "s" : ""}</p>
+                  Popular services.
+                </h2>
+                <p className="mt-4 text-white/40 text-lg">
+                  A sample of what's available. 21 services across 8 categories — new ones added regularly.
+                </p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+                {featuredModules.map((mod) => {
+                  const credits = creditsForModule(mod);
+                  const creditColor =
+                    mod.tier === 1 ? "text-gold border-gold/20 bg-gold/[0.06]" :
+                    mod.tier === 2 ? "text-blue-300 border-blue-500/20 bg-blue-500/[0.06]" :
+                    "text-emerald-300 border-emerald-500/20 bg-emerald-500/[0.06]";
+                  return (
+                    <div
+                      key={mod.id}
+                      className="p-6 rounded-2xl border border-white/[0.06] bg-dark hover:border-white/[0.12] hover:bg-raised transition-all group"
+                    >
+                      <div className="flex items-start justify-between gap-3 mb-4">
+                        <h3
+                          className="font-bold text-white text-lg leading-snug group-hover:text-gold transition-colors"
+                          style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
+                        >
+                          {mod.name}
+                        </h3>
+                        <span className={`shrink-0 text-xs font-semibold px-2.5 py-1 rounded-full border ${creditColor}`}>
+                          {credits}cr
+                        </span>
+                      </div>
+                      <p className="text-sm text-white/50 leading-relaxed mb-3">{mod.shortDescription}</p>
+                      <p className="text-xs text-white/25 leading-relaxed italic">{mod.businessOutcome}</p>
+                    </div>
+                  );
+                })}
+              </div>
+              <Link
+                href="/signup"
+                className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-gold transition-colors"
+              >
+                See all 21 services in the client portal <ArrowRightIcon size={14} />
+              </Link>
+            </div>
+          </section>
+
+          {/* ── SERVICE CATEGORIES ──────────────────────────────────── */}
+          <section className="section-pad bg-dark">
+            <div className="max-w-7xl mx-auto px-5 md:px-8">
+              <div className="mb-14">
+                <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">
+                  Categories
+                </p>
+                <h2
+                  className="text-4xl md:text-5xl font-bold tracking-tight text-white"
+                  style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
+                >
+                  Every corner of your operations.
+                </h2>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {groupedCategories.map(({ cat, label, icon, count }) => (
+                  <div
+                    key={cat}
+                    className="p-5 rounded-xl border border-white/[0.06] bg-raised hover:border-white/[0.12] transition-colors"
+                  >
+                    <span className="text-2xl mb-3 block">{icon}</span>
+                    <h3 className="font-semibold text-white text-sm mb-1">{label}</h3>
+                    <p className="text-xs text-white/30">{count} service{count !== 1 ? "s" : ""}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
 
       {/* ── PLANS ───────────────────────────────────────────────────── */}
       <section className="section-pad bg-raised" id="plans">
