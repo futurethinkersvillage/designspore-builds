@@ -44,7 +44,7 @@ export const PROPERTY_ITEMS = [
   "9-hole golf + disc golf course",
   "Horse corral, private lake, 2 creeks",
   "Starlink internet throughout",
-  "Held by Giant Supernova Holdings Inc.",
+  "Legal entity & full structure details available under NDA",
 ];
 
 export const BUSINESS_ITEMS = [
@@ -57,10 +57,10 @@ export const BUSINESS_ITEMS = [
 ];
 
 export const BRIDGE_USES = [
+  "Secures land position and completes legal structuring for the $20M expansion raise",
+  "Funds feasibility study, due diligence, and investor materials for Phase 2",
   "Completes the makerspace to begin in-house cabin and unit fabrication",
-  "Expands glamping and accommodation capacity (revenue-generating infrastructure)",
-  "Funds feasibility, diligence, and structuring for the $20M expansion raise",
-  "Builds the membership platform and improves investor materials",
+  "Builds the membership platform",
   "Provides 3-year operations runway for the flagship site",
 ];
 
@@ -90,8 +90,8 @@ export const COMPARISON_ROWS = [
     right: "1–4 weeks allocated + open access anytime",
   },
   {
-    left: "No emergency infrastructure",
-    right: "Guaranteed emergency access for family",
+    left: "Starting from scratch",
+    right: "Existing shared infrastructure, 5 years operating",
   },
   {
     left: "No upside beyond land appreciation",
@@ -102,7 +102,7 @@ export const COMPARISON_ROWS = [
     right: "Professional team builds it, you benefit",
   },
   {
-    left: "Static asset",
+    left: "Worrying about maintenance",
     right: "Growing network with software-like scalability",
   },
 ];
@@ -111,42 +111,14 @@ export const INVESTMENT_TIERS = [
   {
     name: "Trailblazer",
     amount: "$100K+",
-    perks: [
-      "1 week annual stay allocation",
-      "Priority booking window",
-      "Off-season open access",
-      "Emergency family access",
-      "First right on $20M raise",
-      "Founding membership rate locked",
-      "Annual Founders' Gathering invite",
-    ],
   },
   {
     name: "Homesteader",
     amount: "$250K+",
-    perks: [
-      "3 weeks annual stay (up from 1)",
-      "Dedicated Founders' Area site",
-      "Personal storage locker on-site",
-      "Full workshop + makerspace access",
-      "Food program participation",
-      "$750 annual on-site spending credit",
-      "Founders' Council input on design",
-      "Priority unit selection when built",
-    ],
   },
   {
     name: "Cornerstone",
     amount: "$500K+",
-    perks: [
-      "4 weeks annual stay",
-      "Naming rights (trail/garden/space)",
-      "Advisory board seat",
-      "Direct quarterly call with founders",
-      "$1,500 annual spending credit",
-      "First pick on all unit selections",
-      "Extended family emergency access",
-    ],
   },
 ];
 

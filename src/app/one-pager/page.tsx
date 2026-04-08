@@ -355,116 +355,34 @@ function InvestmentTiers() {
         </motion.div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {/* Card 1 — Trailblazer */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="rounded-2xl border border-amber/50 bg-white/5 p-7"
-          >
-            <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-amber">
-              Trailblazer
-            </p>
-            <p className="font-serif text-4xl font-light text-white">$100K+</p>
-            <div className="my-5 border-t border-white/10" />
-            <div className="mb-4">
-              <p className="mb-1 text-xs uppercase tracking-wider text-white/40">
-                Core financial terms
+          {[
+            { tier: INVESTMENT_TIERS[0], color: "amber", border: "border-amber/50", label: "Entry" },
+            { tier: INVESTMENT_TIERS[1], color: "terracotta", border: "border-terracotta/60", label: "Most Popular", featured: true },
+            { tier: INVESTMENT_TIERS[2], color: "mauve", border: "border-mauve/60", label: "Lead" },
+          ].map(({ tier, color, border, label, featured }, i) => (
+            <motion.div
+              key={tier.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className={`relative rounded-2xl ${border} bg-white/5 p-7 ${featured ? "py-9" : ""}`}
+            >
+              {featured && (
+                <span className={`absolute right-5 top-4 rounded-full border border-${color}/40 bg-${color}/15 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-${color}`}>
+                  {label}
+                </span>
+              )}
+              <p className={`mb-4 text-xs font-medium uppercase tracking-[0.2em] text-${color}`}>
+                {tier.name}
               </p>
-              <p className="text-sm text-white/70">
-                Fixed annual interest + equity kicker at next round
+              <p className="font-serif text-4xl font-light text-white">{tier.amount}</p>
+              <div className="my-5 border-t border-white/10" />
+              <p className="text-sm text-white/55">
+                Fixed annual interest + equity kicker. Full perk details available on request.
               </p>
-            </div>
-            <div>
-              <p className="mb-3 text-xs uppercase tracking-wider text-white/40">
-                Core Perks
-              </p>
-              <ul className="space-y-2">
-                {INVESTMENT_TIERS[0].perks.map((perk) => (
-                  <li key={perk} className="flex items-start gap-2">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber/60" />
-                    <span className="text-sm text-white/55">{perk}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-
-          {/* Card 2 — Homesteader */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative rounded-2xl border border-terracotta/60 bg-white/5 py-9 px-7"
-          >
-            <span className="absolute right-5 top-4 rounded-full border border-terracotta/40 bg-terracotta/15 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-terracotta">
-              Most Popular
-            </span>
-            <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-terracotta">
-              Homesteader
-            </p>
-            <p className="font-serif text-4xl font-light text-white">$250K+</p>
-            <div className="my-5 border-t border-white/10" />
-            <div className="mb-4">
-              <p className="mb-1 text-xs uppercase tracking-wider text-white/40">
-                Core financial terms
-              </p>
-              <p className="text-sm text-white/70">
-                Enhanced equity kicker terms
-              </p>
-            </div>
-            <div>
-              <p className="mb-3 text-xs uppercase tracking-wider text-white/40">
-                Everything in Trailblazer, plus:
-              </p>
-              <ul className="space-y-2">
-                {INVESTMENT_TIERS[1].perks.map((perk) => (
-                  <li key={perk} className="flex items-start gap-2">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-terracotta/60" />
-                    <span className="text-sm text-white/55">{perk}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-
-          {/* Card 3 — Cornerstone */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="rounded-2xl border border-mauve/60 bg-white/5 p-7"
-          >
-            <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-mauve">
-              Cornerstone
-            </p>
-            <p className="font-serif text-4xl font-light text-white">$500K+</p>
-            <div className="my-5 border-t border-white/10" />
-            <div className="mb-4">
-              <p className="mb-1 text-xs uppercase tracking-wider text-white/40">
-                Core financial terms
-              </p>
-              <p className="text-sm text-white/70">
-                Best equity conversion terms
-              </p>
-            </div>
-            <div>
-              <p className="mb-3 text-xs uppercase tracking-wider text-white/40">
-                Everything in Homesteader, plus:
-              </p>
-              <ul className="space-y-2">
-                {INVESTMENT_TIERS[2].perks.map((perk) => (
-                  <li key={perk} className="flex items-start gap-2">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-mauve/60" />
-                    <span className="text-sm text-white/55">{perk}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

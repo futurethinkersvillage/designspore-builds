@@ -130,23 +130,26 @@ function WhatItIs() {
         <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
-              The arrangement
+              The program
             </p>
             <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-              Skilled work<br />
-              <span className="italic">traded for land</span>
+              Village Builder<br />
+              <span className="italic">Work-Stay</span>
             </h2>
             <div className="mt-8 space-y-4 text-sm leading-relaxed text-white/45 max-w-[48ch]">
               <p>
-                This program is a work-stay arrangement: your RV site is covered,
-                and in return you help us run and build the first Smart Village prototype.
+                The Village Builder program is a seasonal residency for people who
+                want to contribute hands-on to the development of the first Smart
+                Village prototype. Participants are hosted on the property during
+                their stay and gain access to the full village experience.
               </p>
               <p>
-                While compensation is not available during the program, outstanding
-                contributors may be invited into longer-term paid roles.
+                This is a contribution-based program — not a paid position. We offer
+                accommodation and community in exchange for your time and skills.
+                Outstanding contributors may be considered for paid roles in future seasons.
               </p>
               <p>
-                A personal RV is required, and you must be able to cook your own food.
+                Participants must have their own RV and be self-sufficient for meals.
                 Program dates: May 1st – September 30, 2026.
               </p>
             </div>
@@ -157,7 +160,7 @@ function WhatItIs() {
               {
                 label: "What you get",
                 items: [
-                  "Free RV site for your stay (power, water, sani)",
+                  "On-site accommodation for the duration of your stay",
                   "Full village amenity access",
                   "Community participation",
                   "Hands-on village-building experience",

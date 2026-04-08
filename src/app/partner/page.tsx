@@ -500,30 +500,6 @@ function Team() {
     },
   ];
 
-  const advisors = [
-    {
-      name: "Gordon Cory",
-      role: "Advisor · Planning & Development",
-      src: "/images/gordon-cory.jpg",
-    },
-    {
-      name: "Dean Clifford",
-      role: "Advisor · Infrastructure & Building",
-      src: "/images/306360633_102513715948004_2535655262561801205_n-768x1024.jpg",
-    },
-    {
-      name: "Kaara Long",
-      role: "Advisor · Business Development & PR",
-      src: "/images/kaara-long.jpg",
-    },
-  ];
-
-  const network = [
-    "Clearwater Chamber of Commerce",
-    "Otherworld Festival",
-    "EthVan",
-    "DWeb",
-  ];
 
   return (
     <section className="bg-warm-dark py-28 lg:py-36">
@@ -569,50 +545,6 @@ function Team() {
           </div>
         </div>
 
-        {/* Advisors */}
-        <div className="mb-16">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/30 mb-8">
-            Advisors
-          </p>
-          <div className="grid grid-cols-2 gap-8 lg:grid-cols-3 max-w-2xl">
-            {advisors.map((m, i) => (
-              <motion.div
-                key={m.name}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: i * 0.08, duration: 0.45 }}
-                className="text-center"
-              >
-                <div className="relative mx-auto mb-5 h-40 w-40 overflow-hidden rounded-full">
-                  <Image
-                    src={m.src}
-                    alt={m.name}
-                    fill
-                    sizes="160px"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="text-sm font-medium text-white">{m.name}</div>
-                <div className="mt-1 text-xs text-white/35">{m.role}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Network & Collaborators */}
-        <div>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/30 mb-6">
-            Network &amp; Collaborators
-          </p>
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            {network.map((name, i) => (
-              <span key={name} className="text-sm text-white/50">
-                {name}{i < network.length - 1 ? "," : ""}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );

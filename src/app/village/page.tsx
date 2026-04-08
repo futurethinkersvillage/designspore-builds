@@ -14,7 +14,6 @@ import {
   Briefcase,
   House,
   WifiHigh,
-  Golf,
   Star,
   CaretDown,
 } from "@phosphor-icons/react";
@@ -178,12 +177,12 @@ function FirstPrototype() {
 
 function Amenities() {
   const amenities = [
-    { icon: Users, label: "Community Spaces", body: "Spaces for coworking, community events, and gatherings." },
+    { icon: Users, label: "Community Spaces", body: "Gathering gazebo, campfire grounds, golf & disc golf course, and a new coworking space coming soon." },
     { icon: Heart, label: "Infrastructure That Supports Health", body: "Sauna, cold creek, nature immersion, forest paths." },
-    { icon: House, label: "Your Seasonal Home Base", body: "Full hookup or creek side sites for RVs (30 amp, soon to be 50 amp)" },
-    { icon: WifiHigh, label: "Fast Internet", body: "WIFI access at every site, and a coworking gazebo." },
-    { icon: Golf, label: "Golf & Disc Golf", body: "9-hole golf course and 18-hole disc golf course amidst breathtaking nature." },
-    { icon: Star, label: "Unique Experiences", body: "Geodesic glamping dome, cultural events & gatherings." },
+    { icon: House, label: "Your Seasonal Home Base", body: "Creekside RV sites, glamping, cabins, and more to come." },
+    { icon: WifiHigh, label: "Fast Internet", body: "WiFi access at every site. New coworking gazebo coming soon." },
+    { icon: Wrench, label: "Maker Space", body: "A shared fabrication and creative workshop — for members, builders, and village projects alike." },
+    { icon: Star, label: "Culture & Education Programs", body: "Forest school, village immersions, gatherings, and seasonal programs designed to build real community." },
   ];
 
   return (
@@ -241,8 +240,8 @@ function WorkStayCTA() {
               Be part of a select group of people who will help turn our 400-acre
               campsite, golf course, and forest into a living Village prototype.
               We&apos;re inviting hands-on builders, technologists, creatives, and
-              community-minded humans to live on the land, help run the existing
-              hospitality operations, and co-create the events, maker space, art
+              community-minded humans to live on the land, help with existing
+              operations, and co-create the events, maker space, art
               installations, and systems that will define our first village — and the
               network of villages that follow.
             </p>
@@ -308,25 +307,13 @@ function FutureOfLiving() {
 function TheLand() {
   const images = [
     { src: "/images/swimming-lake-scaled.jpg", alt: "Swimming lake" },
-    { src: "/images/dome-interior-scaled.jpg", alt: "Dome interior" },
-    { src: "/images/gazebo-interior-campfire-1024x771.jpg", alt: "Gazebo interior campfire" },
-    { src: "/images/cabins-scaled.jpg", alt: "Cabins" },
-    { src: "/images/the-creek-scaled.jpg", alt: "The creek" },
-    { src: "/images/aurora-at-night-scaled.jpg", alt: "Aurora at night" },
-    { src: "/images/disc-golf-tournament-scaled.jpg", alt: "Disc golf tournament" },
-    { src: "/images/horses-in-field-scaled.jpg", alt: "Horses in the field" },
     { src: "/images/dome-at-night-scaled.jpg", alt: "Dome at night" },
-    { src: "/images/canada-day-meetup-scaled.jpg", alt: "Canada Day meetup" },
-    { src: "/images/rv-in-campsite-scaled.jpg", alt: "RV in campsite" },
+    { src: "/images/gazebo-interior-campfire-1024x771.jpg", alt: "Gazebo interior campfire" },
     { src: "/images/sauna-in-winter-scaled.jpg", alt: "Sauna in winter" },
-    { src: "/images/gazebo-community-meetup-scaled.jpg", alt: "Community meetup" },
-    { src: "/images/kids-playing-golf-scaled.jpg", alt: "Kids playing golf" },
-    { src: "/images/moose-at-lake-scaled.jpg", alt: "Moose at lake" },
     { src: "/images/wood-working-building-desk-scaled.jpg", alt: "Woodworking" },
-    { src: "/images/meditation-group.jpg", alt: "Meditation group" },
-    { src: "/images/gazebo-rainbow-scaled.jpg", alt: "Gazebo rainbow" },
-    { src: "/images/creek-view-1-scaled.jpg", alt: "Creek view" },
-    { src: "/images/camper-at-night-scaled.jpg", alt: "Camper at night" },
+    { src: "/images/disc-golf-tournament-scaled.jpg", alt: "Disc golf tournament" },
+    { src: "/images/canada-day-meetup-scaled.jpg", alt: "Canada Day meetup" },
+    { src: "/images/moose-at-lake-scaled.jpg", alt: "Moose at lake" },
   ];
 
   return (
@@ -458,8 +445,9 @@ function VisitCTA() {
 
 function FAQ() {
   const faqs = [
+    { q: "Is the village open to the public?", a: "Yes, anyone can visit by booking a stay through wellsgrayresort.ca. Some benefits and spaces — including the maker space, members-only events, and certain programs — are only accessible to members. Membership also unlocks priority booking, longer stays, and deeper involvement in village life." },
     { q: "When is the opening season?", a: "Wells Gray Village is open from May 1 to early October every year. We are closed in the winter months." },
-    { q: "What types of accommodation are available at the village?", a: "We currently offer RV sites, on-site RV rentals, a geodesic dome, bunk cabins, horse corrals, and tenting sites. Cabins, long term RV sites, and more glamping options are coming soon. We currently don't offer full time residential accommodations." },
+    { q: "What types of accommodation are available at the village?", a: "We currently offer RV sites, on-site RV rentals, a geodesic dome, bunk cabins, and tenting sites. Cabins, long term RV sites, and more glamping options are coming soon. Please note that all accommodations are seasonal and recreational — we currently don't offer full time residential living." },
     { q: "What kind of amenities does the village offer?", a: "Amenities include a 120 person gazebo plus several smaller gazebos, a 9 hole golf course and 18 hole disc golf course, pro shop, modern bathrooms and showers, small garden, maker space (members only), private swimming lake, and forest trails." },
     { q: "What kind of programs or events are there?", a: "The village hosts public gatherings, work-stay programs, village immersions, a number of members-only events, and more. Guests are also able to book the venue for events such as weddings, family reunions, tournaments, and retreats." },
     { q: "Can I bring pets?", a: "Yes, the village is pet friendly. Dogs are welcome on leash, and we have 20 horse corrals for guests who travel with their horses." },

@@ -10,18 +10,8 @@ import {
   Buildings,
   Megaphone,
   HandCoins,
-  Campfire,
-  Mountains,
-  MapPin,
-  Leaf,
-  Handshake,
-  Lightning,
   Check,
 } from "@phosphor-icons/react";
-
-/* ─────────────────────────────────────────────
-   HERO
-   ───────────────────────────────────────────── */
 
 function Hero() {
   return (
@@ -74,28 +64,18 @@ function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-10 max-w-[56ch] text-lg leading-relaxed text-white/70"
+            className="mt-10 max-w-[52ch] text-base leading-relaxed text-white/55"
           >
-            Upgrade your land project into a resilient, community-centered,
-            tech-enabled village — with expert guidance.
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-6 max-w-[56ch] text-sm leading-relaxed text-white/45"
-          >
-            For land developers, hospitality operators, family estates, and local
-            business networks that want to grow into resilient communities —
-            culturally, operationally, and technologically.
+            Strategic advisory for land developers, hospitality operators,
+            investor groups, and municipalities building toward resilient,
+            community-centered destinations.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
+            className="mt-10"
           >
             <a
               href="https://futurethinkers.org/call60"
@@ -112,18 +92,15 @@ function Hero() {
   );
 }
 
-/* ─────────────────────────────────────────────
-   WHY WORK WITH US
-   ───────────────────────────────────────────── */
-
-function WhyWorkWithUs() {
-  const gaps = [
-    "A strong community and culture layer",
-    "Seasonal programming and repeat visitation",
-    "Long-stay accommodations and clear messaging",
-    "Village-level infrastructure and operations frameworks",
-    "Modern storytelling and marketing",
-    "Templates and best practices for scaling",
+function Credentials() {
+  const items = [
+    "Crowdfunded, acquired, and operated a 400-acre resort destination in BC for 5+ years",
+    "Designed and installed shared infrastructure: sauna, makerspace, event spaces, golf course",
+    "10+ years building Future Thinkers — a globally recognized podcast and media platform (10M+ downloads)",
+    "International speaker and consultant on societal transformation, technology, and community systems",
+    "Deep expertise in AI — applied to operations, community tooling, and organizational design",
+    "Board member, Clearwater Chamber of Commerce; TNRD policy advocacy",
+    "Active investor relations and capital raise structuring experience",
   ];
 
   return (
@@ -132,27 +109,28 @@ function WhyWorkWithUs() {
         <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
-              The gap
+              Qualifications
             </p>
             <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-              Why Work<br />
-              <span className="italic">With Us</span>
+              Not theory.<br />
+              <span className="italic">In the arena.</span>
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[48ch]">
-              What most projects lack:
+            <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[44ch]">
+              We advise from direct operational experience — not from a framework.
+              Every recommendation is grounded in what we&apos;ve actually built.
             </p>
 
-            <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
-              {gaps.map((item, i) => (
+            <div className="mt-10 divide-y divide-white/10 border-y border-white/10">
+              {items.map((item, i) => (
                 <motion.div
                   key={item}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true, margin: "-40px" }}
-                  transition={{ delay: i * 0.06, duration: 0.4 }}
-                  className="flex items-center gap-4 py-5"
+                  transition={{ delay: i * 0.04, duration: 0.4 }}
+                  className="flex items-start gap-4 py-4"
                 >
-                  <div className="h-1.5 w-1.5 rounded-full bg-amber shrink-0" />
+                  <Check size={14} weight="bold" className="text-amber shrink-0 mt-0.5" />
                   <span className="text-sm text-white/60">{item}</span>
                 </motion.div>
               ))}
@@ -173,31 +151,37 @@ function WhyWorkWithUs() {
   );
 }
 
-/* ─────────────────────────────────────────────
-   WHAT WE HELP YOU BUILD
-   ───────────────────────────────────────────── */
-
-function WhatWeHelpYouBuild() {
+function ExpertiseAreas() {
   const areas = [
     {
       icon: TreeEvergreen,
-      label: "Resilience infrastructure",
+      label: "Village & destination design",
+      body: "Site planning, phasing, infrastructure priorities, and cultural programming for land-based community projects.",
     },
     {
       icon: Users,
-      label: "Culture & community building",
+      label: "Community & culture systems",
+      body: "Membership models, community rhythms, governance structures, and the cultural layer that makes a place sticky.",
     },
     {
       icon: HandCoins,
-      label: "Membership models",
+      label: "Investor narratives & capital strategy",
+      body: "Structuring raise materials, positioning for accredited and institutional investors, SPV design, and stakeholder communication.",
     },
     {
       icon: Megaphone,
-      label: "Investor narratives & marketing",
+      label: "Brand, media & audience building",
+      body: "Building a media presence that generates inbound demand — podcasts, content platforms, and community-led growth.",
     },
     {
       icon: Broadcast,
-      label: "Village OS & AI tools",
+      label: "AI & village operating systems",
+      body: "Applying AI to hospitality operations, community coordination, and the digital infrastructure of a living destination.",
+    },
+    {
+      icon: Buildings,
+      label: "Municipal & regional placemaking",
+      body: "Working with towns, regional districts, and development authorities on resilience infrastructure and economic diversification.",
     },
   ];
 
@@ -206,26 +190,27 @@ function WhatWeHelpYouBuild() {
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
-            Advisory areas
+            Areas of expertise
           </p>
           <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            What We Help<br />
-            <span className="italic">You Build</span>
+            Where we<br />
+            <span className="italic">add value</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
           {areas.map((a, i) => (
             <motion.div
               key={a.label}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: (i % 5) * 0.06, duration: 0.4 }}
+              transition={{ delay: (i % 3) * 0.06, duration: 0.4 }}
               className="bg-warm-dark p-7"
             >
               <a.icon size={18} weight="light" className="text-amber mb-4" />
-              <div className="text-sm font-medium text-white">{a.label}</div>
+              <div className="text-sm font-medium text-white mb-2">{a.label}</div>
+              <div className="text-sm leading-relaxed text-white/40">{a.body}</div>
             </motion.div>
           ))}
         </div>
@@ -233,217 +218,6 @@ function WhatWeHelpYouBuild() {
     </section>
   );
 }
-
-/* ─────────────────────────────────────────────
-   ABOUT US / CREDENTIALS
-   ───────────────────────────────────────────── */
-
-function AboutCredentials() {
-  const credentials = [
-    "Crowdfunded a 400-acre resort site in British Columbia",
-    "Operating an active campsite and golf resort for 5 years",
-    "Designed & installed shared infrastructure",
-    "Hosted seasonal events and community programming",
-    "10+ years building a global media brand & network via Future Thinkers",
-    "Global speaking & consulting experience on society, communities, and technology",
-    "Deep AI expertise",
-  ];
-
-  return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
-              Who we are
-            </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-              About Us &amp;<br />
-              <span className="italic">Credentials</span>
-            </h2>
-
-            <div className="mt-10 divide-y divide-white/10 border-y border-white/10">
-              {credentials.map((item, i) => (
-                <motion.div
-                  key={item}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ delay: i * 0.04, duration: 0.4 }}
-                  className="flex items-start gap-4 py-4"
-                >
-                  <Check size={14} weight="bold" className="text-amber shrink-0 mt-0.5" />
-                  <span className="text-sm text-white/60">{item}</span>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-10 text-base font-medium text-white/80 italic max-w-[50ch]"
-            >
-              We&apos;re not talking theoretically — we&apos;re in the arena, doing
-              the work every day.
-            </motion.p>
-          </div>
-
-          <div className="relative aspect-video overflow-hidden rounded-xl lg:aspect-auto lg:min-h-full">
-            <Image
-              src="/images/76747423_10163561173205725_3017674924459294720_n-1024x577.jpg"
-              alt="Travel and nomadic lifestyle — building villages from lived experience"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   WHO WE WORK WITH
-   ───────────────────────────────────────────── */
-
-function WhoWeWorkWith() {
-  const profiles = [
-    {
-      icon: Campfire,
-      label: "RV parks converting to long-stay villages",
-    },
-    {
-      icon: Mountains,
-      label: "Glamping operators and retreat center owners",
-    },
-    {
-      icon: MapPin,
-      label: "Multi-acre family lands seeking new business models",
-    },
-    {
-      icon: Buildings,
-      label: "Traditional resorts seeking cultural and community upgrade",
-    },
-    {
-      icon: Leaf,
-      label: "Developers exploring seasonal or post-job living models",
-    },
-    {
-      icon: Handshake,
-      label: "Towns and municipalities exploring regenerative placemaking",
-    },
-    {
-      icon: Lightning,
-      label: "Hospitality owners seeking differentiation",
-    },
-  ];
-
-  return (
-    <section className="bg-warm-dark py-28 lg:py-36">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
-              Ideal clients
-            </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-              Who We<br />
-              <span className="italic">Work With</span>
-            </h2>
-
-            <div className="mt-10 divide-y divide-white/10 border-y border-white/10">
-              {profiles.map((p, i) => (
-                <motion.div
-                  key={p.label}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ delay: i * 0.06, duration: 0.4 }}
-                  className="flex items-center gap-4 py-5"
-                >
-                  <p.icon size={18} weight="light" className="text-amber shrink-0" />
-                  <span className="text-sm text-white/60">{p.label}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative aspect-[819/1024] overflow-hidden rounded-xl">
-            <Image
-              src="/images/pxl_20240518_203625592-edit-819x1024.jpg"
-              alt="Property and land — potential village site"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   HOW CONSULTING SUPPORTS PORTAL.PLACE
-   ───────────────────────────────────────────── */
-
-function ConsultingSupportsPortal() {
-  const benefits = [
-    {
-      label: "Shared audience demand",
-      body: "Consulting clients become part of the Portal.Place network, expanding the pool of aligned destinations.",
-    },
-    {
-      label: "Cross-visitation",
-      body: "Members and guests from one village discover and visit others in the network.",
-    },
-    {
-      label: "Joint programming",
-      body: "Events, retreats, and residency programs can be coordinated across multiple sites for greater reach.",
-    },
-    {
-      label: "Future investment opportunities",
-      body: "Well-advised projects become candidates for deeper partnership, co-development, or investment down the line.",
-    },
-  ];
-
-  return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="mb-16">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
-            Ecosystem
-          </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
-            How Consulting Supports<br />
-            <span className="italic">Portal.Place</span>
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
-          {benefits.map((b, i) => (
-            <motion.div
-              key={b.label}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: (i % 4) * 0.06, duration: 0.4 }}
-              className="bg-[#0F0E12] p-7"
-            >
-              <div className="text-sm font-medium text-white mb-2">{b.label}</div>
-              <div className="text-sm leading-relaxed text-white/35">{b.body}</div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   CTA SECTION
-   ───────────────────────────────────────────── */
 
 function BookSession() {
   return (
@@ -464,11 +238,10 @@ function BookSession() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="mx-auto mt-8 max-w-[52ch] text-base leading-relaxed text-white/75"
+          className="mx-auto mt-8 max-w-[48ch] text-base leading-relaxed text-white/75"
         >
-          If you&apos;re not sure — book a single exploratory working session. If
-          we&apos;re aligned, we continue. If not, you still walk away with clarity
-          and direction.
+          Start with a single working session. If there&apos;s a fit, we continue.
+          Either way, you walk away with clarity and a sharper strategy.
         </motion.p>
 
         <motion.div
@@ -492,19 +265,12 @@ function BookSession() {
   );
 }
 
-/* ─────────────────────────────────────────────
-   PAGE EXPORT
-   ───────────────────────────────────────────── */
-
 export default function ConsultingPage() {
   return (
     <>
       <Hero />
-      <WhyWorkWithUs />
-      <WhatWeHelpYouBuild />
-      <AboutCredentials />
-      <WhoWeWorkWith />
-      <ConsultingSupportsPortal />
+      <Credentials />
+      <ExpertiseAreas />
       <BookSession />
     </>
   );

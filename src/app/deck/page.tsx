@@ -243,7 +243,7 @@ function WhyThisWorks() {
           transition={{ duration: 0.6 }}
           className="text-sm leading-relaxed text-white/55 max-w-[65ch]"
         >
-          Remote work, AI disruption, housing pressure, loneliness, and institutional breakdown are creating demand for a new model. We&apos;re building the early physical infrastructure for what comes next.
+          Remote work, AI disruption, housing pressure, loneliness, global instability, and institutional breakdown are creating demand for a new model. We&apos;re building the early physical infrastructure for what comes next.
         </motion.p>
       </div>
     </section>
@@ -519,30 +519,11 @@ function ProofOfConcept() {
    SECTION 7 — EXPANSION PLAN
 ───────────────────────────────────────────────────────────────────────────── */
 function ExpansionPlan() {
-  const categories = [
-    {
-      title: "Glamping & Mini Cabins",
-      body: "$3.75M allocation in Phase 1 raise | ~80 units (60 prefab cabins, 15 domes, 5 yurts) | Hooks into existing septic, power, water | Current zoning permits with standard approvals",
-    },
-    {
-      title: "RV Site Expansion",
-      body: "Pull-through 50-amp pads for larger rigs | Meets unmet existing demand | Requires new power pole + transformer (~$100K) | Rezoning to RV-1 required",
-    },
-    {
-      title: "Shared Cultural Infrastructure",
-      body: "Wellness spa ($400K) | Event dome ($200K) | Gazebo café/coworking upgrade ($200K) | Additional shower house ($150K)",
-    },
-    {
-      title: "Makerspace & Fabrication Lab",
-      body: "Enables in-house cabin production (lower build cost) | Woodworking, CNC, metal, digital fab, textiles | Doubles as guest workshop and cultural program space",
-    },
-  ];
-
   const timelineSteps = [
     "Bridge",
-    "Infrastructure Build",
-    "Soft Launch",
+    "Feasibility & Structuring",
     "$20M Raise",
+    "Phase 2 Build",
     "Full Village",
   ];
 
@@ -550,17 +531,30 @@ function ExpansionPlan() {
     <section className="bg-warm-dark py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
-          06 — What the Bridge Capital Builds
+          06 — The Bridge
         </p>
         <h2 className="font-serif text-5xl font-light text-white lg:text-6xl mb-6 max-w-3xl leading-[1.05]">
-          Phase 1 — de-risk, expand, and prove economics.
+          The bridge between Phase 1 and Phase 2.
         </h2>
         <p className="text-sm leading-relaxed text-white/55 max-w-[60ch] mb-16">
-          The $3M bridge funds specific, revenue-generating infrastructure upgrades at the flagship site. Each dollar is deployed into real assets that immediately improve property value and revenue capacity.
+          Phase 1 is complete — we have land, infrastructure, guests, and 5 years of operating history. The $3M bridge connects Phase 1 to Phase 2: a $20M expansion raise. It secures our land position, funds the feasibility work, and builds the operational capacity to run a larger raise with confidence.
         </p>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mb-12">
-          {categories.map((cat, i) => (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-12">
+          {[
+            {
+              title: "Land Security",
+              body: "Secures land position and completes legal and title structuring | Clean on title, ready for the $20M raise | Removes title risk as a barrier to institutional investment",
+            },
+            {
+              title: "Feasibility & Structuring",
+              body: "Funds the feasibility study, due diligence, and investor materials for Phase 2 | Engages qualified legal, financial, and planning advisors | Positions the project for a credible $20M raise",
+            },
+            {
+              title: "Makerspace Completion",
+              body: "Completes the on-site makerspace and fabrication lab | Enables in-house cabin and unit production at lower cost | Doubles as guest workshop and cultural program space",
+            },
+          ].map((cat, i) => (
             <motion.div
               key={cat.title}
               initial={{ opacity: 0, y: 24 }}
@@ -591,7 +585,7 @@ function ExpansionPlan() {
           transition={{ duration: 0.6 }}
           className="text-sm leading-relaxed text-white/40 mb-12"
         >
-          Phase 2 ($10–20M raise): Mixed-use residential/commercial, 250–400 homes, full-scale village infrastructure. Early feasibility in progress.
+          Phase 2 ($20M raise): New accommodation units, full-scale village infrastructure, and the first expansion sites. Feasibility in progress.
         </motion.p>
 
         {/* Timeline bar */}
@@ -878,7 +872,7 @@ function TheRaise() {
 
   const structureBenefits = [
     "Clean on title — one mortgage, one lender (the SPV)",
-    "Opens to 10–20 aligned investors vs. finding one $3M whale",
+    "Opens to 10–20 aligned investors across multiple exemptions",
     "Creates a community of financially motivated evangelists",
     "Securities: Accredited Investor + Minimum Amount exemptions",
   ];
@@ -1009,7 +1003,6 @@ function InvestorPerks() {
       perks: [
         "Annual stay allocation (1–4 weeks, by tier)",
         "Dedicated semi-permanent Founders\u2019 Area site (Homesteader+)",
-        "Off-season open access — drop in anytime, no booking needed",
         "Family & guest passes included",
       ],
     },
@@ -1018,7 +1011,6 @@ function InvestorPerks() {
       color: "text-terracotta",
       perks: [
         "Emergency access — guaranteed spot for family in wildfire/disaster",
-        "Personal storage locker / resilience cache on-site",
         "Annual Founders\u2019 Gathering (2\u20133 day exclusive event)",
         "Food program participation — harvests, CSA-style, garden access",
       ],
@@ -1054,7 +1046,7 @@ function InvestorPerks() {
             Everything you want from owning rural land —
           </h2>
           <h2 className="font-serif text-5xl font-light italic text-amber lg:text-6xl leading-[1.05]">
-            without the broken well.
+            without worrying about maintenance.
           </h2>
         </motion.div>
 

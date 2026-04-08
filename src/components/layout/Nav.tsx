@@ -14,7 +14,7 @@ const navItems = [
     href: "/village",
     children: [
       { label: "Videos & Photos", href: "/videos" },
-      { label: "Village Rhythm", href: "/sunday" },
+      { label: "Village Rhythm", href: "/rhythm" },
       { label: "Work-Stay Cohorts", href: "/workstay" },
       { label: "Book A Stay", href: "https://wellsgrayresort.ca", external: true },
       { label: "Host An Event", href: "/host" },

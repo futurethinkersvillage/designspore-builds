@@ -227,18 +227,11 @@ export default function InvestorPrintPage() {
                   const colors = ["border-orange-400", "border-red-400", "border-purple-400"];
                   return (
                     <div key={tier.name} className={`rounded-lg border-l-4 ${colors[idx]} bg-gray-50 px-4 py-3`}>
-                      <div className="flex items-baseline justify-between mb-2">
+                      <div className="flex items-baseline justify-between">
                         <span className="text-xs font-semibold text-gray-900">{tier.name}</span>
                         <span className="font-serif text-lg font-light text-gray-800">{tier.amount}</span>
                       </div>
-                      <ul className="space-y-0.5">
-                        {tier.perks.map((p) => (
-                          <li key={p} className="text-[10px] text-gray-500 flex items-start gap-1.5">
-                            <span className="mt-1 h-0.5 w-0.5 shrink-0 rounded-full bg-gray-400" />
-                            {p}
-                          </li>
-                        ))}
-                      </ul>
+                      <p className="mt-1 text-[10px] text-gray-500">Fixed interest + equity kicker. Perk details available on request.</p>
                     </div>
                   );
                 })}
