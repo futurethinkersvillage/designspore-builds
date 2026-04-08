@@ -49,13 +49,15 @@ export function Nav() {
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 lg:px-16">
         {/* Logo */}
         <Link href="/" className="shrink-0 flex items-center gap-2.5">
-          <Image
-            src="/images/portalplace-logo-vertical-white-738x1024.png"
-            alt="Portal.Place home"
-            width={29}
-            height={40}
-            className="shrink-0"
-          />
+          <div className="shrink-0 overflow-hidden" style={{ height: 26 }}>
+            <Image
+              src="/images/portalplace-logo-vertical-white-738x1024.png"
+              alt="Portal.Place home"
+              width={29}
+              height={40}
+              className="block"
+            />
+          </div>
           <span className="text-[0.95rem] font-semibold tracking-tight text-white">
             Portal.Place
           </span>
