@@ -13,6 +13,7 @@ const navItems = [
     label: "Wells Gray Village",
     href: "/village",
     children: [
+      { label: "Virtual Tour", href: "/tour" },
       { label: "Videos & Photos", href: "/videos" },
       { label: "Village Rhythm", href: "/rhythm" },
       { label: "Work-Stay Cohorts", href: "/workstay" },
@@ -41,7 +42,7 @@ export function Nav() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
-  if (pathname === "/investor-print") return null;
+  if (pathname === "/investor-print" || pathname === "/tour") return null;
 
   return (
     <header className="fixed top-0 z-50 w-full bg-warm-dark/70 backdrop-blur-md border-b border-white/5">

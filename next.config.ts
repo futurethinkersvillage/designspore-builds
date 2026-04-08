@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "i.ytimg.com",
       },
+      {
+        protocol: "https",
+        hostname: "old-site.portal.place",
+      },
+      {
+        protocol: "http",
+        hostname: "old-site.portal.place",
+      },
     ],
   },
 };
