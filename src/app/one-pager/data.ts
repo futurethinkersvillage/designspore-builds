@@ -47,13 +47,13 @@ export const PROPERTY_ITEMS = [
   "Held by Giant Supernova Holdings Inc.",
 ];
 
-export const BUSINESS_ITEMS: { text: string; sensitive?: boolean }[] = [
-  { text: "~$250K annual revenue, seasonal (May–Oct only)", sensitive: true },
-  { text: "Revenue trend: $131K → $177K → $187K (2021–23)", sensitive: true },
-  { text: "~3,000 guests/year with minimal paid marketing" },
-  { text: "Appraised value: ~$2.25M+ (land, business, equipment)", sensitive: true },
-  { text: "10+ years building Future Thinkers audience (10M+ downloads)" },
-  { text: "Founders on-site, deeply operationally committed" },
+export const BUSINESS_ITEMS = [
+  "~$250K annual revenue, seasonal (May–Oct only)",
+  "Revenue trend: $131K → $177K → $187K (2021–23)",
+  "~3,000 guests/year with minimal paid marketing",
+  "Appraised value: ~$2.25M+ (land, business, equipment)",
+  "10+ years building Future Thinkers audience (10M+ downloads)",
+  "Founders on-site, deeply operationally committed",
 ];
 
 export const BRIDGE_USES = [
@@ -65,11 +65,11 @@ export const BRIDGE_USES = [
 ];
 
 export const PROJECTION_ROWS = [
-  { label: "Lodging (existing)", current: "$187K", yr1: "$250K", yr3: "$350K", sensitive: true },
-  { label: "Glamping & Cabins", current: "—", yr1: "$400K", yr3: "$1.1M", sensitive: true },
-  { label: "Wellness & Events", current: "$20K", yr1: "$150K", yr3: "$350K", sensitive: true },
-  { label: "Memberships", current: "—", yr1: "$50K", yr3: "$250K", sensitive: true },
-  { label: "Total", current: "~$250K", yr1: "~$850K", yr3: "~$2.0M", bold: true, sensitive: true },
+  { label: "Lodging (existing)", current: "$187K", yr1: "$250K", yr3: "$350K" },
+  { label: "Glamping & Cabins", current: "—", yr1: "$400K", yr3: "$1.1M" },
+  { label: "Wellness & Events", current: "$20K", yr1: "$150K", yr3: "$350K" },
+  { label: "Memberships", current: "—", yr1: "$50K", yr3: "$250K" },
+  { label: "Total", current: "~$250K", yr1: "~$850K", yr3: "~$2.0M", bold: true },
 ];
 
 export const COMPARISON_ROWS = [
@@ -153,5 +153,5 @@ export const INVESTMENT_TIERS = [
 export const FOUNDER_STATS = [
   { number: "10M+", label: "total podcast downloads" },
   { number: "5 yrs", label: "operating this destination" },
-  { number: "$2.25M+", label: "current appraised property value", sensitive: true },
+  { number: "$2.25M+", label: "current appraised property value" },
 ];

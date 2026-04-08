@@ -13,7 +13,6 @@ import {
   INVESTMENT_TIERS,
   FOUNDER_STATS,
 } from "./data";
-import { Redacted } from "@/components/ui/Redacted";
 
 /* ── Shared animation variant ───────────────────────────────────── */
 const fadeUp = {
@@ -225,14 +224,10 @@ function WhatWeHave() {
             </p>
             <ul className="space-y-3">
               {business.map((item) => (
-                <li key={item.text} className="flex items-start gap-3">
+                <li key={item} className="flex items-start gap-3">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber" />
                   <span className="text-sm leading-relaxed text-white/60">
-                    {item.sensitive ? (
-                      <Redacted>{item.text}</Redacted>
-                    ) : (
-                      item.text
-                    )}
+                    {item}
                   </span>
                 </li>
               ))}
@@ -318,17 +313,17 @@ function TheOpportunity() {
                   <div
                     className={`px-4 py-3 text-sm text-warm-dark/70 ${row.bold ? "font-semibold text-warm-dark" : ""}`}
                   >
-                    {row.sensitive ? <Redacted>{row.current}</Redacted> : row.current}
+                    {row.current}
                   </div>
                   <div
                     className={`px-4 py-3 text-sm text-warm-dark/70 ${row.bold ? "font-semibold text-warm-dark" : ""}`}
                   >
-                    {row.sensitive ? <Redacted>{row.yr1}</Redacted> : row.yr1}
+                    {row.yr1}
                   </div>
                   <div
                     className={`px-4 py-3 text-sm text-warm-dark/70 ${row.bold ? "font-semibold text-warm-dark" : ""}`}
                   >
-                    {row.sensitive ? <Redacted>{row.yr3}</Redacted> : row.yr3}
+                    {row.yr3}
                   </div>
                 </div>
               ))}
@@ -371,7 +366,7 @@ function InvestmentTiers() {
             <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-amber">
               Trailblazer
             </p>
-            <p className="font-serif text-4xl font-light text-white"><Redacted>$100K+</Redacted></p>
+            <p className="font-serif text-4xl font-light text-white">$100K+</p>
             <div className="my-5 border-t border-white/10" />
             <div className="mb-4">
               <p className="mb-1 text-xs uppercase tracking-wider text-white/40">
@@ -410,7 +405,7 @@ function InvestmentTiers() {
             <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-terracotta">
               Homesteader
             </p>
-            <p className="font-serif text-4xl font-light text-white"><Redacted>$250K+</Redacted></p>
+            <p className="font-serif text-4xl font-light text-white">$250K+</p>
             <div className="my-5 border-t border-white/10" />
             <div className="mb-4">
               <p className="mb-1 text-xs uppercase tracking-wider text-white/40">
@@ -446,7 +441,7 @@ function InvestmentTiers() {
             <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-mauve">
               Cornerstone
             </p>
-            <p className="font-serif text-4xl font-light text-white"><Redacted>$500K+</Redacted></p>
+            <p className="font-serif text-4xl font-light text-white">$500K+</p>
             <div className="my-5 border-t border-white/10" />
             <div className="mb-4">
               <p className="mb-1 text-xs uppercase tracking-wider text-white/40">
@@ -587,11 +582,7 @@ function TheFounders() {
             {stats.map((stat) => (
               <div key={stat.number}>
                 <p className="font-serif text-4xl font-light text-amber">
-                  {stat.sensitive ? (
-                    <Redacted>{stat.number}</Redacted>
-                  ) : (
-                    stat.number
-                  )}
+                  {stat.number}
                 </p>
                 <p className="mt-1 text-sm text-white/50">{stat.label}</p>
               </div>

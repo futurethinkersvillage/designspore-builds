@@ -13,7 +13,6 @@ import {
   INVESTMENT_TIERS,
   FOUNDER_STATS,
 } from "../../one-pager/data";
-import { Redacted } from "@/components/ui/Redacted";
 
 /* ─── Auto-print on load ─────────────────────────────────────────── */
 function PrintTrigger() {
@@ -143,9 +142,9 @@ export default function InvestorPrintPage() {
               <h3 className={H3}>The Business</h3>
               <ul className="space-y-1.5">
                 {BUSINESS_ITEMS.map((item) => (
-                  <li key={item.text} className="flex items-start gap-2 text-xs text-gray-600">
+                  <li key={item} className="flex items-start gap-2 text-xs text-gray-600">
                     <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-orange-400" />
-                    {item.sensitive ? <Redacted>{item.text}</Redacted> : item.text}
+                    {item}
                   </li>
                 ))}
               </ul>
@@ -176,22 +175,16 @@ export default function InvestorPrintPage() {
               {PROJECTION_ROWS.filter((r) => !r.bold).map((row, i) => (
                 <tr key={row.label} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                   <td className="px-4 py-2.5 text-xs text-gray-700">{row.label}</td>
-                  <td className="px-4 py-2.5 text-xs text-right text-gray-500">
-                    {row.sensitive ? <Redacted>{row.current}</Redacted> : row.current}
-                  </td>
-                  <td className="px-4 py-2.5 text-xs text-right text-gray-700">
-                    {row.sensitive ? <Redacted>{row.yr1}</Redacted> : row.yr1}
-                  </td>
-                  <td className="px-4 py-2.5 text-xs text-right font-medium text-gray-900">
-                    {row.sensitive ? <Redacted>{row.yr3}</Redacted> : row.yr3}
-                  </td>
+                  <td className="px-4 py-2.5 text-xs text-right text-gray-500">{row.current}</td>
+                  <td className="px-4 py-2.5 text-xs text-right text-gray-700">{row.yr1}</td>
+                  <td className="px-4 py-2.5 text-xs text-right font-medium text-gray-900">{row.yr3}</td>
                 </tr>
               ))}
               <tr className="bg-gray-900 text-white">
                 <td className="px-4 py-2.5 text-xs font-semibold rounded-bl-lg">Total</td>
-                <td className="px-4 py-2.5 text-xs text-right text-white/70"><Redacted>~$250K</Redacted></td>
-                <td className="px-4 py-2.5 text-xs text-right text-white/90"><Redacted>~$850K</Redacted></td>
-                <td className="px-4 py-2.5 text-xs text-right font-bold text-orange-400 rounded-br-lg"><Redacted>~$2.0M</Redacted></td>
+                <td className="px-4 py-2.5 text-xs text-right text-white/70">~$250K</td>
+                <td className="px-4 py-2.5 text-xs text-right text-white/90">~$850K</td>
+                <td className="px-4 py-2.5 text-xs text-right font-bold text-orange-400 rounded-br-lg">~$2.0M</td>
               </tr>
             </tbody>
           </table>
@@ -236,7 +229,7 @@ export default function InvestorPrintPage() {
                     <div key={tier.name} className={`rounded-lg border-l-4 ${colors[idx]} bg-gray-50 px-4 py-3`}>
                       <div className="flex items-baseline justify-between mb-2">
                         <span className="text-xs font-semibold text-gray-900">{tier.name}</span>
-                        <span className="font-serif text-lg font-light text-gray-800"><Redacted>{tier.amount}</Redacted></span>
+                        <span className="font-serif text-lg font-light text-gray-800">{tier.amount}</span>
                       </div>
                       <ul className="space-y-0.5">
                         {tier.perks.map((p) => (
@@ -295,9 +288,7 @@ export default function InvestorPrintPage() {
             <div className="space-y-4">
               {FOUNDER_STATS.map((stat) => (
                 <div key={stat.number}>
-                  <p className="font-serif text-2xl font-light text-orange-500">
-                    {stat.sensitive ? <Redacted>{stat.number}</Redacted> : stat.number}
-                  </p>
+                  <p className="font-serif text-2xl font-light text-orange-500">{stat.number}</p>
                   <p className="text-xs text-gray-500">{stat.label}</p>
                 </div>
               ))}

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Redacted } from "@/components/ui/Redacted";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    SECTION 1 — HERO / COVER
@@ -418,13 +417,13 @@ function ProofOfConcept() {
     "Starlink internet throughout",
   ];
 
-  const businessStats: { text: string; sensitive?: boolean }[] = [
-    { text: "~$250K annual revenue (normalized, seasonal operation)", sensitive: true },
-    { text: "Revenue trend: $131K (2021) → $177K (2022) → $187K (2023)", sensitive: true },
-    { text: "~3,000 guests per year, May–October season only" },
-    { text: "Current appraised value: ~$2.25M+ (land & business)", sensitive: true },
-    { text: "200,000+ annual visitors to adjacent Wells Gray Park" },
-    { text: "Majority bookings direct (low acquisition cost)" },
+  const businessStats = [
+    "~$250K annual revenue (normalized, seasonal operation)",
+    "Revenue trend: $131K (2021) → $177K (2022) → $187K (2023)",
+    "~3,000 guests per year, May–October season only",
+    "Current appraised value: ~$2.25M+ (land & business)",
+    "200,000+ annual visitors to adjacent Wells Gray Park",
+    "Majority bookings direct (low acquisition cost)",
   ];
 
   return (
@@ -493,9 +492,9 @@ function ProofOfConcept() {
             </h3>
             <ul className="space-y-3">
               {businessStats.map((stat) => (
-                <li key={stat.text} className="flex items-start gap-3 text-sm leading-relaxed text-white/55">
+                <li key={stat} className="flex items-start gap-3 text-sm leading-relaxed text-white/55">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber" />
-                  {stat.sensitive ? <Redacted>{stat.text}</Redacted> : stat.text}
+                  {stat}
                 </li>
               ))}
             </ul>
@@ -732,13 +731,13 @@ function BusinessModel() {
                 {row.stream}
               </div>
               <div className={`px-6 py-4 text-sm text-right ${row.isTotal ? "font-medium text-white" : "text-white/55"}`}>
-                <Redacted>{row.current}</Redacted>
+                {row.current}
               </div>
               <div className={`px-6 py-4 text-sm text-right ${row.isTotal ? "font-medium text-white" : "text-white/55"}`}>
-                <Redacted>{row.year1}</Redacted>
+                {row.year1}
               </div>
               <div className={`px-6 py-4 text-sm text-right ${row.isTotal ? "font-medium text-amber" : "text-amber/80"}`}>
-                <Redacted>{row.year3}</Redacted>
+                {row.year3}
               </div>
             </div>
           ))}
@@ -986,7 +985,7 @@ function TheRaise() {
                 {tier.label}
               </div>
               <div className="font-serif text-3xl font-light text-white mb-4">
-                <Redacted>{tier.minimum}</Redacted>
+                {tier.minimum}
               </div>
               <p className="text-sm leading-relaxed text-white/55">
                 {tier.perks}
