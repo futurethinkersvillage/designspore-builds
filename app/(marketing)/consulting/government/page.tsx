@@ -10,9 +10,6 @@ import {
   FileTextIcon,
   CalendarCheckIcon,
   WarningCircleIcon,
-  MapPinIcon,
-  HandshakeIcon,
-  MegaphoneIcon,
 } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
@@ -369,52 +366,52 @@ export default function GovernmentConsultingPage() {
         </div>
       </section>
 
-      {/* ── HOW TO APPROACH ── The real strategy for Mike ─────────── */}
+      {/* ── FAQ ───────────────────────────────────────────────────── */}
       <section className="section-pad bg-dark border-b border-white/[0.06]">
         <div className="max-w-7xl mx-auto px-5 md:px-8">
-          <div className="mb-12">
-            <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">How to get started</p>
-            <h2
-              className="text-4xl md:text-5xl font-bold tracking-tight text-white max-w-2xl"
-              style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
-            >
-              Government doesn&apos;t move fast. Here&apos;s how to make it easy for them.
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                Icon: HandshakeIcon,
-                title: "Start with a free briefing offer",
-                body: "The easiest way in is a no-cost 1-hour \"AI Awareness Briefing\" for council or leadership. No sales pitch — just education. It builds trust, surfaces real concerns, and almost always leads to a paid engagement. Offer this to your existing TNRD and Chamber relationships first.",
-              },
-              {
-                Icon: MapPinIcon,
-                title: "Use your community position",
-                body: "Your Chamber board seat and TNRD relationships are your warmest leads. A personal introduction from you to a CAO carries 10x the weight of a cold email. Start there. Peer-to-peer referrals between municipalities (\"Clearwater did this with Mike\") are how this scales regionally.",
-              },
-              {
-                Icon: MegaphoneIcon,
-                title: "Get on the UBCM radar",
-                body: "The Union of BC Municipalities annual conference is where every local government decision-maker in BC is in one place. Apply to present on AI readiness for rural municipalities. One good talk turns into 10 conversations. LGMA events work the same way.",
-              },
-            ].map(({ Icon, title, body }) => (
-              <div
-                key={title}
-                className="rounded-2xl border border-white/[0.07] bg-raised p-7 hover:border-gold/20 transition-all group"
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div className="md:col-span-4">
+              <p className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-4">Common questions</p>
+              <h2
+                className="text-3xl md:text-4xl font-bold tracking-tight text-white leading-tight"
+                style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
               >
-                <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-5">
-                  <Icon size={20} className="text-gold" weight="duotone" />
+                Questions leadership teams typically ask before engaging.
+              </h2>
+            </div>
+            <div className="md:col-span-7 md:col-start-6 space-y-8">
+              {[
+                {
+                  q: "We already have Microsoft 365 / Copilot. Doesn't that cover AI?",
+                  a: "Microsoft Copilot is a tool. Having access to it is not the same as having a strategy for it. Most organizations that have deployed Copilot have no policy on what data staff can input, no training on appropriate use, and no idea which workflows actually benefit from it. That gap is exactly what this engagement addresses.",
+                },
+                {
+                  q: "How do we handle FOIPA and privacy requirements with AI?",
+                  a: "This is the right question to be asking. AI tools that process citizen data, internal records, or sensitive documents carry real FOIPA and PIPA implications depending on where the data is processed and stored. Part of a governance framework is explicitly mapping which use cases are safe, which require controls, and which should be prohibited entirely.",
+                },
+                {
+                  q: "What if our staff are resistant or concerned about AI taking their jobs?",
+                  a: "Staff resistance is normal and usually comes from a lack of information, not from bad faith. In every organization I've worked with, properly framed AI literacy training — focused on \"here's what this does for your role\" rather than \"here's the technology\" — shifts that dynamic significantly. The goal is never replacement; it's reducing the administrative burden that makes public sector work harder than it needs to be.",
+                },
+                {
+                  q: "Can we start small without committing to a full policy engagement?",
+                  a: "Yes. A Council & Leadership Briefing is a low-commitment starting point — a half-day session that gives elected officials and senior staff enough context to have an informed conversation about next steps. Many organizations start there and expand from there. Nothing is bundled or locked in.",
+                },
+                {
+                  q: "Do we need to disclose our AI use to residents?",
+                  a: "Increasingly, yes — and getting ahead of this is better than being asked. A good governance framework includes a transparency policy: what AI the organization uses, for what purposes, and what data it touches. Several BC municipalities are already publishing these. Having a clear public-facing answer before you're asked is a governance strength, not a liability.",
+                },
+                {
+                  q: "How does this fit within our procurement rules?",
+                  a: "Most engagements are scoped and priced to fall within standard direct-award thresholds for professional services, which simplifies the procurement process considerably. For larger or longer engagements, I can provide documentation to support your standard procurement process. Reach out and I'll be straightforward about what applies to your situation.",
+                },
+              ].map(({ q, a }) => (
+                <div key={q} className="border-b border-white/[0.06] pb-8 last:border-0 last:pb-0">
+                  <p className="text-white font-semibold mb-2 leading-snug">{q}</p>
+                  <p className="text-white/50 leading-relaxed">{a}</p>
                 </div>
-                <h3
-                  className="text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors"
-                  style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
-                >
-                  {title}
-                </h3>
-                <p className="text-white/50 leading-relaxed text-sm">{body}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
