@@ -11,6 +11,7 @@ import { ListIcon, XIcon } from "@phosphor-icons/react";
 const navLinks = [
   { href: "/ai-services",     label: "AI Services" },
   { href: "/launch-services", label: "Launch" },
+  { href: "/consulting",      label: "Consulting" },
   { href: "/case-studies",    label: "Work" },
   { href: "/about",           label: "About" },
   { href: "/community",       label: "Community" },

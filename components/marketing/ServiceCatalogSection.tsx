@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import Link from "next/link";
-import { type Module, type ModuleCategory, categoryLabels, tierConfig, creditsForModule } from "@/lib/modules";
+import { type Module, type ModuleCategory, categoryLabels } from "@/lib/modules";
 
 const categoryOrder: ModuleCategory[] = [
   "lead-generation",
@@ -27,11 +27,6 @@ const categoryIcons: Record<ModuleCategory, string> = {
   "market-intelligence": "🔍",
 };
 
-const tierColors: Record<number, string> = {
-  1: "text-gold border-gold/20 bg-gold/[0.06]",
-  2: "text-blue-300 border-blue-500/20 bg-blue-500/[0.06]",
-  3: "text-emerald-300 border-emerald-500/20 bg-emerald-500/[0.06]",
-};
 
 export default function ServiceCatalogSection({ modules }: { modules: Module[] }) {
   const [active, setActive] = useState<ModuleCategory | "all">("all");
@@ -106,38 +101,31 @@ export default function ServiceCatalogSection({ modules }: { modules: Module[] }
                 </div>
               )}
               <div className="space-y-2">
-                {items.map(mod => {
-                  const credits = creditsForModule(mod);
-                  const tc = tierColors[mod.tier] ?? tierColors[1];
-                  return (
-                    <div
-                      key={mod.id}
-                      className="flex items-start gap-4 px-5 py-4 rounded-xl border border-white/[0.06] bg-dark hover:border-white/[0.12] hover:bg-raised transition-all group"
-                    >
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-baseline gap-3 flex-wrap">
-                          <span
-                            className="font-semibold text-white group-hover:text-gold transition-colors"
-                            style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
-                          >
-                            {mod.name}
+                {items.map(mod => (
+                  <div
+                    key={mod.id}
+                    className="flex items-start gap-4 px-5 py-4 rounded-xl border border-white/[0.06] bg-dark hover:border-white/[0.12] hover:bg-raised transition-all group"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-baseline gap-3 flex-wrap">
+                        <span
+                          className="font-semibold text-white group-hover:text-gold transition-colors"
+                          style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
+                        >
+                          {mod.name}
+                        </span>
+                        {mod.recurring && (
+                          <span className="text-[11px] text-white/30 border border-white/[0.08] rounded-full px-2 py-0.5">
+                            recurring
                           </span>
-                          {mod.recurring && (
-                            <span className="text-[11px] text-white/30 border border-white/[0.08] rounded-full px-2 py-0.5">
-                              recurring
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-sm text-white/40 mt-0.5 leading-snug">
-                          {mod.problemHeadline}
-                        </p>
+                        )}
                       </div>
-                      <span className={`shrink-0 text-xs font-bold px-2.5 py-1 rounded-full border ${tc} mt-0.5`}>
-                        {credits} cr
-                      </span>
+                      <p className="text-sm text-white/40 mt-0.5 leading-snug">
+                        {mod.problemHeadline}
+                      </p>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </div>
           ))}

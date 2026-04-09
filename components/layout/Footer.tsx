@@ -5,6 +5,8 @@ import { ArrowUpRightIcon } from "@phosphor-icons/react/dist/ssr";
 const serviceLinks = [
   { href: "/ai-services", label: "AI Services" },
   { href: "/launch-services", label: "Launch Services" },
+  { href: "/consulting", label: "Business Consulting" },
+  { href: "/consulting/government", label: "Government Consulting" },
   { href: "/case-studies", label: "Case Studies" },
 ];
 
