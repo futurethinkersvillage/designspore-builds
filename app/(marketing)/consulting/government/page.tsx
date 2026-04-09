@@ -335,7 +335,7 @@ export default function GovernmentConsultingPage() {
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
             <div className="md:col-span-5">
-              <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">Why this works</p>
+              <p className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-4">Why this works</p>
               <h2
                 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight"
                 style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
@@ -356,7 +356,7 @@ export default function GovernmentConsultingPage() {
                     key={item}
                     className="flex items-start gap-3 px-4 py-3 rounded-xl border border-white/[0.06] bg-dark text-white/60 text-sm"
                   >
-                    <CheckCircleIcon size={15} className="text-gold shrink-0 mt-0.5" weight="fill" />
+                    <CheckCircleIcon size={15} className="text-blue-400 shrink-0 mt-0.5" weight="fill" />
                     {item}
                   </div>
                 ))}
