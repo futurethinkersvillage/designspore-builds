@@ -8,6 +8,16 @@
     --font-plus-jakarta: 'Plus Jakarta Sans';
   }
 
+  /* Skip-to-content link for keyboard accessibility */
+  .skip-link {
+    @apply fixed top-2 left-2 z-[9999] px-4 py-2 bg-navy text-parchment font-body text-sm font-semibold rounded;
+    transform: translateY(-200%);
+    transition: transform 0.2s ease;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -93,7 +103,7 @@
 
   /* Fade-in animation for scroll-triggered elements */
   .reveal {
-    @apply opacity-0 translate-y-6 transition-all duration-700 ease-out;
+    @apply opacity-0 translate-y-6 transition-all duration-500 ease-out;
   }
   .reveal.visible {
     @apply opacity-100 translate-y-0;

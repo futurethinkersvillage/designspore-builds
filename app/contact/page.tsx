@@ -83,18 +83,18 @@ export default function ContactPage() {
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="contact-name" className="font-body text-xs font-semibold text-stone uppercase tracking-wide block mb-2">Name</label>
+                    <label htmlFor="contact-name" className="font-body text-xs font-semibold text-stone uppercase tracking-wide block mb-2">Name <span className="text-ember" aria-hidden="true">*</span></label>
                     <input
-                      type="text" id="contact-name" name="name" required
-                      className="w-full px-4 py-3 bg-white border border-bark/20 rounded text-bark font-body text-sm focus:outline-none focus:border-ember transition-colors"
+                      type="text" id="contact-name" name="name" required aria-required="true"
+                      className="w-full px-4 py-3 bg-white border border-bark/20 rounded text-bark font-body text-sm focus:outline-none focus:border-ember focus:ring-2 focus:ring-ember/20 transition-colors"
                       placeholder="Your name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="contact-email" className="font-body text-xs font-semibold text-stone uppercase tracking-wide block mb-2">Email</label>
+                    <label htmlFor="contact-email" className="font-body text-xs font-semibold text-stone uppercase tracking-wide block mb-2">Email <span className="text-ember" aria-hidden="true">*</span></label>
                     <input
-                      type="email" id="contact-email" name="email" required
-                      className="w-full px-4 py-3 bg-white border border-bark/20 rounded text-bark font-body text-sm focus:outline-none focus:border-ember transition-colors"
+                      type="email" id="contact-email" name="email" required aria-required="true"
+                      className="w-full px-4 py-3 bg-white border border-bark/20 rounded text-bark font-body text-sm focus:outline-none focus:border-ember focus:ring-2 focus:ring-ember/20 transition-colors"
                       placeholder="you@email.com"
                     />
                   </div>
@@ -105,7 +105,7 @@ export default function ContactPage() {
                     id="contact-subject" name="subject"
                     className="w-full px-4 py-3 bg-white border border-bark/20 rounded text-bark font-body text-sm focus:outline-none focus:border-ember transition-colors"
                   >
-                    <option value="">What's this about?</option>
+                    <option value="" disabled selected>What's this about?</option>
                     <option value="booking">Booking a stay</option>
                     <option value="events">Weddings or events</option>
                     <option value="seasonal">Seasonal Village</option>
@@ -114,10 +114,10 @@ export default function ContactPage() {
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="contact-message" className="font-body text-xs font-semibold text-stone uppercase tracking-wide block mb-2">Message</label>
+                  <label htmlFor="contact-message" className="font-body text-xs font-semibold text-stone uppercase tracking-wide block mb-2">Message <span className="text-ember" aria-hidden="true">*</span></label>
                   <textarea
-                    id="contact-message" name="message" rows={5} required
-                    className="w-full px-4 py-3 bg-white border border-bark/20 rounded text-bark font-body text-sm focus:outline-none focus:border-ember transition-colors resize-none"
+                    id="contact-message" name="message" rows={5} required aria-required="true"
+                    className="w-full px-4 py-3 bg-white border border-bark/20 rounded text-bark font-body text-sm focus:outline-none focus:border-ember focus:ring-2 focus:ring-ember/20 transition-colors resize-none"
                     placeholder="Tell us what you're looking for..."
                   />
                 </div>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import RevealInit from '@/components/RevealInit'
+import { Crosshair, Flame, Waves, TreePine } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Wells Gray Golf & RV Resort — Clearwater, BC',
@@ -38,22 +39,22 @@ const accommodations = [
 
 const features = [
   {
-    icon: '⛳',
+    Icon: Crosshair,
     label: '9-Hole Golf',
     desc: 'A relaxed round through forest and mountain views. Carts, clubs, and disc rentals on-site.',
   },
   {
-    icon: '🔥',
+    Icon: Flame,
     label: 'Wood-Fired Sauna',
     desc: 'Tucked by the creek. Book a session, sweat it out, then step into the cold water. Reset complete.',
   },
   {
-    icon: '🏊',
+    Icon: Waves,
     label: 'Private Lake',
     desc: 'A spring-fed swimming lake reserved for resort guests. No crowds. Just water, sun, and sky.',
   },
   {
-    icon: '🌲',
+    Icon: TreePine,
     label: 'Wells Gray Park',
     desc: "Canada's Waterfall Province in your backyard. Helmcken Falls, Spahats, Moul — all within 30 minutes.",
   },
@@ -72,6 +73,7 @@ export default function Home() {
             src="https://www.youtube-nocookie.com/embed/rQwOshB6J3M?autoplay=1&mute=1&loop=1&playlist=rQwOshB6J3M&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1"
             title="Wells Gray Resort — aerial drone footage"
             allow="autoplay; encrypted-media"
+            loading="lazy"
             className="pointer-events-none"
             style={{
               position: 'absolute',
@@ -145,7 +147,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-5">
             {/* Large featured card */}
             {accommodations.filter(a => a.size === 'large').map(acc => (
-              <div key={acc.id} className="md:col-span-3 reveal group relative overflow-hidden rounded-lg bg-bark h-[420px] md:h-[500px]">
+              <div key={acc.id} className="md:col-span-3 reveal group relative overflow-hidden rounded-lg bg-bark h-[420px] md:h-[500px] cursor-pointer">
                 <Image
                   src={acc.img}
                   alt={acc.label}
@@ -170,7 +172,7 @@ export default function Home() {
             {/* Small cards stacked */}
             <div className="md:col-span-2 flex flex-col gap-4 md:gap-5">
               {accommodations.filter(a => a.size === 'small').map((acc, i) => (
-                <div key={acc.id} className={`reveal group relative overflow-hidden rounded-lg bg-bark flex-1 h-[220px] md:h-auto`} style={{ transitionDelay: `${i * 100}ms` }}>
+                <div key={acc.id} className={`reveal group relative overflow-hidden rounded-lg bg-bark flex-1 h-[220px] md:h-auto cursor-pointer`} style={{ transitionDelay: `${i * 60}ms` }}>
                   <Image
                     src={acc.img}
                     alt={acc.label}
@@ -211,13 +213,13 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
             {features.map((f, i) => (
-              <div key={f.label} className="reveal flex gap-5" style={{ transitionDelay: `${i * 80}ms` }}>
-                <div className="w-10 h-10 rounded bg-moss/40 flex items-center justify-center shrink-0 text-lg mt-0.5" aria-hidden="true">
-                  {f.icon}
+              <div key={f.label} className="reveal flex gap-5" style={{ transitionDelay: `${i * 60}ms` }}>
+                <div className="w-10 h-10 rounded bg-moss/40 flex items-center justify-center shrink-0 mt-0.5">
+                  <f.Icon className="w-5 h-5 text-ember" aria-hidden="true" />
                 </div>
                 <div>
                   <h3 className="font-display text-parchment text-lg mb-2">{f.label}</h3>
-                  <p className="font-body text-sm text-parchment/60 leading-relaxed">{f.desc}</p>
+                  <p className="font-body text-sm text-parchment/70 leading-relaxed">{f.desc}</p>
                 </div>
               </div>
             ))}

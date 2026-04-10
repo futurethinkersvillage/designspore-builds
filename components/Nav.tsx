@@ -70,7 +70,7 @@ export default function Nav() {
             <button
               onClick={() => setOpen(!open)}
               aria-label="Toggle menu"
-              className="md:hidden flex flex-col gap-1.5 p-1"
+              className="md:hidden flex flex-col gap-1.5 p-3 min-w-[44px] min-h-[44px] items-center justify-center"
             >
               <span className={`block w-5 h-px bg-parchment transition-transform duration-300 ${open ? 'rotate-45 translate-y-2' : ''}`} />
               <span className={`block w-5 h-px bg-parchment transition-opacity duration-300 ${open ? 'opacity-0' : ''}`} />

@@ -58,8 +58,8 @@ const passes = [
 
 function RateTable({ rows }: { rows: { type: string; rate: string }[] }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-bark/10">
-      <table className="w-full">
+    <div className="overflow-x-auto rounded-lg border border-bark/10">
+      <table className="w-full min-w-[320px]">
         <tbody>
           {rows.map((row, i) => (
             <tr key={row.type} className={i % 2 === 0 ? 'bg-white' : 'bg-parchment/50'}>
