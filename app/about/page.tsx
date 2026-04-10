@@ -17,8 +17,8 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative min-h-[55dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/dji_fly_20240630_160720_5_1719788849030_photo_optimized-scaled.jpg"
-          alt="Aerial view of Wells Gray Resort"
+          src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240728_033755893-EDIT-scaled.jpg"
+          alt="Wells Gray Resort grounds and lake"
           fill
           priority
           className="object-cover"

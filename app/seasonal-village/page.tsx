@@ -79,8 +79,8 @@ export default function SeasonalVillagePage() {
       {/* Hero */}
       <section className="relative min-h-[70dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/20210620_172133-EDIT-scaled.jpg"
-          alt="Wells Gray Resort seasonal community"
+          src="https://wellsgrayresort.ca/wp-content/uploads/2021/07/20210731_180321-scaled.jpg"
+          alt="Wells Gray Resort seasonal village grounds"
           fill
           priority
           className="object-cover"

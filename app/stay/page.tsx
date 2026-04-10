@@ -46,7 +46,7 @@ const stays = [
     id: 'tent',
     label: 'Tent Sites',
     from: '$40/night',
-    img: 'https://wellsgrayresort.ca/wp-content/uploads/revslider/video-media/Campsite-4_22.jpeg',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20250604_163055857-EDIT-scaled.jpg',
     desc: 'Flat, shaded spots near the creek and facilities. Shared fire pits throughout. Group camping available. This is how camping is supposed to feel.',
     details: ['Shaded creek-side', 'Shared fire pits', 'Clean washrooms', 'Group sites available'],
   },
@@ -84,8 +84,8 @@ export default function StayPage() {
       {/* Hero */}
       <section className="relative min-h-[60dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/20210620_172133-EDIT-scaled.jpg"
-          alt="Wells Gray Resort campsite aerial view"
+          src="https://wellsgrayresort.ca/wp-content/uploads/2021/07/20210731_180321-scaled.jpg"
+          alt="Wells Gray Resort RV sites and grounds"
           fill
           priority
           className="object-cover"

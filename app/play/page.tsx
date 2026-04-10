@@ -67,7 +67,7 @@ const activities = [
     id: 'trails',
     label: 'Forest Trails & Gathering',
     tag: 'Always open',
-    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/07/20210620_172133-EDIT-scaled.jpg',
+    img: 'https://wellsgrayresort.ca/wp-content/uploads/2021/07/Gazebo.png',
     desc: 'Walk the property, find a shaded spot, let the kids roam. There are fire pits, picnic tables, and room to breathe. Not every adventure needs a map.',
     details: [
       'Forest walking paths',

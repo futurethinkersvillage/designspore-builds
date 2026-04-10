@@ -103,8 +103,8 @@ export default function ExplorePage() {
             </div>
             <div className="relative h-[320px] md:h-[420px] rounded-lg overflow-hidden mt-8 md:mt-0">
               <Image
-                src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/dji_fly_20240630_160720_5_1719788849030_photo_optimized-scaled.jpg"
-                alt="Aerial view of Wells Gray Provincial Park"
+                src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240728_033755893-EDIT-scaled.jpg"
+                alt="Private lake in Wells Gray Provincial Park"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"

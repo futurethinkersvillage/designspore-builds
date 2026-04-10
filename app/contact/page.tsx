@@ -16,8 +16,8 @@ export default function ContactPage() {
       {/* Header */}
       <section className="relative min-h-[45dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/dji_fly_20240630_160720_5_1719788849030_photo_optimized-scaled.jpg"
-          alt="Aerial view of Wells Gray Resort"
+          src="https://wellsgrayresort.ca/wp-content/uploads/2021/07/20210731_180321-scaled.jpg"
+          alt="Wells Gray Resort grounds"
           fill
           priority
           className="object-cover opacity-60"

@@ -65,24 +65,28 @@ export default function Home() {
       <RevealInit />
 
       {/* ===================== HERO ===================== */}
-      {/* SCROLL-STOP VIDEO HERO */}
-      {/*
-        Container: full-viewport, min-h-[100dvh]
-        Replace <div className="hero-bg-placeholder"> with:
-        - <video> tag using drone footage autoPlay muted loop playsInline
-        - OR GSAP ScrollTrigger canvas for scroll-scrubbed version
-        Drone footage source: YouTube rQwOshB6J3M (Wells Gray Village Aerial)
-      */}
       <section className="relative min-h-[100dvh] flex items-end section-dark overflow-hidden">
-        {/* Background image placeholder — replace with video */}
-        <Image
-          src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/dji_fly_20240630_160720_5_1719788849030_photo_optimized-scaled.jpg"
-          alt="Aerial view of Wells Gray Resort"
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-        />
+        {/* YouTube aerial drone video — looping muted background */}
+        <div className="absolute inset-0 overflow-hidden bg-bark">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/rQwOshB6J3M?autoplay=1&mute=1&loop=1&playlist=rQwOshB6J3M&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1"
+            title="Wells Gray Resort — aerial drone footage"
+            allow="autoplay; encrypted-media"
+            className="pointer-events-none"
+            style={{
+              position: 'absolute',
+              width: '177.78vh',
+              height: '100vh',
+              minWidth: '100%',
+              minHeight: '56.25vw',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              border: 'none',
+              opacity: 0.85,
+            }}
+          />
+        </div>
         {/* Gradient overlay — left-weighted for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-r from-bark/85 via-bark/50 to-bark/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-bark/60 via-transparent to-transparent" />
@@ -254,8 +258,8 @@ export default function Home() {
             <div className="md:col-span-2 reveal mt-10 md:mt-0">
               <div className="relative h-[340px] md:h-[420px] rounded-lg overflow-hidden">
                 <Image
-                  src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/20210620_172133-EDIT-scaled.jpg"
-                  alt="Wells Gray Resort seasonal community"
+                  src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/PXL_20250629_025242307-EDIT-scaled.jpg"
+                  alt="Wells Gray Resort seasonal village community"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 40vw"
