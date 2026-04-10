@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -209,9 +210,31 @@ function WhatToExpect() {
 }
 
 function InquiryForm() {
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const inputClass =
-    "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-amber focus:outline-none";
+    "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-white focus:ring-1 focus:ring-white/30 focus-visible:outline-none";
   const labelClass = "block text-sm font-medium text-white/70 mb-2";
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+    const fd = new FormData(e.currentTarget);
+    const spaces = fd.getAll("spaces");
+    const body: Record<string, unknown> = {};
+    fd.forEach((v, k) => { if (k !== "spaces" && k !== "confirm") body[k] = v; });
+    body.spaces = spaces;
+
+    try {
+      const res = await fetch("/api/host-inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      setStatus(res.ok ? "success" : "error");
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
     <section id="inquire" className="bg-amber py-28 lg:py-36">
@@ -227,7 +250,14 @@ function InquiryForm() {
           </p>
         </div>
 
-        <form action="#" className="max-w-3xl space-y-8">
+        {status === "success" ? (
+          <div className="max-w-3xl rounded-2xl bg-white/10 p-12 text-center">
+            <CheckCircle size={40} weight="light" className="text-white mx-auto mb-4" />
+            <p className="text-lg font-medium text-white mb-2">Inquiry received.</p>
+            <p className="text-sm text-white/70">We&apos;ll review it and reach out if there&apos;s a fit. Thank you.</p>
+          </div>
+        ) : (
+        <form onSubmit={handleSubmit} className="max-w-3xl space-y-8">
           {/* Contact info */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
@@ -368,15 +398,20 @@ function InquiryForm() {
           </label>
 
           {/* Submit */}
-          <div>
+          <div className="flex items-center gap-4 flex-wrap">
             <button
               type="submit"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-medium text-amber transition-all hover:bg-white/90 active:scale-[0.98]"
+              disabled={status === "sending"}
+              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-medium text-amber transition-all hover:bg-white/90 active:scale-[0.98] disabled:opacity-60"
             >
-              Submit Inquiry <ArrowRight size={14} weight="bold" />
+              {status === "sending" ? "Sending…" : <>Submit Inquiry <ArrowRight size={14} weight="bold" /></>}
             </button>
+            {status === "error" && (
+              <p className="text-sm text-white/80">Something went wrong. Email us directly at <a href="mailto:mike@futurethinkers.org" className="underline">mike@futurethinkers.org</a>.</p>
+            )}
           </div>
         </form>
+        )}
       </div>
     </section>
   );

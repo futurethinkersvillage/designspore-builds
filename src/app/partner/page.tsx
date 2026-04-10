@@ -27,6 +27,7 @@ function Hero() {
           alt="Wells Gray Village aerial"
           fill
           priority
+          sizes="100vw"
           className="object-cover opacity-[0.07]"
         />
       </div>
@@ -79,7 +80,7 @@ function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-10 max-w-[50ch] text-base leading-relaxed text-white/45"
+              className="mt-10 max-w-[50ch] text-base leading-relaxed text-white/60"
             >
               Portal.Place is building a network of villages — flagship sites where
               families, builders, entrepreneurs, creators, and purpose-driven people
@@ -105,7 +106,7 @@ function Hero() {
             ].map((item) => (
               <div key={item.label} className="py-5">
                 <div className="text-sm font-medium text-white">{item.label}</div>
-                <div className="mt-0.5 text-xs text-white/35">{item.sub}</div>
+                <div className="mt-0.5 text-xs text-white/50">{item.sub}</div>
               </div>
             ))}
             <div className="pt-6 flex flex-wrap gap-3">
@@ -165,7 +166,7 @@ function Thesis() {
             </h2>
           </div>
           <div className="flex items-end">
-            <p className="text-sm leading-relaxed text-white/40 max-w-[50ch]">
+            <p className="text-sm leading-relaxed text-white/55 max-w-[50ch]">
               Global uncertainty, AI automation, and burnout are redefining how
               people live. Millions are choosing to decouple from cities.
             </p>
@@ -187,7 +188,7 @@ function Thesis() {
                 <p.icon size={15} weight="light" className="text-amber shrink-0" />
                 <span className="text-sm font-medium text-white">{p.label}</span>
               </div>
-              <p className="hidden text-sm leading-relaxed text-white/40 max-w-[55ch] lg:block">
+              <p className="hidden text-sm leading-relaxed text-white/55 max-w-[55ch] lg:block">
                 {p.body}
               </p>
             </motion.div>
@@ -241,7 +242,7 @@ function WhatExists() {
               A real operating<br />
               <span className="italic">destination</span>
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/40 max-w-[42ch]">
+            <p className="mt-8 text-sm leading-relaxed text-white/55 max-w-[42ch]">
               Not a concept deck. The flagship site is welcoming guests, families,
               and events today — with a long track record of strong reviews and
               a clear path to higher-end village living.
@@ -323,7 +324,7 @@ function WhyNow() {
             >
               <span className="font-mono text-xs text-white/20 pt-0.5">{f.n}</span>
               <span className="text-sm font-medium text-white">{f.label}</span>
-              <p className="hidden text-sm leading-relaxed text-white/40 max-w-[55ch] lg:block">
+              <p className="hidden text-sm leading-relaxed text-white/55 max-w-[55ch] lg:block">
                 {f.body}
               </p>
             </motion.div>
@@ -358,7 +359,7 @@ function RevenueStreams() {
             </h2>
           </div>
           <div className="flex items-end">
-            <p className="text-sm leading-relaxed text-white/40 max-w-[48ch]">
+            <p className="text-sm leading-relaxed text-white/55 max-w-[48ch]">
               A diversified, scalable model combining real land, hospitality,
               membership, technology, and media. Full details available under NDA
               to qualified partners.
@@ -378,7 +379,7 @@ function RevenueStreams() {
             >
               <s.icon size={18} weight="light" className="text-amber mb-5" />
               <div className="text-sm font-medium text-white mb-3">{s.label}</div>
-              <div className="text-sm leading-relaxed text-white/40">{s.body}</div>
+              <div className="text-sm leading-relaxed text-white/55">{s.body}</div>
             </motion.div>
           ))}
         </div>
@@ -474,7 +475,7 @@ function Phases() {
                 {phase.items.map((item) => (
                   <li key={item} className="flex items-start gap-2.5">
                     <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber/40" />
-                    <span className="text-xs leading-relaxed text-white/40">{item}</span>
+                    <span className="text-xs leading-relaxed text-white/55">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -539,7 +540,7 @@ function Team() {
                   />
                 </div>
                 <div className="text-sm font-medium text-white">{m.name}</div>
-                <div className="mt-1 text-xs text-white/35">{m.role}</div>
+                <div className="mt-1 text-xs text-white/50">{m.role}</div>
               </motion.div>
             ))}
           </div>
@@ -602,7 +603,7 @@ function Organizations() {
                   className="object-contain"
                 />
               </div>
-              <div className="mt-4 text-xs text-white/40">{org.name}</div>
+              <div className="mt-4 text-xs text-white/55">{org.name}</div>
             </motion.div>
           ))}
         </div>
@@ -624,7 +625,7 @@ function Foundation() {
               The<br />
               <span className="italic">Foundation</span>
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/40 max-w-[48ch]">
+            <p className="mt-8 text-sm leading-relaxed text-white/55 max-w-[48ch]">
               The Future Thinkers Foundation supports education, research, and
               community development aligned with Smart Village principles —
               ensuring the long-term mission stays rooted in public benefit.
@@ -815,7 +816,7 @@ function RequestAccess() {
               >
                 Submit request <ArrowRight size={14} weight="bold" />
               </button>
-              <p className="text-center text-xs text-white/40">
+              <p className="text-center text-xs text-white/55">
                 We review every request personally. NDA available upon confirmation of fit.
               </p>
             </form>

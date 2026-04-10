@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { TourScene } from "@/components/tour/VirtualTour";
 
 const VirtualTour = dynamic(() => import("@/components/tour/VirtualTour"), {
@@ -17,6 +17,19 @@ const VirtualTour = dynamic(() => import("@/components/tour/VirtualTour"), {
 });
 
 const BASE = "/images/tour";
+
+const SCENE_INFO: Record<string, string> = {
+  "top-view":       "Drone view of the full 400-acre property. Click hotspots to explore.",
+  "sauna":          "Cedar barrel sauna with cold plunge in the creek nearby. Open to members daily.",
+  "cabin-3":        "One of three on-site cabins available for stays. Rustic and cozy.",
+  "shower-house":   "Shared shower and washroom facilities for campers and guests.",
+  "Gazebo":         "The main community gazebo — gatherings, workshops, and campfires happen here.",
+  "trophy-mountain":"Trophy Mountain rises behind the village. Over 2,600m with year-round snow.",
+  "Winter":         "The village in winter. The property operates year-round in a quieter mode.",
+  "Dome-Interior":  "Interior of the geodesic dome — used for events, workshops, and community gatherings.",
+  "Lake-and-Field": "The swimming lake and open field adjacent to the dome structure.",
+  "Campsite":       "Creekside campsites with picnic areas. RV hookups and tenting available.",
+};
 
 const SCENES: TourScene[] = [
   {
@@ -136,6 +149,16 @@ const SCENES: TourScene[] = [
 
 export default function TourPage() {
   const [activeSceneId, setActiveSceneId] = useState("top-view");
+  const [showHint, setShowHint] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowHint(false), 4000);
+    const dismiss = () => { setShowHint(false); clearTimeout(timer); };
+    window.addEventListener("pointerdown", dismiss, { once: true });
+    return () => { clearTimeout(timer); window.removeEventListener("pointerdown", dismiss); };
+  }, []);
+
+  const activeScene = SCENES.find((s) => s.id === activeSceneId);
 
   return (
     <div className="fixed inset-0 flex flex-col bg-warm-dark">
@@ -148,15 +171,29 @@ export default function TourPage() {
           className="h-full w-full"
         />
 
-        {/* Scene label overlay */}
-        <div className="pointer-events-none absolute left-0 top-0 z-10 p-4 pt-20">
+        {/* Scene label + description overlay */}
+        <div className="pointer-events-none absolute left-0 top-0 z-10 p-4 pt-20 max-w-xs">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/50">
             Wells Gray Village
           </p>
           <p className="mt-0.5 text-sm font-medium text-white">
-            {SCENES.find((s) => s.id === activeSceneId)?.title ?? "Virtual Tour"}
+            {activeScene?.title ?? "Virtual Tour"}
           </p>
+          {activeSceneId && SCENE_INFO[activeSceneId] && (
+            <p className="mt-1.5 text-xs leading-relaxed text-white/45">
+              {SCENE_INFO[activeSceneId]}
+            </p>
+          )}
         </div>
+
+        {/* Keyboard / drag hint */}
+        {showHint && (
+          <div className="pointer-events-none absolute inset-x-0 bottom-24 z-10 flex justify-center">
+            <div className="rounded-full bg-black/60 px-4 py-2 text-xs text-white/60 backdrop-blur-sm">
+              Drag to look around · Click markers to navigate
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Scene thumbnail strip */}

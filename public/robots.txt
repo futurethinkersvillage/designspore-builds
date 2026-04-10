@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /deck
+Disallow: /one-pager
+Disallow: /investor-print
+Disallow: /investor-login
+
+Sitemap: https://portal.place/sitemap.xml

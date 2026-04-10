@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 // Scene types matching iPanorama data
 export type SceneType = "sphere" | "flat";
@@ -50,6 +50,7 @@ export default function VirtualTour({
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<{ destroy: () => void; getPlugin: (p: unknown) => unknown } | null>(null);
   const vtpRef = useRef<VTPType | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
 
   // Initial viewer creation
   useEffect(() => {
@@ -58,6 +59,7 @@ export default function VirtualTour({
     let destroyed = false;
 
     async function init() {
+      try {
       const { Viewer } = await import("@photo-sphere-viewer/core");
       const { VirtualTourPlugin } = await import("@photo-sphere-viewer/virtual-tour-plugin");
       const { MarkersPlugin } = await import("@photo-sphere-viewer/markers-plugin");
@@ -133,6 +135,12 @@ export default function VirtualTour({
             });
         });
       }
+      } catch (err) {
+        if (!destroyed) {
+          console.error("VirtualTour init failed:", err);
+          setError("The 360° viewer couldn't load. Your browser may not support WebGL.");
+        }
+      }
     }
 
     init();
@@ -146,6 +154,19 @@ export default function VirtualTour({
       }
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (error) {
+    return (
+      <div className={`${className} flex items-center justify-center bg-warm-dark`} style={{ width: "100%", height: "100%" }}>
+        <div className="text-center px-6 max-w-sm">
+          <p className="text-white/60 text-sm mb-4">{error}</p>
+          <a href="/videos" className="text-amber text-sm underline underline-offset-2">
+            Watch video walkthroughs instead →
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   // Navigate to a new scene when startSceneId changes (after mount)
   const prevSceneId = useRef(startSceneId);

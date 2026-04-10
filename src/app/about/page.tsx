@@ -76,7 +76,7 @@ function ItBeganWithAQuestion() {
             It began with<br />
             <span className="italic">a question</span>
           </h2>
-          <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+          <div className="space-y-5 text-sm leading-relaxed text-white/60 max-w-[52ch]">
             <p className="text-lg leading-relaxed text-white/60 italic font-serif">
               How do humans live well — really live well — in a world changing this fast?
             </p>
@@ -134,7 +134,7 @@ function NomadicLearning() {
         </div>
 
         <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
-          <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+          <div className="space-y-5 text-sm leading-relaxed text-white/60 max-w-[52ch]">
             <p>
               From Europe to Southeast Asia to South America, we lived deeply
               inside other cultures — not as tourists, but as residents. We
@@ -182,7 +182,7 @@ function ReturningHome() {
             Returning home —<br />
             <span className="italic">to build what we<br />couldn&apos;t find</span>
           </h2>
-          <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+          <div className="space-y-5 text-sm leading-relaxed text-white/60 max-w-[52ch]">
             <p>
               We returned to British Columbia and began building something we
               wished existed in the world:
@@ -235,7 +235,7 @@ function WhySmartVillages() {
             Why Smart Villages —<br />
             <span className="italic">why now</span>
           </h2>
-          <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+          <div className="space-y-5 text-sm leading-relaxed text-white/60 max-w-[52ch]">
             <p>
               We believe the world is entering a post-job era where automation,
               AI, loneliness, and rising costs are pressuring people to rethink

@@ -27,6 +27,7 @@ function Hero() {
           alt="Wells Gray Village — 400 acres in Interior BC"
           fill
           priority
+          sizes="100vw"
           className="object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-warm-dark via-warm-dark/50 to-transparent" />
@@ -147,7 +148,7 @@ function FirstPrototype() {
             The First Village<br />
             <span className="italic">Prototype</span>
           </h2>
-          <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+          <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[52ch]">
             Most places give you scenery. We&apos;re building community. Canada&apos;s missing
             what many other places have: Village Life — where you return each season,
             where your kids know the neighbors, and where life feels rich with purpose.
@@ -166,7 +167,7 @@ function FirstPrototype() {
             >
               <v.icon size={20} weight="light" className="text-amber mb-5" />
               <div className="text-sm font-medium text-white mb-2">{v.label}</div>
-              <div className="text-sm leading-relaxed text-white/40">{v.body}</div>
+              <div className="text-sm leading-relaxed text-white/55">{v.body}</div>
             </motion.div>
           ))}
         </div>
@@ -196,7 +197,7 @@ function Amenities() {
             Village Amenities<br />
             <span className="italic">What You Get</span>
           </h2>
-          <p className="mt-4 text-sm text-white/40 max-w-[48ch]">
+          <p className="mt-4 text-sm text-white/55 max-w-[48ch]">
             Inspired by dacha culture and seasonal cottage living, reimagined for modern life.
           </p>
         </div>
@@ -213,7 +214,7 @@ function Amenities() {
             >
               <a.icon size={18} weight="light" className="text-amber mb-4" />
               <div className="text-sm font-medium text-white mb-2">{a.label}</div>
-              <div className="text-sm leading-relaxed text-white/35">{a.body}</div>
+              <div className="text-sm leading-relaxed text-white/50">{a.body}</div>
             </motion.div>
           ))}
         </div>
@@ -236,7 +237,7 @@ function WorkStayCTA() {
               <span className="italic">Village Builder</span><br />
               Work-stay Cohort
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[48ch]">
               Be part of a select group of people who will help turn our 400-acre
               campsite, golf course, and forest into a living Village prototype.
               We&apos;re inviting hands-on builders, technologists, creatives, and
@@ -284,7 +285,7 @@ function FutureOfLiving() {
           </h2>
         </div>
 
-        <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[60ch]">
+        <div className="space-y-5 text-sm leading-relaxed text-white/60 max-w-[60ch]">
           <p>
             People want to live close to nature and be healthy, raise kids in community,
             build and learn useful skills together, and be part of a culture of builders,
@@ -327,7 +328,7 @@ function TheLand() {
             The<br />
             <span className="italic">Land</span>
           </h2>
-          <p className="mt-4 text-sm text-white/40 max-w-[48ch]">
+          <p className="mt-4 text-sm text-white/55 max-w-[48ch]">
             Browse real images of our dome, sauna, event spaces, RV sites, golf course,
             and views to experience the landscape that&apos;s already drawing guests and
             community.
@@ -366,7 +367,7 @@ function ComingSoon() {
               Coming Soon<br />
               <span className="italic">to Wells Gray Village</span>
             </h2>
-            <p className="mt-8 text-sm text-white/45 max-w-[38ch]">
+            <p className="mt-8 text-sm text-white/60 max-w-[38ch]">
               Visit or apply to join &amp; help shape what&apos;s next.
             </p>
           </div>
@@ -495,7 +496,7 @@ function FAQ() {
                       id={`faq-answer-${i}`}
                       className="overflow-hidden"
                     >
-                      <p className="pb-6 text-sm leading-relaxed text-white/40">{faq.a}</p>
+                      <p className="pb-6 text-sm leading-relaxed text-white/55">{faq.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>

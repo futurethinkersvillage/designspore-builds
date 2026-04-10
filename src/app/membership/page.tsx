@@ -852,10 +852,10 @@ function Invitation() {
             className="flex items-start"
           >
             <a
-              href="/checkout"
+              href="mailto:mike@futurethinkers.org?subject=Membership%20Inquiry"
               className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-medium text-amber transition-all hover:bg-white/90 active:scale-[0.98]"
             >
-              Become a Member <ArrowRight size={14} weight="bold" />
+              Apply for Membership <ArrowRight size={14} weight="bold" />
             </a>
           </motion.div>
         </div>

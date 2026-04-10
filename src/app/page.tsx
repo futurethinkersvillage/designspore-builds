@@ -120,7 +120,7 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-12 max-w-[56ch]"
         >
-          <p className="text-base leading-relaxed text-white/45">
+          <p className="text-base leading-relaxed text-white/60">
             We&apos;re building a real-world village campus in Interior BC, Canada — with
             RV&apos;s, tiny homes, cabins, programs, and memberships designed for people
             who want a healthier, more connected, future-proof lifestyle.
@@ -182,7 +182,7 @@ function CoreIdea() {
     <section className="bg-warm-dark py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 items-start">
-          <div className="space-y-5 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+          <div className="space-y-5 text-sm leading-relaxed text-white/60 max-w-[52ch]">
             <div className="mb-8">
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
                 The Core Idea
@@ -191,7 +191,7 @@ function CoreIdea() {
                 A Network of Villages<br />
                 <span className="italic">For The Post-Ai World</span>
               </h2>
-              <p className="mt-6 text-sm leading-relaxed text-white/40 max-w-[52ch]">
+              <p className="mt-6 text-sm leading-relaxed text-white/55 max-w-[52ch]">
                 We are starting with our existing 400-acre flagship village site in BC,
                 Canada – and adding partner locations with time.
               </p>
@@ -257,7 +257,7 @@ function WhyNow() {
             Why This<br />
             <span className="italic">Matters Now</span>
           </h2>
-          <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[52ch]">
+          <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[52ch]">
             AI is transforming reality faster than most people can adapt. We are
             entering a transition that will require new forms of:
           </p>
@@ -275,7 +275,7 @@ function WhyNow() {
             >
               <a.icon size={18} weight="light" className="text-amber mb-4" />
               <div className="text-sm font-medium text-white mb-2">{a.label}</div>
-              <p className="text-sm leading-relaxed text-white/45">{a.body}</p>
+              <p className="text-sm leading-relaxed text-white/60">{a.body}</p>
             </motion.div>
           ))}
         </div>
@@ -315,7 +315,7 @@ function VillageModel() {
             <p className="mt-4 text-sm text-amber/70">
               The Best of Blue Zones, Modern Tech, and Regenerative Design
             </p>
-            <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[48ch]">
               Imagine a Network of Villages that combine:
             </p>
             <div className="mt-8 space-y-3">
@@ -326,7 +326,7 @@ function VillageModel() {
                 </div>
               ))}
             </div>
-            <p className="mt-10 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+            <p className="mt-10 text-sm leading-relaxed text-white/60 max-w-[48ch]">
               This creates a new kind of community — flexible, resilient, and built for the future.
             </p>
           </div>
@@ -373,9 +373,9 @@ function FirstVillage() {
             </p>
             <h2 className="font-serif text-5xl font-light leading-tight text-white lg:text-6xl">
               Wells Gray, BC.<br />
-              <span className="italic text-white/40">The Living Prototype.</span>
+              <span className="italic text-white/55">The Living Prototype.</span>
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[48ch]">
               We are building the first real-world Village on a stunning 400-acre
               property in the mountains of British Columbia.
             </p>
@@ -469,7 +469,7 @@ function DayInVillage() {
               A Day In<br />
               <span className="italic">The Village</span>
             </h2>
-            <div className="mt-10 space-y-5 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+            <div className="mt-10 space-y-5 text-sm leading-relaxed text-white/60 max-w-[48ch]">
               <p>You wake in a cozy cabin overlooking the mountains.</p>
               <p>The morning is quiet except for birdsong and a stream nearby.</p>
               <p>
@@ -533,7 +533,7 @@ function WhyDifferent() {
               Why This Is<br />
               <span className="italic">Different</span>
             </h2>
-            <div className="mt-8 space-y-5 text-sm leading-relaxed text-white/45 max-w-[48ch]">
+            <div className="mt-8 space-y-5 text-sm leading-relaxed text-white/60 max-w-[48ch]">
               <p>
                 Portal.Place is not a commune, co-op, or retreat.
               </p>
@@ -596,7 +596,7 @@ function ProofOfProgress() {
               Proof Of<br />
               <span className="italic">Progress</span>
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/45 max-w-[38ch]">
+            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[38ch]">
               We&apos;re early — but not starting from zero.
             </p>
           </div>
@@ -745,7 +745,7 @@ function IntelCTA() {
                       Subscribe to Intel <ArrowRight size={14} weight="bold" />
                     </button>
                   </form>
-                  <p className="mt-4 text-xs text-white/35 text-center">
+                  <p className="mt-4 text-xs text-white/50 text-center">
                     Focused on BC &amp; Alberta. Powered by Portal.Place.
                   </p>
                 </>
