@@ -17,7 +17,7 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative min-h-[55dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240728_033755893-EDIT-scaled.jpg"
+          src="/images/PXL_20240728_033755893-EDIT-scaled.jpg"
           alt="Wells Gray Resort grounds and lake"
           fill
           priority
@@ -58,7 +58,7 @@ export default function AboutPage() {
             <div className="md:col-span-2 space-y-4 mt-10 md:mt-0">
               <div className="reveal relative h-[280px] rounded-lg overflow-hidden">
                 <Image
-                  src="https://wellsgrayresort.ca/wp-content/uploads/2024/02/PXL_20230924_013649576-scaled.jpg"
+                  src="/images/PXL_20230924_013649576-scaled.jpg"
                   alt="Wells Gray Resort grounds"
                   fill
                   className="object-cover"
@@ -67,7 +67,7 @@ export default function AboutPage() {
               </div>
               <div className="reveal relative h-[220px] rounded-lg overflow-hidden">
                 <Image
-                  src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240824_0258159262-EDIT-scaled.jpg"
+                  src="/images/PXL_20240824_0258159262-EDIT-scaled.jpg"
                   alt="Wells Gray Resort accommodation"
                   fill
                   className="object-cover"

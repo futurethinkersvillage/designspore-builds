@@ -79,7 +79,7 @@ export default function SeasonalVillagePage() {
       {/* Hero */}
       <section className="relative min-h-[70dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://wellsgrayresort.ca/wp-content/uploads/2021/07/20210731_180321-scaled.jpg"
+          src="/images/20210731_180321-scaled.jpg"
           alt="Wells Gray Resort seasonal village grounds"
           fill
           priority
@@ -122,7 +122,7 @@ export default function SeasonalVillagePage() {
             </div>
             <div className="relative h-[340px] md:h-[420px] rounded-lg overflow-hidden mt-8 md:mt-0 reveal">
               <Image
-                src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/PXL_20250629_025242307-EDIT-scaled.jpg"
+                src="/images/PXL_20250629_025242307-EDIT-scaled.jpg"
                 alt="Wells Gray Resort seasonal village"
                 fill
                 className="object-cover"

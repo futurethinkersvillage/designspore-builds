@@ -26,7 +26,7 @@ export default function VenuePage() {
       {/* Hero */}
       <section className="relative min-h-[65dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/461692343_10162000088875148_5722285476960156898_n.jpg"
+          src="/images/461692343_10162000088875148_5722285476960156898_n.jpg"
           alt="Wedding ceremony at Wells Gray Resort"
           fill
           priority
@@ -56,7 +56,7 @@ export default function VenuePage() {
             <div className="md:col-span-3 reveal">
               <div className="relative h-[360px] md:h-[500px] rounded-lg overflow-hidden mb-5">
                 <Image
-                  src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/20210621_205223-scaled.jpg"
+                  src="/images/20210621_205223-scaled.jpg"
                   alt="Wells Gray Resort outdoor event gazebo"
                   fill
                   className="object-cover"
@@ -66,7 +66,7 @@ export default function VenuePage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative h-[180px] rounded-lg overflow-hidden">
                   <Image
-                    src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/461719795_10162000089565148_4909250211936855684_n.jpg"
+                    src="/images/461719795_10162000089565148_4909250211936855684_n.jpg"
                     alt="Wedding reception at Wells Gray Resort"
                     fill
                     className="object-cover"
@@ -75,7 +75,7 @@ export default function VenuePage() {
                 </div>
                 <div className="relative h-[180px] rounded-lg overflow-hidden">
                   <Image
-                    src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/457303431_10161883687870148_8848637454076928890_n.jpg"
+                    src="/images/457303431_10161883687870148_8848637454076928890_n.jpg"
                     alt="Wells Gray Resort venue celebration"
                     fill
                     className="object-cover"

@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     siteName: 'Wells Gray Golf & RV Resort',
     images: [
       {
-        url: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20230621_022025523.MP-EDIT-scaled.jpg',
+        url: 'https://wellsgrayresort.designspore.co/images/PXL_20230621_022025523.MP-EDIT-scaled.jpg',
         width: 1200,
         height: 630,
         alt: 'Wells Gray Resort — aerial view of the resort inside Wells Gray Provincial Park',

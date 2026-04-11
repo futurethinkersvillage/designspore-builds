@@ -63,7 +63,7 @@ export default function ExplorePage() {
       {/* Hero */}
       <section className="relative min-h-[65dvh] flex items-end section-dark overflow-hidden">
         <Image
-          src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20230621_022025523.MP-EDIT-scaled.jpg"
+          src="/images/PXL_20230621_022025523.MP-EDIT-scaled.jpg"
           alt="Wells Gray Provincial Park wilderness and waterfalls"
           fill
           priority
@@ -103,7 +103,7 @@ export default function ExplorePage() {
             </div>
             <div className="relative h-[320px] md:h-[420px] rounded-lg overflow-hidden mt-8 md:mt-0">
               <Image
-                src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240728_033755893-EDIT-scaled.jpg"
+                src="/images/PXL_20240728_033755893-EDIT-scaled.jpg"
                 alt="Private lake in Wells Gray Provincial Park"
                 fill
                 className="object-cover"
@@ -196,7 +196,7 @@ export default function ExplorePage() {
             </div>
             <div className="relative h-[300px] md:h-[380px] rounded-lg overflow-hidden mt-8 md:mt-0">
               <Image
-                src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240728_033755893-EDIT-scaled.jpg"
+                src="/images/PXL_20240728_033755893-EDIT-scaled.jpg"
                 alt="Private lake at Wells Gray Resort"
                 fill
                 className="object-cover"

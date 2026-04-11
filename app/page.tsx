@@ -16,7 +16,7 @@ const accommodations = [
     label: 'Glamping Dome',
     desc: 'A spacious geodesic dome with a queen bed and air conditioning, tucked beside the creek. Walls that let the forest in.',
     from: '$129',
-    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20240518_203127249-EDIT-scaled.jpg',
+    img: '/images/PXL_20240518_203127249-EDIT-scaled.jpg',
     size: 'large',
   },
   {
@@ -24,7 +24,7 @@ const accommodations = [
     label: 'Creekside RV Sites',
     desc: '30-amp hookups, water, and fire pit — right on the creek. Fall asleep to the sound of moving water.',
     from: '$65',
-    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/20210924_172621-scaled.jpg',
+    img: '/images/20210924_172621-scaled.jpg',
     size: 'small',
   },
   {
@@ -32,7 +32,7 @@ const accommodations = [
     label: 'Forest Cabins',
     desc: 'Simple wooden sleeping cabins under the trees. Power, a double bed, and nothing between you and the forest.',
     from: '$60',
-    img: 'https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20250504_163611703-EDIT-scaled.jpg',
+    img: '/images/PXL_20250504_163611703-EDIT-scaled.jpg',
     size: 'small',
   },
 ]
@@ -260,7 +260,7 @@ export default function Home() {
             <div className="md:col-span-2 reveal mt-10 md:mt-0">
               <div className="relative h-[340px] md:h-[420px] rounded-lg overflow-hidden">
                 <Image
-                  src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/PXL_20250629_025242307-EDIT-scaled.jpg"
+                  src="/images/PXL_20250629_025242307-EDIT-scaled.jpg"
                   alt="Wells Gray Resort seasonal village community"
                   fill
                   className="object-cover"
@@ -276,7 +276,7 @@ export default function Home() {
       {/* ===================== WATERFALLS / EXPLORE HOOK ===================== */}
       <section className="relative section-dark py-20 md:py-28 overflow-hidden">
         <Image
-          src="https://wellsgrayresort.ca/wp-content/uploads/2025/06/PXL_20230621_022025523.MP-EDIT-scaled.jpg"
+          src="/images/PXL_20230621_022025523.MP-EDIT-scaled.jpg"
           alt="Wells Gray Provincial Park landscape"
           fill
           className="object-cover opacity-25"
@@ -306,7 +306,7 @@ export default function Home() {
           <div className="md:grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="reveal order-2 md:order-1 relative h-[300px] md:h-[400px] rounded-lg overflow-hidden">
               <Image
-                src="https://wellsgrayresort.ca/wp-content/uploads/2025/07/461692343_10162000088875148_5722285476960156898_n.jpg"
+                src="/images/461692343_10162000088875148_5722285476960156898_n.jpg"
                 alt="Wells Gray Resort wedding venue"
                 fill
                 className="object-cover"
