@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { X, ArrowRight } from "@phosphor-icons/react";
+import { XCircle, ArrowRight } from "@phosphor-icons/react";
 import Link from "next/link";
 
 type Category = "all" | "land" | "infrastructure" | "community" | "seasons";
@@ -159,7 +159,7 @@ export default function GalleryPage() {
             onClick={() => setLightbox(null)}
             aria-label="Close"
           >
-            <X size={18} />
+            <XCircle size={18} />
           </button>
           <div
             className="relative max-h-[90vh] max-w-5xl w-full overflow-hidden rounded-xl"
