@@ -31,6 +31,29 @@ export default function LeadSourcingDashboard() {
         <h1 className="text-2xl font-bold text-white">Lead Pipeline</h1>
       </div>
 
+      {/* Search prompt */}
+      <div className="bg-raised border border-white/[0.06] rounded-2xl p-6">
+        <p className="text-sm font-semibold text-white mb-3">Find New Leads</p>
+        <div className="flex gap-3">
+          <input
+            type="text"
+            readOnly
+            value="Property managers in Kamloops, BC with 10+ rental units"
+            className="flex-1 bg-dark border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white/70 focus:outline-none focus:border-gold/40 placeholder:text-white/25"
+          />
+          <button className="shrink-0 px-6 py-3 bg-gold text-dark text-sm font-bold rounded-xl hover:bg-gold-light transition-colors">
+            Search Leads
+          </button>
+        </div>
+        <div className="flex gap-2 mt-3 flex-wrap">
+          {["Property managers — Kamloops", "HVAC contractors — Thompson-Nicola", "Restaurant owners — Clearwater", "Real estate agents — BC Interior"].map(s => (
+            <button key={s} className="text-[11px] text-white/35 border border-white/[0.06] rounded-full px-3 py-1.5 hover:text-white/60 hover:border-white/[0.12] transition-colors">
+              {s}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
         {[
