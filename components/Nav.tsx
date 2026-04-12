@@ -11,6 +11,7 @@ const links = [
   { href: '/explore',          label: 'Explore' },
   { href: '/seasonal-village', label: 'Village' },
   { href: '/venue',            label: 'Venue' },
+  { href: '/gallery',          label: 'Gallery' },
 ]
 
 export default function Nav() {

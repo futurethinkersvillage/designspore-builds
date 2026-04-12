@@ -77,7 +77,7 @@ export default function ContactPage() {
             <div className="md:col-span-3 mt-10 md:mt-0 reveal">
               <h2 className="font-display text-bark text-h3 mb-8">Send a Message</h2>
               <form
-                action="https://formspree.io/f/contact@wellsgrayresort.ca"
+                action="https://formspree.io/f/xjkvpqeg"
                 method="POST"
                 className="space-y-5"
               >
@@ -130,21 +130,29 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map placeholder */}
+      {/* Map */}
       <section className="section-dark py-12">
         <div className="container-content reveal">
-          <div className="rounded-lg overflow-hidden h-[300px] bg-moss/20 flex items-center justify-center border border-border">
-            <div className="text-center">
-              <p className="font-body text-parchment/40 text-sm mb-3">6624 Clearwater Valley Rd, Clearwater BC</p>
-              <a
-                href="https://maps.google.com/?q=6624+Clearwater+Valley+Rd,+Clearwater,+BC"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-outline-parchment text-sm"
-              >
-                Open in Google Maps
-              </a>
-            </div>
+          <div className="rounded-lg overflow-hidden h-[360px]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2514.8!2d-120.0374!3d51.6482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537e2b9b4d3e5555%3A0x1234!2s6624+Clearwater+Valley+Rd%2C+Clearwater%2C+BC!5e0!3m2!1sen!2sca!4v1234567890"
+              title="Wells Gray Golf & RV Resort location map"
+              className="w-full h-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+          <div className="flex items-center justify-between mt-4">
+            <p className="font-body text-parchment/50 text-sm">6624 Clearwater Valley Rd, Clearwater BC — 2 hours north of Kamloops</p>
+            <a
+              href="https://maps.google.com/?q=6624+Clearwater+Valley+Rd,+Clearwater,+BC"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-body text-sm text-ember hover:text-ember/80 transition-colors shrink-0 ml-4"
+            >
+              Open in Maps →
+            </a>
           </div>
         </div>
       </section>

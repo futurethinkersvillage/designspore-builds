@@ -35,23 +35,23 @@ const waterfalls = [
 const adventures = [
   {
     label: 'Whitewater Rafting',
+    tag: 'Half or full day',
     desc: 'The Clearwater and Thompson Rivers offer class II–IV rapids depending on season. Half-day and full-day trips available through local outfitters.',
-    img: 'https://images.unsplash.com/photo-1530866495561-507c9faab2ed?auto=format&fit=crop&w=700&q=80',
   },
   {
     label: 'Horseback Riding',
-    desc: 'Trail rides through the forest and meadows with local guides. Beginner-friendly. A completely different way to see the land.',
-    img: 'https://images.unsplash.com/photo-1504151932400-72d4384f04b3?auto=format&fit=crop&w=700&q=80',
+    tag: 'Beginner-friendly',
+    desc: 'Trail rides through the forest and meadows with local guides. A completely different way to see the land.',
   },
   {
     label: 'Kayaking & Canoeing',
-    desc: 'Clearwater Lake and the river system are perfect for paddling. Rentals available locally, guided tours with Clearwater Lake Tours.',
-    img: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=700&q=80',
+    tag: 'Rentals available',
+    desc: 'Clearwater Lake and the river system are perfect for paddling. Guided tours with Clearwater Lake Tours.',
   },
   {
     label: 'Wildlife Viewing',
-    desc: 'Wells Gray is home to moose, black bear, wolverine, osprey, and the rare mountain caribou. Early mornings are best — the meadows along the park road are a reliable starting point.',
-    img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80',
+    tag: 'Best at dawn',
+    desc: 'Moose, black bear, wolverine, osprey, and the rare mountain caribou. Early mornings on the park road are your best bet.',
   },
 ]
 
@@ -160,24 +160,16 @@ export default function ExplorePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {adventures.map((adv, i) => (
-              <div key={adv.label} className="reveal group relative rounded-lg overflow-hidden h-[260px]" style={{ transitionDelay: `${i * 80}ms` }}>
-                <Image
-                  src={adv.img}
-                  alt={adv.label}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-bark/90 via-bark/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <h3 className="font-display text-parchment text-xl mb-1">{adv.label}</h3>
-                  <p className="font-body text-parchment/70 text-sm leading-relaxed">{adv.desc}</p>
-                </div>
+              <div key={adv.label} className="reveal p-6 border border-parchment/10 rounded-lg" style={{ transitionDelay: `${i * 60}ms` }}>
+                <span className="font-body text-xs text-ember font-semibold uppercase tracking-widest mb-3 block">{adv.tag}</span>
+                <h3 className="font-display text-parchment text-xl mb-3">{adv.label}</h3>
+                <p className="font-body text-parchment/70 text-sm leading-relaxed">{adv.desc}</p>
               </div>
             ))}
           </div>
+          <p className="font-body text-parchment/50 text-sm mt-6 reveal">Ask at the front desk — we know the best local guides and can help you book.</p>
         </div>
       </section>
 

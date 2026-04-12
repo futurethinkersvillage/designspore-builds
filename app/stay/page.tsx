@@ -106,8 +106,33 @@ export default function StayPage() {
         </div>
       </section>
 
-      {/* Booking anchor placeholder */}
-      <div id="book" />
+      {/* Booking widget */}
+      <section id="book" className="section-light py-16 md:py-20">
+        <div className="container-content">
+          <div className="reveal mb-8">
+            <p className="font-body text-ember text-xs font-semibold uppercase tracking-[0.2em] mb-3">Reservations</p>
+            <h2 className="heading-h2 text-bark">Book Your Stay</h2>
+            <p className="body-lead text-stone mt-3 max-w-prose">
+              Choose your dates and accommodation below. Book direct — no platform fees.
+            </p>
+          </div>
+          <div className="reveal rounded-lg overflow-hidden border border-bark/10 bg-white">
+            <iframe
+              src="https://wellsgraygolfresorta.checkfront.com/reserve/"
+              title="Wells Gray Resort — Book Your Stay"
+              className="w-full"
+              style={{ minHeight: '600px', border: 'none' }}
+              loading="lazy"
+            />
+          </div>
+          <p className="font-body text-stone/60 text-xs mt-4 text-center">
+            Having trouble? Call us at{' '}
+            <a href="tel:+12506740009" className="hover:text-ember transition-colors">+1 (250) 674-0009</a>
+            {' '}or email{' '}
+            <a href="mailto:contact@wellsgrayresort.ca" className="hover:text-ember transition-colors">contact@wellsgrayresort.ca</a>
+          </p>
+        </div>
+      </section>
 
       {/* Stays list */}
       <section className="section-light py-20 md:py-28">

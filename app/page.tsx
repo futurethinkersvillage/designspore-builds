@@ -331,6 +331,37 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===================== TESTIMONIALS ===================== */}
+      <section className="section-light py-20 md:py-28">
+        <div className="container-content">
+          <div className="reveal mb-12 text-center">
+            <p className="font-body text-ember text-xs font-semibold uppercase tracking-[0.2em] mb-3">What Guests Say</p>
+            <h2 className="heading-h2 text-bark">Loved by Families,<br />Remembered for Years</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {[
+              {
+                quote: "Wonderful spot to bring the family! Awesome campsites, clean bathrooms and showers, awesome little lake. We will definitely be back.",
+                name: "Kaycee Michelle",
+              },
+              {
+                quote: "A little slice of paradise tucked into the mountains. The resort is well maintained and the amenities are great!",
+                name: "Carrie Neal",
+              },
+              {
+                quote: "What a Picture Perfect place to camp and/or golf at the same time! The setting is absolutely beautiful.",
+                name: "Rob Tellier",
+              },
+            ].map((t, i) => (
+              <div key={t.name} className="reveal p-7 border border-bark/10 rounded-lg flex flex-col" style={{ transitionDelay: `${i * 80}ms` }}>
+                <p className="font-body text-bark text-base leading-relaxed mb-6 flex-1">"{t.quote}"</p>
+                <p className="font-body text-xs font-semibold text-stone uppercase tracking-wider">— {t.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ===================== BOTTOM CTA ===================== */}
       <section className="section-dark py-20 md:py-28">
         <div className="container-content text-center">
