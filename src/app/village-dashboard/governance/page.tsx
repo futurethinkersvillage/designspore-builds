@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import {
-  Scales, Handshake, FileText, ChartBar,
+  Scales, FileText, ChartBar,
   CheckCircle, XCircle, Minus, Clock,
   ShieldCheck, Users, Gavel, ThumbsUp,
-  CalendarBlank, ArrowRight,
+  ArrowRight, Robot, Sparkle,
+  Brain, ChatsCircle,
 } from "@phosphor-icons/react";
 
 /* ── Inline data ───────────────────────────────────────────────────── */
@@ -18,12 +19,90 @@ const stats = [
 ];
 
 const proposals = [
-  { title: "Solar Array Expansion — Phase 2", proposer: "Elena V.", forVotes: 142, against: 18, abstain: 12, status: "Open", desc: "Expand the existing solar installation with 40 additional panels to reach 90% energy self-sufficiency by Q4 2026." },
-  { title: "Community Garden Expansion to Plot D", proposer: "Marcus C.", forVotes: 98, against: 34, abstain: 8, status: "Open", desc: "Clear and prepare the southeastern plot for 12 additional raised beds with drip irrigation and companion planting zones." },
-  { title: "Updated Work-Stay Compensation Policy", proposer: "Sarah L.", forVotes: 67, against: 45, abstain: 22, status: "Under Review", desc: "Revise work-stay arrangements to include a stipend increase and flexible hour allocation for skill-based contributions." },
-  { title: "Quiet Hours Extension to 10pm", proposer: "Ben M.", forVotes: 156, against: 8, abstain: 4, status: "Open", desc: "Move quiet hours start time from 11pm to 10pm across all residential zones to improve rest quality for early-shift volunteers." },
-  { title: "Village Marketplace Launch", proposer: "Anika P.", forVotes: 112, against: 28, abstain: 15, status: "Open", desc: "Open a weekly Saturday marketplace for residents and local artisans, with 10% proceeds funding community events." },
-  { title: "Emergency Fund Increase to $50K", proposer: "James W.", forVotes: 134, against: 12, abstain: 6, status: "Under Review", desc: "Raise the community emergency reserve from $30K to $50K to cover two months of critical operations during unforeseen events." },
+  {
+    title: "Solar Array Expansion — Phase 2",
+    proposer: "Elena V.",
+    forVotes: 142,
+    against: 18,
+    abstain: 12,
+    status: "Open",
+    desc: "Expand the existing solar installation with 40 additional panels to reach 90% energy self-sufficiency by Q4 2026.",
+    aiAnalysis: {
+      impact: "High Impact",
+      insight: "Similar to Solar Battery Expansion (Jan '26) which passed 68%. Strong precedent.",
+      sentiment: "green",
+    },
+  },
+  {
+    title: "Community Garden Expansion to Plot D",
+    proposer: "Marcus C.",
+    forVotes: 98,
+    against: 34,
+    abstain: 8,
+    status: "Open",
+    desc: "Clear and prepare the southeastern plot for 12 additional raised beds with drip irrigation and companion planting zones.",
+    aiAnalysis: {
+      impact: "Medium Impact",
+      insight: "Against votes trending slightly higher than initial garden proposal. Monitor objections.",
+      sentiment: "amber",
+    },
+  },
+  {
+    title: "Updated Work-Stay Compensation Policy",
+    proposer: "Sarah L.",
+    forVotes: 67,
+    against: 45,
+    abstain: 22,
+    status: "Under Review",
+    desc: "Revise work-stay arrangements to include a stipend increase and flexible hour allocation for skill-based contributions.",
+    aiAnalysis: {
+      impact: "High Impact",
+      insight: "Consent gap flagged — 33% against exceeds 20% threshold. Objection may be paramount.",
+      sentiment: "red",
+    },
+  },
+  {
+    title: "Quiet Hours Extension to 10pm",
+    proposer: "Ben M.",
+    forVotes: 156,
+    against: 8,
+    abstain: 4,
+    status: "Open",
+    desc: "Move quiet hours start time from 11pm to 10pm across all residential zones to improve rest quality for early-shift volunteers.",
+    aiAnalysis: {
+      impact: "Low Impact",
+      insight: "No objections flagged in community chat. Strong candidate for lazy consensus.",
+      sentiment: "green",
+    },
+  },
+  {
+    title: "Village Marketplace Launch",
+    proposer: "Anika P.",
+    forVotes: 112,
+    against: 28,
+    abstain: 15,
+    status: "Open",
+    desc: "Open a weekly Saturday marketplace for residents and local artisans, with 10% proceeds funding community events.",
+    aiAnalysis: {
+      impact: "Medium Impact",
+      insight: "High engagement in comment thread. 3 domain experts have endorsed the proposal.",
+      sentiment: "green",
+    },
+  },
+  {
+    title: "Emergency Fund Increase to $50K",
+    proposer: "James W.",
+    forVotes: 134,
+    against: 12,
+    abstain: 6,
+    status: "Under Review",
+    desc: "Raise the community emergency reserve from $30K to $50K to cover two months of critical operations during unforeseen events.",
+    aiAnalysis: {
+      impact: "High Impact",
+      insight: "Finance committee advice sought and incorporated. Objection risk is low per pattern analysis.",
+      sentiment: "green",
+    },
+  },
 ];
 
 const proposalHistory = [
@@ -71,6 +150,61 @@ const govMetrics = [
   { label: "Community Satisfaction", value: "91%", icon: ThumbsUp },
 ];
 
+const governanceModels = [
+  {
+    name: "Consent Decision-Making",
+    desc: "A proposal passes unless someone raises a paramount objection. Focuses on 'good enough for now, safe to try'.",
+    badge: "Active",
+    badgeStyle: "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30",
+    cardStyle: "border-emerald-500/20 bg-emerald-500/[0.04]",
+    icon: Scales,
+    iconStyle: "bg-emerald-500/15 text-emerald-400",
+  },
+  {
+    name: "Advice Process",
+    desc: "Anyone can make a decision after seeking advice from affected parties and domain experts. No approval needed.",
+    badge: "Available",
+    badgeStyle: "bg-blue-500/15 text-blue-400 border border-blue-500/20",
+    cardStyle: "border-white/[0.06] bg-white/[0.04]",
+    icon: ChatsCircle,
+    iconStyle: "bg-blue-500/15 text-blue-400",
+  },
+  {
+    name: "Lazy Consensus",
+    desc: "Proposals posted to the community for 72 hours. Silence = consent. Used for low-stakes decisions.",
+    badge: "Available",
+    badgeStyle: "bg-blue-500/15 text-blue-400 border border-blue-500/20",
+    cardStyle: "border-white/[0.06] bg-white/[0.04]",
+    icon: Clock,
+    iconStyle: "bg-blue-500/15 text-blue-400",
+  },
+];
+
+const aiSuggestedPrompts = [
+  "Summarize active proposals",
+  "Which proposals have the highest conflict risk?",
+  "What's our consent rate trend?",
+];
+
+const aiMessages = [
+  {
+    role: "user",
+    text: "Summarize active proposals",
+  },
+  {
+    role: "ai",
+    text: "There are 6 active proposals this cycle. The strongest consent signal is on Quiet Hours Extension (94% for) — this is a candidate for lazy consensus resolution. The highest conflict risk is Updated Work-Stay Compensation Policy, where the against-vote rate exceeds the 20% paramount objection threshold. Solar Array Expansion has strong historical precedent and is likely to pass without objections.",
+  },
+  {
+    role: "user",
+    text: "What's our consent rate trend?",
+  },
+  {
+    role: "ai",
+    text: "Your consent rate has held at 83–87% over the last 3 quarters — a healthy signal for a community of this size. The slight dip in Q1 2026 correlates with the two compensation-related proposals, which typically generate more structured objections. No systemic governance issues detected. Recommend reviewing objection patterns for policy proposals specifically.",
+  },
+];
+
 /* ── Helpers ─────────────────────────────────────────────────────── */
 
 const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.06 } } };
@@ -104,6 +238,12 @@ const agreementCatBadge: Record<string, string> = {
   Community: "bg-blue-500/15 text-blue-400",
   Environment: "bg-emerald-500/15 text-emerald-400",
   Operations: "bg-amber/15 text-amber",
+};
+
+const sentimentDot: Record<string, string> = {
+  green: "bg-emerald-400",
+  amber: "bg-amber-400",
+  red: "bg-red-400",
 };
 
 function initials(name: string) {
@@ -140,6 +280,103 @@ export default function GovernancePage() {
         ))}
       </motion.div>
 
+      {/* Governance Toolkit + AI Assistant */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.15 }}
+        className="grid grid-cols-1 gap-4 lg:grid-cols-5 xl:gap-6"
+      >
+        {/* Governance Toolkit — 3 cols */}
+        <div className="lg:col-span-3 space-y-3">
+          <div className="flex items-center gap-2 mb-1">
+            <Brain size={14} weight="fill" className="text-white/40" />
+            <h2 className="text-sm font-medium text-white">Governance Toolkit</h2>
+            <span className="ml-auto text-[10px] text-white/30">Active model highlighted</span>
+          </div>
+          {governanceModels.map((m) => (
+            <div
+              key={m.name}
+              className={`rounded-2xl border p-4 flex items-start gap-4 ${m.cardStyle}`}
+            >
+              <div className={`shrink-0 rounded-xl p-2.5 ${m.iconStyle.split(" ").slice(0, 1).join(" ")}`}>
+                <m.icon size={18} weight="fill" className={m.iconStyle.split(" ").slice(1).join(" ")} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className="text-sm font-medium text-white/80">{m.name}</span>
+                  <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${m.badgeStyle}`}>{m.badge}</span>
+                </div>
+                <p className="text-xs text-white/40 leading-relaxed">{m.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* AI Governance Assistant — 2 cols */}
+        <div className="lg:col-span-2 rounded-2xl border border-white/[0.06] bg-[#0a0812] flex flex-col overflow-hidden" style={{ minHeight: 340 }}>
+          {/* Panel header */}
+          <div className="flex items-center gap-2.5 px-4 py-3 border-b border-white/[0.06]">
+            <div className="rounded-lg bg-violet-500/20 p-1.5">
+              <Robot size={13} weight="fill" className="text-violet-400" />
+            </div>
+            <span className="text-xs font-medium text-white/70">AI Governance Assistant</span>
+            <span className="ml-auto flex items-center gap-1 text-[10px] text-emerald-400">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" /> Online
+            </span>
+          </div>
+
+          {/* Suggested prompts */}
+          <div className="px-4 pt-3 pb-2 flex flex-wrap gap-1.5">
+            {aiSuggestedPrompts.map((prompt) => (
+              <button
+                key={prompt}
+                className="rounded-full border border-violet-500/25 bg-violet-500/10 px-2.5 py-1 text-[10px] text-violet-300 hover:bg-violet-500/20 transition-colors cursor-pointer"
+              >
+                {prompt}
+              </button>
+            ))}
+          </div>
+
+          {/* Chat thread */}
+          <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3">
+            {aiMessages.map((msg, i) =>
+              msg.role === "user" ? (
+                <div key={i} className="flex justify-end">
+                  <div className="rounded-2xl rounded-tr-sm bg-violet-500/20 border border-violet-500/20 px-3 py-2 max-w-[85%]">
+                    <p className="text-[11px] text-violet-200 leading-relaxed">{msg.text}</p>
+                  </div>
+                </div>
+              ) : (
+                <div key={i} className="flex items-start gap-2">
+                  <div className="shrink-0 mt-0.5 rounded-full bg-violet-500/20 p-1">
+                    <Robot size={10} weight="fill" className="text-violet-400" />
+                  </div>
+                  <div className="rounded-2xl rounded-tl-sm bg-white/[0.06] border border-white/[0.06] px-3 py-2 max-w-[90%]">
+                    <p className="text-[11px] text-white/60 leading-relaxed">{msg.text}</p>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+
+          {/* Input */}
+          <div className="px-4 py-3 border-t border-white/[0.06]">
+            <div className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2">
+              <input
+                type="text"
+                placeholder="Ask about proposals, trends, or conflicts…"
+                className="flex-1 bg-transparent text-[11px] text-white/50 placeholder:text-white/20 outline-none"
+                readOnly
+              />
+              <button className="shrink-0 rounded-lg bg-violet-500/20 p-1.5 text-violet-400">
+                <ArrowRight size={11} weight="bold" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Active Proposals */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.25 }}>
         <h2 className="text-sm font-medium text-white mb-4">Active Proposals</h2>
@@ -170,7 +407,7 @@ export default function GovernancePage() {
                   <div className="h-full bg-white/10 flex-1" />
                 </div>
                 {/* Vote counts */}
-                <div className="flex items-center gap-3 text-[10px]">
+                <div className="flex items-center gap-3 text-[10px] mb-3">
                   <span className="flex items-center gap-1 text-emerald-400">
                     <CheckCircle size={10} weight="fill" /> {p.forVotes} For
                   </span>
@@ -180,6 +417,17 @@ export default function GovernancePage() {
                   <span className="flex items-center gap-1 text-white/30">
                     <Minus size={10} weight="bold" /> {p.abstain} Abstain
                   </span>
+                </div>
+                {/* AI Analysis chip */}
+                <div className="rounded-xl border border-violet-500/15 bg-violet-500/[0.07] px-3 py-2 flex items-start gap-2">
+                  <div className="flex items-center gap-1.5 shrink-0 mt-0.5">
+                    <Sparkle size={10} weight="fill" className="text-violet-400" />
+                    <span className={`inline-block h-1.5 w-1.5 rounded-full ${sentimentDot[p.aiAnalysis.sentiment]}`} />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-medium text-violet-300 mr-1.5">{p.aiAnalysis.impact}</span>
+                    <span className="text-[10px] text-white/35 leading-relaxed">{p.aiAnalysis.insight}</span>
+                  </div>
                 </div>
               </motion.div>
             );
@@ -192,13 +440,13 @@ export default function GovernancePage() {
         <h2 className="text-sm font-medium text-white mb-4">Proposal History</h2>
         <div className="overflow-x-auto max-h-[380px] overflow-y-auto">
           <table className="w-full min-w-[640px]">
-            <thead className="sticky top-0 bg-[#0F0D14]">
-              <tr className="text-xs uppercase text-white/30">
-                <th className="pb-3 text-left font-medium">Title</th>
-                <th className="pb-3 text-left font-medium">Outcome</th>
-                <th className="pb-3 text-left font-medium">Date</th>
-                <th className="pb-3 text-right font-medium">Participation</th>
-                <th className="pb-3 text-right font-medium">Margin</th>
+            <thead>
+              <tr className="text-xs uppercase text-white/30 border-b border-white/[0.06]">
+                <th className="py-2.5 text-left font-medium">Title</th>
+                <th className="py-2.5 text-left font-medium">Outcome</th>
+                <th className="py-2.5 text-left font-medium">Date</th>
+                <th className="py-2.5 text-right font-medium">Participation</th>
+                <th className="py-2.5 text-right font-medium">Margin</th>
               </tr>
             </thead>
             <tbody>

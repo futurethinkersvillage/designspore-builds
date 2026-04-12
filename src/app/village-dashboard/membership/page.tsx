@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import {
   Crown, ArrowUp, ArrowDown, Star, Users, Check,
-  CurrencyDollar, TrendUp, UserMinus, CalendarBlank,
+  TrendUp, UserMinus, CalendarBlank,
 } from "@phosphor-icons/react";
 import {
   PieChart, Pie, Cell, ResponsiveContainer, AreaChart, Area, XAxis, YAxis,
@@ -14,22 +14,22 @@ import {
 
 const tiers = [
   {
-    name: "Explorer", price: "$48/mo", members: 142, color: "#F2EDE8",
+    name: "Explorer", members: 142, color: "#F2EDE8",
     accent: "bg-white/10 text-white/60", ring: "ring-white/20",
     benefits: ["Community access", "Newsletter", "Event discounts", "Village map"],
   },
   {
-    name: "Builder", price: "$97/mo", members: 68, color: "#38387F",
+    name: "Builder", members: 68, color: "#38387F",
     accent: "bg-indigo/15 text-blue-400", ring: "ring-indigo/40",
     benefits: ["Everything in Explorer", "Maker space access", "Voting rights", "Skill workshops", "Booking priority"],
   },
   {
-    name: "Steward", price: "$197/mo", members: 28, color: "#EA824E",
+    name: "Steward", members: 28, color: "#EA824E",
     accent: "bg-amber/15 text-amber", ring: "ring-amber/40",
     benefits: ["Everything in Builder", "Revenue share (2%)", "Mentoring program", "Private events", "Co-working space", "Governance council"],
   },
   {
-    name: "Elder", price: "$497/mo", members: 9, color: "#73516F",
+    name: "Elder", members: 9, color: "#73516F",
     accent: "bg-mauve/15 text-purple-300", ring: "ring-mauve/40",
     benefits: ["Everything in Steward", "Founding status", "Strategic advisory", "Land use input", "Annual retreat", "Legacy naming"],
   },
@@ -97,8 +97,8 @@ const renewals = [
 
 const stats = [
   { label: "Total Members", value: "247", trend: "+12%", trendUp: true, icon: Users },
-  { label: "Monthly MRR", value: "$23,401", trend: "+9.4%", trendUp: true, icon: CurrencyDollar },
-  { label: "Avg Lifetime", value: "14.2 mo", trend: "+2.1", trendUp: true, icon: TrendUp },
+  { label: "New This Month", value: "14", trend: "+4", trendUp: true, icon: TrendUp },
+  { label: "Avg Membership Age", value: "14.2 mo", trend: "+2.1 mo", trendUp: true, icon: CalendarBlank },
   { label: "Monthly Churn", value: "2.1%", trend: "-0.3%", trendUp: true, icon: UserMinus },
 ];
 
@@ -151,12 +151,11 @@ export default function MembershipPage() {
       <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {tiers.map((t) => (
           <motion.div key={t.name} variants={fadeUp} className={`rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 ring-1 ${t.ring}`}>
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-4">
               <Crown size={16} weight="fill" style={{ color: t.color }} />
               <span className="text-sm font-medium text-white">{t.name}</span>
               <span className={`ml-auto rounded-full px-2 py-0.5 text-[10px] font-medium ${t.accent}`}>{t.members} members</span>
             </div>
-            <div className="text-2xl font-semibold text-white mb-4">{t.price}</div>
             <div className="space-y-2">
               {t.benefits.map((b) => (
                 <div key={b} className="flex items-center gap-2 text-xs text-white/50">
@@ -168,7 +167,7 @@ export default function MembershipPage() {
         ))}
       </motion.div>
 
-      {/* Charts row: Distribution + Revenue by Tier */}
+      {/* Charts row: Distribution + Members by Tier */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
           <h2 className="text-sm font-medium text-white mb-4">Member Distribution</h2>
@@ -190,7 +189,7 @@ export default function MembershipPage() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
-          <h2 className="text-sm font-medium text-white mb-4">Monthly Revenue by Tier</h2>
+          <h2 className="text-sm font-medium text-white mb-4">Members by Tier</h2>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={revenueByTier}>
               <CartesianGrid stroke="rgba(255,255,255,0.04)" strokeDasharray="3 3" />
@@ -273,10 +272,10 @@ export default function MembershipPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.06]">
-                <th className="pb-3 text-left text-xs uppercase text-white/30 font-medium">Member</th>
-                <th className="pb-3 text-left text-xs uppercase text-white/30 font-medium">Tier</th>
-                <th className="pb-3 text-left text-xs uppercase text-white/30 font-medium">Renewal</th>
-                <th className="pb-3 text-right text-xs uppercase text-white/30 font-medium">Amount</th>
+                <th className="py-2.5 text-left text-xs uppercase text-white/30 font-medium">Member</th>
+                <th className="py-2.5 text-left text-xs uppercase text-white/30 font-medium">Tier</th>
+                <th className="py-2.5 text-left text-xs uppercase text-white/30 font-medium">Renewal</th>
+                <th className="py-2.5 text-right text-xs uppercase text-white/30 font-medium">Amount</th>
               </tr>
             </thead>
             <tbody>

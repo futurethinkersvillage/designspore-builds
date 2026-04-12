@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import {
   Plant, Drop, Thermometer, Sun, ArrowUp, Warning,
-  CheckCircle, Info, WarningCircle,
+  CheckCircle, Info, WarningCircle, Brain,
 } from "@phosphor-icons/react";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -31,16 +31,32 @@ const plots = [
   { id: "H", name: "Pollinator Meadow", crop: "Wildflowers", status: "Growing", acreage: 1.6, color: "bg-mauve/20 border-mauve/30 text-purple-300" },
 ];
 
+// Per-plot sensor readings
+const plotSensorData = [
+  { id: "A", moisture: 71, ph: 6.7, temp: 19 },
+  { id: "B", moisture: 65, ph: 6.4, temp: 18 },
+  { id: "C", moisture: 74, ph: 6.2, temp: 24 },
+  { id: "D", moisture: 58, ph: 6.8, temp: 17 },
+  { id: "E", moisture: 69, ph: 5.9, temp: 16 },
+  { id: "F", moisture: 52, ph: 6.5, temp: 17 },
+  { id: "G", moisture: 82, ph: 6.1, temp: 14 },
+  { id: "H", moisture: 63, ph: 6.6, temp: 18 },
+];
+
 const currentSensors = [
-  { label: "Soil Moisture", value: 68, unit: "%", min: 0, max: 100, status: "normal", icon: Drop },
-  { label: "Soil Temperature", value: 18, unit: "°C", min: 0, max: 40, status: "normal", icon: Thermometer },
-  { label: "Air Humidity", value: 54, unit: "%", min: 0, max: 100, status: "normal", icon: Drop },
-  { label: "Light Level", value: 72, unit: "%", min: 0, max: 100, status: "normal", icon: Sun },
+  { label: "Soil Moisture", value: 68, unit: "%", min: 0, max: 100, status: "normal", icon: Drop, color: "emerald" },
+  { label: "Soil Temperature", value: 18, unit: "°C", min: 0, max: 40, status: "normal", icon: Thermometer, color: "emerald" },
+  { label: "Air Humidity", value: 54, unit: "%", min: 0, max: 100, status: "normal", icon: Drop, color: "emerald" },
+  { label: "Light Level", value: 72, unit: "%", min: 0, max: 100, status: "normal", icon: Sun, color: "emerald" },
+  { label: "CO₂ Level", value: 412, unit: "ppm", min: 300, max: 600, status: "normal", icon: Plant, color: "emerald" },
+  { label: "Soil pH", value: 6.4, unit: "pH", min: 4, max: 9, status: "normal", icon: Drop, color: "emerald" },
+  { label: "Wind Speed", value: 8, unit: "km/h", min: 0, max: 60, status: "normal", icon: Sun, color: "emerald" },
+  { label: "Rainfall (24h)", value: 2.3, unit: "mm", min: 0, max: 50, status: "normal", icon: Drop, color: "emerald" },
 ];
 
 // 7 days × 4 readings per day
 const sensorHistory = Array.from({ length: 28 }, (_, i) => {
-  const dayPct = (i % 4) / 4; // 0, 0.25, 0.5, 0.75
+  const dayPct = (i % 4) / 4;
   const dayName = ["Mon","Mon","Mon","Mon","Tue","Tue","Tue","Tue","Wed","Wed","Wed","Wed","Thu","Thu","Thu","Thu","Fri","Fri","Fri","Fri","Sat","Sat","Sat","Sat","Sun","Sun","Sun","Sun"][i];
   const timeLabel = ["6am","12pm","6pm","12am"][i % 4];
   return {
@@ -74,6 +90,24 @@ const farmAlerts = [
   { icon: Warning, message: "Unusual temperature spike in Greenhouse 1", severity: "warning", time: "5h ago" },
   { icon: CheckCircle, message: "Harvest ready: Peppers & Cucumbers — Plot C", severity: "info", time: "8h ago" },
   { icon: WarningCircle, message: "Possible pest activity detected — Berry Patch", severity: "danger", time: "1 day ago" },
+];
+
+const aiAdvice = [
+  {
+    title: "Plot B: Soil pH Alert",
+    body: "Soil pH is 5.8 — slightly acidic. Consider lime amendment before next planting cycle.",
+    severity: "warning",
+  },
+  {
+    title: "Irrigation Check",
+    body: "Water usage trending 12% above seasonal average. Check drip irrigation valve in Plot D.",
+    severity: "warning",
+  },
+  {
+    title: "Harvest Window — Plot A",
+    body: "Optimal harvest window for zucchini in Plot A: next 5–7 days based on growth rate sensors.",
+    severity: "info",
+  },
 ];
 
 function ChartTooltip({ active, payload, label }: any) {
@@ -131,6 +165,33 @@ export default function FarmPage() {
         ))}
       </motion.div>
 
+      {/* AI Farm Advisor */}
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }} className="rounded-2xl border border-amber/20 bg-amber/[0.04] p-5">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="rounded-lg bg-amber/15 p-1.5">
+            <Brain size={15} weight="fill" className="text-amber" />
+          </div>
+          <div>
+            <h2 className="text-sm font-medium text-white">AI Farm Advisor</h2>
+            <p className="text-[11px] text-white/35 mt-0.5">Smart recommendations from your sensor network</p>
+          </div>
+        </div>
+        <div className="space-y-2">
+          {aiAdvice.map((a, i) => (
+            <div key={i} className={`rounded-xl border px-4 py-3 ${
+              a.severity === "warning"
+                ? "bg-amber/[0.05] border-amber/15"
+                : "bg-blue-500/[0.05] border-blue-500/15"
+            }`}>
+              <div className={`text-xs font-semibold mb-1 ${a.severity === "warning" ? "text-amber" : "text-blue-400"}`}>
+                {a.title}
+              </div>
+              <p className="text-xs text-white/60 leading-relaxed">{a.body}</p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
       {/* Plot map */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
         <h2 className="text-sm font-medium text-white mb-4">Farm Plots</h2>
@@ -154,21 +215,59 @@ export default function FarmPage() {
             </div>
           ))}
         </div>
+
+        {/* Per-plot sensor detail table */}
+        <div className="mt-5 overflow-x-auto">
+          <h3 className="text-xs font-medium text-white/50 mb-3 uppercase tracking-wide">Per-Plot Sensor Readings</h3>
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-white/[0.06]">
+                <th className="py-2.5 text-left text-xs uppercase text-white/30 font-medium">Plot</th>
+                <th className="py-2.5 text-left text-xs uppercase text-white/30 font-medium">Name</th>
+                <th className="py-2.5 text-center text-xs uppercase text-white/30 font-medium">Moisture</th>
+                <th className="py-2.5 text-center text-xs uppercase text-white/30 font-medium">Soil pH</th>
+                <th className="py-2.5 text-center text-xs uppercase text-white/30 font-medium">Temp</th>
+              </tr>
+            </thead>
+            <tbody>
+              {plotSensorData.map((row, i) => {
+                const plot = plots.find((p) => p.id === row.id);
+                const phAlert = row.ph < 6.0 || row.ph > 7.0;
+                const moistureAlert = row.moisture < 55;
+                return (
+                  <tr key={row.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors">
+                    <td className="py-2.5 text-xs font-mono text-white/40">Plot {row.id}</td>
+                    <td className="py-2.5 text-xs text-white/60">{plot?.name}</td>
+                    <td className={`py-2.5 text-center text-xs font-medium ${moistureAlert ? "text-amber" : "text-emerald-400"}`}>
+                      {row.moisture}%
+                    </td>
+                    <td className={`py-2.5 text-center text-xs font-medium ${phAlert ? "text-amber" : "text-white/70"}`}>
+                      {row.ph}
+                    </td>
+                    <td className="py-2.5 text-center text-xs text-white/60">{row.temp}°C</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </motion.div>
 
-      {/* Current sensors */}
+      {/* Current sensors — expanded to 8 */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
         <h2 className="text-sm font-medium text-white mb-4">Live Sensor Readings</h2>
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {currentSensors.map((s) => {
-            const pct = Math.round((s.value - s.min) / (s.max - s.min) * 100);
+            const pct = Math.round(((s.value as number) - s.min) / (s.max - s.min) * 100);
+            const isCO2Alert = s.label === "CO₂ Level" && (s.value as number) > 450;
+            const barColor = isCO2Alert ? "bg-amber/60" : "bg-emerald-500/60";
             return (
               <div key={s.label} className="rounded-xl bg-white/[0.04] p-4 text-center">
-                <s.icon size={20} weight="fill" className="text-amber mx-auto mb-2" />
-                <div className="text-2xl font-semibold text-white mb-0.5">{s.value}</div>
+                <s.icon size={20} weight="fill" className={isCO2Alert ? "text-amber mx-auto mb-2" : "text-amber mx-auto mb-2"} />
+                <div className={`text-2xl font-semibold mb-0.5 ${isCO2Alert ? "text-amber" : "text-white"}`}>{s.value}</div>
                 <div className="text-xs text-white/30 mb-3">{s.unit}</div>
                 <div className="h-1.5 rounded-full bg-white/[0.06] mb-1">
-                  <div className="h-full rounded-full bg-emerald-500/60 transition-all" style={{ width: `${pct}%` }} />
+                  <div className={`h-full rounded-full transition-all ${barColor}`} style={{ width: `${Math.min(pct, 100)}%` }} />
                 </div>
                 <div className="text-xs text-white/50">{s.label}</div>
               </div>
@@ -177,7 +276,7 @@ export default function FarmPage() {
         </div>
       </motion.div>
 
-      {/* Sensor history */}
+      {/* Sensor history — 4 lines */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
         <h2 className="text-sm font-medium text-white mb-4">Sensor History (7 days)</h2>
         <ResponsiveContainer width="100%" height={260}>

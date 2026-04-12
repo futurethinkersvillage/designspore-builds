@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ChatTeardrop, EnvelopeSimple, Megaphone, Eye,
   CursorClick, UsersThree, ArrowUp, TrendUp,
   Bell, Clock, WarningCircle, Info, CheckCircle,
+  House, PaperPlaneTilt,
 } from "@phosphor-icons/react";
 import {
   BarChart, Bar, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -60,6 +62,121 @@ const scheduledComms = [
   { title: "Investor Update", date: "Jun 30", type: "Email" },
 ];
 
+/* ── Chat data ────────────────────────────────────────────────────── */
+
+const channels = {
+  community: [
+    { id: "general", label: "general" },
+    { id: "announcements", label: "announcements" },
+    { id: "events", label: "events" },
+    { id: "marketplace", label: "marketplace" },
+  ],
+  workingGroups: [
+    { id: "farm-team", label: "farm-team" },
+    { id: "build-crew", label: "build-crew" },
+    { id: "wellness", label: "wellness" },
+    { id: "governance", label: "governance" },
+  ],
+};
+
+const channelDescriptions: Record<string, string> = {
+  "general": "Village-wide conversation",
+  "announcements": "Official village announcements",
+  "events": "Upcoming events and signups",
+  "marketplace": "Goods, skills, and barter",
+  "farm-team": "Farming, planting, and harvest",
+  "build-crew": "Construction and maintenance",
+  "wellness": "Yoga, sauna, and health",
+  "governance": "Decisions and proposals",
+};
+
+type Reaction = { emoji: string; count: number };
+
+type Message = {
+  id: number;
+  author: string;
+  initials: string;
+  avatarColor: string;
+  time: string;
+  content: string;
+  reactions?: Reaction[];
+};
+
+const generalMessages: Message[] = [
+  {
+    id: 1,
+    author: "Elena V.",
+    initials: "EV",
+    avatarColor: "bg-emerald-700",
+    time: "9:14 AM",
+    content: "Good morning! Harvest day in Plot C starting at 9am, volunteers welcome 🌱",
+    reactions: [{ emoji: "🌱", count: 5 }, { emoji: "👍", count: 3 }],
+  },
+  {
+    id: 2,
+    author: "Marcus R.",
+    initials: "MR",
+    avatarColor: "bg-blue-700",
+    time: "9:22 AM",
+    content: "Solar panel install team meeting at the workshop at 10, bring your coffee ☀️",
+    reactions: [{ emoji: "☀️", count: 4 }],
+  },
+  {
+    id: 3,
+    author: "Yuki T.",
+    initials: "YT",
+    avatarColor: "bg-violet-700",
+    time: "10:05 AM",
+    content: "Lunch today: fresh tomato soup + sourdough from Hannah's batch. Come hungry!",
+    reactions: [{ emoji: "😍", count: 8 }, { emoji: "🍞", count: 3 }],
+  },
+  {
+    id: 4,
+    author: "Ben M.",
+    initials: "BM",
+    avatarColor: "bg-amber-700",
+    time: "10:31 AM",
+    content: "Trail loop B is clear again, erosion repair finished ahead of schedule 🎉",
+    reactions: [{ emoji: "🎉", count: 6 }, { emoji: "👍", count: 4 }],
+  },
+  {
+    id: 5,
+    author: "Anika P.",
+    initials: "AP",
+    avatarColor: "bg-rose-700",
+    time: "11:00 AM",
+    content: "WiFi signal in Cabin 7 upgraded — should be solid now. Let me know if issues",
+    reactions: [{ emoji: "🙌", count: 2 }],
+  },
+  {
+    id: 6,
+    author: "Sarah C.",
+    initials: "SC",
+    avatarColor: "bg-teal-700",
+    time: "11:45 AM",
+    content: "Reminder: Town Hall tonight 7pm at the Main Gazebo. Summer program agenda",
+    reactions: [{ emoji: "📌", count: 7 }],
+  },
+  {
+    id: 7,
+    author: "Mike G.",
+    initials: "MG",
+    avatarColor: "bg-orange-700",
+    time: "12:10 PM",
+    content: "Beautiful day for it. Sauna is fired up for the afternoon session 🔥",
+    reactions: [{ emoji: "🔥", count: 9 }, { emoji: "😌", count: 3 }],
+  },
+  {
+    id: 8,
+    author: "Rachel K.",
+    initials: "RK",
+    avatarColor: "bg-indigo-700",
+    time: "2:30 PM",
+    content: "Yoga tomorrow 6am on the lake deck, weather looks perfect. 8 spots left",
+    reactions: [{ emoji: "🧘", count: 5 }, { emoji: "🌅", count: 2 }],
+  },
+];
+
 /* ── Helpers ──────────────────────────────────────────────────────── */
 
 const priorityStyles: Record<string, string> = {
@@ -89,6 +206,8 @@ function ChartTooltip({ active, payload, label }: any) {
 /* ── Page ─────────────────────────────────────────────────────────── */
 
 export default function CommunicationsPage() {
+  const [activeChannel, setActiveChannel] = useState("general");
+
   return (
     <div className="space-y-6">
       <div>
@@ -111,6 +230,156 @@ export default function CommunicationsPage() {
           </motion.div>
         ))}
       </div>
+
+      {/* Community Chat */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr]" style={{ minHeight: 520 }}>
+
+          {/* Left sidebar */}
+          <div className="bg-white/[0.03] border-b border-white/[0.06] lg:border-b-0 lg:border-r lg:border-white/[0.06] flex flex-col">
+            {/* Sidebar header */}
+            <div className="flex items-center gap-2.5 px-4 py-4 border-b border-white/[0.06]">
+              <div className="rounded-lg bg-amber/15 p-1.5">
+                <House size={15} weight="fill" className="text-amber" />
+              </div>
+              <span className="text-sm font-semibold text-white">Village OS</span>
+            </div>
+
+            {/* Channel list */}
+            <div className="flex-1 overflow-y-auto px-2 py-3 space-y-4">
+              {/* Community section */}
+              <div>
+                <p className="px-2 mb-1 text-[10px] font-semibold tracking-widest text-white/30 uppercase">Community</p>
+                {channels.community.map((ch) => (
+                  <button
+                    key={ch.id}
+                    onClick={() => setActiveChannel(ch.id)}
+                    className={`w-full flex items-center gap-1.5 px-2 py-1.5 rounded-md text-sm transition-colors text-left ${
+                      activeChannel === ch.id
+                        ? "bg-amber/15 text-amber font-medium"
+                        : "text-white/40 hover:text-white/70 hover:bg-white/[0.04]"
+                    }`}
+                  >
+                    <span className="text-white/25 text-base leading-none">#</span>
+                    {ch.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Working Groups section */}
+              <div>
+                <p className="px-2 mb-1 text-[10px] font-semibold tracking-widest text-white/30 uppercase">Working Groups</p>
+                {channels.workingGroups.map((ch) => (
+                  <button
+                    key={ch.id}
+                    onClick={() => setActiveChannel(ch.id)}
+                    className={`w-full flex items-center gap-1.5 px-2 py-1.5 rounded-md text-sm transition-colors text-left ${
+                      activeChannel === ch.id
+                        ? "bg-amber/15 text-amber font-medium"
+                        : "text-white/40 hover:text-white/70 hover:bg-white/[0.04]"
+                    }`}
+                  >
+                    <span className="text-white/25 text-base leading-none">#</span>
+                    {ch.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Online count */}
+            <div className="px-4 py-3 border-t border-white/[0.06] flex items-center gap-2">
+              <div className="flex -space-x-1">
+                <div className="w-2 h-2 rounded-full bg-emerald-400 ring-1 ring-black/30" />
+                <div className="w-2 h-2 rounded-full bg-emerald-400 ring-1 ring-black/30" />
+                <div className="w-2 h-2 rounded-full bg-emerald-400 ring-1 ring-black/30" />
+              </div>
+              <span className="text-xs text-white/35">12 members online</span>
+            </div>
+          </div>
+
+          {/* Right chat area */}
+          <div className="flex flex-col">
+            {/* Channel header */}
+            <div className="flex items-center gap-2 px-5 py-3.5 border-b border-white/[0.06]">
+              <span className="text-white/30 text-lg leading-none">#</span>
+              <span className="text-sm font-semibold text-white">{activeChannel}</span>
+              <span className="text-white/20 mx-1">—</span>
+              <span className="text-xs text-white/40">{channelDescriptions[activeChannel] ?? "Channel"}</span>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto px-5 py-4 space-y-1 max-h-[480px] scrollbar-thin scrollbar-thumb-white/10">
+              {/* Date separator */}
+              <div className="flex items-center gap-3 py-2">
+                <div className="flex-1 h-px bg-white/[0.06]" />
+                <span className="text-[10px] font-medium text-white/25 uppercase tracking-widest">Today</span>
+                <div className="flex-1 h-px bg-white/[0.06]" />
+              </div>
+
+              {activeChannel === "general" ? (
+                generalMessages.map((msg) => (
+                  <div key={msg.id} className="group flex items-start gap-3 py-1.5 px-2 rounded-lg hover:bg-white/[0.03] transition-colors">
+                    {/* Avatar */}
+                    <div className={`shrink-0 w-8 h-8 rounded-full ${msg.avatarColor} flex items-center justify-center text-[11px] font-semibold text-white/90`}>
+                      {msg.initials}
+                    </div>
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-sm font-semibold text-white/80">{msg.author}</span>
+                        <span className="text-[10px] text-white/25">{msg.time}</span>
+                      </div>
+                      <p className="text-sm text-white/60 mt-0.5 leading-relaxed">{msg.content}</p>
+                      {msg.reactions && msg.reactions.length > 0 && (
+                        <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+                          {msg.reactions.map((r, ri) => (
+                            <button
+                              key={ri}
+                              className="flex items-center gap-1 rounded-full bg-white/[0.07] hover:bg-white/[0.12] border border-white/[0.08] px-2 py-0.5 text-xs text-white/60 transition-colors"
+                            >
+                              <span>{r.emoji}</span>
+                              <span className="text-[10px] text-white/40">{r.count}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="flex flex-col items-center justify-center py-16 text-center">
+                  <div className="w-10 h-10 rounded-full bg-white/[0.06] flex items-center justify-center mb-3">
+                    <ChatTeardrop size={18} className="text-white/20" />
+                  </div>
+                  <p className="text-sm text-white/30">No messages yet in <span className="text-white/50">#{activeChannel}</span></p>
+                  <p className="text-xs text-white/20 mt-1">Be the first to start a conversation</p>
+                </div>
+              )}
+            </div>
+
+            {/* Input bar */}
+            <div className="px-5 py-4 border-t border-white/[0.06]">
+              <div className="flex items-center gap-3 rounded-xl bg-white/[0.06] border border-white/[0.08] px-4 py-2.5">
+                <input
+                  type="text"
+                  placeholder={`Message #${activeChannel}…`}
+                  className="flex-1 bg-transparent text-sm text-white/70 placeholder:text-white/25 outline-none"
+                  readOnly
+                />
+                <button className="shrink-0 rounded-lg bg-amber/20 hover:bg-amber/30 p-1.5 transition-colors">
+                  <PaperPlaneTilt size={14} weight="fill" className="text-amber" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </motion.div>
 
       {/* Announcements + Scheduled */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_320px]">

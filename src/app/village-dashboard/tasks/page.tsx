@@ -199,7 +199,7 @@ export default function TasksPage() {
                 </span>
               </div>
               {/* Cards */}
-              <div className="space-y-2 max-h-[480px] overflow-y-auto pr-1">
+              <div className="space-y-2">
                 {col.cards.map((card, i) => (
                   <div key={i} className="rounded-xl border border-white/[0.05] bg-white/[0.04] p-3 hover:bg-white/[0.06] transition-colors cursor-default">
                     <p className="text-xs text-white/80 leading-relaxed mb-2">{card.title}</p>
@@ -229,14 +229,14 @@ export default function TasksPage() {
         </div>
         <div className="overflow-x-auto max-h-[380px] overflow-y-auto">
           <table className="w-full min-w-[780px]">
-            <thead className="sticky top-0 bg-[#0F0D14]">
-              <tr className="text-xs uppercase text-white/30">
-                <th className="pb-3 text-left font-medium">Location</th>
-                <th className="pb-3 text-left font-medium">Reported By</th>
-                <th className="pb-3 text-left font-medium">Urgency</th>
-                <th className="pb-3 text-left font-medium">Assigned To</th>
-                <th className="pb-3 text-left font-medium">Status</th>
-                <th className="pb-3 text-left font-medium">Created</th>
+            <thead>
+              <tr className="text-xs uppercase text-white/30 border-b border-white/[0.06]">
+                <th className="py-2.5 text-left font-medium">Location</th>
+                <th className="py-2.5 text-left font-medium">Reported By</th>
+                <th className="py-2.5 text-left font-medium">Urgency</th>
+                <th className="py-2.5 text-left font-medium">Assigned To</th>
+                <th className="py-2.5 text-left font-medium">Status</th>
+                <th className="py-2.5 text-left font-medium">Created</th>
               </tr>
             </thead>
             <tbody>

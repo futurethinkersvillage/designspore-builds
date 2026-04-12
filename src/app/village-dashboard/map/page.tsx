@@ -60,6 +60,67 @@ const focusColors: Record<string, string> = {
 function toSvgX(lng: number) { return ((lng + 180) / 360) * 800; }
 function toSvgY(lat: number) { return ((90 - lat) / 180) * 450; }
 
+function lngLatToPoints(coords: [number, number][]): string {
+  return coords.map(([lng, lat]) => `${toSvgX(lng).toFixed(1)},${toSvgY(lat).toFixed(1)}`).join(" ");
+}
+
+/* ── Continent polygon coordinates [lng, lat] ─────────────────────── */
+
+const continents: { id: string; points: [number, number][] }[] = [
+  {
+    id: "north-america",
+    points: [
+      [-168, 72], [-140, 60], [-130, 30], [-118, 22], [-105, 16],
+      [-90, 16], [-82, 25], [-60, 45], [-52, 47], [-65, 60],
+      [-85, 68], [-120, 72], [-140, 72], [-168, 72],
+    ],
+  },
+  {
+    id: "south-america",
+    points: [
+      [-82, 12], [-80, -2], [-75, -35], [-68, -55],
+      [-53, -34], [-35, -10], [-50, -5], [-82, 12],
+    ],
+  },
+  {
+    id: "europe",
+    points: [
+      [-10, 72], [40, 72], [40, 35], [28, 36],
+      [10, 38], [-5, 36], [-10, 72],
+    ],
+  },
+  {
+    id: "africa",
+    points: [
+      [-17, 37], [55, 37], [55, 10], [42, -12],
+      [35, -35], [17, -35], [-18, 18], [-17, 37],
+    ],
+  },
+  {
+    id: "asia",
+    points: [
+      [26, 72], [190, 72], [145, 30], [100, 5],
+      [80, 8], [58, 22], [36, 15], [26, 40], [26, 72],
+    ],
+  },
+  {
+    id: "australia",
+    points: [
+      [114, -22], [154, -22], [154, -40], [130, -40], [114, -22],
+    ],
+  },
+  {
+    id: "greenland",
+    points: [
+      [-70, 83], [-18, 83], [-18, 60], [-45, 60], [-70, 83],
+    ],
+  },
+];
+
+/* Graticule lines every 30 degrees */
+const latLines = [-60, -30, 0, 30, 60]; // skipping ±90
+const lngLines = [-150, -120, -90, -60, -30, 0, 30, 60, 90, 120, 150];
+
 /* ── Page ─────────────────────────────────────────────────────────── */
 
 export default function MapPage() {
@@ -95,17 +156,43 @@ export default function MapPage() {
           <h2 className="text-sm font-medium text-white mb-4">Network Map</h2>
           <div className="relative">
             <svg viewBox="0 0 800 450" className="w-full h-auto">
-              {/* Simplified world outline */}
-              <rect width="800" height="450" fill="rgba(255,255,255,0.02)" rx="8" />
-              {/* Grid lines */}
-              {[0, 1, 2, 3, 4].map((i) => (
-                <line key={`h${i}`} x1="0" y1={i * 112.5} x2="800" y2={i * 112.5} stroke="rgba(255,255,255,0.03)" />
+              {/* Ocean background */}
+              <rect width="800" height="450" fill="rgba(20,25,50,0.4)" rx="8" />
+
+              {/* Graticule — latitude lines every 30° */}
+              {latLines.map((lat) => (
+                <line
+                  key={`lat-${lat}`}
+                  x1="0" y1={toSvgY(lat).toFixed(1)}
+                  x2="800" y2={toSvgY(lat).toFixed(1)}
+                  stroke={lat === 0 ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.04)"}
+                  strokeDasharray={lat === 0 ? "4 4" : undefined}
+                  strokeWidth={lat === 0 ? 0.8 : 0.5}
+                />
               ))}
-              {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-                <line key={`v${i}`} x1={i * 114.3} y1="0" x2={i * 114.3} y2="450" stroke="rgba(255,255,255,0.03)" />
+
+              {/* Graticule — longitude lines every 30° */}
+              {lngLines.map((lng) => (
+                <line
+                  key={`lng-${lng}`}
+                  x1={toSvgX(lng).toFixed(1)} y1="0"
+                  x2={toSvgX(lng).toFixed(1)} y2="450"
+                  stroke="rgba(255,255,255,0.04)"
+                  strokeWidth={0.5}
+                />
               ))}
-              {/* Equator */}
-              <line x1="0" y1="225" x2="800" y2="225" stroke="rgba(255,255,255,0.06)" strokeDasharray="4 4" />
+
+              {/* Continent landmasses */}
+              {continents.map((c) => (
+                <polygon
+                  key={c.id}
+                  points={lngLatToPoints(c.points)}
+                  fill="rgba(255,255,255,0.06)"
+                  stroke="rgba(255,255,255,0.08)"
+                  strokeWidth={0.5}
+                  strokeLinejoin="round"
+                />
+              ))}
 
               {/* Village markers */}
               {villages.map((v) => {
@@ -195,12 +282,12 @@ export default function MapPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.06]">
-                <th className="pb-3 text-left text-xs uppercase text-white/30 font-medium">Village</th>
-                <th className="pb-3 text-left text-xs uppercase text-white/30 font-medium">Country</th>
-                <th className="pb-3 text-left text-xs uppercase text-white/30 font-medium">Members</th>
-                <th className="pb-3 text-left text-xs uppercase text-white/30 font-medium">Focus</th>
-                <th className="pb-3 text-left text-xs uppercase text-white/30 font-medium">Status</th>
-                <th className="pb-3 text-left text-xs uppercase text-white/30 font-medium">Est.</th>
+                <th className="py-2.5 px-0 text-left text-xs uppercase text-white/30 font-medium">Village</th>
+                <th className="py-2.5 px-0 text-left text-xs uppercase text-white/30 font-medium">Country</th>
+                <th className="py-2.5 px-0 text-left text-xs uppercase text-white/30 font-medium">Members</th>
+                <th className="py-2.5 px-0 text-left text-xs uppercase text-white/30 font-medium">Focus</th>
+                <th className="py-2.5 px-0 text-left text-xs uppercase text-white/30 font-medium">Status</th>
+                <th className="py-2.5 px-0 text-left text-xs uppercase text-white/30 font-medium">Est.</th>
               </tr>
             </thead>
             <tbody>

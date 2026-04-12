@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import {
   CalendarBlank, Star, Users, ChartPie, TrendUp,
-  MapPin, Clock, User,
+  MapPin, Clock, User, Sparkle,
 } from "@phosphor-icons/react";
 import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip,
@@ -27,16 +27,134 @@ const stats = [
 ];
 
 const upcomingEvents = [
-  { type: "Ceremony", title: "Full Moon Gathering", date: "Jun 14", time: "8:00 PM", location: "Fire Circle", facilitator: "Euvie I.", registered: 28, capacity: 40 },
-  { type: "Workshop", title: "Permaculture Workshop", date: "Jun 16", time: "9:00 AM", location: "Garden Pavilion", facilitator: "Elena V.", registered: 18, capacity: 25 },
-  { type: "Social", title: "Community Dinner", date: "Jun 18", time: "6:00 PM", location: "Main Gazebo", facilitator: "Yuki T.", registered: 45, capacity: 60 },
-  { type: "Wellness", title: "Yoga Sunrise", date: "Jun 19", time: "6:00 AM", location: "Lake Deck", facilitator: "Rachel K.", registered: 12, capacity: 20 },
-  { type: "Workshop", title: "Maker Night", date: "Jun 21", time: "7:00 PM", location: "Workshop", facilitator: "Marcus R.", registered: 22, capacity: 30 },
-  { type: "Social", title: "Storytelling Circle", date: "Jun 22", time: "8:00 PM", location: "Fire Circle", facilitator: "Sophia R.", registered: 15, capacity: 25 },
-  { type: "Wellness", title: "Forest Bathing", date: "Jun 24", time: "7:00 AM", location: "North Trail", facilitator: "Ben M.", registered: 8, capacity: 15 },
-  { type: "Social", title: "Kids Adventure Day", date: "Jun 25", time: "10:00 AM", location: "Playground", facilitator: "Lena B.", registered: 20, capacity: 20 },
-  { type: "Social", title: "Live Music Night", date: "Jun 27", time: "7:00 PM", location: "Main Gazebo", facilitator: "Chris D.", registered: 35, capacity: 50 },
-  { type: "Wellness", title: "Sauna Social", date: "Jun 28", time: "6:00 PM", location: "Sauna", facilitator: "Ingrid L.", registered: 10, capacity: 12 },
+  {
+    type: "Ceremony",
+    title: "Full Moon Gathering",
+    date: "Jun 14",
+    time: "8:00 PM",
+    location: "Fire Circle",
+    facilitator: "Euvie I.",
+    registered: 28,
+    capacity: 40,
+    image: "/images/dashboard/event-full-moon.jpg",
+  },
+  {
+    type: "Workshop",
+    title: "Permaculture Workshop",
+    date: "Jun 16",
+    time: "9:00 AM",
+    location: "Garden Pavilion",
+    facilitator: "Elena V.",
+    registered: 18,
+    capacity: 25,
+    image: "/images/dashboard/event-permaculture.jpg",
+  },
+  {
+    type: "Social",
+    title: "Community Dinner",
+    date: "Jun 18",
+    time: "6:00 PM",
+    location: "Main Gazebo",
+    facilitator: "Yuki T.",
+    registered: 45,
+    capacity: 60,
+    image: "/images/dashboard/event-dinner.jpg",
+  },
+  {
+    type: "Wellness",
+    title: "Yoga Sunrise",
+    date: "Jun 19",
+    time: "6:00 AM",
+    location: "Lake Deck",
+    facilitator: "Rachel K.",
+    registered: 12,
+    capacity: 20,
+    image: "/images/dashboard/event-yoga.jpg",
+  },
+  {
+    type: "Workshop",
+    title: "Maker Night",
+    date: "Jun 21",
+    time: "7:00 PM",
+    location: "Workshop",
+    facilitator: "Marcus R.",
+    registered: 22,
+    capacity: 30,
+    image: "/images/dashboard/event-maker.jpg",
+  },
+  {
+    type: "Social",
+    title: "Storytelling Circle",
+    date: "Jun 22",
+    time: "8:00 PM",
+    location: "Fire Circle",
+    facilitator: "Sophia R.",
+    registered: 15,
+    capacity: 25,
+    image: "/images/dashboard/event-storytelling.jpg",
+  },
+  {
+    type: "Wellness",
+    title: "Forest Bathing",
+    date: "Jun 24",
+    time: "7:00 AM",
+    location: "North Trail",
+    facilitator: "Ben M.",
+    registered: 8,
+    capacity: 15,
+    image: "/images/dashboard/event-forest.jpg",
+  },
+  {
+    type: "Social",
+    title: "Kids Adventure Day",
+    date: "Jun 25",
+    time: "10:00 AM",
+    location: "Playground",
+    facilitator: "Lena B.",
+    registered: 20,
+    capacity: 20,
+    image: "/images/dashboard/event-kids.jpg",
+  },
+  {
+    type: "Social",
+    title: "Live Music Night",
+    date: "Jun 27",
+    time: "7:00 PM",
+    location: "Main Gazebo",
+    facilitator: "Chris D.",
+    registered: 35,
+    capacity: 50,
+    image: "/images/dashboard/event-music.jpg",
+  },
+  {
+    type: "Wellness",
+    title: "Sauna Social",
+    date: "Jun 28",
+    time: "6:00 PM",
+    location: "Sauna",
+    facilitator: "Ingrid L.",
+    registered: 10,
+    capacity: 12,
+    image: "/images/dashboard/event-sauna.jpg",
+  },
+];
+
+const aiSuggestions = [
+  {
+    emoji: "🌿",
+    title: "Herb Medicine Walk",
+    reason: "High interest in plant knowledge + midsummer harvest timing",
+  },
+  {
+    emoji: "🎨",
+    title: "Natural Pigment Art Night",
+    reason: "Creative workshop demand up 40% — pairs well with Maker Night crew",
+  },
+  {
+    emoji: "🌊",
+    title: "Lake Sunrise Swim",
+    reason: "Wellness trend + warm June temps make early water rituals popular",
+  },
 ];
 
 const courses = [
@@ -79,11 +197,27 @@ const calendarEvents: CalendarEvent[] = [
 /* ── Helpers ────────────────────────────────────────────────────── */
 
 const typeBadge: Record<string, string> = {
+  Workshop: "bg-[#38387F]/70 text-blue-300 border border-blue-400/20",
+  Social: "bg-amber/70 text-white border border-amber/30",
+  Ceremony: "bg-[#73516F]/70 text-purple-200 border border-purple-400/20",
+  Wellness: "bg-emerald-600/70 text-emerald-200 border border-emerald-400/20",
+  Work: "bg-[#AF695E]/70 text-orange-200 border border-orange-400/20",
+};
+
+const typeBadgeSubtle: Record<string, string> = {
   Workshop: "bg-[#38387F]/20 text-blue-400",
   Social: "bg-amber/20 text-amber",
-  Ceremony: "bg-mauve/20 text-mauve",
+  Ceremony: "bg-[#73516F]/20 text-purple-300",
   Wellness: "bg-emerald-500/20 text-emerald-400",
   Work: "bg-[#AF695E]/20 text-[#AF695E]",
+};
+
+const typeBarColor: Record<string, string> = {
+  Workshop: "bg-blue-500/70",
+  Social: "bg-amber/70",
+  Ceremony: "bg-purple-400/70",
+  Wellness: "bg-emerald-400/70",
+  Work: "bg-orange-400/70",
 };
 
 const dotColor: Record<string, string> = {
@@ -100,7 +234,7 @@ function Stars({ rating }: { rating: number }) {
         <Star
           key={n}
           size={12}
-          weight={n <= Math.floor(rating) ? "fill" : n - rating < 1 ? "fill" : "regular"}
+          weight={n <= Math.round(rating) ? "fill" : "regular"}
           className={n <= Math.round(rating) ? "text-amber" : "text-white/15"}
         />
       ))}
@@ -122,9 +256,8 @@ function PieTooltip({ active, payload }: any) {
 /* ── June 2026 calendar grid ──────────────────────────────────── */
 
 function CalendarGrid() {
-  // June 2026 starts on Monday (day 1 = Mon)
   const daysInMonth = 30;
-  const startDow = 0; // Monday-indexed: Mon=0
+  const startDow = 0; // June 2026 starts Monday
   const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const cells: (number | null)[] = [];
   for (let i = 0; i < startDow; i++) cells.push(null);
@@ -162,7 +295,6 @@ function CalendarGrid() {
           );
         })}
       </div>
-      {/* Legend */}
       <div className="flex items-center gap-4 mt-3">
         {Object.entries(dotColor).map(([type, color]) => (
           <div key={type} className="flex items-center gap-1.5">
@@ -172,6 +304,119 @@ function CalendarGrid() {
         ))}
       </div>
     </div>
+  );
+}
+
+/* ── Event Card ────────────────────────────────────────────────── */
+
+function EventCard({ ev }: { ev: typeof upcomingEvents[0] }) {
+  const pct = Math.round((ev.registered / ev.capacity) * 100);
+  const isFull = pct >= 100;
+  const barColor = typeBarColor[ev.type] ?? "bg-amber/70";
+
+  return (
+    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden flex flex-col">
+      {/* Cover image */}
+      <div className="relative h-[130px] w-full shrink-0">
+        <img
+          src={ev.image}
+          alt={ev.title}
+          className="h-full w-full object-cover"
+        />
+        {/* Scrim */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        {/* Badge overlaid top-left */}
+        <span
+          className={`absolute top-3 left-3 rounded-full px-2.5 py-0.5 text-[10px] font-semibold backdrop-blur-sm ${typeBadge[ev.type]}`}
+        >
+          {ev.type}
+        </span>
+        {isFull && (
+          <span className="absolute top-3 right-3 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-2 py-0.5 text-[10px] text-white/70">
+            Full
+          </span>
+        )}
+      </div>
+
+      {/* Card body */}
+      <div className="flex flex-col flex-1 gap-2.5 p-4">
+        <h3 className="text-sm font-semibold text-white leading-snug">{ev.title}</h3>
+
+        <div className="flex flex-col gap-1.5 text-[11px] text-white/45">
+          <span className="flex items-center gap-1.5">
+            <CalendarBlank size={11} className="shrink-0" />
+            {ev.date} &middot; {ev.time}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <MapPin size={11} className="shrink-0" />
+            {ev.location}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <User size={11} className="shrink-0" />
+            {ev.facilitator}
+          </span>
+        </div>
+
+        {/* Registration bar */}
+        <div className="mt-auto pt-1">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] text-white/30">Registration</span>
+            <span className={`text-[10px] font-medium ${isFull ? "text-amber" : "text-white/50"}`}>
+              {ev.registered}/{ev.capacity}
+            </span>
+          </div>
+          <div className="h-1.5 w-full rounded-full bg-white/[0.06] overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all ${barColor}`}
+              style={{ width: `${Math.min(pct, 100)}%` }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── AI Event Planner Panel ────────────────────────────────────── */
+
+function AiEventPlanner() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.42 }}
+      className="rounded-2xl border border-amber/[0.18] bg-amber/[0.04] p-5"
+    >
+      {/* Header */}
+      <div className="flex items-center gap-2 mb-4">
+        <div className="rounded-lg bg-amber/15 p-1.5">
+          <Sparkle size={14} weight="fill" className="text-amber" />
+        </div>
+        <div>
+          <h2 className="text-sm font-semibold text-white">AI Event Suggestions</h2>
+          <p className="text-[10px] text-white/35 mt-0.5">Based on current member interests &amp; seasonal patterns</p>
+        </div>
+      </div>
+
+      {/* Suggestions list */}
+      <div className="space-y-2.5">
+        {aiSuggestions.map((s, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-3 rounded-xl border border-white/[0.05] bg-white/[0.03] px-3.5 py-3"
+          >
+            <span className="text-xl shrink-0 leading-none">{s.emoji}</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-medium text-white truncate">{s.title}</p>
+              <p className="text-[10px] text-white/40 mt-0.5 leading-relaxed line-clamp-2">{s.reason}</p>
+            </div>
+            <button className="shrink-0 rounded-lg bg-amber/15 border border-amber/20 px-2.5 py-1.5 text-[10px] font-medium text-amber hover:bg-amber/25 transition-colors whitespace-nowrap">
+              Add to Calendar
+            </button>
+          </div>
+        ))}
+      </div>
+    </motion.div>
   );
 }
 
@@ -294,54 +539,38 @@ export default function EventsPage() {
         </motion.div>
       </div>
 
-      {/* Upcoming Events list */}
+      {/* Upcoming Events — visual card grid */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5"
       >
-        <h2 className="text-sm font-medium text-white mb-4">Upcoming Events</h2>
-        {/* Table header */}
-        <div className="hidden md:grid md:grid-cols-[100px_1fr_120px_130px_110px_140px] gap-2 pb-2 border-b border-white/[0.04]">
-          {["Type", "Event", "Date & Time", "Location", "Facilitator", "Registration"].map((h) => (
-            <span key={h} className="text-xs uppercase text-white/30">{h}</span>
-          ))}
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-sm font-medium text-white">Upcoming Events</h2>
+          <span className="text-[11px] text-white/30">{upcomingEvents.length} events this month</span>
         </div>
-        <div className="divide-y divide-white/[0.04]">
-          {upcomingEvents.map((ev, i) => (
-            <div
-              key={i}
-              className="grid grid-cols-1 md:grid-cols-[100px_1fr_120px_130px_110px_140px] gap-2 items-center py-3"
-            >
-              <span className={`inline-block w-fit rounded-full px-2.5 py-0.5 text-[10px] font-medium ${typeBadge[ev.type]}`}>
-                {ev.type}
-              </span>
-              <span className="text-xs text-white/80 font-medium">{ev.title}</span>
-              <span className="text-xs text-white/40">{ev.date}, {ev.time}</span>
-              <span className="text-xs text-white/40 flex items-center gap-1"><MapPin size={10} />{ev.location}</span>
-              <span className="text-xs text-white/40">{ev.facilitator}</span>
-              <div className="flex items-center gap-2">
-                <div className="h-1.5 flex-1 rounded-full bg-white/[0.06] overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-amber/70"
-                    style={{ width: `${(ev.registered / ev.capacity) * 100}%` }}
-                  />
-                </div>
-                <span className="text-[10px] text-white/40 whitespace-nowrap">
-                  {ev.registered}/{ev.capacity}
-                </span>
-              </div>
-            </div>
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+        >
+          {upcomingEvents.map((ev) => (
+            <motion.div key={ev.title} variants={fadeUp}>
+              <EventCard ev={ev} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </motion.div>
+
+      {/* AI Event Planner */}
+      <AiEventPlanner />
 
       {/* Course Catalog */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.45 }}
+        transition={{ duration: 0.5, delay: 0.48 }}
       >
         <h2 className="text-sm font-medium text-white mb-4">Course Catalog</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
