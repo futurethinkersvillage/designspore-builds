@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChatCircle, X, PaperPlaneTilt, ArrowRight } from "@phosphor-icons/react";
 
@@ -54,6 +55,7 @@ function TypingDots() {
 }
 
 export function ChatWidget() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [available, setAvailable] = useState<boolean | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -65,6 +67,8 @@ export function ChatWidget() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const lastUserMsgRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  if (pathname.startsWith("/village-dashboard")) return null;
   const prevStreamingRef = useRef("");
 
   const remainingStarters = ALL_STARTERS.filter((q) => !usedStarters.has(q));

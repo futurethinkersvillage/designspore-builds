@@ -86,7 +86,7 @@ function NewsletterForm() {
 
 export function Footer() {
   const pathname = usePathname();
-  if (pathname === "/investor-print") return null;
+  if (pathname === "/investor-print" || pathname.startsWith("/village-dashboard")) return null;
 
   return (
     <footer className="bg-warm-dark text-white">

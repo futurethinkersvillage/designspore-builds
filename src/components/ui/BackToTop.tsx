@@ -8,8 +8,8 @@ export function BackToTop() {
   const [visible, setVisible] = useState(false);
   const pathname = usePathname();
 
-  // Don't show on full-screen tour
-  if (pathname === "/tour" || pathname === "/investor-print") return null;
+  // Don't show on full-screen tour or dashboard
+  if (pathname === "/tour" || pathname === "/investor-print" || pathname.startsWith("/village-dashboard")) return null;
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {

@@ -7,6 +7,11 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { List, X } from "@phosphor-icons/react";
 
+function useIsDashboard() {
+  const pathname = usePathname();
+  return pathname.startsWith("/village-dashboard");
+}
+
 const navItems = [
   { label: "Vision", href: "/" },
   {
@@ -45,7 +50,7 @@ export function Nav() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
-  if (pathname === "/investor-print" || pathname === "/tour") return null;
+  if (pathname === "/investor-print" || pathname === "/tour" || pathname.startsWith("/village-dashboard")) return null;
 
   return (
     <header className="fixed top-0 z-50 w-full bg-warm-dark/70 backdrop-blur-md border-b border-white/5">

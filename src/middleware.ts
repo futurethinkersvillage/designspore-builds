@@ -3,10 +3,31 @@ import type { NextRequest } from "next/server";
 
 const PROTECTED_PATHS = ["/deck", "/one-pager", "/investor-print"];
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const isProtected = PROTECTED_PATHS.some((p) => pathname.startsWith(p));
+const DASHBOARD_HOSTS = [
+  "village-dashboard.portal.place",
+  "village-dashboard.localhost",
+];
 
+function isDashboardHost(host: string): boolean {
+  const hostname = host.split(":")[0];
+  return DASHBOARD_HOSTS.includes(hostname);
+}
+
+export function middleware(request: NextRequest) {
+  const host = request.headers.get("host") || "";
+  const { pathname } = request.nextUrl;
+
+  // Subdomain routing: village-dashboard.portal.place → /village-dashboard/*
+  if (isDashboardHost(host)) {
+    // Already rewritten — skip
+    if (pathname.startsWith("/village-dashboard")) return NextResponse.next();
+    const url = request.nextUrl.clone();
+    url.pathname = `/village-dashboard${pathname === "/" ? "" : pathname}`;
+    return NextResponse.rewrite(url);
+  }
+
+  // Existing investor auth logic
+  const isProtected = PROTECTED_PATHS.some((p) => pathname.startsWith(p));
   if (!isProtected) return NextResponse.next();
 
   const token = request.cookies.get("investor_auth")?.value;
@@ -22,5 +43,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/deck/:path*", "/one-pager/:path*", "/investor-print/:path*"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|images/).*)"],
 };
