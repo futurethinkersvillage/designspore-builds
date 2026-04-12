@@ -67,7 +67,7 @@ export default function ReputationDashboard() {
         <div className="flex items-center gap-3 px-5 py-3.5 bg-yellow-500/[0.06] border border-yellow-500/20 rounded-xl">
           <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse shrink-0" />
           <p className="text-sm text-white/70">
-            <span className="text-yellow-300 font-semibold">{pendingCount} reviews</span> need a response. Mike will draft and post on your behalf within 24 hours.
+            <span className="text-yellow-300 font-semibold">{pendingCount} reviews</span> need a response. AI will draft a reply for your approval within the hour.
           </p>
         </div>
       )}

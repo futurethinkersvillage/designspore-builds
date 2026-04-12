@@ -11,13 +11,13 @@ const phoneNumbers = [
 
 const callLog = [
   { id: 1, caller: "+1 (250) 555-0312", callerName: "Sarah Mitchell", direction: "inbound", duration: "3:42", time: "Today 2:14 PM", outcome: "Booked service call", handledBy: "AI Agent", line: "Main", hasTranscript: true },
-  { id: 2, caller: "+1 (604) 555-0488", callerName: "Unknown", direction: "inbound", duration: "1:18", time: "Today 1:05 PM", outcome: "Transferred to Mike", handledBy: "AI Agent → Mike", line: "Main", hasTranscript: true },
+  { id: 2, caller: "+1 (604) 555-0488", callerName: "Unknown", direction: "inbound", duration: "1:18", time: "Today 1:05 PM", outcome: "Transferred to owner", handledBy: "AI Agent → Owner", line: "Main", hasTranscript: true },
   { id: 3, caller: "+1 (250) 555-0147", callerName: "You", direction: "outbound", duration: "0:45", time: "Today 11:30 AM", outcome: "Left voicemail", handledBy: "Manual", line: "Main", hasTranscript: false },
   { id: 4, caller: "+1 (250) 674-0091", callerName: "Dave Kowalski", direction: "inbound", duration: "4:55", time: "Today 9:22 AM", outcome: "Quote requested", handledBy: "AI Agent", line: "Main", hasTranscript: true },
   { id: 5, caller: "+1 (778) 555-0334", callerName: "Linda Harper", direction: "inbound", duration: "2:10", time: "Yesterday 4:48 PM", outcome: "FAQ answered", handledBy: "AI Agent", line: "After-Hours", hasTranscript: true },
   { id: 6, caller: "+1 (250) 555-0776", callerName: "Chris Turner", direction: "inbound", duration: "0:00", time: "Yesterday 3:15 PM", outcome: "Missed → Text sent", handledBy: "Auto Text-Back", line: "Main", hasTranscript: false },
   { id: 7, caller: "+1 (604) 555-0192", callerName: "Unknown", direction: "inbound", duration: "1:44", time: "Yesterday 11:02 AM", outcome: "Booked estimate", handledBy: "AI Agent", line: "Toll-Free", hasTranscript: true },
-  { id: 8, caller: "+1 (250) 555-0418", callerName: "Tom Burns", direction: "inbound", duration: "6:12", time: "Apr 9, 2:30 PM", outcome: "Complaint — escalated", handledBy: "AI Agent → Mike", line: "Main", hasTranscript: true },
+  { id: 8, caller: "+1 (250) 555-0418", callerName: "Tom Burns", direction: "inbound", duration: "6:12", time: "Apr 9, 2:30 PM", outcome: "Complaint — escalated", handledBy: "AI Agent → Owner", line: "Main", hasTranscript: true },
 ];
 
 const sampleTranscript = [
@@ -50,8 +50,8 @@ const aiConfig = {
   canBook: true,
   canQuote: true,
   canTransfer: true,
-  transferTo: "+1 (250) 555-0147 (Mike)",
-  escalationRules: "Transfer to Mike if: complaint, existing customer issue, commercial project, or caller explicitly asks for a human.",
+  transferTo: "+1 (250) 555-0147 (Owner)",
+  escalationRules: "Transfer to owner if: complaint, existing customer issue, commercial project, or caller explicitly asks for a human.",
   businessHours: "Mon–Fri 8 AM – 6 PM, Sat 9 AM – 4 PM",
   afterHoursMode: "AI answers, captures info, sends morning digest",
   knowledgeBase: [
@@ -78,7 +78,7 @@ const outcomeStyle: Record<string, string> = {
   "Booked estimate": "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
   "Quote requested": "bg-gold/10 text-gold border-gold/20",
   "FAQ answered": "bg-blue-500/10 text-blue-300 border-blue-500/20",
-  "Transferred to Mike": "bg-purple-500/10 text-purple-300 border-purple-500/20",
+  "Transferred to owner": "bg-purple-500/10 text-purple-300 border-purple-500/20",
   "Left voicemail": "bg-white/[0.06] text-white/30 border-white/[0.08]",
   "Missed → Text sent": "bg-yellow-500/10 text-yellow-300 border-yellow-500/20",
   "Complaint — escalated": "bg-red-500/10 text-red-400 border-red-500/20",
@@ -438,10 +438,10 @@ export default function PhoneDashboard() {
             <p className="text-sm font-semibold text-white mb-4">Call Routing Rules</p>
             <div className="space-y-3">
               {[
-                { condition: "During business hours", action: "AI answers → books or transfers to Mike if needed", icon: "☀️" },
+                { condition: "During business hours", action: "AI answers → books appointment or transfers to you if needed", icon: "☀️" },
                 { condition: "After hours (weekdays)", action: "AI answers → captures info → morning digest email", icon: "🌙" },
                 { condition: "Sunday / Closed", action: "AI answers with limited scope → voicemail if complex", icon: "📵" },
-                { condition: "Emergency keyword detected", action: "AI answers → immediate transfer to Mike's cell", icon: "🚨" },
+                { condition: "Emergency keyword detected", action: "AI answers → immediate transfer to your cell", icon: "🚨" },
                 { condition: "Missed call (any time)", action: "Auto text-back within 15 seconds with booking link", icon: "💬" },
               ].map((rule, i) => (
                 <div key={i} className="flex items-start gap-4 px-4 py-4 rounded-xl border border-white/[0.06] bg-dark">
