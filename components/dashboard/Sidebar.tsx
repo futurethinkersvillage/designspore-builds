@@ -23,6 +23,7 @@ const serviceDashboards = [
   { href: "/services/seo-health-check",         label: "SEO Health Check" },
   { href: "/services/lead-response-automation", label: "Lead Response" },
   { href: "/services/reputation-management",    label: "Reputation Mgmt" },
+  { href: "/services/phone-system",             label: "AI Phone System" },
 ];
 
 const ADMIN_EMAILS = ["mike@designspore.co", "futurethinkerspodcast@gmail.com", "mikenoises@gmail.com"];

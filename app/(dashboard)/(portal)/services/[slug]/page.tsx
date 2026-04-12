@@ -9,6 +9,7 @@ import CompetitorDashboard from "@/components/dashboard/services/CompetitorDashb
 import SeoDashboard from "@/components/dashboard/services/SeoDashboard";
 import LeadResponseDashboard from "@/components/dashboard/services/LeadResponseDashboard";
 import ReputationDashboard from "@/components/dashboard/services/ReputationDashboard";
+import PhoneDashboard from "@/components/dashboard/services/PhoneDashboard";
 
 const dashboards: Record<string, React.ComponentType> = {
   "monthly-analytics": AnalyticsDashboard,
@@ -21,6 +22,7 @@ const dashboards: Record<string, React.ComponentType> = {
   "seo-health-check": SeoDashboard,
   "lead-response-automation": LeadResponseDashboard,
   "reputation-management": ReputationDashboard,
+  "phone-system": PhoneDashboard,
 };
 
 interface Props {
