@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 
 const links = [
   { label: "Email", href: "mailto:mike@designspore.co", display: "mike@designspore.co" },
-  { label: "Studio", href: "https://designspore.co", display: "designspore.co" },
-  { label: "Podcast", href: "https://futurethinkers.org", display: "futurethinkers.org" },
   { label: "Book a Call", href: "https://futurethinkers.org/call60", display: "60-min call" },
+  { label: "X / Twitter", href: "https://x.com/FutureThinkers_", display: "@FutureThinkers_" },
+  { label: "YouTube", href: "https://youtube.com/FutureThinkers", display: "Future Thinkers" },
+  { label: "Instagram", href: "https://instagram.com/futurethinkers", display: "@futurethinkers" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/mikegilliland", display: "mikegilliland" },
 ];
 
 export default function Contact() {

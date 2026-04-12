@@ -73,7 +73,7 @@
   },
   {
     "name": "Future Thinkers",
-    "oneLiner": "Full Next.js rebuild of futurethinkers.org — 130+ podcast episodes and 12 years of content migrating off WordPress with custom podcast player.",
+    "oneLiner": "130+ episodes exploring technology, consciousness, and the future of civilization. Running since 2013. Custom podcast player, no third-party CMS.",
     "status": "planning",
     "url": "https://futurethinkers.org",
     "tags": ["podcast", "media", "migration"],

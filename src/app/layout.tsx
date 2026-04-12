@@ -23,6 +23,20 @@ export const metadata: Metadata = {
     url: "https://mikegilliland.ca",
     siteName: "Mike Gilliland",
     type: "website",
+    images: [
+      {
+        url: "https://mikegilliland.ca/mike.jpg",
+        width: 400,
+        height: 533,
+        alt: "Mike Gilliland",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Mike Gilliland",
+    description: "Building AI systems, communities, and businesses from a small town in the BC interior.",
+    images: ["https://mikegilliland.ca/mike.jpg"],
   },
 };
 
