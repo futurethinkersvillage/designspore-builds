@@ -39,7 +39,7 @@ export default function Bio() {
           , a podcast with 130+ episodes exploring technology, society, and
           human potential. My background spans filmmaking, design, branding,
           media, and technology &mdash; but these days I spend most of my time
-          building real systems with AI.
+          building real AI systems and the communities that use them.
         </motion.p>
 
         <motion.p
@@ -48,17 +48,17 @@ export default function Bio() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5, delay: 0.15 }}
         >
-          I live in Clearwater, BC &mdash; a town of 3,500 people, 2.5 hours
-          from Kamloops. I&apos;m building a{" "}
+          I&apos;m building{" "}
           <a
             href="https://portal.place"
             className="text-neutral-100 underline decoration-neutral-700 underline-offset-4 transition-colors hover:decoration-amber-600"
           >
-            smart village prototype
-          </a>{" "}
-          on land near Wells Gray Provincial Park, running AI-for-business
-          meetups, sitting on the Chamber of Commerce board, and selling AI
-          services to local and regional businesses and governments.
+            Portal.Place
+          </a>
+          , a flagship smart village prototype near Wells Gray Provincial Park
+          in the BC interior &mdash; a living laboratory for off-grid systems,
+          AI-assisted community governance, and resilient rural living. It&apos;s
+          where I test everything I build.
         </motion.p>
 
         <motion.p
@@ -67,9 +67,10 @@ export default function Bio() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          I&apos;m not theorizing about AI. I&apos;m applying it in one of the
-          most resource-constrained, geographically isolated environments in
-          Canada. If it works here, it works anywhere.
+          I&apos;m not theorizing about AI. Every tool, system, and platform I
+          build is deployed, used by real people, and tested against real
+          constraints. If it works in an underserved, resource-constrained
+          environment, it works anywhere.
         </motion.p>
       </div>
     </section>

@@ -47,7 +47,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.35 }}
             className="mt-3 font-mono text-sm tracking-widest text-amber-600/80 uppercase"
           >
-            Clearwater, BC
+            Founder · Builder · Podcaster
           </motion.p>
         </div>
       </div>

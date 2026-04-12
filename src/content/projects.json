@@ -5,7 +5,8 @@
     "status": "live",
     "url": "https://designspore.co",
     "tags": ["ai", "studio", "consulting"],
-    "business": "Design Spore"
+    "business": "Design Spore",
+    "image": "/designspore.jpg"
   },
   {
     "name": "Mission Control",
@@ -13,70 +14,79 @@
     "status": "active",
     "url": null,
     "tags": ["ai", "dashboard", "crm"],
-    "business": "Design Spore"
-  },
-  {
-    "name": "Drawbridge",
-    "oneLiner": "Chrome extension that lets you annotate your live website like Figma comments and sends those annotations directly to Claude Code as tasks.",
-    "status": "shipped",
-    "url": null,
-    "tags": ["dev-tools", "chrome-extension", "ai"],
-    "business": "Design Spore"
+    "business": "Design Spore",
+    "image": null
   },
   {
     "name": "Government AI Consulting",
-    "oneLiner": "AI readiness briefings, policy frameworks, and implementation support for BC local and regional governments.",
+    "oneLiner": "AI readiness briefings, policy frameworks, and implementation support for local and regional governments.",
     "status": "active",
     "url": null,
     "tags": ["consulting", "government", "ai"],
-    "business": "Design Spore"
+    "business": "Design Spore",
+    "image": null
   },
   {
     "name": "Clearwater AI Meetups",
-    "oneLiner": "Regular public AI-for-business education events in Clearwater, BC — making practical AI accessible to local business owners.",
+    "oneLiner": "Regular AI-for-business education events making practical AI accessible to local business owners and decision-makers.",
     "status": "ongoing",
     "url": null,
     "tags": ["community", "education", "ai"],
-    "business": "Design Spore"
+    "business": "Design Spore",
+    "image": null
   },
   {
     "name": "Portal.Place",
-    "oneLiner": "A real land project near Wells Gray Provincial Park — a working prototype for AI-assisted rural communities with virtual tours and investor deck.",
+    "oneLiner": "A working prototype for the next generation of intentional, AI-assisted rural communities — land, programs, membership, and investor access.",
     "status": "live",
     "url": "https://portal.place",
     "tags": ["community", "land", "smart-village"],
-    "business": "Portal.Place"
+    "business": "Portal.Place",
+    "image": "/portal-place.jpg"
   },
   {
     "name": "Portal.Place Intel",
-    "oneLiner": "AI-enriched feed of opportunities across BC and Alberta — land deals, grants, jobs, events, community news — with a feedback loop that gets smarter over time.",
+    "oneLiner": "AI-enriched regional intelligence feed — land deals, grants, jobs, events, and community news for people actively building resilient communities.",
     "status": "active",
     "url": "https://intel.portal.place",
     "tags": ["ai", "intelligence", "regional"],
-    "business": "Portal.Place"
+    "business": "Portal.Place",
+    "image": "/portal-intel.jpg"
+  },
+  {
+    "name": "Village Dashboard",
+    "oneLiner": "Smart village operating system — members, fundraising, governance, operations, farm & IoT, energy, and marketplace in one dashboard.",
+    "status": "active",
+    "url": "https://village-dashboard.portal.place",
+    "tags": ["smart-village", "dashboard", "ai"],
+    "business": "Portal.Place",
+    "image": "/village-dashboard.jpg"
   },
   {
     "name": "Wells Gray Resort Booking System",
-    "oneLiner": "Fully custom campground booking system with interactive Leaflet.js map, OTA sync across 6 platforms, and zero per-booking fees.",
+    "oneLiner": "Custom campground booking system with interactive site map, OTA sync across 6 platforms, and zero per-booking fees.",
     "status": "building",
     "url": "https://wellsgrayresort.ca",
     "tags": ["booking", "hospitality", "maps"],
-    "business": "Wells Gray Resort"
+    "business": "Wells Gray Resort",
+    "image": "/wellsgray.jpg"
   },
   {
     "name": "CampSync",
-    "oneLiner": "Self-hosted booking channel manager that syncs availability across Checkfront, Airbnb, HipCamp, Pitchup, and Booking.com.",
+    "oneLiner": "Self-hosted booking channel manager syncing availability across Checkfront, Airbnb, HipCamp, Pitchup, and Booking.com.",
     "status": "building",
     "url": null,
     "tags": ["booking", "channel-manager", "hospitality"],
-    "business": "Wells Gray Resort"
+    "business": "Wells Gray Resort",
+    "image": null
   },
   {
     "name": "Future Thinkers",
     "oneLiner": "130+ episodes exploring technology, consciousness, and the future of civilization. Running since 2013. Custom podcast player, no third-party CMS.",
-    "status": "planning",
+    "status": "live",
     "url": "https://futurethinkers.org",
-    "tags": ["podcast", "media", "migration"],
-    "business": "Future Thinkers"
+    "tags": ["podcast", "media"],
+    "business": "Future Thinkers",
+    "image": "/futurethinkers.jpg"
   }
 ]

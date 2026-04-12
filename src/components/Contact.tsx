@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 
 const links = [
   { label: "Email", href: "mailto:mike@designspore.co", display: "mike@designspore.co" },
-  { label: "Book a Call", href: "https://futurethinkers.org/call60", display: "60-min call" },
+  { label: "Book a Call", href: "https://futurethinkers.org/call30", display: "30-min call" },
   { label: "X / Twitter", href: "https://x.com/FutureThinkers_", display: "@FutureThinkers_" },
   { label: "YouTube", href: "https://youtube.com/FutureThinkers", display: "Future Thinkers" },
   { label: "Instagram", href: "https://instagram.com/futurethinkers", display: "@futurethinkers" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/mikegilliland", display: "mikegilliland" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/mikevgilliland", display: "mikevgilliland" },
 ];
 
 export default function Contact() {
@@ -54,7 +54,7 @@ export default function Contact() {
         transition={{ duration: 0.5, delay: 0.3 }}
         className="mt-16 text-center font-mono text-xs text-neutral-700"
       >
-        Clearwater, BC &middot; {new Date().getFullYear()}
+        Mike Gilliland &middot; {new Date().getFullYear()}
       </motion.p>
     </section>
   );

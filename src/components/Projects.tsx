@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import projects from "@/content/projects.json";
 
 const statusColors: Record<string, string> = {
@@ -52,10 +53,11 @@ export default function Projects() {
 
             <div className="grid gap-4 sm:grid-cols-2">
               {group.items.map((project, i) => {
-                const Card = project.url ? "a" : "div";
-                const linkProps = project.url
+                const isLink = !!project.url;
+                const Card = isLink ? "a" : "div";
+                const linkProps = isLink
                   ? {
-                      href: project.url,
+                      href: project.url as string,
                       target: "_blank" as const,
                       rel: "noopener noreferrer",
                     }
@@ -71,35 +73,48 @@ export default function Projects() {
                   >
                     <Card
                       {...linkProps}
-                      className="group block rounded-lg border border-neutral-800 p-5 transition-colors hover:border-neutral-700 hover:bg-neutral-900/40"
+                      className="group block overflow-hidden rounded-lg border border-neutral-800 transition-colors hover:border-neutral-700"
                     >
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-mono text-sm font-semibold text-neutral-100">
-                          {project.name}
-                        </h4>
-                        <span
-                          className={`font-mono text-[10px] uppercase tracking-wider ${statusColors[project.status] || "text-neutral-500"}`}
-                        >
-                          {project.status}
-                        </span>
-                      </div>
-                      <p className="mt-2 text-sm leading-relaxed text-neutral-400">
-                        {project.oneLiner}
-                      </p>
-                      {project.url && (
-                        <p className="mt-2 font-mono text-xs text-neutral-600 group-hover:text-neutral-400 transition-colors">
-                          {project.url.replace("https://", "")} &rarr;
-                        </p>
+                      {project.image && (
+                        <div className="relative h-40 w-full overflow-hidden bg-neutral-900">
+                          <Image
+                            src={project.image}
+                            alt={project.name}
+                            fill
+                            className="object-cover opacity-80 transition-opacity group-hover:opacity-100"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 to-transparent" />
+                        </div>
                       )}
-                      <div className="mt-3 flex flex-wrap gap-1.5">
-                        {project.tags.map((tag) => (
+                      <div className="p-5">
+                        <div className="flex items-center justify-between">
+                          <h4 className="font-mono text-sm font-semibold text-neutral-100">
+                            {project.name}
+                          </h4>
                           <span
-                            key={tag}
-                            className="rounded-sm bg-neutral-800/60 px-1.5 py-0.5 font-mono text-[10px] text-neutral-500"
+                            className={`font-mono text-[10px] uppercase tracking-wider ${statusColors[project.status] || "text-neutral-500"}`}
                           >
-                            {tag}
+                            {project.status}
                           </span>
-                        ))}
+                        </div>
+                        <p className="mt-2 text-sm leading-relaxed text-neutral-400">
+                          {project.oneLiner}
+                        </p>
+                        {project.url && (
+                          <p className="mt-2 font-mono text-xs text-neutral-600 group-hover:text-neutral-400 transition-colors">
+                            {project.url.replace("https://", "")} &rarr;
+                          </p>
+                        )}
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {project.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="rounded-sm bg-neutral-800/60 px-1.5 py-0.5 font-mono text-[10px] text-neutral-500"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </Card>
                   </motion.div>
