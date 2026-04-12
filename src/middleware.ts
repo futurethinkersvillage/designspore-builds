@@ -19,11 +19,19 @@ export function middleware(request: NextRequest) {
 
   // Subdomain routing: village-dashboard.portal.place → /village-dashboard/*
   if (isDashboardHost(host)) {
-    // Already rewritten — skip
-    if (pathname.startsWith("/village-dashboard")) return NextResponse.next();
-    const url = request.nextUrl.clone();
-    url.pathname = `/village-dashboard${pathname === "/" ? "" : pathname}`;
-    return NextResponse.rewrite(url);
+    // Rewrite short paths (e.g. /fundraising) to internal /village-dashboard/... paths.
+    // Skip if already prefixed (avoids double-rewriting).
+    if (!pathname.startsWith("/village-dashboard")) {
+      const url = request.nextUrl.clone();
+      url.pathname = pathname === "/" ? "/village-dashboard" : `/village-dashboard${pathname}`;
+      const res = NextResponse.rewrite(url);
+      res.headers.set("x-is-dashboard", "1");
+      return res;
+    }
+    // Already an internal village-dashboard path — pass through with header
+    const res = NextResponse.next();
+    res.headers.set("x-is-dashboard", "1");
+    return res;
   }
 
   // Existing investor auth logic

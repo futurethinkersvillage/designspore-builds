@@ -11,9 +11,16 @@ export default function Sidebar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // Pathname will be the rewritten internal path (/village-dashboard/...) on
+  // the server but the short path (/ or /fundraising) in the browser via the
+  // subdomain rewrite. Normalise to short form for comparison.
+  const shortPathname = pathname.startsWith("/village-dashboard")
+    ? pathname.replace("/village-dashboard", "") || "/"
+    : pathname;
+
   const isActive = (href: string) => {
-    if (href === "/village-dashboard") return pathname === href;
-    return pathname.startsWith(href);
+    if (href === "/") return shortPathname === "/";
+    return shortPathname.startsWith(href);
   };
 
   const navContent = (

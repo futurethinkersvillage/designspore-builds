@@ -5,6 +5,7 @@ import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/ui/ChatWidget";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { headers } from "next/headers";
 import "./globals.css";
 
 const geist = Geist({
@@ -44,17 +45,20 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const headersList = await headers();
+  const isDashboard = headersList.get("x-is-dashboard") === "1";
+
   return (
     <html lang="en" className={`${geist.variable} ${cormorant.variable}`}>
       <body className="flex min-h-screen flex-col">
-        <Nav />
+        {!isDashboard && <Nav />}
         <main className="flex-1">{children}</main>
-        <Footer />
-        <ChatWidget />
-        <BackToTop />
+        {!isDashboard && <Footer />}
+        {!isDashboard && <ChatWidget />}
+        {!isDashboard && <BackToTop />}
       </body>
     </html>
   );

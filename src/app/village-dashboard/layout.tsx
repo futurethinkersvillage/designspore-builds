@@ -12,7 +12,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const currentNav = navItems.find((item) => item.href === pathname);
+  // Normalize: pathname may be /village-dashboard/fundraising (internal rewrite)
+  // or /fundraising (browser-visible short path on subdomain).
+  const shortPath = pathname.startsWith("/village-dashboard")
+    ? pathname.replace("/village-dashboard", "") || "/"
+    : pathname;
+  const currentNav = navItems.find((item) => item.href === shortPath);
   const title = currentNav?.label || "Overview";
 
   return (
