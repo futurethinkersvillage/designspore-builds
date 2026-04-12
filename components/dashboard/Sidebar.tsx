@@ -24,6 +24,12 @@ const serviceDashboards = [
   { href: "/services/lead-response-automation", label: "Lead Response" },
   { href: "/services/reputation-management",    label: "Reputation Mgmt" },
   { href: "/services/phone-system",             label: "AI Phone System" },
+  { href: "/services/email-campaigns",          label: "Email & SMS Campaigns" },
+  { href: "/services/social-media",             label: "Social Media Manager" },
+  { href: "/services/google-business",          label: "Google Business Profile" },
+  { href: "/services/invoicing",                label: "Invoice & Payments" },
+  { href: "/services/customer-portal",          label: "Customer Portal" },
+  { href: "/services/automations",              label: "Workflow Automations" },
 ];
 
 const ADMIN_EMAILS = ["mike@designspore.co", "futurethinkerspodcast@gmail.com", "mikenoises@gmail.com"];

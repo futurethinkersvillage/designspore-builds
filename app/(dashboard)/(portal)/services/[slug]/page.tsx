@@ -10,6 +10,12 @@ import SeoDashboard from "@/components/dashboard/services/SeoDashboard";
 import LeadResponseDashboard from "@/components/dashboard/services/LeadResponseDashboard";
 import ReputationDashboard from "@/components/dashboard/services/ReputationDashboard";
 import PhoneDashboard from "@/components/dashboard/services/PhoneDashboard";
+import EmailCampaignsDashboard from "@/components/dashboard/services/EmailCampaignsDashboard";
+import SocialMediaDashboard from "@/components/dashboard/services/SocialMediaDashboard";
+import GBPDashboard from "@/components/dashboard/services/GBPDashboard";
+import InvoicingDashboard from "@/components/dashboard/services/InvoicingDashboard";
+import CustomerPortalDashboard from "@/components/dashboard/services/CustomerPortalDashboard";
+import AutomationsDashboard from "@/components/dashboard/services/AutomationsDashboard";
 
 const dashboards: Record<string, React.ComponentType> = {
   "monthly-analytics": AnalyticsDashboard,
@@ -23,6 +29,12 @@ const dashboards: Record<string, React.ComponentType> = {
   "lead-response-automation": LeadResponseDashboard,
   "reputation-management": ReputationDashboard,
   "phone-system": PhoneDashboard,
+  "email-campaigns": EmailCampaignsDashboard,
+  "social-media": SocialMediaDashboard,
+  "google-business": GBPDashboard,
+  "invoicing": InvoicingDashboard,
+  "customer-portal": CustomerPortalDashboard,
+  "automations": AutomationsDashboard,
 };
 
 interface Props {
