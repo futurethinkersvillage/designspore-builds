@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Design Spore",
+    "oneLiner": "AI services studio — chatbots, automation, websites, and launches for businesses ready to actually use AI.",
+    "status": "live",
+    "url": "https://designspore.co",
+    "tags": ["ai", "studio", "consulting"],
+    "business": "Design Spore"
+  },
+  {
+    "name": "Mission Control",
+    "oneLiner": "Unified business dashboard — Kanban task management, CRM with Gmail import, and an AI agent fleet manager with cost tracking.",
+    "status": "active",
+    "url": "https://mc.designspore.co",
+    "tags": ["ai", "dashboard", "crm"],
+    "business": "Design Spore"
+  },
+  {
+    "name": "Drawbridge",
+    "oneLiner": "Chrome extension that lets you annotate your live website like Figma comments and sends those annotations directly to Claude Code as tasks.",
+    "status": "shipped",
+    "url": null,
+    "tags": ["dev-tools", "chrome-extension", "ai"],
+    "business": "Design Spore"
+  },
+  {
+    "name": "Government AI Consulting",
+    "oneLiner": "AI readiness briefings, policy frameworks, and implementation support for BC local and regional governments.",
+    "status": "active",
+    "url": null,
+    "tags": ["consulting", "government", "ai"],
+    "business": "Design Spore"
+  },
+  {
+    "name": "Clearwater AI Meetups",
+    "oneLiner": "Regular public AI-for-business education events in Clearwater, BC — making practical AI accessible to local business owners.",
+    "status": "ongoing",
+    "url": null,
+    "tags": ["community", "education", "ai"],
+    "business": "Design Spore"
+  },
+  {
+    "name": "Portal.Place",
+    "oneLiner": "A real land project near Wells Gray Provincial Park — a working prototype for AI-assisted rural communities with virtual tours and investor deck.",
+    "status": "live",
+    "url": "https://portal.place",
+    "tags": ["community", "land", "smart-village"],
+    "business": "Portal.Place"
+  },
+  {
+    "name": "Portal.Place Intel",
+    "oneLiner": "AI-enriched feed of opportunities across BC and Alberta — land deals, grants, jobs, events, community news — with a feedback loop that gets smarter over time.",
+    "status": "active",
+    "url": "https://intel.portal.place",
+    "tags": ["ai", "intelligence", "regional"],
+    "business": "Portal.Place"
+  },
+  {
+    "name": "Wells Gray Resort Booking System",
+    "oneLiner": "Fully custom campground booking system with interactive Leaflet.js map, OTA sync across 6 platforms, and zero per-booking fees.",
+    "status": "building",
+    "url": "https://wellsgrayresort.ca",
+    "tags": ["booking", "hospitality", "maps"],
+    "business": "Wells Gray Resort"
+  },
+  {
+    "name": "CampSync",
+    "oneLiner": "Self-hosted booking channel manager that syncs availability across Checkfront, Airbnb, HipCamp, Pitchup, and Booking.com.",
+    "status": "building",
+    "url": null,
+    "tags": ["booking", "channel-manager", "hospitality"],
+    "business": "Wells Gray Resort"
+  },
+  {
+    "name": "Future Thinkers",
+    "oneLiner": "Full Next.js rebuild of futurethinkers.org — 130+ podcast episodes and 12 years of content migrating off WordPress with custom podcast player.",
+    "status": "planning",
+    "url": "https://futurethinkers.org",
+    "tags": ["podcast", "media", "migration"],
+    "business": "Future Thinkers"
+  }
+]
