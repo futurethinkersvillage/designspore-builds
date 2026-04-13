@@ -1,12 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import {
   Scales, FileText, ChartBar,
   CheckCircle, XCircle, Minus, Clock,
   ShieldCheck, Users, Gavel, ThumbsUp,
   ArrowRight, Robot, Sparkle,
-  Brain, ChatsCircle,
+  Brain, ChatsCircle, Warning, UserCircle,
+  Timer, Eye, ChatDots, Check, PaperPlaneTilt,
+  HandWaving, Megaphone, Question,
 } from "@phosphor-icons/react";
 
 /* ── Inline data ───────────────────────────────────────────────────── */
@@ -27,11 +30,7 @@ const proposals = [
     abstain: 12,
     status: "Open",
     desc: "Expand the existing solar installation with 40 additional panels to reach 90% energy self-sufficiency by Q4 2026.",
-    aiAnalysis: {
-      impact: "High Impact",
-      insight: "Similar to Solar Battery Expansion (Jan '26) which passed 68%. Strong precedent.",
-      sentiment: "green",
-    },
+    aiAnalysis: { impact: "High Impact", insight: "Similar to Solar Battery Expansion (Jan '26) which passed 68%. Strong precedent.", sentiment: "green" },
   },
   {
     title: "Community Garden Expansion to Plot D",
@@ -41,11 +40,7 @@ const proposals = [
     abstain: 8,
     status: "Open",
     desc: "Clear and prepare the southeastern plot for 12 additional raised beds with drip irrigation and companion planting zones.",
-    aiAnalysis: {
-      impact: "Medium Impact",
-      insight: "Against votes trending slightly higher than initial garden proposal. Monitor objections.",
-      sentiment: "amber",
-    },
+    aiAnalysis: { impact: "Medium Impact", insight: "Against votes trending slightly higher than initial garden proposal. Monitor objections.", sentiment: "amber" },
   },
   {
     title: "Updated Work-Stay Compensation Policy",
@@ -55,11 +50,7 @@ const proposals = [
     abstain: 22,
     status: "Under Review",
     desc: "Revise work-stay arrangements to include a stipend increase and flexible hour allocation for skill-based contributions.",
-    aiAnalysis: {
-      impact: "High Impact",
-      insight: "Consent gap flagged — 33% against exceeds 20% threshold. Objection may be paramount.",
-      sentiment: "red",
-    },
+    aiAnalysis: { impact: "High Impact", insight: "Consent gap flagged — 33% against exceeds 20% threshold. Objection may be paramount.", sentiment: "red" },
   },
   {
     title: "Quiet Hours Extension to 10pm",
@@ -69,11 +60,7 @@ const proposals = [
     abstain: 4,
     status: "Open",
     desc: "Move quiet hours start time from 11pm to 10pm across all residential zones to improve rest quality for early-shift volunteers.",
-    aiAnalysis: {
-      impact: "Low Impact",
-      insight: "No objections flagged in community chat. Strong candidate for lazy consensus.",
-      sentiment: "green",
-    },
+    aiAnalysis: { impact: "Low Impact", insight: "No objections flagged in community chat. Strong candidate for lazy consensus.", sentiment: "green" },
   },
   {
     title: "Village Marketplace Launch",
@@ -83,11 +70,7 @@ const proposals = [
     abstain: 15,
     status: "Open",
     desc: "Open a weekly Saturday marketplace for residents and local artisans, with 10% proceeds funding community events.",
-    aiAnalysis: {
-      impact: "Medium Impact",
-      insight: "High engagement in comment thread. 3 domain experts have endorsed the proposal.",
-      sentiment: "green",
-    },
+    aiAnalysis: { impact: "Medium Impact", insight: "High engagement in comment thread. 3 domain experts have endorsed the proposal.", sentiment: "green" },
   },
   {
     title: "Emergency Fund Increase to $50K",
@@ -97,11 +80,7 @@ const proposals = [
     abstain: 6,
     status: "Under Review",
     desc: "Raise the community emergency reserve from $30K to $50K to cover two months of critical operations during unforeseen events.",
-    aiAnalysis: {
-      impact: "High Impact",
-      insight: "Finance committee advice sought and incorporated. Objection risk is low per pattern analysis.",
-      sentiment: "green",
-    },
+    aiAnalysis: { impact: "High Impact", insight: "Finance committee advice sought and incorporated. Objection risk is low per pattern analysis.", sentiment: "green" },
   },
 ];
 
@@ -150,36 +129,6 @@ const govMetrics = [
   { label: "Community Satisfaction", value: "91%", icon: ThumbsUp },
 ];
 
-const governanceModels = [
-  {
-    name: "Consent Decision-Making",
-    desc: "A proposal passes unless someone raises a paramount objection. Focuses on 'good enough for now, safe to try'.",
-    badge: "Active",
-    badgeStyle: "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30",
-    cardStyle: "border-emerald-500/20 bg-emerald-500/[0.04]",
-    icon: Scales,
-    iconStyle: "bg-emerald-500/15 text-emerald-400",
-  },
-  {
-    name: "Advice Process",
-    desc: "Anyone can make a decision after seeking advice from affected parties and domain experts. No approval needed.",
-    badge: "Available",
-    badgeStyle: "bg-blue-500/15 text-blue-400 border border-blue-500/20",
-    cardStyle: "border-white/[0.06] bg-white/[0.04]",
-    icon: ChatsCircle,
-    iconStyle: "bg-blue-500/15 text-blue-400",
-  },
-  {
-    name: "Lazy Consensus",
-    desc: "Proposals posted to the community for 72 hours. Silence = consent. Used for low-stakes decisions.",
-    badge: "Available",
-    badgeStyle: "bg-blue-500/15 text-blue-400 border border-blue-500/20",
-    cardStyle: "border-white/[0.06] bg-white/[0.04]",
-    icon: Clock,
-    iconStyle: "bg-blue-500/15 text-blue-400",
-  },
-];
-
 const aiSuggestedPrompts = [
   "Summarize active proposals",
   "Which proposals have the highest conflict risk?",
@@ -187,22 +136,18 @@ const aiSuggestedPrompts = [
 ];
 
 const aiMessages = [
-  {
-    role: "user",
-    text: "Summarize active proposals",
-  },
-  {
-    role: "ai",
-    text: "There are 6 active proposals this cycle. The strongest consent signal is on Quiet Hours Extension (94% for) — this is a candidate for lazy consensus resolution. The highest conflict risk is Updated Work-Stay Compensation Policy, where the against-vote rate exceeds the 20% paramount objection threshold. Solar Array Expansion has strong historical precedent and is likely to pass without objections.",
-  },
-  {
-    role: "user",
-    text: "What's our consent rate trend?",
-  },
-  {
-    role: "ai",
-    text: "Your consent rate has held at 83–87% over the last 3 quarters — a healthy signal for a community of this size. The slight dip in Q1 2026 correlates with the two compensation-related proposals, which typically generate more structured objections. No systemic governance issues detected. Recommend reviewing objection patterns for policy proposals specifically.",
-  },
+  { role: "user", text: "Summarize active proposals" },
+  { role: "ai", text: "There are 6 active proposals this cycle. The strongest consent signal is on Quiet Hours Extension (94% for) — this is a candidate for lazy consensus resolution. The highest conflict risk is Updated Work-Stay Compensation Policy, where the against-vote rate exceeds the 20% paramount objection threshold. Solar Array Expansion has strong historical precedent and is likely to pass without objections." },
+  { role: "user", text: "What's our consent rate trend?" },
+  { role: "ai", text: "Your consent rate has held at 83–87% over the last 3 quarters — a healthy signal for a community of this size. The slight dip in Q1 2026 correlates with the two compensation-related proposals, which typically generate more structured objections. No systemic governance issues detected. Recommend reviewing objection patterns for policy proposals specifically." },
+];
+
+/* ── Governance toolkit tab data ─────────────────────────────────── */
+
+const toolkitTabs = [
+  { id: "consent", label: "Consent Decision-Making", icon: Scales, badge: "Active", badgeStyle: "bg-emerald-500/20 text-emerald-400" },
+  { id: "advice", label: "Advice Process", icon: ChatsCircle, badge: "Available", badgeStyle: "bg-blue-500/15 text-blue-400" },
+  { id: "lazy", label: "Lazy Consensus", icon: Timer, badge: "Available", badgeStyle: "bg-blue-500/15 text-blue-400" },
 ];
 
 /* ── Helpers ─────────────────────────────────────────────────────── */
@@ -250,9 +195,429 @@ function initials(name: string) {
   return name.split(" ").map((w) => w[0]).join("");
 }
 
+/* ── Consent Decision-Making tab ──────────────────────────────────── */
+
+function ConsentTab() {
+  const [vote, setVote] = useState<"consent" | "abstain" | "object" | null>(null);
+  const [objectionText, setObjectionText] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const memberVotes = [
+    { name: "Elena V.", vote: "consent" },
+    { name: "Marcus R.", vote: "consent" },
+    { name: "Yuki T.", vote: "abstain" },
+    { name: "Ben M.", vote: "consent" },
+    { name: "Anika P.", vote: "consent" },
+    { name: "Sarah C.", vote: "object", objection: "Need to see cost breakdown before I can consent." },
+    { name: "James W.", vote: "consent" },
+    { name: "Rachel K.", vote: "consent" },
+  ];
+
+  return (
+    <div className="space-y-4">
+      {/* How it works */}
+      <div className="rounded-xl border border-emerald-500/15 bg-emerald-500/[0.04] px-4 py-3">
+        <p className="text-xs text-emerald-400/80 leading-relaxed">
+          <span className="font-medium text-emerald-400">How it works:</span> A proposal passes unless someone raises a <span className="italic">paramount objection</span> — a concern that would genuinely harm the community or violate core agreements. "I don't love it" is not an objection. "This will cause real harm" is.
+        </p>
+      </div>
+
+      {/* Active proposal */}
+      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
+        <div className="flex items-start gap-3 mb-3">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber/15 text-[10px] font-bold text-amber">EP</div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-sm font-medium text-white">Solar Array Expansion — Phase 2</span>
+              <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-400">Open · 4 days left</span>
+            </div>
+            <p className="text-xs text-white/40 mt-0.5">Proposed by Elena V. · Apr 9, 2026</p>
+          </div>
+        </div>
+        <p className="text-xs text-white/50 leading-relaxed mb-4">
+          Expand the existing solar installation with 40 additional panels to reach 90% energy self-sufficiency by Q4 2026. Budget: $28,400 from capital reserve. Installation by Marcus R.'s team.
+        </p>
+
+        {/* Process steps */}
+        <div className="flex items-center gap-1 mb-4 text-[10px] text-white/30 flex-wrap">
+          {["1. Posted", "2. Open for Consent", "3. Integration Round", "4. Decision"].map((step, i) => (
+            <span key={step} className="flex items-center gap-1">
+              <span className={`rounded-full px-2 py-0.5 ${i === 1 ? "bg-emerald-500/20 text-emerald-400 font-medium" : "bg-white/[0.04]"}`}>{step}</span>
+              {i < 3 && <span className="text-white/20">→</span>}
+            </span>
+          ))}
+        </div>
+
+        {/* Member response grid */}
+        <div className="mb-4">
+          <p className="text-[10px] text-white/30 mb-2">Community responses ({memberVotes.length} of 28 replied)</p>
+          <div className="flex flex-wrap gap-1.5">
+            {memberVotes.map((mv) => (
+              <div key={mv.name} className={`flex items-center gap-1 rounded-full px-2 py-1 text-[10px] ${
+                mv.vote === "consent" ? "bg-emerald-500/15 text-emerald-400" :
+                mv.vote === "abstain" ? "bg-white/[0.06] text-white/40" :
+                "bg-red-500/15 text-red-400"
+              }`}>
+                {mv.vote === "consent" && <Check size={9} weight="bold" />}
+                {mv.vote === "abstain" && <Minus size={9} weight="bold" />}
+                {mv.vote === "object" && <Warning size={9} weight="fill" />}
+                {mv.name.split(" ")[0]}
+              </div>
+            ))}
+            <div className="flex items-center rounded-full bg-white/[0.03] border border-dashed border-white/[0.1] px-2 py-1 text-[10px] text-white/20">
+              +20 pending
+            </div>
+          </div>
+        </div>
+
+        {/* Existing objection */}
+        <div className="rounded-xl border border-red-500/20 bg-red-500/[0.06] px-3 py-2.5 mb-4">
+          <div className="flex items-center gap-2 mb-1">
+            <Warning size={11} weight="fill" className="text-red-400 shrink-0" />
+            <span className="text-[10px] font-medium text-red-400">Objection raised — Sarah C.</span>
+          </div>
+          <p className="text-[11px] text-white/50 leading-relaxed">"Need to see cost breakdown before I can consent."</p>
+          <p className="text-[10px] text-white/25 mt-1">→ Integration round scheduled: Apr 15, 6pm</p>
+        </div>
+
+        {/* Your vote */}
+        {!submitted ? (
+          <div>
+            <p className="text-[10px] text-white/40 mb-2 font-medium uppercase tracking-wider">Your Response</p>
+            <div className="flex gap-2 flex-wrap mb-3">
+              <button
+                onClick={() => setVote("consent")}
+                className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition-all border ${
+                  vote === "consent" ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400" : "bg-white/[0.04] border-white/[0.06] text-white/50 hover:border-emerald-500/30 hover:text-emerald-400"
+                }`}
+              >
+                <CheckCircle size={13} weight={vote === "consent" ? "fill" : "regular"} /> Consent
+              </button>
+              <button
+                onClick={() => setVote("abstain")}
+                className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition-all border ${
+                  vote === "abstain" ? "bg-white/10 border-white/20 text-white/70" : "bg-white/[0.04] border-white/[0.06] text-white/50 hover:border-white/20 hover:text-white/70"
+                }`}
+              >
+                <Minus size={13} weight="bold" /> Abstain
+              </button>
+              <button
+                onClick={() => setVote("object")}
+                className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition-all border ${
+                  vote === "object" ? "bg-red-500/15 border-red-500/30 text-red-400" : "bg-white/[0.04] border-white/[0.06] text-white/50 hover:border-red-500/20 hover:text-red-400"
+                }`}
+              >
+                <Warning size={13} weight={vote === "object" ? "fill" : "regular"} /> Raise Objection
+              </button>
+            </div>
+            {vote === "object" && (
+              <div className="mb-3">
+                <textarea
+                  value={objectionText}
+                  onChange={e => setObjectionText(e.target.value)}
+                  placeholder="Describe your paramount objection — what specific harm would this cause? The community will discuss this in an integration round."
+                  className="w-full rounded-xl border border-red-500/20 bg-red-500/[0.05] px-3 py-2 text-xs text-white/60 placeholder:text-white/20 outline-none resize-none"
+                  rows={3}
+                />
+              </div>
+            )}
+            {vote && (
+              <button
+                onClick={() => setSubmitted(true)}
+                className="flex items-center gap-1.5 rounded-xl bg-amber/15 border border-amber/25 px-4 py-2 text-xs font-medium text-amber hover:bg-amber/25 transition-colors"
+              >
+                <PaperPlaneTilt size={12} weight="fill" /> Submit Response
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] px-4 py-3 flex items-center gap-3">
+            <CheckCircle size={16} weight="fill" className="text-emerald-400 shrink-0" />
+            <div>
+              <p className="text-xs font-medium text-emerald-400">Response recorded</p>
+              <p className="text-[10px] text-white/40 mt-0.5">
+                {vote === "consent" && "Your consent has been registered. You'll be notified when the decision is finalised."}
+                {vote === "abstain" && "Abstention noted. You'll be notified of the outcome."}
+                {vote === "object" && "Objection submitted. An integration round has been requested."}
+              </p>
+            </div>
+            <button onClick={() => { setVote(null); setSubmitted(false); }} className="ml-auto text-[10px] text-white/30 hover:text-white/50">Reset demo</button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ── Advice Process tab ───────────────────────────────────────────── */
+
+function AdviceTab() {
+  const [checkedIds, setCheckedIds] = useState<number[]>([0, 2]);
+  const [readyToDecide, setReadyToDecide] = useState(false);
+
+  const advisors = [
+    { id: 0, name: "Elena V.", role: "Farm Director", reason: "Affected — composting area borders Plot C", checked: true, advice: "Go ahead, but install a proper liner to prevent leaching into the neighbouring beds. I can help source one." },
+    { id: 1, name: "Marcus R.", role: "Lead Builder", reason: "Domain expert — construction & infrastructure", checked: false, advice: null },
+    { id: 2, name: "Ben M.", role: "Trail Guide", reason: "Affected — trail access passes through area", checked: true, advice: "Fine with me. Just make sure the access path stays clear during install." },
+    { id: 3, name: "James W.", role: "Steward / Finance", reason: "Budget approval for materials >$500", checked: false, advice: null },
+  ];
+
+  const toggle = (id: number) => setCheckedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+
+  return (
+    <div className="space-y-4">
+      <div className="rounded-xl border border-blue-500/15 bg-blue-500/[0.04] px-4 py-3">
+        <p className="text-xs text-blue-400/80 leading-relaxed">
+          <span className="font-medium text-blue-400">How it works:</span> Anyone can make any decision — but must first seek advice from people who are <span className="italic">affected</span> by it and those with <span className="italic">domain expertise</span>. You don't need approval; you need genuine input.
+        </p>
+      </div>
+
+      {/* Your proposed decision */}
+      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
+        <div className="flex items-center gap-2 mb-1">
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-amber/15 text-[9px] font-bold text-amber">MG</div>
+          <span className="text-xs font-medium text-white">Your Decision</span>
+          <span className="text-[10px] text-white/30">— Mike G.</span>
+        </div>
+        <p className="text-sm text-white/70 mt-2 mb-3 leading-relaxed">
+          "Install a three-bin composting system on the east side of Garden Area C, using reclaimed timber from the workshop scrap pile. Estimated cost: $180 in hardware."
+        </p>
+        <div className="flex flex-wrap gap-2 text-[10px] text-white/30">
+          <span className="rounded-full bg-white/[0.04] px-2 py-0.5">Impact area: Farm</span>
+          <span className="rounded-full bg-white/[0.04] px-2 py-0.5">Budget: $180</span>
+          <span className="rounded-full bg-white/[0.04] px-2 py-0.5">Timeline: This week</span>
+        </div>
+      </div>
+
+      {/* Advice checklist */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-[10px] font-medium uppercase tracking-wider text-white/30">Advice Sought From</p>
+          <span className="text-[10px] text-white/30">{checkedIds.length}/{advisors.length} consulted</span>
+        </div>
+        <div className="space-y-2">
+          {advisors.map((a) => (
+            <div
+              key={a.id}
+              className={`rounded-xl border p-3 transition-all ${checkedIds.includes(a.id) ? "border-blue-500/20 bg-blue-500/[0.04]" : "border-white/[0.06] bg-white/[0.03]"}`}
+            >
+              <div className="flex items-start gap-3">
+                <button
+                  onClick={() => toggle(a.id)}
+                  className={`mt-0.5 shrink-0 flex h-4 w-4 items-center justify-center rounded border transition-all ${checkedIds.includes(a.id) ? "bg-blue-500/30 border-blue-500/50 text-blue-400" : "border-white/20 hover:border-blue-500/30"}`}
+                >
+                  {checkedIds.includes(a.id) && <Check size={9} weight="bold" />}
+                </button>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs font-medium text-white/80">{a.name}</span>
+                    <span className="text-[10px] text-white/30">{a.role}</span>
+                  </div>
+                  <p className="text-[10px] text-white/30 mt-0.5">{a.reason}</p>
+                  {checkedIds.includes(a.id) && a.advice && (
+                    <div className="mt-2 rounded-lg bg-white/[0.04] px-2.5 py-2 border-l-2 border-blue-500/30">
+                      <p className="text-[11px] text-white/50 leading-relaxed italic">"{a.advice}"</p>
+                    </div>
+                  )}
+                  {checkedIds.includes(a.id) && !a.advice && (
+                    <p className="text-[10px] text-amber/60 mt-1.5">⏳ Waiting for response…</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Decision button */}
+      {!readyToDecide ? (
+        <button
+          onClick={() => setReadyToDecide(true)}
+          disabled={checkedIds.length < 3}
+          className={`w-full rounded-xl px-4 py-3 text-sm font-medium transition-all flex items-center justify-center gap-2 ${
+            checkedIds.length >= 3
+              ? "bg-blue-500/20 border border-blue-500/30 text-blue-400 hover:bg-blue-500/30"
+              : "bg-white/[0.03] border border-white/[0.06] text-white/20 cursor-not-allowed"
+          }`}
+        >
+          <HandWaving size={14} weight="fill" />
+          {checkedIds.length < 3 ? `Consult ${3 - checkedIds.length} more before deciding` : "I've received enough advice — proceed with decision"}
+        </button>
+      ) : (
+        <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] px-4 py-3 flex items-start gap-3">
+          <CheckCircle size={16} weight="fill" className="text-emerald-400 shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <p className="text-xs font-medium text-emerald-400">Decision logged</p>
+            <p className="text-[10px] text-white/40 mt-0.5">Your decision has been recorded with the advice you received. It will appear in the community log. Affected parties have been notified.</p>
+          </div>
+          <button onClick={() => setReadyToDecide(false)} className="text-[10px] text-white/30 hover:text-white/50 shrink-0">Reset</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Lazy Consensus tab ───────────────────────────────────────────── */
+
+function LazyTab() {
+  const [userAction, setUserAction] = useState<"silence" | "consent" | "concern" | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+
+  const lazyProposals = [
+    {
+      title: "Move Tuesday farm team meeting to 7:00 AM",
+      proposer: "Elena V.",
+      posted: "Apr 11",
+      expiresIn: "38h 14m",
+      expiresPct: 47,
+      seen: 18,
+      total: 28,
+      explicitConsents: 6,
+      concerns: 0,
+      risk: "Low",
+    },
+    {
+      title: "Add 'No phones at the dinner table' to guest guidelines",
+      proposer: "Yuki T.",
+      posted: "Apr 12",
+      expiresIn: "61h 02m",
+      expiresPct: 15,
+      seen: 9,
+      total: 28,
+      explicitConsents: 2,
+      concerns: 1,
+      risk: "Low",
+    },
+  ];
+
+  const p = lazyProposals[0];
+
+  return (
+    <div className="space-y-4">
+      <div className="rounded-xl border border-blue-500/15 bg-blue-500/[0.04] px-4 py-3">
+        <p className="text-xs text-blue-400/80 leading-relaxed">
+          <span className="font-medium text-blue-400">How it works:</span> Low-stakes decisions are posted for <span className="font-medium text-blue-300">72 hours</span>. Silence means consent. Anyone can explicitly consent or raise a concern to pause the proposal. Perfect for operational changes that don't need a full vote.
+        </p>
+      </div>
+
+      {/* Active lazy proposals */}
+      <div className="space-y-3">
+        {lazyProposals.map((lp, idx) => (
+          <div key={idx} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
+            <div className="flex items-start justify-between gap-2 mb-2">
+              <div>
+                <p className="text-sm font-medium text-white/80 leading-snug">{lp.title}</p>
+                <p className="text-[10px] text-white/30 mt-0.5">Proposed by {lp.proposer} · Posted {lp.posted}</p>
+              </div>
+              <span className="shrink-0 rounded-full bg-amber/15 px-2 py-0.5 text-[10px] font-medium text-amber whitespace-nowrap">
+                ⏱ {lp.expiresIn}
+              </span>
+            </div>
+
+            {/* Timer bar */}
+            <div className="mb-3">
+              <div className="flex justify-between text-[10px] text-white/25 mb-1">
+                <span>Time elapsed</span>
+                <span>{lp.expiresPct}% of 72h</span>
+              </div>
+              <div className="h-1.5 rounded-full bg-white/[0.06]">
+                <div className="h-full rounded-full bg-amber/50" style={{ width: `${lp.expiresPct}%` }} />
+              </div>
+            </div>
+
+            {/* Engagement */}
+            <div className="flex items-center gap-4 text-[10px] flex-wrap">
+              <span className="flex items-center gap-1 text-white/40"><Eye size={10} /> {lp.seen}/{lp.total} viewed</span>
+              <span className="flex items-center gap-1 text-emerald-400"><Check size={10} weight="bold" /> {lp.explicitConsents} explicit consents</span>
+              {lp.concerns > 0 ? (
+                <span className="flex items-center gap-1 text-amber"><Warning size={10} weight="fill" /> {lp.concerns} concern raised</span>
+              ) : (
+                <span className="flex items-center gap-1 text-white/25"><Minus size={10} weight="bold" /> No concerns</span>
+              )}
+              <span className={`rounded-full px-2 py-0.5 font-medium ${lp.risk === "Low" ? "bg-emerald-500/15 text-emerald-400" : "bg-amber/15 text-amber"}`}>{lp.risk} risk</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Your response to first proposal */}
+      {!submitted ? (
+        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
+          <p className="text-[10px] font-medium uppercase tracking-wider text-white/30 mb-3">
+            Your response to: "{p.title}"
+          </p>
+          <div className="grid grid-cols-3 gap-2 mb-3">
+            <button
+              onClick={() => setUserAction("silence")}
+              className={`rounded-xl px-3 py-2.5 text-xs font-medium border transition-all flex flex-col items-center gap-1 ${
+                userAction === "silence" ? "bg-white/10 border-white/25 text-white/80" : "bg-white/[0.03] border-white/[0.06] text-white/40 hover:border-white/15"
+              }`}
+            >
+              <Minus size={14} weight="bold" />
+              <span>Stay silent</span>
+              <span className="text-[9px] opacity-60">= consent</span>
+            </button>
+            <button
+              onClick={() => setUserAction("consent")}
+              className={`rounded-xl px-3 py-2.5 text-xs font-medium border transition-all flex flex-col items-center gap-1 ${
+                userAction === "consent" ? "bg-emerald-500/20 border-emerald-500/35 text-emerald-400" : "bg-white/[0.03] border-white/[0.06] text-white/40 hover:border-emerald-500/20"
+              }`}
+            >
+              <CheckCircle size={14} weight={userAction === "consent" ? "fill" : "regular"} />
+              <span>Explicitly consent</span>
+              <span className="text-[9px] opacity-60">speeds it up</span>
+            </button>
+            <button
+              onClick={() => setUserAction("concern")}
+              className={`rounded-xl px-3 py-2.5 text-xs font-medium border transition-all flex flex-col items-center gap-1 ${
+                userAction === "concern" ? "bg-amber/15 border-amber/30 text-amber" : "bg-white/[0.03] border-white/[0.06] text-white/40 hover:border-amber/20"
+              }`}
+            >
+              <Question size={14} weight={userAction === "concern" ? "fill" : "regular"} />
+              <span>Raise concern</span>
+              <span className="text-[9px] opacity-60">pauses timer</span>
+            </button>
+          </div>
+          {userAction === "concern" && (
+            <textarea
+              placeholder="What's your concern? This will pause the proposal and open a short discussion thread."
+              className="w-full rounded-xl border border-amber/20 bg-amber/[0.04] px-3 py-2 text-xs text-white/60 placeholder:text-white/20 outline-none resize-none mb-3"
+              rows={2}
+            />
+          )}
+          {userAction && (
+            <button
+              onClick={() => setSubmitted(true)}
+              className="flex items-center gap-1.5 rounded-xl bg-amber/15 border border-amber/25 px-4 py-2 text-xs font-medium text-amber hover:bg-amber/25 transition-colors"
+            >
+              <PaperPlaneTilt size={12} weight="fill" />
+              {userAction === "silence" ? "Do nothing — let time pass" : userAction === "concern" ? "Submit concern" : "Record my explicit consent"}
+            </button>
+          )}
+        </div>
+      ) : (
+        <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] px-4 py-3 flex items-start gap-3">
+          <CheckCircle size={16} weight="fill" className="text-emerald-400 shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <p className="text-xs font-medium text-emerald-400">Response recorded</p>
+            <p className="text-[10px] text-white/40 mt-0.5">
+              {userAction === "silence" && "Noted. If no concerns are raised before the timer expires, the proposal passes automatically."}
+              {userAction === "consent" && "Explicit consent recorded. This helps the proposal pass faster if enough members respond early."}
+              {userAction === "concern" && "Concern submitted. The 72-hour timer is paused. Elena V. will be notified and can address your concern or request a fuller discussion."}
+            </p>
+          </div>
+          <button onClick={() => { setUserAction(null); setSubmitted(false); }} className="text-[10px] text-white/30 hover:text-white/50 shrink-0">Reset</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ── Page ─────────────────────────────────────────────────────────── */
 
 export default function GovernancePage() {
+  const [activeToolTab, setActiveToolTab] = useState("consent");
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -288,34 +653,55 @@ export default function GovernancePage() {
         className="grid grid-cols-1 gap-4 lg:grid-cols-5 xl:gap-6"
       >
         {/* Governance Toolkit — 3 cols */}
-        <div className="lg:col-span-3 space-y-3">
-          <div className="flex items-center gap-2 mb-1">
+        <div className="lg:col-span-3">
+          <div className="flex items-center gap-2 mb-3">
             <Brain size={14} weight="fill" className="text-white/40" />
             <h2 className="text-sm font-medium text-white">Governance Toolkit</h2>
-            <span className="ml-auto text-[10px] text-white/30">Active model highlighted</span>
           </div>
-          {governanceModels.map((m) => (
-            <div
-              key={m.name}
-              className={`rounded-2xl border p-4 flex items-start gap-4 ${m.cardStyle}`}
+
+          {/* Tab selector */}
+          <div className="flex gap-1 mb-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-1">
+            {toolkitTabs.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeToolTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveToolTab(tab.id)}
+                  className={`flex-1 flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-xs font-medium transition-all ${
+                    isActive
+                      ? "bg-white/[0.08] text-white shadow-sm"
+                      : "text-white/40 hover:text-white/60"
+                  }`}
+                >
+                  <Icon size={13} weight={isActive ? "fill" : "regular"} />
+                  <span className="hidden sm:inline truncate">{tab.label.split(" ")[0]}{tab.label.split(" ").length > 2 ? "…" : " " + tab.label.split(" ").slice(1).join(" ")}</span>
+                  {isActive && tab.id === "consent" && (
+                    <span className="hidden lg:inline rounded-full bg-emerald-500/20 px-1.5 py-0.5 text-[9px] text-emerald-400 ml-0.5">Active</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Tab content */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeToolTab}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
             >
-              <div className={`shrink-0 rounded-xl p-2.5 ${m.iconStyle.split(" ").slice(0, 1).join(" ")}`}>
-                <m.icon size={18} weight="fill" className={m.iconStyle.split(" ").slice(1).join(" ")} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <span className="text-sm font-medium text-white/80">{m.name}</span>
-                  <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${m.badgeStyle}`}>{m.badge}</span>
-                </div>
-                <p className="text-xs text-white/40 leading-relaxed">{m.desc}</p>
-              </div>
-            </div>
-          ))}
+              {activeToolTab === "consent" && <ConsentTab />}
+              {activeToolTab === "advice" && <AdviceTab />}
+              {activeToolTab === "lazy" && <LazyTab />}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* AI Governance Assistant — 2 cols */}
         <div className="lg:col-span-2 rounded-2xl border border-white/[0.06] bg-[#0a0812] flex flex-col overflow-hidden" style={{ minHeight: 340 }}>
-          {/* Panel header */}
           <div className="flex items-center gap-2.5 px-4 py-3 border-b border-white/[0.06]">
             <div className="rounded-lg bg-violet-500/20 p-1.5">
               <Robot size={13} weight="fill" className="text-violet-400" />
@@ -325,20 +711,13 @@ export default function GovernancePage() {
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" /> Online
             </span>
           </div>
-
-          {/* Suggested prompts */}
           <div className="px-4 pt-3 pb-2 flex flex-wrap gap-1.5">
             {aiSuggestedPrompts.map((prompt) => (
-              <button
-                key={prompt}
-                className="rounded-full border border-violet-500/25 bg-violet-500/10 px-2.5 py-1 text-[10px] text-violet-300 hover:bg-violet-500/20 transition-colors cursor-pointer"
-              >
+              <button key={prompt} className="rounded-full border border-violet-500/25 bg-violet-500/10 px-2.5 py-1 text-[10px] text-violet-300 hover:bg-violet-500/20 transition-colors cursor-pointer">
                 {prompt}
               </button>
             ))}
           </div>
-
-          {/* Chat thread */}
           <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3">
             {aiMessages.map((msg, i) =>
               msg.role === "user" ? (
@@ -359,16 +738,9 @@ export default function GovernancePage() {
               )
             )}
           </div>
-
-          {/* Input */}
           <div className="px-4 py-3 border-t border-white/[0.06]">
             <div className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2">
-              <input
-                type="text"
-                placeholder="Ask about proposals, trends, or conflicts…"
-                className="flex-1 bg-transparent text-[11px] text-white/50 placeholder:text-white/20 outline-none"
-                readOnly
-              />
+              <input type="text" placeholder="Ask about proposals, trends, or conflicts…" className="flex-1 bg-transparent text-[11px] text-white/50 placeholder:text-white/20 outline-none" readOnly />
               <button className="shrink-0 rounded-lg bg-violet-500/20 p-1.5 text-violet-400">
                 <ArrowRight size={11} weight="bold" />
               </button>
@@ -391,34 +763,21 @@ export default function GovernancePage() {
                   <h3 className="text-sm font-medium text-white leading-snug pr-3">{p.title}</h3>
                   <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${proposalStatusBadge[p.status]}`}>{p.status}</span>
                 </div>
-                {/* Proposer */}
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-amber/15 text-[9px] font-semibold text-amber">
-                    {initials(p.proposer)}
-                  </div>
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-amber/15 text-[9px] font-semibold text-amber">{initials(p.proposer)}</div>
                   <span className="text-xs text-white/40">{p.proposer}</span>
                 </div>
-                {/* Description */}
                 <p className="text-xs text-white/30 leading-relaxed mb-4 line-clamp-2">{p.desc}</p>
-                {/* Vote bar */}
                 <div className="h-2 rounded-full overflow-hidden flex mb-2">
                   <div className="h-full bg-emerald-500/70" style={{ width: `${forPct}%` }} />
                   <div className="h-full bg-red-500/70" style={{ width: `${againstPct}%` }} />
                   <div className="h-full bg-white/10 flex-1" />
                 </div>
-                {/* Vote counts */}
                 <div className="flex items-center gap-3 text-[10px] mb-3">
-                  <span className="flex items-center gap-1 text-emerald-400">
-                    <CheckCircle size={10} weight="fill" /> {p.forVotes} For
-                  </span>
-                  <span className="flex items-center gap-1 text-red-400">
-                    <XCircle size={10} weight="fill" /> {p.against} Against
-                  </span>
-                  <span className="flex items-center gap-1 text-white/30">
-                    <Minus size={10} weight="bold" /> {p.abstain} Abstain
-                  </span>
+                  <span className="flex items-center gap-1 text-emerald-400"><CheckCircle size={10} weight="fill" /> {p.forVotes} For</span>
+                  <span className="flex items-center gap-1 text-red-400"><XCircle size={10} weight="fill" /> {p.against} Against</span>
+                  <span className="flex items-center gap-1 text-white/30"><Minus size={10} weight="bold" /> {p.abstain} Abstain</span>
                 </div>
-                {/* AI Analysis chip */}
                 <div className="rounded-xl border border-violet-500/15 bg-violet-500/[0.07] px-3 py-2 flex items-start gap-2">
                   <div className="flex items-center gap-1.5 shrink-0 mt-0.5">
                     <Sparkle size={10} weight="fill" className="text-violet-400" />
@@ -438,7 +797,7 @@ export default function GovernancePage() {
       {/* Proposal History */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.35 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
         <h2 className="text-sm font-medium text-white mb-4">Proposal History</h2>
-        <div className="overflow-x-auto max-h-[380px] overflow-y-auto">
+        <div className="overflow-x-auto">
           <table className="w-full min-w-[640px]">
             <thead>
               <tr className="text-xs uppercase text-white/30 border-b border-white/[0.06]">
@@ -453,15 +812,11 @@ export default function GovernancePage() {
               {proposalHistory.map((h, i) => (
                 <tr key={i} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors">
                   <td className="py-2.5 text-xs text-white/70">{h.title}</td>
-                  <td className="py-2.5">
-                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${outcomeBadge[h.outcome]}`}>{h.outcome}</span>
-                  </td>
+                  <td className="py-2.5"><span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${outcomeBadge[h.outcome]}`}>{h.outcome}</span></td>
                   <td className="py-2.5 text-xs text-white/40">{h.date}</td>
                   <td className="py-2.5 text-xs text-white/50 text-right">{h.participation}%</td>
                   <td className="py-2.5 text-xs text-right">
-                    <span className={h.margin.startsWith("+") ? "text-emerald-400" : h.margin.startsWith("-") ? "text-red-400" : "text-white/30"}>
-                      {h.margin}
-                    </span>
+                    <span className={h.margin.startsWith("+") ? "text-emerald-400" : h.margin.startsWith("-") ? "text-red-400" : "text-white/30"}>{h.margin}</span>
                   </td>
                 </tr>
               ))}
@@ -472,7 +827,6 @@ export default function GovernancePage() {
 
       {/* Dispute Resolution + Community Agreements */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:gap-6">
-        {/* Dispute Resolution */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
           <h2 className="text-sm font-medium text-white mb-4">Dispute Resolution</h2>
           <div className="space-y-3">
@@ -496,18 +850,15 @@ export default function GovernancePage() {
           </div>
         </motion.div>
 
-        {/* Community Agreements */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.45 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-medium text-white">Community Agreements</h2>
             <span className="text-xs text-white/30">{agreements.length} ratified</span>
           </div>
-          <div className="space-y-0 max-h-[440px] overflow-y-auto">
+          <div className="space-y-0">
             {agreements.map((a, i) => (
               <div key={i} className="flex items-center gap-3 py-2.5 border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02] transition-colors px-1">
-                <span className={`shrink-0 rounded-full px-2 py-0.5 text-[9px] font-medium ${agreementCatBadge[a.category]}`}>
-                  {a.category}
-                </span>
+                <span className={`shrink-0 rounded-full px-2 py-0.5 text-[9px] font-medium ${agreementCatBadge[a.category]}`}>{a.category}</span>
                 <span className="flex-1 text-xs text-white/70 truncate">{a.title}</span>
                 <div className="shrink-0 text-right">
                   <p className="text-[10px] text-white/30">Adopted {a.adopted}</p>
