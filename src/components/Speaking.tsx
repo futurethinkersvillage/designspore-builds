@@ -1,115 +1,119 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const talks = [
+  { event: "Re:Build Festival", year: "2021" },
+  { event: "The Stoa", year: "2020" },
+  { event: "Future Thinkers Summit", year: "Ongoing" },
+  { event: "Collective Sapience Retreat", year: "2023" },
+];
+
+const consultingServices = [
   {
-    event: "Re:Build Festival",
-    topic: "Future Thinkers Smart Village",
-    year: "2021",
-    description: "Online festival of regenerative village builders — presented the Portal.Place smart village model.",
+    title: "AI Readiness Briefing",
+    description: "60–90 min session covering where AI fits in your org today, what to watch, and what to avoid. Free for qualifying orgs.",
   },
   {
-    event: "The Stoa",
-    topic: "Future Thinkers Smart Village",
-    year: "2020",
-    description: "Presented the smart village vision and practical approach to intentional community design.",
+    title: "AI Policy Framework",
+    description: "Custom policy document covering data governance, acceptable use, procurement guidelines, and staff training roadmap. $5K–$8K.",
   },
   {
-    event: "Future Thinkers Summit",
-    topic: "Technology, Consciousness & Community",
-    year: "Ongoing",
-    description: "Host and speaker at Future Thinkers community events exploring the intersection of AI, systems thinking, and human potential.",
-  },
-  {
-    event: "Collective Sapience Retreat",
-    topic: "AI & Regenerative Communities",
-    year: "2023",
-    description: "Co-facilitated multi-day retreat exploring AI-assisted community governance and resilient rural living.",
+    title: "Retainer",
+    description: "Ongoing advisory for orgs actively implementing AI — monthly check-ins, implementation support, staff Q&A. From $2,500/mo.",
   },
 ];
 
 export default function Speaking() {
   return (
-    <section
-      id="speaking"
-      className="relative overflow-hidden"
-      style={{
-        backgroundImage: "url('/speaking.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-neutral-950/80 backdrop-blur-[2px]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/50 via-transparent to-neutral-950/50" />
+    <section id="speaking" className="mx-auto max-w-5xl px-6 py-24">
+      <div className="grid gap-6 lg:grid-cols-2">
 
-      <div className="relative mx-auto max-w-5xl px-6 py-32">
-        <motion.h2
+        {/* Speaking */}
+        <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className="mb-4 font-mono text-sm tracking-widest text-amber-600/80 uppercase"
+          className="overflow-hidden rounded-lg border border-neutral-800"
         >
-          Speaking
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          <div className="relative h-52 w-full overflow-hidden">
+            <Image
+              src="/speaking.jpg"
+              alt="Mike Gilliland speaking at Future Thinkers event"
+              fill
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent" />
+          </div>
+
+          <div className="p-6">
+            <p className="mb-1 font-mono text-xs tracking-widest text-amber-600/80 uppercase">Speaking</p>
+            <p className="mb-5 text-sm text-neutral-400">
+              Available for keynotes, panels, and workshops on AI adoption,
+              regenerative communities, and technology for a resilient future.
+            </p>
+
+            <div className="space-y-2">
+              {talks.map((talk) => (
+                <div key={talk.event} className="flex items-center justify-between border-b border-neutral-800/60 py-2 last:border-0">
+                  <span className="text-sm text-neutral-200">{talk.event}</span>
+                  <span className="font-mono text-xs text-neutral-500">{talk.year}</span>
+                </div>
+              ))}
+            </div>
+
+            <a
+              href="https://futurethinkers.org/call30"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center font-mono text-xs text-amber-500 transition-colors hover:text-amber-400"
+            >
+              Book a speaking enquiry &rarr;
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Consulting */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-12 max-w-xl text-lg text-neutral-300"
+          className="overflow-hidden rounded-lg border border-neutral-800 p-6"
         >
-          Available for keynotes, panels, and workshops on AI adoption,
-          regenerative communities, and practical technology for a resilient
-          future.
-        </motion.p>
+          <p className="mb-1 font-mono text-xs tracking-widest text-amber-600/80 uppercase">Consulting</p>
+          <p className="mb-6 text-sm text-neutral-400">
+            I help businesses and governments understand, adopt, and govern AI —
+            practically, without the hype. Starting with clarity, not complexity.
+          </p>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {talks.map((talk, i) => (
-            <motion.div
-              key={talk.event + talk.year}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="rounded-lg border border-white/10 bg-neutral-950/50 p-5 backdrop-blur-sm"
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="font-mono text-sm font-semibold text-neutral-100">
-                  {talk.event}
-                </h3>
-                <span className="font-mono text-xs text-amber-600/70">
-                  {talk.year}
-                </span>
-              </div>
-              <p className="mt-1 font-mono text-xs text-neutral-400">
-                {talk.topic}
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-neutral-400">
-                {talk.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+          <div className="space-y-5">
+            {consultingServices.map((s, i) => (
+              <motion.div
+                key={s.title}
+                initial={{ opacity: 0, x: 12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.2 + i * 0.08 }}
+              >
+                <h3 className="font-mono text-sm font-semibold text-neutral-100">{s.title}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-neutral-400">{s.description}</p>
+              </motion.div>
+            ))}
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-10"
-        >
           <a
             href="https://futurethinkers.org/call30"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg border border-amber-600/40 px-6 py-3 font-mono text-sm text-amber-500 transition-colors hover:bg-amber-600/10"
+            className="mt-7 inline-flex items-center font-mono text-xs text-amber-500 transition-colors hover:text-amber-400"
           >
-            Book a speaking enquiry &rarr;
+            Book a free AI briefing &rarr;
           </a>
         </motion.div>
+
       </div>
     </section>
   );
