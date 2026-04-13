@@ -155,6 +155,16 @@ export default function VirtualTour({
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Navigate to a new scene when startSceneId changes (after mount)
+  // MUST be before any conditional return to satisfy React hooks rules
+  const prevSceneId = useRef(startSceneId);
+  useEffect(() => {
+    if (startSceneId && startSceneId !== prevSceneId.current && vtpRef.current) {
+      vtpRef.current.setCurrentNode(startSceneId);
+    }
+    prevSceneId.current = startSceneId;
+  }, [startSceneId]);
+
   if (error) {
     return (
       <div className={`${className} flex items-center justify-center bg-warm-dark`} style={{ width: "100%", height: "100%" }}>
@@ -167,15 +177,6 @@ export default function VirtualTour({
       </div>
     );
   }
-
-  // Navigate to a new scene when startSceneId changes (after mount)
-  const prevSceneId = useRef(startSceneId);
-  useEffect(() => {
-    if (startSceneId && startSceneId !== prevSceneId.current && vtpRef.current) {
-      vtpRef.current.setCurrentNode(startSceneId);
-    }
-    prevSceneId.current = startSceneId;
-  }, [startSceneId]);
 
   return (
     <div
