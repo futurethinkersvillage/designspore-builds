@@ -38,7 +38,7 @@ const SCENES: TourScene[] = [
     title: "Top View",
     type: "sphere",
     image: `${BASE}/Golf-Course-Above2.jpg`,
-    initialPitch: -80,  // aerial shot — open looking straight down
+    initialYaw: 288.20, initialPitch: -90,
     links: [
       { nodeId: "sauna",           yaw: 159.168, pitch: -78.029, title: "Sauna" },
       { nodeId: "cabin-3",         yaw: 165.606, pitch: -72.546, title: "Cabin 3" },
@@ -51,8 +51,7 @@ const SCENES: TourScene[] = [
       { nodeId: "Campsite",        yaw:   4.597, pitch: -70.377, title: "Campsite" },
       {
         nodeId: "dev-concept",
-        yaw: 349.507,
-        pitch: -54.865,
+        yaw: 349.507, pitch: -54.865,
         title: "Development Concept ↗",
         externalUrl: "https://marble.worldlabs.ai/world/d5d9bd70-302a-400c-a34f-693aa2783895",
       },
@@ -63,6 +62,7 @@ const SCENES: TourScene[] = [
     title: "Sauna",
     type: "sphere",
     image: `${BASE}/Sauna-1_PANO_0001-Sauna-1_PANO_0035_blended_fused.jpg`,
+    initialYaw: 41.44, initialPitch: -15.35,
     links: [
       { nodeId: "top-view",     yaw:  94.762, pitch:  25.730, title: "Top View" },
       { nodeId: "cabin-3",      yaw: 153.744, pitch:   3.274, title: "Cabin 3" },
@@ -75,6 +75,7 @@ const SCENES: TourScene[] = [
     title: "Cabin 3",
     type: "sphere",
     image: `${BASE}/Cabin-3.2_PANO_0001-Cabin-3-2-1.jpg`,
+    initialYaw: 0, initialPitch: 0,
     links: [
       { nodeId: "sauna",          yaw: 161.403, pitch:  -3.069, title: "Sauna" },
       { nodeId: "top-view",       yaw: 168.277, pitch:  33.080, title: "Top View" },
@@ -87,6 +88,7 @@ const SCENES: TourScene[] = [
     title: "Shower House",
     type: "sphere",
     image: `${BASE}/Shower-House-1_PANO_0001-Shower-House-1_PANO_0035_blended_fused-2-1.jpg`,
+    initialYaw: 319.11, initialPitch: -15.69,
     links: [
       { nodeId: "top-view", yaw: 286.829, pitch: 26.504, title: "Top View" },
     ],
@@ -96,6 +98,7 @@ const SCENES: TourScene[] = [
     title: "Gazebo",
     type: "sphere",
     image: `${BASE}/Gazebo-5_PANO_0001-Gazebo-5_PANO_0035_blended_fused-2-1.jpg`,
+    initialYaw: 222.49, initialPitch: -30.83,
     links: [
       { nodeId: "top-view", yaw: 246.296, pitch: -18.953, title: "Top View" },
     ],
@@ -105,6 +108,7 @@ const SCENES: TourScene[] = [
     title: "Trophy Mountain",
     type: "sphere",
     image: `${BASE}/TrophyMountain_blended_fused-2-1.jpg`,
+    initialYaw: 0, initialPitch: 0,
     links: [
       { nodeId: "top-view", yaw: 303.520, pitch: -9.052, title: "Wells Gray Resort" },
     ],
@@ -114,6 +118,7 @@ const SCENES: TourScene[] = [
     title: "Winter",
     type: "sphere",
     image: `${BASE}/Winter15-2-1.jpg`,
+    initialYaw: 259.13, initialPitch: -81.42,
     links: [
       { nodeId: "top-view", yaw: 156.515, pitch: -63.088, title: "Summer View" },
     ],
@@ -132,6 +137,7 @@ const SCENES: TourScene[] = [
     title: "Lake and Field",
     type: "sphere",
     image: `${BASE}/DomeLake1_blended_fused-2-1.jpg`,
+    initialYaw: 35.59, initialPitch: -11.86,
     links: [
       { nodeId: "top-view",      yaw:  43.562, pitch:  26.857, title: "Top View" },
       { nodeId: "cabin-3",       yaw: 249.368, pitch:  -2.696, title: "Cabin 3" },

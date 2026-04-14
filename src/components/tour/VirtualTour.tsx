@@ -47,6 +47,7 @@ type ViewerType = {
   destroy: () => void;
   getPlugin: (p: unknown) => unknown;
   getPosition: () => { yaw: number; pitch: number };
+  rotate: (position: { yaw: string; pitch: string }) => void;
   addEventListener: (event: string, cb: () => void) => void;
 };
 
@@ -129,6 +130,15 @@ export default function VirtualTour({
 
           const scene = scenes.find((s) => s.id === node.id);
           if (!scene) return;
+
+          // Apply the scene's initial view angle if defined
+          if (scene.initialYaw !== undefined && scene.initialPitch !== undefined) {
+            (viewer as unknown as ViewerType).rotate({
+              yaw: `${scene.initialYaw}deg`,
+              pitch: `${scene.initialPitch}deg`,
+            });
+          }
+
           const mp = viewer.getPlugin(MarkersPlugin) as unknown as MPType | null;
           if (!mp) return;
           mp.clearMarkers();
