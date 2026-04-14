@@ -29,6 +29,8 @@ interface VirtualTourProps {
   startSceneId?: string;
   className?: string;
   onSceneChange?: (sceneId: string) => void;
+  /** Pass true (or add ?debug=1 to URL) to show live yaw/pitch overlay for calibrating hotspot positions */
+  debug?: boolean;
 }
 
 type VTPType = {
@@ -41,16 +43,25 @@ type MPType = {
   addMarker: (m: object) => void;
 };
 
+type ViewerType = {
+  destroy: () => void;
+  getPlugin: (p: unknown) => unknown;
+  getPosition: () => { yaw: number; pitch: number };
+  addEventListener: (event: string, cb: () => void) => void;
+};
+
 export default function VirtualTour({
   scenes,
   startSceneId,
   className = "",
   onSceneChange,
+  debug = false,
 }: VirtualTourProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const viewerRef = useRef<{ destroy: () => void; getPlugin: (p: unknown) => unknown } | null>(null);
+  const viewerRef = useRef<ViewerType | null>(null);
   const vtpRef = useRef<VTPType | null>(null);
   const [error, setError] = React.useState<string | null>(null);
+  const [debugPos, setDebugPos] = React.useState<{ yaw: number; pitch: number } | null>(null);
 
   // Initial viewer creation
   useEffect(() => {
@@ -86,6 +97,8 @@ export default function VirtualTour({
         container: containerRef.current!,
         // No panorama here — VirtualTourPlugin owns the initial load via startNodeId.
         // Passing panorama AND startNodeId causes a double-load race that stalls the loader.
+        ...(startScene.initialYaw !== undefined && { defaultYaw: `${startScene.initialYaw}deg` }),
+        ...(startScene.initialPitch !== undefined && { defaultPitch: `${startScene.initialPitch}deg` }),
         defaultZoomLvl: 50,
         navbar: ["autorotate", "zoom", "caption", "fullscreen"],
         plugins: [
@@ -96,6 +109,7 @@ export default function VirtualTour({
               startNodeId: startScene.id,
               renderMode: "3d",
               arrowsPosition: { minPitch: -90 },
+              arrowStyle: { size: { width: 40, height: 40 } },
             },
           ],
           [MarkersPlugin, { markers: [] }],
@@ -104,7 +118,7 @@ export default function VirtualTour({
         mousewheelCtrlKey: false,
       });
 
-      viewerRef.current = viewer as typeof viewerRef.current;
+      viewerRef.current = viewer as unknown as ViewerType;
 
       const vtp = viewer.getPlugin(VirtualTourPlugin) as unknown as VTPType | null;
       vtpRef.current = vtp ?? null;
@@ -130,6 +144,16 @@ export default function VirtualTour({
             });
         });
       }
+
+      // Debug overlay: update yaw/pitch on every position change
+      if (debug) {
+        (viewer as unknown as ViewerType).addEventListener("position-updated", () => {
+          const pos = (viewer as unknown as ViewerType).getPosition();
+          const toDeg = (r: number) => Math.round((r * 180) / Math.PI * 100) / 100;
+          setDebugPos({ yaw: toDeg(pos.yaw), pitch: toDeg(pos.pitch) });
+        });
+      }
+
       } catch (err) {
         if (!destroyed) {
           console.error("VirtualTour init failed:", err);
@@ -174,10 +198,24 @@ export default function VirtualTour({
   }
 
   return (
-    <div
-      ref={containerRef}
-      className={className}
-      style={{ width: "100%", height: "100%" }}
-    />
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <div
+        ref={containerRef}
+        className={className}
+        style={{ width: "100%", height: "100%" }}
+      />
+      {debug && debugPos && (
+        <div style={{
+          position: "absolute", top: 12, right: 12, zIndex: 100,
+          background: "rgba(0,0,0,0.75)", color: "#fff", fontFamily: "monospace",
+          fontSize: 13, padding: "8px 12px", borderRadius: 6, pointerEvents: "none",
+          lineHeight: 1.6,
+        }}>
+          <div>yaw: <b>{debugPos.yaw}°</b></div>
+          <div>pitch: <b>{debugPos.pitch}°</b></div>
+          <div style={{ marginTop: 4, fontSize: 11, opacity: 0.6 }}>drag to calibrate hotspots</div>
+        </div>
+      )}
+    </div>
   );
 }

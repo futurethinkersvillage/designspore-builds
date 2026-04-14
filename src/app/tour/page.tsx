@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import type { TourScene } from "@/components/tour/VirtualTour";
 
 const VirtualTour = dynamic(() => import("@/components/tour/VirtualTour"), {
@@ -37,6 +38,7 @@ const SCENES: TourScene[] = [
     title: "Top View",
     type: "sphere",
     image: `${BASE}/Golf-Course-Above2.jpg`,
+    initialPitch: -80,  // aerial shot — open looking straight down
     links: [
       { nodeId: "sauna",           yaw: 159.168, pitch: -78.029, title: "Sauna" },
       { nodeId: "cabin-3",         yaw: 165.606, pitch: -72.546, title: "Cabin 3" },
@@ -150,6 +152,8 @@ const SCENES: TourScene[] = [
 export default function TourPage() {
   const [activeSceneId, setActiveSceneId] = useState("top-view");
   const [showHint, setShowHint] = useState(true);
+  const searchParams = useSearchParams();
+  const debugMode = searchParams.get("debug") === "1";
 
   useEffect(() => {
     const timer = setTimeout(() => setShowHint(false), 4000);
@@ -169,6 +173,7 @@ export default function TourPage() {
           startSceneId={activeSceneId}
           onSceneChange={setActiveSceneId}
           className="h-full w-full"
+          debug={debugMode}
         />
 
         {/* Scene label + description overlay */}
