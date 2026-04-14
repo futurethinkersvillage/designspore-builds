@@ -64,10 +64,6 @@ export default function VirtualTour({
       const { VirtualTourPlugin } = await import("@photo-sphere-viewer/virtual-tour-plugin");
       const { MarkersPlugin } = await import("@photo-sphere-viewer/markers-plugin");
 
-      await import("@photo-sphere-viewer/core/index.css");
-      await import("@photo-sphere-viewer/virtual-tour-plugin/index.css");
-      await import("@photo-sphere-viewer/markers-plugin/index.css");
-
       if (destroyed || !containerRef.current) return;
 
       const startScene = scenes.find((s) => s.id === startSceneId) ?? scenes[0];
