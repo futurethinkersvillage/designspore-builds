@@ -81,8 +81,18 @@ export default function Speaking() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="overflow-hidden rounded-lg border border-neutral-800 p-6"
+          className="overflow-hidden rounded-lg border border-neutral-800"
         >
+          <div className="relative h-52 w-full overflow-hidden bg-neutral-900">
+            <Image
+              src="/Consulting.png"
+              alt="AI Consulting"
+              fill
+              className="object-cover object-center opacity-80"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent" />
+          </div>
+          <div className="p-6">
           <p className="mb-1 font-mono text-xs tracking-widest text-amber-600/80 uppercase">Consulting</p>
           <p className="mb-6 text-sm text-neutral-400">
             I help businesses and governments understand, adopt, and govern AI —
@@ -112,6 +122,7 @@ export default function Speaking() {
           >
             Book a free AI briefing &rarr;
           </a>
+          </div>
         </motion.div>
 
       </div>

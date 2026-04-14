@@ -1,27 +1,32 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const businesses = [
   {
     name: "Design Spore",
     url: "https://designspore.co",
     description: "AI services studio — chatbots, automation, websites, and launches.",
+    logo: "/DesignSpore Logo with text.png",
   },
   {
     name: "Future Thinkers",
     url: "https://futurethinkers.org",
     description: "Podcast exploring technology, society, and human potential. 130+ episodes.",
+    logo: "/Future Thinkers Logo.png",
   },
   {
     name: "Portal.Place",
     url: "https://portal.place",
     description: "Smart village prototype on land near Wells Gray Provincial Park.",
+    logo: "/PortalPlace Logo Vertical white.png",
   },
   {
     name: "Wells Gray Resort",
     url: "https://wellsgrayresort.ca",
     description: "Golf & RV resort with custom booking system and channel management.",
+    logo: "/Wells Gray Golf and RV Resort Logo with text 2.png",
   },
 ];
 
@@ -49,12 +54,18 @@ export default function Businesses() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="group rounded-lg border border-neutral-800 p-6 transition-colors hover:border-amber-600/40 hover:bg-neutral-900/50"
+            className="group flex flex-col rounded-lg border border-neutral-800 p-6 transition-colors hover:border-amber-600/40 hover:bg-neutral-900/50"
           >
-            <h3 className="font-mono text-lg font-semibold text-neutral-100 group-hover:text-amber-500 transition-colors">
-              {biz.name}
-            </h3>
-            <p className="mt-2 text-sm text-neutral-400">{biz.description}</p>
+            <div className="mb-4 flex h-10 items-center">
+              <Image
+                src={biz.logo}
+                alt={biz.name}
+                width={160}
+                height={40}
+                className="max-h-10 w-auto object-contain opacity-70 transition-opacity group-hover:opacity-100"
+              />
+            </div>
+            <p className="text-sm text-neutral-400">{biz.description}</p>
             <p className="mt-3 font-mono text-xs text-neutral-600 group-hover:text-neutral-400 transition-colors">
               {biz.url.replace("https://", "")} &rarr;
             </p>

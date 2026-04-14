@@ -15,7 +15,7 @@
     "url": null,
     "tags": ["ai", "dashboard", "crm"],
     "business": "Design Spore",
-    "image": null
+    "image": "/Mission Control.png"
   },
   {
     "name": "Government AI Consulting",
@@ -24,7 +24,7 @@
     "url": null,
     "tags": ["consulting", "government", "ai"],
     "business": "Design Spore",
-    "image": null
+    "image": "/Gov consulting.png"
   },
   {
     "name": "Clearwater AI Meetups",
@@ -33,7 +33,7 @@
     "url": null,
     "tags": ["community", "education", "ai"],
     "business": "Design Spore",
-    "image": null
+    "image": "/Clearwater Meetup.png"
   },
   {
     "name": "Portal.Place",
@@ -70,15 +70,6 @@
     "tags": ["booking", "hospitality", "maps"],
     "business": "Wells Gray Resort",
     "image": "/wellsgray.jpg"
-  },
-  {
-    "name": "CampSync",
-    "oneLiner": "Self-hosted booking channel manager syncing availability across Checkfront, Airbnb, HipCamp, Pitchup, and Booking.com.",
-    "status": "building",
-    "url": null,
-    "tags": ["booking", "channel-manager", "hospitality"],
-    "business": "Wells Gray Resort",
-    "image": null
   },
   {
     "name": "Future Thinkers",
