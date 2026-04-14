@@ -1,18 +1,15 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Scales, FileText, ChartBar,
   CheckCircle, XCircle, Minus, Clock,
   ShieldCheck, Users, Gavel, ThumbsUp,
-  ArrowRight, Robot, Sparkle,
-  Brain, ChatsCircle, Warning, UserCircle,
-  Timer, Eye, ChatDots, Check, PaperPlaneTilt,
-  HandWaving, Megaphone, Question,
+  Sparkle, Brain, ChatsCircle,
+  Warning, CaretRight, Hourglass,
+  FloppyDisk, BellRinging, GitMerge, Check,
 } from "@phosphor-icons/react";
-
-/* ── Inline data ───────────────────────────────────────────────────── */
 
 const stats = [
   { label: "Participation Rate", value: "78%", icon: Users },
@@ -25,9 +22,7 @@ const proposals = [
   {
     title: "Solar Array Expansion — Phase 2",
     proposer: "Elena V.",
-    forVotes: 142,
-    against: 18,
-    abstain: 12,
+    forVotes: 142, against: 18, abstain: 12,
     status: "Open",
     desc: "Expand the existing solar installation with 40 additional panels to reach 90% energy self-sufficiency by Q4 2026.",
     aiAnalysis: { impact: "High Impact", insight: "Similar to Solar Battery Expansion (Jan '26) which passed 68%. Strong precedent.", sentiment: "green" },
@@ -35,39 +30,45 @@ const proposals = [
   {
     title: "Community Garden Expansion to Plot D",
     proposer: "Marcus C.",
-    forVotes: 98,
-    against: 34,
-    abstain: 8,
+    forVotes: 98, against: 34, abstain: 8,
     status: "Open",
     desc: "Clear and prepare the southeastern plot for 12 additional raised beds with drip irrigation and companion planting zones.",
-    aiAnalysis: { impact: "Medium Impact", insight: "Against votes trending slightly higher than initial garden proposal. Monitor objections.", sentiment: "amber" },
+    aiAnalysis: { impact: "Medium Impact", insight: "Against votes cluster around water usage and workload allocation.", sentiment: "amber" },
+    amendmentSuggestion: {
+      cluster: "water usage and workload allocation",
+      draft: "Limit initial expansion to 6 beds in Phase 1, with Phase 2 conditional on a community water audit completing before June 2026. Assign a 2-person maintenance crew with rotating membership.",
+    },
   },
   {
     title: "Updated Work-Stay Compensation Policy",
     proposer: "Sarah L.",
-    forVotes: 67,
-    against: 45,
-    abstain: 22,
-    status: "Under Review",
+    forVotes: 67, against: 45, abstain: 22,
+    status: "Integration Round",
     desc: "Revise work-stay arrangements to include a stipend increase and flexible hour allocation for skill-based contributions.",
     aiAnalysis: { impact: "High Impact", insight: "Consent gap flagged — 33% against exceeds 20% threshold. Objection may be paramount.", sentiment: "red" },
+    integration: {
+      objector: "James W.",
+      objection: "The flat stipend increase does not account for skill levels — unskilled labour would be compensated the same as licensed trades, which creates inequity and budget risk.",
+      proposerIntent: "Make work-stay more attractive and fair by recognising that skill-based contributions currently go undercompensated.",
+      amendments: [
+        { id: "a1", text: "Introduce a 3-tier skill rate: General (current), Skilled Trade (1.4x), Licensed Professional (1.8x). Budget ceiling stays unchanged via hour reallocation." },
+        { id: "a2", text: "Keep flat stipend but add a quarterly skill-recognition bonus funded from marketplace proceeds, reviewed by the finance committee." },
+        { id: "a3", text: "Split into two proposals — one for general work-stay (quick pass), one for skilled compensation (longer consultation)." },
+      ],
+    },
   },
   {
     title: "Quiet Hours Extension to 10pm",
     proposer: "Ben M.",
-    forVotes: 156,
-    against: 8,
-    abstain: 4,
+    forVotes: 156, against: 8, abstain: 4,
     status: "Open",
     desc: "Move quiet hours start time from 11pm to 10pm across all residential zones to improve rest quality for early-shift volunteers.",
-    aiAnalysis: { impact: "Low Impact", insight: "No objections flagged in community chat. Strong candidate for lazy consensus.", sentiment: "green" },
+    aiAnalysis: { impact: "Low Impact", insight: "94% consent signal. No objections in community chat. Candidate for lazy consensus fast-track.", sentiment: "green" },
   },
   {
     title: "Village Marketplace Launch",
     proposer: "Anika P.",
-    forVotes: 112,
-    against: 28,
-    abstain: 15,
+    forVotes: 112, against: 28, abstain: 15,
     status: "Open",
     desc: "Open a weekly Saturday marketplace for residents and local artisans, with 10% proceeds funding community events.",
     aiAnalysis: { impact: "Medium Impact", insight: "High engagement in comment thread. 3 domain experts have endorsed the proposal.", sentiment: "green" },
@@ -75,10 +76,8 @@ const proposals = [
   {
     title: "Emergency Fund Increase to $50K",
     proposer: "James W.",
-    forVotes: 134,
-    against: 12,
-    abstain: 6,
-    status: "Under Review",
+    forVotes: 134, against: 12, abstain: 6,
+    status: "Open",
     desc: "Raise the community emergency reserve from $30K to $50K to cover two months of critical operations during unforeseen events.",
     aiAnalysis: { impact: "High Impact", insight: "Finance committee advice sought and incorporated. Objection risk is low per pattern analysis.", sentiment: "green" },
   },
@@ -97,8 +96,6 @@ const proposalHistory = [
   { title: "Noise Bylaw Amendment", outcome: "Passed", date: "Dec 8, 2025", participation: 90, margin: "+56%" },
   { title: "Vehicle Parking Reallocation", outcome: "Rejected", date: "Nov 25, 2025", participation: 74, margin: "-8%" },
   { title: "Community Kitchen Renovation", outcome: "Passed", date: "Nov 12, 2025", participation: 86, margin: "+77%" },
-  { title: "Monthly Potluck Mandate", outcome: "Passed", date: "Oct 30, 2025", participation: 72, margin: "+64%" },
-  { title: "Fireworks Ban — Year-round", outcome: "Passed", date: "Oct 15, 2025", participation: 93, margin: "+82%" },
 ];
 
 const disputes = [
@@ -129,62 +126,74 @@ const govMetrics = [
   { label: "Community Satisfaction", value: "91%", icon: ThumbsUp },
 ];
 
-const aiSuggestedPrompts = [
-  "Summarize active proposals",
-  "Which proposals have the highest conflict risk?",
-  "What's our consent rate trend?",
-];
-
-const aiMessages = [
-  { role: "user", text: "Summarize active proposals" },
-  { role: "ai", text: "There are 6 active proposals this cycle. The strongest consent signal is on Quiet Hours Extension (94% for) — this is a candidate for lazy consensus resolution. The highest conflict risk is Updated Work-Stay Compensation Policy, where the against-vote rate exceeds the 20% paramount objection threshold. Solar Array Expansion has strong historical precedent and is likely to pass without objections." },
-  { role: "user", text: "What's our consent rate trend?" },
-  { role: "ai", text: "Your consent rate has held at 83–87% over the last 3 quarters — a healthy signal for a community of this size. The slight dip in Q1 2026 correlates with the two compensation-related proposals, which typically generate more structured objections. No systemic governance issues detected. Recommend reviewing objection patterns for policy proposals specifically." },
-];
-
-/* ── Governance toolkit tab data ─────────────────────────────────── */
-
 const toolkitTabs = [
-  { id: "consent", label: "Consent Decision-Making", icon: Scales, badge: "Active", badgeStyle: "bg-emerald-500/20 text-emerald-400" },
-  { id: "advice", label: "Advice Process", icon: ChatsCircle, badge: "Available", badgeStyle: "bg-blue-500/15 text-blue-400" },
-  { id: "lazy", label: "Lazy Consensus", icon: Timer, badge: "Available", badgeStyle: "bg-blue-500/15 text-blue-400" },
+  {
+    key: "consent",
+    label: "Consent Decision-Making",
+    badge: "Active",
+    badgeStyle: "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30",
+    icon: Scales,
+    desc: "A proposal passes unless someone raises a paramount objection — 'good enough for now, safe to try'. Objections must identify a specific harm, not just a preference.",
+  },
+  {
+    key: "advice",
+    label: "Advice Process",
+    badge: "Available",
+    badgeStyle: "bg-blue-500/15 text-blue-400 border border-blue-500/20",
+    icon: ChatsCircle,
+    desc: "Anyone can make a decision after seeking advice from affected parties and domain experts. No approval vote needed — just documented consultation.",
+  },
+  {
+    key: "lazy",
+    label: "Lazy Consensus",
+    badge: "Available",
+    badgeStyle: "bg-blue-500/15 text-blue-400 border border-blue-500/20",
+    icon: Hourglass,
+    desc: "Low-stakes proposals posted for 72 hours. Silence equals consent. Anyone can raise a concern to pause and trigger a full consent round.",
+  },
 ];
 
-/* ── Helpers ─────────────────────────────────────────────────────── */
+const adviceConsultees = [
+  { name: "Priya M.", role: "Farm Lead", status: "Responded", advice: "Supports the upgrade but recommends the Jora 400 model — handles our winter temps better. Budget allows for it.", avatar: "PM" },
+  { name: "James W.", role: "Treasurer", status: "Responded", advice: "Budget is available in Q2 operations fund. Flag it before month-end so it appears in the next board summary.", avatar: "JW" },
+  { name: "Elena V.", role: "Operations", status: "Pending", advice: null, avatar: "EV" },
+];
+
+const lazyItems = [
+  { title: "Add recycling bins to the main lodge entrance", proposer: "Anika P.", hoursLeft: 68, total: 72, concerns: 0 },
+  { title: "Move Tuesday community dinner to 6:30pm", proposer: "Marcus C.", hoursLeft: 24, total: 72, concerns: 1 },
+  { title: "Install a whiteboard in the coworking space", proposer: "Ben M.", hoursLeft: 4, total: 72, concerns: 0 },
+];
 
 const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.06 } } };
-const fadeUp = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
+const fadeUp = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45 } } };
 
 const proposalStatusBadge: Record<string, string> = {
   Open: "bg-emerald-500/15 text-emerald-400",
   "Under Review": "bg-amber/15 text-amber",
+  "Integration Round": "bg-orange-500/15 text-orange-400",
 };
-
 const outcomeBadge: Record<string, string> = {
   Passed: "bg-emerald-500/15 text-emerald-400",
   Rejected: "bg-red-500/15 text-red-400",
   Withdrawn: "bg-white/10 text-white/50",
 };
-
 const disputeStatusBadge: Record<string, string> = {
   Filed: "bg-blue-500/15 text-blue-400",
   "In Mediation": "bg-amber/15 text-amber",
   Resolved: "bg-emerald-500/15 text-emerald-400",
 };
-
 const disputePriorityBadge: Record<string, string> = {
   High: "bg-red-500/15 text-red-400",
   Medium: "bg-amber/15 text-amber",
   Low: "bg-white/10 text-white/50",
 };
-
 const agreementCatBadge: Record<string, string> = {
   Safety: "bg-red-500/15 text-red-400",
   Community: "bg-blue-500/15 text-blue-400",
   Environment: "bg-emerald-500/15 text-emerald-400",
   Operations: "bg-amber/15 text-amber",
 };
-
 const sentimentDot: Record<string, string> = {
   green: "bg-emerald-400",
   amber: "bg-amber-400",
@@ -195,565 +204,438 @@ function initials(name: string) {
   return name.split(" ").map((w) => w[0]).join("");
 }
 
-/* ── Consent Decision-Making tab ──────────────────────────────────── */
-
-function ConsentTab() {
-  const [vote, setVote] = useState<"consent" | "abstain" | "object" | null>(null);
-  const [objectionText, setObjectionText] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const memberVotes = [
-    { name: "Elena V.", vote: "consent" },
-    { name: "Marcus R.", vote: "consent" },
-    { name: "Yuki T.", vote: "abstain" },
-    { name: "Ben M.", vote: "consent" },
-    { name: "Anika P.", vote: "consent" },
-    { name: "Sarah C.", vote: "object", objection: "Need to see cost breakdown before I can consent." },
-    { name: "James W.", vote: "consent" },
-    { name: "Rachel K.", vote: "consent" },
-  ];
+function ConsentDemo() {
+  const [vote, setVote] = useState<null | "consent" | "abstain" | "object">(null);
+  const [objStep, setObjStep] = useState(0);
 
   return (
     <div className="space-y-4">
-      {/* How it works */}
-      <div className="rounded-xl border border-emerald-500/15 bg-emerald-500/[0.04] px-4 py-3">
-        <p className="text-xs text-emerald-400/80 leading-relaxed">
-          <span className="font-medium text-emerald-400">How it works:</span> A proposal passes unless someone raises a <span className="italic">paramount objection</span> — a concern that would genuinely harm the community or violate core agreements. "I don't love it" is not an objection. "This will cause real harm" is.
-        </p>
-      </div>
-
-      {/* Active proposal */}
-      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
-        <div className="flex items-start gap-3 mb-3">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber/15 text-[10px] font-bold text-amber">EP</div>
-          <div className="flex-1">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-sm font-medium text-white">Solar Array Expansion — Phase 2</span>
-              <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-400">Open · 4 days left</span>
-            </div>
-            <p className="text-xs text-white/40 mt-0.5">Proposed by Elena V. · Apr 9, 2026</p>
-          </div>
-        </div>
-        <p className="text-xs text-white/50 leading-relaxed mb-4">
-          Expand the existing solar installation with 40 additional panels to reach 90% energy self-sufficiency by Q4 2026. Budget: $28,400 from capital reserve. Installation by Marcus R.'s team.
-        </p>
-
-        {/* Process steps */}
-        <div className="flex items-center gap-1 mb-4 text-[10px] text-white/30 flex-wrap">
-          {["1. Posted", "2. Open for Consent", "3. Integration Round", "4. Decision"].map((step, i) => (
-            <span key={step} className="flex items-center gap-1">
-              <span className={`rounded-full px-2 py-0.5 ${i === 1 ? "bg-emerald-500/20 text-emerald-400 font-medium" : "bg-white/[0.04]"}`}>{step}</span>
-              {i < 3 && <span className="text-white/20">→</span>}
-            </span>
-          ))}
-        </div>
-
-        {/* Member response grid */}
-        <div className="mb-4">
-          <p className="text-[10px] text-white/30 mb-2">Community responses ({memberVotes.length} of 28 replied)</p>
-          <div className="flex flex-wrap gap-1.5">
-            {memberVotes.map((mv) => (
-              <div key={mv.name} className={`flex items-center gap-1 rounded-full px-2 py-1 text-[10px] ${
-                mv.vote === "consent" ? "bg-emerald-500/15 text-emerald-400" :
-                mv.vote === "abstain" ? "bg-white/[0.06] text-white/40" :
-                "bg-red-500/15 text-red-400"
-              }`}>
-                {mv.vote === "consent" && <Check size={9} weight="bold" />}
-                {mv.vote === "abstain" && <Minus size={9} weight="bold" />}
-                {mv.vote === "object" && <Warning size={9} weight="fill" />}
-                {mv.name.split(" ")[0]}
-              </div>
-            ))}
-            <div className="flex items-center rounded-full bg-white/[0.03] border border-dashed border-white/[0.1] px-2 py-1 text-[10px] text-white/20">
-              +20 pending
-            </div>
-          </div>
-        </div>
-
-        {/* Existing objection */}
-        <div className="rounded-xl border border-red-500/20 bg-red-500/[0.06] px-3 py-2.5 mb-4">
-          <div className="flex items-center gap-2 mb-1">
-            <Warning size={11} weight="fill" className="text-red-400 shrink-0" />
-            <span className="text-[10px] font-medium text-red-400">Objection raised — Sarah C.</span>
-          </div>
-          <p className="text-[11px] text-white/50 leading-relaxed">"Need to see cost breakdown before I can consent."</p>
-          <p className="text-[10px] text-white/25 mt-1">→ Integration round scheduled: Apr 15, 6pm</p>
-        </div>
-
-        {/* Your vote */}
-        {!submitted ? (
+      <div className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-4">
+        <div className="flex items-start justify-between mb-2">
           <div>
-            <p className="text-[10px] text-white/40 mb-2 font-medium uppercase tracking-wider">Your Response</p>
-            <div className="flex gap-2 flex-wrap mb-3">
-              <button
-                onClick={() => setVote("consent")}
-                className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition-all border ${
-                  vote === "consent" ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400" : "bg-white/[0.04] border-white/[0.06] text-white/50 hover:border-emerald-500/30 hover:text-emerald-400"
-                }`}
-              >
-                <CheckCircle size={13} weight={vote === "consent" ? "fill" : "regular"} /> Consent
-              </button>
-              <button
-                onClick={() => setVote("abstain")}
-                className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition-all border ${
-                  vote === "abstain" ? "bg-white/10 border-white/20 text-white/70" : "bg-white/[0.04] border-white/[0.06] text-white/50 hover:border-white/20 hover:text-white/70"
-                }`}
-              >
-                <Minus size={13} weight="bold" /> Abstain
-              </button>
-              <button
-                onClick={() => setVote("object")}
-                className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition-all border ${
-                  vote === "object" ? "bg-red-500/15 border-red-500/30 text-red-400" : "bg-white/[0.04] border-white/[0.06] text-white/50 hover:border-red-500/20 hover:text-red-400"
-                }`}
-              >
-                <Warning size={13} weight={vote === "object" ? "fill" : "regular"} /> Raise Objection
-              </button>
-            </div>
-            {vote === "object" && (
-              <div className="mb-3">
-                <textarea
-                  value={objectionText}
-                  onChange={e => setObjectionText(e.target.value)}
-                  placeholder="Describe your paramount objection — what specific harm would this cause? The community will discuss this in an integration round."
-                  className="w-full rounded-xl border border-red-500/20 bg-red-500/[0.05] px-3 py-2 text-xs text-white/60 placeholder:text-white/20 outline-none resize-none"
-                  rows={3}
-                />
-              </div>
-            )}
-            {vote && (
-              <button
-                onClick={() => setSubmitted(true)}
-                className="flex items-center gap-1.5 rounded-xl bg-amber/15 border border-amber/25 px-4 py-2 text-xs font-medium text-amber hover:bg-amber/25 transition-colors"
-              >
-                <PaperPlaneTilt size={12} weight="fill" /> Submit Response
-              </button>
-            )}
+            <p className="text-xs font-medium text-white/80">Quiet Hours Extension to 10pm</p>
+            <p className="text-[11px] text-white/35 mt-0.5">Proposed by Ben M. · Closes in 38 hrs</p>
           </div>
-        ) : (
-          <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] px-4 py-3 flex items-center gap-3">
-            <CheckCircle size={16} weight="fill" className="text-emerald-400 shrink-0" />
-            <div>
-              <p className="text-xs font-medium text-emerald-400">Response recorded</p>
-              <p className="text-[10px] text-white/40 mt-0.5">
-                {vote === "consent" && "Your consent has been registered. You'll be notified when the decision is finalised."}
-                {vote === "abstain" && "Abstention noted. You'll be notified of the outcome."}
-                {vote === "object" && "Objection submitted. An integration round has been requested."}
-              </p>
-            </div>
-            <button onClick={() => { setVote(null); setSubmitted(false); }} className="ml-auto text-[10px] text-white/30 hover:text-white/50">Reset demo</button>
+          <span className="rounded-full px-2 py-0.5 text-[10px] bg-emerald-500/15 text-emerald-400">Open</span>
+        </div>
+        <p className="text-[11px] text-white/40 leading-relaxed mb-3">
+          Move quiet hours start time from 11pm to 10pm across all residential zones.
+        </p>
+        <div className="h-1.5 rounded-full overflow-hidden flex mb-2">
+          <div className="h-full bg-emerald-500/60" style={{ width: "93%" }} />
+          <div className="h-full bg-red-500/60" style={{ width: "5%" }} />
+          <div className="h-full bg-white/10 flex-1" />
+        </div>
+        <div className="flex gap-3 text-[10px] mb-4">
+          <span className="text-emerald-400">156 Consent</span>
+          <span className="text-red-400">8 Object</span>
+          <span className="text-white/30">4 Abstain</span>
+        </div>
+        {vote === null && (
+          <div className="flex gap-2">
+            <button onClick={() => setVote("consent")} className="flex-1 flex items-center justify-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 py-2 text-[11px] font-medium text-emerald-400 hover:bg-emerald-500/20 transition-colors">
+              <CheckCircle size={13} weight="fill" /> Consent
+            </button>
+            <button onClick={() => setVote("abstain")} className="flex-1 flex items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] py-2 text-[11px] font-medium text-white/40 hover:bg-white/[0.07] transition-colors">
+              <Minus size={13} weight="bold" /> Abstain
+            </button>
+            <button onClick={() => { setVote("object"); setObjStep(1); }} className="flex-1 flex items-center justify-center gap-1.5 rounded-lg border border-orange-500/30 bg-orange-500/10 py-2 text-[11px] font-medium text-orange-400 hover:bg-orange-500/20 transition-colors">
+              <Warning size={13} weight="fill" /> Object
+            </button>
+          </div>
+        )}
+        {vote === "consent" && (
+          <div className="flex items-center gap-2 rounded-lg border border-emerald-500/25 bg-emerald-500/10 px-3 py-2">
+            <CheckCircle size={14} weight="fill" className="text-emerald-400 shrink-0" />
+            <p className="text-[11px] text-emerald-300">Your consent is recorded. Proposal now at 94% — strong candidate for early resolution.</p>
+          </div>
+        )}
+        {vote === "abstain" && (
+          <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
+            <Minus size={14} weight="bold" className="text-white/40 shrink-0" />
+            <p className="text-[11px] text-white/40">Abstention recorded. You will not be counted for or against.</p>
           </div>
         )}
       </div>
-    </div>
-  );
-}
 
-/* ── Advice Process tab ───────────────────────────────────────────── */
-
-function AdviceTab() {
-  const [checkedIds, setCheckedIds] = useState<number[]>([0, 2]);
-  const [readyToDecide, setReadyToDecide] = useState(false);
-
-  const advisors = [
-    { id: 0, name: "Elena V.", role: "Farm Director", reason: "Affected — composting area borders Plot C", checked: true, advice: "Go ahead, but install a proper liner to prevent leaching into the neighbouring beds. I can help source one." },
-    { id: 1, name: "Marcus R.", role: "Lead Builder", reason: "Domain expert — construction & infrastructure", checked: false, advice: null },
-    { id: 2, name: "Ben M.", role: "Trail Guide", reason: "Affected — trail access passes through area", checked: true, advice: "Fine with me. Just make sure the access path stays clear during install." },
-    { id: 3, name: "James W.", role: "Steward / Finance", reason: "Budget approval for materials >$500", checked: false, advice: null },
-  ];
-
-  const toggle = (id: number) => setCheckedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
-
-  return (
-    <div className="space-y-4">
-      <div className="rounded-xl border border-blue-500/15 bg-blue-500/[0.04] px-4 py-3">
-        <p className="text-xs text-blue-400/80 leading-relaxed">
-          <span className="font-medium text-blue-400">How it works:</span> Anyone can make any decision — but must first seek advice from people who are <span className="italic">affected</span> by it and those with <span className="italic">domain expertise</span>. You don't need approval; you need genuine input.
-        </p>
-      </div>
-
-      {/* Your proposed decision */}
-      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
-        <div className="flex items-center gap-2 mb-1">
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-amber/15 text-[9px] font-bold text-amber">MG</div>
-          <span className="text-xs font-medium text-white">Your Decision</span>
-          <span className="text-[10px] text-white/30">— Mike G.</span>
-        </div>
-        <p className="text-sm text-white/70 mt-2 mb-3 leading-relaxed">
-          "Install a three-bin composting system on the east side of Garden Area C, using reclaimed timber from the workshop scrap pile. Estimated cost: $180 in hardware."
-        </p>
-        <div className="flex flex-wrap gap-2 text-[10px] text-white/30">
-          <span className="rounded-full bg-white/[0.04] px-2 py-0.5">Impact area: Farm</span>
-          <span className="rounded-full bg-white/[0.04] px-2 py-0.5">Budget: $180</span>
-          <span className="rounded-full bg-white/[0.04] px-2 py-0.5">Timeline: This week</span>
-        </div>
-      </div>
-
-      {/* Advice checklist */}
-      <div>
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-[10px] font-medium uppercase tracking-wider text-white/30">Advice Sought From</p>
-          <span className="text-[10px] text-white/30">{checkedIds.length}/{advisors.length} consulted</span>
-        </div>
-        <div className="space-y-2">
-          {advisors.map((a) => (
-            <div
-              key={a.id}
-              className={`rounded-xl border p-3 transition-all ${checkedIds.includes(a.id) ? "border-blue-500/20 bg-blue-500/[0.04]" : "border-white/[0.06] bg-white/[0.03]"}`}
-            >
-              <div className="flex items-start gap-3">
-                <button
-                  onClick={() => toggle(a.id)}
-                  className={`mt-0.5 shrink-0 flex h-4 w-4 items-center justify-center rounded border transition-all ${checkedIds.includes(a.id) ? "bg-blue-500/30 border-blue-500/50 text-blue-400" : "border-white/20 hover:border-blue-500/30"}`}
-                >
-                  {checkedIds.includes(a.id) && <Check size={9} weight="bold" />}
-                </button>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs font-medium text-white/80">{a.name}</span>
-                    <span className="text-[10px] text-white/30">{a.role}</span>
-                  </div>
-                  <p className="text-[10px] text-white/30 mt-0.5">{a.reason}</p>
-                  {checkedIds.includes(a.id) && a.advice && (
-                    <div className="mt-2 rounded-lg bg-white/[0.04] px-2.5 py-2 border-l-2 border-blue-500/30">
-                      <p className="text-[11px] text-white/50 leading-relaxed italic">"{a.advice}"</p>
-                    </div>
-                  )}
-                  {checkedIds.includes(a.id) && !a.advice && (
-                    <p className="text-[10px] text-amber/60 mt-1.5">⏳ Waiting for response…</p>
-                  )}
+      <AnimatePresence>
+        {vote === "object" && objStep > 0 && (
+          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-orange-500/25 bg-orange-500/[0.07] p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-1">
+              <Brain size={12} className="text-orange-400" />
+              <span className="text-[11px] font-medium text-orange-300">AI Objection Qualifier</span>
+              <span className="text-[10px] text-orange-400/50 ml-auto">Ensures objections identify real harm, not preference</span>
+            </div>
+            {objStep === 1 && (
+              <div>
+                <p className="text-[11px] text-white/60 mb-3">Does this cause direct harm to the community or individuals — or is it a personal preference?</p>
+                <div className="flex gap-2">
+                  <button onClick={() => setObjStep(2)} className="flex-1 rounded-lg border border-orange-500/25 bg-orange-500/10 py-1.5 text-[11px] text-orange-300 hover:bg-orange-500/20 transition-colors">Direct harm</button>
+                  <button onClick={() => setObjStep(3)} className="flex-1 rounded-lg border border-white/10 bg-white/[0.04] py-1.5 text-[11px] text-white/40 hover:bg-white/[0.07] transition-colors">Personal preference</button>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Decision button */}
-      {!readyToDecide ? (
-        <button
-          onClick={() => setReadyToDecide(true)}
-          disabled={checkedIds.length < 3}
-          className={`w-full rounded-xl px-4 py-3 text-sm font-medium transition-all flex items-center justify-center gap-2 ${
-            checkedIds.length >= 3
-              ? "bg-blue-500/20 border border-blue-500/30 text-blue-400 hover:bg-blue-500/30"
-              : "bg-white/[0.03] border border-white/[0.06] text-white/20 cursor-not-allowed"
-          }`}
-        >
-          <HandWaving size={14} weight="fill" />
-          {checkedIds.length < 3 ? `Consult ${3 - checkedIds.length} more before deciding` : "I've received enough advice — proceed with decision"}
-        </button>
-      ) : (
-        <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] px-4 py-3 flex items-start gap-3">
-          <CheckCircle size={16} weight="fill" className="text-emerald-400 shrink-0 mt-0.5" />
-          <div className="flex-1">
-            <p className="text-xs font-medium text-emerald-400">Decision logged</p>
-            <p className="text-[10px] text-white/40 mt-0.5">Your decision has been recorded with the advice you received. It will appear in the community log. Affected parties have been notified.</p>
-          </div>
-          <button onClick={() => setReadyToDecide(false)} className="text-[10px] text-white/30 hover:text-white/50 shrink-0">Reset</button>
-        </div>
-      )}
+            )}
+            {objStep === 2 && (
+              <div>
+                <p className="text-[11px] text-white/60 mb-3">Which members or domains are specifically affected, and have you spoken with them?</p>
+                <textarea className="w-full rounded-lg border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-[11px] text-white/60 placeholder:text-white/20 outline-none resize-none" rows={2} placeholder="Describe who is affected and your prior consultation..." />
+                <button onClick={() => setObjStep(4)} className="mt-2 w-full rounded-lg border border-orange-500/30 bg-orange-500/15 py-1.5 text-[11px] font-medium text-orange-300 hover:bg-orange-500/25 transition-colors">Submit Paramount Objection</button>
+              </div>
+            )}
+            {objStep === 3 && (
+              <div className="rounded-lg border border-amber/20 bg-amber/[0.07] px-3 py-2.5">
+                <p className="text-[11px] text-amber/80 leading-relaxed">This sounds like a preference rather than a paramount objection. Consider leaving a comment on the proposal instead — objections are reserved for harms that prevent the community from moving forward safely.</p>
+                <button onClick={() => { setVote(null); setObjStep(0); }} className="mt-2 text-[10px] text-white/30 hover:text-white/50 transition-colors">Go back</button>
+              </div>
+            )}
+            {objStep === 4 && (
+              <div className="rounded-lg border border-orange-500/25 bg-orange-500/10 px-3 py-2.5">
+                <p className="text-[11px] text-orange-300 font-medium mb-1">Paramount objection filed.</p>
+                <p className="text-[10px] text-white/40">This proposal enters an Integration Round. AI will help both parties find an amendment that resolves the harm.</p>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
-/* ── Lazy Consensus tab ───────────────────────────────────────────── */
-
-function LazyTab() {
-  const [userAction, setUserAction] = useState<"silence" | "consent" | "concern" | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-
-  const lazyProposals = [
-    {
-      title: "Move Tuesday farm team meeting to 7:00 AM",
-      proposer: "Elena V.",
-      posted: "Apr 11",
-      expiresIn: "38h 14m",
-      expiresPct: 47,
-      seen: 18,
-      total: 28,
-      explicitConsents: 6,
-      concerns: 0,
-      risk: "Low",
-    },
-    {
-      title: "Add 'No phones at the dinner table' to guest guidelines",
-      proposer: "Yuki T.",
-      posted: "Apr 12",
-      expiresIn: "61h 02m",
-      expiresPct: 15,
-      seen: 9,
-      total: 28,
-      explicitConsents: 2,
-      concerns: 1,
-      risk: "Low",
-    },
-  ];
-
-  const p = lazyProposals[0];
+function AdviceDemo() {
+  const [step, setStep] = useState(1);
+  const [decisionText, setDecisionText] = useState("");
+  const [saved, setSaved] = useState(false);
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-blue-500/15 bg-blue-500/[0.04] px-4 py-3">
-        <p className="text-xs text-blue-400/80 leading-relaxed">
-          <span className="font-medium text-blue-400">How it works:</span> Low-stakes decisions are posted for <span className="font-medium text-blue-300">72 hours</span>. Silence means consent. Anyone can explicitly consent or raise a concern to pause the proposal. Perfect for operational changes that don't need a full vote.
-        </p>
-      </div>
-
-      {/* Active lazy proposals */}
-      <div className="space-y-3">
-        {lazyProposals.map((lp, idx) => (
-          <div key={idx} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
-            <div className="flex items-start justify-between gap-2 mb-2">
-              <div>
-                <p className="text-sm font-medium text-white/80 leading-snug">{lp.title}</p>
-                <p className="text-[10px] text-white/30 mt-0.5">Proposed by {lp.proposer} · Posted {lp.posted}</p>
-              </div>
-              <span className="shrink-0 rounded-full bg-amber/15 px-2 py-0.5 text-[10px] font-medium text-amber whitespace-nowrap">
-                ⏱ {lp.expiresIn}
-              </span>
-            </div>
-
-            {/* Timer bar */}
-            <div className="mb-3">
-              <div className="flex justify-between text-[10px] text-white/25 mb-1">
-                <span>Time elapsed</span>
-                <span>{lp.expiresPct}% of 72h</span>
-              </div>
-              <div className="h-1.5 rounded-full bg-white/[0.06]">
-                <div className="h-full rounded-full bg-amber/50" style={{ width: `${lp.expiresPct}%` }} />
-              </div>
-            </div>
-
-            {/* Engagement */}
-            <div className="flex items-center gap-4 text-[10px] flex-wrap">
-              <span className="flex items-center gap-1 text-white/40"><Eye size={10} /> {lp.seen}/{lp.total} viewed</span>
-              <span className="flex items-center gap-1 text-emerald-400"><Check size={10} weight="bold" /> {lp.explicitConsents} explicit consents</span>
-              {lp.concerns > 0 ? (
-                <span className="flex items-center gap-1 text-amber"><Warning size={10} weight="fill" /> {lp.concerns} concern raised</span>
-              ) : (
-                <span className="flex items-center gap-1 text-white/25"><Minus size={10} weight="bold" /> No concerns</span>
-              )}
-              <span className={`rounded-full px-2 py-0.5 font-medium ${lp.risk === "Low" ? "bg-emerald-500/15 text-emerald-400" : "bg-amber/15 text-amber"}`}>{lp.risk} risk</span>
-            </div>
+      <div className="flex items-center gap-2 mb-1">
+        {[1, 2, 3].map((s) => (
+          <div key={s} className="flex items-center gap-1">
+            <div className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-semibold transition-colors ${step >= s ? "bg-blue-500/30 text-blue-300" : "bg-white/[0.06] text-white/30"}`}>{s}</div>
+            {s < 3 && <div className={`h-px w-8 transition-colors ${step > s ? "bg-blue-500/40" : "bg-white/[0.06]"}`} />}
           </div>
         ))}
+        <span className="ml-2 text-[10px] text-white/30">
+          {step === 1 ? "Identify who to consult" : step === 2 ? "Gather advice" : "Record your decision"}
+        </span>
       </div>
 
-      {/* Your response to first proposal */}
-      {!submitted ? (
-        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
-          <p className="text-[10px] font-medium uppercase tracking-wider text-white/30 mb-3">
-            Your response to: "{p.title}"
-          </p>
-          <div className="grid grid-cols-3 gap-2 mb-3">
-            <button
-              onClick={() => setUserAction("silence")}
-              className={`rounded-xl px-3 py-2.5 text-xs font-medium border transition-all flex flex-col items-center gap-1 ${
-                userAction === "silence" ? "bg-white/10 border-white/25 text-white/80" : "bg-white/[0.03] border-white/[0.06] text-white/40 hover:border-white/15"
-              }`}
-            >
-              <Minus size={14} weight="bold" />
-              <span>Stay silent</span>
-              <span className="text-[9px] opacity-60">= consent</span>
+      <div className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-3">
+        <p className="text-[11px] font-medium text-white/70 mb-0.5">Decision: Purchase a new composting system</p>
+        <p className="text-[10px] text-white/30">Maker: Marcus C. · Budget: $3,200 · Affects: Farm, Waste, Operations</p>
+      </div>
+
+      <AnimatePresence mode="wait">
+        {step === 1 && (
+          <motion.div key="s1" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+            <div className="flex items-center gap-1.5 mb-2">
+              <Sparkle size={11} className="text-blue-400" />
+              <span className="text-[10px] text-blue-300">AI identified 3 people you should consult</span>
+            </div>
+            <div className="space-y-2">
+              {adviceConsultees.map((c) => (
+                <div key={c.name} className="flex items-center gap-3 rounded-lg border border-white/[0.06] bg-white/[0.03] p-2.5">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-[10px] font-semibold text-blue-300">{c.avatar}</div>
+                  <div className="flex-1">
+                    <p className="text-[11px] font-medium text-white/70">{c.name}</p>
+                    <p className="text-[10px] text-white/30">{c.role}</p>
+                  </div>
+                  <BellRinging size={13} className="text-blue-400/60 shrink-0" />
+                </div>
+              ))}
+            </div>
+            <button onClick={() => setStep(2)} className="mt-3 w-full rounded-lg border border-blue-500/25 bg-blue-500/10 py-2 text-[11px] font-medium text-blue-300 hover:bg-blue-500/20 transition-colors">
+              Notify Consultees
             </button>
-            <button
-              onClick={() => setUserAction("consent")}
-              className={`rounded-xl px-3 py-2.5 text-xs font-medium border transition-all flex flex-col items-center gap-1 ${
-                userAction === "consent" ? "bg-emerald-500/20 border-emerald-500/35 text-emerald-400" : "bg-white/[0.03] border-white/[0.06] text-white/40 hover:border-emerald-500/20"
-              }`}
-            >
-              <CheckCircle size={14} weight={userAction === "consent" ? "fill" : "regular"} />
-              <span>Explicitly consent</span>
-              <span className="text-[9px] opacity-60">speeds it up</span>
+          </motion.div>
+        )}
+        {step === 2 && (
+          <motion.div key="s2" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-2">
+            {adviceConsultees.map((c) => (
+              <div key={c.name} className={`rounded-xl border p-3 ${c.status === "Responded" ? "border-blue-500/20 bg-blue-500/[0.05]" : "border-white/[0.06] bg-white/[0.03]"}`}>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-[9px] font-semibold text-blue-300">{c.avatar}</div>
+                  <span className="text-[11px] font-medium text-white/70">{c.name}</span>
+                  <span className="text-[10px] text-white/25">· {c.role}</span>
+                  <span className={`ml-auto rounded-full px-2 py-0.5 text-[9px] font-medium ${c.status === "Responded" ? "bg-blue-500/15 text-blue-400" : "bg-white/10 text-white/30"}`}>{c.status}</span>
+                </div>
+                {c.advice
+                  ? <p className="text-[11px] text-white/50 leading-relaxed pl-8">{c.advice}</p>
+                  : <p className="text-[11px] text-white/25 italic pl-8">Awaiting response...</p>
+                }
+              </div>
+            ))}
+            <button onClick={() => setStep(3)} className="w-full rounded-lg border border-blue-500/25 bg-blue-500/10 py-2 text-[11px] font-medium text-blue-300 hover:bg-blue-500/20 transition-colors">
+              I have considered all advice
             </button>
-            <button
-              onClick={() => setUserAction("concern")}
-              className={`rounded-xl px-3 py-2.5 text-xs font-medium border transition-all flex flex-col items-center gap-1 ${
-                userAction === "concern" ? "bg-amber/15 border-amber/30 text-amber" : "bg-white/[0.03] border-white/[0.06] text-white/40 hover:border-amber/20"
-              }`}
-            >
-              <Question size={14} weight={userAction === "concern" ? "fill" : "regular"} />
-              <span>Raise concern</span>
-              <span className="text-[9px] opacity-60">pauses timer</span>
-            </button>
-          </div>
-          {userAction === "concern" && (
-            <textarea
-              placeholder="What's your concern? This will pause the proposal and open a short discussion thread."
-              className="w-full rounded-xl border border-amber/20 bg-amber/[0.04] px-3 py-2 text-xs text-white/60 placeholder:text-white/20 outline-none resize-none mb-3"
-              rows={2}
-            />
-          )}
-          {userAction && (
-            <button
-              onClick={() => setSubmitted(true)}
-              className="flex items-center gap-1.5 rounded-xl bg-amber/15 border border-amber/25 px-4 py-2 text-xs font-medium text-amber hover:bg-amber/25 transition-colors"
-            >
-              <PaperPlaneTilt size={12} weight="fill" />
-              {userAction === "silence" ? "Do nothing — let time pass" : userAction === "concern" ? "Submit concern" : "Record my explicit consent"}
-            </button>
-          )}
-        </div>
-      ) : (
-        <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] px-4 py-3 flex items-start gap-3">
-          <CheckCircle size={16} weight="fill" className="text-emerald-400 shrink-0 mt-0.5" />
-          <div className="flex-1">
-            <p className="text-xs font-medium text-emerald-400">Response recorded</p>
-            <p className="text-[10px] text-white/40 mt-0.5">
-              {userAction === "silence" && "Noted. If no concerns are raised before the timer expires, the proposal passes automatically."}
-              {userAction === "consent" && "Explicit consent recorded. This helps the proposal pass faster if enough members respond early."}
-              {userAction === "concern" && "Concern submitted. The 72-hour timer is paused. Elena V. will be notified and can address your concern or request a fuller discussion."}
-            </p>
-          </div>
-          <button onClick={() => { setUserAction(null); setSubmitted(false); }} className="text-[10px] text-white/30 hover:text-white/50 shrink-0">Reset</button>
-        </div>
-      )}
+          </motion.div>
+        )}
+        {step === 3 && (
+          <motion.div key="s3" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+            {!saved ? (
+              <>
+                <p className="text-[11px] text-white/40 mb-2">Record your final decision. It will be logged with the advice thread and visible to all members.</p>
+                <textarea
+                  className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2.5 text-[11px] text-white/60 placeholder:text-white/20 outline-none resize-none focus:border-blue-500/40 transition-colors"
+                  rows={3}
+                  placeholder="I will purchase the Jora 400 composter for $3,100. Following Priya's model recommendation and James's budget confirmation..."
+                  value={decisionText}
+                  onChange={(e) => setDecisionText(e.target.value)}
+                />
+                <button onClick={() => setSaved(true)} className="mt-2 w-full flex items-center justify-center gap-1.5 rounded-lg border border-blue-500/30 bg-blue-500/15 py-2 text-[11px] font-medium text-blue-300 hover:bg-blue-500/25 transition-colors">
+                  <FloppyDisk size={12} weight="fill" /> Record Decision
+                </button>
+              </>
+            ) : (
+              <div className="rounded-xl border border-blue-500/25 bg-blue-500/[0.08] px-4 py-3">
+                <div className="flex items-center gap-2 mb-1">
+                  <CheckCircle size={13} weight="fill" className="text-blue-400" />
+                  <span className="text-[11px] font-medium text-blue-300">Decision recorded and logged</span>
+                </div>
+                <p className="text-[10px] text-white/35">Members can view the full advice thread and your decision in governance history. No vote needed.</p>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
-/* ── Page ─────────────────────────────────────────────────────────── */
+function LazyDemo() {
+  const [raised, setRaised] = useState<number[]>([]);
+
+  return (
+    <div className="space-y-3">
+      <p className="text-[11px] text-white/35 leading-relaxed mb-3">
+        These proposals are in silent review. Silence equals consent at the deadline. Raise a concern to pause and trigger a full consent round.
+      </p>
+      {lazyItems.map((p, i) => {
+        const pct = ((p.total - p.hoursLeft) / p.total) * 100;
+        const isRaised = raised.includes(i);
+        const isAlmostDone = p.hoursLeft <= 6;
+        return (
+          <div key={i} className={`rounded-xl border p-3.5 transition-colors ${isRaised ? "border-orange-500/25 bg-orange-500/[0.06]" : isAlmostDone ? "border-violet-500/25 bg-violet-500/[0.06]" : "border-white/[0.06] bg-white/[0.03]"}`}>
+            <div className="flex items-start justify-between gap-2 mb-1.5">
+              <p className="text-[11px] font-medium text-white/75 leading-snug">{p.title}</p>
+              {isAlmostDone && !isRaised && (
+                <span className="shrink-0 rounded-full px-2 py-0.5 text-[9px] bg-violet-500/20 text-violet-300 border border-violet-500/20">Closing soon</span>
+              )}
+              {isRaised && (
+                <span className="shrink-0 rounded-full px-2 py-0.5 text-[9px] bg-orange-500/20 text-orange-300 border border-orange-500/20">Paused</span>
+              )}
+            </div>
+            <p className="text-[10px] text-white/30 mb-2">by {p.proposer}</p>
+            <div className="h-1 rounded-full bg-white/[0.06] overflow-hidden mb-1.5">
+              <div className={`h-full rounded-full transition-all ${isRaised ? "bg-orange-500/50" : isAlmostDone ? "bg-violet-500/60" : "bg-violet-500/40"}`} style={{ width: `${pct}%` }} />
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] text-white/25">
+                {isRaised ? "Paused — entering consent round" : `${p.hoursLeft}h remaining · ${p.concerns} concern${p.concerns !== 1 ? "s" : ""}`}
+              </span>
+              {!isRaised && (
+                <button onClick={() => setRaised([...raised, i])} className="text-[10px] text-orange-400/70 hover:text-orange-400 transition-colors border border-orange-500/20 rounded-lg px-2 py-0.5 hover:bg-orange-500/10">
+                  Raise concern
+                </button>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function IntegrationRound({ proposal }: { proposal: typeof proposals[number] }) {
+  const [selected, setSelected] = useState<string | null>(null);
+  const [confirmed, setConfirmed] = useState(false);
+  if (!proposal.integration) return null;
+  const { integration } = proposal;
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="rounded-2xl border border-orange-500/25 bg-orange-500/[0.05] p-5">
+      <div className="flex items-center gap-2.5 mb-4">
+        <div className="rounded-xl bg-orange-500/15 p-2">
+          <GitMerge size={16} weight="fill" className="text-orange-400" />
+        </div>
+        <div>
+          <h2 className="text-sm font-medium text-white">Integration Round</h2>
+          <p className="text-[11px] text-white/35">An objection has been raised — AI is facilitating a resolution</p>
+        </div>
+        <span className="ml-auto rounded-full border border-orange-500/25 bg-orange-500/10 px-2.5 py-1 text-[10px] font-medium text-orange-300">Active</span>
+      </div>
+
+      <p className="text-xs font-medium text-white/60 mb-3">{proposal.title}</p>
+
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 mb-4">
+        <div className="rounded-xl border border-blue-500/15 bg-blue-500/[0.06] p-3">
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <div className="h-5 w-5 rounded-full bg-blue-500/20 flex items-center justify-center text-[9px] font-semibold text-blue-300">SL</div>
+            <span className="text-[10px] font-medium text-blue-300">Proposer Intent</span>
+          </div>
+          <p className="text-[11px] text-white/50 leading-relaxed">{integration.proposerIntent}</p>
+        </div>
+        <div className="rounded-xl border border-orange-500/15 bg-orange-500/[0.06] p-3">
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <div className="h-5 w-5 rounded-full bg-orange-500/20 flex items-center justify-center text-[9px] font-semibold text-orange-300">JW</div>
+            <span className="text-[10px] font-medium text-orange-300">Objector Concern · {integration.objector}</span>
+          </div>
+          <p className="text-[11px] text-white/50 leading-relaxed">{integration.objection}</p>
+        </div>
+      </div>
+
+      {!confirmed ? (
+        <>
+          <div className="flex items-center gap-1.5 mb-2.5">
+            <Sparkle size={11} weight="fill" className="text-violet-400" />
+            <span className="text-[11px] font-medium text-violet-300">3 AI-drafted amendments — select the one that resolves the concern</span>
+          </div>
+          <div className="space-y-2 mb-3">
+            {integration.amendments.map((a) => (
+              <button key={a.id} onClick={() => setSelected(a.id)} className={`w-full text-left rounded-xl border p-3 transition-all ${selected === a.id ? "border-violet-500/40 bg-violet-500/10" : "border-white/[0.06] bg-white/[0.03] hover:border-violet-500/20 hover:bg-violet-500/[0.04]"}`}>
+                <div className="flex items-start gap-2">
+                  <div className={`mt-0.5 h-3.5 w-3.5 rounded-full border shrink-0 flex items-center justify-center ${selected === a.id ? "border-violet-500 bg-violet-500" : "border-white/20"}`}>
+                    {selected === a.id && <Check size={8} weight="bold" className="text-white" />}
+                  </div>
+                  <p className="text-[11px] text-white/60 leading-relaxed">{a.text}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <button disabled={!selected} onClick={() => setConfirmed(true)} className="flex-1 rounded-xl border border-violet-500/30 bg-violet-500/15 py-2 text-[11px] font-medium text-violet-300 disabled:opacity-30 hover:bg-violet-500/25 transition-all">
+              Adopt Amendment
+            </button>
+            <button className="rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2 text-[11px] text-white/40 hover:bg-white/[0.07] transition-colors">
+              Request Mediation
+            </button>
+          </div>
+        </>
+      ) : (
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-violet-500/25 bg-violet-500/[0.08] px-4 py-3">
+          <div className="flex items-center gap-2 mb-1">
+            <CheckCircle size={13} weight="fill" className="text-violet-400" />
+            <span className="text-[11px] font-medium text-violet-300">Amendment adopted — proposal re-enters consent round</span>
+          </div>
+          <p className="text-[10px] text-white/35">James W. has been notified. If the objection is resolved, the proposal will pass in the next 24-hour window.</p>
+        </motion.div>
+      )}
+    </motion.div>
+  );
+}
+
+function AmendmentSuggester({ proposal }: { proposal: typeof proposals[number] }) {
+  const [open, setOpen] = useState(false);
+  const [adopted, setAdopted] = useState(false);
+  if (!proposal.amendmentSuggestion) return null;
+  const s = proposal.amendmentSuggestion;
+  const total = proposal.forVotes + proposal.against + proposal.abstain;
+  const againstPct = Math.round((proposal.against / total) * 100);
+
+  return (
+    <div className="rounded-xl border border-violet-500/15 bg-violet-500/[0.06] mt-3">
+      <button onClick={() => setOpen(!open)} className="w-full flex items-center gap-2 px-3 py-2 text-left">
+        <Sparkle size={10} weight="fill" className="text-violet-400 shrink-0" />
+        <span className="text-[10px] font-medium text-violet-300 flex-1">
+          {adopted ? "Amendment adopted" : `${againstPct}% against — AI has a suggested amendment`}
+        </span>
+        <CaretRight size={10} className={`text-violet-400/50 transition-transform ${open ? "rotate-90" : ""}`} />
+      </button>
+      <AnimatePresence>
+        {open && !adopted && (
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+            <div className="px-3 pb-3 space-y-2">
+              <p className="text-[10px] text-white/35">Against votes cluster around <span className="text-white/50">{s.cluster}</span>. Suggested amendment:</p>
+              <div className="rounded-lg border border-violet-500/15 bg-violet-500/[0.08] p-2.5">
+                <p className="text-[11px] text-white/55 leading-relaxed">{s.draft}</p>
+              </div>
+              <div className="flex gap-2">
+                <button onClick={() => { setAdopted(true); setOpen(false); }} className="flex-1 rounded-lg border border-violet-500/25 bg-violet-500/10 py-1.5 text-[10px] font-medium text-violet-300 hover:bg-violet-500/20 transition-colors">
+                  Adopt and Re-submit
+                </button>
+                <button onClick={() => setOpen(false)} className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-[10px] text-white/30 hover:bg-white/[0.06] transition-colors">
+                  Dismiss
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+        {open && adopted && (
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+            <div className="px-3 pb-3">
+              <p className="text-[10px] text-violet-300/70">Amendment queued for re-submission. Affected members will be notified.</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function GovernancePage() {
-  const [activeToolTab, setActiveToolTab] = useState("consent");
+  const [activeTab, setActiveTab] = useState(0);
+  const integrationProposal = proposals.find((p) => p.status === "Integration Round")!;
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div>
         <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Governance &amp; <span className="italic">Resolution</span>
+          Governance and <span className="italic">Resolution</span>
         </h1>
-        <p className="mt-2 text-sm text-white/40">
-          Proposals, voting, disputes, and community agreements
-        </p>
+        <p className="mt-2 text-sm text-white/40">Proposals, voting, disputes, and community agreements</p>
       </div>
 
-      {/* Stats row */}
       <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
         {stats.map((s) => (
           <motion.div key={s.label} variants={fadeUp} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
             <div className="flex items-start justify-between mb-3">
               <span className="text-xs text-white/40">{s.label}</span>
-              <div className="rounded-lg bg-amber/10 p-1.5">
-                <s.icon size={14} weight="fill" className="text-amber" />
-              </div>
+              <div className="rounded-lg bg-amber/10 p-1.5"><s.icon size={14} weight="fill" className="text-amber" /></div>
             </div>
             <div className="text-xl font-semibold text-white lg:text-2xl">{s.value}</div>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* Governance Toolkit + AI Assistant */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-        className="grid grid-cols-1 gap-4 lg:grid-cols-5 xl:gap-6"
-      >
-        {/* Governance Toolkit — 3 cols */}
-        <div className="lg:col-span-3">
-          <div className="flex items-center gap-2 mb-3">
-            <Brain size={14} weight="fill" className="text-white/40" />
-            <h2 className="text-sm font-medium text-white">Governance Toolkit</h2>
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
+        <div className="flex items-center gap-1 px-5 pt-4 pb-0 border-b border-white/[0.06] overflow-x-auto">
+          <div className="flex items-center gap-1.5 mr-3 shrink-0">
+            <Brain size={13} weight="fill" className="text-white/35" />
+            <span className="text-xs font-medium text-white/50">Governance Toolkit</span>
           </div>
-
-          {/* Tab selector */}
-          <div className="flex gap-1 mb-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-1">
-            {toolkitTabs.map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeToolTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveToolTab(tab.id)}
-                  className={`flex-1 flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-xs font-medium transition-all ${
-                    isActive
-                      ? "bg-white/[0.08] text-white shadow-sm"
-                      : "text-white/40 hover:text-white/60"
-                  }`}
-                >
-                  <Icon size={13} weight={isActive ? "fill" : "regular"} />
-                  <span className="hidden sm:inline truncate">{tab.label.split(" ")[0]}{tab.label.split(" ").length > 2 ? "…" : " " + tab.label.split(" ").slice(1).join(" ")}</span>
-                  {isActive && tab.id === "consent" && (
-                    <span className="hidden lg:inline rounded-full bg-emerald-500/20 px-1.5 py-0.5 text-[9px] text-emerald-400 ml-0.5">Active</span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Tab content */}
+          {toolkitTabs.map((tab, i) => {
+            const isActive = activeTab === i;
+            return (
+              <button key={tab.key} onClick={() => setActiveTab(i)}
+                className={`relative flex items-center gap-2 px-3 py-2.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${isActive ? "text-white" : "text-white/40 hover:text-white/60"}`}>
+                <tab.icon size={13} weight={isActive ? "fill" : "regular"} />
+                {tab.label}
+                <span className={`rounded-full px-1.5 py-0.5 text-[9px] font-medium ${tab.badgeStyle}`}>{tab.badge}</span>
+                {isActive && (
+                  <motion.div layoutId="toolkit-tab-underline" className="absolute bottom-0 left-0 right-0 h-[2px] bg-amber rounded-full" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
+                )}
+              </button>
+            );
+          })}
+        </div>
+        <div className="p-5">
+          <p className="text-xs text-white/40 leading-relaxed mb-4 max-w-2xl">{toolkitTabs[activeTab].desc}</p>
           <AnimatePresence mode="wait">
-            <motion.div
-              key={activeToolTab}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
-            >
-              {activeToolTab === "consent" && <ConsentTab />}
-              {activeToolTab === "advice" && <AdviceTab />}
-              {activeToolTab === "lazy" && <LazyTab />}
+            <motion.div key={activeTab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
+              {activeTab === 0 && <ConsentDemo />}
+              {activeTab === 1 && <AdviceDemo />}
+              {activeTab === 2 && <LazyDemo />}
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {/* AI Governance Assistant — 2 cols */}
-        <div className="lg:col-span-2 rounded-2xl border border-white/[0.06] bg-[#0a0812] flex flex-col overflow-hidden" style={{ minHeight: 340 }}>
-          <div className="flex items-center gap-2.5 px-4 py-3 border-b border-white/[0.06]">
-            <div className="rounded-lg bg-violet-500/20 p-1.5">
-              <Robot size={13} weight="fill" className="text-violet-400" />
-            </div>
-            <span className="text-xs font-medium text-white/70">AI Governance Assistant</span>
-            <span className="ml-auto flex items-center gap-1 text-[10px] text-emerald-400">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" /> Online
-            </span>
-          </div>
-          <div className="px-4 pt-3 pb-2 flex flex-wrap gap-1.5">
-            {aiSuggestedPrompts.map((prompt) => (
-              <button key={prompt} className="rounded-full border border-violet-500/25 bg-violet-500/10 px-2.5 py-1 text-[10px] text-violet-300 hover:bg-violet-500/20 transition-colors cursor-pointer">
-                {prompt}
-              </button>
-            ))}
-          </div>
-          <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3">
-            {aiMessages.map((msg, i) =>
-              msg.role === "user" ? (
-                <div key={i} className="flex justify-end">
-                  <div className="rounded-2xl rounded-tr-sm bg-violet-500/20 border border-violet-500/20 px-3 py-2 max-w-[85%]">
-                    <p className="text-[11px] text-violet-200 leading-relaxed">{msg.text}</p>
-                  </div>
-                </div>
-              ) : (
-                <div key={i} className="flex items-start gap-2">
-                  <div className="shrink-0 mt-0.5 rounded-full bg-violet-500/20 p-1">
-                    <Robot size={10} weight="fill" className="text-violet-400" />
-                  </div>
-                  <div className="rounded-2xl rounded-tl-sm bg-white/[0.06] border border-white/[0.06] px-3 py-2 max-w-[90%]">
-                    <p className="text-[11px] text-white/60 leading-relaxed">{msg.text}</p>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
-          <div className="px-4 py-3 border-t border-white/[0.06]">
-            <div className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2">
-              <input type="text" placeholder="Ask about proposals, trends, or conflicts…" className="flex-1 bg-transparent text-[11px] text-white/50 placeholder:text-white/20 outline-none" readOnly />
-              <button className="shrink-0 rounded-lg bg-violet-500/20 p-1.5 text-violet-400">
-                <ArrowRight size={11} weight="bold" />
-              </button>
-            </div>
-          </div>
-        </div>
       </motion.div>
 
-      {/* Active Proposals */}
+      <IntegrationRound proposal={integrationProposal} />
+
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.25 }}>
         <h2 className="text-sm font-medium text-white mb-4">Active Proposals</h2>
         <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {proposals.map((p) => {
+          {proposals.filter((p) => p.status !== "Integration Round").map((p) => {
             const total = p.forVotes + p.against + p.abstain;
             const forPct = Math.round((p.forVotes / total) * 100);
             const againstPct = Math.round((p.against / total) * 100);
@@ -788,34 +670,36 @@ export default function GovernancePage() {
                     <span className="text-[10px] text-white/35 leading-relaxed">{p.aiAnalysis.insight}</span>
                   </div>
                 </div>
+                <AmendmentSuggester proposal={p} />
               </motion.div>
             );
           })}
         </motion.div>
       </motion.div>
 
-      {/* Proposal History */}
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.35 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
-        <h2 className="text-sm font-medium text-white mb-4">Proposal History</h2>
-        <div className="overflow-x-auto">
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.35 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
+        <div className="px-5 py-3.5 border-b border-white/[0.06]">
+          <h2 className="text-sm font-medium text-white">Proposal History</h2>
+        </div>
+        <div className="overflow-x-auto max-h-[380px] overflow-y-auto">
           <table className="w-full min-w-[640px]">
-            <thead>
-              <tr className="text-xs uppercase text-white/30 border-b border-white/[0.06]">
-                <th className="py-2.5 text-left font-medium">Title</th>
-                <th className="py-2.5 text-left font-medium">Outcome</th>
-                <th className="py-2.5 text-left font-medium">Date</th>
-                <th className="py-2.5 text-right font-medium">Participation</th>
-                <th className="py-2.5 text-right font-medium">Margin</th>
+            <thead className="sticky top-0 z-10">
+              <tr className="bg-[#1a1725]">
+                <th className="px-5 py-3 text-left text-[10px] font-medium uppercase tracking-wider text-white/30">Title</th>
+                <th className="px-5 py-3 text-left text-[10px] font-medium uppercase tracking-wider text-white/30">Outcome</th>
+                <th className="px-5 py-3 text-left text-[10px] font-medium uppercase tracking-wider text-white/30">Date</th>
+                <th className="px-5 py-3 text-right text-[10px] font-medium uppercase tracking-wider text-white/30">Participation</th>
+                <th className="px-5 py-3 text-right text-[10px] font-medium uppercase tracking-wider text-white/30">Margin</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-white/[0.04]">
               {proposalHistory.map((h, i) => (
-                <tr key={i} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors">
-                  <td className="py-2.5 text-xs text-white/70">{h.title}</td>
-                  <td className="py-2.5"><span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${outcomeBadge[h.outcome]}`}>{h.outcome}</span></td>
-                  <td className="py-2.5 text-xs text-white/40">{h.date}</td>
-                  <td className="py-2.5 text-xs text-white/50 text-right">{h.participation}%</td>
-                  <td className="py-2.5 text-xs text-right">
+                <tr key={i} className="hover:bg-white/[0.02] transition-colors">
+                  <td className="px-5 py-3 text-xs text-white/70">{h.title}</td>
+                  <td className="px-5 py-3"><span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${outcomeBadge[h.outcome]}`}>{h.outcome}</span></td>
+                  <td className="px-5 py-3 text-xs text-white/40">{h.date}</td>
+                  <td className="px-5 py-3 text-xs text-white/50 text-right">{h.participation}%</td>
+                  <td className="px-5 py-3 text-xs text-right">
                     <span className={h.margin.startsWith("+") ? "text-emerald-400" : h.margin.startsWith("-") ? "text-red-400" : "text-white/30"}>{h.margin}</span>
                   </td>
                 </tr>
@@ -825,7 +709,6 @@ export default function GovernancePage() {
         </div>
       </motion.div>
 
-      {/* Dispute Resolution + Community Agreements */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:gap-6">
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
           <h2 className="text-sm font-medium text-white mb-4">Dispute Resolution</h2>
@@ -850,14 +733,14 @@ export default function GovernancePage() {
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.45 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
-          <div className="flex items-center justify-between mb-4">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.45 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
+          <div className="px-5 py-3.5 border-b border-white/[0.06] flex items-center justify-between">
             <h2 className="text-sm font-medium text-white">Community Agreements</h2>
             <span className="text-xs text-white/30">{agreements.length} ratified</span>
           </div>
-          <div className="space-y-0">
+          <div className="max-h-[440px] overflow-y-auto divide-y divide-white/[0.04]">
             {agreements.map((a, i) => (
-              <div key={i} className="flex items-center gap-3 py-2.5 border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02] transition-colors px-1">
+              <div key={i} className="flex items-center gap-3 py-2.5 px-5 hover:bg-white/[0.02] transition-colors">
                 <span className={`shrink-0 rounded-full px-2 py-0.5 text-[9px] font-medium ${agreementCatBadge[a.category]}`}>{a.category}</span>
                 <span className="flex-1 text-xs text-white/70 truncate">{a.title}</span>
                 <div className="shrink-0 text-right">
@@ -870,7 +753,6 @@ export default function GovernancePage() {
         </motion.div>
       </div>
 
-      {/* Governance Stats */}
       <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
         {govMetrics.map((m) => (
           <motion.div key={m.label} variants={fadeUp} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 text-center">
