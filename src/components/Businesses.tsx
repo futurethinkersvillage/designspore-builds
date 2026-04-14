@@ -54,15 +54,15 @@ export default function Businesses() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="group flex items-start gap-5 rounded-lg border border-neutral-800 p-6 transition-colors hover:border-amber-600/40 hover:bg-neutral-900/50"
+            className="group flex items-center gap-6 rounded-lg border border-neutral-800 p-6 transition-colors hover:border-amber-600/40 hover:bg-neutral-900/50"
           >
-            <div className="flex h-10 w-20 shrink-0 items-center">
+            <div className="flex w-36 shrink-0 items-center justify-center">
               <Image
                 src={biz.logo}
                 alt={biz.name}
-                width={80}
-                height={40}
-                className="max-h-10 w-auto object-contain opacity-70 transition-opacity group-hover:opacity-100"
+                width={144}
+                height={64}
+                className="max-h-16 w-auto object-contain opacity-70 transition-opacity group-hover:opacity-100"
               />
             </div>
             <div>
