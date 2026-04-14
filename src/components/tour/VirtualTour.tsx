@@ -85,8 +85,8 @@ export default function VirtualTour({
       const viewer = new Viewer({
         container: containerRef.current!,
         panorama: startScene.image,
-        defaultYaw: startScene.initialYaw ? `${startScene.initialYaw}deg` : undefined,
-        defaultPitch: startScene.initialPitch ? `${startScene.initialPitch}deg` : undefined,
+        ...(startScene.initialYaw !== undefined && { defaultYaw: `${startScene.initialYaw}deg` }),
+        ...(startScene.initialPitch !== undefined && { defaultPitch: `${startScene.initialPitch}deg` }),
         defaultZoomLvl: 50,
         navbar: ["autorotate", "zoom", "caption", "fullscreen"],
         plugins: [
