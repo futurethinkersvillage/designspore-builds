@@ -7,6 +7,9 @@ import { ChatWidget } from "@/components/ui/ChatWidget";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { headers } from "next/headers";
 import "./globals.css";
+import "@photo-sphere-viewer/core/index.css";
+import "@photo-sphere-viewer/virtual-tour-plugin/index.css";
+import "@photo-sphere-viewer/markers-plugin/index.css";
 
 const geist = Geist({
   variable: "--font-geist-sans",
