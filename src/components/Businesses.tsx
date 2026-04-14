@@ -54,21 +54,23 @@ export default function Businesses() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="group flex flex-col rounded-lg border border-neutral-800 p-6 transition-colors hover:border-amber-600/40 hover:bg-neutral-900/50"
+            className="group flex items-start gap-5 rounded-lg border border-neutral-800 p-6 transition-colors hover:border-amber-600/40 hover:bg-neutral-900/50"
           >
-            <div className="mb-4 flex h-10 items-center">
+            <div className="flex h-10 w-20 shrink-0 items-center">
               <Image
                 src={biz.logo}
                 alt={biz.name}
-                width={160}
+                width={80}
                 height={40}
                 className="max-h-10 w-auto object-contain opacity-70 transition-opacity group-hover:opacity-100"
               />
             </div>
-            <p className="text-sm text-neutral-400">{biz.description}</p>
-            <p className="mt-3 font-mono text-xs text-neutral-600 group-hover:text-neutral-400 transition-colors">
-              {biz.url.replace("https://", "")} &rarr;
-            </p>
+            <div>
+              <p className="text-sm text-neutral-400">{biz.description}</p>
+              <p className="mt-3 font-mono text-xs text-neutral-600 group-hover:text-neutral-400 transition-colors">
+                {biz.url.replace("https://", "")} &rarr;
+              </p>
+            </div>
           </motion.a>
         ))}
       </div>
