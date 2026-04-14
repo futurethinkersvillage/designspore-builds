@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Scales, FileText, ChartBar,
-  CheckCircle, XCircle, Minus, Clock,
+  CheckCircle, XCircle, X, Minus, Clock,
   ShieldCheck, Users, Gavel, ThumbsUp,
   Sparkle, Brain, ChatsCircle,
   Warning, CaretRight, Hourglass,
@@ -753,60 +753,59 @@ function MyGovernanceView() {
   const [showValueEditor, setShowValueEditor] = useState(false);
 
   return (
-    <div className="space-y-6">
-      {/* Participation Score + Value Profile */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {/* Score */}
-        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 flex flex-col items-center text-center">
-          <p className="text-xs text-white/40 mb-3">Participation Integrity</p>
-          <div className="relative flex items-center justify-center mb-3">
-            <svg width="88" height="88" viewBox="0 0 88 88">
-              <circle cx="44" cy="44" r="36" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="7" />
+    <div className="space-y-4">
+      {/* Compact Score + Value Profile row */}
+      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4 flex items-center gap-5">
+        {/* Score ring */}
+        <div className="shrink-0 flex flex-col items-center gap-1.5">
+          <p className="text-[10px] text-white/35">Integrity</p>
+          <div className="relative flex items-center justify-center">
+            <svg width="64" height="64" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="5" />
               <circle
-                cx="44" cy="44" r="36" fill="none" stroke="rgb(234,130,78)" strokeWidth="7"
-                strokeDasharray={`${(76 / 100) * 226.2} 226.2`}
+                cx="32" cy="32" r="26" fill="none" stroke="rgb(234,130,78)" strokeWidth="5"
+                strokeDasharray={`${(76 / 100) * 163.4} 163.4`}
                 strokeLinecap="round"
-                transform="rotate(-90 44 44)"
+                transform="rotate(-90 32 32)"
               />
             </svg>
             <div className="absolute text-center">
-              <div className="text-2xl font-bold text-white">76</div>
-              <div className="text-[9px] text-white/30">/100</div>
+              <div className="text-lg font-bold text-white leading-none">76</div>
+              <div className="text-[8px] text-white/30">/100</div>
             </div>
           </div>
-          <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] text-emerald-400 mb-2">+4 this month</span>
-          <p className="text-[10px] text-white/25 leading-relaxed">Engagement quality, amendment accuracy, objection relevance</p>
+          <span className="rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[9px] text-emerald-400">+4 this mo</span>
         </div>
 
         {/* Value Profile */}
-        <div className="md:col-span-2 rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
-          <div className="flex items-center justify-between mb-4">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between mb-2.5">
             <div>
-              <h3 className="text-sm font-medium text-white">My Value Profile</h3>
-              <p className="text-[11px] text-white/35 mt-0.5">How your AI delegate votes on your behalf</p>
+              <p className="text-xs font-medium text-white/70">My Value Profile</p>
+              <p className="text-[10px] text-white/30 mt-0.5">Guides your AI delegate</p>
             </div>
             <button
               onClick={() => setShowValueEditor(!showValueEditor)}
-              className="text-[10px] text-amber/70 hover:text-amber transition-colors border border-amber/20 rounded-lg px-2.5 py-1 hover:bg-amber/[0.06]"
+              className="text-[10px] text-amber/70 hover:text-amber transition-colors border border-amber/20 rounded-lg px-2 py-0.5 hover:bg-amber/[0.06]"
             >
-              {showValueEditor ? "Done" : "Edit Values"}
+              {showValueEditor ? "Done" : "Edit"}
             </button>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-1.5">
             {myValueProfile.map((v) => (
               <div key={v.label}>
-                <div className="flex justify-between text-[10px] mb-1">
-                  <span className="text-white/50">{v.label}</span>
-                  <span className="text-white/35">{v.score}%</span>
+                <div className="flex justify-between text-[10px] mb-0.5">
+                  <span className="text-white/40">{v.label}</span>
+                  <span className="text-white/25">{v.score}%</span>
                 </div>
                 {showValueEditor ? (
                   <input
                     type="range" min={0} max={100} defaultValue={v.score}
-                    className="w-full h-1.5 rounded-full cursor-pointer"
+                    className="w-full h-1 rounded-full cursor-pointer"
                     style={{ accentColor: "#EA824E" }}
                   />
                 ) : (
-                  <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                  <div className="h-1 rounded-full bg-white/[0.06] overflow-hidden">
                     <div className="h-full rounded-full bg-amber/60" style={{ width: `${v.score}%` }} />
                   </div>
                 )}
@@ -818,41 +817,15 @@ function MyGovernanceView() {
 
       {/* Pending Votes */}
       <div>
-        <div className="flex items-center gap-2 mb-4">
+        <div className="flex items-center gap-2 mb-3">
           <h2 className="text-sm font-medium text-white">Proposals Needing Your Vote</h2>
           <span className="rounded-full bg-amber/10 px-2 py-0.5 text-[10px] text-amber border border-amber/20">{myPendingProposals.length}</span>
         </div>
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="space-y-4">
+        <motion.div variants={stagger} initial="hidden" animate="visible" className="space-y-3">
           {myPendingProposals.map((p) => (
             <AIDelegate key={p.title} p={p} />
           ))}
         </motion.div>
-      </div>
-
-      {/* Community Constitution */}
-      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
-        <h3 className="text-sm font-medium text-white mb-1">Community Constitution</h3>
-        <p className="text-xs text-white/35 mb-4">Ratified values that guide all decisions. AI delegate votes are filtered through these principles.</p>
-        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            { title: "Land Stewardship First", desc: "Environmental impact considered in all land-affecting decisions.", category: "Environment" },
-            { title: "Transparency by Default", desc: "Finances, decisions, and conflicts are visible to all active members.", category: "Governance" },
-            { title: "Minimum Viable Governance", desc: "Use the simplest process that resolves the issue. Avoid bureaucracy.", category: "Process" },
-            { title: "Consent Over Consensus", desc: "Proposals pass unless someone identifies a specific harm — not just disagreement.", category: "Process" },
-            { title: "Regenerative Economics", desc: "Revenue models must support ecological and social regeneration.", category: "Economy" },
-            { title: "Radical Welcome", desc: "The community actively removes barriers to participation for all members.", category: "Community" },
-          ].map((pr) => (
-            <div key={pr.title} className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-3">
-              <div className="flex items-start gap-2">
-                <ShieldCheck size={11} className="text-amber/60 mt-0.5 shrink-0" />
-                <div>
-                  <p className="text-[11px] font-medium text-white/70">{pr.title}</p>
-                  <p className="text-[10px] text-white/30 mt-0.5 leading-relaxed">{pr.desc}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );
@@ -1120,15 +1093,66 @@ function TensionsBoard() {
   );
 }
 
+/* ── Integration Banner ────────────────────────────────────────────── */
+
+function IntegrationBanner({
+  proposal,
+  onView,
+  onDismiss,
+}: {
+  proposal: (typeof proposals)[number];
+  onView: () => void;
+  onDismiss: () => void;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.25 }}
+      className="flex items-center gap-3 rounded-xl border border-orange-500/30 bg-orange-500/[0.08] px-4 py-3"
+    >
+      <div className="rounded-lg bg-orange-500/15 p-1.5 shrink-0">
+        <GitMerge size={14} weight="fill" className="text-orange-400" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <span className="text-xs font-medium text-orange-300">Integration Round Active — </span>
+        <span className="text-xs text-white/50 truncate">{proposal.title}</span>
+      </div>
+      <button
+        onClick={onView}
+        className="shrink-0 rounded-lg border border-orange-500/25 bg-orange-500/10 px-3 py-1 text-xs font-medium text-orange-300 hover:bg-orange-500/20 transition-colors"
+      >
+        View
+      </button>
+      <button
+        onClick={onDismiss}
+        className="shrink-0 text-white/20 hover:text-white/50 transition-colors ml-1"
+        aria-label="Dismiss"
+      >
+        <X size={14} weight="bold" />
+      </button>
+    </motion.div>
+  );
+}
+
 /* ── Page ──────────────────────────────────────────────────────────── */
 
 export default function GovernancePage() {
   const [activeTab, setActiveTab] = useState(0);
   const [mainView, setMainView] = useState<"my" | "village">("my");
+  const [villageSub, setVillageSub] = useState<"proposals" | "structure" | "history">("proposals");
+  const [bannerDismissed, setBannerDismissed] = useState(false);
   const integrationProposal = proposals.find((p) => p.status === "Integration Round")!;
 
+  const villageSubTabs = [
+    { key: "proposals" as const, label: "Proposals" },
+    { key: "structure" as const, label: "Structure" },
+    { key: "history" as const, label: "History" },
+  ];
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
@@ -1153,6 +1177,17 @@ export default function GovernancePage() {
         </div>
       </div>
 
+      {/* Integration Round Banner — always visible when active */}
+      <AnimatePresence>
+        {!bannerDismissed && integrationProposal && (
+          <IntegrationBanner
+            proposal={integrationProposal}
+            onView={() => { setMainView("village"); setVillageSub("proposals"); }}
+            onDismiss={() => setBannerDismissed(true)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Stats — always visible */}
       <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
         {stats.map((s) => (
@@ -1175,198 +1210,224 @@ export default function GovernancePage() {
         )}
 
         {mainView === "village" && (
-          <motion.div key="village" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.22 }} className="space-y-6">
+          <motion.div key="village" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.22 }} className="space-y-5">
 
-            {/* Governance Toolkit */}
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.05 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
-              <div className="flex items-center gap-1 px-5 pt-4 pb-0 border-b border-white/[0.06] overflow-x-auto">
-                <div className="flex items-center gap-1.5 mr-3 shrink-0">
-                  <Brain size={13} weight="fill" className="text-white/35" />
-                  <span className="text-xs font-medium text-white/50">Governance Toolkit</span>
-                </div>
-                {toolkitTabs.map((tab, i) => {
-                  const isActive = activeTab === i;
-                  return (
-                    <button key={tab.key} onClick={() => setActiveTab(i)}
-                      className={`relative flex items-center gap-2 px-3 py-2.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${isActive ? "text-white" : "text-white/40 hover:text-white/60"}`}>
-                      <tab.icon size={13} weight={isActive ? "fill" : "regular"} />
-                      {tab.label}
-                      <span className={`rounded-full px-1.5 py-0.5 text-[9px] font-medium ${tab.badgeStyle}`}>{tab.badge}</span>
-                      {isActive && (
-                        <motion.div layoutId="toolkit-tab-underline" className="absolute bottom-0 left-0 right-0 h-[2px] bg-amber rounded-full" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-              <div className="p-5">
-                <p className="text-xs text-white/40 leading-relaxed mb-4 max-w-2xl">{toolkitTabs[activeTab].desc}</p>
-                <AnimatePresence mode="wait">
-                  <motion.div key={activeTab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
-                    {activeTab === 0 && <ConsentDemo />}
-                    {activeTab === 1 && <AdviceDemo />}
-                    {activeTab === 2 && <LazyDemo />}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </motion.div>
-
-            <IntegrationRound proposal={integrationProposal} />
-
-            {/* Circles diagram */}
-            <CirclesView />
-
-            {/* Tensions Board */}
-            <TensionsBoard />
-
-            {/* Active Proposals */}
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}>
-              <h2 className="text-sm font-medium text-white mb-4">Active Proposals</h2>
-              <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {proposals.filter((p) => p.status !== "Integration Round").map((p) => {
-                  const total = p.forVotes + p.against + p.abstain;
-                  const forPct = Math.round((p.forVotes / total) * 100);
-                  const againstPct = Math.round((p.against / total) * 100);
-                  return (
-                    <motion.div key={p.title} variants={fadeUp} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
-                      {/* Cover image */}
-                      {p.image && (
-                        <div className="relative h-36 overflow-hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={p.image} alt={p.title} className="w-full h-full object-cover" />
-                          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#1a1725]/90" />
-                          <span className={`absolute top-3 right-3 rounded-full px-2 py-0.5 text-[10px] font-medium backdrop-blur-sm bg-black/30 border border-white/20 text-white/80`}>{p.status}</span>
-                        </div>
-                      )}
-                      <div className="p-5">
-                      <div className="flex items-start justify-between mb-3">
-                        <h3 className="text-sm font-medium text-white leading-snug pr-3">{p.title}</h3>
-                        {!p.image && <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${proposalStatusBadge[p.status]}`}>{p.status}</span>}
-                      </div>
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-amber/15 text-[9px] font-semibold text-amber">{initials(p.proposer)}</div>
-                        <span className="text-xs text-white/40">{p.proposer}</span>
-                      </div>
-                      <p className="text-xs text-white/30 leading-relaxed mb-4 line-clamp-2">{p.desc}</p>
-                      <div className="h-2 rounded-full overflow-hidden flex mb-2">
-                        <div className="h-full bg-emerald-500/70" style={{ width: `${forPct}%` }} />
-                        <div className="h-full bg-red-500/70" style={{ width: `${againstPct}%` }} />
-                        <div className="h-full bg-white/10 flex-1" />
-                      </div>
-                      <div className="flex items-center gap-3 text-[10px] mb-3">
-                        <span className="flex items-center gap-1 text-emerald-400"><CheckCircle size={10} weight="fill" /> {p.forVotes} For</span>
-                        <span className="flex items-center gap-1 text-red-400"><XCircle size={10} weight="fill" /> {p.against} Against</span>
-                        <span className="flex items-center gap-1 text-white/30"><Minus size={10} weight="bold" /> {p.abstain} Abstain</span>
-                      </div>
-                      <div className="rounded-xl border border-violet-500/15 bg-violet-500/[0.07] px-3 py-2 flex items-start gap-2">
-                        <div className="flex items-center gap-1.5 shrink-0 mt-0.5">
-                          <Sparkle size={10} weight="fill" className="text-violet-400" />
-                          <span className={`inline-block h-1.5 w-1.5 rounded-full ${sentimentDot[p.aiAnalysis.sentiment]}`} />
-                        </div>
-                        <div className="min-w-0">
-                          <span className="text-[10px] font-medium text-violet-300 mr-1.5">{p.aiAnalysis.impact}</span>
-                          <span className="text-[10px] text-white/35 leading-relaxed">{p.aiAnalysis.insight}</span>
-                        </div>
-                      </div>
-                      <AmendmentSuggester proposal={p} />
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            </motion.div>
-
-            {/* Proposal History */}
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.25 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
-              <div className="px-5 py-3.5 border-b border-white/[0.06]">
-                <h2 className="text-sm font-medium text-white">Proposal History</h2>
-              </div>
-              <div className="overflow-x-auto max-h-[380px] overflow-y-auto">
-                <table className="w-full min-w-[640px]">
-                  <thead className="sticky top-0 z-10">
-                    <tr className="bg-[#1a1725]">
-                      <th className="px-5 py-3 text-left text-[10px] font-medium uppercase tracking-wider text-white/30">Title</th>
-                      <th className="px-5 py-3 text-left text-[10px] font-medium uppercase tracking-wider text-white/30">Outcome</th>
-                      <th className="px-5 py-3 text-left text-[10px] font-medium uppercase tracking-wider text-white/30">Date</th>
-                      <th className="px-5 py-3 text-right text-[10px] font-medium uppercase tracking-wider text-white/30">Participation</th>
-                      <th className="px-5 py-3 text-right text-[10px] font-medium uppercase tracking-wider text-white/30">Margin</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/[0.04]">
-                    {proposalHistory.map((h, i) => (
-                      <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                        <td className="px-5 py-3 text-xs text-white/70">{h.title}</td>
-                        <td className="px-5 py-3"><span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${outcomeBadge[h.outcome]}`}>{h.outcome}</span></td>
-                        <td className="px-5 py-3 text-xs text-white/40">{h.date}</td>
-                        <td className="px-5 py-3 text-xs text-white/50 text-right">{h.participation}%</td>
-                        <td className="px-5 py-3 text-xs text-right">
-                          <span className={h.margin.startsWith("+") ? "text-emerald-400" : h.margin.startsWith("-") ? "text-red-400" : "text-white/30"}>{h.margin}</span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </motion.div>
-
-            {/* Disputes + Agreements */}
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:gap-6">
-              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
-                <h2 className="text-sm font-medium text-white mb-4">Dispute Resolution</h2>
-                <div className="space-y-3">
-                  {disputes.map((d) => (
-                    <div key={d.caseNo} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
-                      <div className="flex items-start justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-medium text-white/60">#{d.caseNo}</span>
-                          <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${disputeStatusBadge[d.status]}`}>{d.status}</span>
-                          <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${disputePriorityBadge[d.priority]}`}>{d.priority}</span>
-                        </div>
-                        <span className="text-[10px] text-white/25">{d.daysOpen} days open</span>
-                      </div>
-                      <p className="text-xs text-white/70 mb-2">{d.desc}</p>
-                      <div className="flex items-center justify-between text-[10px] text-white/30">
-                        <span>{d.parties}</span>
-                        <span>Mediator: {d.mediator}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-
-              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.35 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
-                <div className="px-5 py-3.5 border-b border-white/[0.06] flex items-center justify-between">
-                  <h2 className="text-sm font-medium text-white">Community Agreements</h2>
-                  <span className="text-xs text-white/30">{agreements.length} ratified</span>
-                </div>
-                <div className="max-h-[440px] overflow-y-auto divide-y divide-white/[0.04]">
-                  {agreements.map((a, i) => (
-                    <div key={i} className="flex items-center gap-3 py-2.5 px-5 hover:bg-white/[0.02] transition-colors">
-                      <span className={`shrink-0 rounded-full px-2 py-0.5 text-[9px] font-medium ${agreementCatBadge[a.category]}`}>{a.category}</span>
-                      <span className="flex-1 text-xs text-white/70 truncate">{a.title}</span>
-                      <div className="shrink-0 text-right">
-                        <p className="text-[10px] text-white/30">Adopted {a.adopted}</p>
-                        <p className="text-[10px] text-white/20">Reviewed {a.reviewed}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
+            {/* Village sub-tabs */}
+            <div className="flex gap-0 border-b border-white/[0.06]">
+              {villageSubTabs.map((t) => (
+                <button
+                  key={t.key}
+                  onClick={() => setVillageSub(t.key)}
+                  className={`relative px-5 py-2.5 text-xs font-medium transition-colors ${villageSub === t.key ? "text-white" : "text-white/40 hover:text-white/60"}`}
+                >
+                  {t.label}
+                  {villageSub === t.key && (
+                    <motion.div layoutId="village-sub-underline" className="absolute bottom-0 left-0 right-0 h-[2px] bg-amber rounded-full" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
+                  )}
+                </button>
+              ))}
             </div>
 
-            {/* Gov metrics */}
-            <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
-              {govMetrics.map((m) => (
-                <motion.div key={m.label} variants={fadeUp} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 text-center">
-                  <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-amber/10">
-                    <m.icon size={18} weight="fill" className="text-amber" />
-                  </div>
-                  <div className="text-xl font-semibold text-white lg:text-2xl">{m.value}</div>
-                  <p className="mt-1 text-xs text-white/40">{m.label}</p>
-                </motion.div>
-              ))}
-            </motion.div>
+            <AnimatePresence mode="wait">
 
+              {/* ── Proposals sub-tab ───────────────────────────────── */}
+              {villageSub === "proposals" && (
+                <motion.div key="proposals" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="space-y-5">
+                  <IntegrationRound proposal={integrationProposal} />
+
+                  <div>
+                    <h2 className="text-sm font-medium text-white mb-4">Active Proposals</h2>
+                    <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                      {proposals.filter((p) => p.status !== "Integration Round").map((p) => {
+                        const total = p.forVotes + p.against + p.abstain;
+                        const forPct = Math.round((p.forVotes / total) * 100);
+                        const againstPct = Math.round((p.against / total) * 100);
+                        return (
+                          <motion.div key={p.title} variants={fadeUp} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
+                            {p.image && (
+                              <div className="relative h-36 overflow-hidden">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={p.image} alt={p.title} className="w-full h-full object-cover" />
+                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#1a1725]/90" />
+                                <span className="absolute top-3 right-3 rounded-full px-2 py-0.5 text-[10px] font-medium backdrop-blur-sm bg-black/30 border border-white/20 text-white/80">{p.status}</span>
+                              </div>
+                            )}
+                            <div className="p-5">
+                              <div className="flex items-start justify-between mb-3">
+                                <h3 className="text-sm font-medium text-white leading-snug pr-3">{p.title}</h3>
+                                {!p.image && <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${proposalStatusBadge[p.status]}`}>{p.status}</span>}
+                              </div>
+                              <div className="flex items-center gap-2 mb-3">
+                                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-amber/15 text-[9px] font-semibold text-amber">{initials(p.proposer)}</div>
+                                <span className="text-xs text-white/40">{p.proposer}</span>
+                              </div>
+                              <p className="text-xs text-white/30 leading-relaxed mb-4 line-clamp-2">{p.desc}</p>
+                              <div className="h-2 rounded-full overflow-hidden flex mb-2">
+                                <div className="h-full bg-emerald-500/70" style={{ width: `${forPct}%` }} />
+                                <div className="h-full bg-red-500/70" style={{ width: `${againstPct}%` }} />
+                                <div className="h-full bg-white/10 flex-1" />
+                              </div>
+                              <div className="flex items-center gap-3 text-[10px] mb-3">
+                                <span className="flex items-center gap-1 text-emerald-400"><CheckCircle size={10} weight="fill" /> {p.forVotes} For</span>
+                                <span className="flex items-center gap-1 text-red-400"><XCircle size={10} weight="fill" /> {p.against} Against</span>
+                                <span className="flex items-center gap-1 text-white/30"><Minus size={10} weight="bold" /> {p.abstain} Abstain</span>
+                              </div>
+                              <div className="rounded-xl border border-violet-500/15 bg-violet-500/[0.07] px-3 py-2 flex items-start gap-2">
+                                <div className="flex items-center gap-1.5 shrink-0 mt-0.5">
+                                  <Sparkle size={10} weight="fill" className="text-violet-400" />
+                                  <span className={`inline-block h-1.5 w-1.5 rounded-full ${sentimentDot[p.aiAnalysis.sentiment]}`} />
+                                </div>
+                                <div className="min-w-0">
+                                  <span className="text-[10px] font-medium text-violet-300 mr-1.5">{p.aiAnalysis.impact}</span>
+                                  <span className="text-[10px] text-white/35 leading-relaxed">{p.aiAnalysis.insight}</span>
+                                </div>
+                              </div>
+                              <AmendmentSuggester proposal={p} />
+                            </div>
+                          </motion.div>
+                        );
+                      })}
+                    </motion.div>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ── Structure sub-tab ───────────────────────────────── */}
+              {villageSub === "structure" && (
+                <motion.div key="structure" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="space-y-5">
+                  {/* Governance Toolkit */}
+                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
+                    <div className="flex items-center gap-1 px-5 pt-4 pb-0 border-b border-white/[0.06] overflow-x-auto">
+                      <div className="flex items-center gap-1.5 mr-3 shrink-0">
+                        <Brain size={13} weight="fill" className="text-white/35" />
+                        <span className="text-xs font-medium text-white/50">Governance Toolkit</span>
+                      </div>
+                      {toolkitTabs.map((tab, i) => {
+                        const isActive = activeTab === i;
+                        return (
+                          <button key={tab.key} onClick={() => setActiveTab(i)}
+                            className={`relative flex items-center gap-2 px-3 py-2.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${isActive ? "text-white" : "text-white/40 hover:text-white/60"}`}>
+                            <tab.icon size={13} weight={isActive ? "fill" : "regular"} />
+                            {tab.label}
+                            <span className={`rounded-full px-1.5 py-0.5 text-[9px] font-medium ${tab.badgeStyle}`}>{tab.badge}</span>
+                            {isActive && (
+                              <motion.div layoutId="toolkit-tab-underline" className="absolute bottom-0 left-0 right-0 h-[2px] bg-amber rounded-full" transition={{ type: "spring", stiffness: 350, damping: 30 }} />
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <div className="p-5">
+                      <p className="text-xs text-white/40 leading-relaxed mb-4 max-w-2xl">{toolkitTabs[activeTab].desc}</p>
+                      <AnimatePresence mode="wait">
+                        <motion.div key={activeTab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
+                          {activeTab === 0 && <ConsentDemo />}
+                          {activeTab === 1 && <AdviceDemo />}
+                          {activeTab === 2 && <LazyDemo />}
+                        </motion.div>
+                      </AnimatePresence>
+                    </div>
+                  </div>
+
+                  <CirclesView />
+                  <TensionsBoard />
+
+                  {/* Disputes + Agreements */}
+                  <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:gap-6">
+                    <div>
+                      <h2 className="text-sm font-medium text-white mb-4">Dispute Resolution</h2>
+                      <div className="space-y-3">
+                        {disputes.map((d) => (
+                          <div key={d.caseNo} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4">
+                            <div className="flex items-start justify-between mb-2">
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs font-medium text-white/60">#{d.caseNo}</span>
+                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${disputeStatusBadge[d.status]}`}>{d.status}</span>
+                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${disputePriorityBadge[d.priority]}`}>{d.priority}</span>
+                              </div>
+                              <span className="text-[10px] text-white/25">{d.daysOpen} days open</span>
+                            </div>
+                            <p className="text-xs text-white/70 mb-2">{d.desc}</p>
+                            <div className="flex items-center justify-between text-[10px] text-white/30">
+                              <span>{d.parties}</span>
+                              <span>Mediator: {d.mediator}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
+                      <div className="px-5 py-3.5 border-b border-white/[0.06] flex items-center justify-between">
+                        <h2 className="text-sm font-medium text-white">Community Agreements</h2>
+                        <span className="text-xs text-white/30">{agreements.length} ratified</span>
+                      </div>
+                      <div className="max-h-[440px] overflow-y-auto divide-y divide-white/[0.04]">
+                        {agreements.map((a, i) => (
+                          <div key={i} className="flex items-center gap-3 py-2.5 px-5 hover:bg-white/[0.02] transition-colors">
+                            <span className={`shrink-0 rounded-full px-2 py-0.5 text-[9px] font-medium ${agreementCatBadge[a.category]}`}>{a.category}</span>
+                            <span className="flex-1 text-xs text-white/70 truncate">{a.title}</span>
+                            <div className="shrink-0 text-right">
+                              <p className="text-[10px] text-white/30">Adopted {a.adopted}</p>
+                              <p className="text-[10px] text-white/20">Reviewed {a.reviewed}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ── History sub-tab ─────────────────────────────────── */}
+              {villageSub === "history" && (
+                <motion.div key="history" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="space-y-5">
+                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
+                    <div className="px-5 py-3.5 border-b border-white/[0.06]">
+                      <h2 className="text-sm font-medium text-white">Proposal History</h2>
+                    </div>
+                    <div className="overflow-x-auto max-h-[480px] overflow-y-auto">
+                      <table className="w-full min-w-[640px]">
+                        <thead className="sticky top-0 z-10">
+                          <tr className="bg-[#1a1725]">
+                            <th className="px-5 py-3 text-left text-[10px] font-medium uppercase tracking-wider text-white/30">Title</th>
+                            <th className="px-5 py-3 text-left text-[10px] font-medium uppercase tracking-wider text-white/30">Outcome</th>
+                            <th className="px-5 py-3 text-left text-[10px] font-medium uppercase tracking-wider text-white/30">Date</th>
+                            <th className="px-5 py-3 text-right text-[10px] font-medium uppercase tracking-wider text-white/30">Participation</th>
+                            <th className="px-5 py-3 text-right text-[10px] font-medium uppercase tracking-wider text-white/30">Margin</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-white/[0.04]">
+                          {proposalHistory.map((h, i) => (
+                            <tr key={i} className="hover:bg-white/[0.02] transition-colors">
+                              <td className="px-5 py-3 text-xs text-white/70">{h.title}</td>
+                              <td className="px-5 py-3"><span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${outcomeBadge[h.outcome]}`}>{h.outcome}</span></td>
+                              <td className="px-5 py-3 text-xs text-white/40">{h.date}</td>
+                              <td className="px-5 py-3 text-xs text-white/50 text-right">{h.participation}%</td>
+                              <td className="px-5 py-3 text-xs text-right">
+                                <span className={h.margin.startsWith("+") ? "text-emerald-400" : h.margin.startsWith("-") ? "text-red-400" : "text-white/30"}>{h.margin}</span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+                    {govMetrics.map((m) => (
+                      <motion.div key={m.label} variants={fadeUp} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 text-center">
+                        <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-amber/10">
+                          <m.icon size={18} weight="fill" className="text-amber" />
+                        </div>
+                        <div className="text-xl font-semibold text-white lg:text-2xl">{m.value}</div>
+                        <p className="mt-1 text-xs text-white/40">{m.label}</p>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </motion.div>
+              )}
+
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>
