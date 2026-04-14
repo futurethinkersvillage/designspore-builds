@@ -84,9 +84,8 @@ export default function VirtualTour({
 
       const viewer = new Viewer({
         container: containerRef.current!,
-        panorama: startScene.image,
-        ...(startScene.initialYaw !== undefined && { defaultYaw: `${startScene.initialYaw}deg` }),
-        ...(startScene.initialPitch !== undefined && { defaultPitch: `${startScene.initialPitch}deg` }),
+        // No panorama here — VirtualTourPlugin owns the initial load via startNodeId.
+        // Passing panorama AND startNodeId causes a double-load race that stalls the loader.
         defaultZoomLvl: 50,
         navbar: ["autorotate", "zoom", "caption", "fullscreen"],
         plugins: [
