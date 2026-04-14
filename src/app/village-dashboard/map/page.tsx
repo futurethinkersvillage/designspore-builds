@@ -55,70 +55,12 @@ const focusColors: Record<string, string> = {
   Farming: "bg-terracotta/15 text-orange-300",
 };
 
-/* ── SVG Map helpers ──────────────────────────────────────────────── */
+/* ── Map projection helpers (equirectangular) ─────────────────────── */
 
-function toSvgX(lng: number) { return ((lng + 180) / 360) * 800; }
-function toSvgY(lat: number) { return ((90 - lat) / 180) * 450; }
+function toX(lng: number, w = 800) { return ((lng + 180) / 360) * w; }
+function toY(lat: number, h = 400) { return ((90 - lat) / 180) * h; }
 
-function lngLatToPoints(coords: [number, number][]): string {
-  return coords.map(([lng, lat]) => `${toSvgX(lng).toFixed(1)},${toSvgY(lat).toFixed(1)}`).join(" ");
-}
-
-/* ── Continent polygon coordinates [lng, lat] ─────────────────────── */
-
-const continents: { id: string; points: [number, number][] }[] = [
-  {
-    id: "north-america",
-    points: [
-      [-168, 72], [-140, 60], [-130, 30], [-118, 22], [-105, 16],
-      [-90, 16], [-82, 25], [-60, 45], [-52, 47], [-65, 60],
-      [-85, 68], [-120, 72], [-140, 72], [-168, 72],
-    ],
-  },
-  {
-    id: "south-america",
-    points: [
-      [-82, 12], [-80, -2], [-75, -35], [-68, -55],
-      [-53, -34], [-35, -10], [-50, -5], [-82, 12],
-    ],
-  },
-  {
-    id: "europe",
-    points: [
-      [-10, 72], [40, 72], [40, 35], [28, 36],
-      [10, 38], [-5, 36], [-10, 72],
-    ],
-  },
-  {
-    id: "africa",
-    points: [
-      [-17, 37], [55, 37], [55, 10], [42, -12],
-      [35, -35], [17, -35], [-18, 18], [-17, 37],
-    ],
-  },
-  {
-    id: "asia",
-    points: [
-      [26, 72], [190, 72], [145, 30], [100, 5],
-      [80, 8], [58, 22], [36, 15], [26, 40], [26, 72],
-    ],
-  },
-  {
-    id: "australia",
-    points: [
-      [114, -22], [154, -22], [154, -40], [130, -40], [114, -22],
-    ],
-  },
-  {
-    id: "greenland",
-    points: [
-      [-70, 83], [-18, 83], [-18, 60], [-45, 60], [-70, 83],
-    ],
-  },
-];
-
-/* Graticule lines every 30 degrees */
-const latLines = [-60, -30, 0, 30, 60]; // skipping ±90
+const latLines = [-60, -30, 0, 30, 60];
 const lngLines = [-150, -120, -90, -60, -30, 0, 30, 60, 90, 120, 150];
 
 /* ── Page ─────────────────────────────────────────────────────────── */
@@ -154,64 +96,54 @@ export default function MapPage() {
         {/* SVG Map */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 overflow-hidden">
           <h2 className="text-sm font-medium text-white mb-4">Network Map</h2>
-          <div className="relative">
-            <svg viewBox="0 0 800 450" className="w-full h-auto">
-              {/* Ocean background */}
-              <rect width="800" height="450" fill="rgba(20,25,50,0.4)" rx="8" />
-
-              {/* Graticule — latitude lines every 30° */}
+          <div className="relative rounded-xl overflow-hidden bg-[#080e1c]">
+            {/* Satellite world map image (equirectangular Natural Earth) */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Equirectangular_projection_SW.jpg/1280px-Equirectangular_projection_SW.jpg"
+              alt="World satellite map"
+              className="w-full object-cover"
+              style={{ aspectRatio: "2/1", filter: "brightness(0.45) saturate(0.7)" }}
+            />
+            {/* SVG overlay — dots only, using same equirectangular coord mapping */}
+            <svg
+              viewBox="0 0 800 400"
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              preserveAspectRatio="none"
+            >
+              {/* Graticule */}
               {latLines.map((lat) => (
-                <line
-                  key={`lat-${lat}`}
-                  x1="0" y1={toSvgY(lat).toFixed(1)}
-                  x2="800" y2={toSvgY(lat).toFixed(1)}
-                  stroke={lat === 0 ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.04)"}
+                <line key={`lat-${lat}`} x1="0" y1={toY(lat)} x2="800" y2={toY(lat)}
+                  stroke={lat === 0 ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.04)"}
                   strokeDasharray={lat === 0 ? "4 4" : undefined}
                   strokeWidth={lat === 0 ? 0.8 : 0.5}
                 />
               ))}
-
-              {/* Graticule — longitude lines every 30° */}
               {lngLines.map((lng) => (
-                <line
-                  key={`lng-${lng}`}
-                  x1={toSvgX(lng).toFixed(1)} y1="0"
-                  x2={toSvgX(lng).toFixed(1)} y2="450"
-                  stroke="rgba(255,255,255,0.04)"
-                  strokeWidth={0.5}
+                <line key={`lng-${lng}`} x1={toX(lng)} y1="0" x2={toX(lng)} y2="400"
+                  stroke="rgba(255,255,255,0.04)" strokeWidth={0.5}
                 />
               ))}
-
-              {/* Continent landmasses */}
-              {continents.map((c) => (
-                <polygon
-                  key={c.id}
-                  points={lngLatToPoints(c.points)}
-                  fill="rgba(255,255,255,0.06)"
-                  stroke="rgba(255,255,255,0.08)"
-                  strokeWidth={0.5}
-                  strokeLinejoin="round"
-                />
-              ))}
-
               {/* Village markers */}
               {villages.map((v) => {
-                const x = toSvgX(v.lng);
-                const y = toSvgY(v.lat);
+                const x = toX(v.lng);
+                const y = toY(v.lat);
                 const isSelected = selected?.id === v.id;
-                const markerColor = v.status === "Active" ? "#34d399" : v.status === "Forming" ? "#EA824E" : "#60a5fa";
+                const mc = v.status === "Active" ? "#34d399" : v.status === "Forming" ? "#EA824E" : "#60a5fa";
                 return (
-                  <g key={v.id} onClick={() => setSelected(v)} className="cursor-pointer">
-                    {/* Pulse ring */}
+                  <g key={v.id} className="pointer-events-auto cursor-pointer" onClick={() => setSelected(v)}>
                     {v.status === "Active" && (
-                      <circle cx={x} cy={y} r={12} fill="none" stroke={markerColor} strokeWidth={1} opacity={0.3}>
+                      <circle cx={x} cy={y} r={12} fill="none" stroke={mc} strokeWidth={1} opacity={0.3}>
                         <animate attributeName="r" values="8;16;8" dur="3s" repeatCount="indefinite" />
                         <animate attributeName="opacity" values="0.4;0;0.4" dur="3s" repeatCount="indefinite" />
                       </circle>
                     )}
-                    <circle cx={x} cy={y} r={isSelected ? 8 : 5} fill={markerColor} opacity={isSelected ? 1 : 0.8} stroke={isSelected ? "white" : "none"} strokeWidth={2} />
-                    {/* Label */}
-                    <text x={x} y={y - 10} textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="8" fontFamily="sans-serif">{v.name.split(" ")[0]}</text>
+                    <circle cx={x} cy={y} r={isSelected ? 8 : 5} fill={mc} opacity={isSelected ? 1 : 0.85}
+                      stroke={isSelected ? "white" : "rgba(0,0,0,0.5)"} strokeWidth={isSelected ? 2 : 1} />
+                    <text x={x} y={y - 9} textAnchor="middle" fill="rgba(255,255,255,0.65)" fontSize="7"
+                      fontFamily="sans-serif" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>
+                      {v.name.split(" ")[0]}
+                    </text>
                   </g>
                 );
               })}

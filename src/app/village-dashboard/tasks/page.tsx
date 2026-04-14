@@ -186,6 +186,100 @@ export default function TasksPage() {
         </div>
       </motion.div>
 
+      {/* Village Site Map */}
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.22 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
+        <div className="px-5 py-3.5 border-b border-white/[0.06] flex items-center justify-between">
+          <div>
+            <h2 className="text-sm font-medium text-white">Site Map — Active Tasks</h2>
+            <p className="text-xs text-white/30 mt-0.5">Task locations on the 400-acre property</p>
+          </div>
+          <div className="flex gap-3 text-[10px]">
+            <span className="flex items-center gap-1.5 text-white/35"><span className="w-2 h-2 rounded-full bg-red-400 inline-block" />P1 Critical</span>
+            <span className="flex items-center gap-1.5 text-white/35"><span className="w-2 h-2 rounded-full bg-amber inline-block" />P2 High</span>
+            <span className="flex items-center gap-1.5 text-white/35"><span className="w-2 h-2 rounded-full bg-blue-400 inline-block" />P3 Normal</span>
+          </div>
+        </div>
+        <div className="relative">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/mockup-map.png" alt="Village site map" className="w-full object-cover" style={{ maxHeight: "380px", objectPosition: "center" }} />
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-[#0F0D14]/40" />
+          {/* Task location pins */}
+          {/* Sauna — P1 */}
+          <div className="absolute group" style={{ left: "62%", top: "28%" }}>
+            <div className="relative cursor-pointer">
+              <div className="w-6 h-6 rounded-full bg-red-500 border-2 border-white/70 shadow-lg flex items-center justify-center">
+                <span className="text-[9px] font-bold text-white">P1</span>
+              </div>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#1a1720] border border-white/20 rounded-lg px-2.5 py-2 whitespace-nowrap text-[10px] text-white z-10 shadow-xl">
+                <div className="font-medium">Fix sauna heater thermostat</div>
+                <div className="text-white/40 mt-0.5">Assigned: Thomas P. · Due Apr 13</div>
+              </div>
+            </div>
+          </div>
+          {/* Greenhouse — P3 */}
+          <div className="absolute group" style={{ left: "35%", top: "55%" }}>
+            <div className="relative cursor-pointer">
+              <div className="w-6 h-6 rounded-full bg-blue-500 border-2 border-white/70 shadow-lg flex items-center justify-center">
+                <span className="text-[9px] font-bold text-white">P3</span>
+              </div>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#1a1720] border border-white/20 rounded-lg px-2.5 py-2 whitespace-nowrap text-[10px] text-white z-10 shadow-xl">
+                <div className="font-medium">Set up IoT gateway for greenhouse</div>
+                <div className="text-white/40 mt-0.5">Assigned: Yuki T. · Due Apr 25</div>
+              </div>
+            </div>
+          </div>
+          {/* Solar Array — P2 */}
+          <div className="absolute group" style={{ left: "72%", top: "48%" }}>
+            <div className="relative cursor-pointer">
+              <div className="w-6 h-6 rounded-full bg-amber border-2 border-white/70 shadow-lg flex items-center justify-center">
+                <span className="text-[9px] font-bold text-white">P2</span>
+              </div>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#1a1720] border border-white/20 rounded-lg px-2.5 py-2 whitespace-nowrap text-[10px] text-white z-10 shadow-xl">
+                <div className="font-medium">Install solar panel mounting brackets</div>
+                <div className="text-white/40 mt-0.5">Assigned: Marcus C. · Due Apr 18</div>
+              </div>
+            </div>
+          </div>
+          {/* Main Lodge — P2 roof */}
+          <div className="absolute group" style={{ left: "44%", top: "35%" }}>
+            <div className="relative cursor-pointer">
+              <div className="w-6 h-6 rounded-full bg-amber border-2 border-white/70 shadow-lg flex items-center justify-center">
+                <span className="text-[9px] font-bold text-white">P2</span>
+              </div>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#1a1720] border border-white/20 rounded-lg px-2.5 py-2 whitespace-nowrap text-[10px] text-white z-10 shadow-xl">
+                <div className="font-medium">Main Lodge — Roof repair</div>
+                <div className="text-white/40 mt-0.5">Assigned: David O. · Urgent</div>
+              </div>
+            </div>
+          </div>
+          {/* Cabin 3 — P2 paint */}
+          <div className="absolute group" style={{ left: "24%", top: "42%" }}>
+            <div className="relative cursor-pointer">
+              <div className="w-6 h-6 rounded-full bg-amber border-2 border-white/70 shadow-lg flex items-center justify-center">
+                <span className="text-[9px] font-bold text-white">P2</span>
+              </div>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#1a1720] border border-white/20 rounded-lg px-2.5 py-2 whitespace-nowrap text-[10px] text-white z-10 shadow-xl">
+                <div className="font-medium">Paint new cabin exterior</div>
+                <div className="text-white/40 mt-0.5">Assigned: Chris D. · Due Apr 20</div>
+              </div>
+            </div>
+          </div>
+          {/* Gazebo — P2 railing */}
+          <div className="absolute group" style={{ left: "52%", top: "60%" }}>
+            <div className="relative cursor-pointer">
+              <div className="w-6 h-6 rounded-full bg-amber border-2 border-white/70 shadow-lg flex items-center justify-center">
+                <span className="text-[9px] font-bold text-white">P2</span>
+              </div>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#1a1720] border border-white/20 rounded-lg px-2.5 py-2 whitespace-nowrap text-[10px] text-white z-10 shadow-xl">
+                <div className="font-medium">Repair gazebo railing section B</div>
+                <div className="text-white/40 mt-0.5">Assigned: David O. · Due Apr 15</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Kanban Board */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.25 }} className="overflow-x-auto">
         <div className="grid min-w-[960px] grid-cols-4 gap-4">

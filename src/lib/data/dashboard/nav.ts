@@ -22,7 +22,7 @@ export const navItems: NavItem[] = [
   { label: "Events", href: "/events", icon: CalendarBlank },
   { label: "Membership", href: "/membership", icon: Crown },
   { label: "Farm & IoT", href: "/farm", icon: Plant },
-  { label: "Village Map", href: "/map", icon: GlobeHemisphereWest },
+  { label: "Network Map", href: "/map", icon: GlobeHemisphereWest },
   { label: "Energy", href: "/energy", icon: Lightning },
   { label: "Wellness", href: "/wellness", icon: Heartbeat },
   { label: "Comms", href: "/communications", icon: ChatTeardrop },
