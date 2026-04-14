@@ -9,6 +9,7 @@ import {
   Sparkle, Brain, ChatsCircle,
   Warning, CaretRight, Hourglass,
   FloppyDisk, BellRinging, GitMerge, Check,
+  Circle, Lightning, Plant, Coins, ArrowUp, Plus,
 } from "@phosphor-icons/react";
 
 /* ── Existing data ─────────────────────────────────────────────────── */
@@ -23,6 +24,7 @@ const stats = [
 const proposals = [
   {
     title: "Solar Array Expansion — Phase 2",
+    image: "/images/dashboard/gov-solar.jpg",
     proposer: "Elena V.",
     forVotes: 142, against: 18, abstain: 12,
     status: "Open",
@@ -31,6 +33,7 @@ const proposals = [
   },
   {
     title: "Community Garden Expansion to Plot D",
+    image: "/images/dashboard/gov-garden.jpg",
     proposer: "Marcus C.",
     forVotes: 98, against: 34, abstain: 8,
     status: "Open",
@@ -43,13 +46,14 @@ const proposals = [
   },
   {
     title: "Updated Work-Stay Compensation Policy",
+    image: "/images/dashboard/gov-workstay.jpg",
     proposer: "Sarah L.",
     forVotes: 67, against: 45, abstain: 22,
     status: "Integration Round",
     desc: "Revise work-stay arrangements to include a stipend increase and flexible hour allocation for skill-based contributions.",
     aiAnalysis: { impact: "High Impact", insight: "Consent gap flagged — 33% against exceeds 20% threshold. Objection may be paramount.", sentiment: "red" },
     integration: {
-      objector: "James W.",
+      objector: "James W.", /* image already set above */
       objection: "The flat stipend increase does not account for skill levels — unskilled labour would be compensated the same as licensed trades, which creates inequity and budget risk.",
       proposerIntent: "Make work-stay more attractive and fair by recognising that skill-based contributions currently go undercompensated.",
       amendments: [
@@ -61,6 +65,7 @@ const proposals = [
   },
   {
     title: "Quiet Hours Extension to 10pm",
+    image: "/images/dashboard/gov-quiet.jpg",
     proposer: "Ben M.",
     forVotes: 156, against: 8, abstain: 4,
     status: "Open",
@@ -69,6 +74,7 @@ const proposals = [
   },
   {
     title: "Village Marketplace Launch",
+    image: "/images/dashboard/gov-marketplace.jpg",
     proposer: "Anika P.",
     forVotes: 112, against: 28, abstain: 15,
     status: "Open",
@@ -77,6 +83,7 @@ const proposals = [
   },
   {
     title: "Emergency Fund Increase to $50K",
+    image: "/images/dashboard/gov-emergency.jpg",
     proposer: "James W.",
     forVotes: 134, against: 12, abstain: 6,
     status: "Open",
@@ -851,6 +858,268 @@ function MyGovernanceView() {
   );
 }
 
+/* ── Sociocratic Circles data ──────────────────────────────────────── */
+
+const circles = [
+  {
+    id: "council",
+    label: "Village Council",
+    sub: "Root Circle",
+    color: "#EA824E",
+    icon: Circle,
+    roles: [
+      { title: "Village Steward", accs: ["Holds overall village vision", "External representation", "Ratifies constitutional changes"] },
+      { title: "Circle Connector", accs: ["Facilitates cross-circle coordination", "Holds the governance calendar"] },
+      { title: "Secretary", accs: ["Records all decisions", "Maintains community agreements register"] },
+    ],
+  },
+  {
+    id: "operations",
+    label: "Operations",
+    sub: "Infrastructure · Maintenance · IT",
+    color: "#38387F",
+    icon: Lightning,
+    roles: [
+      { title: "Infrastructure Lead", accs: ["Building systems and maintenance schedule", "Contractor relations and procurement"] },
+      { title: "IT & Connectivity", accs: ["WiFi mesh and IoT systems", "Digital security and backups"] },
+      { title: "Repair Coordinator", accs: ["Work order triage", "Volunteer scheduling for maintenance"] },
+    ],
+  },
+  {
+    id: "farm",
+    label: "Farm & Land",
+    sub: "Growing · Livestock · Stewardship",
+    color: "#3D6B4F",
+    icon: Plant,
+    roles: [
+      { title: "Farm Lead", accs: ["Planting schedule and crop rotations", "Soil health and composting systems"] },
+      { title: "IoT & Sensors", accs: ["Greenhouse sensor monitoring", "Irrigation automation"] },
+      { title: "Livestock Keeper", accs: ["Animal welfare and feeding", "Hive and poultry management"] },
+    ],
+  },
+  {
+    id: "community",
+    label: "Community & Culture",
+    sub: "Events · Members · Communications",
+    color: "#73516F",
+    icon: Users,
+    roles: [
+      { title: "Events Coordinator", accs: ["Workshop and ceremony scheduling", "Guest and visitor experience"] },
+      { title: "Membership Steward", accs: ["Onboarding new members", "Tier transitions and benefit tracking"] },
+      { title: "Communications Lead", accs: ["Newsletter and announcements", "Discord and channel moderation"] },
+    ],
+  },
+  {
+    id: "finance",
+    label: "Finance",
+    sub: "Bookkeeping · Fundraising · Market",
+    color: "#B5943A",
+    icon: Coins,
+    roles: [
+      { title: "Treasurer", accs: ["Monthly P&L and cash flow reporting", "Budget proposals and approvals"] },
+      { title: "Fundraising Lead", accs: ["Grant applications and investor relations", "Campaign management"] },
+      { title: "Marketplace Curator", accs: ["Vendor onboarding", "Transaction tracking and revenue share"] },
+    ],
+  },
+];
+
+const tensions = [
+  { id: "T-08", title: "Tool shed capacity is insufficient for winter equipment storage", loggedBy: "Ben M.", domain: "Operations", status: "Draft", created: "Apr 10" },
+  { id: "T-07", title: "No clear process for resolving guest conflicts with long-term members", loggedBy: "Sarah L.", domain: "Community", status: "→ Proposal", created: "Apr 6" },
+  { id: "T-06", title: "Greenhouse IoT data not accessible to all farmers on mobile", loggedBy: "Marcus C.", domain: "Farm & Land", status: "Draft", created: "Apr 3" },
+  { id: "T-05", title: "Evening meal coordination creates recurring overhead for volunteers", loggedBy: "Anika P.", domain: "Community", status: "Resolved", created: "Mar 28" },
+  { id: "T-04", title: "No budget category for unplanned community celebrations", loggedBy: "Priya M.", domain: "Finance", status: "→ Proposal", created: "Mar 20" },
+];
+
+const domainBadge: Record<string, string> = {
+  Operations: "bg-indigo/15 text-blue-400",
+  Community: "bg-mauve/15 text-purple-300",
+  "Farm & Land": "bg-emerald-500/15 text-emerald-400",
+  Finance: "bg-amber/15 text-amber",
+  Technology: "bg-blue-500/15 text-blue-400",
+};
+
+const tensionStatusBadge: Record<string, string> = {
+  Draft: "bg-white/10 text-white/40",
+  "→ Proposal": "bg-violet-500/15 text-violet-300",
+  Resolved: "bg-emerald-500/15 text-emerald-400",
+};
+
+function CirclesView() {
+  const [selected, setSelected] = useState<typeof circles[number] | null>(circles[0]);
+
+  return (
+    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
+      <div className="px-5 py-3.5 border-b border-white/[0.06] flex items-center justify-between">
+        <div>
+          <h2 className="text-sm font-medium text-white">Sociocratic Circles</h2>
+          <p className="text-[11px] text-white/35 mt-0.5">S3-inspired nested circles with double-linking between governance levels</p>
+        </div>
+        <span className="text-[10px] text-white/25 border border-white/[0.06] rounded-lg px-2.5 py-1">5 circles · 15 roles</span>
+      </div>
+      <div className="grid grid-cols-1 gap-0 lg:grid-cols-[1fr_320px]">
+        {/* SVG diagram */}
+        <div className="p-5 flex items-center justify-center min-h-[320px]">
+          <svg viewBox="0 0 560 320" className="w-full max-w-[560px]">
+            {/* Root outer ring */}
+            <circle cx="280" cy="160" r="148" fill="none" stroke="rgba(234,130,78,0.15)" strokeWidth="1.5" strokeDasharray="4 3" />
+            <circle cx="280" cy="160" r="148" fill="rgba(234,130,78,0.04)" />
+            {/* Root circle label */}
+            <text x="280" y="154" textAnchor="middle" fill="rgba(234,130,78,0.9)" fontSize="11" fontWeight="600" fontFamily="sans-serif">Village Council</text>
+            <text x="280" y="168" textAnchor="middle" fill="rgba(255,255,255,0.3)" fontSize="8" fontFamily="sans-serif">Root Circle</text>
+
+            {/* Lead link arrow (down) + Rep link (up) legend */}
+            <line x1="16" y1="295" x2="36" y2="295" stroke="rgba(234,130,78,0.5)" strokeWidth="1.5" />
+            <polygon points="36,292 40,295 36,298" fill="rgba(234,130,78,0.5)" />
+            <text x="44" y="298.5" fill="rgba(255,255,255,0.3)" fontSize="7" fontFamily="sans-serif">Lead link</text>
+            <line x1="100" y1="295" x2="120" y2="295" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" strokeDasharray="3 2" />
+            <polygon points="100,292 96,295 100,298" fill="rgba(255,255,255,0.25)" />
+            <text x="124" y="298.5" fill="rgba(255,255,255,0.3)" fontSize="7" fontFamily="sans-serif">Rep link</text>
+
+            {/* Sub-circles at corners */}
+            {[
+              { id: "operations", cx: 110, cy: 88, color: "#38387F", label: "Operations", sub: "Infra · IT" },
+              { id: "farm", cx: 450, cy: 88, color: "#3D6B4F", label: "Farm & Land", sub: "Grow · IoT" },
+              { id: "community", cx: 110, cy: 240, color: "#73516F", label: "Community", sub: "Events · Members" },
+              { id: "finance", cx: 450, cy: 240, color: "#B5943A", label: "Finance", sub: "Budget · Grants" },
+            ].map((c) => {
+              const isSelected = selected?.id === c.id || selected?.id === "council";
+              return (
+                <g key={c.id} onClick={() => setSelected(circles.find((x) => x.id === c.id) ?? null)} className="cursor-pointer">
+                  {/* Lead link from council center to sub-circle */}
+                  <line
+                    x1="280" y1="160"
+                    x2={c.cx} y2={c.cy}
+                    stroke={`${c.color}50`}
+                    strokeWidth="1"
+                  />
+                  {/* Rep link (dashed, offset slightly) */}
+                  <line
+                    x1={c.cx + (280 - c.cx) * 0.08} y1={c.cy + (160 - c.cy) * 0.08}
+                    x2={280 - (280 - c.cx) * 0.08} y2={160 - (160 - c.cy) * 0.08}
+                    stroke="rgba(255,255,255,0.15)"
+                    strokeWidth="1"
+                    strokeDasharray="3 2"
+                  />
+                  {/* Circle fill */}
+                  <circle
+                    cx={c.cx} cy={c.cy} r="48"
+                    fill={`${c.color}${isSelected ? "22" : "12"}`}
+                    stroke={`${c.color}${isSelected ? "80" : "35"}`}
+                    strokeWidth={isSelected ? "1.5" : "1"}
+                  />
+                  <text x={c.cx} y={c.cy - 4} textAnchor="middle" fill={isSelected ? c.color : `${c.color}CC`} fontSize="9.5" fontWeight="600" fontFamily="sans-serif">{c.label}</text>
+                  <text x={c.cx} y={c.cy + 9} textAnchor="middle" fill="rgba(255,255,255,0.25)" fontSize="7" fontFamily="sans-serif">{c.sub}</text>
+                </g>
+              );
+            })}
+
+            {/* Council center dot — clickable */}
+            <circle cx="280" cy="160" r="28" fill="rgba(234,130,78,0.12)" stroke="rgba(234,130,78,0.4)" strokeWidth="1.5" className="cursor-pointer"
+              onClick={() => setSelected(circles.find((x) => x.id === "council") ?? null)} />
+            <circle cx="280" cy="160" r="4" fill="rgba(234,130,78,0.8)" />
+          </svg>
+        </div>
+
+        {/* Role detail panel */}
+        <div className="border-t border-white/[0.04] lg:border-t-0 lg:border-l border-white/[0.06] p-5">
+          {selected ? (
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="rounded-lg p-2" style={{ background: `${selected.color}20` }}>
+                  <selected.icon size={14} weight="fill" style={{ color: selected.color }} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-white">{selected.label}</p>
+                  <p className="text-[10px] text-white/35">{selected.sub}</p>
+                </div>
+              </div>
+              <div className="space-y-3">
+                {selected.roles.map((role) => (
+                  <div key={role.title} className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-3">
+                    <p className="text-[11px] font-medium text-white/75 mb-1.5">{role.title}</p>
+                    <ul className="space-y-0.5">
+                      {role.accs.map((a) => (
+                        <li key={a} className="flex items-start gap-1.5 text-[10px] text-white/35">
+                          <span className="mt-[3px] h-1.5 w-1.5 rounded-full shrink-0" style={{ background: selected.color }} />
+                          {a}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[9px] text-white/20 mt-4 leading-relaxed">Double-linked: Lead Link appointed from Village Council. Rep Link elected by circle members.</p>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center h-full py-12 text-white/20 text-xs">
+              Click a circle to see roles
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TensionsBoard() {
+  const [newTension, setNewTension] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  return (
+    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
+      <div className="px-5 py-3.5 border-b border-white/[0.06] flex items-center justify-between">
+        <div>
+          <h2 className="text-sm font-medium text-white">Tensions Board</h2>
+          <p className="text-[11px] text-white/35 mt-0.5">S3 pattern — any member can log a tension. Unresolved gaps between current reality and potential become proposals.</p>
+        </div>
+        <span className="text-[10px] text-white/30">{tensions.filter(t => t.status !== "Resolved").length} open</span>
+      </div>
+      <div className="divide-y divide-white/[0.04]">
+        {tensions.map((t) => (
+          <div key={t.id} className="flex items-start gap-3 px-5 py-3 hover:bg-white/[0.02] transition-colors">
+            <span className="text-[9px] text-white/20 shrink-0 mt-0.5 w-10">{t.id}</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs text-white/70 leading-snug">{t.title}</p>
+              <div className="flex items-center gap-2 mt-1">
+                <span className={`rounded-full px-1.5 py-0.5 text-[9px] font-medium ${domainBadge[t.domain] ?? "bg-white/10 text-white/40"}`}>{t.domain}</span>
+                <span className="text-[9px] text-white/25">by {t.loggedBy}</span>
+                <span className="text-[9px] text-white/20">{t.created}</span>
+              </div>
+            </div>
+            <span className={`shrink-0 rounded-full px-2 py-0.5 text-[9px] font-medium ${tensionStatusBadge[t.status]}`}>{t.status}</span>
+          </div>
+        ))}
+      </div>
+      {/* Quick log */}
+      <div className="px-5 py-4 border-t border-white/[0.04]">
+        {!submitted ? (
+          <div className="flex gap-2">
+            <input
+              value={newTension}
+              onChange={(e) => setNewTension(e.target.value)}
+              placeholder="Log a tension — describe the gap you're noticing..."
+              className="flex-1 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-xs text-white/60 placeholder:text-white/20 outline-none focus:border-amber/40 transition-colors"
+            />
+            <button
+              disabled={!newTension.trim()}
+              onClick={() => setSubmitted(true)}
+              className="flex items-center gap-1.5 rounded-xl border border-amber/25 bg-amber/10 px-3 py-2 text-xs font-medium text-amber hover:bg-amber/20 transition-colors disabled:opacity-30"
+            >
+              <Plus size={11} weight="bold" /> Log
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center gap-2 text-xs text-emerald-400">
+            <CheckCircle size={13} weight="fill" />
+            Tension logged. The relevant circle will review at the next governance meeting.
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 /* ── Page ──────────────────────────────────────────────────────────── */
 
 export default function GovernancePage() {
@@ -944,6 +1213,12 @@ export default function GovernancePage() {
 
             <IntegrationRound proposal={integrationProposal} />
 
+            {/* Circles diagram */}
+            <CirclesView />
+
+            {/* Tensions Board */}
+            <TensionsBoard />
+
             {/* Active Proposals */}
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}>
               <h2 className="text-sm font-medium text-white mb-4">Active Proposals</h2>
@@ -953,10 +1228,20 @@ export default function GovernancePage() {
                   const forPct = Math.round((p.forVotes / total) * 100);
                   const againstPct = Math.round((p.against / total) * 100);
                   return (
-                    <motion.div key={p.title} variants={fadeUp} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
+                    <motion.div key={p.title} variants={fadeUp} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
+                      {/* Cover image */}
+                      {p.image && (
+                        <div className="relative h-36 overflow-hidden">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={p.image} alt={p.title} className="w-full h-full object-cover" />
+                          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#1a1725]/90" />
+                          <span className={`absolute top-3 right-3 rounded-full px-2 py-0.5 text-[10px] font-medium backdrop-blur-sm bg-black/30 border border-white/20 text-white/80`}>{p.status}</span>
+                        </div>
+                      )}
+                      <div className="p-5">
                       <div className="flex items-start justify-between mb-3">
                         <h3 className="text-sm font-medium text-white leading-snug pr-3">{p.title}</h3>
-                        <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${proposalStatusBadge[p.status]}`}>{p.status}</span>
+                        {!p.image && <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${proposalStatusBadge[p.status]}`}>{p.status}</span>}
                       </div>
                       <div className="flex items-center gap-2 mb-3">
                         <div className="flex h-6 w-6 items-center justify-center rounded-full bg-amber/15 text-[9px] font-semibold text-amber">{initials(p.proposer)}</div>
@@ -984,6 +1269,7 @@ export default function GovernancePage() {
                         </div>
                       </div>
                       <AmendmentSuggester proposal={p} />
+                      </div>
                     </motion.div>
                   );
                 })}
