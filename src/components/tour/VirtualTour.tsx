@@ -81,11 +81,27 @@ export default function VirtualTour({
 
       const startScene = scenes.find((s) => s.id === startSceneId) ?? scenes[0];
 
+      // For flat (non-360) photos, tell PSV to treat the image as covering ~100°
+      // of horizontal FOV rather than wrapping it around the full sphere.
+      const flatPanoData = (image: HTMLImageElement) => {
+        const hFovDeg = 100;
+        const fullWidth = Math.round(image.naturalWidth * (360 / hFovDeg));
+        const fullHeight = Math.round(fullWidth / 2); // equirectangular is always 2:1
+        return {
+          fullWidth,
+          fullHeight,
+          croppedWidth: image.naturalWidth,
+          croppedHeight: image.naturalHeight,
+          croppedX: Math.round((fullWidth - image.naturalWidth) / 2),
+          croppedY: Math.round((fullHeight - image.naturalHeight) / 2),
+        };
+      };
+
       const nodes = scenes.map((scene) => ({
         id: scene.id,
         panorama: scene.image,
         name: scene.title,
-        panoData: scene.type === "flat" ? { isEquirectangular: false } : undefined,
+        panoData: scene.type === "flat" ? flatPanoData : undefined,
         // No built-in arrows — all hotspots rendered as pin markers via MarkersPlugin
         links: [],
       }));
