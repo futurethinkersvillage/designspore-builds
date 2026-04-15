@@ -41,6 +41,7 @@ type VTPType = {
 type MPType = {
   clearMarkers: () => void;
   addMarker: (m: object) => void;
+  addEventListener: (event: string, cb: (e: { marker: { id: string; data?: Record<string, unknown> } }) => void) => void;
 };
 
 type ViewerType = {
@@ -85,13 +86,8 @@ export default function VirtualTour({
         panorama: scene.image,
         name: scene.title,
         panoData: scene.type === "flat" ? { isEquirectangular: false } : undefined,
-        links: scene.links
-          .filter((l) => !l.externalUrl)
-          .map((link) => ({
-            nodeId: link.nodeId,
-            position: { yaw: `${link.yaw}deg`, pitch: `${link.pitch}deg` },
-            name: link.title,
-          })),
+        // No built-in arrows — all hotspots rendered as pin markers via MarkersPlugin
+        links: [],
       }));
 
       const viewer = new Viewer({
@@ -109,8 +105,6 @@ export default function VirtualTour({
               nodes,
               startNodeId: startScene.id,
               renderMode: "3d",
-              arrowsPosition: { minPitch: -90 },
-              arrowStyle: { size: { width: 40, height: 40 } },
             },
           ],
           [MarkersPlugin, { markers: [] }],
@@ -124,35 +118,56 @@ export default function VirtualTour({
       const vtp = viewer.getPlugin(VirtualTourPlugin) as unknown as VTPType | null;
       vtpRef.current = vtp ?? null;
 
+      const mp = viewer.getPlugin(MarkersPlugin) as unknown as MPType | null;
+
+      function setSceneMarkers(sceneId: string) {
+        if (!mp) return;
+        const scene = scenes.find((s) => s.id === sceneId);
+        if (!scene) return;
+        mp.clearMarkers();
+        scene.links.forEach((link) => {
+          const isExternal = !!link.externalUrl;
+          mp.addMarker({
+            id: `nav-${link.nodeId ?? link.title}`,
+            position: { yaw: `${link.yaw}deg`, pitch: `${link.pitch}deg` },
+            html: `<div class="tour-pin${isExternal ? " tour-pin--ext" : ""}">
+              <div class="tour-pin__dot"></div>
+              <span class="tour-pin__label">${link.title}${isExternal ? " ↗" : ""}</span>
+            </div>`,
+            data: { nodeId: link.nodeId, externalUrl: link.externalUrl },
+          });
+        });
+      }
+
       if (vtp) {
         vtp.addEventListener("node-changed", ({ node }: { node: { id: string } }) => {
           onSceneChange?.(node.id);
-
           const scene = scenes.find((s) => s.id === node.id);
-          if (!scene) return;
-
-          // Apply the scene's initial view angle if defined
-          if (scene.initialYaw !== undefined && scene.initialPitch !== undefined) {
+          if (scene?.initialYaw !== undefined && scene?.initialPitch !== undefined) {
             (viewer as unknown as ViewerType).rotate({
               yaw: `${scene.initialYaw}deg`,
               pitch: `${scene.initialPitch}deg`,
             });
           }
-
-          const mp = viewer.getPlugin(MarkersPlugin) as unknown as MPType | null;
-          if (!mp) return;
-          mp.clearMarkers();
-          scene.links
-            .filter((l) => l.externalUrl)
-            .forEach((link) => {
-              mp.addMarker({
-                id: `ext-${link.title}`,
-                position: { yaw: `${link.yaw}deg`, pitch: `${link.pitch}deg` },
-                html: `<div class="psv-ext-marker">${link.title} ↗</div>`,
-                data: { externalUrl: link.externalUrl },
-              });
-            });
+          setSceneMarkers(node.id);
         });
+      }
+
+      if (mp) {
+        mp.addEventListener("select-marker", ({ marker }) => {
+          const { nodeId, externalUrl } = (marker.data ?? {}) as { nodeId?: string; externalUrl?: string };
+          if (externalUrl) {
+            window.open(externalUrl, "_blank", "noopener,noreferrer");
+          } else if (nodeId && vtp) {
+            vtp.setCurrentNode(nodeId);
+          }
+        });
+      }
+
+      // Populate markers for the initial scene once it loads
+      if (vtp) {
+        // node-changed fires on first load too, but set eagerly in case timing differs
+        setSceneMarkers(startScene.id);
       }
 
       // Debug overlay: update yaw/pitch on every position change

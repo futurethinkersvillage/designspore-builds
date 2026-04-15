@@ -65,3 +65,48 @@ body::before {
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Virtual tour pin markers ─────────────────────────────────── */
+.tour-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transform: translateX(-50%);
+}
+
+.tour-pin__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--amber);
+  border: 2.5px solid #fff;
+  box-shadow: 0 0 0 2px rgba(234,130,78,0.45), 0 2px 8px rgba(0,0,0,0.5);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tour-pin__label {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: rgba(0,0,0,0.62);
+  padding: 2px 7px;
+  border-radius: 20px;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.tour-pin--ext .tour-pin__dot {
+  background: var(--terracotta);
+  box-shadow: 0 0 0 2px rgba(175,105,94,0.45), 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.psv-marker:hover .tour-pin__dot,
+.psv-marker--selected .tour-pin__dot {
+  transform: scale(1.35);
+  box-shadow: 0 0 0 3px rgba(234,130,78,0.6), 0 4px 12px rgba(0,0,0,0.6);
+}
