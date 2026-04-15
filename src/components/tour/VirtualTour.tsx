@@ -30,7 +30,8 @@ interface VirtualTourProps {
   className?: string;
   onSceneChange?: (sceneId: string) => void;
   /** Called every time the viewer position changes (yaw/pitch in degrees) */
-  onPositionChange?: (pos: { yaw: number; pitch: number }) => void;
+  /** Called every time the viewer position or zoom changes */
+  onPositionChange?: (pos: { yaw: number; pitch: number; zoom: number }) => void;
   /** Pass true (or add ?debug=1 to URL) to show live yaw/pitch overlay for calibrating hotspot positions */
   debug?: boolean;
 }
@@ -50,7 +51,9 @@ type ViewerType = {
   destroy: () => void;
   getPlugin: (p: unknown) => unknown;
   getPosition: () => { yaw: number; pitch: number };
+  getZoomLevel: () => number;
   rotate: (position: { yaw: string; pitch: string }) => void;
+  zoom: (level: number) => void;
   addEventListener: (event: string, cb: () => void) => void;
 };
 
@@ -152,13 +155,15 @@ export default function VirtualTour({
             if (mp) mp.clearMarkers();
           } else {
             setFlatScene(null);
-            // Restore to the scene's preferred starting angle (or equator if unset)
+            // Restore to the scene's preferred starting angle/zoom (or sensible defaults)
             const yaw = scene?.initialYaw ?? 0;
             const pitch = scene?.initialPitch ?? 0;
+            const zoom = scene?.initialZoom ?? 50;
             (viewer as unknown as ViewerType).rotate({
               yaw: `${yaw}deg`,
               pitch: `${pitch}deg`,
             });
+            (viewer as unknown as ViewerType).zoom(zoom);
             setSceneMarkers(node.id);
           }
         });
@@ -175,14 +180,17 @@ export default function VirtualTour({
         });
       }
 
-      // Position change: feed debug overlay + parent callback
-      (viewer as unknown as ViewerType).addEventListener("position-updated", () => {
+      // Position/zoom change: feed debug overlay + parent callback
+      const emitPosition = () => {
         const pos = (viewer as unknown as ViewerType).getPosition();
         const toDeg = (r: number) => Math.round((r * 180) / Math.PI * 100) / 100;
-        const deg = { yaw: toDeg(pos.yaw), pitch: toDeg(pos.pitch) };
-        if (debug) setDebugPos(deg);
+        const zoom = Math.round((viewer as unknown as ViewerType).getZoomLevel());
+        const deg = { yaw: toDeg(pos.yaw), pitch: toDeg(pos.pitch), zoom };
+        if (debug) setDebugPos({ yaw: deg.yaw, pitch: deg.pitch });
         onPositionChange?.(deg);
-      });
+      };
+      (viewer as unknown as ViewerType).addEventListener("position-updated", emitPosition);
+      (viewer as unknown as ViewerType).addEventListener("zoom-updated", emitPosition);
 
       // Set initial flat scene if startScene is flat
       if (startScene.type === "flat") {

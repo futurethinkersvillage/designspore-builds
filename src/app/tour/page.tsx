@@ -155,11 +155,21 @@ const SCENES: TourScene[] = [
   },
 ];
 
+type SceneCalibration = { yaw: number; pitch: number; zoom: number };
+
 export default function TourPage() {
   const [activeSceneId, setActiveSceneId] = useState("top-view");
   const [showHint, setShowHint] = useState(true);
+  const [calibrations, setCalibrations] = useState<Record<string, SceneCalibration>>({});
   const searchParams = useSearchParams();
   const debugMode = searchParams.get("debug") === "1";
+
+  useEffect(() => {
+    fetch("/api/tour-config")
+      .then((r) => r.ok ? r.json() : {})
+      .then(setCalibrations)
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowHint(false), 4000);
@@ -168,14 +178,21 @@ export default function TourPage() {
     return () => { clearTimeout(timer); window.removeEventListener("pointerdown", dismiss); };
   }, []);
 
-  const activeScene = SCENES.find((s) => s.id === activeSceneId);
+  // Merge saved calibrations over defaults
+  const scenes = SCENES.map((scene) => {
+    const cal = calibrations[scene.id];
+    if (!cal || scene.type === "flat") return scene;
+    return { ...scene, initialYaw: cal.yaw, initialPitch: cal.pitch, initialZoom: cal.zoom };
+  });
+
+  const activeScene = scenes.find((s) => s.id === activeSceneId);
 
   return (
     <div className="fixed inset-0 flex flex-col bg-warm-dark">
       {/* Tour viewer */}
       <div className="relative flex-1 overflow-hidden">
         <VirtualTour
-          scenes={SCENES}
+          scenes={scenes}
           startSceneId={activeSceneId}
           onSceneChange={setActiveSceneId}
           className="h-full w-full"
@@ -209,7 +226,7 @@ export default function TourPage() {
 
       {/* Scene thumbnail strip */}
       <div className="flex h-20 shrink-0 items-center gap-2 overflow-x-auto border-t border-white/10 bg-black/60 px-4 backdrop-blur-sm">
-        {SCENES.map((scene) => (
+        {scenes.map((scene) => (
           <button
             key={scene.id}
             onClick={() => setActiveSceneId(scene.id)}
