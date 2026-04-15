@@ -161,14 +161,15 @@ export default function TourPage() {
   const [activeSceneId, setActiveSceneId] = useState("top-view");
   const [showHint, setShowHint] = useState(true);
   const [calibrations, setCalibrations] = useState<Record<string, SceneCalibration>>({});
+  const [calibrationsReady, setCalibrationsReady] = useState(false);
   const searchParams = useSearchParams();
   const debugMode = searchParams.get("debug") === "1";
 
   useEffect(() => {
     fetch("/api/tour-config")
       .then((r) => r.ok ? r.json() : {})
-      .then(setCalibrations)
-      .catch(() => {});
+      .then((data) => { setCalibrations(data); setCalibrationsReady(true); })
+      .catch(() => setCalibrationsReady(true));
   }, []);
 
   useEffect(() => {
@@ -191,13 +192,15 @@ export default function TourPage() {
     <div className="fixed inset-0 flex flex-col bg-warm-dark">
       {/* Tour viewer */}
       <div className="relative flex-1 overflow-hidden">
-        <VirtualTour
-          scenes={scenes}
-          startSceneId={activeSceneId}
-          onSceneChange={setActiveSceneId}
-          className="h-full w-full"
-          debug={debugMode}
-        />
+        {calibrationsReady && (
+          <VirtualTour
+            scenes={scenes}
+            startSceneId={activeSceneId}
+            onSceneChange={setActiveSceneId}
+            className="h-full w-full"
+            debug={debugMode}
+          />
+        )}
 
         {/* Scene label + description overlay */}
         <div className="pointer-events-none absolute left-0 top-0 z-10 p-4 pt-20 max-w-xs">

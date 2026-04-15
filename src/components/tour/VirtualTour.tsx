@@ -68,6 +68,9 @@ export default function VirtualTour({
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<ViewerType | null>(null);
   const vtpRef = useRef<VTPType | null>(null);
+  // Keep a live ref so closures inside PSV event handlers always see the latest scenes
+  const scenesRef = useRef(scenes);
+  useEffect(() => { scenesRef.current = scenes; }, [scenes]);
   const [error, setError] = React.useState<string | null>(null);
   const [debugPos, setDebugPos] = React.useState<{ yaw: number; pitch: number } | null>(null);
   // When non-null, the active scene is a flat photo — PSV is hidden, we show a plain img
@@ -127,7 +130,7 @@ export default function VirtualTour({
 
       function setSceneMarkers(sceneId: string) {
         if (!mp) return;
-        const scene = scenes.find((s) => s.id === sceneId);
+        const scene = scenesRef.current.find((s) => s.id === sceneId);
         if (!scene) return;
         mp.clearMarkers();
         scene.links.forEach((link) => {
@@ -147,7 +150,7 @@ export default function VirtualTour({
       if (vtp) {
         vtp.addEventListener("node-changed", ({ node }: { node: { id: string } }) => {
           onSceneChange?.(node.id);
-          const scene = scenes.find((s) => s.id === node.id);
+          const scene = scenesRef.current.find((s) => s.id === node.id);
 
           if (scene?.type === "flat") {
             // Hide PSV, show plain image overlay — no sphere projection

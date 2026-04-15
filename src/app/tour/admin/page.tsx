@@ -132,11 +132,15 @@ export default function TourAdminPage() {
   const [activeSceneId, setActiveSceneId] = useState("top-view");
   const [livePos, setLivePos] = useState<{ yaw: number; pitch: number; zoom: number } | null>(null);
   const [calibrations, setCalibrations] = useState<Calibrations>({});
+  const [calibrationsReady, setCalibrationsReady] = useState(false);
   const [saving, setSaving] = useState(false);
   const [savedFlash, setSavedFlash] = useState(false);
 
   useEffect(() => {
-    fetchCalibrations().then(setCalibrations);
+    fetchCalibrations().then((data) => {
+      setCalibrations(data);
+      setCalibrationsReady(true);
+    });
   }, []);
 
   const activeScene = DEFAULT_SCENES.find((s) => s.id === activeSceneId);
@@ -178,13 +182,15 @@ export default function TourAdminPage() {
     <div className="fixed inset-0 flex bg-warm-dark">
       {/* Tour viewer */}
       <div className="relative flex-1 overflow-hidden">
-        <VirtualTour
-          scenes={scenes}
-          startSceneId={activeSceneId}
-          onSceneChange={setActiveSceneId}
-          onPositionChange={setLivePos}
-          className="h-full w-full"
-        />
+        {calibrationsReady && (
+          <VirtualTour
+            scenes={scenes}
+            startSceneId={activeSceneId}
+            onSceneChange={setActiveSceneId}
+            onPositionChange={setLivePos}
+            className="h-full w-full"
+          />
+        )}
       </div>
 
       {/* Admin sidebar */}
