@@ -5,20 +5,21 @@ import {
   UsersThree, CurrencyDollar, Briefcase, Bed,
   Lightning, Heartbeat, ArrowUp, ArrowDown,
   CalendarBlank, CheckCircle, UserPlus, Plant,
-  Megaphone, ThermometerHot, Drop, WifiHigh, Wind,
-  Sun, CloudSun, Clock,
+  Megaphone, Drop, WifiHigh, Wind,
+  CloudSun, Clock,
 } from "@phosphor-icons/react";
+import CountUp from "@/components/dashboard/CountUp";
 import { AreaChart, Area, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 
 /* ── Demo data (inline to keep page self-contained) ──────────────── */
 
 const stats = [
-  { label: "Total Members", value: "247", trend: "+12%", trendUp: true, icon: UsersThree },
-  { label: "Monthly Revenue", value: "$187,420", trend: "+8.3%", trendUp: true, icon: CurrencyDollar },
-  { label: "Active Projects", value: "23", trend: "+3", trendUp: true, icon: Briefcase },
-  { label: "Occupancy Rate", value: "89%", trend: "+5%", trendUp: true, icon: Bed },
-  { label: "Energy Self-Sufficiency", value: "72%", trend: "+4%", trendUp: true, icon: Lightning },
-  { label: "Community Health", value: "94/100", trend: "+2", trendUp: true, icon: Heartbeat },
+  { label: "Total Members", to: 247, prefix: "", suffix: "", trend: "+12%", trendUp: true, icon: UsersThree },
+  { label: "Monthly Revenue", to: 187420, prefix: "$", suffix: "", trend: "+8.3%", trendUp: true, icon: CurrencyDollar },
+  { label: "Active Projects", to: 23, prefix: "", suffix: "", localize: false, trend: "+3", trendUp: true, icon: Briefcase },
+  { label: "Occupancy Rate", to: 89, prefix: "", suffix: "%", localize: false, trend: "+5%", trendUp: true, icon: Bed },
+  { label: "Energy Self-Sufficiency", to: 72, prefix: "", suffix: "%", localize: false, trend: "+4%", trendUp: true, icon: Lightning },
+  { label: "Community Health", to: 94, prefix: "", suffix: "/100", localize: false, trend: "+2", trendUp: true, icon: Heartbeat },
 ];
 
 const revenueHistory = [
@@ -116,7 +117,9 @@ export default function OverviewPage() {
                 <s.icon size={14} weight="fill" className="text-amber" />
               </div>
             </div>
-            <div className="text-xl font-semibold text-white lg:text-2xl">{s.value}</div>
+            <div className="text-xl font-semibold text-white lg:text-2xl">
+              <CountUp to={s.to} prefix={s.prefix} suffix={s.suffix} localize={s.localize !== false} />
+            </div>
             <div className={`mt-1 flex items-center gap-1 text-xs ${s.trendUp ? "text-emerald-400" : "text-red-400"}`}>
               {s.trendUp ? <ArrowUp size={10} weight="bold" /> : <ArrowDown size={10} weight="bold" />}
               {s.trend}

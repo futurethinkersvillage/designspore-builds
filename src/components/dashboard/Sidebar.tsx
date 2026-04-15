@@ -61,7 +61,12 @@ export default function Sidebar() {
                   active ? "text-amber" : "text-white/40 group-hover:text-white/60"
                 }`}
               />
-              <span>{item.label}</span>
+              <span className="flex-1">{item.label}</span>
+              {item.badge && !active && (
+                <span className="flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-amber/20 text-[10px] font-bold text-amber leading-none">
+                  {item.badge}
+                </span>
+              )}
               {active && (
                 <motion.div
                   layoutId="sidebar-active-indicator"
