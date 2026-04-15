@@ -29,6 +29,8 @@ interface VirtualTourProps {
   startSceneId?: string;
   className?: string;
   onSceneChange?: (sceneId: string) => void;
+  /** Called every time the viewer position changes (yaw/pitch in degrees) */
+  onPositionChange?: (pos: { yaw: number; pitch: number }) => void;
   /** Pass true (or add ?debug=1 to URL) to show live yaw/pitch overlay for calibrating hotspot positions */
   debug?: boolean;
 }
@@ -57,6 +59,7 @@ export default function VirtualTour({
   startSceneId,
   className = "",
   onSceneChange,
+  onPositionChange,
   debug = false,
 }: VirtualTourProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -64,6 +67,8 @@ export default function VirtualTour({
   const vtpRef = useRef<VTPType | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [debugPos, setDebugPos] = React.useState<{ yaw: number; pitch: number } | null>(null);
+  // When non-null, the active scene is a flat photo — PSV is hidden, we show a plain img
+  const [flatScene, setFlatScene] = React.useState<{ image: string; links: HotspotLink[] } | null>(null);
 
   // Initial viewer creation
   useEffect(() => {
@@ -81,35 +86,16 @@ export default function VirtualTour({
 
       const startScene = scenes.find((s) => s.id === startSceneId) ?? scenes[0];
 
-      // For flat (non-360) photos, tell PSV to treat the image as covering ~100°
-      // of horizontal FOV rather than wrapping it around the full sphere.
-      const flatPanoData = (image: HTMLImageElement) => {
-        const hFovDeg = 100;
-        const fullWidth = Math.round(image.naturalWidth * (360 / hFovDeg));
-        const fullHeight = Math.round(fullWidth / 2); // equirectangular is always 2:1
-        return {
-          fullWidth,
-          fullHeight,
-          croppedWidth: image.naturalWidth,
-          croppedHeight: image.naturalHeight,
-          croppedX: Math.round((fullWidth - image.naturalWidth) / 2),
-          croppedY: Math.round((fullHeight - image.naturalHeight) / 2),
-        };
-      };
-
       const nodes = scenes.map((scene) => ({
         id: scene.id,
         panorama: scene.image,
         name: scene.title,
-        panoData: scene.type === "flat" ? flatPanoData : undefined,
         // No built-in arrows — all hotspots rendered as pin markers via MarkersPlugin
         links: [],
       }));
 
       const viewer = new Viewer({
         container: containerRef.current!,
-        // No panorama here — VirtualTourPlugin owns the initial load via startNodeId.
-        // Passing panorama AND startNodeId causes a double-load race that stalls the loader.
         ...(startScene.initialYaw !== undefined && { defaultYaw: `${startScene.initialYaw}deg` }),
         ...(startScene.initialPitch !== undefined && { defaultPitch: `${startScene.initialPitch}deg` }),
         defaultZoomLvl: 50,
@@ -159,13 +145,22 @@ export default function VirtualTour({
         vtp.addEventListener("node-changed", ({ node }: { node: { id: string } }) => {
           onSceneChange?.(node.id);
           const scene = scenes.find((s) => s.id === node.id);
-          if (scene?.initialYaw !== undefined && scene?.initialPitch !== undefined) {
+
+          if (scene?.type === "flat") {
+            // Hide PSV, show plain image overlay — no sphere projection
+            setFlatScene({ image: scene.image, links: scene.links });
+            if (mp) mp.clearMarkers();
+          } else {
+            setFlatScene(null);
+            // Restore to the scene's preferred starting angle (or equator if unset)
+            const yaw = scene?.initialYaw ?? 0;
+            const pitch = scene?.initialPitch ?? 0;
             (viewer as unknown as ViewerType).rotate({
-              yaw: `${scene.initialYaw}deg`,
-              pitch: `${scene.initialPitch}deg`,
+              yaw: `${yaw}deg`,
+              pitch: `${pitch}deg`,
             });
+            setSceneMarkers(node.id);
           }
-          setSceneMarkers(node.id);
         });
       }
 
@@ -180,19 +175,20 @@ export default function VirtualTour({
         });
       }
 
-      // Populate markers for the initial scene once it loads
-      if (vtp) {
-        // node-changed fires on first load too, but set eagerly in case timing differs
-        setSceneMarkers(startScene.id);
-      }
+      // Position change: feed debug overlay + parent callback
+      (viewer as unknown as ViewerType).addEventListener("position-updated", () => {
+        const pos = (viewer as unknown as ViewerType).getPosition();
+        const toDeg = (r: number) => Math.round((r * 180) / Math.PI * 100) / 100;
+        const deg = { yaw: toDeg(pos.yaw), pitch: toDeg(pos.pitch) };
+        if (debug) setDebugPos(deg);
+        onPositionChange?.(deg);
+      });
 
-      // Debug overlay: update yaw/pitch on every position change
-      if (debug) {
-        (viewer as unknown as ViewerType).addEventListener("position-updated", () => {
-          const pos = (viewer as unknown as ViewerType).getPosition();
-          const toDeg = (r: number) => Math.round((r * 180) / Math.PI * 100) / 100;
-          setDebugPos({ yaw: toDeg(pos.yaw), pitch: toDeg(pos.pitch) });
-        });
+      // Set initial flat scene if startScene is flat
+      if (startScene.type === "flat") {
+        setFlatScene({ image: startScene.image, links: startScene.links });
+      } else {
+        setSceneMarkers(startScene.id);
       }
 
       } catch (err) {
@@ -216,7 +212,6 @@ export default function VirtualTour({
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Navigate to a new scene when startSceneId changes (after mount)
-  // MUST be before any conditional return to satisfy React hooks rules
   const prevSceneId = useRef(startSceneId);
   useEffect(() => {
     if (startSceneId && startSceneId !== prevSceneId.current && vtpRef.current) {
@@ -240,11 +235,37 @@ export default function VirtualTour({
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      {/* PSV container — hidden (not unmounted) when showing a flat photo */}
       <div
         ref={containerRef}
         className={className}
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%", visibility: flatScene ? "hidden" : "visible" }}
       />
+
+      {/* Flat photo overlay — rendered outside PSV so there's zero sphere projection */}
+      {flatScene && (
+        <div className="flat-scene-overlay">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={flatScene.image} alt="" className="flat-scene-img" />
+          <div className="flat-scene-pins">
+            {flatScene.links.map((link) => (
+              <button
+                key={link.nodeId ?? link.title}
+                className={`tour-pin${link.externalUrl ? " tour-pin--ext" : ""}`}
+                onClick={() => {
+                  if (link.externalUrl) window.open(link.externalUrl, "_blank", "noopener,noreferrer");
+                  else vtpRef.current?.setCurrentNode(link.nodeId);
+                }}
+              >
+                <div className="tour-pin__dot" />
+                <span className="tour-pin__label">{link.title}{link.externalUrl ? " ↗" : ""}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Debug overlay */}
       {debug && debugPos && (
         <div style={{
           position: "absolute", top: 12, right: 12, zIndex: 100,
