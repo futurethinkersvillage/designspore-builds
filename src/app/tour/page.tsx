@@ -155,7 +155,7 @@ const SCENES: TourScene[] = [
   },
 ];
 
-type SceneCalibration = { yaw: number; pitch: number; zoom: number };
+type SceneCalibration = { yaw: number; pitch: number; zoom: number; boundary?: [number, number][] };
 
 export default function TourPage() {
   const [activeSceneId, setActiveSceneId] = useState("top-view");
@@ -182,8 +182,13 @@ export default function TourPage() {
   // Merge saved calibrations over defaults
   const scenes = SCENES.map((scene) => {
     const cal = calibrations[scene.id];
-    if (!cal || scene.type === "flat") return scene;
-    return { ...scene, initialYaw: cal.yaw, initialPitch: cal.pitch, initialZoom: cal.zoom };
+    if (!cal) return scene;
+    if (scene.type === "flat") return cal.boundary ? { ...scene, boundary: cal.boundary } : scene;
+    return {
+      ...scene,
+      initialYaw: cal.yaw, initialPitch: cal.pitch, initialZoom: cal.zoom,
+      ...(cal.boundary && { boundary: cal.boundary }),
+    };
   });
 
   const activeScene = scenes.find((s) => s.id === activeSceneId);

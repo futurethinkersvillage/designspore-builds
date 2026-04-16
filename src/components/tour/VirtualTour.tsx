@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef } from "react";
 
-// Scene types matching iPanorama data
 export type SceneType = "sphere" | "flat";
 
 export interface HotspotLink {
@@ -21,6 +20,8 @@ export interface TourScene {
   initialYaw?: number;
   initialPitch?: number;
   initialZoom?: number;
+  /** Property boundary polygon — array of [yaw, pitch] in degrees */
+  boundary?: [number, number][];
   links: HotspotLink[];
 }
 
@@ -29,10 +30,10 @@ interface VirtualTourProps {
   startSceneId?: string;
   className?: string;
   onSceneChange?: (sceneId: string) => void;
-  /** Called every time the viewer position changes (yaw/pitch in degrees) */
   /** Called every time the viewer position or zoom changes */
   onPositionChange?: (pos: { yaw: number; pitch: number; zoom: number }) => void;
-  /** Pass true (or add ?debug=1 to URL) to show live yaw/pitch overlay for calibrating hotspot positions */
+  /** Called when the user clicks the panorama (not on a marker). Coords in degrees. */
+  onViewerClick?: (pos: { yaw: number; pitch: number }) => void;
   debug?: boolean;
 }
 
@@ -44,6 +45,9 @@ type VTPType = {
 type MPType = {
   clearMarkers: () => void;
   addMarker: (m: object) => void;
+  updateMarker: (m: object) => void;
+  removeMarker: (id: string) => void;
+  getMarker: (id: string) => object | null;
   addEventListener: (event: string, cb: (e: { marker: { id: string; data?: Record<string, unknown> } }) => void) => void;
 };
 
@@ -54,7 +58,7 @@ type ViewerType = {
   getZoomLevel: () => number;
   rotate: (position: { yaw: string; pitch: string }) => void;
   zoom: (level: number) => void;
-  addEventListener: (event: string, cb: () => void) => void;
+  addEventListener: (event: string, cb: (e: unknown) => void) => void;
 };
 
 export default function VirtualTour({
@@ -63,145 +67,164 @@ export default function VirtualTour({
   className = "",
   onSceneChange,
   onPositionChange,
+  onViewerClick,
   debug = false,
 }: VirtualTourProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<ViewerType | null>(null);
   const vtpRef = useRef<VTPType | null>(null);
-  // Keep a live ref so closures inside PSV event handlers always see the latest scenes
   const scenesRef = useRef(scenes);
+  const currentSceneIdRef = useRef(startSceneId);
+  const setSceneMarkersRef = useRef<((sceneId: string) => void) | null>(null);
+  const onViewerClickRef = useRef(onViewerClick);
+
   useEffect(() => { scenesRef.current = scenes; }, [scenes]);
+  useEffect(() => { onViewerClickRef.current = onViewerClick; }, [onViewerClick]);
+
+  // Re-draw markers (including boundary polygon) when scenes prop changes (e.g. live drawing preview)
+  useEffect(() => {
+    if (setSceneMarkersRef.current && currentSceneIdRef.current) {
+      setSceneMarkersRef.current(currentSceneIdRef.current);
+    }
+  }, [scenes]);
+
   const [error, setError] = React.useState<string | null>(null);
   const [debugPos, setDebugPos] = React.useState<{ yaw: number; pitch: number } | null>(null);
-  // When non-null, the active scene is a flat photo — PSV is hidden, we show a plain img
   const [flatScene, setFlatScene] = React.useState<{ image: string; links: HotspotLink[] } | null>(null);
 
-  // Initial viewer creation
   useEffect(() => {
     if (!containerRef.current) return;
-
     let destroyed = false;
 
     async function init() {
       try {
-      const { Viewer } = await import("@photo-sphere-viewer/core");
-      const { VirtualTourPlugin } = await import("@photo-sphere-viewer/virtual-tour-plugin");
-      const { MarkersPlugin } = await import("@photo-sphere-viewer/markers-plugin");
+        const { Viewer } = await import("@photo-sphere-viewer/core");
+        const { VirtualTourPlugin } = await import("@photo-sphere-viewer/virtual-tour-plugin");
+        const { MarkersPlugin } = await import("@photo-sphere-viewer/markers-plugin");
 
-      if (destroyed || !containerRef.current) return;
+        if (destroyed || !containerRef.current) return;
 
-      const startScene = scenes.find((s) => s.id === startSceneId) ?? scenes[0];
+        const startScene = scenesRef.current.find((s) => s.id === startSceneId) ?? scenesRef.current[0];
 
-      const nodes = scenes.map((scene) => ({
-        id: scene.id,
-        panorama: scene.image,
-        name: scene.title,
-        // No built-in arrows — all hotspots rendered as pin markers via MarkersPlugin
-        links: [],
-      }));
+        const nodes = scenesRef.current.map((scene) => ({
+          id: scene.id,
+          panorama: scene.image,
+          name: scene.title,
+          links: [],
+        }));
 
-      const viewer = new Viewer({
-        container: containerRef.current!,
-        ...(startScene.initialYaw !== undefined && { defaultYaw: `${startScene.initialYaw}deg` }),
-        ...(startScene.initialPitch !== undefined && { defaultPitch: `${startScene.initialPitch}deg` }),
-        defaultZoomLvl: 50,
-        navbar: ["autorotate", "zoom", "caption", "fullscreen"],
-        plugins: [
-          [
-            VirtualTourPlugin,
-            {
-              nodes,
-              startNodeId: startScene.id,
-              renderMode: "3d",
-            },
+        const viewer = new Viewer({
+          container: containerRef.current!,
+          ...(startScene.initialYaw !== undefined && { defaultYaw: `${startScene.initialYaw}deg` }),
+          ...(startScene.initialPitch !== undefined && { defaultPitch: `${startScene.initialPitch}deg` }),
+          defaultZoomLvl: startScene.initialZoom ?? 50,
+          navbar: ["autorotate", "zoom", "caption", "fullscreen"],
+          plugins: [
+            [VirtualTourPlugin, { nodes, startNodeId: startScene.id, renderMode: "3d" }],
+            [MarkersPlugin, { markers: [] }],
           ],
-          [MarkersPlugin, { markers: [] }],
-        ],
-        touchmoveTwoFingers: false,
-        mousewheelCtrlKey: false,
-      });
-
-      viewerRef.current = viewer as unknown as ViewerType;
-
-      const vtp = viewer.getPlugin(VirtualTourPlugin) as unknown as VTPType | null;
-      vtpRef.current = vtp ?? null;
-
-      const mp = viewer.getPlugin(MarkersPlugin) as unknown as MPType | null;
-
-      function setSceneMarkers(sceneId: string) {
-        if (!mp) return;
-        const scene = scenesRef.current.find((s) => s.id === sceneId);
-        if (!scene) return;
-        mp.clearMarkers();
-        scene.links.forEach((link) => {
-          const isExternal = !!link.externalUrl;
-          mp.addMarker({
-            id: `nav-${link.nodeId ?? link.title}`,
-            position: { yaw: `${link.yaw}deg`, pitch: `${link.pitch}deg` },
-            html: `<div class="tour-pin${isExternal ? " tour-pin--ext" : ""}">
-              <div class="tour-pin__dot"></div>
-              <span class="tour-pin__label">${link.title}${isExternal ? " ↗" : ""}</span>
-            </div>`,
-            data: { nodeId: link.nodeId, externalUrl: link.externalUrl },
-          });
+          touchmoveTwoFingers: false,
+          mousewheelCtrlKey: false,
         });
-      }
 
-      if (vtp) {
-        vtp.addEventListener("node-changed", ({ node }: { node: { id: string } }) => {
-          onSceneChange?.(node.id);
-          const scene = scenesRef.current.find((s) => s.id === node.id);
+        viewerRef.current = viewer as unknown as ViewerType;
 
-          if (scene?.type === "flat") {
-            // Hide PSV, show plain image overlay — no sphere projection
-            setFlatScene({ image: scene.image, links: scene.links });
-            if (mp) mp.clearMarkers();
-          } else {
-            setFlatScene(null);
-            // Restore to the scene's preferred starting angle/zoom (or sensible defaults)
-            const yaw = scene?.initialYaw ?? 0;
-            const pitch = scene?.initialPitch ?? 0;
-            const zoom = scene?.initialZoom ?? 50;
-            (viewer as unknown as ViewerType).rotate({
-              yaw: `${yaw}deg`,
-              pitch: `${pitch}deg`,
+        const vtp = viewer.getPlugin(VirtualTourPlugin) as unknown as VTPType | null;
+        vtpRef.current = vtp ?? null;
+        const mp = viewer.getPlugin(MarkersPlugin) as unknown as MPType | null;
+
+        function setSceneMarkers(sceneId: string) {
+          if (!mp) return;
+          const scene = scenesRef.current.find((s) => s.id === sceneId);
+          if (!scene) return;
+          mp.clearMarkers();
+
+          // Navigation pins
+          scene.links.forEach((link) => {
+            const isExternal = !!link.externalUrl;
+            mp.addMarker({
+              id: `nav-${link.nodeId ?? link.title}`,
+              position: { yaw: `${link.yaw}deg`, pitch: `${link.pitch}deg` },
+              html: `<div class="tour-pin${isExternal ? " tour-pin--ext" : ""}">
+                <div class="tour-pin__dot"></div>
+                <span class="tour-pin__label">${link.title}${isExternal ? " ↗" : ""}</span>
+              </div>`,
+              data: { nodeId: link.nodeId, externalUrl: link.externalUrl },
             });
-            (viewer as unknown as ViewerType).zoom(zoom);
-            setSceneMarkers(node.id);
+          });
+
+          // Property boundary polygon
+          if (scene.boundary && scene.boundary.length >= 3) {
+            mp.addMarker({
+              id: "property-boundary",
+              polygon: scene.boundary.map(([y, p]) => [`${y}deg`, `${p}deg`]),
+              svgStyle: {
+                fill: "rgba(234,130,78,0.12)",
+                stroke: "rgba(234,130,78,0.75)",
+                strokeWidth: "2px",
+                strokeDasharray: "6 3",
+              },
+            });
           }
+        }
+
+        setSceneMarkersRef.current = setSceneMarkers;
+
+        if (vtp) {
+          vtp.addEventListener("node-changed", ({ node }: { node: { id: string } }) => {
+            currentSceneIdRef.current = node.id;
+            onSceneChange?.(node.id);
+            const scene = scenesRef.current.find((s) => s.id === node.id);
+
+            if (scene?.type === "flat") {
+              setFlatScene({ image: scene.image, links: scene.links });
+              if (mp) mp.clearMarkers();
+            } else {
+              setFlatScene(null);
+              const yaw = scene?.initialYaw ?? 0;
+              const pitch = scene?.initialPitch ?? 0;
+              const zoom = scene?.initialZoom ?? 50;
+              (viewer as unknown as ViewerType).rotate({ yaw: `${yaw}deg`, pitch: `${pitch}deg` });
+              (viewer as unknown as ViewerType).zoom(zoom);
+              setSceneMarkers(node.id);
+            }
+          });
+        }
+
+        if (mp) {
+          mp.addEventListener("select-marker", ({ marker }) => {
+            const { nodeId, externalUrl } = (marker.data ?? {}) as { nodeId?: string; externalUrl?: string };
+            if (externalUrl) window.open(externalUrl, "_blank", "noopener,noreferrer");
+            else if (nodeId && vtp) vtp.setCurrentNode(nodeId);
+          });
+        }
+
+        // Click on the sphere (not on a marker) → draw mode
+        (viewer as unknown as ViewerType).addEventListener("click", (e: unknown) => {
+          const data = (e as { data: { rightclick: boolean; yaw: number; pitch: number; marker?: unknown } }).data;
+          if (data.rightclick || data.marker) return;
+          const toDeg = (r: number) => Math.round(r * 180 / Math.PI * 100) / 100;
+          onViewerClickRef.current?.({ yaw: toDeg(data.yaw), pitch: toDeg(data.pitch) });
         });
-      }
 
-      if (mp) {
-        mp.addEventListener("select-marker", ({ marker }) => {
-          const { nodeId, externalUrl } = (marker.data ?? {}) as { nodeId?: string; externalUrl?: string };
-          if (externalUrl) {
-            window.open(externalUrl, "_blank", "noopener,noreferrer");
-          } else if (nodeId && vtp) {
-            vtp.setCurrentNode(nodeId);
-          }
-        });
-      }
+        // Position/zoom → callbacks
+        const emitPosition = () => {
+          const pos = (viewer as unknown as ViewerType).getPosition();
+          const toDeg = (r: number) => Math.round(r * 180 / Math.PI * 100) / 100;
+          const zoom = Math.round((viewer as unknown as ViewerType).getZoomLevel());
+          const deg = { yaw: toDeg(pos.yaw), pitch: toDeg(pos.pitch), zoom };
+          if (debug) setDebugPos({ yaw: deg.yaw, pitch: deg.pitch });
+          onPositionChange?.(deg);
+        };
+        (viewer as unknown as ViewerType).addEventListener("position-updated", emitPosition);
+        (viewer as unknown as ViewerType).addEventListener("zoom-updated", emitPosition);
 
-      // Position/zoom change: feed debug overlay + parent callback
-      const emitPosition = () => {
-        const pos = (viewer as unknown as ViewerType).getPosition();
-        const toDeg = (r: number) => Math.round((r * 180) / Math.PI * 100) / 100;
-        const zoom = Math.round((viewer as unknown as ViewerType).getZoomLevel());
-        const deg = { yaw: toDeg(pos.yaw), pitch: toDeg(pos.pitch), zoom };
-        if (debug) setDebugPos({ yaw: deg.yaw, pitch: deg.pitch });
-        onPositionChange?.(deg);
-      };
-      (viewer as unknown as ViewerType).addEventListener("position-updated", emitPosition);
-      (viewer as unknown as ViewerType).addEventListener("zoom-updated", emitPosition);
-
-      // Set initial flat scene if startScene is flat
-      if (startScene.type === "flat") {
-        setFlatScene({ image: startScene.image, links: startScene.links });
-      } else {
-        setSceneMarkers(startScene.id);
-      }
-
+        if (startScene.type === "flat") {
+          setFlatScene({ image: startScene.image, links: startScene.links });
+        } else {
+          currentSceneIdRef.current = startScene.id;
+          setSceneMarkers(startScene.id);
+        }
       } catch (err) {
         if (!destroyed) {
           console.error("VirtualTour init failed:", err);
@@ -215,6 +238,7 @@ export default function VirtualTour({
     return () => {
       destroyed = true;
       vtpRef.current = null;
+      setSceneMarkersRef.current = null;
       if (viewerRef.current) {
         viewerRef.current.destroy();
         viewerRef.current = null;
@@ -222,7 +246,6 @@ export default function VirtualTour({
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Navigate to a new scene when startSceneId changes (after mount)
   const prevSceneId = useRef(startSceneId);
   useEffect(() => {
     if (startSceneId && startSceneId !== prevSceneId.current && vtpRef.current) {
@@ -236,9 +259,7 @@ export default function VirtualTour({
       <div className={`${className} flex items-center justify-center bg-warm-dark`} style={{ width: "100%", height: "100%" }}>
         <div className="text-center px-6 max-w-sm">
           <p className="text-white/60 text-sm mb-4">{error}</p>
-          <a href="/videos" className="text-amber text-sm underline underline-offset-2">
-            Watch video walkthroughs instead →
-          </a>
+          <a href="/videos" className="text-amber text-sm underline underline-offset-2">Watch video walkthroughs instead →</a>
         </div>
       </div>
     );
@@ -246,14 +267,12 @@ export default function VirtualTour({
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
-      {/* PSV container — hidden (not unmounted) when showing a flat photo */}
       <div
         ref={containerRef}
         className={className}
         style={{ width: "100%", height: "100%", visibility: flatScene ? "hidden" : "visible" }}
       />
 
-      {/* Flat photo overlay — rendered outside PSV so there's zero sphere projection */}
       {flatScene && (
         <div className="flat-scene-overlay">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -276,13 +295,11 @@ export default function VirtualTour({
         </div>
       )}
 
-      {/* Debug overlay */}
       {debug && debugPos && (
         <div style={{
           position: "absolute", top: 12, right: 12, zIndex: 100,
           background: "rgba(0,0,0,0.75)", color: "#fff", fontFamily: "monospace",
-          fontSize: 13, padding: "8px 12px", borderRadius: 6, pointerEvents: "none",
-          lineHeight: 1.6,
+          fontSize: 13, padding: "8px 12px", borderRadius: 6, pointerEvents: "none", lineHeight: 1.6,
         }}>
           <div>yaw: <b>{debugPos.yaw}°</b></div>
           <div>pitch: <b>{debugPos.pitch}°</b></div>

@@ -102,7 +102,7 @@ const DEFAULT_SCENES: TourScene[] = [
   },
 ];
 
-type SceneCalibration = { yaw: number; pitch: number; zoom: number };
+type SceneCalibration = { yaw: number; pitch: number; zoom: number; boundary?: [number, number][] };
 type Calibrations = Record<string, SceneCalibration>;
 
 async function fetchCalibrations(): Promise<Calibrations> {
@@ -135,6 +135,8 @@ export default function TourAdminPage() {
   const [calibrationsReady, setCalibrationsReady] = useState(false);
   const [saving, setSaving] = useState(false);
   const [savedFlash, setSavedFlash] = useState(false);
+  const [drawMode, setDrawMode] = useState(false);
+  const [vertices, setVertices] = useState<[number, number][]>([]);
 
   useEffect(() => {
     fetchCalibrations().then((data) => {
@@ -171,23 +173,76 @@ export default function TourAdminPage() {
     setSaving(false);
   }
 
+  function handleViewerClick(pos: { yaw: number; pitch: number }) {
+    if (!drawMode) return;
+    setVertices((v) => [...v, [pos.yaw, pos.pitch]]);
+  }
+
+  async function saveBoundary() {
+    if (vertices.length < 3) return;
+    setSaving(true);
+    const existing = calibrations[activeSceneId] ?? { yaw: 0, pitch: 0, zoom: 50 };
+    const next: Calibrations = { ...calibrations, [activeSceneId]: { ...existing, boundary: vertices } };
+    const ok = await saveCalibrations(next);
+    if (ok) {
+      setCalibrations(next);
+      setVertices([]);
+      setDrawMode(false);
+      setSavedFlash(true);
+      setTimeout(() => setSavedFlash(false), 2000);
+    }
+    setSaving(false);
+  }
+
+  async function deleteBoundary() {
+    setSaving(true);
+    const existing = calibrations[activeSceneId];
+    if (!existing) { setSaving(false); return; }
+    const { boundary: _b, ...rest } = existing;
+    const next: Calibrations = { ...calibrations, [activeSceneId]: rest as SceneCalibration };
+    const ok = await saveCalibrations(next);
+    if (ok) setCalibrations(next);
+    setSaving(false);
+  }
+
   // Merge calibrations into scenes for the live viewer
+  // While drawing, overlay the live vertices as the boundary on the active scene
   const scenes = DEFAULT_SCENES.map((scene) => {
     const cal = calibrations[scene.id];
-    if (!cal || scene.type === "flat") return scene;
-    return { ...scene, initialYaw: cal.yaw, initialPitch: cal.pitch, initialZoom: cal.zoom };
+    const isActive = scene.id === activeSceneId;
+    const liveBoundary = drawMode && isActive && vertices.length >= 3 ? vertices : undefined;
+    const savedBoundary = cal?.boundary;
+    const boundary = liveBoundary ?? savedBoundary;
+    if (!cal && !boundary) return scene;
+    if (scene.type === "flat") return boundary ? { ...scene, boundary } : scene;
+    return {
+      ...scene,
+      ...(cal && { initialYaw: cal.yaw, initialPitch: cal.pitch, initialZoom: cal.zoom }),
+      ...(boundary && { boundary }),
+    };
   });
 
   return (
     <div className="fixed inset-0 flex bg-warm-dark">
       {/* Tour viewer */}
       <div className="relative flex-1 overflow-hidden">
+        {drawMode && (
+          <div style={{
+            position: "absolute", top: 12, left: 12, zIndex: 50,
+            background: "rgba(234,130,78,0.9)", color: "#fff",
+            padding: "6px 14px", borderRadius: 20, fontSize: 12, fontWeight: 600,
+            pointerEvents: "none",
+          }}>
+            Draw mode — click to place vertices ({vertices.length} placed)
+          </div>
+        )}
         {calibrationsReady && (
           <VirtualTour
             scenes={scenes}
             startSceneId={activeSceneId}
-            onSceneChange={setActiveSceneId}
+            onSceneChange={(id) => { setActiveSceneId(id); setVertices([]); setDrawMode(false); }}
             onPositionChange={setLivePos}
+            onViewerClick={handleViewerClick}
             className="h-full w-full"
           />
         )}
@@ -248,6 +303,63 @@ export default function TourAdminPage() {
             </button>
           )}
         </div>
+
+        <hr className="border-white/10" />
+
+        {/* Boundary drawing */}
+        {activeScene?.type === "sphere" && (
+          <div className="flex flex-col gap-2">
+            <p className="text-[10px] font-medium uppercase tracking-widest text-white/40">Property boundary</p>
+
+            {!drawMode ? (
+              <>
+                <button
+                  onClick={() => { setDrawMode(true); setVertices([]); }}
+                  className="rounded-lg border border-amber/40 px-4 py-2 text-sm text-amber hover:bg-amber/10 transition-colors"
+                >
+                  {calibrations[activeSceneId]?.boundary ? "Redraw boundary" : "Draw boundary"}
+                </button>
+                {calibrations[activeSceneId]?.boundary && (
+                  <button
+                    onClick={deleteBoundary}
+                    disabled={saving}
+                    className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white/50 hover:border-white/30 hover:text-white/80 transition-colors disabled:opacity-40"
+                  >
+                    Delete boundary
+                  </button>
+                )}
+              </>
+            ) : (
+              <>
+                <p className="text-xs text-white/40">
+                  Click anywhere on the panorama to place vertices. Need at least 3 to save.
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setVertices((v) => v.slice(0, -1))}
+                    disabled={vertices.length === 0}
+                    className="flex-1 rounded-lg border border-white/10 px-3 py-2 text-xs text-white/60 hover:border-white/30 transition-colors disabled:opacity-30"
+                  >
+                    Undo
+                  </button>
+                  <button
+                    onClick={() => { setDrawMode(false); setVertices([]); }}
+                    className="flex-1 rounded-lg border border-white/10 px-3 py-2 text-xs text-white/60 hover:border-white/30 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <button
+                  onClick={saveBoundary}
+                  disabled={vertices.length < 3 || saving}
+                  className="rounded-lg bg-amber px-4 py-2 text-sm font-medium text-white disabled:opacity-40 hover:bg-amber/80 transition-colors"
+                >
+                  {saving ? "Saving…" : savedFlash ? "Saved ✓" : `Save boundary (${vertices.length} pts)`}
+                </button>
+              </>
+            )}
+          </div>
+        )}
 
         <hr className="border-white/10" />
 
