@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 import {
   Scales, FileText, ChartBar,
   CheckCircle, XCircle, X, Minus, Clock,
@@ -1143,6 +1144,7 @@ export default function GovernancePage() {
   const [mainView, setMainView] = useState<"my" | "village">("my");
   const [villageSub, setVillageSub] = useState<"proposals" | "structure" | "history">("proposals");
   const [bannerDismissed, setBannerDismissed] = useState(false);
+  const [sageOpen, setSageOpen] = useState(false);
   const integrationProposal = proposals.find((p) => p.status === "Integration Round")!;
 
   const villageSubTabs = [
@@ -1161,19 +1163,27 @@ export default function GovernancePage() {
           </h1>
           <p className="mt-2 text-sm text-white/40">Proposals, voting, disputes, and community agreements</p>
         </div>
-        <div className="flex rounded-xl border border-white/[0.06] bg-white/[0.04] p-1 gap-1 self-start sm:self-auto shrink-0">
+        <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
           <button
-            onClick={() => setMainView("my")}
-            className={`rounded-lg px-4 py-1.5 text-xs font-medium transition-colors whitespace-nowrap ${mainView === "my" ? "bg-amber/15 text-amber" : "text-white/40 hover:text-white/60"}`}
+            onClick={() => setSageOpen(true)}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-indigo-500/25 bg-indigo-500/10 text-xs font-medium text-indigo-400 hover:bg-indigo-500/20 transition-colors"
           >
-            My Governance
+            <Scales size={13} weight="fill" /> Ask Sage
           </button>
-          <button
-            onClick={() => setMainView("village")}
-            className={`rounded-lg px-4 py-1.5 text-xs font-medium transition-colors whitespace-nowrap ${mainView === "village" ? "bg-white/[0.08] text-white" : "text-white/40 hover:text-white/60"}`}
-          >
-            Village View
-          </button>
+          <div className="flex rounded-xl border border-white/[0.06] bg-white/[0.04] p-1 gap-1">
+            <button
+              onClick={() => setMainView("my")}
+              className={`rounded-lg px-4 py-1.5 text-xs font-medium transition-colors whitespace-nowrap ${mainView === "my" ? "bg-amber/15 text-amber" : "text-white/40 hover:text-white/60"}`}
+            >
+              My Governance
+            </button>
+            <button
+              onClick={() => setMainView("village")}
+              className={`rounded-lg px-4 py-1.5 text-xs font-medium transition-colors whitespace-nowrap ${mainView === "village" ? "bg-white/[0.08] text-white" : "text-white/40 hover:text-white/60"}`}
+            >
+              Village View
+            </button>
+          </div>
         </div>
       </div>
 
@@ -1431,6 +1441,8 @@ export default function GovernancePage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <AgentDrawer agentId="sage" isOpen={sageOpen} onClose={() => setSageOpen(false)} />
     </div>
   );
 }

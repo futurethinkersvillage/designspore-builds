@@ -2,182 +2,41 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Scales, Compass, Plant, Hammer, GlobeHemisphereWest, Sparkle,
   Robot, ArrowRight, CheckCircle, Clock, Warning, Wrench,
   Megaphone, Users, Leaf, CurrencyDollar,
 } from "@phosphor-icons/react";
 import type { ComponentType } from "react";
+import { agentsList, councilActivity } from "@/lib/data/dashboard/agents";
+import type { AgentAccent, AgentStatus, ActionType } from "@/lib/data/dashboard/agents";
 
-/* ── Types ─────────────────────────────────────────────────────────── */
+/* ── Icon map ───────────────────────────────────────────────────────── */
 
-type Status = "active" | "idle" | "thinking" | "needs-approval";
-type Accent = "indigo" | "amber" | "emerald" | "terracotta" | "mauve" | "blue";
-type Model = "opus" | "sonnet" | "haiku";
-
-interface Agent {
-  id: string;
-  name: string;
-  archetype: string;
-  role: string;
-  voice: string;
-  modules: string[];
-  icon: ComponentType<{ size?: number; weight?: "light" | "regular" | "bold" | "fill"; className?: string }>;
-  accent: Accent;
-  status: Status;
-  actionsToday: number;
-  pendingApprovals: number;
-  lastActive: string;
-  skills: string[];
-  model: Model;
-}
-
-interface RecentAction {
-  agent: string;
-  accent: Accent;
-  action: string;
-  time: string;
-  type: "resolved" | "approval" | "created" | "action" | "logged" | "sent" | "published";
-}
-
-/* ── Data ───────────────────────────────────────────────────────────── */
-
-const agents: Agent[] = [
-  {
-    id: "sage",
-    name: "Sage",
-    archetype: "Elder",
-    role: "Governance & Communications",
-    voice: "Before we vote — what tension are we trying to resolve?",
-    modules: ["Governance", "Comms"],
-    icon: Scales,
-    accent: "indigo",
-    status: "thinking",
-    actionsToday: 8,
-    pendingApprovals: 1,
-    lastActive: "2 min ago",
-    skills: ["Draft proposals", "Facilitate consent rounds", "Log tensions", "Send announcements"],
-    model: "opus",
-  },
-  {
-    id: "orion",
-    name: "Orion",
-    archetype: "Steward",
-    role: "Capital & Fundraising",
-    voice: "Runway at 14 months. Two grant deadlines this week.",
-    modules: ["Fundraising"],
-    icon: Compass,
-    accent: "amber",
-    status: "idle",
-    actionsToday: 4,
-    pendingApprovals: 0,
-    lastActive: "1 hr ago",
-    skills: ["Track grant deadlines", "Draft investor updates", "Flag runway risk", "Cap table summaries"],
-    model: "sonnet",
-  },
-  {
-    id: "fern",
-    name: "Fern",
-    archetype: "Keeper",
-    role: "Land & Energy Systems",
-    voice: "Plot A is ready. Moisture low — rain coming in two days.",
-    modules: ["Farm & IoT", "Energy"],
-    icon: Plant,
-    accent: "emerald",
-    status: "active",
-    actionsToday: 12,
-    pendingApprovals: 0,
-    lastActive: "just now",
-    skills: ["Monitor sensors", "Flag anomalies", "Crop cycle planning", "Energy optimization"],
-    model: "haiku",
-  },
-  {
-    id: "forge",
-    name: "Forge",
-    archetype: "Executor",
-    role: "Operations & Tasks",
-    voice: "3 tasks overdue. Shall I reassign to available work-stay participants?",
-    modules: ["Operations", "Tasks"],
-    icon: Hammer,
-    accent: "terracotta",
-    status: "needs-approval",
-    actionsToday: 11,
-    pendingApprovals: 2,
-    lastActive: "5 min ago",
-    skills: ["Triage tasks", "Reassign work orders", "Flag budget overruns", "Generate work orders"],
-    model: "sonnet",
-  },
-  {
-    id: "atlas",
-    name: "Atlas",
-    archetype: "Weaver",
-    role: "Network & Exchange",
-    voice: "3 villages in our network are hosting events this month.",
-    modules: ["Marketplace", "Network Map"],
-    icon: GlobeHemisphereWest,
-    accent: "mauve",
-    status: "idle",
-    actionsToday: 3,
-    pendingApprovals: 0,
-    lastActive: "3 hrs ago",
-    skills: ["Curate marketplace listings", "Inter-village introductions", "Network pulse reports"],
-    model: "sonnet",
-  },
-  {
-    id: "iris",
-    name: "Iris",
-    archetype: "Connector",
-    role: "People, Culture & Soul",
-    voice: "Marcus's skills match the Plot B build. Shall I make the intro?",
-    modules: ["Members", "Work-Stay", "Events", "Wellness", "Membership", "Village Soul"],
-    icon: Sparkle,
-    accent: "blue",
-    status: "active",
-    actionsToday: 9,
-    pendingApprovals: 0,
-    lastActive: "15 min ago",
-    skills: ["Skill matching", "Culture design", "Event planning", "Wellness check-ins", "Soul.md stewardship"],
-    model: "opus",
-  },
-];
-
-const recentActions: RecentAction[] = [
-  { agent: "Fern", accent: "emerald", action: "Sensor alert resolved — Greenhouse 2 humidity normalized", time: "2 min ago", type: "resolved" },
-  { agent: "Forge", accent: "terracotta", action: "Flagged 3 overdue tasks — awaiting reassignment approval", time: "5 min ago", type: "approval" },
-  { agent: "Sage", accent: "indigo", action: "Drafted integration round summary for Solar Array proposal", time: "12 min ago", type: "created" },
-  { agent: "Iris", accent: "blue", action: "Matched Marcus Rivera to Plot B carpentry project", time: "28 min ago", type: "action" },
-  { agent: "Fern", accent: "emerald", action: "Battery storage hit 78% — efficiency record logged", time: "1 hr ago", type: "logged" },
-  { agent: "Orion", accent: "amber", action: "BC Green Infrastructure Grant deadline reminder sent", time: "2 hrs ago", type: "sent" },
-  { agent: "Atlas", accent: "mauve", action: "2 new marketplace listings published: sauna tools, compost", time: "3 hrs ago", type: "published" },
-  { agent: "Sage", accent: "indigo", action: "Tension logged: Quiet hours policy ambiguity flagged by 2 members", time: "4 hrs ago", type: "logged" },
-];
-
-const globalStats = [
-  { label: "Active Agents", value: "6 / 6", icon: Robot },
-  { label: "Actions Today", value: "47", icon: CheckCircle },
-  { label: "Pending Approvals", value: "3", icon: Warning },
-  { label: "Cost This Month", value: "$124", icon: CurrencyDollar },
-];
-
-/* ── Accent colour maps ─────────────────────────────────────────────── */
-
-const accentMap: Record<Accent, { bg: string; text: string; border: string; dot: string }> = {
-  indigo:     { bg: "bg-indigo-500/10",    text: "text-indigo-400",  border: "border-indigo-500/20",  dot: "bg-indigo-400" },
-  amber:      { bg: "bg-amber/10",         text: "text-amber",       border: "border-amber/20",       dot: "bg-amber" },
-  emerald:    { bg: "bg-emerald-500/10",   text: "text-emerald-400", border: "border-emerald-500/20", dot: "bg-emerald-400" },
-  terracotta: { bg: "bg-[#C4614A]/10",     text: "text-[#C4614A]",   border: "border-[#C4614A]/20",   dot: "bg-[#C4614A]" },
-  mauve:      { bg: "bg-[#9B7FA0]/10",     text: "text-[#9B7FA0]",   border: "border-[#9B7FA0]/20",   dot: "bg-[#9B7FA0]" },
-  blue:       { bg: "bg-blue-500/10",      text: "text-blue-400",    border: "border-blue-500/20",    dot: "bg-blue-400" },
+const iconMap: Record<string, ComponentType<{ size?: number; weight?: "light" | "regular" | "bold" | "fill"; className?: string }>> = {
+  Scales, Compass, Plant, Hammer, GlobeHemisphereWest, Sparkle,
 };
 
-const statusMap: Record<Status, { label: string; dot: string; pulse: boolean }> = {
+/* ── Accent + status maps ───────────────────────────────────────────── */
+
+const accentMap: Record<AgentAccent, { bg: string; text: string; border: string }> = {
+  indigo:     { bg: "bg-indigo-500/10",  text: "text-indigo-400",  border: "border-indigo-500/20"  },
+  amber:      { bg: "bg-amber/10",       text: "text-amber",       border: "border-amber/20"       },
+  emerald:    { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/20" },
+  terracotta: { bg: "bg-[#C4614A]/10",   text: "text-[#C4614A]",   border: "border-[#C4614A]/20"   },
+  mauve:      { bg: "bg-[#9B7FA0]/10",   text: "text-[#9B7FA0]",   border: "border-[#9B7FA0]/20"   },
+  blue:       { bg: "bg-blue-500/10",    text: "text-blue-400",    border: "border-blue-500/20"    },
+};
+
+const statusMap: Record<AgentStatus, { label: string; dot: string; pulse: boolean }> = {
   active:           { label: "Active",         dot: "bg-emerald-400", pulse: false },
   idle:             { label: "Idle",           dot: "bg-white/20",    pulse: false },
   thinking:         { label: "Thinking…",      dot: "bg-amber",       pulse: true  },
   "needs-approval": { label: "Needs Approval", dot: "bg-[#C4614A]",   pulse: true  },
 };
 
-const actionTypeIcon: Record<RecentAction["type"], ComponentType<{ size?: number; className?: string }>> = {
+const actionTypeIcon: Record<ActionType, ComponentType<{ size?: number; className?: string }>> = {
   resolved:  CheckCircle,
   approval:  Warning,
   created:   Wrench,
@@ -187,17 +46,24 @@ const actionTypeIcon: Record<RecentAction["type"], ComponentType<{ size?: number
   published: GlobeHemisphereWest,
 };
 
-const modelBadge: Record<Model, string> = {
+const modelBadge: Record<string, string> = {
   opus:    "bg-amber/10 text-amber border-amber/20",
   sonnet:  "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
   haiku:   "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
 };
 
+const globalStats = [
+  { label: "Active Agents", value: "6 / 6", icon: Robot },
+  { label: "Actions Today", value: "47", icon: CheckCircle },
+  { label: "Pending Approvals", value: "3", icon: Warning },
+  { label: "Cost This Month", value: "$124", icon: CurrencyDollar },
+];
+
 /* ── Animations ──────────────────────────────────────────────────────── */
 
 const fadeUp = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45 } } };
-const staggerFast  = { hidden: {}, visible: { transition: { staggerChildren: 0.06 } } };
-const staggerSlow  = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } };
+const staggerFast = { hidden: {}, visible: { transition: { staggerChildren: 0.06 } } };
+const staggerSlow = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } };
 
 /* ── Page ─────────────────────────────────────────────────────────────── */
 
@@ -248,8 +114,8 @@ export default function AgentsPage() {
         animate="visible"
         className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {agents.map((agent) => {
-          const Icon = agent.icon;
+        {agentsList.map((agent) => {
+          const Icon = iconMap[agent.iconName] ?? Robot;
           const ac = accentMap[agent.accent];
           const st = statusMap[agent.status];
           const maxModules = 3;
@@ -262,10 +128,17 @@ export default function AgentsPage() {
               variants={fadeUp}
               className="group rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 flex flex-col gap-4 hover:border-white/[0.1] transition-colors duration-300"
             >
-              {/* Top row: icon + name + model badge */}
+              {/* Top row */}
               <div className="flex items-start gap-3">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${ac.bg}`}>
-                  <Icon size={22} className={ac.text} weight="fill" />
+                <div className={`w-12 h-12 rounded-xl overflow-hidden shrink-0 ${ac.bg}`}>
+                  <Image
+                    src={`/images/dashboard/agent-${agent.id}.jpg`}
+                    alt={agent.name}
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover"
+                    onError={() => {}}
+                  />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
@@ -289,10 +162,7 @@ export default function AgentsPage() {
               {/* Module chips */}
               <div className="flex flex-wrap gap-1.5">
                 {visibleModules.map((mod) => (
-                  <span
-                    key={mod}
-                    className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-white/[0.05] text-white/40 border border-white/[0.06]"
-                  >
+                  <span key={mod} className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] bg-white/[0.05] text-white/40 border border-white/[0.06]">
                     {mod}
                   </span>
                 ))}
@@ -303,14 +173,10 @@ export default function AgentsPage() {
                 )}
               </div>
 
-              {/* Status + stats row */}
+              {/* Status + stats */}
               <div className="flex items-center justify-between pt-1 border-t border-white/[0.05]">
                 <div className="flex items-center gap-2">
-                  <span
-                    className={`w-2 h-2 rounded-full shrink-0 ${st.dot} ${
-                      st.pulse ? "animate-pulse" : ""
-                    }`}
-                  />
+                  <span className={`w-2 h-2 rounded-full shrink-0 ${st.dot} ${st.pulse ? "animate-pulse" : ""}`} />
                   <span className="text-xs text-white/50">{st.label}</span>
                 </div>
                 <div className="flex items-center gap-3 text-xs text-white/30">
@@ -351,11 +217,10 @@ export default function AgentsPage() {
           <h2 className="text-sm font-medium text-white">Recent Council Activity</h2>
           <span className="text-xs text-white/25">Last 8 actions</span>
         </div>
-
         <div className="space-y-0">
-          {recentActions.map((item, i) => {
-            const TypeIcon = actionTypeIcon[item.type];
-            const ac = accentMap[item.accent];
+          {councilActivity.map((item, i) => {
+            const TypeIcon = actionTypeIcon[item.type as ActionType];
+            const ac = accentMap[item.accent as AgentAccent];
             return (
               <motion.div
                 key={i}
