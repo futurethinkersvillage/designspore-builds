@@ -49,12 +49,6 @@ const SCENES: TourScene[] = [
       { nodeId: "Dome-Interior",   yaw: 174.684, pitch: -69.166, title: "Dome Interior" },
       { nodeId: "Lake-and-Field",  yaw: 156.072, pitch: -62.175, title: "Lake & Field" },
       { nodeId: "Campsite",        yaw:   4.597, pitch: -70.377, title: "Campsite" },
-      {
-        nodeId: "dev-concept",
-        yaw: 349.507, pitch: -54.865,
-        title: "Development Concept ↗",
-        externalUrl: "https://marble.worldlabs.ai/world/d5d9bd70-302a-400c-a34f-693aa2783895",
-      },
     ],
   },
   {
