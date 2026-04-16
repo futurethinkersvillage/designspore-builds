@@ -185,7 +185,7 @@ export default function AgentDrawer({ agentId, isOpen, onClose }: AgentDrawerPro
             <div className="flex items-center gap-3 px-4 py-4 border-b border-white/[0.06] shrink-0">
               <div className={`w-9 h-9 rounded-xl overflow-hidden shrink-0 ${ac.bg}`}>
                 <Image
-                  src={`/images/dashboard/agent-${agent.id}.jpg`}
+                  src={agent.imgSrc}
                   alt={agent.name}
                   width={36}
                   height={36}

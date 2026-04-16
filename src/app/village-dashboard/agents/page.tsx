@@ -132,7 +132,7 @@ export default function AgentsPage() {
               <div className="flex items-start gap-3">
                 <div className={`w-12 h-12 rounded-xl overflow-hidden shrink-0 ${ac.bg}`}>
                   <Image
-                    src={`/images/dashboard/agent-${agent.id}.jpg`}
+                    src={agent.imgSrc}
                     alt={agent.name}
                     width={48}
                     height={48}

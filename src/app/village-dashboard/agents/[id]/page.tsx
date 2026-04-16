@@ -164,7 +164,7 @@ export default function AgentDetailPage({ params }: { params: Promise<{ id: stri
         <div className="flex items-start gap-5">
           <div className={`w-16 h-16 rounded-2xl overflow-hidden shrink-0 ring-2 ${ac.ring} ${ac.bg}`}>
             <Image
-              src={`/images/dashboard/agent-${agent.id}.jpg`}
+              src={agent.imgSrc}
               alt={agent.name}
               width={64}
               height={64}

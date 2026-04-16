@@ -32,6 +32,8 @@ export interface AgentData {
   modules: string[];
   /** String name of the Phosphor icon — resolved to component in page files */
   iconName: string;
+  /** Full path to portrait image under /public */
+  imgSrc: string;
   accent: AgentAccent;
   status: AgentStatus;
   actionsToday: number;
@@ -53,6 +55,7 @@ export const agentsList: AgentData[] = [
     voice: "Before we vote — what tension are we trying to resolve?",
     modules: ["Governance", "Comms"],
     iconName: "Scales",
+    imgSrc: "/images/dashboard/agent-sage.png",
     accent: "indigo",
     status: "thinking",
     actionsToday: 8,
@@ -109,6 +112,7 @@ I do not make decisions on behalf of the community. I do not dismiss minority co
     voice: "Runway at 14 months. Two grant deadlines this week.",
     modules: ["Fundraising"],
     iconName: "Compass",
+    imgSrc: "/images/dashboard/agent-orion.jpeg",
     accent: "amber",
     status: "idle",
     actionsToday: 4,
@@ -164,6 +168,7 @@ I do not make investment commitments. I do not share investor contact details wi
     voice: "Plot A is ready. Moisture low — rain coming in two days.",
     modules: ["Farm & IoT", "Energy"],
     iconName: "Plant",
+    imgSrc: "/images/dashboard/agent-fern.png",
     accent: "emerald",
     status: "active",
     actionsToday: 12,
@@ -220,6 +225,7 @@ I do not override irrigation or energy controls without human approval. I flag e
     voice: "3 tasks overdue. Shall I reassign to available work-stay participants?",
     modules: ["Operations", "Tasks"],
     iconName: "Hammer",
+    imgSrc: "/images/dashboard/agent-forge.png",
     accent: "terracotta",
     status: "needs-approval",
     actionsToday: 11,
@@ -275,6 +281,7 @@ I do not reassign tasks without approval. I do not cancel work orders unilateral
     voice: "3 villages in our network are hosting events this month.",
     modules: ["Marketplace", "Network Map"],
     iconName: "GlobeHemisphereWest",
+    imgSrc: "/images/dashboard/agent-atlas.png",
     accent: "mauve",
     status: "idle",
     actionsToday: 3,
@@ -330,6 +337,7 @@ I do not share member contact details without their consent. I do not publish li
     voice: "Marcus's skills match the Plot B build. Shall I make the intro?",
     modules: ["Members", "Work-Stay", "Events", "Wellness", "Membership", "Village Soul"],
     iconName: "Sparkle",
+    imgSrc: "/images/dashboard/agent-iris.png",
     accent: "blue",
     status: "active",
     actionsToday: 9,
