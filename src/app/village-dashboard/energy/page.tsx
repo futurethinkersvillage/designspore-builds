@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Lightning, SolarPanel, Drop, Recycle, ArrowUp,
-  Sun, Cloud, CloudRain, Snowflake, Wind,
+  Sun, Cloud, CloudRain, Snowflake, Wind, Plant,
 } from "@phosphor-icons/react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   BarChart, Bar,
@@ -96,13 +98,24 @@ function ChartTooltip({ active, payload, label }: any) {
 /* ── Page ─────────────────────────────────────────────────────────── */
 
 export default function EnergyPage() {
+  const [agentOpen, setAgentOpen] = useState(false);
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Energy & <span className="italic">Sustainability</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">Solar, battery, water, waste, and carbon tracking</p>
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Energy & <span className="italic">Sustainability</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">Solar, battery, water, waste, and carbon tracking</p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-emerald-500/25 bg-emerald-500/10 text-xs font-medium text-emerald-400 hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <Plant size={13} weight="fill" /> Ask Fern
+        </button>
       </div>
 
       {/* Stats */}
@@ -263,6 +276,7 @@ export default function EnergyPage() {
           ))}
         </div>
       </motion.div>
+      <AgentDrawer agentId="fern" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

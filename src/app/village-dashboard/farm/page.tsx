@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Plant, Drop, Thermometer, Sun, ArrowUp, Warning,
   CheckCircle, Info, WarningCircle, Brain,
 } from "@phosphor-icons/react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   BarChart, Bar,
@@ -125,13 +127,24 @@ function ChartTooltip({ active, payload, label }: any) {
 /* ── Page ─────────────────────────────────────────────────────────── */
 
 export default function FarmPage() {
+  const [agentOpen, setAgentOpen] = useState(false);
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Farm Management <span className="italic">& IoT</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">Crop health, sensor data, yield tracking, and livestock</p>
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Farm Management <span className="italic">& IoT</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">Crop health, sensor data, yield tracking, and livestock</p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-emerald-500/25 bg-emerald-500/10 text-xs font-medium text-emerald-400 hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <Plant size={13} weight="fill" /> Ask Fern
+        </button>
       </div>
 
       {/* Stats */}
@@ -340,6 +353,7 @@ export default function FarmPage() {
           </div>
         </motion.div>
       </div>
+      <AgentDrawer agentId="fern" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

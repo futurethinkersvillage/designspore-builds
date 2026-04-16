@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   CalendarBlank, Star, Users, ChartPie, TrendUp,
   MapPin, Clock, User, Sparkle,
 } from "@phosphor-icons/react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip,
 } from "recharts";
@@ -423,16 +425,26 @@ function AiEventPlanner() {
 /* ── Page ─────────────────────────────────────────────────────── */
 
 export default function EventsPage() {
+  const [agentOpen, setAgentOpen] = useState(false);
+
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Workshops, Courses & <span className="italic">Events</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">
-          Community programming, skill-building, and celebrations
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Workshops, Courses & <span className="italic">Events</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">
+            Community programming, skill-building, and celebrations
+          </p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-blue-500/25 bg-blue-500/10 text-xs font-medium text-blue-400 hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <Sparkle size={13} weight="fill" /> Ask Iris
+        </button>
       </div>
 
       {/* Stats row */}
@@ -604,6 +616,7 @@ export default function EventsPage() {
           ))}
         </div>
       </motion.div>
+      <AgentDrawer agentId="iris" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

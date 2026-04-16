@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   CurrencyDollar, ChartPieSlice, Handshake, Rocket,
   Timer, ArrowUp, TrendUp, Users, CalendarBlank,
-  CheckCircle, Clock, Briefcase,
+  CheckCircle, Clock, Briefcase, Compass,
 } from "@phosphor-icons/react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 import {
   ResponsiveContainer, PieChart, Pie, Cell,
   BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid,
@@ -130,16 +132,26 @@ function InflowTooltip({ active, payload, label }: any) {
 /* ── Page ─────────────────────────────────────────────────────────── */
 
 export default function FundraisingPage() {
+  const [agentOpen, setAgentOpen] = useState(false);
+
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Fundraising &amp; <span className="italic">Capital</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">
-          Campaign tracking, grant pipeline, and investor relations
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Fundraising &amp; <span className="italic">Capital</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">
+            Campaign tracking, grant pipeline, and investor relations
+          </p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-amber/25 bg-amber/10 text-xs font-medium text-amber hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <Compass size={13} weight="fill" /> Ask Orion
+        </button>
       </div>
 
       {/* Stats row */}
@@ -341,6 +353,7 @@ export default function FundraisingPage() {
           </div>
         </motion.div>
       </div>
+      <AgentDrawer agentId="orion" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

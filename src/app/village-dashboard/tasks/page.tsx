@@ -1,12 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ClipboardText, Spinner, CheckCircle, Warning,
   Timer, ArrowUp, FunnelSimple, Calendar,
   Wrench, TreeStructure, UsersThree, Plant, Confetti,
-  Flag,
+  Flag, Hammer,
 } from "@phosphor-icons/react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 
 /* ── Inline data ───────────────────────────────────────────────────── */
 
@@ -140,16 +142,26 @@ const categoryBadge: Record<string, string> = {
 /* ── Page ─────────────────────────────────────────────────────────── */
 
 export default function TasksPage() {
+  const [agentOpen, setAgentOpen] = useState(false);
+
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Task <span className="italic">Management</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">
-          Kanban board, work orders, and project timelines
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Task <span className="italic">Management</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">
+            Kanban board, work orders, and project timelines
+          </p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-[#C4614A]/25 bg-[#C4614A]/10 text-xs font-medium text-[#C4614A] hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <Hammer size={13} weight="fill" /> Ask Forge
+        </button>
       </div>
 
       {/* Stats row */}
@@ -408,6 +420,7 @@ export default function TasksPage() {
           </div>
         </div>
       </motion.div>
+      <AgentDrawer agentId="forge" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

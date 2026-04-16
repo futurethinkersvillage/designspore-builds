@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Backpack, Users, Star, ArrowUp, CheckCircle,
-  ClipboardText, CalendarBlank, Timer, UserPlus,
+  ClipboardText, CalendarBlank, Timer, UserPlus, Sparkle,
 } from "@phosphor-icons/react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 /* ── Data ─────────────────────────────────────────────────────────── */
@@ -97,13 +99,24 @@ function HoursTooltip({ active, payload, label }: any) {
 /* ── Page ─────────────────────────────────────────────────────────── */
 
 export default function WorkStayPage() {
+  const [agentOpen, setAgentOpen] = useState(false);
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Work-Stay <span className="italic">Programs</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">Application pipeline, cohorts, tasks, and participant tracking</p>
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Work-Stay <span className="italic">Programs</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">Application pipeline, cohorts, tasks, and participant tracking</p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-blue-500/25 bg-blue-500/10 text-xs font-medium text-blue-400 hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <Sparkle size={13} weight="fill" /> Ask Iris
+        </button>
       </div>
 
       {/* Current cohort banner */}
@@ -261,6 +274,7 @@ export default function WorkStayPage() {
           ))}
         </div>
       </motion.div>
+      <AgentDrawer agentId="iris" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

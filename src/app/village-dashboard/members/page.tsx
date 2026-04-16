@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import {
-  UsersThree, MapPin, Star, ArrowUp, MagnifyingGlass,
+  UsersThree, MapPin, Star, ArrowUp, MagnifyingGlass, Sparkle,
 } from "@phosphor-icons/react";
 import { useState } from "react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 
 /* ── Data ─────────────────────────────────────────────────────────── */
 
@@ -75,15 +76,25 @@ const fadeUp = { hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, tra
 
 export default function MembersPage() {
   const [activeTab, setActiveTab] = useState("All");
+  const [agentOpen, setAgentOpen] = useState(false);
   const filtered = activeTab === "All" ? members : members.filter((m) => m.tier === activeTab);
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Village <span className="italic">Members</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">Directory, skills matrix, and community network</p>
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Village <span className="italic">Members</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">Directory, skills matrix, and community network</p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-blue-500/25 bg-blue-500/10 text-xs font-medium text-blue-400 hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <Sparkle size={13} weight="fill" /> Ask Iris
+        </button>
       </div>
 
       {/* Stats */}
@@ -218,6 +229,7 @@ export default function MembersPage() {
           </div>
         </motion.div>
       </div>
+      <AgentDrawer agentId="iris" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import {
   ArrowUp, ArrowRight, Plus, Star,
 } from "@phosphor-icons/react";
 import { useState } from "react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 
 /* ── Data ─────────────────────────────────────────────────────────── */
 
@@ -67,14 +68,24 @@ const lngLines = [-150, -120, -90, -60, -30, 0, 30, 60, 90, 120, 150];
 
 export default function MapPage() {
   const [selected, setSelected] = useState<Village | null>(null);
+  const [agentOpen, setAgentOpen] = useState(false);
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Global Village <span className="italic">Map</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">Smart village network across 12 countries</p>
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Global Village <span className="italic">Map</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">Smart village network across 12 countries</p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-[#9B7FA0]/25 bg-[#9B7FA0]/10 text-xs font-medium text-[#9B7FA0] hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <GlobeHemisphereWest size={13} weight="fill" /> Ask Atlas
+        </button>
       </div>
 
       {/* Stats */}
@@ -283,6 +294,7 @@ export default function MapPage() {
           </table>
         </div>
       </motion.div>
+      <AgentDrawer agentId="atlas" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

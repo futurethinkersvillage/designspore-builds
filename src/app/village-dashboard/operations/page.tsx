@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   CurrencyDollar, TrendUp, Percent, Bed,
-  ArrowUp, ArrowDown,
+  ArrowUp, ArrowDown, Hammer,
 } from "@phosphor-icons/react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, PieChart, Pie, Cell, Legend,
@@ -95,14 +97,24 @@ function OccupancyTooltip({ active, payload, label }: any) {
 
 export default function OperationsPage() {
   const totalExpenses = expenseBreakdown.reduce((s, e) => s + e.value, 0);
+  const [agentOpen, setAgentOpen] = useState(false);
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Business & <span className="italic">Operations</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">P&L, revenue streams, occupancy, and financial metrics</p>
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Business & <span className="italic">Operations</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">P&L, revenue streams, occupancy, and financial metrics</p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-[#C4614A]/25 bg-[#C4614A]/10 text-xs font-medium text-[#C4614A] hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <Hammer size={13} weight="fill" /> Ask Forge
+        </button>
       </div>
 
       {/* Stats */}
@@ -232,6 +244,7 @@ export default function OperationsPage() {
           </div>
         </motion.div>
       </div>
+      <AgentDrawer agentId="forge" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

@@ -6,8 +6,9 @@ import {
   ChatTeardrop, EnvelopeSimple, Megaphone, Eye,
   CursorClick, UsersThree, ArrowUp, TrendUp,
   Bell, Clock, WarningCircle, Info, CheckCircle,
-  House, PaperPlaneTilt,
+  House, PaperPlaneTilt, Scales,
 } from "@phosphor-icons/react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 import {
   BarChart, Bar, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip,
   AreaChart, Area, PieChart, Pie, Cell,
@@ -207,14 +208,24 @@ function ChartTooltip({ active, payload, label }: any) {
 
 export default function CommunicationsPage() {
   const [activeChannel, setActiveChannel] = useState("general");
+  const [agentOpen, setAgentOpen] = useState(false);
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Communications <span className="italic">Hub</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">Announcements, newsletters, and community engagement</p>
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Communications <span className="italic">Hub</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">Announcements, newsletters, and community engagement</p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-indigo-500/25 bg-indigo-500/10 text-xs font-medium text-indigo-400 hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <Scales size={13} weight="fill" /> Ask Sage
+        </button>
       </div>
 
       {/* Stats */}
@@ -497,6 +508,7 @@ export default function CommunicationsPage() {
           </div>
         </motion.div>
       </div>
+      <AgentDrawer agentId="sage" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

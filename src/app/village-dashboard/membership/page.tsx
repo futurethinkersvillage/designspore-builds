@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Crown, ArrowUp, ArrowDown, Star, Users, Check,
-  TrendUp, UserMinus, CalendarBlank,
+  TrendUp, UserMinus, CalendarBlank, Sparkle,
 } from "@phosphor-icons/react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 import {
   PieChart, Pie, Cell, ResponsiveContainer, AreaChart, Area, XAxis, YAxis,
   CartesianGrid, Tooltip, BarChart, Bar,
@@ -122,13 +124,24 @@ function ChartTooltip({ active, payload, label }: any) {
 /* ── Page ─────────────────────────────────────────────────────────── */
 
 export default function MembershipPage() {
+  const [agentOpen, setAgentOpen] = useState(false);
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Membership <span className="italic">System</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">Tiers, benefits, retention, and growth analytics</p>
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Membership <span className="italic">System</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">Tiers, benefits, retention, and growth analytics</p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-blue-500/25 bg-blue-500/10 text-xs font-medium text-blue-400 hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <Sparkle size={13} weight="fill" /> Ask Iris
+        </button>
       </div>
 
       {/* Stats */}
@@ -298,6 +311,7 @@ export default function MembershipPage() {
           </table>
         </div>
       </motion.div>
+      <AgentDrawer agentId="iris" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

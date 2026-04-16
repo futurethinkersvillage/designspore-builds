@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Storefront, CurrencyDollar, ShoppingCart, UserCircle,
   ArrowUp, Wrench, Leaf, Bicycle,
-  Guitar, Barbell, Package, Sparkle,
+  Guitar, Barbell, Package, Sparkle, GlobeHemisphereWest,
 } from "@phosphor-icons/react";
+import AgentDrawer from "@/components/dashboard/AgentDrawer";
 
 /* ── Data ─────────────────────────────────────────────────────────── */
 
@@ -71,13 +73,24 @@ const fadeUp = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, tra
 /* ── Page ─────────────────────────────────────────────────────────── */
 
 export default function MarketplacePage() {
+  const [agentOpen, setAgentOpen] = useState(false);
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-          Marketplace & <span className="italic">Resources</span>
-        </h1>
-        <p className="mt-2 text-sm text-white/40">Tool sharing, produce, services, and skill exchanges</p>
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+            Marketplace & <span className="italic">Resources</span>
+          </h1>
+          <p className="mt-2 text-sm text-white/40">Tool sharing, produce, services, and skill exchanges</p>
+        </div>
+        <button
+          onClick={() => setAgentOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-[#9B7FA0]/25 bg-[#9B7FA0]/10 text-xs font-medium text-[#9B7FA0] hover:opacity-80 transition-opacity self-start shrink-0"
+        >
+          <GlobeHemisphereWest size={13} weight="fill" /> Ask Atlas
+        </button>
       </div>
 
       {/* Stats */}
@@ -188,6 +201,7 @@ export default function MarketplacePage() {
           </table>
         </div>
       </motion.div>
+      <AgentDrawer agentId="atlas" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }
