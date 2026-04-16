@@ -34,6 +34,12 @@ interface VirtualTourProps {
   onPositionChange?: (pos: { yaw: number; pitch: number; zoom: number }) => void;
   /** Called when the user clicks the panorama (not on a marker). Coords in degrees. */
   onViewerClick?: (pos: { yaw: number; pitch: number }) => void;
+  /** Show draggable vertex handles on the boundary polygon */
+  showVertexHandles?: boolean;
+  /** Index of the currently selected vertex (highlighted in blue) */
+  selectedVertexIndex?: number;
+  /** Called when a non-nav marker is clicked (e.g. a vertex handle) */
+  onMarkerClick?: (id: string, data: unknown) => void;
   debug?: boolean;
 }
 
@@ -68,6 +74,9 @@ export default function VirtualTour({
   onSceneChange,
   onPositionChange,
   onViewerClick,
+  showVertexHandles = false,
+  selectedVertexIndex,
+  onMarkerClick,
   debug = false,
 }: VirtualTourProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -77,9 +86,20 @@ export default function VirtualTour({
   const currentSceneIdRef = useRef(startSceneId);
   const setSceneMarkersRef = useRef<((sceneId: string) => void) | null>(null);
   const onViewerClickRef = useRef(onViewerClick);
+  const onMarkerClickRef = useRef(onMarkerClick);
+  const showVertexHandlesRef = useRef(showVertexHandles);
+  const selectedVertexIndexRef = useRef(selectedVertexIndex);
 
   useEffect(() => { scenesRef.current = scenes; }, [scenes]);
   useEffect(() => { onViewerClickRef.current = onViewerClick; }, [onViewerClick]);
+  useEffect(() => { onMarkerClickRef.current = onMarkerClick; }, [onMarkerClick]);
+  useEffect(() => {
+    showVertexHandlesRef.current = showVertexHandles;
+    selectedVertexIndexRef.current = selectedVertexIndex;
+    if (setSceneMarkersRef.current && currentSceneIdRef.current) {
+      setSceneMarkersRef.current(currentSceneIdRef.current);
+    }
+  }, [showVertexHandles, selectedVertexIndex]);
 
   // Re-draw markers (including boundary polygon) when scenes prop changes (e.g. live drawing preview)
   useEffect(() => {
@@ -159,12 +179,31 @@ export default function VirtualTour({
               id: "property-boundary",
               polygon: scene.boundary.map(([y, p]) => [`${y}deg`, `${p}deg`]),
               svgStyle: {
-                fill: "rgba(234,130,78,0.12)",
-                stroke: "rgba(234,130,78,0.75)",
+                fill: "none",
+                stroke: "rgba(234,130,78,0.85)",
                 strokeWidth: "2px",
                 strokeDasharray: "6 3",
               },
             });
+
+            // Vertex handles (only in admin/edit mode)
+            if (showVertexHandlesRef.current) {
+              scene.boundary.forEach(([y, p], i) => {
+                const isSelected = selectedVertexIndexRef.current === i;
+                mp.addMarker({
+                  id: `vertex-${i}`,
+                  position: { yaw: `${y}deg`, pitch: `${p}deg` },
+                  circle: 7,
+                  svgStyle: {
+                    fill: isSelected ? "#60a5fa" : "rgba(234,130,78,0.9)",
+                    stroke: "#fff",
+                    strokeWidth: "1.5px",
+                  },
+                  data: { isVertex: true, vertexIndex: i },
+                  zIndex: 10,
+                });
+              });
+            }
           }
         }
 
@@ -193,9 +232,10 @@ export default function VirtualTour({
 
         if (mp) {
           mp.addEventListener("select-marker", ({ marker }) => {
-            const { nodeId, externalUrl } = (marker.data ?? {}) as { nodeId?: string; externalUrl?: string };
-            if (externalUrl) window.open(externalUrl, "_blank", "noopener,noreferrer");
-            else if (nodeId && vtp) vtp.setCurrentNode(nodeId);
+            const data = (marker.data ?? {}) as { nodeId?: string; externalUrl?: string; isVertex?: boolean };
+            if (data.externalUrl) window.open(data.externalUrl, "_blank", "noopener,noreferrer");
+            else if (data.nodeId && vtp) vtp.setCurrentNode(data.nodeId);
+            else onMarkerClickRef.current?.(marker.id, marker.data);
           });
         }
 

@@ -137,6 +137,7 @@ export default function TourAdminPage() {
   const [savedFlash, setSavedFlash] = useState(false);
   const [drawMode, setDrawMode] = useState(false);
   const [vertices, setVertices] = useState<[number, number][]>([]);
+  const [selectedVertex, setSelectedVertex] = useState<number | null>(null);
 
   useEffect(() => {
     fetchCalibrations().then((data) => {
@@ -175,7 +176,19 @@ export default function TourAdminPage() {
 
   function handleViewerClick(pos: { yaw: number; pitch: number }) {
     if (!drawMode) return;
-    setVertices((v) => [...v, [pos.yaw, pos.pitch]]);
+    if (selectedVertex !== null) {
+      setVertices((v) => v.map((pt, i) => i === selectedVertex ? [pos.yaw, pos.pitch] : pt));
+      setSelectedVertex(null);
+    } else {
+      setVertices((v) => [...v, [pos.yaw, pos.pitch]]);
+    }
+  }
+
+  function handleMarkerClick(_id: string, data: unknown) {
+    const d = data as { isVertex?: boolean; vertexIndex?: number };
+    if (d?.isVertex && d.vertexIndex !== undefined) {
+      setSelectedVertex((v) => v === d.vertexIndex ? null : d.vertexIndex!);
+    }
   }
 
   async function saveBoundary() {
@@ -188,6 +201,7 @@ export default function TourAdminPage() {
       setCalibrations(next);
       setVertices([]);
       setDrawMode(false);
+      setSelectedVertex(null);
       setSavedFlash(true);
       setTimeout(() => setSavedFlash(false), 2000);
     }
@@ -229,20 +243,26 @@ export default function TourAdminPage() {
         {drawMode && (
           <div style={{
             position: "absolute", top: 12, left: 12, zIndex: 50,
-            background: "rgba(234,130,78,0.9)", color: "#fff",
+            background: selectedVertex !== null ? "rgba(96,165,250,0.9)" : "rgba(234,130,78,0.9)",
+            color: "#fff",
             padding: "6px 14px", borderRadius: 20, fontSize: 12, fontWeight: 600,
             pointerEvents: "none",
           }}>
-            Draw mode — click to place vertices ({vertices.length} placed)
+            {selectedVertex !== null
+              ? `Vertex ${selectedVertex + 1} selected — click sphere to move`
+              : `Draw mode — click to place vertices (${vertices.length} placed)`}
           </div>
         )}
         {calibrationsReady && (
           <VirtualTour
             scenes={scenes}
             startSceneId={activeSceneId}
-            onSceneChange={(id) => { setActiveSceneId(id); setVertices([]); setDrawMode(false); }}
+            onSceneChange={(id) => { setActiveSceneId(id); setVertices([]); setDrawMode(false); setSelectedVertex(null); }}
             onPositionChange={setLivePos}
             onViewerClick={handleViewerClick}
+            onMarkerClick={handleMarkerClick}
+            showVertexHandles={drawMode}
+            selectedVertexIndex={selectedVertex ?? undefined}
             className="h-full w-full"
           />
         )}
@@ -314,36 +334,64 @@ export default function TourAdminPage() {
             {!drawMode ? (
               <>
                 <button
-                  onClick={() => { setDrawMode(true); setVertices([]); }}
+                  onClick={() => { setDrawMode(true); setVertices([]); setSelectedVertex(null); }}
                   className="rounded-lg border border-amber/40 px-4 py-2 text-sm text-amber hover:bg-amber/10 transition-colors"
                 >
                   {calibrations[activeSceneId]?.boundary ? "Redraw boundary" : "Draw boundary"}
                 </button>
                 {calibrations[activeSceneId]?.boundary && (
-                  <button
-                    onClick={deleteBoundary}
-                    disabled={saving}
-                    className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white/50 hover:border-white/30 hover:text-white/80 transition-colors disabled:opacity-40"
-                  >
-                    Delete boundary
-                  </button>
+                  <>
+                    <button
+                      onClick={() => {
+                        const saved = calibrations[activeSceneId]?.boundary;
+                        if (saved) { setVertices(saved); setDrawMode(true); setSelectedVertex(null); }
+                      }}
+                      className="rounded-lg border border-amber/20 px-4 py-2 text-sm text-amber/70 hover:bg-amber/10 transition-colors"
+                    >
+                      Edit boundary
+                    </button>
+                    <button
+                      onClick={deleteBoundary}
+                      disabled={saving}
+                      className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white/50 hover:border-white/30 hover:text-white/80 transition-colors disabled:opacity-40"
+                    >
+                      Delete boundary
+                    </button>
+                  </>
                 )}
               </>
             ) : (
               <>
-                <p className="text-xs text-white/40">
-                  Click anywhere on the panorama to place vertices. Need at least 3 to save.
-                </p>
+                {selectedVertex !== null ? (
+                  <p className="text-xs font-medium text-amber">
+                    Vertex {selectedVertex + 1} selected — click sphere to relocate
+                  </p>
+                ) : (
+                  <p className="text-xs text-white/40">
+                    Click panorama to place vertices. Click a dot to select and move it. Need ≥ 3 to save.
+                  </p>
+                )}
+                {selectedVertex !== null && (
+                  <button
+                    onClick={() => {
+                      setVertices((v) => v.filter((_, i) => i !== selectedVertex));
+                      setSelectedVertex(null);
+                    }}
+                    className="rounded-lg border border-red-500/40 px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 transition-colors"
+                  >
+                    Delete vertex {selectedVertex + 1}
+                  </button>
+                )}
                 <div className="flex gap-2">
                   <button
-                    onClick={() => setVertices((v) => v.slice(0, -1))}
+                    onClick={() => { setVertices((v) => v.slice(0, -1)); setSelectedVertex(null); }}
                     disabled={vertices.length === 0}
                     className="flex-1 rounded-lg border border-white/10 px-3 py-2 text-xs text-white/60 hover:border-white/30 transition-colors disabled:opacity-30"
                   >
                     Undo
                   </button>
                   <button
-                    onClick={() => { setDrawMode(false); setVertices([]); }}
+                    onClick={() => { setDrawMode(false); setVertices([]); setSelectedVertex(null); }}
                     className="flex-1 rounded-lg border border-white/10 px-3 py-2 text-xs text-white/60 hover:border-white/30 transition-colors"
                   >
                     Cancel
