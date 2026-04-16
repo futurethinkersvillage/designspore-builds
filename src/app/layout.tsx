@@ -5,6 +5,8 @@ import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/ui/ChatWidget";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { RefTracker } from "@/components/analytics/RefTracker";
+import { Suspense } from "react";
 import { headers } from "next/headers";
 import "./globals.css";
 import "@photo-sphere-viewer/core/index.css";
@@ -57,6 +59,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${geist.variable} ${cormorant.variable}`}>
       <body className="flex min-h-screen flex-col">
+        <Suspense fallback={null}><RefTracker /></Suspense>
         {!isDashboard && <Nav />}
         <main className="flex-1">{children}</main>
         {!isDashboard && <Footer />}
