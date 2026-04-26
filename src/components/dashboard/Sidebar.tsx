@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { List, X } from "@phosphor-icons/react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,17 +27,27 @@ export default function Sidebar() {
   const navContent = (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="px-6 py-6 border-b border-white/[0.06]">
-        <h1 className="text-lg font-serif font-semibold text-white tracking-wide">
-          Portal.Place
-        </h1>
-        <p className="text-[11px] text-white/30 uppercase tracking-[0.2em] mt-0.5">
-          Village OS
-        </p>
+      <div className="px-6 py-6 border-b border-white/[0.06] flex items-center gap-3">
+        <Image
+          src="/images/portal-dao-icon.png"
+          alt="Portal.Place"
+          width={32}
+          height={32}
+          className="rounded-md shrink-0"
+          priority
+        />
+        <div className="min-w-0">
+          <h1 className="text-lg font-serif font-semibold text-white tracking-wide leading-none">
+            Portal.Place
+          </h1>
+          <p className="text-[11px] text-white/30 uppercase tracking-[0.2em] mt-1">
+            Village OS
+          </p>
+        </div>
       </div>
 
       {/* Nav items */}
-      <nav className="flex-1 overflow-y-auto py-3 px-3 space-y-0.5">
+      <nav className="scrollbar-subtle flex-1 overflow-y-auto py-3 px-3 space-y-0.5">
         {navItems.map((item) => {
           const active = isActive(item.href);
           const Icon = item.icon;
@@ -46,19 +57,19 @@ export default function Sidebar() {
               href={item.href}
               onClick={() => setMobileOpen(false)}
               className={`
-                group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
+                group flex items-center gap-3 px-3 py-2 rounded-xl text-[15px] font-medium
                 transition-all duration-200 relative
                 ${active
                   ? "bg-amber/15 text-amber"
-                  : "text-white/50 hover:text-white/80 hover:bg-white/[0.04]"
+                  : "text-white/55 hover:text-white/85 hover:bg-white/[0.04]"
                 }
               `}
             >
               <Icon
-                size={20}
+                size={18}
                 weight={active ? "fill" : "regular"}
                 className={`shrink-0 transition-colors duration-200 ${
-                  active ? "text-amber" : "text-white/40 group-hover:text-white/60"
+                  active ? "text-amber" : "text-white/40 group-hover:text-white/65"
                 }`}
               />
               <span className="flex-1">{item.label}</span>
@@ -79,15 +90,6 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Demo badge */}
-      <div className="px-6 py-4 border-t border-white/[0.06]">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber/10 border border-amber/20">
-          <div className="w-1.5 h-1.5 rounded-full bg-amber animate-pulse" />
-          <span className="text-[11px] font-medium text-amber/80 uppercase tracking-wider">
-            Demo Mode
-          </span>
-        </div>
-      </div>
     </div>
   );
 

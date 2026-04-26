@@ -1,7 +1,8 @@
 import {
   House, ChartLine, Scales, Briefcase, Kanban, Backpack,
   UsersThree, CalendarBlank, Crown, Plant, GlobeHemisphereWest,
-  Lightning, Heartbeat, ChatTeardrop, Storefront, GearSix, Robot, Scroll
+  Lightning, Heartbeat, ChatTeardrop, Storefront, GearSix, Robot, Scroll,
+  Wrench
 } from "@phosphor-icons/react";
 import type { ComponentType } from "react";
 
@@ -29,6 +30,7 @@ export const navItems: NavItem[] = [
   { label: "Wellness", href: "/wellness", icon: Heartbeat },
   { label: "Comms", href: "/communications", icon: ChatTeardrop, badge: 4 },
   { label: "Marketplace", href: "/marketplace", icon: Storefront },
+  { label: "Tool Library", href: "/tools", icon: Wrench, badge: 2 },
   { label: "Village Soul", href: "/soul", icon: Scroll },
   { label: "Agents", href: "/agents", icon: Robot },
   { label: "Settings", href: "/settings", icon: GearSix },
