@@ -7,6 +7,7 @@ import {
   Timer, ArrowUp, TrendUp, Users, CalendarBlank,
   CheckCircle, Clock, Briefcase, Compass,
   PaintBrush, Wrench, Code, Trophy, Flask, MapTrifold, Plus,
+  MapPin, Tree, Mountains, Drop, Lightning, Path, Ruler,
 } from "@phosphor-icons/react";
 import type { ComponentType } from "react";
 import AgentDrawer from "@/components/dashboard/AgentDrawer";
@@ -206,6 +207,169 @@ const initiativeStats = {
   villages: new Set(initiatives.map((i) => i.village)).size,
 };
 
+/* ── Land Pool ─────────────────────────────────────────────────── */
+
+type ParcelStatus = "Pool Forming" | "Active" | "Closing Soon" | "Acquired";
+type ParcelFeature = "Water Rights" | "River Access" | "Hydro Nearby" | "Road Access" | "Year-Round Stream" | "Ocean Views" | "Existing Cabin" | "Mature Forest" | "Mountain Views" | "Lake Access" | "Borders Crown Land" | "Southern Exposure" | "Adjacent Old Growth" | "Ranching Infra";
+
+interface LandParcel {
+  id: string;
+  title: string;
+  location: string;
+  province: string;
+  acres: number;
+  price: number;
+  pooled: number;
+  contributors: number;
+  minContribution: number;
+  status: ParcelStatus;
+  vision: string;
+  steward: string;
+  features: ParcelFeature[];
+  /** Tailwind gradient classes for the placeholder image */
+  gradient: string;
+}
+
+const featureIcon: Record<ParcelFeature, ComponentType<{ size?: number; weight?: "light" | "regular" | "bold" | "fill"; className?: string }>> = {
+  "Water Rights":        Drop,
+  "River Access":        Drop,
+  "Hydro Nearby":        Lightning,
+  "Road Access":         Path,
+  "Year-Round Stream":   Drop,
+  "Ocean Views":         Drop,
+  "Existing Cabin":      Tree,
+  "Mature Forest":       Tree,
+  "Mountain Views":      Mountains,
+  "Lake Access":         Drop,
+  "Borders Crown Land":  Tree,
+  "Southern Exposure":   Lightning,
+  "Adjacent Old Growth": Tree,
+  "Ranching Infra":      Path,
+};
+
+const parcelStatusBadge: Record<ParcelStatus, string> = {
+  "Pool Forming": "bg-white/[0.08] text-white/65",
+  "Active":       "bg-amber/15 text-amber",
+  "Closing Soon": "bg-[#C4614A]/15 text-[#C4614A]",
+  "Acquired":     "bg-emerald-500/15 text-emerald-400",
+};
+
+const parcels: LandParcel[] = [
+  {
+    id: "slocan-valley",
+    title: "Slocan Valley Acreage",
+    location: "Slocan Valley",
+    province: "BC",
+    acres: 47,
+    price: 480000,
+    pooled: 312000,
+    contributors: 23,
+    minContribution: 5000,
+    status: "Active",
+    vision: "Food forest village for 15–20 members focused on perennial agriculture and seed-saving.",
+    steward: "Mira Johal",
+    features: ["River Access", "Water Rights", "Hydro Nearby", "Road Access"],
+    gradient: "from-emerald-900 via-emerald-700 to-teal-600",
+  },
+  {
+    id: "lillooet-riverside",
+    title: "Lillooet Riverside Plot",
+    location: "Lillooet",
+    province: "BC",
+    acres: 28,
+    price: 320000,
+    pooled: 185000,
+    contributors: 14,
+    minContribution: 7500,
+    status: "Pool Forming",
+    vision: "Off-grid permaculture homestead with arid-climate water harvesting focus.",
+    steward: "Marcus Rivera",
+    features: ["River Access", "Southern Exposure", "Existing Cabin"],
+    gradient: "from-amber-900 via-orange-800 to-stone-700",
+  },
+  {
+    id: "mabou-coastal",
+    title: "Mabou Highlands Coastal",
+    location: "Mabou",
+    province: "NS",
+    acres: 65,
+    price: 510000,
+    pooled: 445000,
+    contributors: 31,
+    minContribution: 5000,
+    status: "Closing Soon",
+    vision: "Coastal arts and crafts village — studios, residencies, summer programming.",
+    steward: "Hannah Forsberg",
+    features: ["Ocean Views", "Mature Forest", "Year-Round Stream", "Road Access"],
+    gradient: "from-blue-900 via-cyan-800 to-slate-700",
+  },
+  {
+    id: "watson-lake",
+    title: "Watson Lake Wilderness Quarter",
+    location: "Watson Lake",
+    province: "YT",
+    acres: 160,
+    price: 290000,
+    pooled: 87000,
+    contributors: 8,
+    minContribution: 10000,
+    status: "Pool Forming",
+    vision: "Northern wilderness retreat — small footprint, deep ecology, winter-tested infrastructure.",
+    steward: "James Whittaker",
+    features: ["Borders Crown Land", "Lake Access", "Mature Forest"],
+    gradient: "from-indigo-950 via-slate-800 to-stone-900",
+  },
+  {
+    id: "port-renfrew",
+    title: "Port Renfrew Forest Plot",
+    location: "Port Renfrew",
+    province: "BC",
+    acres: 22,
+    price: 410000,
+    pooled: 410000,
+    contributors: 18,
+    minContribution: 0,
+    status: "Acquired",
+    vision: "Old-growth stewardship + tiny-home village. Construction begins Spring 2026.",
+    steward: "Anika Patel",
+    features: ["Adjacent Old Growth", "Year-Round Stream", "Road Access"],
+    gradient: "from-emerald-950 via-green-900 to-emerald-800",
+  },
+  {
+    id: "tatla-lake",
+    title: "Tatla Lake Plateau",
+    location: "Tatla Lake",
+    province: "BC",
+    acres: 92,
+    price: 385000,
+    pooled: 145000,
+    contributors: 11,
+    minContribution: 7500,
+    status: "Active",
+    vision: "High-plateau ranch village blending livestock, hay production, and remote-work cabins.",
+    steward: "Chris Delaney",
+    features: ["Mountain Views", "Ranching Infra", "Road Access", "Water Rights"],
+    gradient: "from-stone-800 via-amber-900 to-yellow-900",
+  },
+];
+
+const parcelStats = {
+  listed: parcels.length,
+  totalPooled: parcels.reduce((sum, p) => sum + p.pooled, 0),
+  active: parcels.filter((p) => p.status === "Active" || p.status === "Pool Forming" || p.status === "Closing Soon").length,
+  acquired: parcels.filter((p) => p.status === "Acquired").length,
+};
+
+/* ── Tabs ──────────────────────────────────────────────────────── */
+
+type FundraisingTab = "capital" | "grants" | "land";
+
+const tabs: { key: FundraisingTab; label: string; subtitle: string }[] = [
+  { key: "capital", label: "Capital",  subtitle: "Campaign tracking, grant pipeline, and investor relations" },
+  { key: "grants",  label: "Grants",   subtitle: "Bounties and funded initiatives across the village network" },
+  { key: "land",    label: "Land",     subtitle: "Pool capital with others to acquire land and start a new village" },
+];
+
 const milestones = [
   { name: "Site Preparation", progress: 100 },
   { name: "Foundation & Utilities", progress: 75 },
@@ -260,6 +424,8 @@ function InflowTooltip({ active, payload, label }: any) {
 
 export default function FundraisingPage() {
   const [agentOpen, setAgentOpen] = useState(false);
+  const [tab, setTab] = useState<FundraisingTab>("capital");
+  const activeTabMeta = tabs.find((t) => t.key === tab)!;
 
   return (
     <div className="space-y-6">
@@ -267,10 +433,10 @@ export default function FundraisingPage() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
-            Fundraising &amp; <span className="italic">Capital</span>
+            <span className="italic">Fundraising</span>
           </h1>
           <p className="mt-2 text-sm text-white/40">
-            Campaign tracking, grant pipeline, and investor relations
+            {activeTabMeta.subtitle}
           </p>
         </div>
         <button
@@ -280,6 +446,35 @@ export default function FundraisingPage() {
           <Compass size={13} weight="fill" /> Ask Orion
         </button>
       </div>
+
+      {/* Tabs */}
+      <div className="flex gap-1 border-b border-white/[0.06] -mt-2 overflow-x-auto scrollbar-subtle">
+        {tabs.map((t) => {
+          const active = tab === t.key;
+          return (
+            <button
+              key={t.key}
+              onClick={() => setTab(t.key)}
+              className={`relative px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors ${
+                active ? "text-white" : "text-white/45 hover:text-white/70"
+              }`}
+            >
+              {t.label}
+              {active && (
+                <motion.div
+                  layoutId="fundraising-tab-indicator"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber rounded-full"
+                  transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                />
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ── CAPITAL TAB ─────────────────────────────────────────────── */}
+      {tab === "capital" && (
+        <div className="space-y-6">
 
       {/* Stats row */}
       <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
@@ -436,129 +631,16 @@ export default function FundraisingPage() {
         </motion.div>
       </motion.div>
 
-      {/* Village Grants & Initiatives */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.48 }}
-        className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 lg:p-6"
-      >
-        {/* Header */}
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between mb-5">
-          <div>
-            <h2 className="text-base font-medium text-white">Village Grants &amp; Initiatives</h2>
-            <p className="mt-1 text-xs text-white/40">
-              Funded projects across the network — art, tools, hackathons, bounties, research
-            </p>
-          </div>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-amber/25 bg-amber/10 text-xs font-medium text-amber hover:opacity-80 transition-opacity self-start shrink-0">
-            <Plus size={13} weight="bold" /> Submit Initiative
-          </button>
-        </div>
-
-        {/* Mini stats */}
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 mb-5">
-          {[
-            { label: "Total Awarded",    value: fmt(initiativeStats.awarded) },
-            { label: "Active",           value: initiativeStats.active.toString() },
-            { label: "Contributors",     value: initiativeStats.contributors.toString() },
-            { label: "Villages",         value: initiativeStats.villages.toString() },
-          ].map((s) => (
-            <div key={s.label} className="rounded-xl bg-white/[0.03] border border-white/[0.05] px-3 py-2.5">
-              <div className="text-[10px] uppercase tracking-wider text-white/35">{s.label}</div>
-              <div className="text-base font-semibold text-white mt-0.5">{s.value}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Initiative grid */}
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3"
-        >
-          {initiatives.map((init) => {
-            const cat = initiativeCategoryStyle[init.category];
-            const CatIcon = cat.icon;
-            const pct = Math.min(Math.round((init.raised / init.goal) * 100), 100);
-            const isComplete = init.status === "Awarded" || init.status === "Completed" || init.status === "Fully Funded";
-            return (
-              <motion.div
-                key={init.id}
-                variants={fadeUp}
-                className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-4 flex flex-col hover:bg-white/[0.05] hover:border-white/[0.1] transition-colors"
-              >
-                {/* Top: category + status */}
-                <div className="flex items-center justify-between mb-3">
-                  <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-[10px] font-medium ${cat.bg} ${cat.text} ${cat.border}`}>
-                    <CatIcon size={10} weight="fill" />
-                    {init.category}
-                  </div>
-                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${initiativeStatusBadge[init.status]}`}>
-                    {init.status}
-                  </span>
-                </div>
-
-                {/* Title + description */}
-                <h3 className="text-sm font-semibold text-white/90 leading-snug mb-1.5">{init.title}</h3>
-                <p className="text-xs text-white/45 leading-relaxed line-clamp-3 mb-3 flex-1">{init.description}</p>
-
-                {/* Village */}
-                <div className="text-[10px] text-white/30 mb-3">
-                  <span className="uppercase tracking-wider">From</span>{" "}
-                  <span className="text-white/55 font-medium">{init.village}</span>
-                </div>
-
-                {/* Progress */}
-                <div>
-                  <div className="flex items-baseline justify-between mb-1.5">
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-sm font-semibold text-white">{fmt(init.raised)}</span>
-                      <span className="text-[11px] text-white/40">of {fmt(init.goal)}</span>
-                    </div>
-                    <span className="text-[10px] text-white/45">{pct}%</span>
-                  </div>
-                  <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all ${isComplete ? "bg-emerald-500/70" : "bg-amber"}`}
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
-                </div>
-
-                {/* Footer: contributors + CTA */}
-                <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/[0.04]">
-                  <div className="flex items-center gap-1.5 text-[11px] text-white/45">
-                    <Users size={11} weight="fill" />
-                    <span>{init.contributors} {init.category === "X-Prize Bounties" ? "sponsors" : "contributors"}</span>
-                  </div>
-                  {init.status === "Active" || init.status === "Fully Funded" ? (
-                    <button className={`px-2.5 py-1 rounded-lg text-[11px] font-medium ${cat.bg} ${cat.text} hover:opacity-80 transition-opacity`}>
-                      {init.status === "Active" ? "Contribute" : "View"}
-                    </button>
-                  ) : (
-                    <span className="text-[11px] text-white/30 italic">Closed</span>
-                  )}
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-      </motion.div>
-
-      {/* Cap Table + Milestone Progress */}
+      {/* Cap Table + Milestone Progress (still part of Capital tab) */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:gap-6">
         {/* Cap Table */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.5 }} className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5">
           <h2 className="text-sm font-medium text-white mb-5">Cap Table</h2>
-          {/* Stacked horizontal bar */}
           <div className="h-8 rounded-full overflow-hidden flex">
             {capTable.map((seg) => (
               <div key={seg.name} className="h-full transition-all" style={{ width: `${seg.value}%`, backgroundColor: seg.color }} />
             ))}
           </div>
-          {/* Legend */}
           <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4">
             {capTable.map((seg) => (
               <div key={seg.name} className="flex items-center gap-2">
@@ -591,6 +673,305 @@ export default function FundraisingPage() {
           </div>
         </motion.div>
       </div>
+
+        </div>
+      )}
+
+      {/* ── GRANTS TAB ──────────────────────────────────────────────── */}
+      {tab === "grants" && (
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 lg:p-6"
+        >
+          {/* Header */}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between mb-5">
+            <div>
+              <h2 className="text-base font-medium text-white">Village Grants &amp; Initiatives</h2>
+              <p className="mt-1 text-xs text-white/40">
+                Funded projects across the network — art, tools, hackathons, bounties, research
+              </p>
+            </div>
+            <button className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-amber/25 bg-amber/10 text-xs font-medium text-amber hover:opacity-80 transition-opacity self-start shrink-0">
+              <Plus size={13} weight="bold" /> Submit Initiative
+            </button>
+          </div>
+
+          {/* Mini stats */}
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 mb-5">
+            {[
+              { label: "Total Awarded",  value: fmt(initiativeStats.awarded) },
+              { label: "Active",         value: initiativeStats.active.toString() },
+              { label: "Contributors",   value: initiativeStats.contributors.toString() },
+              { label: "Villages",       value: initiativeStats.villages.toString() },
+            ].map((s) => (
+              <div key={s.label} className="rounded-xl bg-white/[0.03] border border-white/[0.05] px-3 py-2.5">
+                <div className="text-[10px] uppercase tracking-wider text-white/35">{s.label}</div>
+                <div className="text-base font-semibold text-white mt-0.5">{s.value}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Initiative grid */}
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3"
+          >
+            {initiatives.map((init) => {
+              const cat = initiativeCategoryStyle[init.category];
+              const CatIcon = cat.icon;
+              const pct = Math.min(Math.round((init.raised / init.goal) * 100), 100);
+              const isComplete = init.status === "Awarded" || init.status === "Completed" || init.status === "Fully Funded";
+              return (
+                <motion.div
+                  key={init.id}
+                  variants={fadeUp}
+                  className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-4 flex flex-col hover:bg-white/[0.05] hover:border-white/[0.1] transition-colors"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-[10px] font-medium ${cat.bg} ${cat.text} ${cat.border}`}>
+                      <CatIcon size={10} weight="fill" />
+                      {init.category}
+                    </div>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${initiativeStatusBadge[init.status]}`}>
+                      {init.status}
+                    </span>
+                  </div>
+
+                  <h3 className="text-sm font-semibold text-white/90 leading-snug mb-1.5">{init.title}</h3>
+                  <p className="text-xs text-white/45 leading-relaxed line-clamp-3 mb-3 flex-1">{init.description}</p>
+
+                  <div className="text-[10px] text-white/30 mb-3">
+                    <span className="uppercase tracking-wider">From</span>{" "}
+                    <span className="text-white/55 font-medium">{init.village}</span>
+                  </div>
+
+                  <div>
+                    <div className="flex items-baseline justify-between mb-1.5">
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-sm font-semibold text-white">{fmt(init.raised)}</span>
+                        <span className="text-[11px] text-white/40">of {fmt(init.goal)}</span>
+                      </div>
+                      <span className="text-[10px] text-white/45">{pct}%</span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all ${isComplete ? "bg-emerald-500/70" : "bg-amber"}`}
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/[0.04]">
+                    <div className="flex items-center gap-1.5 text-[11px] text-white/45">
+                      <Users size={11} weight="fill" />
+                      <span>{init.contributors} {init.category === "X-Prize Bounties" ? "sponsors" : "contributors"}</span>
+                    </div>
+                    {init.status === "Active" || init.status === "Fully Funded" ? (
+                      <button className={`px-2.5 py-1 rounded-lg text-[11px] font-medium ${cat.bg} ${cat.text} hover:opacity-80 transition-opacity`}>
+                        {init.status === "Active" ? "Contribute" : "View"}
+                      </button>
+                    ) : (
+                      <span className="text-[11px] text-white/30 italic">Closed</span>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </motion.div>
+      )}
+
+      {/* ── LAND TAB ────────────────────────────────────────────────── */}
+      {tab === "land" && (
+        <div className="space-y-6">
+          {/* Hero / intro */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="rounded-2xl border border-emerald-500/15 bg-gradient-to-br from-emerald-950/40 via-white/[0.03] to-white/[0.02] p-5 lg:p-6"
+          >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="max-w-2xl">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="rounded-lg bg-emerald-500/15 p-1.5">
+                    <Tree size={14} weight="fill" className="text-emerald-400" />
+                  </div>
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-emerald-400/80 font-medium">
+                    Land Acquisition Pool
+                  </span>
+                </div>
+                <h2 className="font-serif text-2xl font-light text-white lg:text-3xl">
+                  Pool capital. Acquire land. <span className="italic text-emerald-300/90">Start a village.</span>
+                </h2>
+                <p className="mt-2 text-sm text-white/55 leading-relaxed">
+                  Every parcel below has a small group already forming. Contribute toward shared ownership,
+                  vote on the vision, and become a founding member of a new node in the village network.
+                </p>
+              </div>
+              <button className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-xs font-medium text-emerald-400 hover:opacity-80 transition-opacity self-start shrink-0">
+                <Plus size={13} weight="bold" /> List a Parcel
+              </button>
+            </div>
+
+            {/* Pool stats */}
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 mt-5">
+              {[
+                { label: "Parcels Listed",  value: parcelStats.listed.toString() },
+                { label: "Total Pooled",    value: fmt(parcelStats.totalPooled) },
+                { label: "Active Pools",    value: parcelStats.active.toString() },
+                { label: "Acquired",        value: parcelStats.acquired.toString() },
+              ].map((s) => (
+                <div key={s.label} className="rounded-xl bg-white/[0.03] border border-white/[0.05] px-3 py-2.5">
+                  <div className="text-[10px] uppercase tracking-wider text-white/35">{s.label}</div>
+                  <div className="text-base font-semibold text-white mt-0.5">{s.value}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Parcel grid */}
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
+          >
+            {parcels.map((p) => {
+              const pct = Math.min(Math.round((p.pooled / p.price) * 100), 100);
+              const isAcquired = p.status === "Acquired";
+              return (
+                <motion.div
+                  key={p.id}
+                  variants={fadeUp}
+                  className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden flex flex-col hover:border-white/[0.12] transition-colors"
+                >
+                  {/* Image / gradient banner */}
+                  <div className={`h-32 bg-gradient-to-br ${p.gradient} relative`}>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    <div className="absolute top-3 right-3">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${parcelStatusBadge[p.status]}`}>
+                        {p.status}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-3 left-3 right-3">
+                      <div className="flex items-center gap-1 text-[10px] text-white/75">
+                        <MapPin size={10} weight="fill" />
+                        <span className="font-medium">{p.location}, {p.province}</span>
+                      </div>
+                      <h3 className="text-base font-semibold text-white leading-tight mt-0.5">{p.title}</h3>
+                    </div>
+                  </div>
+
+                  {/* Body */}
+                  <div className="p-4 flex flex-col flex-1">
+                    {/* Acreage + price */}
+                    <div className="flex items-center justify-between mb-3 pb-3 border-b border-white/[0.05]">
+                      <div className="flex items-center gap-1.5 text-xs text-white/65">
+                        <Ruler size={11} weight="fill" className="text-white/45" />
+                        <span className="font-medium">{p.acres} acres</span>
+                      </div>
+                      <div className="text-sm font-semibold text-white">{fmt(p.price)}</div>
+                    </div>
+
+                    {/* Vision */}
+                    <p className="text-xs text-white/55 leading-relaxed mb-3 flex-1">
+                      {p.vision}
+                    </p>
+
+                    {/* Features */}
+                    <div className="flex flex-wrap gap-1 mb-3">
+                      {p.features.slice(0, 4).map((f) => {
+                        const FIcon = featureIcon[f];
+                        return (
+                          <span key={f} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-[10px] text-white/55">
+                            <FIcon size={9} weight="fill" />
+                            {f}
+                          </span>
+                        );
+                      })}
+                    </div>
+
+                    {/* Steward */}
+                    <div className="text-[10px] text-white/35 mb-3">
+                      <span className="uppercase tracking-wider">Steward</span>{" "}
+                      <span className="text-white/65 font-medium">{p.steward}</span>
+                    </div>
+
+                    {/* Pool progress */}
+                    <div className="mb-3">
+                      <div className="flex items-baseline justify-between mb-1.5">
+                        <div className="flex items-baseline gap-1.5">
+                          <span className="text-sm font-semibold text-white">{fmt(p.pooled)}</span>
+                          <span className="text-[11px] text-white/40">of {fmt(p.price)}</span>
+                        </div>
+                        <span className="text-[10px] text-white/45">{pct}%</span>
+                      </div>
+                      <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                        <div
+                          className={`h-full rounded-full transition-all ${isAcquired ? "bg-emerald-500/80" : "bg-amber"}`}
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="flex items-center justify-between pt-3 border-t border-white/[0.04]">
+                      <div className="flex items-center gap-1.5 text-[11px] text-white/50">
+                        <Users size={11} weight="fill" />
+                        <span>
+                          {p.contributors} {isAcquired ? "founders" : "in pool"}
+                          {p.minContribution > 0 && !isAcquired && (
+                            <span className="text-white/30"> · {fmt(p.minContribution)} min</span>
+                          )}
+                        </span>
+                      </div>
+                      {isAcquired ? (
+                        <span className="px-2.5 py-1 rounded-lg text-[11px] font-medium bg-emerald-500/15 text-emerald-400 inline-flex items-center gap-1">
+                          <CheckCircle size={11} weight="fill" /> Acquired
+                        </span>
+                      ) : (
+                        <button className="px-2.5 py-1 rounded-lg text-[11px] font-medium bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/20 transition-colors">
+                          Join Pool
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+
+          {/* How it works */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 lg:p-6"
+          >
+            <h3 className="text-sm font-medium text-white mb-4">How land pools work</h3>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
+              {[
+                { step: "01", title: "Find a parcel", body: "Browse listings or submit your own. Each has a steward and an emerging vision." },
+                { step: "02", title: "Join the pool", body: "Contribute capital. Your share becomes equity in a co-op holding the land." },
+                { step: "03", title: "Vote on the vision", body: "Pool members shape the buildout — zoning, structures, governance, fees." },
+                { step: "04", title: "Move on the land", body: "When fully funded, the co-op closes the deal and construction begins." },
+              ].map((s) => (
+                <div key={s.step} className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
+                  <div className="text-[10px] font-mono tracking-wider text-emerald-400/70 mb-2">{s.step}</div>
+                  <div className="text-sm font-medium text-white mb-1">{s.title}</div>
+                  <p className="text-xs text-white/45 leading-relaxed">{s.body}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       <AgentDrawer agentId="orion" isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
