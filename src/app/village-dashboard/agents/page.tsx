@@ -1,16 +1,20 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import {
   Scales, Compass, Plant, Hammer, GlobeHemisphereWest, Sparkle,
   Robot, ArrowRight, CheckCircle, Clock, Warning, Wrench,
-  Megaphone, Users, Leaf, CurrencyDollar,
+  Megaphone, Users, Leaf, CurrencyDollar, Star, Plus, Download,
+  ShieldCheck, Flask, MapPin, Lightning, ChatTeardrop,
 } from "@phosphor-icons/react";
 import type { ComponentType } from "react";
 import { agentsList, councilActivity } from "@/lib/data/dashboard/agents";
 import type { AgentAccent, AgentStatus, ActionType } from "@/lib/data/dashboard/agents";
+import { sharedSkills, skillStats } from "@/lib/data/dashboard/shared-skills";
+import type { SkillCategory, SkillVerification } from "@/lib/data/dashboard/shared-skills";
 
 /* ── Icon map ───────────────────────────────────────────────────────── */
 
@@ -59,6 +63,27 @@ const globalStats = [
   { label: "Cost This Month", value: "$124", icon: CurrencyDollar },
 ];
 
+/* ── Skill Library maps ─────────────────────────────────────────────── */
+
+const skillCategoryStyle: Record<SkillCategory, { bg: string; text: string; border: string; icon: ComponentType<{ size?: number; weight?: "light" | "regular" | "bold" | "fill"; className?: string }> }> = {
+  "Governance":       { bg: "bg-indigo-500/10",  text: "text-indigo-400",  border: "border-indigo-500/20",  icon: Scales },
+  "Communications":   { bg: "bg-amber/10",       text: "text-amber",       border: "border-amber/20",       icon: ChatTeardrop },
+  "Operations":       { bg: "bg-[#C4614A]/10",   text: "text-[#C4614A]",   border: "border-[#C4614A]/20",   icon: Wrench },
+  "Land & Energy":    { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/20", icon: Lightning },
+  "People & Culture": { bg: "bg-blue-500/10",    text: "text-blue-400",    border: "border-blue-500/20",    icon: Sparkle },
+  "Network":          { bg: "bg-[#9B7FA0]/10",   text: "text-[#9B7FA0]",   border: "border-[#9B7FA0]/20",   icon: GlobeHemisphereWest },
+};
+
+const verificationStyle: Record<SkillVerification, { label: string; bg: string; text: string; icon: ComponentType<{ size?: number; weight?: "light" | "regular" | "bold" | "fill"; className?: string }> }> = {
+  verified:     { label: "Verified",     bg: "bg-emerald-500/10",  text: "text-emerald-400",  icon: ShieldCheck },
+  community:    { label: "Community",    bg: "bg-white/[0.06]",    text: "text-white/55",     icon: Users },
+  experimental: { label: "Experimental", bg: "bg-amber/10",        text: "text-amber",        icon: Flask },
+};
+
+const skillFilterCategories: ("All" | SkillCategory)[] = [
+  "All", "Governance", "Communications", "Operations", "Land & Energy", "People & Culture", "Network",
+];
+
 /* ── Animations ──────────────────────────────────────────────────────── */
 
 const fadeUp = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45 } } };
@@ -68,6 +93,10 @@ const staggerSlow = { hidden: {}, visible: { transition: { staggerChildren: 0.08
 /* ── Page ─────────────────────────────────────────────────────────────── */
 
 export default function AgentsPage() {
+  const [skillFilter, setSkillFilter] = useState<"All" | SkillCategory>("All");
+
+  const filteredSkills = sharedSkills.filter((s) => skillFilter === "All" || s.category === skillFilter);
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -204,6 +233,165 @@ export default function AgentsPage() {
             </motion.div>
           );
         })}
+      </motion.div>
+
+      {/* Skill Library */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+        className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 lg:p-6"
+      >
+        {/* Header */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between mb-5">
+          <div>
+            <h2 className="text-base font-medium text-white">Skill Library</h2>
+            <p className="mt-1 text-xs text-white/40">
+              Community-built capabilities you can install on any compatible agent
+            </p>
+          </div>
+          <button className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-amber/25 bg-amber/10 text-xs font-medium text-amber hover:opacity-80 transition-opacity self-start shrink-0">
+            <Plus size={13} weight="bold" /> Share a Skill
+          </button>
+        </div>
+
+        {/* Mini stats */}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 mb-5">
+          {[
+            { label: "Skills", value: skillStats.total.toString() },
+            { label: "Total Installs", value: skillStats.totalInstalls.toString() },
+            { label: "Contributors", value: skillStats.contributors.toString() },
+            { label: "Verified", value: skillStats.verified.toString() },
+          ].map((s) => (
+            <div key={s.label} className="rounded-xl bg-white/[0.03] border border-white/[0.05] px-3 py-2.5">
+              <div className="text-[10px] uppercase tracking-wider text-white/35">{s.label}</div>
+              <div className="text-base font-semibold text-white mt-0.5">{s.value}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Filter pills */}
+        <div className="flex flex-wrap items-center gap-2 mb-5">
+          {skillFilterCategories.map((c) => {
+            const active = skillFilter === c;
+            const isAll = c === "All";
+            const Icon = isAll ? null : skillCategoryStyle[c as SkillCategory].icon;
+            return (
+              <button
+                key={c}
+                onClick={() => setSkillFilter(c)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                  active
+                    ? "bg-white/[0.10] text-white border border-white/[0.18]"
+                    : "bg-white/[0.04] text-white/55 border border-white/[0.06] hover:text-white/85 hover:bg-white/[0.07]"
+                }`}
+              >
+                {Icon && <Icon size={12} weight="fill" />}
+                {c}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Skills grid */}
+        <motion.div
+          variants={staggerSlow}
+          initial="hidden"
+          animate="visible"
+          key={skillFilter}
+          className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3"
+        >
+          {filteredSkills.map((skill) => {
+            const cat = skillCategoryStyle[skill.category];
+            const CatIcon = cat.icon;
+            const ver = verificationStyle[skill.verification];
+            const VerIcon = ver.icon;
+            const installedAgents = agentsList.filter((a) => skill.installedOn.includes(a.id));
+            return (
+              <motion.div
+                key={skill.id}
+                variants={fadeUp}
+                className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-4 flex flex-col hover:bg-white/[0.05] hover:border-white/[0.1] transition-colors"
+              >
+                {/* Top: category + verification */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-[10px] font-medium ${cat.bg} ${cat.text} ${cat.border}`}>
+                    <CatIcon size={10} weight="fill" />
+                    {skill.category}
+                  </div>
+                  <div className={`flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium ${ver.bg} ${ver.text}`}>
+                    <VerIcon size={9} weight="fill" />
+                    {ver.label}
+                  </div>
+                </div>
+
+                {/* Name + description */}
+                <h3 className="text-sm font-semibold text-white/90 leading-snug mb-1.5">{skill.name}</h3>
+                <p className="text-xs text-white/45 leading-relaxed line-clamp-3 mb-3 flex-1">{skill.description}</p>
+
+                {/* Author */}
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-5 h-5 rounded-full bg-white/[0.08] border border-white/[0.06] flex items-center justify-center text-[9px] font-medium text-white/70 shrink-0">
+                    {skill.author.split(" ").map((n) => n[0]).join("")}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[11px] text-white/65 leading-tight truncate">{skill.author}</div>
+                    <div className="flex items-center gap-1 text-[10px] text-white/35 mt-0.5">
+                      <MapPin size={9} weight="fill" />
+                      <span className="truncate">{skill.authorVillage}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Installed-on agent avatars */}
+                {installedAgents.length > 0 && (
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-[10px] text-white/30 uppercase tracking-wider shrink-0">Installed on</span>
+                    <div className="flex -space-x-1.5">
+                      {installedAgents.map((a) => {
+                        const aac = accentMap[a.accent];
+                        return (
+                          <Link
+                            key={a.id}
+                            href={`/agents/${a.id}`}
+                            title={a.name}
+                            className={`w-5 h-5 rounded-full overflow-hidden border-2 border-[#0F0D14] ring-1 ring-white/10 hover:ring-2 hover:ring-white/30 transition-all ${aac.bg}`}
+                          >
+                            <Image src={a.imgSrc} alt={a.name} width={20} height={20} className="w-full h-full object-cover" />
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Footer: stats + install button */}
+                <div className="flex items-center justify-between pt-3 border-t border-white/[0.04]">
+                  <div className="flex items-center gap-3 text-[11px] text-white/45">
+                    <span className="flex items-center gap-1">
+                      <Download size={11} weight="fill" />
+                      {skill.installs}
+                    </span>
+                    <span className="flex items-center gap-0.5">
+                      <Star size={11} weight="fill" className="text-amber" />
+                      <span className="text-white/65">{skill.rating.toFixed(1)}</span>
+                    </span>
+                  </div>
+                  <button className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium ${cat.bg} ${cat.text} hover:opacity-80 transition-opacity`}>
+                    <Plus size={11} weight="bold" />
+                    Install
+                  </button>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {filteredSkills.length === 0 && (
+          <div className="py-12 text-center text-sm text-white/35">
+            No skills match this filter.
+          </div>
+        )}
       </motion.div>
 
       {/* Recent Council Activity */}

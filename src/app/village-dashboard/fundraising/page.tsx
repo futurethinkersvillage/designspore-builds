@@ -6,7 +6,9 @@ import {
   CurrencyDollar, ChartPieSlice, Handshake, Rocket,
   Timer, ArrowUp, TrendUp, Users, CalendarBlank,
   CheckCircle, Clock, Briefcase, Compass,
+  PaintBrush, Wrench, Code, Trophy, Flask, MapTrifold, Plus,
 } from "@phosphor-icons/react";
+import type { ComponentType } from "react";
 import AgentDrawer from "@/components/dashboard/AgentDrawer";
 import {
   ResponsiveContainer, PieChart, Pie, Cell,
@@ -78,6 +80,131 @@ const capTable = [
   { name: "Strategic", value: 15, color: "#AF695E" },
   { name: "ESOP", value: 10, color: "#73516F" },
 ];
+
+/* ── Village Grants & Initiatives ─────────────────────────────── */
+
+type InitiativeCategory = "Art" | "Tools & Systems" | "Hackathons" | "X-Prize Bounties" | "Research" | "Infrastructure";
+type InitiativeStatus = "Active" | "Fully Funded" | "Awarded" | "Completed";
+
+interface Initiative {
+  id: string;
+  title: string;
+  description: string;
+  category: InitiativeCategory;
+  village: string;
+  raised: number;
+  goal: number;
+  contributors: number;
+  status: InitiativeStatus;
+  deadline?: string;
+}
+
+const initiativeCategoryStyle: Record<InitiativeCategory, { bg: string; text: string; border: string; icon: ComponentType<{ size?: number; weight?: "light" | "regular" | "bold" | "fill"; className?: string }> }> = {
+  "Art":              { bg: "bg-amber/10",        text: "text-amber",        border: "border-amber/25",        icon: PaintBrush },
+  "Tools & Systems":  { bg: "bg-emerald-500/10",  text: "text-emerald-400",  border: "border-emerald-500/25",  icon: Wrench },
+  "Hackathons":       { bg: "bg-indigo-500/10",   text: "text-indigo-400",   border: "border-indigo-500/25",   icon: Code },
+  "X-Prize Bounties": { bg: "bg-[#C4614A]/10",    text: "text-[#C4614A]",    border: "border-[#C4614A]/25",    icon: Trophy },
+  "Research":         { bg: "bg-blue-500/10",     text: "text-blue-400",     border: "border-blue-500/25",     icon: Flask },
+  "Infrastructure":   { bg: "bg-[#9B7FA0]/10",    text: "text-[#9B7FA0]",    border: "border-[#9B7FA0]/25",    icon: MapTrifold },
+};
+
+const initiativeStatusBadge: Record<InitiativeStatus, string> = {
+  "Active":       "bg-amber/15 text-amber",
+  "Fully Funded": "bg-emerald-500/15 text-emerald-400",
+  "Awarded":      "bg-blue-500/15 text-blue-400",
+  "Completed":    "bg-white/[0.08] text-white/55",
+};
+
+const initiatives: Initiative[] = [
+  {
+    id: "permaculture-edu",
+    title: "Permaculture Education Series",
+    description: "12-week curriculum + recorded workshops, free for all village members and open-source for the network.",
+    category: "Art",
+    village: "Wells Gray Village",
+    raised: 4500, goal: 8000, contributors: 23,
+    status: "Active", deadline: "Jul 30, 2026",
+  },
+  {
+    id: "sensor-toolkit",
+    title: "Open-Source Sensor Toolkit",
+    description: "Affordable IoT kit (soil, weather, energy) under $80. Hardware specs, firmware, and assembly guides released CC-BY-SA.",
+    category: "Tools & Systems",
+    village: "Network-wide",
+    raised: 12000, goal: 15000, contributors: 47,
+    status: "Active", deadline: "Aug 15, 2026",
+  },
+  {
+    id: "village-os-hackathon",
+    title: "Village OS Hackathon — Q3 2026",
+    description: "72-hour distributed build sprint. Teams ship modules, integrations, or governance tools. $10K in prizes.",
+    category: "Hackathons",
+    village: "Network-wide",
+    raised: 25000, goal: 25000, contributors: 89,
+    status: "Fully Funded", deadline: "Sep 12, 2026",
+  },
+  {
+    id: "cabin-xprize",
+    title: "Affordable Cabin Design X-Prize",
+    description: "$50K bounty for a winterized cabin design under $25K materials, replicable in 6 weeks by a 4-person crew.",
+    category: "X-Prize Bounties",
+    village: "Wells Gray Village",
+    raised: 50000, goal: 50000, contributors: 12,
+    status: "Awarded",
+  },
+  {
+    id: "land-stewardship-mural",
+    title: "Indigenous Land Stewardship Mural",
+    description: "Collaboration with Simpcw First Nation artists — large-scale mural on the community pavilion honouring stewardship traditions.",
+    category: "Art",
+    village: "Wells Gray Village",
+    raised: 2800, goal: 3500, contributors: 31,
+    status: "Active", deadline: "Jun 22, 2026",
+  },
+  {
+    id: "compost-research",
+    title: "Black Soldier Fly Composting Trial",
+    description: "12-month research trial measuring food-waste-to-soil conversion at small village scale. Open data, peer-reviewable.",
+    category: "Research",
+    village: "Riverside Co-op",
+    raised: 1200, goal: 4000, contributors: 8,
+    status: "Active", deadline: "Oct 1, 2026",
+  },
+  {
+    id: "solar-greenhouse-bounty",
+    title: "Solar Greenhouse Design Bounty",
+    description: "Open call for a year-round greenhouse design powered entirely by passive solar + small battery. Best 3 share $15K.",
+    category: "X-Prize Bounties",
+    village: "Network-wide",
+    raised: 15000, goal: 20000, contributors: 6,
+    status: "Active", deadline: "Nov 15, 2026",
+  },
+  {
+    id: "trail-mapping",
+    title: "Trail Network GPS Mapping",
+    description: "Volunteer-led mapping of 18 km of trails on the property — published as open GIS data and printed wayfinding maps.",
+    category: "Infrastructure",
+    village: "Wells Gray Village",
+    raised: 3000, goal: 3000, contributors: 17,
+    status: "Completed",
+  },
+  {
+    id: "mesh-wifi-hackathon",
+    title: "Off-Grid Mesh Wifi Hackathon",
+    description: "Build resilient community wifi using LoRa + WiFi-mesh hardware. Best implementation gets adopted across 3 partner villages.",
+    category: "Hackathons",
+    village: "Terraluna Ecovillage",
+    raised: 8500, goal: 10000, contributors: 34,
+    status: "Active", deadline: "Aug 28, 2026",
+  },
+];
+
+const initiativeStats = {
+  awarded: initiatives.filter((i) => i.status === "Awarded" || i.status === "Completed").reduce((sum, i) => sum + i.raised, 0),
+  active:  initiatives.filter((i) => i.status === "Active" || i.status === "Fully Funded").length,
+  contributors: initiatives.reduce((sum, i) => sum + i.contributors, 0),
+  villages: new Set(initiatives.map((i) => i.village)).size,
+};
 
 const milestones = [
   { name: "Site Preparation", progress: 100 },
@@ -306,6 +433,117 @@ export default function FundraisingPage() {
               <p className="text-[10px] text-white/30 mt-0.5">{inv.date}</p>
             </motion.div>
           ))}
+        </motion.div>
+      </motion.div>
+
+      {/* Village Grants & Initiatives */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.48 }}
+        className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 lg:p-6"
+      >
+        {/* Header */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between mb-5">
+          <div>
+            <h2 className="text-base font-medium text-white">Village Grants &amp; Initiatives</h2>
+            <p className="mt-1 text-xs text-white/40">
+              Funded projects across the network — art, tools, hackathons, bounties, research
+            </p>
+          </div>
+          <button className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-amber/25 bg-amber/10 text-xs font-medium text-amber hover:opacity-80 transition-opacity self-start shrink-0">
+            <Plus size={13} weight="bold" /> Submit Initiative
+          </button>
+        </div>
+
+        {/* Mini stats */}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 mb-5">
+          {[
+            { label: "Total Awarded",    value: fmt(initiativeStats.awarded) },
+            { label: "Active",           value: initiativeStats.active.toString() },
+            { label: "Contributors",     value: initiativeStats.contributors.toString() },
+            { label: "Villages",         value: initiativeStats.villages.toString() },
+          ].map((s) => (
+            <div key={s.label} className="rounded-xl bg-white/[0.03] border border-white/[0.05] px-3 py-2.5">
+              <div className="text-[10px] uppercase tracking-wider text-white/35">{s.label}</div>
+              <div className="text-base font-semibold text-white mt-0.5">{s.value}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Initiative grid */}
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3"
+        >
+          {initiatives.map((init) => {
+            const cat = initiativeCategoryStyle[init.category];
+            const CatIcon = cat.icon;
+            const pct = Math.min(Math.round((init.raised / init.goal) * 100), 100);
+            const isComplete = init.status === "Awarded" || init.status === "Completed" || init.status === "Fully Funded";
+            return (
+              <motion.div
+                key={init.id}
+                variants={fadeUp}
+                className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-4 flex flex-col hover:bg-white/[0.05] hover:border-white/[0.1] transition-colors"
+              >
+                {/* Top: category + status */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-[10px] font-medium ${cat.bg} ${cat.text} ${cat.border}`}>
+                    <CatIcon size={10} weight="fill" />
+                    {init.category}
+                  </div>
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${initiativeStatusBadge[init.status]}`}>
+                    {init.status}
+                  </span>
+                </div>
+
+                {/* Title + description */}
+                <h3 className="text-sm font-semibold text-white/90 leading-snug mb-1.5">{init.title}</h3>
+                <p className="text-xs text-white/45 leading-relaxed line-clamp-3 mb-3 flex-1">{init.description}</p>
+
+                {/* Village */}
+                <div className="text-[10px] text-white/30 mb-3">
+                  <span className="uppercase tracking-wider">From</span>{" "}
+                  <span className="text-white/55 font-medium">{init.village}</span>
+                </div>
+
+                {/* Progress */}
+                <div>
+                  <div className="flex items-baseline justify-between mb-1.5">
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-sm font-semibold text-white">{fmt(init.raised)}</span>
+                      <span className="text-[11px] text-white/40">of {fmt(init.goal)}</span>
+                    </div>
+                    <span className="text-[10px] text-white/45">{pct}%</span>
+                  </div>
+                  <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all ${isComplete ? "bg-emerald-500/70" : "bg-amber"}`}
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Footer: contributors + CTA */}
+                <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/[0.04]">
+                  <div className="flex items-center gap-1.5 text-[11px] text-white/45">
+                    <Users size={11} weight="fill" />
+                    <span>{init.contributors} {init.category === "X-Prize Bounties" ? "sponsors" : "contributors"}</span>
+                  </div>
+                  {init.status === "Active" || init.status === "Fully Funded" ? (
+                    <button className={`px-2.5 py-1 rounded-lg text-[11px] font-medium ${cat.bg} ${cat.text} hover:opacity-80 transition-opacity`}>
+                      {init.status === "Active" ? "Contribute" : "View"}
+                    </button>
+                  ) : (
+                    <span className="text-[11px] text-white/30 italic">Closed</span>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </motion.div>
 
