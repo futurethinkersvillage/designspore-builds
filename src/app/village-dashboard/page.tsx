@@ -135,9 +135,9 @@ export default function OverviewPage() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5"
+          className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 flex flex-col min-h-[360px]"
         >
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-6 shrink-0">
             <div>
               <h2 className="text-sm font-medium text-white">Revenue Trend</h2>
               <p className="text-xs text-white/30 mt-0.5">Last 12 months</p>
@@ -149,7 +149,8 @@ export default function OverviewPage() {
               </div>
             </div>
           </div>
-          <ResponsiveContainer width="100%" height={260}>
+          <div className="flex-1 min-h-[260px]">
+          <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={revenueHistory}>
               <defs>
                 <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
@@ -164,6 +165,7 @@ export default function OverviewPage() {
               <Area type="monotone" dataKey="revenue" stroke="#EA824E" strokeWidth={2} fill="url(#revGrad)" />
             </AreaChart>
           </ResponsiveContainer>
+          </div>
         </motion.div>
 
         {/* Activity feed */}

@@ -85,19 +85,24 @@ const capTable = [
 /* ── Village Grants & Initiatives ─────────────────────────────── */
 
 type InitiativeCategory = "Art" | "Tools & Systems" | "Hackathons" | "X-Prize Bounties" | "Research" | "Infrastructure";
-type InitiativeStatus = "Active" | "Fully Funded" | "Awarded" | "Completed";
+type InitiativeStatus = "Open" | "Submissions" | "Judging" | "Awarded";
 
 interface Initiative {
   id: string;
   title: string;
   description: string;
   category: InitiativeCategory;
-  village: string;
-  raised: number;
-  goal: number;
-  contributors: number;
+  /** Total prize purse posted by Portal.Place */
+  prize: number;
+  /** Optional breakdown for tiered prizes — e.g. "1st $10K · 2nd $6K · 3rd $4K" */
+  prizeNote?: string;
   status: InitiativeStatus;
+  /** Number of teams or individuals registered to compete */
+  registeredTeams: number;
   deadline?: string;
+  eligibility: string;
+  winner?: string;
+  winnerSummary?: string;
 }
 
 const initiativeCategoryStyle: Record<InitiativeCategory, { bg: string; text: string; border: string; icon: ComponentType<{ size?: number; weight?: "light" | "regular" | "bold" | "fill"; className?: string }> }> = {
@@ -109,102 +114,126 @@ const initiativeCategoryStyle: Record<InitiativeCategory, { bg: string; text: st
   "Infrastructure":   { bg: "bg-[#9B7FA0]/10",    text: "text-[#9B7FA0]",    border: "border-[#9B7FA0]/25",    icon: MapTrifold },
 };
 
-const initiativeStatusBadge: Record<InitiativeStatus, string> = {
-  "Active":       "bg-amber/15 text-amber",
-  "Fully Funded": "bg-emerald-500/15 text-emerald-400",
-  "Awarded":      "bg-blue-500/15 text-blue-400",
-  "Completed":    "bg-white/[0.08] text-white/55",
+const initiativeStatusBadge: Record<InitiativeStatus, { bg: string; text: string; label: string }> = {
+  "Open":        { bg: "bg-amber/15",         text: "text-amber",        label: "Open for Applications" },
+  "Submissions": { bg: "bg-indigo-500/15",    text: "text-indigo-400",   label: "Submissions Open" },
+  "Judging":     { bg: "bg-[#9B7FA0]/15",     text: "text-[#9B7FA0]",    label: "Judging" },
+  "Awarded":     { bg: "bg-emerald-500/15",   text: "text-emerald-400",  label: "Awarded" },
 };
 
 const initiatives: Initiative[] = [
   {
-    id: "permaculture-edu",
-    title: "Permaculture Education Series",
-    description: "12-week curriculum + recorded workshops, free for all village members and open-source for the network.",
-    category: "Art",
-    village: "Wells Gray Village",
-    raised: 4500, goal: 8000, contributors: 23,
-    status: "Active", deadline: "Jul 30, 2026",
+    id: "cabin-xprize",
+    title: "Affordable Cabin Design X-Prize",
+    description: "Design a fully winterized 1-bedroom cabin under $25K in materials, replicable in 6 weeks by a 4-person crew. Plans released open-source.",
+    category: "X-Prize Bounties",
+    prize: 50000,
+    status: "Awarded",
+    registeredTeams: 24,
+    eligibility: "Any team in the village network",
+    winner: "Northern Cedar Studio",
+    winnerSummary: "Modular SIP-panel design, $22.4K materials, validated 5-week build. 3 cabins now in construction across 2 villages.",
   },
   {
     id: "sensor-toolkit",
-    title: "Open-Source Sensor Toolkit",
-    description: "Affordable IoT kit (soil, weather, energy) under $80. Hardware specs, firmware, and assembly guides released CC-BY-SA.",
+    title: "Open-Source Sensor Toolkit Challenge",
+    description: "Build an affordable IoT kit (soil moisture, weather, energy) deployable in any village for under $80 in parts. Hardware specs, firmware, and assembly guides released CC-BY-SA.",
     category: "Tools & Systems",
-    village: "Network-wide",
-    raised: 12000, goal: 15000, contributors: 47,
-    status: "Active", deadline: "Aug 15, 2026",
+    prize: 15000,
+    prizeNote: "1st $8K · 2nd $4K · 3rd $3K",
+    status: "Submissions",
+    registeredTeams: 12,
+    deadline: "Aug 15, 2026",
+    eligibility: "Open to all members + work-stay alumni",
   },
   {
     id: "village-os-hackathon",
     title: "Village OS Hackathon — Q3 2026",
-    description: "72-hour distributed build sprint. Teams ship modules, integrations, or governance tools. $10K in prizes.",
+    description: "72-hour distributed build sprint. Teams ship modules, integrations, or governance tools that plug into the Village OS dashboard. Judged on usefulness, polish, and adoption potential.",
     category: "Hackathons",
-    village: "Network-wide",
-    raised: 25000, goal: 25000, contributors: 89,
-    status: "Fully Funded", deadline: "Sep 12, 2026",
-  },
-  {
-    id: "cabin-xprize",
-    title: "Affordable Cabin Design X-Prize",
-    description: "$50K bounty for a winterized cabin design under $25K materials, replicable in 6 weeks by a 4-person crew.",
-    category: "X-Prize Bounties",
-    village: "Wells Gray Village",
-    raised: 50000, goal: 50000, contributors: 12,
-    status: "Awarded",
-  },
-  {
-    id: "land-stewardship-mural",
-    title: "Indigenous Land Stewardship Mural",
-    description: "Collaboration with Simpcw First Nation artists — large-scale mural on the community pavilion honouring stewardship traditions.",
-    category: "Art",
-    village: "Wells Gray Village",
-    raised: 2800, goal: 3500, contributors: 31,
-    status: "Active", deadline: "Jun 22, 2026",
-  },
-  {
-    id: "compost-research",
-    title: "Black Soldier Fly Composting Trial",
-    description: "12-month research trial measuring food-waste-to-soil conversion at small village scale. Open data, peer-reviewable.",
-    category: "Research",
-    village: "Riverside Co-op",
-    raised: 1200, goal: 4000, contributors: 8,
-    status: "Active", deadline: "Oct 1, 2026",
+    prize: 25000,
+    prizeNote: "1st $10K · 2nd $6K · 3rd $4K · 5 honorable mentions $1K each",
+    status: "Open",
+    registeredTeams: 47,
+    deadline: "Sep 12, 2026",
+    eligibility: "Any team — village members, partners, or aligned outsiders",
   },
   {
     id: "solar-greenhouse-bounty",
     title: "Solar Greenhouse Design Bounty",
-    description: "Open call for a year-round greenhouse design powered entirely by passive solar + small battery. Best 3 share $15K.",
+    description: "Open call for a year-round greenhouse design powered entirely by passive solar + small battery. Must work at 51°N latitude through winter. Top 3 designs published and prototyped.",
     category: "X-Prize Bounties",
-    village: "Network-wide",
-    raised: 15000, goal: 20000, contributors: 6,
-    status: "Active", deadline: "Nov 15, 2026",
+    prize: 20000,
+    prizeNote: "1st $10K · 2nd $6K · 3rd $4K",
+    status: "Open",
+    registeredTeams: 6,
+    deadline: "Nov 15, 2026",
+    eligibility: "Designers, engineers, permaculturists",
   },
   {
-    id: "trail-mapping",
-    title: "Trail Network GPS Mapping",
-    description: "Volunteer-led mapping of 18 km of trails on the property — published as open GIS data and printed wayfinding maps.",
-    category: "Infrastructure",
-    village: "Wells Gray Village",
-    raised: 3000, goal: 3000, contributors: 17,
-    status: "Completed",
+    id: "land-stewardship-mural",
+    title: "Indigenous Land Stewardship Mural Commission",
+    description: "Commission for a large-scale mural on the community pavilion honouring Simpcw First Nation stewardship traditions. Concept proposals reviewed by an Indigenous-led panel.",
+    category: "Art",
+    prize: 5000,
+    status: "Open",
+    registeredTeams: 7,
+    deadline: "Jun 30, 2026",
+    eligibility: "Indigenous artists; collaborative submissions welcome",
   },
   {
     id: "mesh-wifi-hackathon",
     title: "Off-Grid Mesh Wifi Hackathon",
-    description: "Build resilient community wifi using LoRa + WiFi-mesh hardware. Best implementation gets adopted across 3 partner villages.",
+    description: "Build resilient community wifi using LoRa + WiFi-mesh hardware. Winning implementation gets deployed across 3 partner villages.",
     category: "Hackathons",
-    village: "Terraluna Ecovillage",
-    raised: 8500, goal: 10000, contributors: 34,
-    status: "Active", deadline: "Aug 28, 2026",
+    prize: 10000,
+    status: "Judging",
+    registeredTeams: 14,
+    deadline: "Aug 28, 2026 (closed)",
+    eligibility: "Network-wide",
+  },
+  {
+    id: "compost-research",
+    title: "Black Soldier Fly Composting Research Grant",
+    description: "12-month funded research trial measuring food-waste-to-soil conversion at small village scale. Findings published as peer-reviewable open data.",
+    category: "Research",
+    prize: 4000,
+    status: "Open",
+    registeredTeams: 3,
+    deadline: "Oct 1, 2026",
+    eligibility: "Researchers, biologists, agronomists",
+  },
+  {
+    id: "permaculture-curriculum",
+    title: "Permaculture Curriculum Bounty",
+    description: "12-week curriculum + recorded workshops, free for all village members and open-source for the network. Must be modular and self-paced.",
+    category: "Art",
+    prize: 8000,
+    status: "Awarded",
+    registeredTeams: 11,
+    eligibility: "Educators with PDC certification",
+    winner: "Mira Johal & Kaspar Lindqvist",
+    winnerSummary: "Self-paced 12-module course with 28 video lessons, climate-zone variants, and a guided cohort facilitator pack. Already in use at 4 villages.",
+  },
+  {
+    id: "trail-mapping",
+    title: "Trail Mapping & Wayfinding Prize",
+    description: "Map and document 18 km of property trails using GPS, then design printed wayfinding signage. Outputs published as open GIS data + ready-to-print files.",
+    category: "Infrastructure",
+    prize: 3000,
+    status: "Awarded",
+    registeredTeams: 4,
+    eligibility: "Cartographers, designers, naturalists",
+    winner: "Anika Patel + Tom Lee",
+    winnerSummary: "Full GPS dataset, 6 trail-head signs, and a folded pocket map. Distributed to all members and partner villages.",
   },
 ];
 
 const initiativeStats = {
-  awarded: initiatives.filter((i) => i.status === "Awarded" || i.status === "Completed").reduce((sum, i) => sum + i.raised, 0),
-  active:  initiatives.filter((i) => i.status === "Active" || i.status === "Fully Funded").length,
-  contributors: initiatives.reduce((sum, i) => sum + i.contributors, 0),
-  villages: new Set(initiatives.map((i) => i.village)).size,
+  totalPrize: initiatives.reduce((sum, i) => sum + i.prize, 0),
+  open:       initiatives.filter((i) => i.status === "Open" || i.status === "Submissions").length,
+  inJudging:  initiatives.filter((i) => i.status === "Judging").length,
+  awarded:    initiatives.filter((i) => i.status === "Awarded").length,
 };
 
 /* ── Land Pool ─────────────────────────────────────────────────── */
@@ -226,8 +255,8 @@ interface LandParcel {
   vision: string;
   steward: string;
   features: ParcelFeature[];
-  /** Tailwind gradient classes for the placeholder image */
-  gradient: string;
+  /** Path to landscape photo under /public */
+  image: string;
 }
 
 const featureIcon: Record<ParcelFeature, ComponentType<{ size?: number; weight?: "light" | "regular" | "bold" | "fill"; className?: string }>> = {
@@ -269,7 +298,7 @@ const parcels: LandParcel[] = [
     vision: "Food forest village for 15–20 members focused on perennial agriculture and seed-saving.",
     steward: "Mira Johal",
     features: ["River Access", "Water Rights", "Hydro Nearby", "Road Access"],
-    gradient: "from-emerald-900 via-emerald-700 to-teal-600",
+    image: "/images/dashboard/parcel-slocan-valley.jpg",
   },
   {
     id: "lillooet-riverside",
@@ -285,7 +314,7 @@ const parcels: LandParcel[] = [
     vision: "Off-grid permaculture homestead with arid-climate water harvesting focus.",
     steward: "Marcus Rivera",
     features: ["River Access", "Southern Exposure", "Existing Cabin"],
-    gradient: "from-amber-900 via-orange-800 to-stone-700",
+    image: "/images/dashboard/parcel-lillooet-riverside.jpg",
   },
   {
     id: "mabou-coastal",
@@ -301,7 +330,7 @@ const parcels: LandParcel[] = [
     vision: "Coastal arts and crafts village — studios, residencies, summer programming.",
     steward: "Hannah Forsberg",
     features: ["Ocean Views", "Mature Forest", "Year-Round Stream", "Road Access"],
-    gradient: "from-blue-900 via-cyan-800 to-slate-700",
+    image: "/images/dashboard/parcel-mabou-coastal.jpg",
   },
   {
     id: "watson-lake",
@@ -317,7 +346,7 @@ const parcels: LandParcel[] = [
     vision: "Northern wilderness retreat — small footprint, deep ecology, winter-tested infrastructure.",
     steward: "James Whittaker",
     features: ["Borders Crown Land", "Lake Access", "Mature Forest"],
-    gradient: "from-indigo-950 via-slate-800 to-stone-900",
+    image: "/images/dashboard/parcel-watson-lake.jpg",
   },
   {
     id: "port-renfrew",
@@ -333,7 +362,7 @@ const parcels: LandParcel[] = [
     vision: "Old-growth stewardship + tiny-home village. Construction begins Spring 2026.",
     steward: "Anika Patel",
     features: ["Adjacent Old Growth", "Year-Round Stream", "Road Access"],
-    gradient: "from-emerald-950 via-green-900 to-emerald-800",
+    image: "/images/dashboard/parcel-port-renfrew.jpg",
   },
   {
     id: "tatla-lake",
@@ -349,7 +378,7 @@ const parcels: LandParcel[] = [
     vision: "High-plateau ranch village blending livestock, hay production, and remote-work cabins.",
     steward: "Chris Delaney",
     features: ["Mountain Views", "Ranching Infra", "Road Access", "Water Rights"],
-    gradient: "from-stone-800 via-amber-900 to-yellow-900",
+    image: "/images/dashboard/parcel-tatla-lake.jpg",
   },
 ];
 
@@ -701,10 +730,10 @@ export default function FundraisingPage() {
           {/* Mini stats */}
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 mb-5">
             {[
-              { label: "Total Awarded",  value: fmt(initiativeStats.awarded) },
-              { label: "Active",         value: initiativeStats.active.toString() },
-              { label: "Contributors",   value: initiativeStats.contributors.toString() },
-              { label: "Villages",       value: initiativeStats.villages.toString() },
+              { label: "Total Prize Pool", value: fmt(initiativeStats.totalPrize) },
+              { label: "Open Challenges",  value: initiativeStats.open.toString() },
+              { label: "In Judging",       value: initiativeStats.inJudging.toString() },
+              { label: "Awarded",          value: initiativeStats.awarded.toString() },
             ].map((s) => (
               <div key={s.label} className="rounded-xl bg-white/[0.03] border border-white/[0.05] px-3 py-2.5">
                 <div className="text-[10px] uppercase tracking-wider text-white/35">{s.label}</div>
@@ -713,7 +742,19 @@ export default function FundraisingPage() {
             ))}
           </div>
 
-          {/* Initiative grid */}
+          {/* Sponsor banner */}
+          <div className="flex items-center gap-3 px-4 py-3 mb-5 rounded-xl border border-amber/20 bg-amber/[0.04]">
+            <div className="rounded-lg bg-amber/15 p-1.5 shrink-0">
+              <Trophy size={14} weight="fill" className="text-amber" />
+            </div>
+            <p className="text-xs text-white/65 leading-relaxed">
+              All prizes funded by <span className="font-semibold text-amber">Portal.Place</span> as part of the
+              village-network commons. Open to members, work-stay alumni, and aligned outside teams.
+              Winners keep IP rights; deliverables ship under open licenses.
+            </p>
+          </div>
+
+          {/* Challenge grid */}
           <motion.div
             variants={stagger}
             initial="hidden"
@@ -723,59 +764,96 @@ export default function FundraisingPage() {
             {initiatives.map((init) => {
               const cat = initiativeCategoryStyle[init.category];
               const CatIcon = cat.icon;
-              const pct = Math.min(Math.round((init.raised / init.goal) * 100), 100);
-              const isComplete = init.status === "Awarded" || init.status === "Completed" || init.status === "Fully Funded";
+              const status = initiativeStatusBadge[init.status];
+              const isAwarded = init.status === "Awarded";
+              const isOpen = init.status === "Open" || init.status === "Submissions";
               return (
                 <motion.div
                   key={init.id}
                   variants={fadeUp}
                   className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-4 flex flex-col hover:bg-white/[0.05] hover:border-white/[0.1] transition-colors"
                 >
-                  <div className="flex items-center justify-between mb-3">
+                  {/* Top: category + status */}
+                  <div className="flex items-center justify-between gap-2 mb-3">
                     <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-[10px] font-medium ${cat.bg} ${cat.text} ${cat.border}`}>
                       <CatIcon size={10} weight="fill" />
                       {init.category}
                     </div>
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${initiativeStatusBadge[init.status]}`}>
-                      {init.status}
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium whitespace-nowrap ${status.bg} ${status.text}`}>
+                      {status.label}
                     </span>
                   </div>
 
+                  {/* Title + description */}
                   <h3 className="text-sm font-semibold text-white/90 leading-snug mb-1.5">{init.title}</h3>
-                  <p className="text-xs text-white/45 leading-relaxed line-clamp-3 mb-3 flex-1">{init.description}</p>
+                  <p className="text-xs text-white/45 leading-relaxed line-clamp-3 mb-3">{init.description}</p>
 
-                  <div className="text-[10px] text-white/30 mb-3">
-                    <span className="uppercase tracking-wider">From</span>{" "}
-                    <span className="text-white/55 font-medium">{init.village}</span>
-                  </div>
-
-                  <div>
-                    <div className="flex items-baseline justify-between mb-1.5">
-                      <div className="flex items-baseline gap-1.5">
-                        <span className="text-sm font-semibold text-white">{fmt(init.raised)}</span>
-                        <span className="text-[11px] text-white/40">of {fmt(init.goal)}</span>
+                  {/* Prize purse */}
+                  <div className="flex items-center gap-2 mb-3 px-3 py-2 rounded-lg bg-amber/[0.08] border border-amber/20">
+                    <Trophy size={14} weight="fill" className="text-amber shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[9px] uppercase tracking-wider text-amber/70 leading-none">
+                        {isAwarded ? "Awarded" : "Prize Purse"}
                       </div>
-                      <span className="text-[10px] text-white/45">{pct}%</span>
-                    </div>
-                    <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                      <div
-                        className={`h-full rounded-full transition-all ${isComplete ? "bg-emerald-500/70" : "bg-amber"}`}
-                        style={{ width: `${pct}%` }}
-                      />
+                      <div className="text-base font-bold text-amber leading-tight mt-0.5">
+                        {fmt(init.prize)}
+                      </div>
+                      {init.prizeNote && (
+                        <div className="text-[10px] text-white/45 mt-0.5 leading-tight">{init.prizeNote}</div>
+                      )}
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/[0.04]">
-                    <div className="flex items-center gap-1.5 text-[11px] text-white/45">
-                      <Users size={11} weight="fill" />
-                      <span>{init.contributors} {init.category === "X-Prize Bounties" ? "sponsors" : "contributors"}</span>
+                  {/* Awarded info or active info */}
+                  {isAwarded && init.winner ? (
+                    <div className="mb-3 p-3 rounded-lg bg-emerald-500/[0.06] border border-emerald-500/15 flex-1">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <CheckCircle size={11} weight="fill" className="text-emerald-400" />
+                        <span className="text-[10px] uppercase tracking-wider text-emerald-400/85 font-semibold">Winner</span>
+                      </div>
+                      <div className="text-xs font-semibold text-white/85">{init.winner}</div>
+                      {init.winnerSummary && (
+                        <p className="text-[11px] text-white/45 leading-relaxed mt-1.5 line-clamp-2">{init.winnerSummary}</p>
+                      )}
                     </div>
-                    {init.status === "Active" || init.status === "Fully Funded" ? (
-                      <button className={`px-2.5 py-1 rounded-lg text-[11px] font-medium ${cat.bg} ${cat.text} hover:opacity-80 transition-opacity`}>
-                        {init.status === "Active" ? "Contribute" : "View"}
+                  ) : (
+                    <div className="space-y-1.5 mb-3 flex-1">
+                      <div className="flex items-center gap-1.5 text-[11px] text-white/55">
+                        <Users size={11} weight="fill" className="text-white/35" />
+                        <span><span className="font-medium text-white/75">{init.registeredTeams}</span> {init.registeredTeams === 1 ? "team" : "teams"} registered</span>
+                      </div>
+                      {init.deadline && (
+                        <div className="flex items-center gap-1.5 text-[11px] text-white/55">
+                          <CalendarBlank size={11} weight="fill" className="text-white/35" />
+                          <span>Deadline: <span className="text-white/75">{init.deadline}</span></span>
+                        </div>
+                      )}
+                      <div className="flex items-start gap-1.5 text-[11px] text-white/45">
+                        <Users size={11} weight="fill" className="text-white/25 mt-0.5 shrink-0 opacity-0" />
+                        <span className="leading-relaxed">{init.eligibility}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Footer CTA */}
+                  <div className="flex items-center justify-between pt-3 border-t border-white/[0.04]">
+                    <span className="text-[10px] text-white/35">
+                      {init.status === "Open"        && "Accepting applications"}
+                      {init.status === "Submissions" && "Building in progress"}
+                      {init.status === "Judging"     && "Under review"}
+                      {init.status === "Awarded"     && `${init.registeredTeams} teams competed`}
+                    </span>
+                    {isOpen ? (
+                      <button className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium ${cat.bg} ${cat.text} hover:opacity-80 transition-opacity`}>
+                        Apply
+                        <ArrowUp size={11} weight="bold" className="rotate-45" />
+                      </button>
+                    ) : isAwarded ? (
+                      <button className="px-2.5 py-1 rounded-lg text-[11px] font-medium bg-white/[0.05] text-white/60 hover:bg-white/[0.08] transition-colors">
+                        View Winner
                       </button>
                     ) : (
-                      <span className="text-[11px] text-white/30 italic">Closed</span>
+                      <span className="text-[11px] text-[#9B7FA0] italic">Awaiting decision</span>
                     )}
                   </div>
                 </motion.div>
@@ -850,20 +928,26 @@ export default function FundraisingPage() {
                   variants={fadeUp}
                   className="rounded-2xl border border-white/[0.06] bg-white/[0.04] overflow-hidden flex flex-col hover:border-white/[0.12] transition-colors"
                 >
-                  {/* Image / gradient banner */}
-                  <div className={`h-32 bg-gradient-to-br ${p.gradient} relative`}>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  {/* Image banner */}
+                  <div className="h-40 relative overflow-hidden bg-warm-dark">
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
                     <div className="absolute top-3 right-3">
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${parcelStatusBadge[p.status]}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium backdrop-blur-sm ${parcelStatusBadge[p.status]}`}>
                         {p.status}
                       </span>
                     </div>
                     <div className="absolute bottom-3 left-3 right-3">
-                      <div className="flex items-center gap-1 text-[10px] text-white/75">
+                      <div className="flex items-center gap-1 text-[10px] text-white/80">
                         <MapPin size={10} weight="fill" />
                         <span className="font-medium">{p.location}, {p.province}</span>
                       </div>
-                      <h3 className="text-base font-semibold text-white leading-tight mt-0.5">{p.title}</h3>
+                      <h3 className="text-base font-semibold text-white leading-tight mt-0.5 drop-shadow-md">{p.title}</h3>
                     </div>
                   </div>
 
