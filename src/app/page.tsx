@@ -25,6 +25,7 @@ import {
   MapPin,
   Bell,
   Newspaper,
+  Play,
 } from "@phosphor-icons/react";
 
 function Marquee() {
@@ -159,6 +160,78 @@ function Hero() {
 
       <div className="mt-16">
         <Marquee />
+      </div>
+    </section>
+  );
+}
+
+function Trailer() {
+  return (
+    <section className="relative bg-warm-dark py-28 lg:py-36 overflow-hidden">
+      {/* subtle amber haze behind the video */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[60%] w-[80%] rounded-full bg-amber/[0.06] blur-3xl"
+      />
+
+      <div className="relative mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="mx-auto max-w-[1100px]">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+              Watch the trailer
+            </p>
+            <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl">
+              The Village,<br />
+              <span className="italic">In Motion.</span>
+            </h2>
+            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[52ch] mx-auto">
+              A short glimpse of Wells Gray Village — the land, the people, and the
+              rhythm of a season here.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="mt-14"
+          >
+            <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]">
+              <iframe
+                src="https://www.youtube.com/embed/lXDtsogjnVk?rel=0&modestbranding=1&playsinline=1"
+                title="Portal.Place — Trailer"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+                className="h-full w-full"
+              />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="mt-12 flex justify-center"
+          >
+            <Link
+              href="/walkthrough"
+              className="group inline-flex items-center gap-2 rounded-full bg-amber px-8 py-3.5 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
+            >
+              <Play size={13} weight="fill" />
+              Watch the Full Walkthrough
+              <ArrowRight size={14} weight="bold" className="transition-transform group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -827,6 +900,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <Trailer />
       <CoreIdea />
       <WhyNow />
       <VillageModel />
