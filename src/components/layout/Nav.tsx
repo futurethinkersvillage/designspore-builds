@@ -22,7 +22,7 @@ const navItems = [
       { label: "Gallery", href: "/gallery" },
       { label: "Videos & Photos", href: "/videos" },
       { label: "Village Rhythm", href: "/rhythm" },
-      { label: "Village AI", href: "/village-ai" },
+      { label: "Village OS", href: "https://village-dashboard.portal.place/", external: true },
       { label: "Work-Stay Cohorts", href: "/workstay" },
       { label: "Book A Stay", href: "https://wellsgrayresort.ca", external: true },
       { label: "Host An Event", href: "/host" },
