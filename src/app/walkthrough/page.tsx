@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Compass, Users, Handshake } from "@phosphor-icons/react";
+import { ArrowRight, ArrowUpRight, Compass, Users, Handshake } from "@phosphor-icons/react";
 
 function Hero() {
   return (
@@ -48,10 +48,11 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-10 text-base leading-relaxed text-white/60 max-w-[56ch] mx-auto"
+            className="mt-10 text-base leading-relaxed text-white/60 max-w-[60ch] mx-auto"
           >
-            A complete walking tour of the 400-acre property — buildings, programs,
-            infrastructure, and the seasonal life we&apos;re building here.
+            A walkthrough of the 400-acre property, the long-term vision for the
+            Portal.Place network, and a first look at Village OS — the AI-powered
+            operating system that runs the village.
           </motion.p>
         </div>
 
@@ -70,6 +71,26 @@ function Hero() {
               className="h-full w-full"
             />
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.75 }}
+          className="mt-10 flex flex-col items-center gap-3"
+        >
+          <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+            Seen Village OS in the video? Try it yourself.
+          </p>
+          <a
+            href="https://village-dashboard.portal.place/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 rounded-full border border-amber/50 bg-amber/10 px-7 py-3 text-sm font-medium text-amber transition-all hover:bg-amber/20 hover:border-amber active:scale-[0.98]"
+          >
+            Open the Village OS Demo
+            <ArrowUpRight size={14} weight="bold" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
         </motion.div>
       </div>
     </section>

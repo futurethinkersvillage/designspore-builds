@@ -190,9 +190,9 @@ function Trailer() {
               The Village,<br />
               <span className="italic">In Motion.</span>
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[52ch] mx-auto">
-              A short glimpse of Wells Gray Village — the land, the people, and the
-              rhythm of a season here.
+            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[56ch] mx-auto">
+              A short glimpse of Wells Gray Village, the long-term vision, and
+              Village OS — the AI system that runs it all.
             </p>
           </motion.div>
 
