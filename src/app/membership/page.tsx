@@ -88,7 +88,7 @@ function Hero() {
 
 function BecomeMember() {
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_38%] items-start">
           <div>
@@ -186,7 +186,7 @@ function BecomeMember() {
 
 function WhyPortal() {
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <motion.div
           initial={{ opacity: 0 }}
@@ -255,7 +255,7 @@ function WhyMembership() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_45%] items-start">
           <div>
@@ -356,7 +356,7 @@ function WhatYouGet() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
@@ -408,7 +408,7 @@ function WhatMembersDo() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 items-start">
           <div>
@@ -491,7 +491,7 @@ function WhatExistsToday() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <motion.div
           initial={{ opacity: 0 }}
@@ -581,7 +581,7 @@ function WhoItsFor() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
           <div>
@@ -663,7 +663,7 @@ function Testimonials() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
@@ -723,7 +723,7 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
@@ -770,7 +770,7 @@ function FoundingStatus() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="max-w-3xl">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
@@ -821,7 +821,7 @@ function FoundingStatus() {
 
 function Invitation() {
   return (
-    <section id="invitation" className="bg-amber py-28 lg:py-36">
+    <section id="invitation" className="bg-amber py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_auto] items-center">
           <motion.div
@@ -833,7 +833,7 @@ function Invitation() {
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/60 mb-6">
               Join Us
             </p>
-            <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl mb-8">
+            <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl xl:text-7xl mb-8">
               The <span className="italic">Invitation</span>
             </h2>
             <p className="max-w-[50ch] text-base leading-relaxed text-white/75">

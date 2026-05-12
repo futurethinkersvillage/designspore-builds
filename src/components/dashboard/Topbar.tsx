@@ -26,9 +26,9 @@ export default function Topbar({ title }: TopbarProps) {
 
   return (
     <>
-      <header className="flex items-center justify-between px-6 lg:px-8 h-16 border-b border-white/[0.06] shrink-0">
-        {/* Left: page title */}
-        <h2 className="text-lg font-semibold text-white/90 pl-10 lg:pl-0">{title}</h2>
+      <header className="flex items-center justify-between px-4 lg:px-8 h-16 border-b border-white/[0.06] shrink-0 gap-3">
+        {/* Left: page title (offset for the floating mobile hamburger) */}
+        <h2 className="text-lg font-semibold text-white/90 pl-14 lg:pl-0 truncate">{title}</h2>
 
         {/* Right: actions */}
         <div className="flex items-center gap-4">

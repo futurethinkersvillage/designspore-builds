@@ -132,13 +132,13 @@ function WhatYouCanHost() {
   ];
 
   return (
-    <section id="what-you-can-host" className="bg-[#0F0E12] py-28 lg:py-36">
+    <section id="what-you-can-host" className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             What you can host
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             Meaningful<br />
             <span className="italic">experiences</span>
           </h2>
@@ -167,13 +167,13 @@ function WhatYouCanHost() {
 
 function WhatToExpect() {
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="max-w-2xl">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             What to expect
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl mb-8">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl mb-8">
             The<br />
             <span className="italic">process</span>
           </h2>
@@ -237,10 +237,10 @@ function InquiryForm() {
   }
 
   return (
-    <section id="inquire" className="bg-amber py-28 lg:py-36">
+    <section id="inquire" className="bg-amber py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16 max-w-2xl">
-          <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
+          <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl xl:text-7xl">
             Host<br />
             <span className="italic">inquiry.</span>
           </h2>

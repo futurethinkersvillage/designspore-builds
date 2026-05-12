@@ -6,7 +6,7 @@ import { ArrowRight, ArrowUpRight, Compass, Users, Handshake } from "@phosphor-i
 
 function Hero() {
   return (
-    <section className="relative bg-warm-dark pt-32 pb-20 lg:pt-40 lg:pb-24 overflow-hidden">
+    <section className="relative bg-warm-dark pt-24 pb-16 lg:pt-40 lg:pb-24 overflow-hidden">
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 h-[70%] w-[85%] rounded-full bg-amber/[0.06] blur-3xl"
@@ -48,7 +48,7 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-10 text-base leading-relaxed text-white/60 max-w-[60ch] mx-auto"
+            className="mt-8 text-[15px] leading-relaxed text-white/65 max-w-[60ch] mx-auto lg:mt-10 lg:text-base lg:text-white/60"
           >
             A walkthrough of the 400-acre property, the long-term vision for the
             Portal.Place network, and a first look at Village OS — the AI-powered
@@ -123,13 +123,13 @@ function NextSteps() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="text-center mb-16">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
+        <div className="text-center mb-12 lg:mb-16">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-5 lg:mb-6">
             Where to go from here
           </p>
-          <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl">
             Three Ways<br />
             <span className="italic">To Get Involved.</span>
           </h2>

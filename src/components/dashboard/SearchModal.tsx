@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MagnifyingGlass, X, ArrowRight,
@@ -58,6 +59,12 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const pathname = usePathname();
+  const isInternalPath = pathname.startsWith("/village-dashboard");
+  const buildHref = (href: string) => {
+    if (!isInternalPath) return href;
+    return href === "/" ? "/village-dashboard" : `/village-dashboard${href}`;
+  };
 
   const filtered: SearchItem[] = query.trim()
     ? [...pages, ...content].filter(
@@ -153,7 +160,7 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
                 return (
                   <Link
                     key={`${item.href}-${i}`}
-                    href={item.href}
+                    href={buildHref(item.href)}
                     onClick={onClose}
                     onMouseEnter={() => setSelected(i)}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors group ${

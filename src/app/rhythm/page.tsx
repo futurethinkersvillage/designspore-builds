@@ -147,13 +147,13 @@ function Schedule() {
   ];
 
   return (
-    <section id="schedule" className="bg-[#0F0E12] py-28 lg:py-36">
+    <section id="schedule" className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             Sundays, May 1 – Sep 30
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             The village<br />
             <span className="italic">rhythm</span>
           </h2>
@@ -198,11 +198,11 @@ function Schedule() {
 
 function MakeADay() {
   return (
-    <section className="bg-amber py-28 lg:py-36">
+    <section className="bg-amber py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_auto]">
           <div>
-            <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
+            <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl xl:text-7xl">
               Come for one part.<br />
               <span className="italic">Stay for all of it.</span>
             </h2>

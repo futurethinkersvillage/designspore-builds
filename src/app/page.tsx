@@ -61,55 +61,68 @@ function Marquee() {
 
 function Hero() {
   return (
-    <section className="relative min-h-[100dvh] bg-warm-dark overflow-hidden">
+    <section className="relative bg-warm-dark overflow-hidden">
       <div className="absolute inset-0">
+        {/* Mobile: still photo fallback (no broken-looking iframe scale) */}
+        <div className="absolute inset-0 lg:hidden">
+          <Image
+            src="/images/swimming-lake-scaled.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+            style={{ filter: "brightness(0.35)" }}
+          />
+        </div>
+        {/* Desktop: video background */}
         <iframe
           src="https://www.youtube.com/embed/mcvW_CWry3g?autoplay=1&mute=1&loop=1&playlist=mcvW_CWry3g&controls=0&showinfo=0&modestbranding=1&playsinline=1"
           title="Smart Village aerial view"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          className="absolute inset-0 h-full w-full scale-150 pointer-events-none"
+          className="absolute inset-0 hidden h-full w-full scale-150 pointer-events-none lg:block"
           style={{ filter: "brightness(0.3)" }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-warm-dark via-warm-dark/60 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-warm-dark/70 to-transparent" />
       </div>
 
-      <div className="relative mx-auto max-w-[1400px] px-6 pt-32 pb-0 lg:px-16">
+      <div className="relative mx-auto max-w-[1400px] px-6 pt-28 pb-20 lg:min-h-[100dvh] lg:px-16 lg:pt-32 lg:pb-0">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-8"
+          className="text-[11px] font-medium uppercase tracking-[0.2em] text-amber mb-6 lg:text-xs lg:mb-8"
         >
           The First in a Membership Network of Villages
         </motion.p>
 
-        <div className="overflow-hidden pb-10 -mb-10">
+        <div className="overflow-hidden pb-6 -mb-6 lg:pb-10 lg:-mb-10">
           <motion.h1
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-[clamp(3.5rem,9vw,8rem)] font-light leading-[0.88] tracking-tighter text-white"
+            className="font-serif text-[clamp(3rem,14vw,8rem)] font-light leading-[0.9] tracking-tighter text-white"
           >
             The Future
           </motion.h1>
         </div>
-        <div className="overflow-hidden pb-10 -mb-10">
+        <div className="overflow-hidden pb-6 -mb-6 lg:pb-10 lg:-mb-10">
           <motion.h1
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-[clamp(3.5rem,9vw,8rem)] italic font-light leading-[0.88] tracking-tighter text-amber"
+            className="font-serif text-[clamp(3rem,14vw,8rem)] italic font-light leading-[0.9] tracking-tighter text-amber"
           >
             of Human
           </motion.h1>
         </div>
-        <div className="overflow-hidden pb-10 -mb-10">
+        <div className="overflow-hidden pb-6 -mb-6 lg:pb-10 lg:-mb-10">
           <motion.h1
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-[clamp(3.5rem,9vw,8rem)] font-light leading-[0.88] tracking-tighter text-white"
+            className="font-serif text-[clamp(3rem,14vw,8rem)] font-light leading-[0.9] tracking-tighter text-white"
           >
             Living.
           </motion.h1>
@@ -119,14 +132,14 @@ function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-12 max-w-[56ch]"
+          className="mt-8 max-w-[56ch] lg:mt-12"
         >
-          <p className="text-base leading-relaxed text-white/60">
+          <p className="text-[15px] leading-relaxed text-white/70 lg:text-base lg:text-white/60">
             We&apos;re building a real-world village campus in Interior BC, Canada — with
             RV&apos;s, tiny homes, cabins, programs, and memberships designed for people
             who want a healthier, more connected, future-proof lifestyle.
           </p>
-          <p className="mt-4 text-sm text-white/50">
+          <p className="mt-4 text-[13px] text-white/55 lg:text-sm lg:text-white/50">
             Families &middot; Creators &middot; Regenerative builders &middot; Remote workers &amp; founders &middot; Values-aligned investors.
           </p>
         </motion.div>
@@ -135,39 +148,37 @@ function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-10 flex flex-wrap items-center gap-3"
+          className="mt-8 flex flex-wrap items-center gap-2.5 lg:mt-10 lg:gap-3"
         >
           <Link
             href="/village"
-            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3 text-sm font-medium text-white/80 transition-all hover:border-white/50 hover:text-white hover:bg-white/5 active:scale-[0.98]"
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-medium text-white/80 transition-all hover:border-white/50 hover:text-white hover:bg-white/5 active:scale-[0.98] lg:px-7"
           >
             Visit
           </Link>
           <Link
             href="/membership"
-            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3 text-sm font-medium text-white/80 transition-all hover:border-white/50 hover:text-white hover:bg-white/5 active:scale-[0.98]"
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-medium text-white/80 transition-all hover:border-white/50 hover:text-white hover:bg-white/5 active:scale-[0.98] lg:px-7"
           >
             Membership <ArrowRight size={13} weight="bold" />
           </Link>
           <Link
             href="/partner"
-            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3 text-sm font-medium text-white/80 transition-all hover:border-white/50 hover:text-white hover:bg-white/5 active:scale-[0.98]"
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-medium text-white/80 transition-all hover:border-white/50 hover:text-white hover:bg-white/5 active:scale-[0.98] lg:px-7"
           >
             Investor &amp; Partner Access
           </Link>
         </motion.div>
       </div>
 
-      <div className="mt-16">
-        <Marquee />
-      </div>
+      <Marquee />
     </section>
   );
 }
 
 function Trailer() {
   return (
-    <section className="relative bg-warm-dark py-28 lg:py-36 overflow-hidden">
+    <section className="relative bg-warm-dark py-20 lg:py-36 overflow-hidden">
       {/* subtle amber haze behind the video */}
       <div
         aria-hidden
@@ -186,11 +197,11 @@ function Trailer() {
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
               Watch the trailer
             </p>
-            <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl">
               The Village,<br />
               <span className="italic">In Motion.</span>
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[56ch] mx-auto">
+            <p className="mt-6 text-[15px] leading-relaxed text-white/65 max-w-[56ch] mx-auto lg:mt-8 lg:text-sm lg:text-white/60">
               A short glimpse of Wells Gray Village, the long-term vision, and
               Village OS — the AI system that runs it all.
             </p>
@@ -252,19 +263,19 @@ function CoreIdea() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 items-start">
-          <div className="space-y-5 text-sm leading-relaxed text-white/60 max-w-[52ch]">
+        <div className="grid grid-cols-1 gap-12 lg:gap-16 lg:grid-cols-2 items-start">
+          <div className="space-y-5 text-[15px] leading-relaxed text-white/65 max-w-[52ch] lg:text-sm lg:text-white/60">
             <div className="mb-8">
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
                 The Core Idea
               </p>
-              <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl">
+              <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl">
                 A Network of Villages<br />
                 <span className="italic">For The Post-Ai World</span>
               </h2>
-              <p className="mt-6 text-sm leading-relaxed text-white/55 max-w-[52ch]">
+              <p className="mt-6 text-[15px] leading-relaxed text-white/60 max-w-[52ch] lg:text-sm lg:text-white/55">
                 We are starting with our existing 400-acre flagship village site in BC,
                 Canada – and adding partner locations with time.
               </p>
@@ -320,17 +331,17 @@ function WhyNow() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             The urgency
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             Why This<br />
             <span className="italic">Matters Now</span>
           </h2>
-          <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[52ch]">
+          <p className="mt-6 text-[15px] leading-relaxed text-white/65 max-w-[52ch] lg:mt-8 lg:text-sm lg:text-white/60">
             AI is transforming reality faster than most people can adapt. We are
             entering a transition that will require new forms of:
           </p>
@@ -374,21 +385,21 @@ function VillageModel() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
               The model
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               The Village<br />
               <span className="italic">Model</span>
             </h2>
             <p className="mt-4 text-sm text-amber/70">
               The Best of Blue Zones, Modern Tech, and Regenerative Design
             </p>
-            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[48ch]">
+            <p className="mt-6 text-[15px] leading-relaxed text-white/65 max-w-[48ch] lg:mt-8 lg:text-sm lg:text-white/60">
               Imagine a Network of Villages that combine:
             </p>
             <div className="mt-8 space-y-3">
@@ -437,18 +448,18 @@ function FirstVillage() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
               Our first village
             </p>
-            <h2 className="font-serif text-5xl font-light leading-tight text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light leading-tight text-white sm:text-5xl lg:text-6xl">
               Wells Gray, BC.<br />
               <span className="italic text-white/55">The Living Prototype.</span>
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[48ch]">
+            <p className="mt-6 text-[15px] leading-relaxed text-white/65 max-w-[48ch] lg:mt-8 lg:text-sm lg:text-white/60">
               We are building the first real-world Village on a stunning 400-acre
               property in the mountains of British Columbia.
             </p>
@@ -531,14 +542,14 @@ function DayInVillage() {
   ];
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_45%]">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
               The Living Prototype
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               A Day In<br />
               <span className="italic">The Village</span>
             </h2>
@@ -595,14 +606,14 @@ function WhyDifferent() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
               The difference
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               Why This Is<br />
               <span className="italic">Different</span>
             </h2>
@@ -658,18 +669,18 @@ function ProofOfProgress() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[40%_1fr]">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
               Track record
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               Proof Of<br />
               <span className="italic">Progress</span>
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[38ch]">
+            <p className="mt-6 text-[15px] leading-relaxed text-white/65 max-w-[38ch] lg:mt-8 lg:text-sm lg:text-white/60">
               We&apos;re early — but not starting from zero.
             </p>
           </div>
@@ -722,7 +733,7 @@ function IntelCTA() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
           {/* Left */}
@@ -730,11 +741,11 @@ function IntelCTA() {
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
               Portal.Place Intel &mdash; BC &amp; Alberta
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               Stay Ahead of<br />
               <span className="italic">The Shift.</span>
             </h2>
-            <p className="mt-8 text-sm leading-relaxed text-white/60 max-w-[48ch]">
+            <p className="mt-6 text-[15px] leading-relaxed text-white/65 max-w-[48ch] lg:mt-8 lg:text-sm lg:text-white/60">
               If you&apos;re tracking land, resilience projects, or regenerative
               opportunities in British Columbia or Alberta — Portal.Place Intel
               surfaces them for you. An AI-curated weekly briefing covering land
@@ -833,11 +844,11 @@ function IntelCTA() {
 
 function GetInvolved() {
   return (
-    <section className="bg-amber py-28 lg:py-36">
+    <section className="bg-amber py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_40%]">
           <div>
-            <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
+            <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl xl:text-7xl">
               Get<br />
               <span className="italic">Involved.</span>
             </h2>

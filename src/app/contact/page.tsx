@@ -47,7 +47,7 @@ function Hero() {
 
 function MikeSection() {
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           {/* Image */}
@@ -74,7 +74,7 @@ function MikeSection() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl mb-4">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl mb-4">
               Mike Gilliland
             </h2>
             <p className="text-sm font-medium uppercase tracking-[0.15em] text-amber mb-10">
@@ -121,7 +121,7 @@ function MikeSection() {
 
 function ContactMethods() {
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
           {/* Left column */}
@@ -129,7 +129,7 @@ function ContactMethods() {
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
               Get in touch
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl mb-8">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl mb-8">
               Contact<br />
               <span className="italic">methods</span>
             </h2>
@@ -215,12 +215,12 @@ function ContactForm() {
   }
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 items-start">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">Send a message</p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl mb-6">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl mb-6">
               Write to<br /><span className="italic">us.</span>
             </h2>
             <p className="text-base leading-relaxed text-white/55 max-w-[48ch]">

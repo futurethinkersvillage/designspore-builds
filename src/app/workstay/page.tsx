@@ -125,14 +125,14 @@ function Hero() {
 
 function WhatItIs() {
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
               The program
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               Village Builder<br />
               <span className="italic">Work-Stay</span>
             </h2>
@@ -247,13 +247,13 @@ function Roles() {
   ];
 
   return (
-    <section id="roles" className="bg-warm-dark py-28 lg:py-36">
+    <section id="roles" className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             Open positions
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             2026<br />
             <span className="italic">cohort roles</span>
           </h2>
@@ -293,13 +293,13 @@ function Roles() {
 
 function Timeline() {
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             2026 season
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             Season<br />
             <span className="italic">timeline</span>
           </h2>
@@ -352,11 +352,11 @@ function Timeline() {
 
 function Apply() {
   return (
-    <section id="apply" className="bg-amber py-28 lg:py-36">
+    <section id="apply" className="bg-amber py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_42%]">
           <div>
-            <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
+            <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl xl:text-7xl">
               Come and<br />
               <span className="italic">build with us.</span>
             </h2>

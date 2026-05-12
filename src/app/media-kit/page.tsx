@@ -100,13 +100,13 @@ function KeyFacts() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             At a glance
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             Key<br />
             <span className="italic">facts</span>
           </h2>
@@ -161,13 +161,13 @@ function ThreeOrgs() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             The organizations
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             The<br />
             <span className="italic">entities</span>
           </h2>
@@ -210,13 +210,13 @@ function ThreeOrgs() {
 
 function FounderBios() {
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             For press use
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             Founder<br />
             <span className="italic">bios</span>
           </h2>
@@ -303,13 +303,13 @@ function FounderBios() {
 
 function BrandAssets() {
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             Brand resources
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             Logos &<br />
             <span className="italic">assets</span>
           </h2>
@@ -393,11 +393,11 @@ function BrandAssets() {
 
 function BookInterview() {
   return (
-    <section className="bg-amber py-28 lg:py-36">
+    <section className="bg-amber py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_auto]">
           <div>
-            <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
+            <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl xl:text-7xl">
               Book us for<br />
               <span className="italic">your story.</span>
             </h2>

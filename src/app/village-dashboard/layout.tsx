@@ -28,7 +28,7 @@ export default function DashboardLayout({
       <div className="flex-1 flex flex-col min-w-0 lg:ml-60">
         <Topbar title={title} />
 
-        <main className="flex-1 p-4 pt-4 lg:p-8">
+        <main className="flex-1 px-3 py-4 sm:p-4 lg:p-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={pathname}

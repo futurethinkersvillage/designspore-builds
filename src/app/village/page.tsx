@@ -138,13 +138,13 @@ function FirstPrototype() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             The vision
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             The First Village<br />
             <span className="italic">Prototype</span>
           </h2>
@@ -187,13 +187,13 @@ function Amenities() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             On the property
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             Village Amenities<br />
             <span className="italic">What You Get</span>
           </h2>
@@ -225,14 +225,14 @@ function Amenities() {
 
 function WorkStayCTA() {
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_42%]">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
               May 1 &ndash; 31, 2026
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               Join the 2026<br />
               <span className="italic">Village Builder</span><br />
               Work-stay Cohort
@@ -273,13 +273,13 @@ function WorkStayCTA() {
 
 function FutureOfLiving() {
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             The way people live is changing
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             The Future of Living<br />
             <span className="italic">And Why We&apos;re Building It</span>
           </h2>
@@ -318,13 +318,13 @@ function TheLand() {
   ];
 
   return (
-    <section id="land" className="bg-[#0F0E12] py-28 lg:py-36">
+    <section id="land" className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             Get a Feel for the Village
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             The<br />
             <span className="italic">Land</span>
           </h2>
@@ -356,14 +356,14 @@ function ComingSoon() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[40%_1fr]">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
               What&apos;s next
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               Coming Soon<br />
               <span className="italic">to Wells Gray Village</span>
             </h2>
@@ -397,11 +397,11 @@ function ComingSoon() {
 
 function VisitCTA() {
   return (
-    <section className="bg-amber py-28 lg:py-36">
+    <section className="bg-amber py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_40%]">
           <div>
-            <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
+            <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl xl:text-7xl">
               Come see it<br />
               <span className="italic">for yourself.</span>
             </h2>
@@ -458,14 +458,14 @@ function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[35%_1fr]">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
               Your questions answered
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               FAQ
             </h2>
           </div>

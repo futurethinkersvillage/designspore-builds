@@ -90,10 +90,10 @@ export default function OverviewPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="font-serif text-3xl font-light text-white lg:text-4xl">
+        <h1 className="font-serif text-3xl font-light text-white sm:text-4xl">
           Village <span className="italic">Dashboard</span>
         </h1>
-        <p className="mt-2 text-sm text-white/40">
+        <p className="mt-2 text-[13px] text-white/50 lg:text-sm lg:text-white/40">
           Wells Gray Village — Real-time overview of your smart village
         </p>
       </div>
@@ -112,15 +112,15 @@ export default function OverviewPage() {
             className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-4 lg:p-5"
           >
             <div className="flex items-start justify-between mb-3">
-              <span className="text-xs text-white/40">{s.label}</span>
+              <span className="text-[11px] text-white/50 leading-tight lg:text-xs lg:text-white/40">{s.label}</span>
               <div className="rounded-lg bg-amber/10 p-1.5">
                 <s.icon size={14} weight="fill" className="text-amber" />
               </div>
             </div>
-            <div className="text-xl font-semibold text-white lg:text-2xl">
+            <div className="text-2xl font-semibold text-white">
               <CountUp to={s.to} prefix={s.prefix} suffix={s.suffix} localize={s.localize !== false} />
             </div>
-            <div className={`mt-1 flex items-center gap-1 text-xs ${s.trendUp ? "text-emerald-400" : "text-red-400"}`}>
+            <div className={`mt-1 flex items-center gap-1 text-[11px] lg:text-xs ${s.trendUp ? "text-emerald-400" : "text-red-400"}`}>
               {s.trendUp ? <ArrowUp size={10} weight="bold" /> : <ArrowDown size={10} weight="bold" />}
               {s.trend}
             </div>
@@ -137,14 +137,14 @@ export default function OverviewPage() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5 flex flex-col min-h-[360px]"
         >
-          <div className="flex items-center justify-between mb-6 shrink-0">
+          <div className="flex items-center justify-between mb-6 shrink-0 gap-2">
             <div>
-              <h2 className="text-sm font-medium text-white">Revenue Trend</h2>
-              <p className="text-xs text-white/30 mt-0.5">Last 12 months</p>
+              <h2 className="text-base font-medium text-white lg:text-sm">Revenue Trend</h2>
+              <p className="text-[11px] text-white/40 mt-0.5 lg:text-xs lg:text-white/30">Last 12 months</p>
             </div>
             <div className="text-right">
               <div className="text-lg font-semibold text-white">$187,420</div>
-              <div className="flex items-center gap-1 text-xs text-emerald-400 justify-end">
+              <div className="flex items-center gap-1 text-[11px] text-emerald-400 justify-end lg:text-xs">
                 <ArrowUp size={10} weight="bold" /> +8.3% vs last month
               </div>
             </div>
@@ -159,8 +159,8 @@ export default function OverviewPage() {
                 </linearGradient>
               </defs>
               <CartesianGrid stroke="rgba(255,255,255,0.04)" strokeDasharray="3 3" />
-              <XAxis dataKey="month" tick={{ fill: "rgba(255,255,255,0.3)", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: "rgba(255,255,255,0.3)", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v / 1000}K`} />
+              <XAxis dataKey="month" tick={{ fill: "rgba(255,255,255,0.3)", fontSize: 11 }} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={20} />
+              <YAxis tick={{ fill: "rgba(255,255,255,0.3)", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v / 1000}K`} width={42} />
               <Tooltip content={<CustomTooltip />} />
               <Area type="monotone" dataKey="revenue" stroke="#EA824E" strokeWidth={2} fill="url(#revGrad)" />
             </AreaChart>
@@ -175,7 +175,7 @@ export default function OverviewPage() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5"
         >
-          <h2 className="text-sm font-medium text-white mb-4">Recent Activity</h2>
+          <h2 className="text-base font-medium text-white mb-4 lg:text-sm">Recent Activity</h2>
           <div className="space-y-0">
             {recentActivity.map((item, i) => (
               <div
@@ -186,8 +186,8 @@ export default function OverviewPage() {
                   <item.icon size={14} weight="fill" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs text-white/70 leading-relaxed">{item.label}</p>
-                  <p className="text-[10px] text-white/25 mt-0.5">{item.time}</p>
+                  <p className="text-sm text-white/80 leading-relaxed lg:text-xs lg:text-white/70">{item.label}</p>
+                  <p className="text-[11px] text-white/35 mt-0.5 lg:text-[10px] lg:text-white/25">{item.time}</p>
                 </div>
               </div>
             ))}
@@ -204,19 +204,19 @@ export default function OverviewPage() {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5"
         >
-          <h2 className="text-sm font-medium text-white mb-4">Weather — Wells Gray</h2>
+          <h2 className="text-base font-medium text-white mb-4 lg:text-sm">Weather — Wells Gray</h2>
           <div className="flex items-center gap-4 mb-4">
             <CloudSun size={40} weight="fill" className="text-amber" />
             <div>
               <div className="text-3xl font-light text-white">{weather.temp}°C</div>
-              <div className="text-xs text-white/40">{weather.condition}</div>
+              <div className="text-[13px] text-white/50 lg:text-xs lg:text-white/40">{weather.condition}</div>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="flex items-center gap-2 text-xs text-white/40">
+            <div className="flex items-center gap-2 text-[13px] text-white/50 lg:text-xs lg:text-white/40">
               <Drop size={12} weight="fill" /> Humidity {weather.humidity}%
             </div>
-            <div className="flex items-center gap-2 text-xs text-white/40">
+            <div className="flex items-center gap-2 text-[13px] text-white/50 lg:text-xs lg:text-white/40">
               <Wind size={12} weight="fill" /> Wind {weather.wind} km/h
             </div>
           </div>
@@ -229,16 +229,16 @@ export default function OverviewPage() {
           transition={{ duration: 0.5, delay: 0.55 }}
           className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5"
         >
-          <h2 className="text-sm font-medium text-white mb-4">Village Health</h2>
+          <h2 className="text-base font-medium text-white mb-4 lg:text-sm">Village Health</h2>
           <div className="space-y-3">
             {healthIndicators.map((h) => (
               <div key={h.label}>
                 <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-2 text-xs text-white/50">
+                  <div className="flex items-center gap-2 text-[13px] text-white/60 lg:text-xs lg:text-white/50">
                     <h.icon size={12} weight="fill" className="text-amber" />
                     {h.label}
                   </div>
-                  <span className="text-xs font-medium text-white">{h.value}%</span>
+                  <span className="text-[13px] font-medium text-white lg:text-xs">{h.value}%</span>
                 </div>
                 <div className="h-1.5 rounded-full bg-white/[0.06]">
                   <div
@@ -259,7 +259,7 @@ export default function OverviewPage() {
           className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-5"
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-medium text-white">Upcoming Events</h2>
+            <h2 className="text-base font-medium text-white lg:text-sm">Upcoming Events</h2>
             <Clock size={14} className="text-white/25" />
           </div>
           <div className="space-y-0">
@@ -271,8 +271,8 @@ export default function OverviewPage() {
                 <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${typeColors[e.type]}`}>
                   {e.type}
                 </span>
-                <span className="text-xs text-white/70 flex-1">{e.title}</span>
-                <span className="text-[10px] text-white/30">{e.date}</span>
+                <span className="text-[13px] text-white/80 flex-1 lg:text-xs lg:text-white/70">{e.title}</span>
+                <span className="text-[11px] text-white/40 lg:text-[10px] lg:text-white/30">{e.date}</span>
               </div>
             ))}
           </div>

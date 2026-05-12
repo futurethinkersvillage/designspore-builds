@@ -66,13 +66,13 @@ function Hero() {
 
 function ItBeganWithAQuestion() {
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="max-w-3xl">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
             The beginning
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl mb-10">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl mb-10">
             It began with<br />
             <span className="italic">a question</span>
           </h2>
@@ -121,13 +121,13 @@ function NomadicLearning() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
             The journey
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             A decade of<br />
             <span className="italic">living & learning</span>
           </h2>
@@ -172,13 +172,13 @@ function NomadicLearning() {
 
 function ReturningHome() {
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="max-w-3xl">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
             Coming home
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl mb-10">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl mb-10">
             Returning home —<br />
             <span className="italic">to build what we<br />couldn&apos;t find</span>
           </h2>
@@ -225,13 +225,13 @@ function WhySmartVillages() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="max-w-3xl">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-6">
             The vision
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl mb-10">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl mb-10">
             Why Smart Villages —<br />
             <span className="italic">why now</span>
           </h2>
@@ -284,10 +284,10 @@ function WhereWereGoing() {
   ];
 
   return (
-    <section className="bg-amber py-28 lg:py-36">
+    <section className="bg-amber py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="max-w-3xl mb-16">
-          <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl mb-10">
+          <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl xl:text-7xl mb-10">
             Where we&apos;re going —<br />
             <span className="italic">and how to be<br />part of it.</span>
           </h2>

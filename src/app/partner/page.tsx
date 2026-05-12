@@ -153,14 +153,14 @@ function Thesis() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_45%]">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
               The thesis
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               A model for<br />
               <span className="italic">21st-century living</span>
             </h2>
@@ -231,14 +231,14 @@ function WhatExists() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-20 lg:grid-cols-[42%_1fr]">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
               What exists today
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               A real operating<br />
               <span className="italic">destination</span>
             </h2>
@@ -300,13 +300,13 @@ function WhyNow() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             Why now
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             The conditions<br />
             <span className="italic">are converging</span>
           </h2>
@@ -346,14 +346,14 @@ function RevenueStreams() {
   ];
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-2">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
               Business model
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               Revenue<br />
               <span className="italic">streams</span>
             </h2>
@@ -443,13 +443,13 @@ function Phases() {
   };
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             Development roadmap
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             Campus<br />
             <span className="italic">upgrades</span>
           </h2>
@@ -503,13 +503,13 @@ function Team() {
 
 
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             The team
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             Who&apos;s behind<br />
             <span className="italic">the project</span>
           </h2>
@@ -572,13 +572,13 @@ function Organizations() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             Ecosystem
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             Our<br />
             <span className="italic">organizations</span>
           </h2>
@@ -614,14 +614,14 @@ function Organizations() {
 
 function Foundation() {
   return (
-    <section className="bg-warm-dark py-28 lg:py-36">
+    <section className="bg-warm-dark py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_38%] items-center">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
               Non-profit arm
             </p>
-            <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+            <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
               The<br />
               <span className="italic">Foundation</span>
             </h2>
@@ -684,13 +684,13 @@ function StrategicPartnerships() {
   ];
 
   return (
-    <section className="bg-[#0F0E12] py-28 lg:py-36">
+    <section className="bg-[#0F0E12] py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber mb-4">
             Collaborators
           </p>
-          <h2 className="font-serif text-5xl font-light text-white lg:text-6xl">
+          <h2 className="font-serif text-4xl font-light text-white sm:text-5xl lg:text-6xl">
             Strategic &amp; corporate<br />
             <span className="italic">partnerships</span>
           </h2>
@@ -725,11 +725,11 @@ function StrategicPartnerships() {
 
 function RequestAccess() {
   return (
-    <section id="access" className="bg-amber py-28 lg:py-36">
+    <section id="access" className="bg-amber py-20 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_42%]">
           <div>
-            <h2 className="font-serif text-5xl font-light leading-[1.05] text-white lg:text-6xl xl:text-7xl">
+            <h2 className="font-serif text-4xl font-light leading-[1.05] text-white sm:text-5xl lg:text-6xl xl:text-7xl">
               Let&apos;s build<br />
               <span className="italic">this together.</span>
             </h2>

@@ -15,13 +15,21 @@ export default function Sidebar() {
   // Pathname will be the rewritten internal path (/village-dashboard/...) on
   // the server but the short path (/ or /fundraising) in the browser via the
   // subdomain rewrite. Normalise to short form for comparison.
-  const shortPathname = pathname.startsWith("/village-dashboard")
+  const isInternalPath = pathname.startsWith("/village-dashboard");
+  const shortPathname = isInternalPath
     ? pathname.replace("/village-dashboard", "") || "/"
     : pathname;
 
   const isActive = (href: string) => {
     if (href === "/") return shortPathname === "/";
     return shortPathname.startsWith(href);
+  };
+
+  // Build a working href for either routing mode (subdomain-rewritten short
+  // path, or direct /village-dashboard/* path).
+  const buildHref = (href: string) => {
+    if (!isInternalPath) return href;
+    return href === "/" ? "/village-dashboard" : `/village-dashboard${href}`;
   };
 
   const navContent = (
@@ -54,7 +62,7 @@ export default function Sidebar() {
           return (
             <Link
               key={item.href}
-              href={item.href}
+              href={buildHref(item.href)}
               onClick={() => setMobileOpen(false)}
               className={`
                 group flex items-center gap-3 px-3 py-2 rounded-xl text-[15px] font-medium
