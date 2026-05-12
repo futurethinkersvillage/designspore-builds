@@ -296,7 +296,7 @@ function CoreIdea() {
               {features.map((f, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-amber" />
-                  <span className="text-sm text-white/50">{f}</span>
+                  <span className="text-[15px] text-white/65 lg:text-sm lg:text-white/50">{f}</span>
                 </div>
               ))}
             </div>
@@ -364,7 +364,7 @@ function WhyNow() {
           ))}
         </div>
 
-        <p className="mt-12 text-sm text-white/50 max-w-[48ch]">
+        <p className="mt-12 text-[15px] text-white/65 lg:text-sm lg:text-white/50 max-w-[48ch]">
           A village isn&apos;t just a place to visit. It&apos;s a new lifestyle for the post-AI era.
         </p>
       </div>
@@ -406,7 +406,7 @@ function VillageModel() {
               {components.map((c, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-amber" />
-                  <span className="text-sm text-white/50">{c}</span>
+                  <span className="text-[15px] text-white/65 lg:text-sm lg:text-white/50">{c}</span>
                 </div>
               ))}
             </div>
@@ -468,7 +468,7 @@ function FirstVillage() {
               {includes.map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-amber" />
-                  <span className="text-sm text-white/50">{item}</span>
+                  <span className="text-[15px] text-white/65 lg:text-sm lg:text-white/50">{item}</span>
                 </div>
               ))}
             </div>
@@ -644,11 +644,11 @@ function WhyDifferent() {
                   <span className="font-mono text-xs text-white/20 w-6 shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="text-sm text-white/55">{g}</span>
+                  <span className="text-[15px] text-white/70 lg:text-sm lg:text-white/55">{g}</span>
                 </motion.div>
               ))}
             </div>
-            <p className="mt-8 text-sm text-white/60 font-medium">
+            <p className="mt-8 text-[15px] text-white/75 lg:text-sm lg:text-white/60 font-medium">
               Portal.Place was designed from the ground up to address these points.
             </p>
           </div>
@@ -696,7 +696,7 @@ function ProofOfProgress() {
                 className="flex items-start gap-4 py-5"
               >
                 <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-amber" />
-                <span className="text-sm text-white/55">{a}</span>
+                <span className="text-[15px] text-white/70 lg:text-sm lg:text-white/55">{a}</span>
               </motion.div>
             ))}
           </div>
@@ -757,7 +757,7 @@ function IntelCTA() {
               {signals.map((s) => (
                 <div key={s.label} className="flex items-center gap-3">
                   <s.icon size={15} weight="light" className="text-amber shrink-0" />
-                  <span className="text-sm text-white/60">{s.label}</span>
+                  <span className="text-[15px] text-white/75 lg:text-sm lg:text-white/60">{s.label}</span>
                 </div>
               ))}
             </div>
@@ -785,14 +785,14 @@ function IntelCTA() {
                     <Check size={32} weight="light" className="text-amber" />
                   </div>
                   <h3 className="font-serif text-2xl font-light text-white mb-2">You&apos;re in.</h3>
-                  <p className="text-sm text-white/55">
+                  <p className="text-[15px] text-white/70 lg:text-sm lg:text-white/55">
                     First briefing lands next week. Welcome to the network.
                   </p>
                 </motion.div>
               ) : (
                 <>
                   <h3 className="text-base font-medium text-white mb-1">Get the weekly briefing</h3>
-                  <p className="text-sm text-white/50 mb-6">Free. Unsubscribe any time.</p>
+                  <p className="text-[15px] text-white/65 lg:text-sm lg:text-white/50 mb-6">Free. Unsubscribe any time.</p>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="flex flex-col gap-2">
                       <label htmlFor="intel-name" className="text-xs font-medium uppercase tracking-wider text-white/50">
