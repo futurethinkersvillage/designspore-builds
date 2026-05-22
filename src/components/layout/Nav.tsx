@@ -24,6 +24,7 @@ const navItems = [
       { label: "Village Rhythm", href: "/rhythm" },
       { label: "Village OS", href: "https://village-dashboard.portal.place/", external: true },
       { label: "Work-Stay Cohorts", href: "/workstay" },
+      { label: "Artist Residency", href: "/residency" },
       { label: "Book A Stay", href: "https://wellsgrayresort.ca", external: true },
       { label: "Host An Event", href: "/host" },
     ],
