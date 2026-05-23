@@ -645,7 +645,7 @@ function BusinessModel() {
       subtitle: "(Future)",
       points: [
         "Platform licensing",
-        "Village OS",
+        "Village Stack",
         "Partner site fees",
         "Consulting",
       ],

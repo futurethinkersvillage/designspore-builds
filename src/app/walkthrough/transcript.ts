@@ -45,7 +45,7 @@ export const transcript: TranscriptSection[] = [
       { text: "It's really been five years of learning how to be on land, because pretty much none of us had done anything like this before. So this has been a really big learning curve. But in the last year, with artificial intelligence, we've been able to do a lot more. I've been working on systems for the village project, building dashboards for our team — tools we're starting to use on the land." },
       { text: "We're looking to raise some capital for the land, the network, and this software that I'm building. We're also looking to acquire more land — potentially in the south: Colombia, Argentina, somewhere around those areas. With this next phase of investment, we're going to build a larger maker space so we can produce cabins and tiny homes on the land, and host community build workshops and educational programs." },
       { text: "We're looking to expand this network and bring in other RV campsites and resorts, and start working towards a long-term off-grid, sustainable, food-sovereign — among many other things — network of villages." },
-      { text: "So that's a brief intro into our project and the network. Next I'm going to walk through the Village OS dashboard, and then we can open it up to discussion." },
+      { text: "So that's a brief intro into our project and the network. Next I'm going to walk through the Village Stack dashboard, and then we can open it up to discussion." },
     ],
   },
   {

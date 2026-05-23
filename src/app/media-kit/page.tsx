@@ -155,7 +155,7 @@ function ThreeOrgs() {
     {
       name: "Design Spore",
       type: "Design & technology studio",
-      description: "The design and technology studio behind Portal.Place — responsible for brand, digital product, AI systems, and Village OS development. Founded by Mike Gilliland.",
+      description: "The design and technology studio behind Portal.Place — responsible for brand, digital product, AI systems, and Village Stack development. Founded by Mike Gilliland.",
       logo: null,
     },
   ];
@@ -227,7 +227,7 @@ function FounderBios() {
             {
               name: "Mike Gilliland",
               title: "Designer, Entrepreneur, Village Builder, Podcaster — CEO & Co-Founder",
-              shortBio: "Mike Gilliland is a futurist and storyteller who spent the last decade exploring how humans can live well in a world transformed by AI, automation, and ecological change. He co-founded Future Thinkers — a podcast that has reached millions globally — with his wife Euvie Ivanova. In 2020, Mike moved to a 400-acre property in the BC mountains to build Canada's first Smart Village prototype, developing practical expertise in land, infrastructure, AI systems, and community design. He now leads design, technology, strategy, and Village OS development at Portal.Place.",
+              shortBio: "Mike Gilliland is a futurist and storyteller who spent the last decade exploring how humans can live well in a world transformed by AI, automation, and ecological change. He co-founded Future Thinkers — a podcast that has reached millions globally — with his wife Euvie Ivanova. In 2020, Mike moved to a 400-acre property in the BC mountains to build Canada's first Smart Village prototype, developing practical expertise in land, infrastructure, AI systems, and community design. He now leads design, technology, strategy, and Village Stack development at Portal.Place.",
               img: "/images/whatsapp-image-2023-04-17-at-7.56.02-pm-e1682551976380-q5lr8rk29co7jik4bsv2kxcsei9qedfve65zflydz8.jpeg",
             },
             {

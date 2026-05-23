@@ -203,7 +203,7 @@ function Trailer() {
             </h2>
             <p className="mt-6 text-[15px] leading-relaxed text-white/65 max-w-[56ch] mx-auto lg:mt-8 lg:text-sm lg:text-white/60">
               A short glimpse of Wells Gray Village, the long-term vision, and
-              Village OS — the AI system that runs it all.
+              Village Stack — the AI system that runs it all.
             </p>
           </motion.div>
 

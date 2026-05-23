@@ -53,7 +53,7 @@ function Hero() {
             className="mt-8 text-[15px] leading-relaxed text-white/65 max-w-[60ch] mx-auto lg:mt-10 lg:text-base lg:text-white/60"
           >
             A walkthrough of the 400-acre property, the long-term vision for the
-            Portal.Place network, and a first look at Village OS — the AI-powered
+            Portal.Place network, and a first look at Village Stack — the AI-powered
             operating system that runs the village.
           </motion.p>
         </div>
@@ -82,7 +82,7 @@ function Hero() {
           className="mt-10 flex flex-col items-center gap-3"
         >
           <p className="text-xs uppercase tracking-[0.2em] text-white/40">
-            Seen Village OS in the video? Try it yourself.
+            Seen Village Stack in the video? Try it yourself.
           </p>
           <a
             href="https://village-dashboard.portal.place/"
@@ -90,7 +90,7 @@ function Hero() {
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 rounded-full border border-amber/50 bg-amber/10 px-7 py-3 text-sm font-medium text-amber transition-all hover:bg-amber/20 hover:border-amber active:scale-[0.98]"
           >
-            Open the Village OS Demo
+            Open the Village Stack Demo
             <ArrowUpRight size={14} weight="bold" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </motion.div>

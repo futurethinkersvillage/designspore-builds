@@ -49,7 +49,7 @@ export default function Sidebar() {
             Portal.Place
           </h1>
           <p className="text-[11px] text-white/30 uppercase tracking-[0.2em] mt-1">
-            Village OS
+            Village Stack
           </p>
         </div>
       </div>

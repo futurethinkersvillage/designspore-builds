@@ -258,7 +258,7 @@ export default function CommunicationsPage() {
               <div className="rounded-lg bg-amber/15 p-1.5">
                 <House size={15} weight="fill" className="text-amber" />
               </div>
-              <span className="text-sm font-semibold text-white">Village OS</span>
+              <span className="text-sm font-semibold text-white">Village Stack</span>
             </div>
 
             {/* Channel list */}

@@ -19,10 +19,11 @@ const navItems = [
     href: "/village",
     children: [
       { label: "Virtual Tour", href: "/tour" },
+      { label: "Events", href: "/events" },
       { label: "Gallery", href: "/gallery" },
       { label: "Videos & Photos", href: "/videos" },
       { label: "Village Rhythm", href: "/rhythm" },
-      { label: "Village OS", href: "https://village-dashboard.portal.place/", external: true },
+      { label: "Village Stack", href: "https://village-dashboard.portal.place/", external: true },
       { label: "Work-Stay Cohorts", href: "/workstay" },
       { label: "Artist Residency", href: "/residency" },
       { label: "Book A Stay", href: "https://wellsgrayresort.ca", external: true },

@@ -13,7 +13,7 @@ const footerLinks: { title: string; links: FooterLink[] }[] = [
     links: [
       { label: "The Village", href: "/village" },
       { label: "Virtual Tour", href: "/tour" },
-      { label: "Village OS", href: "https://village-dashboard.portal.place/", external: true },
+      { label: "Village Stack", href: "https://village-dashboard.portal.place/", external: true },
       { label: "Videos & Photos", href: "/videos" },
       { label: "Work-Stay Cohorts", href: "/workstay" },
       { label: "Host An Event", href: "/host" },

@@ -147,9 +147,9 @@ const initiatives: Initiative[] = [
     eligibility: "Open to all members + work-stay alumni",
   },
   {
-    id: "village-os-hackathon",
-    title: "Village OS Hackathon — Q3 2026",
-    description: "72-hour distributed build sprint. Teams ship modules, integrations, or governance tools that plug into the Village OS dashboard. Judged on usefulness, polish, and adoption potential.",
+    id: "village-stack-hackathon",
+    title: "Village Stack Hackathon — Q3 2026",
+    description: "72-hour distributed build sprint. Teams ship modules, integrations, or governance tools that plug into the Village Stack dashboard. Judged on usefulness, polish, and adoption potential.",
     category: "Hackathons",
     prize: 25000,
     prizeNote: "1st $10K · 2nd $6K · 3rd $4K · 5 honorable mentions $1K each",
