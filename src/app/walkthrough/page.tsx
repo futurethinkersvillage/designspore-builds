@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Compass, Users, Handshake } from "@phosphor-icons/react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, ArrowUpRight, CaretDown, Compass, FileText, Handshake, Users } from "@phosphor-icons/react";
+import { transcript } from "./transcript";
 
 function Hero() {
   return (
@@ -168,10 +170,88 @@ function NextSteps() {
   );
 }
 
+function Transcript() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <section className="bg-warm-dark pb-12 lg:pb-16">
+      <div className="mx-auto max-w-[1100px] px-6 lg:px-16">
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            aria-controls="video-transcript"
+            className="group inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm font-medium text-white/75 transition-all hover:border-white/25 hover:bg-white/[0.06] hover:text-white active:scale-[0.98]"
+          >
+            <FileText size={14} weight="light" />
+            Video Transcript
+            <CaretDown
+              size={12}
+              weight="bold"
+              className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+            />
+          </button>
+        </div>
+
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              key="transcript-content"
+              id="video-transcript"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="pt-12 lg:pt-16">
+                {transcript.map((section, i) => (
+                  <div key={i} className="mb-10 lg:mb-14">
+                    {section.heading && (
+                      <h3 className="mb-5 text-xs font-medium uppercase tracking-[0.2em] text-amber lg:mb-6">
+                        {section.heading}
+                      </h3>
+                    )}
+                    <div className="space-y-4 text-[15px] leading-relaxed text-white/70 lg:text-[14.5px] lg:text-white/65">
+                      {section.paragraphs.map((p, j) => (
+                        <p
+                          key={j}
+                          className={
+                            p.aside ? "italic text-white/45 lg:text-white/40" : ""
+                          }
+                        >
+                          {p.text}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
+                <div className="mt-8 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setOpen(false)}
+                    className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40 transition-colors hover:text-white/70"
+                  >
+                    <CaretDown size={12} weight="bold" className="rotate-180" />
+                    Collapse transcript
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+}
+
 export default function WalkthroughPage() {
   return (
     <>
       <Hero />
+      <Transcript />
       <NextSteps />
     </>
   );

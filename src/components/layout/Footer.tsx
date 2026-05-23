@@ -96,15 +96,13 @@ export function Footer() {
           {/* Brand + newsletter */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2">
-              <div className="shrink-0 overflow-hidden" style={{ height: 26 }}>
-                <Image
-                  src="/images/portalplace-logo-vertical-white-738x1024.png"
-                  alt="Portal.Place home"
-                  width={26}
-                  height={36}
-                  className="block shrink-0"
-                />
-              </div>
+              <Image
+                src="/images/portal-icon.png"
+                alt="Portal.Place home"
+                width={28}
+                height={28}
+                className="block shrink-0"
+              />
               <span className="text-[0.95rem] font-semibold tracking-tight text-white">
                 Portal.Place
               </span>
