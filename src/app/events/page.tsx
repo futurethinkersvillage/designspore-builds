@@ -7,6 +7,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   CalendarBlank,
+  CalendarPlus,
   Campfire,
   Drop,
   Flower,
@@ -16,6 +17,32 @@ import {
   Sparkle,
   TreeEvergreen,
 } from "@phosphor-icons/react";
+
+/* ── Constants ────────────────────────────────────────────────────── */
+
+const CHECKFRONT_BASE = "https://wellsgraygolfresorta.checkfront.com/reserve/";
+const CALENDAR_SUBSCRIBE =
+  "https://calendar.google.com/calendar/r?cid=ib00q6q9c9mvamtcmjftef5e3o@group.calendar.google.com";
+
+function gcalLink({
+  title,
+  start,
+  end,
+  location,
+  details,
+}: {
+  title: string;
+  start: string; // YYYYMMDD
+  end: string;   // YYYYMMDD (exclusive)
+  location: string;
+  details: string;
+}) {
+  const base = "https://calendar.google.com/calendar/render?action=TEMPLATE";
+  const p = (s: string) => encodeURIComponent(s);
+  return `${base}&text=${p(title)}&dates=${start}%2F${end}&location=${p(location)}&details=${p(details)}`;
+}
+
+const RESORT_LOCATION = "6624 Clearwater Valley Rd, Clearwater, BC";
 
 /* ── Hero ─────────────────────────────────────────────────────────── */
 
@@ -120,9 +147,24 @@ function Hero() {
 
 function SundayRhythm() {
   const cohorts = [
-    { month: "June", dates: "7 · 14 · 21 · 28" },
-    { month: "July", dates: "5 · 12 · 19 · 26" },
-    { month: "August", dates: "9 · 16 · 23 · 30" },
+    {
+      month: "June",
+      dates: "7 · 14 · 21 · 28",
+      bookingUrl: `${CHECKFRONT_BASE}?item.id.150=1`,
+      status: "open" as const,
+    },
+    {
+      month: "July",
+      dates: "5 · 12 · 19 · 26",
+      status: "soon" as const,
+      opens: "Opens Jun 1",
+    },
+    {
+      month: "August",
+      dates: "9 · 16 · 23 · 30",
+      status: "soon" as const,
+      opens: "Opens Jul 1",
+    },
   ];
 
   const smallCards = [
@@ -132,6 +174,7 @@ function SundayRhythm() {
       time: "Sundays · 5:00 – 6:00 PM",
       price: "$15/person · $40/family",
       body: "Sauna, river cold plunge, and good conversations. Open to community members and residents of Clearwater and surrounding areas.",
+      bookingUrl: `${CHECKFRONT_BASE}?item.id.139=1`,
     },
     {
       icon: Campfire,
@@ -139,6 +182,7 @@ function SundayRhythm() {
       time: "Sundays · 6:00 – 7:00 PM",
       price: "Free · all welcome",
       body: "A fire, some chairs, no agenda. Musical instruments are welcome. The way humans have gathered for millennia.",
+      bookingUrl: null,
     },
     {
       icon: Golf,
@@ -146,6 +190,7 @@ function SundayRhythm() {
       time: "Available all day",
       price: "Golf $30 · Disc Golf $10",
       body: "9-hole golf and disc golf courses open throughout the day at drop-in rates. Carts and rentals available.",
+      bookingUrl: `${CHECKFRONT_BASE}?item.id.18=1`,
     },
   ];
 
@@ -213,14 +258,28 @@ function SundayRhythm() {
                 {cohorts.map((c) => (
                   <div
                     key={c.month}
-                    className="flex items-baseline justify-between gap-6 border-b border-white/[0.06] pb-4 last:border-b-0 last:pb-0"
+                    className="flex items-center justify-between gap-4 border-b border-white/[0.06] pb-4 last:border-b-0 last:pb-0"
                   >
-                    <span className="font-serif text-2xl font-light text-white lg:text-[26px]">
+                    <span className="font-serif text-2xl font-light text-white lg:text-[26px] shrink-0">
                       {c.month}
                     </span>
-                    <span className="font-mono text-[13px] tracking-wider text-white/55">
+                    <span className="font-mono text-[13px] tracking-wider text-white/55 flex-1 text-center hidden sm:block">
                       {c.dates}
                     </span>
+                    {c.status === "open" ? (
+                      <a
+                        href={c.bookingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shrink-0 inline-flex items-center gap-1 rounded-full bg-amber/15 px-3 py-1 text-[12px] font-medium text-amber hover:bg-amber/25 transition-colors"
+                      >
+                        Register <ArrowRight size={10} weight="bold" />
+                      </a>
+                    ) : (
+                      <span className="shrink-0 text-[11px] text-white/30 italic">
+                        {c.opens}
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -250,8 +309,20 @@ function SundayRhythm() {
               <p className="mt-4 flex-1 text-[14px] leading-relaxed text-white/60 lg:text-[13.5px] lg:text-white/55">
                 {c.body}
               </p>
-              <div className="mt-5 text-[13px] font-medium text-amber/90">
-                {c.price}
+              <div className="mt-5 flex items-center justify-between gap-4">
+                <span className="text-[13px] font-medium text-amber/90">
+                  {c.price}
+                </span>
+                {c.bookingUrl && (
+                  <a
+                    href={c.bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[12px] font-medium text-white/50 hover:text-white/80 transition-colors"
+                  >
+                    Book <ArrowRight size={10} weight="bold" />
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}
@@ -274,6 +345,7 @@ type SpecialEvent = {
   body: string;
   image?: string;
   imageAlt?: string;
+  calendarUrl: string;
 };
 
 function SpecialEventCard({ event, i }: { event: SpecialEvent; i: number }) {
@@ -313,6 +385,15 @@ function SpecialEventCard({ event, i }: { event: SpecialEvent; i: number }) {
         <p className="mt-5 text-[15px] leading-relaxed text-white/65 lg:text-[14.5px] lg:text-white/60">
           {event.body}
         </p>
+        <a
+          href={event.calendarUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-5 inline-flex items-center gap-1.5 text-[12px] text-white/40 hover:text-amber/80 transition-colors"
+        >
+          <CalendarPlus size={13} weight="light" />
+          Add to Google Calendar
+        </a>
       </div>
 
       {/* Image (optional) */}
@@ -343,6 +424,14 @@ function SpecialEvents() {
       title: "Community Garden Day & Forest School Free Drop-In",
       meta: "Sunday afternoon · before the summer cohorts begin",
       body: "A free afternoon before the summer cohorts begin. Come work in the garden, let the kids join a drop-in forest school session, and meet some of the people who'll be here this summer. Open to neighbours, local families, and guests.",
+      calendarUrl: gcalLink({
+        title: "Community Garden Day & Forest School Free Drop-In",
+        start: "20260531",
+        end: "20260601",
+        location: RESORT_LOCATION,
+        details:
+          "A free afternoon before the summer cohorts begin. Come work in the garden, let the kids join a drop-in forest school session, and meet some of the people who'll be here this summer. Open to neighbours, local families, and guests. Wells Gray Golf & RV Resort.",
+      }),
     },
     {
       monthLabel: "Jun",
@@ -355,6 +444,14 @@ function SpecialEvents() {
       body: "A weekend gathering for artists who want to leave something lasting here. We'll walk the land together, share ideas, and begin shaping a vision for permanent art installations that grow out of this place — its ecology, its history, and its people. This is the planning phase: no building yet, just presence, conversation, and creative ground-laying.",
       image: "/images/events/artist-gathering.jpg",
       imageAlt: "Forest art walk at night with glowing totems",
+      calendarUrl: gcalLink({
+        title: "Artist Gathering — Wells Gray",
+        start: "20260619",
+        end: "20260622",
+        location: RESORT_LOCATION,
+        details:
+          "A weekend gathering for artists who want to leave something lasting here. Walk the land, share ideas, and begin shaping a vision for permanent art installations. Calling artists from across Western Canada — Vancouver, Calgary, and beyond.",
+      }),
     },
     {
       monthLabel: "Sep",
@@ -365,6 +462,14 @@ function SpecialEvents() {
       title: "Artist Residency & Community Gathering",
       meta: "Building week culminating in a community event for 100–200 people",
       body: "What was conceived in June gets built in September. Artists return to the land to construct the installations — working alongside community members, builders, and volunteers. The residency closes with a ticketed community gathering: live music, art, shared meals, and the chance to experience what this place is becoming. Small-scale, rooted in the land, made by the people.",
+      calendarUrl: gcalLink({
+        title: "Artist Residency & Community Gathering — Wells Gray",
+        start: "20260907",
+        end: "20260915",
+        location: RESORT_LOCATION,
+        details:
+          "Artists return to build the installations, with a closing ticketed community gathering: live music, art, shared meals. Small-scale, rooted in the land, made by the people. Wells Gray Golf & RV Resort.",
+      }),
     },
   ];
 
@@ -417,12 +522,14 @@ function Closing() {
             sessions, special events, and details as they&apos;re confirmed.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link
-              href="/contact"
+            <a
+              href={CALENDAR_SUBSCRIBE}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-amber px-7 py-3 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98]"
             >
-              Get notified <ArrowRight size={14} weight="bold" />
-            </Link>
+              Subscribe to Calendar <ArrowRight size={14} weight="bold" />
+            </a>
             <a
               href="https://wellsgrayresort.ca"
               target="_blank"
