@@ -15,6 +15,7 @@ import {
   Tree,
   ArrowUpRight,
 } from "@phosphor-icons/react";
+import { CryptoContribute } from "@/components/CryptoContribute";
 
 // ── Partner / Investor ────────────────────────────────────────────────────────
 
@@ -840,6 +841,7 @@ export default function PartnerPage() {
       <Organizations />
       <Foundation />
       <StrategicPartnerships />
+      <CryptoContribute />
       <RequestAccess />
     </>
   );

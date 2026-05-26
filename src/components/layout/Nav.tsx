@@ -42,6 +42,7 @@ const navItems = [
       { label: "Consulting", href: "/consulting" },
       { label: "Videos & Documentary", href: "/videos" },
       { label: "Media Kit", href: "/media-kit" },
+      { label: "Donate", href: "/donate" },
       { label: "Contact", href: "/contact" },
     ],
   },
