@@ -120,7 +120,7 @@ function WhatItIs() {
             </p>
             <p>
               This is not a concept. We have land, infrastructure, guests, and
-              revenue. The $3M bridge de-risks the flagship site for a $10–20M
+              revenue. The $6M bridge de-risks the flagship site for a $10–20M
               expansion raise.
             </p>
           </div>
@@ -261,7 +261,7 @@ function TheOpportunity() {
           {/* Left */}
           <motion.div {...fadeUp}>
             <h2 className="font-serif text-4xl font-light text-warm-dark">
-              The $3M Bridge
+              The $6M Bridge
             </h2>
             <p className="mt-2 font-serif text-2xl italic text-terracotta">
               What it unlocks immediately

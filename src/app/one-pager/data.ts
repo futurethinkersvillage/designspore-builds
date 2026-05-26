@@ -2,7 +2,7 @@
 // Edit here — both pages import from this file.
 
 export const SUMMARY_ROWS = [
-  { label: "RAISING", value: "$3M CAD" },
+  { label: "RAISING", value: "$6M CAD" },
   { label: "STRUCTURE", value: "SPV — Multiple investors" },
   { label: "SECURITY", value: "First position on land title" },
   { label: "RETURN", value: "Fixed interest + equity kicker" },

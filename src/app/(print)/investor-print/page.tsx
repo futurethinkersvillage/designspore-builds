@@ -105,7 +105,7 @@ export default function InvestorPrintPage() {
               </p>
               <p className={`${BODY} mt-3 font-medium text-gray-800`}>
                 This is not a concept. We have land, infrastructure, guests, and
-                revenue. The $3M bridge de-risks the site for a $10–20M
+                revenue. The $6M bridge de-risks the site for a $10–20M
                 expansion raise.
               </p>
             </div>

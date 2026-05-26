@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 ───────────────────────────────────────────────────────────────────────────── */
 function Hero() {
   const summaryRows = [
-    ["RAISING", "$3M CAD SENIOR BRIDGE"],
+    ["RAISING", "$6M CAD SENIOR BRIDGE"],
     ["STRUCTURE", "SPV — MULTIPLE ALIGNED INVESTORS"],
     ["SECURITY", "FIRST POSITION ON LAND TITLE"],
     ["RETURN", "FIXED INTEREST + EQUITY KICKER"],
@@ -537,7 +537,7 @@ function ExpansionPlan() {
           The bridge between Phase 1 and Phase 2.
         </h2>
         <p className="text-sm leading-relaxed text-white/55 max-w-[60ch] mb-16">
-          Phase 1 is complete — we have land, infrastructure, guests, and 5 years of operating history. The $3M bridge connects Phase 1 to Phase 2: a $20M expansion raise. It secures our land position, funds the feasibility work, and builds the operational capacity to run a larger raise with confidence.
+          Phase 1 is complete — we have land, infrastructure, guests, and 5 years of operating history. The $6M bridge connects Phase 1 to Phase 2: a $20M expansion raise. It secures our land position, funds the feasibility work, and builds the operational capacity to run a larger raise with confidence.
         </p>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-12">
@@ -909,7 +909,7 @@ function TheRaise() {
           09 — The Raise
         </p>
         <h2 className="font-serif text-5xl font-light text-white lg:text-6xl mb-16 max-w-3xl leading-[1.05]">
-          $3M CAD Bridge — to unlock a $10–20M expansion round.
+          $6M CAD Bridge — to unlock a $10–20M expansion round.
         </h2>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 mb-16">
