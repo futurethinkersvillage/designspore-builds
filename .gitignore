@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# moist puzzle hunt — contains answers, coupon codes, and the shared secret.
+# The Google Sheet is the source of truth; these stay local only.
+docs/moist-seed.csv
+docs/moist-seed.json
+docs/build-moist-seed.js
+docs/moist-puzzles.apps-script.gs
