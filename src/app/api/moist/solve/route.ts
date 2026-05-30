@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPuzzleRow, checkAnswer } from "@/lib/puzzles";
+import { getPuzzleRow, checkAnswer, logSolve } from "@/lib/puzzles";
 
 export const runtime = "nodejs";
 
@@ -59,20 +59,7 @@ function rewardEmailHtml(reward: string, code: string): string {
   </div>`;
 }
 
-async function logSolve(word: string, email: string, code: string) {
-  const url = process.env.MOIST_SHEET_URL;
-  const secret = process.env.MOIST_SHARED_SECRET;
-  if (!url || !secret) return;
-  try {
-    await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: secret, action: "log", word, email, code }),
-    });
-  } catch (err) {
-    console.error("[moist] solve log failed", err);
-  }
-}
+// logSolve is imported from @/lib/puzzles — appends to the "Solves" tab in the sheet.
 
 export async function POST(req: NextRequest) {
   const ip =
