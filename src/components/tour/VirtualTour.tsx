@@ -138,7 +138,7 @@ export default function VirtualTour({
           ...(startScene.initialYaw !== undefined && { defaultYaw: `${startScene.initialYaw}deg` }),
           ...(startScene.initialPitch !== undefined && { defaultPitch: `${startScene.initialPitch}deg` }),
           defaultZoomLvl: startScene.initialZoom ?? 50,
-          navbar: ["autorotate", "zoom", "caption", "fullscreen"],
+          navbar: ["zoom", "caption", "fullscreen"],
           plugins: [
             [VirtualTourPlugin, { nodes, startNodeId: startScene.id, renderMode: "3d" }],
             [MarkersPlugin, { markers: [] }],

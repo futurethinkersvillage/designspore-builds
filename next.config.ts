@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // PSV (Photo Sphere Viewer) uses THREE.js and manages its own WebGL context.
+  // It is not compatible with React StrictMode's double-effect behaviour in dev
+  // (StrictMode creates+destroys+recreates the viewer, leaving the second
+  // instance's loading spinner stuck permanently). Disabling StrictMode here
+  // matches the production behaviour where effects only run once.
+  reactStrictMode: false,
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 86400,

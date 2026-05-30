@@ -4,7 +4,9 @@
 // sent to the browser.
 
 const SHEET_ID = process.env.MOIST_SHEET_ID;
-const PUZZLES_TAB = "Moist Puzzles";
+// Switch riddle sets by changing MOIST_PUZZLES_TAB in Coolify env vars.
+// Options: "Moist Puzzles" (v1 simple), "Moist Puzzles v2" (hard), "Moist Puzzles v3" (Portal.Place/Stoic/Jungian themed)
+const PUZZLES_TAB = process.env.MOIST_PUZZLES_TAB ?? "Moist Puzzles v3";
 const SOLVES_TAB = "Solves";
 
 // ---- Google OAuth token refresh ------------------------------------------

@@ -40,9 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# moist puzzle hunt — contains answers, coupon codes, and the shared secret.
-# The Google Sheet is the source of truth; these stay local only.
-docs/moist-seed.csv
-docs/moist-seed.json
-docs/build-moist-seed.js
-docs/moist-puzzles.apps-script.gs
+# Otherworld puzzle hunt local helpers — contain the Google refresh token,
+# riddle answers, and coupon codes. The Google Sheet is the source of truth;
+# none of these belong in the repo.
+docs/

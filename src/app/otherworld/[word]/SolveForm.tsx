@@ -16,7 +16,7 @@ export function SolveForm({ word, hint }: { word: string; hint: string }) {
     if (!answer.trim() || !email.trim()) return;
     setStatus("sending");
     try {
-      const res = await fetch("/api/moist/solve", {
+      const res = await fetch("/api/otherworld/solve", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ word, answer, email }),

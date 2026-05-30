@@ -5,8 +5,6 @@ import { getPublicPuzzle, normalizeWord } from "@/lib/puzzles";
 import { SolveForm } from "./SolveForm";
 
 export const revalidate = 60;
-// Words come from the sheet, so render unknown slugs on demand rather than
-// pre-listing them — adding a word to the sheet "just works", no redeploy.
 export const dynamicParams = true;
 
 type Params = { params: Promise<{ word: string }> };
@@ -15,7 +13,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { word } = await params;
   const puzzle = await getPublicPuzzle(word);
   return {
-    title: puzzle ? `${puzzle.title} — moist` : "moist",
+    title: puzzle ? `${puzzle.title} — Otherworld` : "Otherworld",
     description: puzzle?.riddle?.slice(0, 150) ?? "A riddle from the forest floor.",
     robots: { index: false, follow: false },
   };
@@ -30,7 +28,7 @@ export default async function PuzzlePage({ params }: Params) {
     return (
       <main className="flex min-h-[100dvh] flex-col items-center justify-center bg-warm-dark px-6 text-center text-white">
         <p className="text-xs font-medium uppercase tracking-[0.3em] text-amber">
-          moist
+          Otherworld · a gift
         </p>
         <h1 className="mt-6 font-serif text-4xl font-light italic text-white">
           No riddle by that name
@@ -44,7 +42,7 @@ export default async function PuzzlePage({ params }: Params) {
           mushroom&apos;s stem.
         </p>
         <Link
-          href="/moist"
+          href="/otherworld"
           className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm text-white transition hover:border-amber hover:text-amber"
         >
           <ArrowLeft size={16} /> Try another word
@@ -57,10 +55,10 @@ export default async function PuzzlePage({ params }: Params) {
     <main className="min-h-[100dvh] bg-warm-dark text-white">
       <div className="mx-auto max-w-2xl px-6 pt-28 pb-24 sm:pt-36">
         <Link
-          href="/moist"
+          href="/otherworld"
           className="inline-flex items-center gap-2 text-sm text-white/40 transition hover:text-amber"
         >
-          <ArrowLeft size={15} /> moist
+          <ArrowLeft size={15} /> Otherworld
         </Link>
 
         <p className="mt-10 font-mono text-sm uppercase tracking-[0.4em] text-amber">

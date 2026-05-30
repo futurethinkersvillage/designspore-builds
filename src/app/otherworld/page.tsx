@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { WordEntry } from "./WordEntry";
 import { Sparkle, Campfire, Cube, Tree } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
-  title: "moist — a gift from the forest floor",
+  title: "Otherworld — a gift from the forest floor",
   description:
     "You found a mushroom. There is a word on its stem. Solve its riddle and win a free night of camping at Wells Gray Resort — and an invitation to make art on the land.",
   robots: { index: false, follow: false },
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 60;
 
-export default function MoistHub() {
+export default function OtherworldHub() {
   return (
     <main className="min-h-[100dvh] bg-warm-dark text-white">
       <section className="relative mx-auto max-w-3xl px-6 pt-32 pb-24 sm:pt-40">
@@ -19,7 +20,7 @@ export default function MoistHub() {
           Otherworld · a gift
         </p>
         <h1 className="font-serif text-[clamp(3rem,12vw,6rem)] font-light italic leading-none tracking-tighter text-white">
-          moist
+          Otherworld
         </h1>
         <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/70">
           You picked up a little mushroom. On the bottom of its stem there is a
@@ -55,10 +56,15 @@ export default function MoistHub() {
           <p className="mt-4 text-lg leading-relaxed text-white/70">
             The free night isn&apos;t just a free night. It&apos;s an invitation.
             Come camp, and{" "}
-            <span className="text-amber">make a piece of art</span> for the land —
-            something that stays. A sculpture, a carving, a strange small
-            creature for the forest floor. Every year we throw a party to tour the
-            land and show off everything that&apos;s been made.
+            <Link
+              href="/residency"
+              className="text-amber underline-offset-2 hover:underline"
+            >
+              make a piece of art
+            </Link>{" "}
+            for the land — something that stays. A sculpture, a carving, a strange
+            small creature for the forest floor. Every year we throw a party to
+            tour the land and show off everything that&apos;s been made.
           </p>
 
           <ul className="mt-10 grid gap-6 sm:grid-cols-2">

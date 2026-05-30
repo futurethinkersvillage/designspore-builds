@@ -11,7 +11,7 @@ export function WordEntry() {
   function go(e: React.FormEvent) {
     e.preventDefault();
     const slug = word.toLowerCase().replace(/[^a-z0-9]/g, "");
-    if (slug) router.push(`/moist/${slug}`);
+    if (slug) router.push(`/otherworld/${slug}`);
   }
 
   return (
