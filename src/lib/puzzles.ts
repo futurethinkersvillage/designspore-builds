@@ -97,7 +97,7 @@ export type PuzzleRow = {
   active: boolean;
   title: string;
   riddle: string;
-  hint: string;
+  hints: string[];
   answer: string;
   acceptAlts: string[];
   couponCode: string;
@@ -109,12 +109,12 @@ export type PublicPuzzle = {
   word: string;
   title: string;
   riddle: string;
-  hint: string;
+  hints: string[];
   reward: string;
 };
 
 function toPublic(row: PuzzleRow): PublicPuzzle {
-  return { word: row.word, title: row.title, riddle: row.riddle, hint: row.hint, reward: row.reward };
+  return { word: row.word, title: row.title, riddle: row.riddle, hints: row.hints, reward: row.reward };
 }
 
 export function normalizeWord(s: string): string {
@@ -135,12 +135,21 @@ function asAlts(v: string): string[] {
 
 function mapRow(header: string[], cells: string[]): PuzzleRow {
   const get = (key: string) => cells[header.indexOf(key)] ?? "";
+  // Progressive hints live in hint1/hint2/hint3. Fall back to a single "hint"
+  // column for older tabs (v1/v2).
+  const hints = ["hint1", "hint2", "hint3"]
+    .map((k) => get(k).trim())
+    .filter(Boolean);
+  if (hints.length === 0) {
+    const single = get("hint").trim();
+    if (single) hints.push(single);
+  }
   return {
     word: normalizeWord(get("word")),
     active: asBool(get("active")),
     title: get("title").trim(),
     riddle: get("riddle").trim(),
-    hint: get("hint").trim(),
+    hints,
     answer: get("answer").trim(),
     acceptAlts: asAlts(get("accept_alts")),
     couponCode: get("coupon_code").trim(),
@@ -157,7 +166,7 @@ async function fetchRows(): Promise<PuzzleRow[]> {
     return [];
   }
   try {
-    const values = await sheetsGet(`'${PUZZLES_TAB}'!A1:J1000`);
+    const values = await sheetsGet(`'${PUZZLES_TAB}'!A1:L1000`);
     if (values.length < 2) return [];
     const header = values[0].map((h) => h.trim().toLowerCase());
     return values

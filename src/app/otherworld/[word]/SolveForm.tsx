@@ -5,11 +5,12 @@ import { ArrowRight, CheckCircle, Eye } from "@phosphor-icons/react";
 
 type Status = "idle" | "sending" | "solved" | "wrong" | "error";
 
-export function SolveForm({ word, hint }: { word: string; hint: string }) {
+export function SolveForm({ word, hints }: { word: string; hints: string[] }) {
   const [answer, setAnswer] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
-  const [showHint, setShowHint] = useState(false);
+  // How many hints the visitor has chosen to reveal so far.
+  const [revealed, setRevealed] = useState(0);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -104,17 +105,25 @@ export function SolveForm({ word, hint }: { word: string; hint: string }) {
         {status !== "sending" && <ArrowRight weight="bold" size={18} />}
       </button>
 
-      {hint && (
-        <div className="text-center">
-          {showHint ? (
-            <p className="text-sm italic text-white/50">{hint}</p>
-          ) : (
+      {hints.length > 0 && (
+        <div className="flex flex-col items-center gap-2 text-center">
+          {hints.slice(0, revealed).map((h, i) => (
+            <p key={i} className="text-sm italic text-white/50">
+              <span className="not-italic text-white/30">Hint {i + 1}:</span> {h}
+            </p>
+          ))}
+          {revealed < hints.length && (
             <button
               type="button"
-              onClick={() => setShowHint(true)}
+              onClick={() => setRevealed((n) => n + 1)}
               className="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white/70"
             >
-              <Eye size={15} /> Need a hint?
+              <Eye size={15} />
+              {revealed === 0
+                ? "Need a hint?"
+                : revealed === hints.length - 1
+                  ? "One more hint?"
+                  : "Another hint?"}
             </button>
           )}
         </div>

@@ -80,7 +80,7 @@ export default async function PuzzlePage({ params }: Params) {
         </p>
 
         <div className="mt-8">
-          <SolveForm word={puzzle.word} hint={puzzle.hint} />
+          <SolveForm word={puzzle.word} hints={puzzle.hints} />
         </div>
       </div>
     </main>
