@@ -81,11 +81,10 @@ export async function POST(req: NextRequest) {
   const answer = String(body.answer ?? "").trim();
   const email = String(body.email ?? "").trim();
 
-  if (!word || !answer || !email) {
+  // Email is optional for a guess — visitors guess freely (earning a clue on
+  // each miss) and only provide their email once they've cracked it.
+  if (!word || !answer) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });
-  }
-  if (!isEmail(email)) {
-    return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
   const row = await getPuzzleRow(word);
@@ -96,6 +95,12 @@ export async function POST(req: NextRequest) {
   if (!checkAnswer(row, answer)) {
     // 422 = correct request, wrong answer. Never reveal the answer or code.
     return NextResponse.json({ ok: false }, { status: 422 });
+  }
+
+  // Correct! If no (valid) email yet, tell the client to ask for one — don't
+  // send the code until we have somewhere to send it.
+  if (!email || !isEmail(email)) {
+    return NextResponse.json({ ok: false, correct: true });
   }
 
   const apiKey = process.env.RESEND_API_KEY;
