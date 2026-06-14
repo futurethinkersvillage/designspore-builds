@@ -19,6 +19,13 @@ export function middleware(request: NextRequest) {
 
   // Subdomain routing: village-dashboard.portal.place → /village-dashboard/*
   if (isDashboardHost(host)) {
+    // PWA assets must resolve at the host root (manifest scope + service-worker
+    // scope are "/"). Serve them as-is instead of rewriting into /village-dashboard.
+    if (pathname === "/manifest.webmanifest" || pathname === "/sw.js") {
+      const res = NextResponse.next();
+      res.headers.set("x-is-dashboard", "1");
+      return res;
+    }
     // Rewrite short paths (e.g. /fundraising) to internal /village-dashboard/... paths.
     // Skip if already prefixed (avoids double-rewriting).
     if (!pathname.startsWith("/village-dashboard")) {

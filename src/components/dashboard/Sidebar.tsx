@@ -1,16 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { List, X } from "@phosphor-icons/react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { navItems } from "@/lib/data/dashboard/nav";
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   // Pathname will be the rewritten internal path (/village-dashboard/...) on
   // the server but the short path (/ or /fundraising) in the browser via the
@@ -32,114 +29,73 @@ export default function Sidebar() {
     return href === "/" ? "/village-dashboard" : `/village-dashboard${href}`;
   };
 
-  const navContent = (
-    <div className="flex flex-col h-full">
-      {/* Logo */}
-      <div className="px-6 py-6 border-b border-white/[0.06] flex items-center gap-3">
-        <Image
-          src="/images/portal-dao-icon.png"
-          alt="Portal.Place"
-          width={32}
-          height={32}
-          className="rounded-md shrink-0"
-          priority
-        />
-        <div className="min-w-0">
-          <h1 className="text-lg font-serif font-semibold text-white tracking-wide leading-none">
-            Portal.Place
-          </h1>
-          <p className="text-[11px] text-white/30 uppercase tracking-[0.2em] mt-1">
-            Village Stack
-          </p>
-        </div>
-      </div>
-
-      {/* Nav items */}
-      <nav className="scrollbar-subtle flex-1 overflow-y-auto py-3 px-3 space-y-0.5">
-        {navItems.map((item) => {
-          const active = isActive(item.href);
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={buildHref(item.href)}
-              onClick={() => setMobileOpen(false)}
-              className={`
-                group flex items-center gap-3 px-3 py-2 rounded-xl text-[15px] font-medium
-                transition-all duration-200 relative
-                ${active
-                  ? "bg-amber/15 text-amber"
-                  : "text-white/55 hover:text-white/85 hover:bg-white/[0.04]"
-                }
-              `}
-            >
-              <Icon
-                size={18}
-                weight={active ? "fill" : "regular"}
-                className={`shrink-0 transition-colors duration-200 ${
-                  active ? "text-amber" : "text-white/40 group-hover:text-white/65"
-                }`}
-              />
-              <span className="flex-1">{item.label}</span>
-              {item.badge && !active && (
-                <span className="flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-amber/20 text-[10px] font-bold text-amber leading-none">
-                  {item.badge}
-                </span>
-              )}
-              {active && (
-                <motion.div
-                  layoutId="sidebar-active-indicator"
-                  className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-amber rounded-r-full"
-                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                />
-              )}
-            </Link>
-          );
-        })}
-      </nav>
-
-    </div>
-  );
-
   return (
-    <>
-      {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col w-60 bg-warm-dark fixed inset-y-0 left-0 z-40 border-r border-white/[0.06]">
-        {navContent}
-      </aside>
+    // Desktop sidebar — mobile navigation is handled by MobileBottomNav.
+    <aside className="hidden lg:flex flex-col w-60 bg-warm-dark fixed inset-y-0 left-0 z-40 border-r border-white/[0.06]">
+      <div className="flex flex-col h-full">
+        {/* Logo */}
+        <div className="px-6 py-6 border-b border-white/[0.06] flex items-center gap-3">
+          <Image
+            src="/images/portal-dao-icon.png"
+            alt="Portal.Place"
+            width={32}
+            height={32}
+            className="rounded-md shrink-0"
+            priority
+          />
+          <div className="min-w-0">
+            <h1 className="text-lg font-serif font-semibold text-white tracking-wide leading-none">
+              Portal.Place
+            </h1>
+            <p className="text-[11px] text-white/30 uppercase tracking-[0.2em] mt-1">
+              Village Stack
+            </p>
+          </div>
+        </div>
 
-      {/* Mobile toggle */}
-      <button
-        onClick={() => setMobileOpen(!mobileOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-xl bg-warm-dark border border-white/[0.06] text-white/60 hover:text-white transition-colors"
-        aria-label="Toggle navigation"
-      >
-        {mobileOpen ? <X size={20} /> : <List size={20} />}
-      </button>
-
-      {/* Mobile sidebar */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="lg:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
-              onClick={() => setMobileOpen(false)}
-            />
-            <motion.aside
-              initial={{ x: -280 }}
-              animate={{ x: 0 }}
-              exit={{ x: -280 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="lg:hidden fixed inset-y-0 left-0 z-50 w-60 bg-warm-dark border-r border-white/[0.06]"
-            >
-              {navContent}
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
-    </>
+        {/* Nav items */}
+        <nav className="scrollbar-subtle flex-1 overflow-y-auto py-3 px-3 space-y-0.5">
+          {navItems.map((item) => {
+            const active = isActive(item.href);
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.href}
+                href={buildHref(item.href)}
+                className={`
+                  group flex items-center gap-3 px-3 py-2 rounded-xl text-[15px] font-medium
+                  transition-all duration-200 relative
+                  ${active
+                    ? "bg-amber/15 text-amber"
+                    : "text-white/55 hover:text-white/85 hover:bg-white/[0.04]"
+                  }
+                `}
+              >
+                <Icon
+                  size={18}
+                  weight={active ? "fill" : "regular"}
+                  className={`shrink-0 transition-colors duration-200 ${
+                    active ? "text-amber" : "text-white/40 group-hover:text-white/65"
+                  }`}
+                />
+                <span className="flex-1">{item.label}</span>
+                {item.badge && !active && (
+                  <span className="flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-amber/20 text-[10px] font-bold text-amber leading-none">
+                    {item.badge}
+                  </span>
+                )}
+                {active && (
+                  <motion.div
+                    layoutId="sidebar-active-indicator"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-amber rounded-r-full"
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  />
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+    </aside>
   );
 }

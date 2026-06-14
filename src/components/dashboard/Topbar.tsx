@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 import { MagnifyingGlass, Bell } from "@phosphor-icons/react";
 import SearchModal from "./SearchModal";
@@ -26,9 +27,19 @@ export default function Topbar({ title }: TopbarProps) {
 
   return (
     <>
-      <header className="flex items-center justify-between px-4 lg:px-8 h-16 border-b border-white/[0.06] shrink-0 gap-3">
-        {/* Left: page title (offset for the floating mobile hamburger) */}
-        <h2 className="text-lg font-semibold text-white/90 pl-14 lg:pl-0 truncate">{title}</h2>
+      <header className="sticky top-0 z-30 flex items-center justify-between px-4 lg:px-8 h-16 border-b border-white/[0.06] shrink-0 gap-3 bg-warm-dark/90 backdrop-blur-xl lg:bg-transparent lg:backdrop-blur-none">
+        {/* Left: brand mark (mobile) + page title */}
+        <div className="flex items-center gap-2.5 min-w-0">
+          <Image
+            src="/images/portal-dao-icon.png"
+            alt="Portal.Place"
+            width={28}
+            height={28}
+            className="rounded-md shrink-0 lg:hidden"
+            priority
+          />
+          <h2 className="text-lg font-semibold text-white/90 truncate">{title}</h2>
+        </div>
 
         {/* Right: actions */}
         <div className="flex items-center gap-4">

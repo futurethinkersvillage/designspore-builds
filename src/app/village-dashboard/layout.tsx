@@ -1,6 +1,8 @@
 "use client";
 
 import Sidebar from "@/components/dashboard/Sidebar";
+import MobileBottomNav from "@/components/dashboard/MobileBottomNav";
+import PWA from "@/components/dashboard/PWA";
 import Topbar from "@/components/dashboard/Topbar";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,7 +30,7 @@ export default function DashboardLayout({
       <div className="flex-1 flex flex-col min-w-0 lg:ml-60">
         <Topbar title={title} />
 
-        <main className="flex-1 px-3 py-4 sm:p-4 lg:p-8">
+        <main className="flex-1 px-3 py-4 sm:p-4 lg:p-8 pb-[calc(env(safe-area-inset-bottom)+5.5rem)] lg:pb-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={pathname}
@@ -42,6 +44,12 @@ export default function DashboardLayout({
           </AnimatePresence>
         </main>
       </div>
+
+      {/* Mobile bottom tab navigation */}
+      <MobileBottomNav />
+
+      {/* PWA: manifest/meta tags, service worker, install button */}
+      <PWA />
     </div>
   );
 }

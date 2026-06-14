@@ -149,8 +149,8 @@ export default function OverviewPage() {
               </div>
             </div>
           </div>
-          <div className="flex-1 min-h-[260px]">
-          <ResponsiveContainer width="100%" height="100%">
+          <div className="flex-1 h-[260px] min-h-[260px]">
+          <ResponsiveContainer width="100%" height={260}>
             <AreaChart data={revenueHistory}>
               <defs>
                 <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
