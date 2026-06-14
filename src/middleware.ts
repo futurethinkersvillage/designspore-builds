@@ -34,6 +34,13 @@ export function middleware(request: NextRequest) {
     return res;
   }
 
+  // Full-screen routes (no Nav/Footer/Chat) — reuse the dashboard chrome flag.
+  if (pathname === "/mind-map" || pathname.startsWith("/mind-map/")) {
+    const res = NextResponse.next();
+    res.headers.set("x-is-dashboard", "1");
+    return res;
+  }
+
   // Existing investor auth logic
   const isProtected = PROTECTED_PATHS.some((p) => pathname.startsWith(p));
   if (!isProtected) return NextResponse.next();

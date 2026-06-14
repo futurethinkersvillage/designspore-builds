@@ -1,0 +1,85 @@
+/* Scoped styles for the /mind-map route. Every selector lives under `.mindmap`
+   so none of this leaks into the rest of the portal.place site. Fonts reuse the
+   site's global Cormorant (--font-cormorant) + Geist (--font-geist-sans). */
+
+.mindmap {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  color: #faf8f4;
+}
+
+.mindmap .font-display {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+.mindmap .font-mono,
+.mindmap .font-body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* Near-flat dark background. Root element has `mindmap app-bg`; the Read overlay
+   is a descendant with `app-bg`. */
+.mindmap.app-bg,
+.mindmap .app-bg {
+  background: radial-gradient(1200px 900px at 50% 30%, #161616 0%, #101010 55%, #090909 100%);
+}
+
+/* Grain overlay (root element has `mindmap grain`; only exists on this route). */
+.mindmap.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+/* Core node pulsing aura. */
+@keyframes mm-auraPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0;
+  }
+}
+.mindmap .aura-pulse {
+  animation: mm-auraPulse 3.4s ease-in-out infinite;
+}
+
+/* Connector draw-in (normalized via pathLength=1). */
+.mindmap .rf-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: mm-rf-draw 1s ease forwards;
+}
+@keyframes mm-rf-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Glide nodes to their new positions on rotate/explore (compositor-driven). */
+.mindmap .react-flow__node {
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.mindmap .react-flow__renderer,
+.mindmap .react-flow__pane {
+  cursor: default;
+}
+
+/* Slimmer, on-brand scrollbars within the map. */
+.mindmap *::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.mindmap *::-webkit-scrollbar-thumb {
+  background: rgba(234, 130, 78, 0.28);
+  border-radius: 8px;
+}
+.mindmap *::-webkit-scrollbar-track {
+  background: transparent;
+}
