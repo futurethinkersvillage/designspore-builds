@@ -13,6 +13,7 @@ import {
   Robot,
   Compass,
   Campfire,
+  House,
   CaretRight,
   LockSimple,
   type Icon,
@@ -29,6 +30,7 @@ const ICONS: Record<string, Icon> = {
   robot: Robot,
   compass: Compass,
   campfire: Campfire,
+  house: House,
 };
 
 const hiddenHandle = "!h-1.5 !w-1.5 !min-w-0 !border-0 !bg-transparent !opacity-0";
@@ -46,8 +48,7 @@ function tierLabel(t: number) {
 }
 
 function MindNodeComponent({ data }: NodeProps) {
-  const { node, dimmed, highlighted, expanded, hasChildren, childCount, tier, funded, appearDelay } =
-    data as MindNodeData;
+  const { node, dimmed, highlighted, tier, funded, appearDelay } = data as MindNodeData;
   const color = node.color ?? "#ea824e";
   const IconCmp = node.icon ? ICONS[node.icon] : undefined;
 
@@ -203,79 +204,22 @@ function MindNodeComponent({ data }: NodeProps) {
           </div>
         </div>
 
-        {hasChildren && (
-          <motion.div
-            className="absolute -right-2 -top-2 z-10 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-[10px] font-bold"
-            style={{ background: color, color: "#1a1720" }}
-            animate={{ rotate: expanded ? 90 : 0 }}
-            transition={baseTransition}
-          >
-            {expanded ? <CaretRight size={12} weight="bold" /> : childCount}
-          </motion.div>
-        )}
+        {/* Subtle "open" affordance, brightening on hover. */}
+        <motion.div
+          className="absolute bottom-2 right-2 z-10 flex h-5 w-5 items-center justify-center rounded-full"
+          style={{ background: hexA(color, highlighted ? 0.95 : 0.4), color: "#1a1720" }}
+          animate={{ scale: highlighted ? 1 : 0.85 }}
+          transition={baseTransition}
+        >
+          <CaretRight size={12} weight="bold" />
+        </motion.div>
         {ripple}
         {Handles}
       </motion.div>
     );
   }
 
-  // leaf — rich card with image, title, and context detail
-  return (
-    <motion.div
-      className="relative flex h-[196px] w-[316px] flex-col overflow-hidden rounded-xl"
-      initial={{ y: 30, opacity: 0, scale: 0.97 }}
-      animate={{
-        opacity: nodeOpacity,
-        scale: highlighted ? 1.04 : 1,
-        y: highlighted ? -5 : 0,
-        boxShadow: highlighted
-          ? `0 14px 34px ${hexA(color, 0.45)}`
-          : "0 4px 16px rgba(0,0,0,0.4)",
-      }}
-      whileTap={{ scale: 0.97 }}
-      onAnimationComplete={markEntered}
-      transition={{ ...baseTransition, delay: enterDelay }}
-      style={{
-        filter: nodeFilter,
-        background: "rgba(16,18,12,0.95)",
-        border: `1px solid ${hexA(color, highlighted ? 0.85 : 0.3)}`,
-      }}
-    >
-      {node.image && (
-        <div className="relative h-[84px] w-full shrink-0 overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={node.image}
-            alt={node.label}
-            className="h-full w-full object-cover transition-transform duration-300"
-            draggable={false}
-          />
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background: `linear-gradient(180deg, transparent 35%, rgba(16,18,12,0.96) 100%)`,
-            }}
-          />
-          <div
-            className="pointer-events-none absolute left-2.5 top-2.5 h-1.5 w-8 rounded-full"
-            style={{ background: color }}
-          />
-        </div>
-      )}
-      <div className="flex flex-1 flex-col gap-1 px-3 py-2.5">
-        <div className="line-clamp-2 font-display text-[17px] font-semibold leading-[1.15] text-[#faf8f4]">
-          {node.label}
-        </div>
-        {node.detail && (
-          <p className="line-clamp-2 text-[12.5px] leading-snug text-[#b3a8aa]">
-            {node.detail}
-          </p>
-        )}
-      </div>
-      {ripple}
-      {Handles}
-    </motion.div>
-  );
+  return null;
 }
 
 export const MindNode = memo(MindNodeComponent);

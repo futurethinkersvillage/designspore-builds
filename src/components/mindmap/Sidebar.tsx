@@ -62,19 +62,12 @@ export function Sidebar() {
     () => (selectedId ? map.nodes.find((n) => n.id === selectedId) : undefined),
     [map, selectedId],
   );
-  // Only a clicked SUB-NODE (leaf) pins the panel and opens the wide drawer.
-  // Branches stay hover-driven — clicking one just explores its sub-items.
-  const pinnedLeafId = selectedNode?.kind === "leaf" ? selectedNode.id : null;
-  const pinned = !!pinnedLeafId;
-  // When a leaf is pinned, freeze the panel to it (hover no longer changes focus).
-  // Otherwise hover drives it, falling back to the explored branch.
-  const activeId = pinnedLeafId ?? hoveredId ?? selectedId;
+  // Clicking a branch pins the panel and opens the wide drawer (full writeup).
+  // Hovering just peeks; the pinned branch freezes the panel until cleared.
+  const pinnedBranchId = selectedNode?.kind === "branch" ? selectedNode.id : null;
+  const pinned = !!pinnedBranchId;
+  const activeId = pinnedBranchId ?? hoveredId ?? selectedId;
   const node = useMemo(() => map.nodes.find((n) => n.id === activeId), [map, activeId]);
-
-  const parent = useMemo(
-    () => (node?.parentId ? map.nodes.find((n) => n.id === node.parentId) : undefined),
-    [map, node],
-  );
 
   // Re-fit the map after the drawer width transition settles.
   useEffect(() => {
@@ -110,7 +103,7 @@ export function Sidebar() {
               </p>
             )}
             <p className="mt-3 text-sm leading-relaxed text-[#b3a8aa]">
-              Hover a branch to peek, or click it to rotate the map and explore its sub-items.
+              Hover a branch to peek, or click it to open the full story.
             </p>
             <div className="mt-8 grid w-full grid-cols-2 gap-3">
               {OVERVIEW_STATS.map((s) => (
@@ -194,11 +187,6 @@ export function Sidebar() {
               </motion.div>
             )}
             <motion.div variants={panelItem}>
-              {parent && node.kind === "leaf" && (
-                <div className="mb-2 text-xs text-[#b3a8aa]">
-                  in <span style={{ color: parent.color }}>{parent.label}</span>
-                </div>
-              )}
               <h2 className="font-display text-3xl font-semibold leading-tight text-[#faf8f4]">
                 {node.label}
               </h2>
@@ -217,16 +205,33 @@ export function Sidebar() {
                 {node.detail}
               </motion.p>
             )}
-            {node.body &&
-              node.body.split(/\n\n+/).map((para, i) => (
-                <motion.p
-                  key={i}
-                  variants={panelItem}
-                  className="mt-2.5 text-[12.5px] leading-relaxed text-[#b3a8aa]"
-                >
-                  {para}
-                </motion.p>
-              ))}
+
+            {node.why && (
+              <motion.div
+                variants={panelItem}
+                className="mt-4 rounded-xl border-l-2 py-2 pl-3.5 pr-2"
+                style={{ borderColor: accent, background: "rgba(255,255,255,0.02)" }}
+              >
+                <div className="mb-1 font-mono text-[9px] uppercase tracking-[0.18em] text-[#b3a8aa]">
+                  Why it matters
+                </div>
+                <p className="text-[12.5px] italic leading-relaxed text-[#d8cfc8]">{node.why}</p>
+              </motion.div>
+            )}
+
+            {node.bullets && node.bullets.length > 0 && (
+              <motion.ul variants={panelItem} className="mt-4 space-y-2">
+                {node.bullets.map((b, i) => (
+                  <li key={i} className="flex gap-2.5 text-[12.5px] leading-relaxed text-[#b3a8aa]">
+                    <span
+                      className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{ background: accent }}
+                    />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </motion.ul>
+            )}
 
             {node.gallery && node.gallery.length > 0 && (
               <motion.div variants={panelItem} className="mt-4 grid grid-cols-2 gap-2">

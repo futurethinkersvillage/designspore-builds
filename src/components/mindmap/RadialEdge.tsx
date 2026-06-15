@@ -77,6 +77,10 @@ export function RadialEdge({ id, source, target, style, data }: EdgeProps) {
   const s = borderPoint(sourceNode, tCenter, sCircular);
   const t = borderPoint(targetNode, sCenter, tCircular);
 
+  // Before React Flow measures the nodes, positions can be NaN — skip drawing
+  // until real coordinates are available (avoids NaN SVG-attribute warnings).
+  if ([s.x, s.y, t.x, t.y].some((v) => !Number.isFinite(v))) return null;
+
   let d: string;
   if ((data as { elbow?: boolean } | undefined)?.elbow) {
     // Org-chart style limb: out from the branch, down the spine, into the leaf.

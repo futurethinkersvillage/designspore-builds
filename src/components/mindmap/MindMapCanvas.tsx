@@ -8,6 +8,7 @@ import {
   BackgroundVariant,
   Controls,
   useReactFlow,
+  useNodesInitialized,
   type NodeMouseHandler,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
@@ -19,24 +20,28 @@ import { RadialEdge } from "./RadialEdge";
 const nodeTypes = { mind: MindNode };
 const edgeTypes = { radial: RadialEdge };
 
-function Flow() {
+interface FlowProps {
+  /** Embedded in a scrolling page: let the wheel scroll the page (zoom via
+   *  controls / pinch) instead of trapping scroll to zoom the canvas. */
+  embedded?: boolean;
+}
+
+function Flow({ embedded = false }: FlowProps) {
   const map = useMapStore((s) => s.map);
   const hoveredId = useMapStore((s) => s.hoveredId);
   const selectedId = useMapStore((s) => s.selectedId);
-  const exploreId = useMapStore((s) => s.exploreId);
   const query = useMapStore((s) => s.query);
   const funding = useMapStore((s) => s.funding);
 
   const setHovered = useMapStore((s) => s.setHovered);
   const selectNode = useMapStore((s) => s.selectNode);
-  const explore = useMapStore((s) => s.explore);
-  const exitExplore = useMapStore((s) => s.exitExplore);
 
   const rf = useReactFlow();
+  const nodesInitialized = useNodesInitialized();
 
   const { nodes, edges } = useMemo(
-    () => computeLayout(map, { hoveredId, selectedId, exploreId, funding }),
-    [map, hoveredId, selectedId, exploreId, funding],
+    () => computeLayout(map, { hoveredId, selectedId, funding }),
+    [map, hoveredId, selectedId, funding],
   );
 
   // Stable signal for the *set* of visible nodes (mount + explore/collapse).
@@ -46,22 +51,24 @@ function Flow() {
   // come from explicit node dimensions via getNodesBounds + fitBounds, which do
   // NOT depend on the ResizeObserver (robust on first paint).
   useEffect(() => {
-    const ids = new Set(fitTargets(map, exploreId));
+    // Wait until React Flow has measured the nodes — in embedded / late-sized
+    // containers the fixed-delay retries can all fire before measurement.
+    if (!nodesInitialized) return;
+    const ids = new Set(fitTargets(map));
     const target = nodes.filter((n) => ids.has(n.id));
     if (target.length === 0) return;
     const raw = rf.getNodesBounds(target);
     // Reserve space on the LEFT for the funding rail (shifts content right) and a
-    // little bottom clearance. With the slider no longer pinned to the bottom, the
-    // overview can use minimal padding so cards render large and legible.
+    // little bottom clearance, so the whole constellation reads large and legible.
     const railPad = 290;
-    const bottomPad = exploreId ? 110 : 24;
+    const bottomPad = 24;
     const bounds = {
       x: raw.x - railPad,
       y: raw.y,
       width: raw.width + railPad,
       height: raw.height + bottomPad,
     };
-    const padding = exploreId ? 0.1 : 0.04;
+    const padding = 0.04;
     // Retry a few times so the fit lands even if measurement settles late.
     const timers = [80, 400, 900].map((ms, i) =>
       setTimeout(() => rf.fitBounds(bounds, { duration: i === 0 ? 700 : 300, padding }), ms),
@@ -73,32 +80,30 @@ function Flow() {
       window.removeEventListener("resize", onResize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodeIdsKey, exploreId, rf]);
+  }, [nodeIdsKey, nodesInitialized, rf]);
 
-  // Search: open the matching branch (or the parent branch of a matching sub-item).
+  // Search: select the matching branch so its panel opens.
   useEffect(() => {
     const q = query.trim().toLowerCase();
     if (!q) return;
     const match = map.nodes.find(
       (n) =>
-        n.kind !== "root" &&
+        n.kind === "branch" &&
         (n.label.toLowerCase().includes(q) ||
           n.sublabel?.toLowerCase().includes(q) ||
-          n.detail?.toLowerCase().includes(q)),
+          n.detail?.toLowerCase().includes(q) ||
+          n.bullets?.some((b) => b.toLowerCase().includes(q))),
     );
-    if (!match) return;
-    const branchId = match.kind === "leaf" ? match.parentId : match.id;
-    if (branchId && branchId !== exploreId) explore(branchId);
-    if (match.kind === "leaf") selectNode(match.id);
+    if (match) selectNode(match.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, map]);
 
   const onNodeClick: NodeMouseHandler = (_e, node) => {
     const n = map.nodes.find((x) => x.id === node.id);
     if (!n) return;
-    if (n.kind === "branch") explore(n.id); // rotate to bottom + grid its sub-items
-    else if (n.kind === "leaf") selectNode(n.id);
-    else exitExplore(); // clicking the core returns to the symmetric overview
+    // Click a branch to open its panel (toggle); click the core to clear focus.
+    if (n.kind === "branch") selectNode(selectedId === n.id ? null : n.id);
+    else selectNode(null);
   };
 
   return (
@@ -111,30 +116,30 @@ function Flow() {
       onNodeMouseEnter={(_e, n) => setHovered(n.id)}
       onNodeMouseLeave={() => setHovered(null)}
       onPaneClick={() => {
-        // Clicking off: if a sub-node is pinned, just un-pin it (stay in the
-        // explored branch); otherwise collapse back to the overview.
-        const sel = map.nodes.find((x) => x.id === selectedId);
-        if (sel?.kind === "leaf" && exploreId) {
-          selectNode(exploreId);
-        } else {
-          exitExplore();
-        }
+        // Clicking empty space clears the focused branch (back to the overview).
+        selectNode(null);
         setHovered(null);
       }}
       nodesDraggable={false}
       nodesConnectable={false}
       elementsSelectable
+      zoomOnScroll={!embedded}
+      preventScrolling={!embedded}
       minZoom={0.2}
       maxZoom={2.2}
       proOptions={{ hideAttribution: true }}
       className="bg-transparent"
     >
-      <Background
-        variant={BackgroundVariant.Dots}
-        gap={28}
-        size={1}
-        color="rgba(234,130,78,0.10)"
-      />
+      {/* Render only after measurement — before the viewport is measured the
+          dots pattern computes NaN coordinates (harmless dev warnings). */}
+      {nodesInitialized && (
+        <Background
+          variant={BackgroundVariant.Dots}
+          gap={28}
+          size={1}
+          color="rgba(234,130,78,0.10)"
+        />
+      )}
       <Controls
         showInteractive={false}
         className="!border-none !bg-[#232323]/80 !shadow-lg [&_button]:!border-[#ea824e]/20 [&_button]:!bg-[#272727] [&_button]:!fill-[#ea824e] [&_button:hover]:!bg-[#313131]"
@@ -143,10 +148,10 @@ function Flow() {
   );
 }
 
-export function MindMapCanvas() {
+export function MindMapCanvas({ embedded = false }: FlowProps) {
   return (
     <ReactFlowProvider>
-      <Flow />
+      <Flow embedded={embedded} />
     </ReactFlowProvider>
   );
 }

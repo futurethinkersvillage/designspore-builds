@@ -175,7 +175,7 @@ export function ReadView() {
         {/* Branches */}
         <div className="mt-12 space-y-12">
           {branches.map((b, i) => {
-            const leaves = map.nodes.filter((l) => l.parentId === b.id);
+            const accent = b.color ?? "#ea824e";
             return (
               <motion.section
                 key={b.id}
@@ -191,45 +191,45 @@ export function ReadView() {
                   <p className="mt-4 text-[15px] leading-relaxed text-[#d8cfc8]">{b.detail}</p>
                 )}
 
-                {/* Sub-items with writeups */}
-                <div className="mt-5 space-y-4">
-                  {leaves.map((l) => (
-                    <div
-                      key={l.id}
-                      className="flex gap-4 rounded-xl border border-white/5 bg-white/[0.015] p-3"
-                    >
-                      {l.image && (
-                        <div className="h-20 w-28 shrink-0 overflow-hidden rounded-lg">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={l.image} alt={l.label} className="h-full w-full object-cover" />
-                        </div>
-                      )}
-                      <div className="min-w-0">
-                        <div
-                          className="font-display text-[17px] font-semibold leading-tight"
-                          style={{ color: "#faf8f4" }}
-                        >
-                          {l.label}
-                        </div>
-                        {(l.body ?? l.detail ?? "").split(/\n\n+/).map((para, i) => (
-                          <p key={i} className="mt-1.5 text-[12.5px] leading-relaxed text-[#b3a8aa]">
-                            {para}
-                          </p>
-                        ))}
-                        {l.moreLink && (
-                          <a
-                            href={l.moreLink.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-2 inline-block text-[11.5px] font-medium text-[#f2a878] hover:underline"
-                          >
-                            {l.moreLink.label} ↗
-                          </a>
-                        )}
-                      </div>
+                {b.why && (
+                  <div
+                    className="mt-4 rounded-xl border-l-2 py-3 pl-4 pr-3"
+                    style={{ borderColor: accent, background: hexA(accent, 0.06) }}
+                  >
+                    <div className="mb-1 font-mono text-[9.5px] uppercase tracking-[0.18em] text-[#b3a8aa]">
+                      Why it matters
                     </div>
-                  ))}
-                </div>
+                    <p className="text-[13.5px] italic leading-relaxed text-[#d8cfc8]">{b.why}</p>
+                  </div>
+                )}
+
+                {b.bullets && b.bullets.length > 0 && (
+                  <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
+                    {b.bullets.map((pt, k) => (
+                      <li
+                        key={k}
+                        className="flex gap-2.5 rounded-xl border border-white/5 bg-white/[0.015] p-3 text-[13px] leading-snug text-[#cabfb9]"
+                      >
+                        <span
+                          className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full"
+                          style={{ background: accent }}
+                        />
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {b.moreLink && (
+                  <a
+                    href={b.moreLink.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-block text-[12.5px] font-medium text-[#f2a878] hover:underline"
+                  >
+                    {b.moreLink.label} ↗
+                  </a>
+                )}
               </motion.section>
             );
           })}

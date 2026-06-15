@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Lightbox from "@/components/ui/Lightbox";
+import { VisionMapSection } from "@/components/mindmap/VisionMapSection";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -911,6 +912,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <VisionMapSection />
       <Trailer />
       <CoreIdea />
       <WhyNow />

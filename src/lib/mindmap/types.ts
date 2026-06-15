@@ -27,6 +27,11 @@ export interface MapNode {
   detail?: string;
   /** Fuller investor writeup. Multiple paragraphs separated by blank lines (\n\n). */
   body?: string;
+  /** Short "why this is needed" blurb — the meta perspective on the world that
+   *  makes this part of the project necessary. */
+  why?: string;
+  /** Key points for this node (formerly separate sub-nodes, now folded in). */
+  bullets?: string[];
   /** A few supporting photos shown in the side panel (paths under /images/...). */
   gallery?: string[];
   /** Optional "learn more" link to a relevant page, shown at the end of the text. */
