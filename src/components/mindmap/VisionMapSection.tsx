@@ -20,14 +20,14 @@ export function VisionMapSection() {
 
   return (
     <section className="bg-warm-dark py-20 lg:py-28">
-      <div className="mx-auto max-w-[1500px] px-6 lg:px-16">
+      <div className="mx-auto max-w-[1500px]">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="mx-auto max-w-[760px] text-center"
+          className="mx-auto max-w-[760px] px-6 text-center"
         >
           <p className="mb-6 text-xs font-medium uppercase tracking-[0.2em] text-amber">
             The whole picture
@@ -40,16 +40,17 @@ export function VisionMapSection() {
             funding phases to see what exists today versus the full vision.
           </p>
         </motion.div>
+      </div>
 
-        {/* Interactive map (desktop / tablet) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="mt-12 hidden lg:block"
-        >
-          <div className="mindmap app-bg grain relative overflow-hidden rounded-3xl border border-[#ea824e]/15 text-[#faf8f4] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]">
+      {/* Interactive map (desktop / tablet) — full-bleed, edge to edge */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.7, delay: 0.1 }}
+        className="mt-12 hidden lg:block"
+      >
+        <div className="mindmap app-bg grain relative overflow-hidden border-y border-[#ea824e]/15 text-[#faf8f4]">
             <MotionConfig reducedMotion="user">
               <VideoModal />
 
@@ -100,7 +101,7 @@ export function VisionMapSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-10 lg:hidden"
+          className="mx-auto mt-10 max-w-[640px] px-6 lg:hidden"
         >
           <Link
             href="/mind-map"
@@ -119,7 +120,6 @@ export function VisionMapSection() {
             </span>
           </Link>
         </motion.div>
-      </div>
     </section>
   );
 }
