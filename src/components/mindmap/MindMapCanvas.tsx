@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import {
   ReactFlow,
   ReactFlowProvider,
@@ -38,6 +38,7 @@ function Flow({ embedded = false }: FlowProps) {
 
   const rf = useReactFlow();
   const nodesInitialized = useNodesInitialized();
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const { nodes, edges } = useMemo(
     () => computeLayout(map, { hoveredId, selectedId, funding }),
@@ -47,40 +48,46 @@ function Flow({ embedded = false }: FlowProps) {
   // Stable signal for the *set* of visible nodes (mount + explore/collapse).
   const nodeIdsKey = nodes.map((n) => n.id).join(",");
 
-  // Fit the viewport on mount and whenever the explored branch changes. Bounds
-  // come from explicit node dimensions via getNodesBounds + fitBounds, which do
-  // NOT depend on the ResizeObserver (robust on first paint).
+  // Center + size the constellation in whatever space the container currently
+  // has. Bounds come from getNodesBounds (explicit node dims), with the left
+  // padded for the funding rail and the bottom for clearance.
+  const doFit = useCallback(
+    (duration: number) => {
+      const el = wrapperRef.current;
+      // Skip until the container actually has a size — otherwise the fit lands
+      // at the top-left origin (the embed measures its height/width late).
+      if (!el || el.clientWidth === 0 || el.clientHeight === 0) return;
+      const ids = new Set(fitTargets(map));
+      const target = rf.getNodes().filter((n) => ids.has(n.id));
+      if (target.length === 0) return;
+      const raw = rf.getNodesBounds(target);
+      if (!Number.isFinite(raw.width) || raw.width === 0) return;
+      const railPad = 290;
+      const bottomPad = 24;
+      rf.fitBounds(
+        { x: raw.x - railPad, y: raw.y, width: raw.width + railPad, height: raw.height + bottomPad },
+        { duration, padding: 0.04 },
+      );
+    },
+    [map, rf],
+  );
+
+  // Re-fit on mount, when the node set changes, and — crucially for the embed —
+  // whenever the container resizes (it gets its real size after first paint,
+  // scrollbar changes, and scroll-into-view reflows).
   useEffect(() => {
-    // Wait until React Flow has measured the nodes — in embedded / late-sized
-    // containers the fixed-delay retries can all fire before measurement.
     if (!nodesInitialized) return;
-    const ids = new Set(fitTargets(map));
-    const target = nodes.filter((n) => ids.has(n.id));
-    if (target.length === 0) return;
-    const raw = rf.getNodesBounds(target);
-    // Reserve space on the LEFT for the funding rail (shifts content right) and a
-    // little bottom clearance, so the whole constellation reads large and legible.
-    const railPad = 290;
-    const bottomPad = 24;
-    const bounds = {
-      x: raw.x - railPad,
-      y: raw.y,
-      width: raw.width + railPad,
-      height: raw.height + bottomPad,
-    };
-    const padding = 0.04;
-    // Retry a few times so the fit lands even if measurement settles late.
-    const timers = [80, 400, 900].map((ms, i) =>
-      setTimeout(() => rf.fitBounds(bounds, { duration: i === 0 ? 700 : 300, padding }), ms),
-    );
-    const onResize = () => rf.fitBounds(bounds, { duration: 200, padding });
+    const timers = [0, 120, 450].map((ms, i) => setTimeout(() => doFit(i === 0 ? 0 : 350), ms));
+    const ro = new ResizeObserver(() => doFit(200));
+    if (wrapperRef.current) ro.observe(wrapperRef.current);
+    const onResize = () => doFit(200);
     window.addEventListener("resize", onResize);
     return () => {
       timers.forEach(clearTimeout);
+      ro.disconnect();
       window.removeEventListener("resize", onResize);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodeIdsKey, nodesInitialized, rf]);
+  }, [nodeIdsKey, nodesInitialized, doFit]);
 
   // Search: select the matching branch so its panel opens.
   useEffect(() => {
@@ -107,44 +114,46 @@ function Flow({ embedded = false }: FlowProps) {
   };
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      nodeTypes={nodeTypes}
-      edgeTypes={edgeTypes}
-      onNodeClick={onNodeClick}
-      onNodeMouseEnter={(_e, n) => setHovered(n.id)}
-      onNodeMouseLeave={() => setHovered(null)}
-      onPaneClick={() => {
-        // Clicking empty space clears the focused branch (back to the overview).
-        selectNode(null);
-        setHovered(null);
-      }}
-      nodesDraggable={false}
-      nodesConnectable={false}
-      elementsSelectable
-      zoomOnScroll={!embedded}
-      preventScrolling={!embedded}
-      minZoom={0.2}
-      maxZoom={2.2}
-      proOptions={{ hideAttribution: true }}
-      className="bg-transparent"
-    >
-      {/* Render only after measurement — before the viewport is measured the
-          dots pattern computes NaN coordinates (harmless dev warnings). */}
-      {nodesInitialized && (
-        <Background
-          variant={BackgroundVariant.Dots}
-          gap={28}
-          size={1}
-          color="rgba(234,130,78,0.10)"
+    <div ref={wrapperRef} className="h-full w-full">
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        onNodeClick={onNodeClick}
+        onNodeMouseEnter={(_e, n) => setHovered(n.id)}
+        onNodeMouseLeave={() => setHovered(null)}
+        onPaneClick={() => {
+          // Clicking empty space clears the focused branch (back to the overview).
+          selectNode(null);
+          setHovered(null);
+        }}
+        nodesDraggable={false}
+        nodesConnectable={false}
+        elementsSelectable
+        zoomOnScroll={!embedded}
+        preventScrolling={!embedded}
+        minZoom={0.2}
+        maxZoom={2.2}
+        proOptions={{ hideAttribution: true }}
+        className="bg-transparent"
+      >
+        {/* Render only after measurement — before the viewport is measured the
+            dots pattern computes NaN coordinates (harmless dev warnings). */}
+        {nodesInitialized && (
+          <Background
+            variant={BackgroundVariant.Dots}
+            gap={28}
+            size={1}
+            color="rgba(234,130,78,0.10)"
+          />
+        )}
+        <Controls
+          showInteractive={false}
+          className="!border-none !bg-[#232323]/80 !shadow-lg [&_button]:!border-[#ea824e]/20 [&_button]:!bg-[#272727] [&_button]:!fill-[#ea824e] [&_button:hover]:!bg-[#313131]"
         />
-      )}
-      <Controls
-        showInteractive={false}
-        className="!border-none !bg-[#232323]/80 !shadow-lg [&_button]:!border-[#ea824e]/20 [&_button]:!bg-[#272727] [&_button]:!fill-[#ea824e] [&_button:hover]:!bg-[#313131]"
-      />
-    </ReactFlow>
+      </ReactFlow>
+    </div>
   );
 }
 
