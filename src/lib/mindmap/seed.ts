@@ -57,6 +57,8 @@ const BRANCHES: BranchSeed[] = [
       "Phase 1 is built and operating: 40+ RV sites, a private lake, sauna, dome and a 120-person gazebo",
       "Golf, disc golf, forest trails, horse corrals and kids' play already on the land",
       "Permaculture-designed and off-grid-capable — power, water and septic that can run independently",
+      "This $3M phase funds a feasibility study for the residential buildout",
+      "…and a community maker space — home for artist residencies, art, and on-site tiny-home builds",
       "The working prototype every future village is cloned from",
     ],
     gallery: [
