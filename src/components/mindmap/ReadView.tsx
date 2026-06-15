@@ -24,6 +24,14 @@ const STATS = [
 
 const CLOSERS: { title: string; body: string }[] = [
   {
+    title: "Why now",
+    body: "Remote work, automation, and a hunger for community are pushing people toward nature and belonging — and the land, the audience, and the operating business already exist. The bridge round closes the gap between a proven Phase 1 and a fundable, replicable network while the land is still secured at its current basis.",
+  },
+  {
+    title: "Use of funds",
+    body: "$6M bridge: pay out the community loans and secure clean title to the land; expand the maker space for cabin & tiny-home manufacturing; launch the artist residency and community center; upgrade long-term RV and glamping infrastructure; and fund Phase 3 permitting and the Village Stack build.",
+  },
+  {
     title: "Roadmap",
     body: "Phase 1 — complete (land + core infrastructure, operating 5+ years). $6M bridge (Phase 2) — larger maker space, residency program, community center, gazebo → coworking/café, long-term 50-amp RV sites, secure land, Phase 3 prep. $20M (Phase 3) — residential housing, second property, regenerative farm, network marketing. $50M+ — full network: forest-school campus, Village Stack rollout, consulting & licensing across regions.",
   },
@@ -130,10 +138,18 @@ export function ReadView() {
             <span className="font-display text-xl font-semibold text-[#f2a878]">
               $6M bridge round
             </span>{" "}
-            — secured by land, 5 years operating, led by proven founders. The $3M near-term
-            milestone secures the land, funds Phase 3 permitting, and builds the maker space for
-            cabin manufacturing and the artist residency.
+            — secured by 400 acres of owned land, five years of operating history, and a proven
+            founding team with a 10M-download audience. It funds the leap from a working first
+            village to a replicable network.
           </p>
+          <a
+            href="https://portal.place/contact"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3.5 inline-flex items-center gap-1.5 rounded-full bg-[#ea824e] px-4 py-2 text-[13px] font-semibold text-[#1a1720] transition-colors hover:bg-[#f2a878]"
+          >
+            Talk to us about investing ↗
+          </a>
         </div>
 
         {/* Stats */}
@@ -229,6 +245,42 @@ export function ReadView() {
               <p className="mt-2 text-[14px] leading-relaxed text-[#d8cfc8]">{c.body}</p>
             </div>
           ))}
+        </div>
+
+        {/* Closing call to action */}
+        <div className="mt-12 rounded-2xl border border-[#ea824e]/25 bg-[#ea824e]/[0.06] p-6 text-center">
+          <h3 className="font-display text-2xl font-semibold text-[#faf8f4]">
+            Be part of the next village
+          </h3>
+          <p className="mx-auto mt-2 max-w-md text-[13.5px] leading-relaxed text-[#b3a8aa]">
+            Come visit Wells Gray, join as a member, or talk to us about investing in the network.
+          </p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2.5">
+            <a
+              href="https://wellsgrayresort.ca"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/15 bg-white/[0.03] px-4 py-2 text-[13px] font-medium text-[#d8cfc8] transition-colors hover:border-[#ea824e]/40 hover:text-[#f2a878]"
+            >
+              Visit
+            </a>
+            <a
+              href="https://portal.place/membership"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/15 bg-white/[0.03] px-4 py-2 text-[13px] font-medium text-[#d8cfc8] transition-colors hover:border-[#ea824e]/40 hover:text-[#f2a878]"
+            >
+              Become a member
+            </a>
+            <a
+              href="https://portal.place/contact"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-[#ea824e] px-4 py-2 text-[13px] font-semibold text-[#1a1720] transition-colors hover:bg-[#f2a878]"
+            >
+              Invest ↗
+            </a>
+          </div>
         </div>
 
         <div className="mt-12 border-t border-white/10 pt-6 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-[#ea824e]/70">

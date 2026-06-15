@@ -13,7 +13,11 @@ export function statusForTier(tier: number): NodeStatus {
   return { label: "Vision", phase: "Network", color: "#b97fa8" };
 }
 
-/** Phase label for a funding-slider tier value. */
+/** Friendly, public-facing phase label for a funding-slider tier value
+ *  (the slider tells a "today → full vision" story, not a fundraising one). */
 export function phaseLabelForTier(tier: number): string {
-  return statusForTier(tier).phase;
+  if (tier <= 3) return "Built today";
+  if (tier <= 6) return "Next up";
+  if (tier <= 20) return "Growth";
+  return "The network";
 }

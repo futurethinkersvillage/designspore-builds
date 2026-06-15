@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CurrencyDollar } from "@phosphor-icons/react";
+import { MapTrifold } from "@phosphor-icons/react";
 import { useMapStore, FUNDING_TIERS } from "@/lib/mindmap/store";
 import { phaseLabelForTier } from "@/lib/mindmap/status";
 
@@ -24,14 +24,17 @@ export function FundingSlider() {
 
   return (
     <div className="pointer-events-auto flex w-[176px] flex-col rounded-2xl border border-[#ea824e]/20 bg-[#161616]/85 p-3 shadow-[0_8px_40px_rgba(0,0,0,0.55)] backdrop-blur-md">
-      <div className="mb-2 flex items-center gap-1.5 px-1">
-        <CurrencyDollar size={16} weight="bold" className="text-[#ea824e]" />
+      <div className="mb-1 flex items-center gap-1.5 px-1">
+        <MapTrifold size={16} weight="bold" className="text-[#ea824e]" />
         <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#b3a8aa]">
-          Funding level
+          The journey
         </span>
       </div>
+      <div className="mb-2 px-1 text-[10.5px] leading-snug text-[#8a7f86]">
+        From what&apos;s built today to the full vision — drag through the phases.
+      </div>
 
-      {/* Vertical tier tabs (top = today / $3M, bottom = full vision / $50M+) */}
+      {/* Vertical phase tabs (top = today, bottom = the full network) */}
       <div className="flex flex-col gap-1">
         {FUNDING_TIERS.map((t) => {
           const active = t === funding;
@@ -73,13 +76,13 @@ export function FundingSlider() {
               />
               <div className="relative z-10 flex flex-col leading-tight">
                 <span
-                  className="font-display text-[23px] font-semibold leading-none"
+                  className="font-display text-[17px] font-semibold leading-tight"
                   style={{ color: active ? "#1a1720" : unlocked ? "#f2a878" : "#8a7f86" }}
                 >
-                  {label(t)}
+                  {phaseLabelForTier(t)}
                 </span>
                 <span
-                  className="mt-0.5 font-mono text-[9.5px] uppercase tracking-wide"
+                  className="mt-0.5 font-mono text-[10px] tracking-wide"
                   style={{
                     color: active
                       ? "rgba(26,23,32,0.7)"
@@ -88,7 +91,7 @@ export function FundingSlider() {
                         : "rgba(138,127,134,0.7)",
                   }}
                 >
-                  {phaseLabelForTier(t)}
+                  {label(t)}
                 </span>
               </div>
             </button>

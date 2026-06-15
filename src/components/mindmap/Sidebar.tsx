@@ -2,7 +2,17 @@
 
 import { useMemo, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Sparkle, PlayCircle, BookOpen, ArrowUpRight } from "@phosphor-icons/react";
+import {
+  Sparkle,
+  PlayCircle,
+  BookOpen,
+  ArrowUpRight,
+  MapPin,
+  UsersThree,
+  Handshake,
+  Microphone,
+} from "@phosphor-icons/react";
+import type { Icon } from "@phosphor-icons/react";
 import { useMapStore } from "@/lib/mindmap/store";
 import { CountUp } from "./CountUp";
 
@@ -31,6 +41,14 @@ const OVERVIEW_STATS: { value: number; suffix?: string; prefix?: string; label: 
   { value: 5, suffix: "+", label: "years operating" },
   { value: 10, suffix: "M+", label: "podcast downloads" },
   { value: 6, prefix: "$", suffix: "M", label: "bridge round" },
+];
+
+// The four ways in — one clear next step for each kind of visitor.
+const OVERVIEW_ACTIONS: { icon: Icon; label: string; href: string }[] = [
+  { icon: MapPin, label: "Visit", href: "https://wellsgrayresort.ca" },
+  { icon: UsersThree, label: "Become a member", href: "https://portal.place/membership" },
+  { icon: Handshake, label: "Invest", href: "https://portal.place/contact" },
+  { icon: Microphone, label: "Listen", href: "https://futurethinkers.org" },
 ];
 
 export function Sidebar() {
@@ -124,8 +142,28 @@ export function Sidebar() {
               onClick={() => setView("read")}
               className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[13px] font-medium text-[#d8cfc8] transition-colors hover:border-[#ea824e]/30 hover:text-[#f2a878]"
             >
-              <BookOpen size={18} weight="duotone" /> Read the full vision as a document
+              <BookOpen size={18} weight="duotone" /> Read the investor brief
             </button>
+
+            <div className="mt-7 w-full">
+              <div className="mb-2.5 font-mono text-[9px] uppercase tracking-[0.18em] text-[#b3a8aa]">
+                Find your way in
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {OVERVIEW_ACTIONS.map(({ icon: ActionIcon, label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2.5 text-left text-[12px] font-medium text-[#d8cfc8] transition-colors hover:border-[#ea824e]/40 hover:text-[#f2a878]"
+                  >
+                    <ActionIcon size={16} weight="duotone" color="#f2a878" />
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </motion.div>
         ) : (
           <motion.div

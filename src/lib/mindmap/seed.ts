@@ -21,68 +21,123 @@ const GEN = new Set<string>([
 const imageFor = (id: string, fallback: string) =>
   GEN.has(id) ? `/images/gen/${id}.png` : fallback;
 
-// Fuller investor writeups per sub-item (why it matters / benefit / ROI / expansion).
+// Short, human write-up per sub-item (one or two sentences — the "why it matters"
+// in plain language; the deeper investor case lives in the Brief / Read view).
 const LEAF_BODIES: Record<string, string> = {
   "land-0":
-    "What makes this parcel rare isn't its size alone — it's what sits next door. The land opens directly onto Wells Gray, one of British Columbia's largest wilderness parks, famed for its waterfalls and untouched backcountry. That means the views, the quiet, and the wild access can never be developed away: a protected backdrop held in perpetuity, two hours north of Kamloops at 50° north.\n\n" +
-    "Inside the fence line, the land already works. A private swimming lake, a creek winding through old-growth forest, and walking trails sit alongside built infrastructure — a geodesic dome, a wood-fired sauna, a 120-person event gazebo, a 9-hole golf and 18-hole disc-golf course, and twenty horse corrals. Gentle ~24°C summers carry a full May-to-October season of guests.\n\n" +
-    "Crucially, this isn't raw acreage. It's a contiguous 400-acre site with road access, utilities, and five-plus years of operating history as Wells Gray Resort. Assembling recreation land of this scale beside a protected park — already zoned, serviced, and generating revenue — is effectively impossible to replicate today, and that scarcity is what the whole plan is secured against.",
-  "land-1": "The property was acquired through community loans from the Future Thinkers audience rather than institutional capital, proving demand and aligning early backers as residents and advocates. This validated the model before outside money entered and built a committed user base most ventures must pay to acquire. Phase 1 of the current $6M raise pays out these loans and secures clean title, de-risking the cap table for new investors.",
-  "land-2": "Phase 1 is built and operating, not projected: 40+ RV sites, a private lake, sauna, geodesic dome, and a 120-person gazebo are complete and generating revenue across a five-year operating history. This removes the execution and construction risk that sinks most development plays. Investors are funding expansion of a working hospitality business with proven occupancy, not betting on a greenfield concept.",
-  "land-3": "Golf, disc golf, forest trails, horse corrals, and a kids playground spread amenity value across the full 400 acres, raising per-guest length of stay and justifying membership and immersion pricing. This breadth differentiates the site from single-purpose campgrounds and supports families for 30-day residencies. Recreation density is what converts a visit into a recurring membership relationship.",
-  "land-4": "Permaculture land design sequences solar exposure, water flow, and forest zones so the property's natural systems do productive work, lowering long-term operating costs for food, energy, and water management. This is both an operating-margin lever and a credibility marker for the regeneration thesis residents pay to join. Thoughtful zoning also protects the land's ecological value, which is core to the asset's appreciation.",
-  "land-5": "Off-grid power, water, and septic systems give the village operational independence from fragile rural infrastructure, reducing both ongoing utility costs and single-point-of-failure risk. Resilience is the product residents are buying, so the infrastructure is also marketing. Critically, these systems are the replicable template for future nodes that will sit on land without municipal services.",
-  "land-6": "Wells Gray is the flagship anchor and living template every future node is cloned from, which is where the real optionality sits. Proving the full stack of land, programs, tech, and operating economics on one working site converts a single-asset business into a replicable network play. The value is leverage: each lesson learned here de-risks the $20M+ expansion phases and the eventual multi-property network.",
-  "culture-0": "Seasonal membership from roughly $48/month, billed annually, follows the proven Soho House and Exclusive Resorts playbook: recurring, high-retention revenue against a fixed land base. Memberships monetize the community itself, not just rooms, producing predictable cash flow that compounds as the resident base grows. A Founding Member tier captures early demand at premium commitment, seeding both revenue and word-of-mouth.",
-  "culture-1": "Positioning the village as a seasonal summer home rather than a full-time commune dramatically widens the addressable market to families and creators who want belonging without relocating. This rhythm matches how memberships and 30-day immersions are actually consumed, smoothing demand and lowering churn. It also sidesteps the governance and burnout failures that have historically sunk intentional communities.",
-  "culture-2": "A curated base of values-aligned families and creators is the demand engine behind every revenue stream, from memberships to immersions to fabrication. Alignment drives retention, referrals, and the high-trust culture that makes the lifestyle product premium-priced and hard to copy. Selecting for fit early protects the brand and reduces the social friction that erodes community businesses over time.",
-  "culture-3": "Seasonal festivals and gatherings are the calendar anchors that drive peak occupancy, ticketed and program revenue, and the shared memories that renew memberships year over year. Events concentrate demand into high-margin windows and double as the top of the funnel for new members. They are also content: each gathering feeds the media engine that markets the village to the wider audience.",
-  "culture-4": "Artist residencies run as work-stay arrangements: artists contribute labor and creative work that beautifies the land while building culture, at low cash cost to the village. This converts an amenity expense into a contribution-based program and continuously generates the installations and atmosphere that justify premium pricing. Residencies also deepen the talent pipeline feeding the maker space and Design Spore.",
-  "culture-5": "Treating art as Phase 1 infrastructure rather than a late amenity is a deliberate differentiation bet: the look and feel of the place is what members pay for and what photographs into media reach. Front-loading art compounds the brand and asset value early instead of retrofitting it expensively later. It signals the village is a cultural product, not a campground with add-ons.",
-  "culture-6": "Wellness days, workshops, and rituals around the sauna, cold plunge, and campfire are the recurring programming that fills shoulder-season days and gives memberships weekly utility. These touchpoints drive retention and create upsell into paid courses, retreats, and immersions. They operationalize the wellness positioning that commands premium membership and stay pricing.",
-  "culture-7": "Clear roles and codes of conduct are the unglamorous governance layer that keeps a high-trust community healthy and protects the brand from the conflicts that destroy intentional communities. This is risk management: defined expectations reduce disputes, liability, and churn. A documented governance model is also part of the replicable template licensed and exported to future nodes.",
-  "os-0": "The Village Stack is a modular suite of AI and digital tools rather than one monolith, so each component can be deployed, improved, and licensed independently. Modularity lets new nodes adopt only what they need and lets the village sell the layer as a product without exposing the whole system. This architecture is the foundation of the tech moat and a future licensing revenue line.",
-  "os-1": "A digital twin and live land mapping give a real-time 3D model of the 400 acres, turning the property into queryable data for planning, maintenance, and resident wayfinding. It lowers operating cost by making the physical site legible to both staff and AI systems. As a replicable module, the twin is also a sellable capability for any village mapping its own land.",
-  "os-2": "An AI oracle assistant answers questions and guides residents and staff, reducing the human support load that normally scales linearly with headcount and guests. It improves the resident experience while holding down operating costs as occupancy grows. Packaged within the stack, it is a concrete demonstration of land-based AI that strengthens the licensing story.",
-  "os-3": "A walkie-talkie coordination network gives the seasonal team of 6 to 20 real-time operational coordination across a large property, directly improving safety, response time, and labor efficiency. Coordination tooling is what lets a lean crew run a complex site, protecting margins. It is a practical, exportable module other multi-acre nodes will need on day one.",
-  "os-4": "A single maintenance, repairs, and operations tracking system consolidates the work of running a 400-acre property into one source of truth, cutting downtime and deferred-maintenance risk that erodes asset value. Operational visibility is a direct margin and asset-protection lever. As part of the stack, it is among the most universally licensable modules for any physical-site operator.",
-  "os-5": "The module suite spanning members, governance, energy, farm, and marketplace covers the full operating surface of a village in composable parts. Together they let a node run memberships, resources, and internal commerce on one coherent platform. This breadth is what makes the stack a credible licensable product and the network's connective tissue, not just internal tooling.",
-  "os-6": "Embedding AI agents at every layer of operations is the bet that a small team can run a large, complex village by delegating routine coordination to software. The payoff is structurally lower labor cost per resident as the site and network scale. It also positions the village at the frontier of applied, land-based AI, reinforcing both the moat and the media narrative.",
-  "os-7": "Open-sourcing the stack through the Future Thinkers Foundation lets any aligned village run a node, which accelerates network growth and standardizes the platform every future site depends on. Open source drives adoption and goodwill while the proprietary expertise, integrations, and brand remain the moat. It seeds the ecosystem the franchisable and licensing models will later monetize.",
-  "net-0": "The network layer connecting people to aligned village nodes is the thesis that turns one property into a category: a replicable constellation rather than a single resort. Network effects compound membership value as nodes are added, since a membership becomes access to many places. This is the optionality that justifies the larger $20M+ phases and the long-term valuation upside.",
-  "net-1": "Wells Gray as the flagship anchor is the strongest, fully operating node from which the network's standards, software, and brand radiate. A proven flagship de-risks every subsequent node and gives the network a credible reference site for partners and investors. Its operating history is the evidence base the entire replication strategy stands on.",
-  "net-2": "Kamloops as a regional hub connects the BC interior and gives the network an urban gateway feeding members, talent, and logistics into Wells Gray and future nodes. A hub-and-spoke structure concentrates demand and distribution where population already is. It is the first step from a single site toward the multi-node network the larger raise funds.",
-  "net-3": "A BC-interior trade network moving food, goods, and services between nodes turns the constellation into a small resilient economy, capturing value that would otherwise leak to outside suppliers. Inter-node trade lowers costs, deepens the resilience story residents buy, and creates internal revenue. It is the practical mechanism that makes a network of villages more valuable than the sum of standalone sites.",
-  "net-4": "Member Credit and backhaul logistics move value and goods efficiently between villages, reducing waste on return trips and giving members a portable internal currency. This is the financial and physical plumbing that makes inter-node trade actually work at low cost. As the network grows, this layer becomes a defensible source of efficiency and member lock-in.",
-  "net-5": "Intentions toward Indigenous partnership with the Simpcw and Tk'emlúps are aspirational and not yet signed, and are framed honestly as such. Genuine partnership would strengthen the land relationship, social license, and regeneration mission central to the brand. This is flagged as upside and relationship-building, not a committed dependency in the current plan.",
-  "net-6": "Village as a service is the replicable, franchisable model: the packaged combination of template, tech stack, brand, and playbook that lets aligned operators launch a node. This converts hard-won operating knowledge into a scalable, capital-light revenue line beyond owning land directly. Franchising is the mechanism that takes the network from a few owned sites to a broad constellation.",
-  "net-7": "Serving as a physical home base for digital nomads captures the exact macro tailwind driving the thesis: remote work, automation, and burnout pushing knowledge workers toward nature and community. Nomads are a high-fit, recurring membership and immersion audience that fills weekday and shoulder-season capacity. They also seed the talent and culture that make the village productive year-round.",
-  "make-0": "The maker space, equipped with 3D printers, laser cutters, CNC, and UV tools, is the productive heart that turns the village from a place to stay into a place that builds. It enables on-site fabrication of cabins and goods, converting raw materials into high-margin product and member value. The equipment partnerships with Carbide 3D and xTool also anchor the local manufacturing strategy.",
-  "make-1": "Woodworking, embroidery, and a jam studio round out a hands-on maker culture that gives members daily creative utility and produces sellable, locally made goods. This craft layer deepens the lifestyle product and feeds the marketplace and circular-economy modules. It is also the on-ramp that develops residents into contributors to the larger fabrication operation.",
-  "make-2": "Manufacturing tiny homes and park-model cabins on-site is a direct, scalable revenue line with real margin: the village controls production and captures value that would otherwise go to outside builders. Local fabrication of cabins is one of the clearest monetization paths in the plan, and Phase 1 funds expanding the maker space precisely for this. It also supplies the village's own glamping and cabin inventory at cost.",
-  "make-3": "Cabins built to template the model are designed so the build itself can be exported and reproduced at other nodes, turning fabrication into a network-scaling tool, not just local product. Standardized, manufacturable cabins lower the cost and risk of launching each new site. This couples the manufacturing revenue line directly to the replication thesis.",
-  "make-4": "Physical art installations of sculpture and light across the land are the experiential differentiation that justifies premium membership and stay pricing and generates the imagery that powers the media engine. Art is treated as a productive asset that compounds brand value. Built largely through work-stay residencies, these installations come at low cash cost relative to their marketing return.",
-  "make-5": "Positioning the village as a hub for local production and a circular making economy keeps value, materials, and skills inside the network rather than leaking to outside suppliers. Local, circular making lowers costs, strengthens the resilience story, and creates marketplace revenue. It is the economic engine that makes the village a producer, not just a consumer of goods.",
-  "learn-0": "The Future Thinkers Foundation is the non-profit keeper of the mission, holding the open-sourced tools and educational programs that anchor the village's credibility and long-term purpose. The non-profit structure protects the mission from short-term commercial pressure and unlocks grants, partnerships, and goodwill. It is also the entity through which the stack is open-sourced to seed the network.",
-  "learn-1": "Forest schooling, priced at $495 to $595 per month, teaches kids meta-skills, maker culture, and foraging while creating recurring family revenue and a powerful reason for families to commit seasonally. Education is the stickiest possible hook: it binds whole families to the village across years. It also differentiates the lifestyle product from any pure-hospitality competitor.",
-  "learn-2": "Courses on resilience and meta-skills extend education to adults, monetizing the founders' expertise and audience through high-margin programming that fills capacity outside peak season. Adult education diversifies revenue beyond stays and memberships and reinforces the village's intellectual brand. Each course is also content that feeds the media funnel and recruits new members.",
-  "learn-3": "Public AI-literacy events position the village as a regional knowledge hub, building goodwill, local relationships, and a pipeline of aligned future members at low cost. These community workshops convert the founders' AI and media expertise into reach and reputation. They also strengthen the land-based-AI narrative that differentiates the project.",
-  "learn-4": "Openly published research on community design and governance turns the village's operating experience into intellectual authority and a credibility moat competitors cannot easily replicate. Published research attracts partners, talent, and press while documenting the playbook future nodes will follow. It reinforces the thesis that this is a studied, replicable model, not a one-off lifestyle bet.",
-  "learn-5": "Work-stay programs and fellowships let people learn by doing on the land on a contribution basis, supplying motivated labor at low cash cost while developing the village's future operators and members. This converts a labor expense into a talent and culture pipeline. Fellowships also widen access and deepen the committed community that retention depends on.",
-  "learn-6": "Open-sourcing the tools lets the model scale freely: adoption spreads without per-node sales friction while the village retains the brand, expertise, and network as the real moat. Free distribution maximizes ecosystem growth and standardizes the platform every node runs. Monetization shifts to licensing, services, and franchising on top of the open base.",
-  "ai-0": "AI woven into daily operations rather than bolted on is the structural efficiency bet behind the whole model: software absorbs coordination work so a lean seasonal team can run a complex property. Native integration lowers cost per resident and improves experience as the site scales. It is also the lived proof point for the village's licensable tech and AI narrative.",
-  "ai-1": "Autonomous agents at every layer of village life extend that efficiency, handling routine tasks across operations, programs, and resident support. The payoff is operating leverage: capacity grows faster than headcount and cost. As a frontier capability built on real land operations, it deepens both the moat and the story that attracts mission-aligned capital.",
-  "ai-2": "Robotics for land and community work targets the practical, expensive labor of maintaining 400 acres, from grounds to farm tasks, where automation directly cuts cost and addresses rural labor scarcity. Field robotics is an emerging margin lever most hospitality operators ignore. Proving it here creates exportable capability and reinforces the land-based-AI frontier positioning.",
-  "ai-3": "Framing land-based AI as a neglected frontier distinct from commercial, screen-bound AI is a genuine differentiation thesis with first-mover optionality. Most AI capital chases office and software use cases; applying it to physical land and community is comparatively open territory. Owning this niche is a strategic moat and a magnet for talent, press, and aligned investors.",
-  "ai-4": "AI-native artists creating live generative art on the land fuse the village's art and AI threads into experiences competitors cannot easily copy. This produces continuously fresh, shareable installations that drive media reach and premium positioning at low marginal cost. It also showcases the creative side of land-based AI, reinforcing the frontier brand.",
-  "ai-5": "Design Spore is the in-house AI and media production arm, a real studio with case studies including the Aeternity $79M raise and Game B at over 4M views. It is both a standalone revenue and consulting line and the engine that produces the village's marketing, fundraising, and content. Owning production in-house compounds reach while keeping customer-acquisition costs low.",
-  "why-0": "At its core the village is an experiment in how a resilient civilization could actually work, tested on real land with real residents rather than theorized. This ambition is what attracts the mission-aligned capital, talent, and audience that give the project its unfair advantages. For investors it frames the venture as category-defining, with upside far beyond a single resort's cash flows.",
-  "why-1": "Resilience built on food, energy, water, and mutual aid is the foundation residents are paying to access, and the macro hedge driving demand amid automation and instability. These systems lower operating costs while being the product itself. Tangible resilience differentiates the village from lifestyle competitors selling aesthetics without substance.",
-  "why-2": "Long-horizon governance and Game B futures position the village as a serious laboratory for new social and economic models, attracting an intellectually committed community and partners. This depth is brand equity that premium pricing and the foundation's research authority rest on. It signals durable purpose, which is what sustains a multi-decade network rather than a trend.",
-  "why-3": "The Future Thinkers Podcast, with 10M+ downloads, is the media engine and pre-built audience that already crowdfunded roughly $2.6M and now drives member acquisition at near-zero marginal cost. Owning distribution is the project's single biggest structural advantage over conventional developers. This flywheel of land, tech, and media is what makes growth capital-efficient.",
-  "why-4": "Regeneration and land-based living anchor the ecological mission that gives the brand authenticity and protects the long-term value of the core asset. Ecological restoration is both a values commitment residents buy into and a driver of the land's appreciation and social license. It differentiates the village from extractive development and aligns with the regeneration capital pool.",
-  "why-5": "Offering a whole way of life spanning resilience, art, craft, tech, family, and tradition is the integrated lifestyle product that makes the village a new real-estate category rather than a campground or club. Breadth is what justifies recurring membership and immersion pricing and drives deep retention. An integrated experience is also far harder for any single-vertical competitor to replicate.",
-  "why-6": "Built to be replicated as a network rather than a single brand, the model treats every system, tool, and playbook as exportable from day one. This is the source of the largest valuation upside: the path from one 400-acre site to a constellation of nodes and a licensable platform. Designing for replication is what turns a strong lifestyle business into a scalable network play.",
+    "What makes it rare is the neighbour: the land opens straight onto Wells Gray, one of BC's great wilderness parks, so the views and the quiet can never be built over. Two hours north of Kamloops, on a private lake, with old-growth forest at the door.",
+  "land-1":
+    "It was bought the rare way — through loans from the Future Thinkers audience, not a bank or a fund. The people who believed in it first are the people who live and build here now.",
+  "land-2":
+    "This isn't a someday render. The RV sites, lake, sauna, dome, and 120-person gazebo are built and full of guests every summer — five seasons and counting.",
+  "land-3":
+    "There's always a reason to wander out: a golf and disc-golf course, forest trails, horse corrals, and room for kids to roam. That's how a place turns into a home.",
+  "land-4":
+    "The land is laid out to work with nature, not against it — sun, water, and forest zones arranged so the place increasingly takes care of itself.",
+  "land-5":
+    "Power, water, and septic are built to stand on their own, so the village keeps running when the grid doesn't. Resilience here isn't a slogan; it's the plumbing.",
+  "land-6":
+    "Everything proven here — the land, the programs, the systems — becomes the blueprint the next village is built from. Wells Gray is the original; the rest get easier each time.",
+  "culture-0":
+    "Membership is about belonging, not a deed — a yearly pass to a community and a place. Think Soho House, for people who'd rather be in the forest.",
+  "culture-1":
+    "It's a summer home, not a commune. You come for seasons and weekends and keep your life — which is exactly why it lasts where full-time communes burn out.",
+  "culture-2":
+    "The community is chosen with care — families, makers, and resilience-minded people who share the values. That's what makes it feel like home, not a hotel.",
+  "culture-3":
+    "Festivals and gatherings are the heartbeat of the year — the nights people plan their season around and come back for.",
+  "culture-4":
+    "Artists live here on work-stays, leaving the land more beautiful than they found it. Much of the art you see was made by someone who stayed a while.",
+  "culture-5":
+    "Beauty comes first, not last. Art is part of the foundation here — it's why the place feels like somewhere, not a campground with extras.",
+  "culture-6":
+    "Saunas, cold plunges, workshops, and campfire rituals give the weeks a rhythm — the small, repeated things that actually make people well.",
+  "culture-7":
+    "A healthy community runs on clear agreements. Simple, shared codes keep the trust high and the drama low as more people arrive.",
+  "os-0":
+    "The software to run a village, built like Lego rather than a black box — take only the pieces you need. It's how a tiny crew keeps a big, complex place humming.",
+  "os-1":
+    "A living 3D map of all 400 acres, so the land itself becomes something you can plan around, maintain, and find your way through.",
+  "os-2":
+    "An on-site AI you can just ask — where's the trail, when's the event, who do I call — so help is always a question away.",
+  "os-3":
+    "A radio network that keeps a small seasonal crew moving as one across a big property: safer, faster, far less chaos.",
+  "os-4":
+    "One place to track every fix, chore, and repair, so nothing important slips through the cracks of a busy season.",
+  "os-5":
+    "Members, governance, energy, the farm, the marketplace — the everyday systems of a village in one coherent place. Run a community, not a pile of spreadsheets.",
+  "os-6":
+    "Helpful AI woven through every layer, so the place can grow without growing the headcount — or the burnout.",
+  "os-7":
+    "It's all open-sourced through the Foundation, so any aligned village anywhere can pick it up and run their own node for free.",
+  "net-0":
+    "One village is a place; many are a movement. Portal.Place is the thread connecting aligned villages, so one membership opens the door to all of them.",
+  "net-1":
+    "Wells Gray is the proven first node — the working reference every new village learns from, so each one starts further ahead.",
+  "net-2":
+    "Kamloops becomes the regional hub: the on-ramp from the city that feeds people, talent, and supplies out to the villages.",
+  "net-3":
+    "Food, goods, and skills moving between villages turn a scatter of places into a small, resilient economy that keeps value local.",
+  "net-4":
+    "A shared Member Credit and smart logistics let value and goods flow between villages — the seeds of the network's own internal economy.",
+  "net-5":
+    "We hope to build real partnership with the Simpcw and Tk'emlúps Nations, whose territory this is. An honest intention and a relationship to earn — not a done deal.",
+  "net-6":
+    "The whole village — template, tools, brand, and playbook — packaged so aligned founders can launch their own. Village as a service: start a node without starting from zero.",
+  "net-7":
+    "A real home base for remote workers and digital nomads — roots and a tribe for people who have freedom but not belonging.",
+  "make-0":
+    "A real workshop — 3D printers, laser, CNC — that turns the village from a place you stay into a place you build. Bring an idea, leave with the thing.",
+  "make-1":
+    "Woodworking, embroidery, and a music & jam studio — everyday making that turns guests into builders and ideas into things you can hold.",
+  "make-2":
+    "The village builds its own tiny homes and cabins on site, keeping the value (and the craft) that usually goes to outside builders.",
+  "make-3":
+    "Every cabin is designed to be built again elsewhere — so the way we make things travels to the next village too.",
+  "make-4":
+    "Sculpture and light installations across the land — the work that makes the place unforgettable, most of it made by artists in residence.",
+  "make-5":
+    "Make it here, trade it here: a local, circular making economy that keeps materials, skills, and money inside the community.",
+  "learn-0":
+    "The Future Thinkers Foundation holds the long game — the education, research, and open tools that keep the mission honest beyond any one season.",
+  "learn-1":
+    "Forest school where kids learn by doing — building, growing, foraging, getting their hands dirty. The kind of childhood a lot of parents are looking for.",
+  "learn-2":
+    "Courses for grown-ups in the skills that matter when things get uncertain — from resilience to working well alongside AI.",
+  "learn-3":
+    "Free, public AI-literacy nights that make the village a place the whole region learns — and a friendly doorway in.",
+  "learn-4":
+    "What works (and what doesn't) gets written down and shared openly, so the next community doesn't learn it the hard way.",
+  "learn-5":
+    "Come learn by working the land. Work-stays and fellowships trade your hands and time for skills, belonging, and a way in.",
+  "learn-6":
+    "The tools are given away, not gatekept — because the goal is a movement, not a monopoly.",
+  "ai-0":
+    "AI here is woven into the day-to-day, not bolted on for show — quietly making a complex place easier to run.",
+  "ai-1":
+    "Helpful agents at every layer take the busywork, so people can spend their time on the things only people can do.",
+  "ai-2":
+    "Robots aimed at the real, expensive work of caring for 400 acres — the grounds, the farm, the chores that wear a small crew down.",
+  "ai-3":
+    "Almost everyone is pointing AI at screens and offices. Pointing it at land and community is wide-open territory — and that's exactly where we're building.",
+  "ai-4":
+    "Artists using AI to create living light-and-code art on the land — a glimpse of where creativity and technology meet outdoors.",
+  "ai-5":
+    "Design Spore is the in-house studio behind the storytelling — the team that's helped raise tens of millions and reach millions of views.",
+  "why-0":
+    "Underneath it all is one question: what would a resilient, genuinely good way to live actually look like — not in theory, but on real land with real people? This is where we get to try.",
+  "why-1":
+    "Food, energy, water, and neighbours you can count on — the basics rebuilt close to home, so life holds together when the wider world wobbles.",
+  "why-2":
+    "Thinking in decades, not quarters — experimenting with governance and 'Game B' ideas for how people might organize and decide together.",
+  "why-3":
+    "The Future Thinkers Podcast — 10M+ downloads — is the campfire this whole thing grew around, and the reason the audience helped buy the land.",
+  "why-4":
+    "Healing the land and living closer to it isn't a feature; it's the point — a place that gives back more than it takes.",
+  "why-5":
+    "Not a product but a whole way of life — resilience, art, craft, technology, family, and tradition, woven together in one place.",
+  "why-6":
+    "It was always meant to be copied. Everything here is built so the next village — and the one after that — can begin.",
 };
 
 // Branch-level overview paragraphs — orient the reader and preview what they'll
@@ -142,9 +197,26 @@ const LEAF_GALLERY: Record<string, string[]> = {
   "land-0": [L + "swimming-lake-scaled.jpg", L + "aurora-at-night-scaled.jpg", L + "moose-at-lake-scaled.jpg"],
 };
 
-// Optional "learn more" links per node id → a relevant page on the live site.
+// Optional "learn more" / call-to-action links per node id → a relevant page.
 const LEAF_LINKS: Record<string, { href: string; label: string }> = {
   "land-0": { href: "https://portal.place/village", label: "Explore Wells Gray Village" },
+  "culture-0": { href: "https://portal.place/membership", label: "Become a member" },
+  "culture-4": { href: "https://portal.place/residency", label: "Apply for a residency" },
+  "net-6": { href: "https://portal.place/partner", label: "Bring a village to your land" },
+  "learn-5": { href: "https://portal.place/workstay", label: "Join a work-stay" },
+  "ai-5": { href: "https://designspore.co", label: "See Design Spore's work" },
+  "why-3": { href: "https://futurethinkers.org", label: "Listen to the podcast" },
+};
+
+// Per-branch "learn more / take action" links (fallback when a branch has no
+// inline moreLink). Each points to a real next step on the live site.
+const BRANCH_LINKS: Record<string, { href: string; label: string }> = {
+  culture: { href: "https://portal.place/membership", label: "Become a member" },
+  make: { href: "https://portal.place/workstay", label: "Build with us — work-stay" },
+  learn: { href: "https://portal.place/donate", label: "Support the Foundation" },
+  net: { href: "https://portal.place/partner", label: "Partner on the network" },
+  ai: { href: "https://designspore.co", label: "Meet Design Spore" },
+  why: { href: "https://futurethinkers.org", label: "Listen to Future Thinkers" },
 };
 
 const BRANCHES: BranchSeed[] = [
@@ -621,7 +693,7 @@ function buildNodes(): MapNode[] {
       image: imageFor(b.key, b.image),
       complexity: b.complexity,
       tier: b.tier,
-      moreLink: b.moreLink,
+      moreLink: b.moreLink ?? BRANCH_LINKS[b.key],
       links: [
         {
           fileId: DOC_ID,
@@ -659,7 +731,7 @@ export const PORTAL_PLACE_MAP: MindMap = {
   subtitle: "A vision map of the Wells Gray land project",
   eyebrow: "A Smart Village in the making · Wells Gray, BC",
   tagline:
-    "400 acres of land, a network of villages, and an experiment in how a resilient civilization could actually work.",
+    "A real 400-acre village in the BC wilderness — built and operating — and the blueprint for a whole network of them. Come visit, become a member, or help build what's next.",
   footerLead: "Built from the Portal.Place ecosystem — the land, the network, and the way of life.",
   walkthrough: {
     url: "https://www.youtube.com/embed/KBYm2xRwkrM",
