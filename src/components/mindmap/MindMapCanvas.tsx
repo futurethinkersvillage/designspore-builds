@@ -73,18 +73,27 @@ function Flow({ embedded = false }: FlowProps) {
   );
 
   // Re-fit on mount, when the node set changes, and — crucially for the embed —
-  // whenever the container resizes (it gets its real size after first paint,
-  // scrollbar changes, and scroll-into-view reflows).
+  // whenever the container resizes OR scrolls into view. A below-the-fold embed
+  // gets its size once and never changes it, so ResizeObserver alone can miss;
+  // IntersectionObserver guarantees a fit the moment the section is visible.
   useEffect(() => {
     if (!nodesInitialized) return;
-    const timers = [0, 120, 450].map((ms, i) => setTimeout(() => doFit(i === 0 ? 0 : 350), ms));
+    const timers = [0, 120, 450, 900].map((ms, i) => setTimeout(() => doFit(i === 0 ? 0 : 350), ms));
     const ro = new ResizeObserver(() => doFit(200));
-    if (wrapperRef.current) ro.observe(wrapperRef.current);
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && doFit(300)),
+      { threshold: 0.1 },
+    );
+    if (wrapperRef.current) {
+      ro.observe(wrapperRef.current);
+      io.observe(wrapperRef.current);
+    }
     const onResize = () => doFit(200);
     window.addEventListener("resize", onResize);
     return () => {
       timers.forEach(clearTimeout);
       ro.disconnect();
+      io.disconnect();
       window.removeEventListener("resize", onResize);
     };
   }, [nodeIdsKey, nodesInitialized, doFit]);

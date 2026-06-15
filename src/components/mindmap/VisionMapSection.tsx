@@ -66,7 +66,7 @@ export function VisionMapSection() {
               </div>
 
               {/* Body: canvas + funding rail + sidebar */}
-              <div className="relative flex h-[78vh] max-h-[820px] min-h-[560px]">
+              <div className="relative flex h-[90vh] max-h-[1100px] min-h-[600px]">
                 <main className="relative min-w-0 flex-1">
                   <MindMapCanvas embedded />
                   {view === "map" && (
