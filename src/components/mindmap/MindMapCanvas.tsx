@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ReactFlow,
   ReactFlowProvider,
@@ -8,7 +8,6 @@ import {
   BackgroundVariant,
   Controls,
   useReactFlow,
-  useNodesInitialized,
   type NodeMouseHandler,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
@@ -37,8 +36,10 @@ function Flow({ embedded = false }: FlowProps) {
   const selectNode = useMapStore((s) => s.selectNode);
 
   const rf = useReactFlow();
-  const nodesInitialized = useNodesInitialized();
   const wrapperRef = useRef<HTMLDivElement>(null);
+  // Hide the canvas until the first successful fit so the unfitted (top-left)
+  // state is never visible.
+  const [fitted, setFitted] = useState(false);
 
   const { nodes, edges } = useMemo(
     () => computeLayout(map, { hoveredId, selectedId, funding }),
@@ -68,17 +69,21 @@ function Flow({ embedded = false }: FlowProps) {
         { x: raw.x - railPad, y: raw.y, width: raw.width + railPad, height: raw.height + bottomPad },
         { duration, padding: 0.04 },
       );
+      setFitted(true);
     },
     [map, rf],
   );
 
-  // Re-fit on mount, when the node set changes, and — crucially for the embed —
-  // whenever the container resizes OR scrolls into view. A below-the-fold embed
-  // gets its size once and never changes it, so ResizeObserver alone can miss;
-  // IntersectionObserver guarantees a fit the moment the section is visible.
+  // Re-fit on mount, when the node set changes, whenever the container resizes,
+  // and — crucially for the embed — when it scrolls into view. We deliberately do
+  // NOT gate on useNodesInitialized: the layout sets explicit node width/height,
+  // so React Flow skips DOM measurement and `nodesInitialized` never flips true
+  // in production builds. getNodesBounds works from the explicit dims, so doFit
+  // self-guards on container size + node presence instead.
   useEffect(() => {
-    if (!nodesInitialized) return;
-    const timers = [0, 120, 450, 900].map((ms, i) => setTimeout(() => doFit(i === 0 ? 0 : 350), ms));
+    const timers = [0, 120, 450, 900, 1600].map((ms, i) =>
+      setTimeout(() => doFit(i === 0 ? 0 : 350), ms),
+    );
     const ro = new ResizeObserver(() => doFit(200));
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && doFit(300)),
@@ -90,13 +95,16 @@ function Flow({ embedded = false }: FlowProps) {
     }
     const onResize = () => doFit(200);
     window.addEventListener("resize", onResize);
+    // Safety net: never leave the canvas hidden even if every fit attempt bailed.
+    const reveal = setTimeout(() => setFitted(true), 1800);
     return () => {
       timers.forEach(clearTimeout);
+      clearTimeout(reveal);
       ro.disconnect();
       io.disconnect();
       window.removeEventListener("resize", onResize);
     };
-  }, [nodeIdsKey, nodesInitialized, doFit]);
+  }, [nodeIdsKey, doFit]);
 
   // Search: select the matching branch so its panel opens.
   useEffect(() => {
@@ -123,7 +131,11 @@ function Flow({ embedded = false }: FlowProps) {
   };
 
   return (
-    <div ref={wrapperRef} className="h-full w-full">
+    <div
+      ref={wrapperRef}
+      className="h-full w-full"
+      style={{ opacity: fitted ? 1 : 0, transition: "opacity 0.45s ease" }}
+    >
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -147,9 +159,9 @@ function Flow({ embedded = false }: FlowProps) {
         proOptions={{ hideAttribution: true }}
         className="bg-transparent"
       >
-        {/* Render only after measurement — before the viewport is measured the
+        {/* Render only after the first fit — before the viewport is sized the
             dots pattern computes NaN coordinates (harmless dev warnings). */}
-        {nodesInitialized && (
+        {fitted && (
           <Background
             variant={BackgroundVariant.Dots}
             gap={28}
