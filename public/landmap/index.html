@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wells Gray Golf &amp; RV Resort — Development Plan</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  :root{
+    --bg:#14180f; --panel:#1d2417; --ink:#f3f1e7; --muted:#a9b39a;
+    --accent:#cfa64b; --line:#2c3522;
+    --green:#2E7D46; --blue:#1F6FA8; --brown:#7A4B2A; --slate:#5D6D7E;
+    --orange:#F39200; --purple:#8E44AD; --gold:#FFD400;
+  }
+  html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  #map{position:absolute;inset:0;background:var(--bg)}
+  .panel{position:absolute;z-index:1000;background:rgba(29,36,23,.94);color:var(--ink);
+    border:1px solid var(--line);border-radius:12px;backdrop-filter:blur(6px);
+    box-shadow:0 10px 30px rgba(0,0,0,.45)}
+  /* Title */
+  #title{top:14px;left:14px;max-width:330px;padding:16px 18px}
+  #title h1{margin:0 0 4px;font-size:18px;letter-spacing:.2px;line-height:1.2}
+  #title .sub{color:var(--muted);font-size:12.5px;line-height:1.45}
+  #title .brand{margin-top:10px;font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
+  /* Controls panel */
+  #controls{top:14px;right:14px;width:260px;padding:14px 16px;max-height:calc(100% - 28px);overflow:auto}
+  #controls h2{margin:2px 0 10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .sec{margin:14px 0 6px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+  .sec:first-of-type{border-top:none;padding-top:0;margin-top:4px}
+  label.row{display:flex;align-items:center;gap:9px;padding:5px 4px;border-radius:7px;cursor:pointer;font-size:13px}
+  label.row:hover{background:rgba(255,255,255,.05)}
+  label.row input{accent-color:var(--accent);width:15px;height:15px}
+  .sw{width:14px;height:14px;border-radius:3px;flex:0 0 auto;border:1px solid rgba(255,255,255,.25)}
+  .sw.line{height:0;border-top-width:3px;border-radius:0}
+  .basemap-row{display:flex;gap:6px;margin-top:4px}
+  .bm{flex:1;text-align:center;font-size:11.5px;padding:7px 4px;border:1px solid var(--line);
+    border-radius:8px;cursor:pointer;color:var(--muted)}
+  .bm.active{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:600}
+  .hint{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.5;border-top:1px solid var(--line);padding-top:10px}
+  /* popup */
+  .leaflet-popup-content-wrapper{background:var(--panel);color:var(--ink);border-radius:10px}
+  .leaflet-popup-tip{background:var(--panel)}
+  .pp b{color:var(--accent)}
+  .pp .t{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  @media(max-width:640px){
+    #title{max-width:none;left:10px;right:10px;top:10px}
+    #controls{right:10px;left:10px;top:auto;bottom:10px;width:auto;max-height:42%}
+  }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<div id="title" class="panel">
+  <h1>Wells Gray Golf &amp; RV Resort</h1>
+  <div class="sub">Development master plan — existing operations &amp; planned expansion. Toggle layers and backdrops at right; click any feature for details.</div>
+  <div class="brand">Clearwater, BC · Design Spore</div>
+</div>
+
+<div id="controls" class="panel">
+  <h2>Backdrop</h2>
+  <div class="basemap-row">
+    <div class="bm active" data-bm="sat">Satellite</div>
+    <div class="bm" data-bm="topo">Topo</div>
+    <div class="bm" data-bm="osm">Map</div>
+  </div>
+  <div id="layers"></div>
+  <div class="hint">Yellow outline = legal parcel boundary. Orange hatched = planned future phases.</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map = L.map('map',{zoomControl:true,attributionControl:true}).setView([51.93,-120.05],14);
+L.control.scale({imperial:true,metric:true}).addTo(map);
+
+// ---------- basemaps ----------
+const basemaps = {
+  sat: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        {maxZoom:19,attribution:'Imagery © Esri'}),
+  topo: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+        {maxZoom:19,attribution:'© Esri'}),
+  osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {maxZoom:19,attribution:'© OpenStreetMap'})
+};
+let current = basemaps.sat.addTo(map);
+document.querySelectorAll('.bm').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.bm').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  map.removeLayer(current);
+  current = basemaps[b.dataset.bm].addTo(map);
+  // vector overlays live in Leaflet's overlayPane (above tilePane), so they stay on top
+});
+
+// ---------- layer definitions ----------
+// group: existing | planned | infra ; type: poly | line | point
+const DEFS = [
+  {f:'parcel',           name:'Parcel boundary',     group:'base',     type:'poly', color:'#FFD400', fill:'none', weight:2.5, popup:['pid_formatted','owner_type','feature_area_sqm'], on:true},
+  {f:'rv_permanent',     name:'Permanent RV sites',  group:'existing', type:'poly', color:'#1F6FA8', popup:['id'], on:true},
+  {f:'sites_fullservice',name:'Full-service sites',  group:'existing', type:'poly', color:'#2E7D46', popup:['Name'], on:true},
+  {f:'sites_powerwater', name:'Power &amp; water sites', group:'existing', type:'poly', color:'#1F6FA8', popup:['Site'], on:true},
+  {f:'for_rent',         name:'For-rent units',      group:'existing', type:'poly', color:'#5DADE2', popup:['Type','Site'], on:true},
+  {f:'buildings',        name:'Buildings',           group:'existing', type:'poly', color:'#7A4B2A', popup:['Name'], on:true},
+  {f:'facilities',       name:'Washrooms / showers', group:'existing', type:'poly', color:'#9C6B3F', popup:['Name'], on:true},
+  {f:'public_areas',     name:'Public &amp; amenity areas', group:'existing', type:'poly', color:'#5D6D7E', popup:['Structures'], on:true},
+  {f:'golf',             name:'Golf course',         group:'existing', type:'poly', color:'#3E8E5A', fillOpacity:.25, popup:['Holes'], on:false},
+  {f:'trails',           name:'Trails',              group:'existing', type:'line', color:'#6E4B2A', dash:'5,5', popup:['id'], on:true},
+  {f:'sani_dumps',       name:'Sani dumps',          group:'existing', type:'point',color:'#8E44AD', popup:['Location'], on:true},
+  {f:'cabins',           name:'Cabins (expansion)',  group:'planned',  type:'poly', color:'#2E7D46', popup:['id'], on:true},
+  {f:'new_sites',        name:'New sites (future)',  group:'planned',  type:'poly', color:'#F39200', hatch:true, popup:['Site'], on:true},
+];
+
+const overlays = {};   // f -> layer
+function styleFor(d){
+  const base = {color:d.color, weight:d.weight||1.2, opacity:1};
+  if(d.type==='line') return {color:d.color, weight:3, dashArray:d.dash||null};
+  if(d.fill==='none') return {...base, fill:false};
+  return {...base, color:'#ffffff', weight:1, fillColor:d.color, fillOpacity:(d.fillOpacity!=null?d.fillOpacity:0.85)};
+}
+const LABELS={parcel_name:'Parcel',pid_formatted:'PID',owner_type:'Owner',
+  feature_area_sqm:'Area',Name:'Name',Site:'Site',Type:'Type',Structures:'Structure',
+  Location:'Location',Holes:'Holes',id:'Ref'};
+function popupHtml(d,props,n){
+  let rows = `<div class="pp"><div class="t">${d.name.replace('&amp;','&')}${n?' · #'+n:''}</div>`;
+  let any=false;
+  (d.popup||[]).forEach(k=>{
+    const key = k.replace('&amp;','&');
+    let v = props[key];
+    if(v==null || String(v).trim()==='') return;
+    if(key==='feature_area_sqm'){ v=(v/4046.86).toFixed(1)+' ac ('+Math.round(v).toLocaleString()+' m²)'; }
+    rows += `<div><b>${LABELS[key]||key}:</b> ${v}</div>`; any=true;
+  });
+  if(!any) rows += `<div style="color:var(--muted)">Planned ${d.name.toLowerCase().replace('&amp;','&')} unit</div>`;
+  return rows+'</div>';
+}
+function addLayer(d){
+  return fetch('data/'+d.f+'.geojson').then(r=>r.json()).then(gj=>{
+    let i=0;
+    const lyr = L.geoJSON(gj,{
+      style: ()=>styleFor(d),
+      pointToLayer:(ft,latlng)=>L.circleMarker(latlng,{radius:6,color:'#fff',weight:1.4,fillColor:d.color,fillOpacity:.95}),
+      onEachFeature:(ft,l)=>{ i++; if(d.popup) l.bindPopup(popupHtml(d,ft.properties||{}, (d.group==='base'?0:i))); }
+    });
+    overlays[d.f]=lyr;
+    if(d.on) lyr.addTo(map);
+    return {d,gj};
+  }).catch(e=>{console.warn('load fail',d.f,e);return null;});
+}
+
+// hatch pattern for planned (SVG fill) — applied after add
+function applyHatch(d){
+  const lyr=overlays[d.f]; if(!lyr) return;
+  lyr.setStyle({fillColor:d.color,color:d.color,weight:1.2,fillOpacity:.35});
+}
+
+// ---------- build control UI ----------
+function sw(d){
+  if(d.type==='line') return `<span class="sw line" style="border-top-color:${d.color}"></span>`;
+  if(d.fill==='none') return `<span class="sw" style="background:transparent;border:2px solid ${d.color}"></span>`;
+  return `<span class="sw" style="background:${d.color}"></span>`;
+}
+function buildUI(){
+  const host=document.getElementById('layers');
+  const groups=[['base','Property'],['existing','Existing / operational'],['planned','Planned expansion']];
+  let html='';
+  groups.forEach(([g,label])=>{
+    const items=DEFS.filter(d=>d.group===g);
+    if(!items.length) return;
+    html+=`<div class="sec">${label}</div>`;
+    items.forEach(d=>{
+      html+=`<label class="row"><input type="checkbox" data-f="${d.f}" ${d.on?'checked':''}>${sw(d)}<span>${d.name}</span></label>`;
+    });
+  });
+  host.innerHTML=html;
+  host.querySelectorAll('input').forEach(cb=>cb.onchange=()=>{
+    const lyr=overlays[cb.dataset.f]; if(!lyr) return;
+    cb.checked?lyr.addTo(map):map.removeLayer(lyr);
+  });
+}
+
+// ---------- init ----------
+Promise.all(DEFS.map(addLayer)).then(results=>{
+  DEFS.filter(d=>d.hatch).forEach(applyHatch);
+  buildUI();
+  // fit to parcel
+  if(overlays['parcel']){
+    try{ map.fitBounds(overlays['parcel'].getBounds().pad(0.08)); }catch(e){}
+  }
+});
+</script>
+</body>
+</html>

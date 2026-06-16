@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "sani_dumps",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": null, "Location": "Sani Dump 1" }, "geometry": { "type": "Point", "coordinates": [ -120.050520543570258, 51.938971622822024 ] } },
+{ "type": "Feature", "properties": { "id": null, "Location": "Sani Dump 2" }, "geometry": { "type": "Point", "coordinates": [ -120.047349584318113, 51.94066866653786 ] } }
+]
+}
