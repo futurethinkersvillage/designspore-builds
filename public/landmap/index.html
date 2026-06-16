@@ -113,7 +113,7 @@ const DEFS = [
   {f:'facilities',       name:'Washrooms / showers', group:'existing', type:'poly', color:'#9C6B3F', popup:['Name'], on:true},
   {f:'public_areas',     name:'Public &amp; amenity areas', group:'existing', type:'poly', color:'#5D6D7E', popup:['Structures'], on:true},
   {f:'golf',             name:'Golf course',         group:'existing', type:'poly', color:'#3E8E5A', fillOpacity:.25, popup:['Holes'], on:false},
-  {f:'trails',           name:'Trails',              group:'existing', type:'line', color:'#6E4B2A', dash:'5,5', popup:['id'], on:true},
+  {f:'trails',           name:'Trails / roads',      group:'existing', type:'line', color:'#cfcfcf', dash:'5,5', popup:['id'], on:true},
   {f:'sani_dumps',       name:'Sani dumps',          group:'existing', type:'point',color:'#8E44AD', popup:['Location'], on:true},
   {f:'cabins',           name:'Cabins (expansion)',  group:'planned',  type:'poly', color:'#2E7D46', popup:['id'], on:true},
   {f:'new_sites',        name:'New sites (future)',  group:'planned',  type:'poly', color:'#F39200', popup:['Site'], on:true},
@@ -124,8 +124,8 @@ function styleFor(d){
   const planned = d.group==='planned';
   if(d.type==='line') return {color:d.color, weight:3, dashArray:d.dash||null};
   if(d.fill==='none') return {color:d.color, weight:d.weight||2.5, fill:false};
-  // Planned features read as "proposed": translucent fill + dashed outline.
-  return {color: planned?d.color:'#ffffff', weight:planned?1.6:1,
+  // Planned features read as "proposed": translucent fill + LIGHT dashed outline.
+  return {color: planned?'#f0f0f0':'#ffffff', weight:planned?1.8:1,
           dashArray: planned?'5,4':null, fillColor:d.color,
           fillOpacity:(d.fillOpacity!=null?d.fillOpacity:(planned?0.40:0.85))};
 }
@@ -169,7 +169,7 @@ function applyHatch(d){
 function sw(d){
   if(d.type==='line') return `<span class="sw line" style="border-top-color:${d.color}"></span>`;
   if(d.fill==='none') return `<span class="sw" style="background:transparent;border:2px solid ${d.color}"></span>`;
-  if(d.group==='planned') return `<span class="sw" style="background:${d.color}33;border:1.5px dashed ${d.color}"></span>`;
+  if(d.group==='planned') return `<span class="sw" style="background:${d.color}33;border:1.5px dashed #f0f0f0"></span>`;
   return `<span class="sw" style="background:${d.color}"></span>`;
 }
 function buildUI(){
