@@ -61,6 +61,7 @@
   <h2>Backdrop</h2>
   <div class="basemap-row">
     <div class="bm active" data-bm="sat">Satellite</div>
+    <div class="bm" data-bm="drone">Drone</div>
     <div class="bm" data-bm="topo">Topo</div>
     <div class="bm" data-bm="osm">Map</div>
   </div>
@@ -76,18 +77,27 @@ L.control.scale({imperial:true,metric:true}).addTo(map);
 // ---------- basemaps ----------
 const basemaps = {
   sat: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-        {maxZoom:19,attribution:'Imagery © Esri'}),
+        {maxZoom:22,maxNativeZoom:19,attribution:'Imagery © Esri'}),
   topo: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-        {maxZoom:19,attribution:'© Esri'}),
+        {maxZoom:22,maxNativeZoom:19,attribution:'© Esri'}),
   osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        {maxZoom:19,attribution:'© OpenStreetMap'})
+        {maxZoom:22,maxNativeZoom:19,attribution:'© OpenStreetMap'})
 };
+// Drone orthomosaic — high-res but covers only the property, so it rides on top
+// of the satellite base (transparent outside coverage).
+const droneLayer = L.tileLayer('tiles/drone/{z}/{x}/{y}.webp', {
+  minZoom:13, maxNativeZoom:20, maxZoom:22, opacity:1,
+  bounds:[[51.9333,-120.0611],[51.9424,-120.0456]],
+  attribution:'Drone orthomosaic © Mike Gilliland'
+});
 let current = basemaps.sat.addTo(map);
 document.querySelectorAll('.bm').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.bm').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');
-  map.removeLayer(current);
-  current = basemaps[b.dataset.bm].addTo(map);
+  const key=b.dataset.bm;
+  map.removeLayer(current); map.removeLayer(droneLayer);
+  if(key==='drone'){ current=basemaps.sat.addTo(map); droneLayer.addTo(map); }
+  else { current=basemaps[key].addTo(map); }
   // vector overlays live in Leaflet's overlayPane (above tilePane), so they stay on top
 });
 
