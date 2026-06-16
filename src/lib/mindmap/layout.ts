@@ -23,9 +23,9 @@ const SIZE = {
 } as const;
 
 // Elliptical constellation — wider than tall so the overall shape reads
-// landscape (and the vertical spacing between branches is tighter/more even).
-const RADIUS_X = 430;
-const RADIUS_Y = 280;
+// landscape. Generous vertical radius so branches don't feel scrunched.
+const RADIUS_X = 460;
+const RADIUS_Y = 360;
 
 const rad = (deg: number) => (deg * Math.PI) / 180;
 

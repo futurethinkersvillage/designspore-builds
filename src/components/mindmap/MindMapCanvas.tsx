@@ -64,10 +64,9 @@ function Flow({ embedded = false }: FlowProps) {
       const raw = rf.getNodesBounds(target);
       if (!Number.isFinite(raw.width) || raw.width === 0) return;
       const railPad = 290;
-      const bottomPad = 24;
       rf.fitBounds(
-        { x: raw.x - railPad, y: raw.y, width: raw.width + railPad, height: raw.height + bottomPad },
-        { duration, padding: 0.04 },
+        { x: raw.x - railPad, y: raw.y, width: raw.width + railPad, height: raw.height },
+        { duration, padding: 0.12 },
       );
       setFitted(true);
     },
