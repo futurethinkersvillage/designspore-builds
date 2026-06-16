@@ -65,7 +65,7 @@
     <div class="bm" data-bm="osm">Map</div>
   </div>
   <div id="layers"></div>
-  <div class="hint">Yellow outline = legal parcel boundary. Orange hatched = planned future phases.</div>
+  <div class="hint">Yellow outline = legal parcel boundary. Solid fills = existing &amp; operational. Dashed, translucent fills = planned (not yet built).</div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -95,7 +95,7 @@ document.querySelectorAll('.bm').forEach(b=>b.onclick=()=>{
 // group: existing | planned | infra ; type: poly | line | point
 const DEFS = [
   {f:'parcel',           name:'Parcel boundary',     group:'base',     type:'poly', color:'#FFD400', fill:'none', weight:2.5, popup:['pid_formatted','owner_type','feature_area_sqm'], on:true},
-  {f:'rv_permanent',     name:'Permanent RV sites',  group:'existing', type:'poly', color:'#1F6FA8', popup:['id'], on:true},
+  {f:'rv_permanent',     name:'Permanent RV sites',  group:'planned',  type:'poly', color:'#1F6FA8', popup:['id'], on:true},
   {f:'sites_fullservice',name:'Full-service sites',  group:'existing', type:'poly', color:'#2E7D46', popup:['Name'], on:true},
   {f:'sites_powerwater', name:'Power &amp; water sites', group:'existing', type:'poly', color:'#1F6FA8', popup:['Site'], on:true},
   {f:'for_rent',         name:'For-rent units',      group:'existing', type:'poly', color:'#5DADE2', popup:['Type','Site'], on:true},
@@ -106,15 +106,18 @@ const DEFS = [
   {f:'trails',           name:'Trails',              group:'existing', type:'line', color:'#6E4B2A', dash:'5,5', popup:['id'], on:true},
   {f:'sani_dumps',       name:'Sani dumps',          group:'existing', type:'point',color:'#8E44AD', popup:['Location'], on:true},
   {f:'cabins',           name:'Cabins (expansion)',  group:'planned',  type:'poly', color:'#2E7D46', popup:['id'], on:true},
-  {f:'new_sites',        name:'New sites (future)',  group:'planned',  type:'poly', color:'#F39200', hatch:true, popup:['Site'], on:true},
+  {f:'new_sites',        name:'New sites (future)',  group:'planned',  type:'poly', color:'#F39200', popup:['Site'], on:true},
 ];
 
 const overlays = {};   // f -> layer
 function styleFor(d){
-  const base = {color:d.color, weight:d.weight||1.2, opacity:1};
+  const planned = d.group==='planned';
   if(d.type==='line') return {color:d.color, weight:3, dashArray:d.dash||null};
-  if(d.fill==='none') return {...base, fill:false};
-  return {...base, color:'#ffffff', weight:1, fillColor:d.color, fillOpacity:(d.fillOpacity!=null?d.fillOpacity:0.85)};
+  if(d.fill==='none') return {color:d.color, weight:d.weight||2.5, fill:false};
+  // Planned features read as "proposed": translucent fill + dashed outline.
+  return {color: planned?d.color:'#ffffff', weight:planned?1.6:1,
+          dashArray: planned?'5,4':null, fillColor:d.color,
+          fillOpacity:(d.fillOpacity!=null?d.fillOpacity:(planned?0.40:0.85))};
 }
 const LABELS={parcel_name:'Parcel',pid_formatted:'PID',owner_type:'Owner',
   feature_area_sqm:'Area',Name:'Name',Site:'Site',Type:'Type',Structures:'Structure',
@@ -156,6 +159,7 @@ function applyHatch(d){
 function sw(d){
   if(d.type==='line') return `<span class="sw line" style="border-top-color:${d.color}"></span>`;
   if(d.fill==='none') return `<span class="sw" style="background:transparent;border:2px solid ${d.color}"></span>`;
+  if(d.group==='planned') return `<span class="sw" style="background:${d.color}33;border:1.5px dashed ${d.color}"></span>`;
   return `<span class="sw" style="background:${d.color}"></span>`;
 }
 function buildUI(){
@@ -179,7 +183,6 @@ function buildUI(){
 
 // ---------- init ----------
 Promise.all(DEFS.map(addLayer)).then(results=>{
-  DEFS.filter(d=>d.hatch).forEach(applyHatch);
   buildUI();
   // fit to parcel
   if(overlays['parcel']){
