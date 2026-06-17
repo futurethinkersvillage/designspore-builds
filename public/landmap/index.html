@@ -117,6 +117,9 @@ const DEFS = [
   {f:'sani_dumps',       name:'Sani dumps',          group:'existing', type:'point',color:'#8E44AD', popup:['Location'], on:true},
   {f:'cabins',           name:'Cabins (expansion)',  group:'planned',  type:'poly', color:'#2E7D46', popup:['id'], on:true},
   {f:'new_sites',        name:'New sites (future)',  group:'planned',  type:'poly', color:'#F39200', popup:['Site'], on:true},
+  {f:'electrical_network',    name:'Distribution line',  group:'electrical', type:'line',  color:'#FFB300', popup:['length_m'], on:false},
+  {f:'electrical_pedestals',  name:'Power pedestals (92)',group:'electrical', type:'point', color:'#FF8F00', radius:3.2, popup:['type'], on:false},
+  {f:'electrical_transformer',name:'Transformer',        group:'electrical', type:'point', color:'#D32F2F', radius:7,   popup:['name'], on:false},
 ];
 
 const overlays = {};   // f -> layer
@@ -131,7 +134,7 @@ function styleFor(d){
 }
 const LABELS={parcel_name:'Parcel',pid_formatted:'PID',owner_type:'Owner',
   feature_area_sqm:'Area',Name:'Name',Site:'Site',Type:'Type',Structures:'Structure',
-  Location:'Location',Holes:'Holes',id:'Ref'};
+  Location:'Location',Holes:'Holes',id:'Ref',length_m:'Run (m)',type:'Site type',name:'Name'};
 function popupHtml(d,props,n){
   let rows = `<div class="pp"><div class="t">${d.name.replace('&amp;','&')}${n?' · #'+n:''}</div>`;
   let any=false;
@@ -150,7 +153,7 @@ function addLayer(d){
     let i=0;
     const lyr = L.geoJSON(gj,{
       style: ()=>styleFor(d),
-      pointToLayer:(ft,latlng)=>L.circleMarker(latlng,{radius:6,color:'#fff',weight:1.4,fillColor:d.color,fillOpacity:.95}),
+      pointToLayer:(ft,latlng)=>L.circleMarker(latlng,{radius:(d.radius||6),color:'#fff',weight:1.4,fillColor:d.color,fillOpacity:.95}),
       onEachFeature:(ft,l)=>{ i++; if(d.popup) l.bindPopup(popupHtml(d,ft.properties||{}, (d.group==='base'?0:i))); }
     });
     overlays[d.f]=lyr;
@@ -174,7 +177,7 @@ function sw(d){
 }
 function buildUI(){
   const host=document.getElementById('layers');
-  const groups=[['base','Property'],['existing','Existing / operational'],['planned','Planned expansion']];
+  const groups=[['base','Property'],['existing','Existing / operational'],['planned','Planned expansion'],['electrical','Utilities — Electrical']];
   let html='';
   groups.forEach(([g,label])=>{
     const items=DEFS.filter(d=>d.group===g);

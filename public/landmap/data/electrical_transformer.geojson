@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "electrical_transformer",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1, "name": "Main Transformer (Electrical House)" }, "geometry": { "type": "Point", "coordinates": [ -120.048420050115283, 51.93988108071477 ] } }
+]
+}
