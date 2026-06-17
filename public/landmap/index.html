@@ -66,6 +66,7 @@
     <div class="bm" data-bm="osm">Map</div>
   </div>
   <div id="layers"></div>
+  <div id="festctl"></div>
   <div class="hint">Yellow outline = legal parcel boundary. Solid fills = existing &amp; operational. Dashed, translucent fills = planned (not yet built).</div>
 </div>
 
@@ -230,6 +231,46 @@ Promise.all(DEFS.map(addLayer)).then(results=>{
     try{ map.fitBounds(overlays['parcel'].getBounds().pad(0.08)); }catch(e){}
   }
 });
+
+// ---------- Festival master plan (phased, with 500→5k selector) ----------
+let festGeo=null, festLayer=null, festOn=false, festPhase=4;
+const CAMP_COL=['','#1B5E20','#2E7D32','#66BB6A','#A5D6A7']; // by phase 1..4
+function festStyle(f){
+  const e=f.properties.elem;
+  if(e==='camp')   return {color:'#ffffff',weight:1,dashArray:'4,3',fillColor:CAMP_COL[f.properties.phase]||'#66BB6A',fillOpacity:.5};
+  if(e==='parking')return {color:'#90A4AE',weight:1,dashArray:'4,3',fillColor:'#90A4AE',fillOpacity:.25};
+  if(e==='trail')  return {color:'#FFD54F',weight:3.5};
+  return {color:'#FFD54F',weight:2};
+}
+function festPoint(f,latlng){
+  const e=f.properties.elem;
+  if(e==='landing')return L.circleMarker(latlng,{radius:6,color:'#5D4037',weight:1.6,fillColor:'#FFC107',fillOpacity:.95});
+  if(e==='water')  return L.circleMarker(latlng,{radius:6,color:'#fff',weight:1.4,fillColor:'#29B6F6',fillOpacity:.95});
+  if(e==='wc')     return L.circleMarker(latlng,{radius:3.6,color:'#fff',weight:1,fillColor:'#6D4C41',fillOpacity:.9});
+  return L.circleMarker(latlng,{radius:4,color:'#fff',weight:1,fillColor:'#999',fillOpacity:.9});
+}
+function buildFest(){
+  if(festLayer){ map.removeLayer(festLayer); festLayer=null; }
+  if(!festOn || !festGeo) return;
+  const fc={type:'FeatureCollection',features:festGeo.features.filter(f=>(f.properties.phase||1)<=festPhase)};
+  festLayer=L.geoJSON(fc,{style:festStyle, pointToLayer:festPoint,
+    onEachFeature:(f,l)=>l.bindPopup(`<div class="pp"><div class="t">Festival</div><div>${f.properties.info||''}</div></div>`)}).addTo(map);
+}
+(function festUI(){
+  const host=document.getElementById('festctl');
+  host.innerHTML=`<div class="sec">Festival (planned)</div>
+    <label class="row"><input type="checkbox" id="festtoggle"><span class="sw" style="background:#FFC107"></span><span>Festival master plan</span></label>
+    <div style="font-size:10.5px;color:var(--muted);margin:6px 2px 4px">Scale ( = max attendance )</div>
+    <div id="festphases" class="basemap-row"></div>`;
+  const ph=document.getElementById('festphases');
+  [['1','500'],['2','1k'],['3','3k'],['4','5k']].forEach(([p,lab])=>{
+    const b=document.createElement('div'); b.className='bm'+(p==='4'?' active':''); b.textContent=lab; b.dataset.p=p;
+    b.onclick=()=>{ festPhase=+p; ph.querySelectorAll('.bm').forEach(x=>x.classList.remove('active')); b.classList.add('active'); buildFest(); };
+    ph.appendChild(b);
+  });
+  document.getElementById('festtoggle').onchange=e=>{ festOn=e.target.checked; buildFest(); };
+})();
+fetch('data/festival_plan.geojson').then(r=>r.json()).then(g=>{festGeo=g; buildFest();}).catch(e=>console.warn('festival load',e));
 </script>
 </body>
 </html>
