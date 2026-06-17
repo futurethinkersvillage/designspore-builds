@@ -259,15 +259,7 @@ function buildFest(){
 (function festUI(){
   const host=document.getElementById('festctl');
   host.innerHTML=`<div class="sec">Festival (planned)</div>
-    <label class="row"><input type="checkbox" id="festtoggle"><span class="sw" style="background:#FFC107"></span><span>Festival master plan</span></label>
-    <div style="font-size:10.5px;color:var(--muted);margin:6px 2px 4px">Scale ( = max attendance )</div>
-    <div id="festphases" class="basemap-row"></div>`;
-  const ph=document.getElementById('festphases');
-  [['1','500'],['2','1k'],['3','3k'],['4','5k']].forEach(([p,lab])=>{
-    const b=document.createElement('div'); b.className='bm'+(p==='4'?' active':''); b.textContent=lab; b.dataset.p=p;
-    b.onclick=()=>{ festPhase=+p; ph.querySelectorAll('.bm').forEach(x=>x.classList.remove('active')); b.classList.add('active'); buildFest(); };
-    ph.appendChild(b);
-  });
+    <label class="row"><input type="checkbox" id="festtoggle"><span class="sw" style="background:#FFC107"></span><span>Festival master plan</span></label>`;
   document.getElementById('festtoggle').onchange=e=>{ festOn=e.target.checked; buildFest(); };
 })();
 fetch('data/festival_plan.geojson').then(r=>r.json()).then(g=>{festGeo=g; buildFest();}).catch(e=>console.warn('festival load',e));
