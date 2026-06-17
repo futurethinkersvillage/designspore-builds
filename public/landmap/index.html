@@ -120,6 +120,9 @@ const DEFS = [
   {f:'electrical_network',    name:'Distribution line',  group:'electrical', type:'line',  color:'#FFB300', popup:['length_m'], on:false},
   {f:'electrical_pedestals',  name:'Power pedestals (92)',group:'electrical', type:'point', color:'#FF8F00', radius:3.2, popup:['type'], on:false},
   {f:'electrical_transformer',name:'Transformer',        group:'electrical', type:'point', color:'#D32F2F', radius:7,   popup:['name'], on:false},
+  {f:'water_main',     name:'Water main',          group:'water', type:'line',  color:'#1565C0', popup:['length_m'], on:false},
+  {f:'water_services', name:'Service points (92)', group:'water', type:'point', color:'#42A5F5', radius:3.2, popup:['type'], on:false},
+  {f:'water_source',   name:'Source (well/pumphouse)', group:'water', type:'point', color:'#0277BD', radius:7, popup:['name'], on:false},
 ];
 
 const overlays = {};   // f -> layer
@@ -177,7 +180,7 @@ function sw(d){
 }
 function buildUI(){
   const host=document.getElementById('layers');
-  const groups=[['base','Property'],['existing','Existing / operational'],['planned','Planned expansion'],['electrical','Utilities — Electrical']];
+  const groups=[['base','Property'],['existing','Existing / operational'],['planned','Planned expansion'],['electrical','Utilities — Electrical'],['water','Utilities — Water']];
   let html='';
   groups.forEach(([g,label])=>{
     const items=DEFS.filter(d=>d.group===g);
