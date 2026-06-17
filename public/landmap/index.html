@@ -117,12 +117,10 @@ const DEFS = [
   {f:'sani_dumps',       name:'Sani dumps',          group:'existing', type:'point',color:'#8E44AD', popup:['Location'], on:true},
   {f:'cabins',           name:'Cabins (expansion)',  group:'planned',  type:'poly', color:'#2E7D46', popup:['id'], on:true},
   {f:'new_sites',        name:'New sites (future)',  group:'planned',  type:'poly', color:'#F39200', popup:['Site'], on:true},
-  {f:'electrical_network',    name:'Distribution line',  group:'electrical', type:'line',  color:'#FFB300', popup:['length_m'], on:false},
-  {f:'electrical_pedestals',  name:'Power pedestals (92)',group:'electrical', type:'point', color:'#FF8F00', radius:3.2, popup:['type'], on:false},
-  {f:'electrical_transformer',name:'Transformer',        group:'electrical', type:'point', color:'#D32F2F', radius:7,   popup:['name'], on:false},
-  {f:'water_main',     name:'Water main',          group:'water', type:'line',  color:'#1565C0', popup:['length_m'], on:false},
-  {f:'water_services', name:'Service points (92)', group:'water', type:'point', color:'#42A5F5', radius:3.2, popup:['type'], on:false},
-  {f:'water_source',   name:'Source (well/pumphouse)', group:'water', type:'point', color:'#0277BD', radius:7, popup:['name'], on:false},
+  {f:'electrical', name:'Electrical', group:'utilities', utility:{line:'#FFB300',node:'#FF8F00',source:'#D32F2F',area:'#FFB300'}, on:false},
+  {f:'water',      name:'Water',      group:'utilities', utility:{line:'#1565C0',node:'#42A5F5',source:'#0277BD',area:'#1565C0'}, on:false},
+  {f:'septic',     name:'Septic',     group:'utilities', utility:{line:'#6D4C41',node:'#8D6E63',source:'#6D4C41',area:'#8D6E63'}, on:false},
+  {f:'wifi',       name:'WiFi',       group:'utilities', utility:{line:'#00838F',node:'#00ACC1',source:'#006064',area:'#00ACC1'}, on:false},
 ];
 
 const overlays = {};   // f -> layer
@@ -153,12 +151,31 @@ function popupHtml(d,props,n){
 }
 function addLayer(d){
   return fetch('data/'+d.f+'.geojson').then(r=>r.json()).then(gj=>{
-    let i=0;
-    const lyr = L.geoJSON(gj,{
-      style: ()=>styleFor(d),
-      pointToLayer:(ft,latlng)=>L.circleMarker(latlng,{radius:(d.radius||6),color:'#fff',weight:1.4,fillColor:d.color,fillOpacity:.95}),
-      onEachFeature:(ft,l)=>{ i++; if(d.popup) l.bindPopup(popupHtml(d,ft.properties||{}, (d.group==='base'?0:i))); }
-    });
+    let lyr;
+    if(d.utility){
+      // single utility layer holding mixed geometry, styled by feature.properties.elem
+      const u=d.utility;
+      lyr = L.geoJSON(gj,{
+        style:(ft)=>{
+          const e=ft.properties.elem;
+          if(e==='area') return {color:u.area,weight:1,fillColor:u.area,fillOpacity:.12,dashArray:'3,3'};
+          return {color:u.line,weight:2.4,dashArray:(d.f==='wifi'?'5,4':null)};
+        },
+        pointToLayer:(ft,latlng)=>{
+          const src=ft.properties.elem==='source';
+          return L.circleMarker(latlng,{radius:src?7:3.2,color:'#fff',weight:1.3,
+            fillColor:src?u.source:u.node,fillOpacity:.95});
+        },
+        onEachFeature:(ft,l)=>l.bindPopup(`<div class="pp"><div class="t">${d.name}</div><div>${ft.properties.info||''}</div></div>`)
+      });
+    } else {
+      let i=0;
+      lyr = L.geoJSON(gj,{
+        style: ()=>styleFor(d),
+        pointToLayer:(ft,latlng)=>L.circleMarker(latlng,{radius:(d.radius||6),color:'#fff',weight:1.4,fillColor:d.color,fillOpacity:.95}),
+        onEachFeature:(ft,l)=>{ i++; if(d.popup) l.bindPopup(popupHtml(d,ft.properties||{}, (d.group==='base'?0:i))); }
+      });
+    }
     overlays[d.f]=lyr;
     if(d.on) lyr.addTo(map);
     return {d,gj};
@@ -173,6 +190,7 @@ function applyHatch(d){
 
 // ---------- build control UI ----------
 function sw(d){
+  if(d.utility) return `<span class="sw" style="background:${d.utility.node};border:1.5px solid ${d.utility.line}"></span>`;
   if(d.type==='line') return `<span class="sw line" style="border-top-color:${d.color}"></span>`;
   if(d.fill==='none') return `<span class="sw" style="background:transparent;border:2px solid ${d.color}"></span>`;
   if(d.group==='planned') return `<span class="sw" style="background:${d.color}33;border:1.5px dashed #f0f0f0"></span>`;
@@ -180,7 +198,7 @@ function sw(d){
 }
 function buildUI(){
   const host=document.getElementById('layers');
-  const groups=[['base','Property'],['existing','Existing / operational'],['planned','Planned expansion'],['electrical','Utilities — Electrical'],['water','Utilities — Water']];
+  const groups=[['base','Property'],['existing','Existing / operational'],['planned','Planned expansion'],['utilities','Utilities (concept)']];
   let html='';
   groups.forEach(([g,label])=>{
     const items=DEFS.filter(d=>d.group===g);
