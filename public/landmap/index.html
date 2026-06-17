@@ -117,10 +117,16 @@ const DEFS = [
   {f:'sani_dumps',       name:'Sani dumps',          group:'existing', type:'point',color:'#8E44AD', popup:['Location'], on:true},
   {f:'cabins',           name:'Cabins (expansion)',  group:'planned',  type:'poly', color:'#2E7D46', popup:['id'], on:true},
   {f:'new_sites',        name:'New sites (future)',  group:'planned',  type:'poly', color:'#F39200', popup:['Site'], on:true},
-  {f:'electrical', name:'Electrical', group:'utilities', utility:{line:'#FFB300',node:'#FF8F00',source:'#D32F2F',area:'#FFB300'}, on:false},
-  {f:'water',      name:'Water',      group:'utilities', utility:{line:'#1565C0',node:'#42A5F5',source:'#0277BD',area:'#1565C0'}, on:false},
-  {f:'septic',     name:'Septic',     group:'utilities', utility:{line:'#6D4C41',node:'#8D6E63',source:'#6D4C41',area:'#8D6E63'}, on:false},
-  {f:'wifi',       name:'WiFi',       group:'utilities', utility:{line:'#00838F',node:'#00ACC1',source:'#006064',area:'#00ACC1'}, on:false},
+  // Existing utilities (built) — solid lines
+  {f:'electrical_existing', name:'Electrical', group:'util_existing', utility:{line:'#FFB300',node:'#FF8F00',source:'#D32F2F',area:'#FFB300'}, on:false},
+  {f:'water_existing',      name:'Water',      group:'util_existing', utility:{line:'#1565C0',node:'#42A5F5',source:'#0277BD',area:'#1565C0'}, on:false},
+  {f:'septic_existing',     name:'Septic',     group:'util_existing', utility:{line:'#6D4C41',node:'#8D6E63',source:'#6D4C41',area:'#8D6E63'}, on:false},
+  {f:'wifi_existing',       name:'WiFi',       group:'util_existing', utility:{line:'#00838F',node:'#00ACC1',source:'#006064',area:'#00ACC1'}, on:false},
+  // Planned-expansion utilities (concept) — dashed lines
+  {f:'electrical_planned', name:'Electrical', group:'util_planned', dashed:true, utility:{line:'#FFB300',node:'#FF8F00',source:'#D32F2F',area:'#FFB300'}, on:false},
+  {f:'water_planned',      name:'Water',      group:'util_planned', dashed:true, utility:{line:'#1565C0',node:'#42A5F5',source:'#0277BD',area:'#1565C0'}, on:false},
+  {f:'septic_planned',     name:'Septic',     group:'util_planned', dashed:true, utility:{line:'#6D4C41',node:'#8D6E63',source:'#6D4C41',area:'#8D6E63'}, on:false},
+  {f:'wifi_planned',       name:'WiFi',       group:'util_planned', dashed:true, utility:{line:'#00838F',node:'#00ACC1',source:'#006064',area:'#00ACC1'}, on:false},
 ];
 
 const overlays = {};   // f -> layer
@@ -159,7 +165,7 @@ function addLayer(d){
         style:(ft)=>{
           const e=ft.properties.elem;
           if(e==='area') return {color:u.area,weight:1,fillColor:u.area,fillOpacity:.12,dashArray:'3,3'};
-          return {color:u.line,weight:2.4,dashArray:(d.f==='wifi'?'5,4':null)};
+          return {color:u.line,weight:2.4,dashArray:(d.dashed?'6,5':null)};
         },
         pointToLayer:(ft,latlng)=>{
           const src=ft.properties.elem==='source';
@@ -198,7 +204,7 @@ function sw(d){
 }
 function buildUI(){
   const host=document.getElementById('layers');
-  const groups=[['base','Property'],['existing','Existing / operational'],['planned','Planned expansion'],['utilities','Utilities (concept)']];
+  const groups=[['base','Property'],['existing','Existing / operational'],['planned','Planned expansion'],['util_existing','Utilities — Existing (solid)'],['util_planned','Utilities — Planned (dashed)']];
   let html='';
   groups.forEach(([g,label])=>{
     const items=DEFS.filter(d=>d.group===g);
