@@ -117,6 +117,7 @@ const DEFS = [
   {f:'sani_dumps',       name:'Sani dumps',          group:'existing', type:'point',color:'#8E44AD', popup:['Location'], on:true},
   {f:'cabins',           name:'Cabins (expansion)',  group:'planned',  type:'poly', color:'#2E7D46', popup:['id'], on:true},
   {f:'new_sites',        name:'New sites (future)',  group:'planned',  type:'poly', color:'#F39200', popup:['Site'], on:true},
+  {f:'festival_grounds', name:'Festival grounds',    group:'planned',  type:'poly', color:'#E91E63', popup:['area_ac'], on:true},
   // Existing utilities (built) — solid lines
   {f:'electrical_existing', name:'Electrical', group:'util_existing', utility:{line:'#FFB300',node:'#FF8F00',source:'#D32F2F',area:'#FFB300'}, on:false},
   {f:'water_existing',      name:'Water',      group:'util_existing', utility:{line:'#1565C0',node:'#42A5F5',source:'#0277BD',area:'#1565C0'}, on:false},
@@ -141,7 +142,7 @@ function styleFor(d){
 }
 const LABELS={parcel_name:'Parcel',pid_formatted:'PID',owner_type:'Owner',
   feature_area_sqm:'Area',Name:'Name',Site:'Site',Type:'Type',Structures:'Structure',
-  Location:'Location',Holes:'Holes',id:'Ref',length_m:'Run (m)',type:'Site type',name:'Name'};
+  Location:'Location',Holes:'Holes',id:'Ref',length_m:'Run (m)',type:'Site type',name:'Name',area_ac:'Area (ac)'};
 function popupHtml(d,props,n){
   let rows = `<div class="pp"><div class="t">${d.name.replace('&amp;','&')}${n?' · #'+n:''}</div>`;
   let any=false;
