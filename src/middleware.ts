@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const PROTECTED_PATHS = ["/deck", "/one-pager", "/investor-print"];
+const PROTECTED_PATHS = ["/investor-print"];
 
 const DASHBOARD_HOSTS = [
   "village-dashboard.portal.place",
