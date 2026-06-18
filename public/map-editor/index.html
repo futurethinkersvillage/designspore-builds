@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Land Map Editor</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@2.18.3/dist/leaflet-geoman.css" />
+<style>
+  :root{--bg:#14180f;--panel:#1d2417;--ink:#f3f1e7;--muted:#a9b39a;--accent:#cfa64b;--line:#2c3522;}
+  html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  #map{position:absolute;inset:0}
+  .panel{position:absolute;z-index:1000;background:rgba(29,36,23,.96);border:1px solid var(--line);border-radius:12px;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.45)}
+  #top{top:12px;left:12px;padding:12px 14px;max-width:300px}
+  #top h1{margin:0 0 6px;font-size:15px}
+  #top .sub{font-size:11.5px;color:var(--muted);line-height:1.45}
+  #top input{width:100%;margin-top:8px;padding:6px 8px;border-radius:7px;border:1px solid var(--line);background:#11140d;color:var(--ink);font-size:12px}
+  #status{margin-top:6px;font-size:11px;color:var(--muted)}
+  #sel{top:12px;right:12px;width:240px;padding:14px 16px;display:none}
+  #sel h2{margin:0 0 10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  #sel label{display:block;font-size:11px;color:var(--muted);margin:8px 0 3px}
+  #sel input{width:100%;padding:6px 8px;border-radius:7px;border:1px solid var(--line);background:#11140d;color:var(--ink);font-size:13px;box-sizing:border-box}
+  #sel .meta{font-size:11px;color:var(--muted);margin-bottom:4px}
+  .btn{margin-top:12px;display:inline-block;padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--accent);color:#1a1a1a;font-weight:600;font-size:12.5px;cursor:pointer}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn.del{background:#7a1f1f;color:#fff;border-color:#7a1f1f;float:right}
+  .hint{position:absolute;bottom:12px;left:12px;z-index:1000;font-size:11px;color:var(--muted);background:rgba(20,24,15,.85);padding:6px 10px;border-radius:8px;border:1px solid var(--line);max-width:340px}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div id="top" class="panel">
+  <h1>Land Map Editor</h1>
+  <div class="sub">Draw with the toolbar (top-right). Click a feature to select it. Use <b>Edit</b>/<b>Drag</b> in the toolbar to move points &amp; reshape. Changes save to the database live.</div>
+  <input id="secret" type="password" placeholder="Editor secret (paste once)" />
+  <div id="status">Enter your editor secret to enable saving.</div>
+</div>
+<div id="sel" class="panel">
+  <h2>Selected feature</h2>
+  <div class="meta" id="selmeta"></div>
+  <label>Name</label><input id="fname" />
+  <label>Layer</label><input id="flayer" />
+  <label>Global phase (number, blank = none)</label><input id="fphase" />
+  <div><button class="btn" id="savebtn">Save</button><button class="btn del" id="delbtn">Delete</button></div>
+  <button class="btn ghost" id="closebtn" style="margin-top:8px">Close</button>
+</div>
+<div class="hint">Tip: <b>Edit Layers</b> drags vertices/reshapes polygons · <b>Drag Layers</b> moves a whole feature · trash icon removes · new shapes prompt for a name.</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@2.18.3/dist/leaflet-geoman.min.js"></script>
+<script>
+const map=L.map('map').setView([51.936,-120.048],15);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:21,maxNativeZoom:19,attribution:'© Esri'}).addTo(map);
+L.control.scale({imperial:true}).addTo(map);
+
+let SECRET=localStorage.getItem('lm_editor_secret')||'';
+const sIn=document.getElementById('secret'); sIn.value=SECRET;
+sIn.onchange=()=>{SECRET=sIn.value.trim();localStorage.setItem('lm_editor_secret',SECRET);status('Secret saved. Saving enabled.');};
+function status(m){document.getElementById('status').textContent=m;}
+function hdr(){return {'Content-Type':'application/json','x-editor-secret':SECRET};}
+
+const COLORS={parcel:'#FFD400',cabins:'#2E7D46',rv_permanent:'#1F6FA8',new_sites:'#F39200',
+ sites_fullservice:'#2E7D46',sites_powerwater:'#1F6FA8',for_rent:'#5DADE2',buildings:'#7A4B2A',
+ facilities:'#9C6B3F',public_areas:'#5D6D7E',trails:'#cfcfcf',sani_dumps:'#8E44AD',golf:'#3E8E5A',
+ festival_grounds:'#E91E63',phase1_new:'#FFC107'};
+function colorFor(l){return COLORS[l]||'#9aa0a6';}
+
+const group=L.featureGroup().addTo(map);
+let selected=null;
+
+function styleFeature(layer,feat){
+  const c=colorFor(feat.properties.layer);
+  if(layer.setStyle){ layer.setStyle({color:feat.properties.layer==='parcel'?c:'#fff',weight:1,fillColor:c,fillOpacity:.4,opacity:1}); if(feat.geometry.type.includes('LineString')) layer.setStyle({color:c,weight:3,fillOpacity:0}); }
+}
+function attach(layer,feat){
+  layer.featureId=feat.id; layer.props=feat.properties;
+  layer.on('click',()=>select(layer));
+  layer.on('pm:update',()=>saveGeom(layer));
+  layer.on('pm:dragend',()=>saveGeom(layer));
+}
+function makeLayer(feat){
+  const gj=L.geoJSON(feat,{pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:6,color:'#fff',weight:1.5,fillColor:colorFor(f.properties.layer),fillOpacity:.95})});
+  const lyr=gj.getLayers()[0]; styleFeature(lyr,feat); attach(lyr,feat); lyr.addTo(group);
+  if(feat.properties.name) lyr.bindTooltip(feat.properties.name,{permanent:false,direction:'top'});
+  return lyr;
+}
+async function load(){
+  const r=await fetch('/api/landmap/features'); const fc=await r.json();
+  group.clearLayers(); fc.features.forEach(makeLayer);
+  status(fc.features.length+' features loaded'+(SECRET?' · saving enabled':' · enter secret to save'));
+  try{ map.fitBounds(group.getBounds().pad(0.05)); }catch(e){}
+}
+function select(layer){
+  selected=layer; const p=layer.props||{};
+  document.getElementById('sel').style.display='block';
+  document.getElementById('selmeta').textContent='id '+layer.featureId+' · '+(p.layer||'?');
+  document.getElementById('fname').value=p.name||'';
+  document.getElementById('flayer').value=p.layer||'';
+  document.getElementById('fphase').value=(p.global_phase??'');
+}
+document.getElementById('closebtn').onclick=()=>{document.getElementById('sel').style.display='none';selected=null;};
+async function saveGeom(layer){
+  if(!SECRET) return status('Enter your editor secret to save.');
+  const g=layer.toGeoJSON().geometry;
+  const r=await fetch('/api/landmap/features/'+layer.featureId,{method:'PATCH',headers:hdr(),body:JSON.stringify({geometry:g})});
+  status(r.ok?'Saved geometry ✓ (#'+layer.featureId+')':'Save failed ('+r.status+')');
+}
+document.getElementById('savebtn').onclick=async()=>{
+  if(!selected) return; if(!SECRET) return status('Enter your editor secret to save.');
+  const ph=document.getElementById('fphase').value.trim();
+  const body={name:document.getElementById('fname').value,layer:document.getElementById('flayer').value,global_phase:ph===''?null:Number(ph)};
+  const r=await fetch('/api/landmap/features/'+selected.featureId,{method:'PATCH',headers:hdr(),body:JSON.stringify(body)});
+  if(r.ok){ selected.props={...selected.props,...body}; if(selected.getTooltip()) selected.setTooltipContent(body.name||''); status('Saved details ✓'); }
+  else status('Save failed ('+r.status+')');
+};
+document.getElementById('delbtn').onclick=async()=>{
+  if(!selected||!SECRET) return status('Enter secret first.');
+  if(!confirm('Delete this feature?')) return;
+  const r=await fetch('/api/landmap/features/'+selected.featureId,{method:'DELETE',headers:hdr()});
+  if(r.ok){ group.removeLayer(selected); document.getElementById('sel').style.display='none'; selected=null; status('Deleted ✓'); }
+  else status('Delete failed ('+r.status+')');
+};
+
+// drawing toolbar
+map.pm.addControls({position:'topright',drawCircle:false,drawCircleMarker:false,drawText:false,rotateMode:false,cutPolygon:false});
+map.on('pm:create',async e=>{
+  const layer=e.layer; const g=layer.toGeoJSON().geometry;
+  const name=prompt('Name for the new feature?')||'';
+  const lname=prompt('Layer (e.g. phase1_new, buildings, custom)?','phase1_new')||'custom';
+  if(!SECRET){ status('Enter secret to save new feature.'); }
+  const r=await fetch('/api/landmap/features',{method:'POST',headers:hdr(),body:JSON.stringify({layer:lname,name,geometry:g})});
+  if(r.ok){ const {id}=await r.json(); layer.featureId=id; layer.props={id,layer:lname,name}; styleFeature(layer,{properties:{layer:lname},geometry:g}); attach(layer,{id,properties:{id,layer:lname,name},geometry:g}); if(name) layer.bindTooltip(name,{direction:'top'}); status('Created #'+id+' ✓'); }
+  else { status('Create failed ('+r.status+') — check secret'); }
+});
+load();
+</script>
+</body>
+</html>

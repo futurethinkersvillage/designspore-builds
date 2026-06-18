@@ -44,7 +44,8 @@ export function middleware(request: NextRequest) {
   // Full-screen routes (no Nav/Footer/Chat) — reuse the dashboard chrome flag.
   if (
     pathname === "/mind-map" || pathname.startsWith("/mind-map/") ||
-    pathname === "/map" || pathname.startsWith("/map/")
+    pathname === "/map" || pathname.startsWith("/map/") ||
+    pathname === "/map-editor" || pathname.startsWith("/map-editor/")
   ) {
     const res = NextResponse.next();
     res.headers.set("x-is-dashboard", "1");
