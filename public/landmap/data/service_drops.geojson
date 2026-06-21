@@ -1,0 +1,16 @@
+{
+"type": "FeatureCollection",
+"name": "service_drops",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1, "lot": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.038557624410885, 51.943073583343235 ], [ -120.038557624410885, 51.943073583343235 ] ] } },
+{ "type": "Feature", "properties": { "fid": 2, "lot": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.040248539485276, 51.945096461818594 ], [ -120.040248539485276, 51.945096461818594 ] ] } },
+{ "type": "Feature", "properties": { "fid": 3, "lot": 3 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.04220981390425, 51.945428208945316 ], [ -120.04220981390425, 51.945428208945316 ] ] } },
+{ "type": "Feature", "properties": { "fid": 4, "lot": 4 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.044155968529537, 51.943532816922186 ], [ -120.044155968529537, 51.943532816922186 ] ] } },
+{ "type": "Feature", "properties": { "fid": 5, "lot": 5 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.047445911711122, 51.943099527062138 ], [ -120.047445911711122, 51.943099527062138 ] ] } },
+{ "type": "Feature", "properties": { "fid": 6, "lot": 6 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.04887203156818, 51.943101793297444 ], [ -120.04887203156818, 51.943101793297444 ] ] } },
+{ "type": "Feature", "properties": { "fid": 7, "lot": 7 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.046111008039759, 51.942946508313462 ], [ -120.046111008039759, 51.942946508313462 ] ] } },
+{ "type": "Feature", "properties": { "fid": 8, "lot": 8 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.040435838097025, 51.942506953334473 ], [ -120.040435838097025, 51.942506953334473 ] ] } },
+{ "type": "Feature", "properties": { "fid": 9, "lot": 9 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.042616068813231, 51.942015580966718 ], [ -120.042616068813231, 51.942015580966718 ] ] } }
+]
+}

@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "wifi_backhaul_2",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1, "length_m": 97.7, "phase": 3 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.048420050115283, 51.939881080714763 ], [ -120.047398204686843, 51.939271217004652 ] ] } },
+{ "type": "Feature", "properties": { "fid": 2, "length_m": 117.1, "phase": 3 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.047398204686843, 51.939271217004652 ], [ -120.045993104765742, 51.939865710941952 ] ] } },
+{ "type": "Feature", "properties": { "fid": 3, "length_m": 108.7, "phase": 3 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.045993104765742, 51.939865710941952 ], [ -120.045320953601518, 51.940749628670297 ] ] } }
+]
+}

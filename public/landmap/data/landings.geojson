@@ -1,0 +1,20 @@
+{
+"type": "FeatureCollection",
+"name": "landings",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1, "name": "Café 1", "kind": "Café", "phase": 1 }, "geometry": { "type": "Point", "coordinates": [ -120.046584848355778, 51.938100722169033 ] } },
+{ "type": "Feature", "properties": { "fid": 2, "name": "Art clearing 2", "kind": "Art clearing", "phase": 1 }, "geometry": { "type": "Point", "coordinates": [ -120.045664647102143, 51.937508998393163 ] } },
+{ "type": "Feature", "properties": { "fid": 3, "name": "Bar 3", "kind": "Bar", "phase": 2 }, "geometry": { "type": "Point", "coordinates": [ -120.044501897608527, 51.936871543416956 ] } },
+{ "type": "Feature", "properties": { "fid": 4, "name": "Workshop glade 4", "kind": "Workshop glade", "phase": 2 }, "geometry": { "type": "Point", "coordinates": [ -120.043435802291285, 51.939332264508195 ] } },
+{ "type": "Feature", "properties": { "fid": 5, "name": "Forest stage 5", "kind": "Forest stage", "phase": 3 }, "geometry": { "type": "Point", "coordinates": [ -120.043656822052185, 51.935989818977184 ] } },
+{ "type": "Feature", "properties": { "fid": 6, "name": "Tea house 6", "kind": "Tea house", "phase": 3 }, "geometry": { "type": "Point", "coordinates": [ -120.042499718598137, 51.939524627895764 ] } },
+{ "type": "Feature", "properties": { "fid": 7, "name": "Art clearing 7", "kind": "Art clearing", "phase": 4 }, "geometry": { "type": "Point", "coordinates": [ -120.0408615721351, 51.938634940313769 ] } },
+{ "type": "Feature", "properties": { "fid": 8, "name": "Bar 8", "kind": "Bar", "phase": 4 }, "geometry": { "type": "Point", "coordinates": [ -120.042148687213199, 51.935436728439576 ] } },
+{ "type": "Feature", "properties": { "fid": 9, "name": "Popup club 9", "kind": "Popup club", "phase": 4 }, "geometry": { "type": "Point", "coordinates": [ -120.039847481467476, 51.93293571219705 ] } },
+{ "type": "Feature", "properties": { "fid": 10, "name": null, "kind": null, "phase": null }, "geometry": { "type": "Point", "coordinates": [ -120.040354526801266, 51.935100061295962 ] } },
+{ "type": "Feature", "properties": { "fid": 11, "name": null, "kind": null, "phase": null }, "geometry": { "type": "Point", "coordinates": [ -120.039886484954692, 51.938683031985512 ] } },
+{ "type": "Feature", "properties": { "fid": 12, "name": null, "kind": null, "phase": null }, "geometry": { "type": "Point", "coordinates": [ -120.046907112653429, 51.93833035852898 ] } },
+{ "type": "Feature", "properties": { "fid": 13, "name": "Stage", "kind": null, "phase": null }, "geometry": { "type": "Point", "coordinates": [ -120.050404425340417, 51.936607027904422 ] } }
+]
+}

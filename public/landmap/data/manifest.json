@@ -1,0 +1,1690 @@
+{
+ "groups": [
+  "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+  "Phase 3 - New Sites & Festival Grounds",
+  "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+  "Phase 1 - Complete",
+  "Base Maps"
+ ],
+ "layers": [
+  {
+   "f": "development_labels",
+   "name": "Development Labels",
+   "group": "Other",
+   "geom": "point",
+   "style": {
+    "fill": "#000000",
+    "fillOpacity": 0.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "label",
+   "popup": [
+    "label",
+    "col"
+   ],
+   "on": true
+  },
+  {
+   "f": "gct_south_rv",
+   "name": "GCT South RV",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "poly",
+   "style": {
+    "fill": "#26c6da",
+    "fillOpacity": 1.0,
+    "stroke": "#004d40",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "gct_south_roads",
+   "name": "GCT South Roads",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "poly",
+   "style": {
+    "fill": "#3c3c3c",
+    "fillOpacity": 0.902,
+    "stroke": "#222222",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "rv_septic_conn",
+   "name": "RV Septic Conn",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "point",
+   "style": {
+    "fill": "#a1887f",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "pad"
+   ],
+   "on": true
+  },
+  {
+   "f": "rv_septic",
+   "name": "RV Septic",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "line",
+   "style": {
+    "fill": "#6d4c41",
+    "stroke": "#6d4c41",
+    "fillOpacity": 0,
+    "weight": 1.2,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "kind"
+   ],
+   "on": true
+  },
+  {
+   "f": "rv_water_svc",
+   "name": "RV Water Svc",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "point",
+   "style": {
+    "fill": "#90caf9",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "pad"
+   ],
+   "on": true
+  },
+  {
+   "f": "rv_water",
+   "name": "RV Water",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "line",
+   "style": {
+    "fill": "#2196f3",
+    "stroke": "#2196f3",
+    "fillOpacity": 0,
+    "weight": 1.2,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "kind"
+   ],
+   "on": true
+  },
+  {
+   "f": "rv_pedestals",
+   "name": "RV Pedestals",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "point",
+   "style": {
+    "fill": "#ffd089",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "pad"
+   ],
+   "on": true
+  },
+  {
+   "f": "rv_power",
+   "name": "RV Power",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "line",
+   "style": {
+    "fill": "#ff9e17",
+    "stroke": "#ff9e17",
+    "fillOpacity": 0,
+    "weight": 1.2,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "kind"
+   ],
+   "on": true
+  },
+  {
+   "f": "fb_lakeside_homes",
+   "name": "FB Lakeside Homes",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "poly",
+   "style": {
+    "fill": "#ffd54f",
+    "fillOpacity": 1.0,
+    "stroke": "#5d4037",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "fb_spokes",
+   "name": "FB Spokes",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "line",
+   "style": {
+    "fill": "#5a5a5a",
+    "stroke": "#5a5a5a",
+    "fillOpacity": 0,
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "v"
+   ],
+   "on": true
+  },
+  {
+   "f": "fb_commons",
+   "name": "FB Commons",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "poly",
+   "style": {
+    "fill": "#a5d6a7",
+    "fillOpacity": 0.588,
+    "stroke": "#2e7d32",
+    "weight": 1.68,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "v"
+   ],
+   "on": true
+  },
+  {
+   "f": "fb_buildings",
+   "name": "FB Buildings",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "poly",
+   "style": {
+    "fill": "#ab47bc",
+    "fillOpacity": 0.922,
+    "stroke": "#ffffff",
+    "weight": 0.96,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "fb_homes",
+   "name": "FB Homes",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "poly",
+   "style": {
+    "mode": "categorized",
+    "field": "v",
+    "cats": [
+     {
+      "fill": "#ff8a65",
+      "fillOpacity": 1.0,
+      "stroke": "#5d4037",
+      "weight": 0.8,
+      "v": "1"
+     },
+     {
+      "fill": "#4fc3f7",
+      "fillOpacity": 1.0,
+      "stroke": "#5d4037",
+      "weight": 0.8,
+      "v": "2"
+     },
+     {
+      "fill": "#aed581",
+      "fillOpacity": 1.0,
+      "stroke": "#5d4037",
+      "weight": 0.8,
+      "v": "3"
+     }
+    ],
+    "default": {
+     "fill": "#aed581",
+     "fillOpacity": 1.0,
+     "stroke": "#5d4037",
+     "weight": 0.8,
+     "v": "3"
+    }
+   },
+   "label": null,
+   "popup": [
+    "v"
+   ],
+   "on": true
+  },
+  {
+   "f": "cabins",
+   "name": "Cabins",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "poly",
+   "style": {
+    "mode": "categorized",
+    "field": "type",
+    "cats": [
+     {
+      "fill": "#ffd54f",
+      "fillOpacity": 1.0,
+      "stroke": "#4e342e",
+      "weight": 0.96,
+      "v": "small"
+     },
+     {
+      "fill": "#ff8a65",
+      "fillOpacity": 1.0,
+      "stroke": "#4e342e",
+      "weight": 0.96,
+      "v": "medium"
+     },
+     {
+      "fill": "#4db6ac",
+      "fillOpacity": 1.0,
+      "stroke": "#004d40",
+      "weight": 0.96,
+      "v": "hill"
+     },
+     {
+      "fill": "#ab47bc",
+      "fillOpacity": 1.0,
+      "stroke": "#ffffff",
+      "weight": 1.2,
+      "v": "cliffside"
+     }
+    ],
+    "default": {
+     "fill": "#ab47bc",
+     "fillOpacity": 1.0,
+     "stroke": "#ffffff",
+     "weight": 1.2,
+     "v": "cliffside"
+    }
+   },
+   "label": null,
+   "popup": [
+    "type"
+   ],
+   "on": true
+  },
+  {
+   "f": "walking_paths",
+   "name": "Walking Paths",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "line",
+   "style": {
+    "fill": "#d7b377",
+    "stroke": "#d7b377",
+    "fillOpacity": 0,
+    "weight": 1.2,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "pod"
+   ],
+   "on": true
+  },
+  {
+   "f": "parking",
+   "name": "Parking",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "poly",
+   "style": {
+    "fill": "#6e6e6e",
+    "fillOpacity": 0.667,
+    "stroke": "#ffffff",
+    "weight": 0.96,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "pod"
+   ],
+   "on": true
+  },
+  {
+   "f": "well",
+   "name": "Well",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "point",
+   "style": {
+    "fill": "#29b6f6",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [],
+   "on": true
+  },
+  {
+   "f": "septic_field",
+   "name": "Septic Field",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "poly",
+   "style": {
+    "fill": "#4caf50",
+    "fillOpacity": 0.353,
+    "stroke": "#1b5e20",
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [],
+   "on": true
+  },
+  {
+   "f": "water_main",
+   "name": "Water Main",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "line",
+   "style": {
+    "fill": "#2196f3",
+    "stroke": "#2196f3",
+    "fillOpacity": 0,
+    "weight": 1.2,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "kind"
+   ],
+   "on": true
+  },
+  {
+   "f": "power",
+   "name": "Power",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "line",
+   "style": {
+    "fill": "#ff9e17",
+    "stroke": "#ff9e17",
+    "fillOpacity": 0,
+    "weight": 1.92,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "kind"
+   ],
+   "on": true
+  },
+  {
+   "f": "prefab_cabins",
+   "name": "Prefab Cabins",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "poly",
+   "style": {
+    "fill": "#8d6e63",
+    "fillOpacity": 1.0,
+    "stroke": "#3e2723",
+    "weight": 0.96,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "electrical_network_from_trunk",
+   "name": "Electrical Network (from trunk)",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "line",
+   "style": {
+    "fill": "#ffd54f",
+    "stroke": "#ffd54f",
+    "fillOpacity": 0,
+    "weight": 1.92,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "length_m",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "pedestals",
+   "name": "Pedestals",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "point",
+   "style": {
+    "fill": "#ffeb3b",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "water_services",
+   "name": "Water Services",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "point",
+   "style": {
+    "fill": "#42a5f5",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "septic_connections",
+   "name": "Septic Connections",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "point",
+   "style": {
+    "fill": "#8d6e63",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "wifi_coverage",
+   "name": "WiFi Coverage",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "poly",
+   "style": {
+    "fill": "#00acc1",
+    "fillOpacity": 0.157,
+    "stroke": "#00acc1",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "radius_m",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "wifi_backhaul",
+   "name": "WiFi Backhaul",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "line",
+   "style": {
+    "fill": "#00838f",
+    "stroke": "#00838f",
+    "fillOpacity": 0,
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "length_m",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "access_points",
+   "name": "Access Points",
+   "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "geom": "point",
+   "style": {
+    "fill": "#00acc1",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "camp_roads",
+   "name": "Camp Roads",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "line",
+   "style": {
+    "fill": "#efebe9",
+    "stroke": "#efebe9",
+    "fillOpacity": 0,
+    "weight": 2.16,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "type"
+   ],
+   "on": true
+  },
+  {
+   "f": "camp_plots",
+   "name": "Camp Plots",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "poly",
+   "style": {
+    "fill": "#bcaaa4",
+    "fillOpacity": 0.392,
+    "stroke": "#5d4037",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id",
+    "tents"
+   ],
+   "on": true
+  },
+  {
+   "f": "festival_grounds",
+   "name": "Festival Grounds",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "poly",
+   "style": {
+    "fill": "#000000",
+    "fillOpacity": 0.0,
+    "stroke": "#e91e63",
+    "weight": 1.92,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name",
+    "area_m2",
+    "area_ac"
+   ],
+   "on": true
+  },
+  {
+   "f": "landings",
+   "name": "Landings",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "point",
+   "style": {
+    "fill": "#ffc107",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name",
+    "kind",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "portapotties",
+   "name": "Portapotties",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "point",
+   "style": {
+    "fill": "#8d6e63",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "phase",
+    "units"
+   ],
+   "on": true
+  },
+  {
+   "f": "central_showers",
+   "name": "Central Showers",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "point",
+   "style": {
+    "fill": "#29b6f6",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "discovery_trail",
+   "name": "Discovery Trail",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "line",
+   "style": {
+    "fill": "#ffd54f",
+    "stroke": "#ffd54f",
+    "fillOpacity": 0,
+    "weight": 2.4,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "event_parking",
+   "name": "Event Parking",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "poly",
+   "style": {
+    "fill": "#78909c",
+    "fillOpacity": 0.314,
+    "stroke": "#90a4ae",
+    "weight": 0.96,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "pedestals_2",
+   "name": "Pedestals",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "point",
+   "style": {
+    "fill": "#ff8f00",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "electrical_network",
+   "name": "Electrical Network",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "line",
+   "style": {
+    "fill": "#ffb300",
+    "stroke": "#ffb300",
+    "fillOpacity": 0,
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "length_m",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "transformer",
+   "name": "Transformer",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "point",
+   "style": {
+    "fill": "#d32f2f",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "water_services_2",
+   "name": "Water Services",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "point",
+   "style": {
+    "fill": "#42a5f5",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "septic_field_rv_new_sites",
+   "name": "Septic Field \u2014 RV + New Sites",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "poly",
+   "style": {
+    "fill": "#8d6e63",
+    "fillOpacity": 0.588,
+    "stroke": "#5d4037",
+    "weight": 1.2,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name",
+    "area_m2",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "septic_connections_2",
+   "name": "Septic Connections",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "point",
+   "style": {
+    "fill": "#8d6e63",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "access_points_2",
+   "name": "Access Points",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "point",
+   "style": {
+    "fill": "#00acc1",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "wifi_backhaul_2",
+   "name": "WiFi Backhaul",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "line",
+   "style": {
+    "fill": "#00838f",
+    "stroke": "#00838f",
+    "fillOpacity": 0,
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "length_m",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "wifi_coverage_2",
+   "name": "WiFi Coverage",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "poly",
+   "style": {
+    "fill": "#00acc1",
+    "fillOpacity": 0.157,
+    "stroke": "#00acc1",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "radius_m",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "festival_wifi_headend",
+   "name": "Festival WiFi \u2014 Headend",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "point",
+   "style": {
+    "fill": "#232323",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "pull_through_tiny_home_sites",
+   "name": "Pull-through / tiny home sites",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "poly",
+   "style": {
+    "fill": "#1f6fa8",
+    "fillOpacity": 0.686,
+    "stroke": "#ffffff",
+    "weight": 0.84,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id",
+    "type"
+   ],
+   "on": true
+  },
+  {
+   "f": "regular_rv_sites",
+   "name": "Regular RV sites",
+   "group": "Phase 3 - New Sites & Festival Grounds",
+   "geom": "poly",
+   "style": {
+    "fill": "#f39200",
+    "fillOpacity": 0.392,
+    "stroke": "#f0f0f0",
+    "weight": 1.2,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id",
+    "Site"
+   ],
+   "on": true
+  },
+  {
+   "f": "p5_lots_draft",
+   "name": "P5 Lots (draft)",
+   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "geom": "poly",
+   "style": {
+    "mode": "categorized",
+    "field": "frontage",
+    "cats": [
+     {
+      "fill": "#4caf50",
+      "fillOpacity": 0.373,
+      "stroke": "#1b5e20",
+      "weight": 2.16,
+      "v": "park (N/E)"
+     },
+     {
+      "fill": "#29b6f6",
+      "fillOpacity": 0.353,
+      "stroke": "#01579b",
+      "weight": 2.16,
+      "v": "creek (S)"
+     },
+     {
+      "fill": "#ffa726",
+      "fillOpacity": 0.314,
+      "stroke": "#e65100",
+      "weight": 2.16,
+      "v": "interior"
+     }
+    ],
+    "default": {
+     "fill": "#ffa726",
+     "fillOpacity": 0.314,
+     "stroke": "#e65100",
+     "weight": 2.16,
+     "v": "interior"
+    }
+   },
+   "label": "acres",
+   "popup": [
+    "id",
+    "acres",
+    "frontage"
+   ],
+   "on": true
+  },
+  {
+   "f": "service_drops",
+   "name": "Service Drops",
+   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "geom": "line",
+   "style": {
+    "fill": "#ff9e17",
+    "stroke": "#ff9e17",
+    "fillOpacity": 0,
+    "weight": 1.68,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "lot"
+   ],
+   "on": true
+  },
+  {
+   "f": "pedestals_per_lot",
+   "name": "Pedestals (per lot)",
+   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "geom": "point",
+   "style": {
+    "fill": "#ffd089",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "power_primary_roads",
+   "name": "Power Primary (roads)",
+   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "geom": "line",
+   "style": {
+    "mode": "categorized",
+    "field": "kind",
+    "cats": [
+     {
+      "fill": "#ff9e17",
+      "stroke": "#ff9e17",
+      "fillOpacity": 0,
+      "weight": 2.64,
+      "v": "primary"
+     },
+     {
+      "fill": "#ff5500",
+      "stroke": "#ff5500",
+      "fillOpacity": 0,
+      "weight": 4.32,
+      "v": "feeder"
+     }
+    ],
+    "default": {
+     "fill": "#ff5500",
+     "stroke": "#ff5500",
+     "fillOpacity": 0,
+     "weight": 4.32,
+     "v": "feeder"
+    }
+   },
+   "label": null,
+   "popup": [
+    "kind"
+   ],
+   "on": true
+  },
+  {
+   "f": "mix_lots",
+   "name": "Mix Lots",
+   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "geom": "poly",
+   "style": {
+    "mode": "categorized",
+    "field": "size",
+    "cats": [
+     {
+      "fill": "#4caf50",
+      "fillOpacity": 0.471,
+      "stroke": "#1b5e20",
+      "weight": 1.68,
+      "v": "10 ac"
+     },
+     {
+      "fill": "#42a5f5",
+      "fillOpacity": 0.431,
+      "stroke": "#0d47a1",
+      "weight": 1.68,
+      "v": "5 ac"
+     },
+     {
+      "fill": "#ffa726",
+      "fillOpacity": 0.471,
+      "stroke": "#e65100",
+      "weight": 1.68,
+      "v": "2.5 ac"
+     }
+    ],
+    "default": {
+     "fill": "#ffa726",
+     "fillOpacity": 0.471,
+     "stroke": "#e65100",
+     "weight": 1.68,
+     "v": "2.5 ac"
+    }
+   },
+   "label": "acres",
+   "popup": [
+    "id",
+    "acres",
+    "size"
+   ],
+   "on": false
+  },
+  {
+   "f": "electrical_trunk_eh_maker_space",
+   "name": "Electrical Trunk (EH \u2192 Maker Space)",
+   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "geom": "line",
+   "style": {
+    "fill": "#ff9e17",
+    "stroke": "#ff9e17",
+    "fillOpacity": 0,
+    "weight": 3.36,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "length_m",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "maker_space",
+   "name": "Maker Space",
+   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "geom": "poly",
+   "style": {
+    "fill": "#ff0000",
+    "fillOpacity": 0.471,
+    "stroke": "#b71c1c",
+    "weight": 2.4,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "disc_golf_course",
+   "name": "Disc Golf Course",
+   "group": "Phase 1 - Complete",
+   "geom": "line",
+   "style": {
+    "fill": "#ffff33",
+    "stroke": "#ffff33",
+    "fillOpacity": 0,
+    "weight": 1.0,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id",
+    "Hole"
+   ],
+   "on": false
+  },
+  {
+   "f": "golf_course",
+   "name": "Golf Course",
+   "group": "Phase 1 - Complete",
+   "geom": "poly",
+   "style": {
+    "fill": "#3e8e5a",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id",
+    "Holes"
+   ],
+   "on": false
+  },
+  {
+   "f": "lakes",
+   "name": "Lakes",
+   "group": "Phase 1 - Complete",
+   "geom": "poly",
+   "style": {
+    "fill": "#3498db",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": "Name",
+   "popup": [
+    "id",
+    "Name"
+   ],
+   "on": true
+  },
+  {
+   "f": "ponds_water_avoid",
+   "name": "Ponds & Water (avoid)",
+   "group": "Phase 1 - Complete",
+   "geom": "poly",
+   "style": {
+    "fill": "#2196f3",
+    "fillOpacity": 0.588,
+    "stroke": "#0d47a1",
+    "weight": 1.68,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "culverts",
+   "name": "Culverts",
+   "group": "Phase 1 - Complete",
+   "geom": "poly",
+   "style": {
+    "fill": "#7fb3d5",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": "Name",
+   "popup": [
+    "id",
+    "Name"
+   ],
+   "on": true
+  },
+  {
+   "f": "trails",
+   "name": "Trails",
+   "group": "Phase 1 - Complete",
+   "geom": "line",
+   "style": {
+    "fill": "#ff8f00",
+    "stroke": "#ff8f00",
+    "fillOpacity": 0,
+    "weight": 3.36,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "existing_wifi_starlinks",
+   "name": "Existing WiFi \u2014 Starlinks",
+   "group": "Phase 1 - Complete",
+   "geom": "point",
+   "style": {
+    "fill": "#232323",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "existing_wifi_aps",
+   "name": "Existing WiFi \u2014 APs",
+   "group": "Phase 1 - Complete",
+   "geom": "point",
+   "style": {
+    "fill": "#232323",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "existing_wifi_backhaul",
+   "name": "Existing WiFi \u2014 Backhaul",
+   "group": "Phase 1 - Complete",
+   "geom": "line",
+   "style": {
+    "mode": "categorized",
+    "field": "link_type",
+    "cats": [
+     {
+      "fill": "#00acc1",
+      "stroke": "#00acc1",
+      "fillOpacity": 0,
+      "weight": 1.68,
+      "v": "ethernet"
+     },
+     {
+      "fill": "#ff7043",
+      "stroke": "#ff7043",
+      "fillOpacity": 0,
+      "weight": 1.68,
+      "v": "nanobeam"
+     },
+     {
+      "fill": "#90caf9",
+      "stroke": "#90caf9",
+      "fillOpacity": 0,
+      "weight": 1.92,
+      "v": "starlink"
+     }
+    ],
+    "default": {
+     "fill": "#90caf9",
+     "stroke": "#90caf9",
+     "fillOpacity": 0,
+     "weight": 1.92,
+     "v": "starlink"
+    }
+   },
+   "label": null,
+   "popup": [
+    "link_type",
+    "length_m"
+   ],
+   "on": true
+  },
+  {
+   "f": "existing_wifi_coverage",
+   "name": "Existing WiFi \u2014 Coverage",
+   "group": "Phase 1 - Complete",
+   "geom": "poly",
+   "style": {
+    "fill": "#00acc1",
+    "fillOpacity": 0.149,
+    "stroke": "#00acc1",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "radius_m",
+    "ap"
+   ],
+   "on": true
+  },
+  {
+   "f": "well_water",
+   "name": "Well Water",
+   "group": "Phase 1 - Complete",
+   "geom": "point",
+   "style": {
+    "fill": "#0277bd",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "connections",
+   "name": "Connections",
+   "group": "Phase 1 - Complete",
+   "geom": "point",
+   "style": {
+    "fill": "#42a5f5",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "kind"
+   ],
+   "on": true
+  },
+  {
+   "f": "network",
+   "name": "Network",
+   "group": "Phase 1 - Complete",
+   "geom": "line",
+   "style": {
+    "fill": "#1565c0",
+    "stroke": "#1565c0",
+    "fillOpacity": 0,
+    "weight": 1.68,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "length_m"
+   ],
+   "on": true
+  },
+  {
+   "f": "bathroom_shower_house",
+   "name": "Bathroom / Shower House",
+   "group": "Phase 1 - Complete",
+   "geom": "poly",
+   "style": {
+    "fill": "#7a4b2a",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": "Name",
+   "popup": [
+    "id",
+    "Name"
+   ],
+   "on": true
+  },
+  {
+   "f": "sani_dumps",
+   "name": "Sani Dumps",
+   "group": "Phase 1 - Complete",
+   "geom": "point",
+   "style": {
+    "fill": "#8e44ad",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id",
+    "Location"
+   ],
+   "on": true
+  },
+  {
+   "f": "connections_2",
+   "name": "Connections",
+   "group": "Phase 1 - Complete",
+   "geom": "point",
+   "style": {
+    "fill": "#8d6e63",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "kind"
+   ],
+   "on": true
+  },
+  {
+   "f": "network_2",
+   "name": "Network",
+   "group": "Phase 1 - Complete",
+   "geom": "line",
+   "style": {
+    "fill": "#6d4c41",
+    "stroke": "#6d4c41",
+    "fillOpacity": 0,
+    "weight": 1.68,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "length_m"
+   ],
+   "on": true
+  },
+  {
+   "f": "source",
+   "name": "Source",
+   "group": "Phase 1 - Complete",
+   "geom": "point",
+   "style": {
+    "fill": "#ffeb3b",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "name"
+   ],
+   "on": true
+  },
+  {
+   "f": "connections_3",
+   "name": "Connections",
+   "group": "Phase 1 - Complete",
+   "geom": "point",
+   "style": {
+    "fill": "#ff8f00",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "kind"
+   ],
+   "on": true
+  },
+  {
+   "f": "network_3",
+   "name": "Network",
+   "group": "Phase 1 - Complete",
+   "geom": "line",
+   "style": {
+    "fill": "#ffb300",
+    "stroke": "#ffb300",
+    "fillOpacity": 0,
+    "weight": 1.68,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "length_m"
+   ],
+   "on": true
+  },
+  {
+   "f": "team_buildings",
+   "name": "Team Buildings",
+   "group": "Phase 1 - Complete",
+   "geom": "poly",
+   "style": {
+    "fill": "#7a4b2a",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": "Name",
+   "popup": [
+    "id",
+    "Name"
+   ],
+   "on": true
+  },
+  {
+   "f": "for_rent",
+   "name": "For Rent",
+   "group": "Phase 1 - Complete",
+   "geom": "poly",
+   "style": {
+    "fill": "#1f6fa8",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id",
+    "Type",
+    "Site"
+   ],
+   "on": true
+  },
+  {
+   "f": "public_areas",
+   "name": "Public Areas",
+   "group": "Phase 1 - Complete",
+   "geom": "poly",
+   "style": {
+    "fill": "#5d6d7e",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "Structures"
+   ],
+   "on": true
+  },
+  {
+   "f": "full_service_sites",
+   "name": "Full Service Sites",
+   "group": "Phase 1 - Complete",
+   "geom": "poly",
+   "style": {
+    "fill": "#2e7d46",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": "Name",
+   "popup": [
+    "id",
+    "Name"
+   ],
+   "on": true
+  },
+  {
+   "f": "power_water_sites",
+   "name": "Power Water Sites",
+   "group": "Phase 1 - Complete",
+   "geom": "poly",
+   "style": {
+    "fill": "#1f6fa8",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "popup": [
+    "id",
+    "Site"
+   ],
+   "on": true
+  },
+  {
+   "f": "wells_gray_golf_rv_parcel_parcelmap_bc_parcel_fa",
+   "name": "Wells Gray Golf & RV Parcel \u2014 parcelmap_bc_parcel_fabric__pubwhse_cadastrepmbc_parcel_fabric_poly_svw",
+   "group": "Base Maps",
+   "geom": "poly",
+   "style": {
+    "fill": "#ffd400",
+    "fillOpacity": 0.0,
+    "stroke": "#ffd400",
+    "weight": 2.16,
+    "mode": "single"
+   },
+   "label": "name",
+   "popup": [
+    "id",
+    "metadataproperty",
+    "description_href",
+    "description_title",
+    "description_nilreason",
+    "description",
+    "descriptionreference_href",
+    "descriptionreference_title"
+   ],
+   "on": true
+  }
+ ]
+}

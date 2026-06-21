@@ -1,0 +1,25 @@
+{
+"type": "FeatureCollection",
+"name": "disc_golf_course",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": null, "Hole": "1" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.050441274185701, 51.938651131928445 ], [ -120.052104280926415, 51.938288167766153 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 2, "Hole": "2" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.053010332874692, 51.937373673610615 ], [ -120.05454718048307, 51.936492159023054 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 3, "Hole": "3" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.054631286571052, 51.936468588876551 ], [ -120.053874331778857, 51.93761879758398 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 11, "Hole": "11" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.054103712018943, 51.937671829036624 ], [ -120.055634825121373, 51.936975344297501 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 4, "Hole": "4" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.052836386192624, 51.938198604728939 ], [ -120.052297342628492, 51.938896248922184 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 5, "Hole": "5" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.051635962936302, 51.938700626813841 ], [ -120.051586263884303, 51.939275706242405 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 6, "Hole": "6" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.051853874164351, 51.939365267129332 ], [ -120.052977837340634, 51.939320486708233 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 7, "Hole": "7" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.052553483896546, 51.939622164470883 ], [ -120.050921061188106, 51.939534960951065 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 8, "Hole": "8" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.050615220868053, 51.939127223325421 ], [ -120.0497282839398, 51.939770645749725 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 9, "Hole": "9" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.04998060220386, 51.939881417177389 ], [ -120.051532741828268, 51.939987474670957 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 10, "Hole": "10" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.053153695524728, 51.939398263200488 ], [ -120.053948880356899, 51.93836830296361 ] ] ] } },
+{ "type": "Feature", "properties": { "id": null, "Hole": null }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.055554542037342, 51.937258182043614 ], [ -120.054633198073077, 51.938064259837923 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 13, "Hole": "13" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.054478366411033, 51.938895070478281 ], [ -120.054161057078943, 51.940245546857909 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 14, "Hole": "14" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.053866685770871, 51.940342176244535 ], [ -120.052807713662574, 51.940049930633151 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 15, "Hole": "15" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.052398652234444, 51.94032567855912 ], [ -120.049737841449755, 51.940493011944227 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 16, "Hole": "16" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.04992134564182, 51.940905450721196 ], [ -120.04928672697767, 51.942006054496346 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 17, "Hole": "17" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.048587117245475, 51.94111284707337 ], [ -120.049412886109693, 51.94024790367471 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 18, "Hole": "18" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -120.048988532665589, 51.940080569375326 ], [ -120.050307469045919, 51.939093048616208 ] ] ] } }
+]
+}

@@ -1,0 +1,15 @@
+{
+"type": "FeatureCollection",
+"name": "electrical_trunk_eh_maker_space",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1, "length_m": 51.2, "phase": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.048420050115283, 51.939881080714763 ], [ -120.048468717939826, 51.940340343952521 ] ] } },
+{ "type": "Feature", "properties": { "fid": 2, "length_m": 21.0, "phase": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.048468717939826, 51.940340343952521 ], [ -120.048475066816465, 51.940529453096246 ] ] } },
+{ "type": "Feature", "properties": { "fid": 3, "length_m": 22.3, "phase": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.048475066816465, 51.940529453096246 ], [ -120.048433722265045, 51.940728596798188 ] ] } },
+{ "type": "Feature", "properties": { "fid": 4, "length_m": 20.0, "phase": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.048433722265045, 51.940728596798188 ], [ -120.048372150276052, 51.94090400558138 ] ] } },
+{ "type": "Feature", "properties": { "fid": 5, "length_m": 20.3, "phase": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.048372150276052, 51.94090400558138 ], [ -120.048341586700658, 51.9410853082301 ] ] } },
+{ "type": "Feature", "properties": { "fid": 6, "length_m": 19.6, "phase": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.048341586700658, 51.9410853082301 ], [ -120.048303455014221, 51.941259486597176 ] ] } },
+{ "type": "Feature", "properties": { "fid": 7, "length_m": 19.6, "phase": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.048303455014221, 51.941259486597176 ], [ -120.048309397479386, 51.941435346957348 ] ] } },
+{ "type": "Feature", "properties": { "fid": 11, "length_m": 25.8, "phase": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ -120.048312660194995, 51.941435442847997 ], [ -120.047870999990451, 51.941595000015866 ] ] } }
+]
+}

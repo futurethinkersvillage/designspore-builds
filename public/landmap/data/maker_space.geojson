@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "maker_space",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1, "name": "Maker Space", "phase": 2 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -120.047964944567113, 51.941515108287049 ], [ -120.047787845186718, 51.941510663819415 ], [ -120.047777055096063, 51.941674891631827 ], [ -120.047954155121445, 51.941679336125546 ], [ -120.047964944567113, 51.941515108287049 ] ] ] } }
+]
+}

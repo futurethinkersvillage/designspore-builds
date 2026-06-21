@@ -1,0 +1,12 @@
+{
+"type": "FeatureCollection",
+"name": "development_labels",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1, "label": "Pull-through / Tiny Home Sites", "col": "#2fa7fc" }, "geometry": { "type": "Point", "coordinates": [ -120.046257501289759, 51.940250931062003 ] } },
+{ "type": "Feature", "properties": { "fid": 2, "label": "Regular RV Sites", "col": "#ffc56d" }, "geometry": { "type": "Point", "coordinates": [ -120.047574916480585, 51.939575284921453 ] } },
+{ "type": "Feature", "properties": { "fid": 3, "label": "Full Service Sites", "col": "#45bb69" }, "geometry": { "type": "Point", "coordinates": [ -120.047826439943222, 51.940257349355193 ] } },
+{ "type": "Feature", "properties": { "fid": 4, "label": "Power / Water Sites", "col": "#2fa7fc" }, "geometry": { "type": "Point", "coordinates": [ -120.048169107237868, 51.939699923684302 ] } },
+{ "type": "Feature", "properties": { "fid": 5, "label": "Subdivision Lots", "col": "#76ff7c" }, "geometry": { "type": "Point", "coordinates": [ -120.043340986092161, 51.943624700536489 ] } }
+]
+}

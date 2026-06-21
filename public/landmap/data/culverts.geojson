@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "culverts",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": null, "Name": "Big Culvert" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -120.055610811877813, 51.936608241813857 ], [ -120.05557831634377, 51.936609420317822 ], [ -120.055830634607887, 51.936387861030923 ], [ -120.055866953145909, 51.936394932088888 ], [ -120.055610811877813, 51.936608241813857 ] ] ] ] } }
+]
+}

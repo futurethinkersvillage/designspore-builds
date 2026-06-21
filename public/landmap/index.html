@@ -9,27 +9,26 @@
   :root{
     --bg:#14180f; --panel:#1d2417; --ink:#f3f1e7; --muted:#a9b39a;
     --accent:#cfa64b; --line:#2c3522;
-    --green:#2E7D46; --blue:#1F6FA8; --brown:#7A4B2A; --slate:#5D6D7E;
-    --orange:#F39200; --purple:#8E44AD; --gold:#FFD400;
   }
   html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink)}
   #map{position:absolute;inset:0;background:var(--bg)}
   .panel{position:absolute;z-index:1000;background:rgba(29,36,23,.94);color:var(--ink);
     border:1px solid var(--line);border-radius:12px;backdrop-filter:blur(6px);
     box-shadow:0 10px 30px rgba(0,0,0,.45)}
-  /* Title */
   #title{top:14px;left:14px;max-width:330px;padding:16px 18px}
   #title h1{margin:0 0 4px;font-size:18px;letter-spacing:.2px;line-height:1.2}
   #title .sub{color:var(--muted);font-size:12.5px;line-height:1.45}
   #title .brand{margin-top:10px;font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
-  /* Controls panel */
-  #controls{top:14px;right:14px;width:260px;padding:14px 16px;max-height:calc(100% - 28px);overflow:auto}
+  #controls{top:14px;right:14px;width:272px;padding:14px 16px;max-height:calc(100% - 28px);overflow:auto}
   #controls h2{margin:2px 0 10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-  .sec{margin:14px 0 6px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+  .sec{margin:14px 0 6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
   .sec:first-of-type{border-top:none;padding-top:0;margin-top:4px}
-  label.row{display:flex;align-items:center;gap:9px;padding:5px 4px;border-radius:7px;cursor:pointer;font-size:13px}
+  .secbar{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
+  .secbar .toggleall{font-size:10px;color:var(--accent);text-transform:none;letter-spacing:0;opacity:.8}
+  label.row{display:flex;align-items:center;gap:9px;padding:5px 4px;border-radius:7px;cursor:pointer;font-size:12.5px}
   label.row:hover{background:rgba(255,255,255,.05)}
-  label.row input{accent-color:var(--accent);width:15px;height:15px}
+  label.row input{accent-color:var(--accent);width:15px;height:15px;flex:0 0 auto}
+  label.row span.nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .sw{width:14px;height:14px;border-radius:3px;flex:0 0 auto;border:1px solid rgba(255,255,255,.25)}
   .sw.line{height:0;border-top-width:3px;border-radius:0}
   .basemap-row{display:flex;gap:6px;margin-top:4px}
@@ -37,14 +36,18 @@
     border-radius:8px;cursor:pointer;color:var(--muted)}
   .bm.active{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:600}
   .hint{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.5;border-top:1px solid var(--line);padding-top:10px}
-  /* popup */
   .leaflet-popup-content-wrapper{background:var(--panel);color:var(--ink);border-radius:10px}
   .leaflet-popup-tip{background:var(--panel)}
   .pp b{color:var(--accent)}
-  .pp .t{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .pp .t{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  /* map labels (from QGIS label fields) */
+  .maplbl{background:transparent;border:none;box-shadow:none;color:#fff;font-weight:600;
+    font-size:11px;text-shadow:0 0 3px #000,0 0 3px #000,0 0 2px #000;padding:0}
+  .maplbl.dev{font-size:13px;font-weight:700;letter-spacing:.02em}
+  .leaflet-tooltip.maplbl:before{display:none}
   @media(max-width:640px){
     #title{max-width:none;left:10px;right:10px;top:10px}
-    #controls{right:10px;left:10px;top:auto;bottom:10px;width:auto;max-height:42%}
+    #controls{right:10px;left:10px;top:auto;bottom:10px;width:auto;max-height:46%}
   }
 </style>
 </head>
@@ -53,7 +56,7 @@
 
 <div id="title" class="panel">
   <h1>Wells Gray Golf &amp; RV Resort</h1>
-  <div class="sub">Development master plan — existing operations &amp; planned expansion. Toggle layers and backdrops at right; click any feature for details.</div>
+  <div class="sub">Development master plan — phased build-out. Toggle layers and backdrops at right; click any feature for details.</div>
   <div class="brand">Clearwater, BC</div>
 </div>
 
@@ -65,9 +68,8 @@
     <div class="bm" data-bm="topo">Topo</div>
     <div class="bm" data-bm="osm">Map</div>
   </div>
-  <div id="layers"></div>
-  <div id="festctl"></div>
-  <div class="hint">Yellow outline = legal parcel boundary. Solid fills = existing &amp; operational. Dashed, translucent fills = planned (not yet built).</div>
+  <div id="layers"><div class="hint">Loading layers…</div></div>
+  <div class="hint">Solid fills = existing &amp; operational. Lighter / dashed fills = planned phases. Click a feature for details; some layers show name labels.</div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -84,8 +86,6 @@ const basemaps = {
   osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         {maxZoom:22,maxNativeZoom:19,attribution:'© OpenStreetMap'})
 };
-// Drone orthomosaic — high-res but covers only the property, so it rides on top
-// of the satellite base (transparent outside coverage).
 const droneLayer = L.tileLayer('tiles/drone/{z}/{x}/{y}.webp', {
   minZoom:13, maxNativeZoom:20, maxZoom:22, opacity:1,
   bounds:[[51.9333,-120.0611],[51.9424,-120.0456]],
@@ -99,170 +99,106 @@ document.querySelectorAll('.bm').forEach(b=>b.onclick=()=>{
   map.removeLayer(current); map.removeLayer(droneLayer);
   if(key==='drone'){ current=basemaps.sat.addTo(map); droneLayer.addTo(map); }
   else { current=basemaps[key].addTo(map); }
-  // vector overlays live in Leaflet's overlayPane (above tilePane), so they stay on top
 });
 
-// ---------- layer definitions ----------
-// group: existing | planned | infra ; type: poly | line | point
-const DEFS = [
-  {f:'parcel',           name:'Parcel boundary',     group:'base',     type:'poly', color:'#FFD400', fill:'none', weight:2.5, popup:['pid_formatted','owner_type','feature_area_sqm'], on:true},
-  {f:'rv_permanent',     name:'Permanent RV sites',  group:'planned',  type:'poly', color:'#1F6FA8', popup:['id'], on:true},
-  {f:'sites_fullservice',name:'Full-service sites',  group:'existing', type:'poly', color:'#2E7D46', popup:['Name'], on:true},
-  {f:'sites_powerwater', name:'Power &amp; water sites', group:'existing', type:'poly', color:'#1F6FA8', popup:['Site'], on:true},
-  {f:'for_rent',         name:'For-rent units',      group:'existing', type:'poly', color:'#5DADE2', popup:['Type','Site'], on:true},
-  {f:'buildings',        name:'Buildings',           group:'existing', type:'poly', color:'#7A4B2A', popup:['Name'], on:true},
-  {f:'facilities',       name:'Washrooms / showers', group:'existing', type:'poly', color:'#9C6B3F', popup:['Name'], on:true},
-  {f:'public_areas',     name:'Public &amp; amenity areas', group:'existing', type:'poly', color:'#5D6D7E', popup:['Structures'], on:true},
-  {f:'golf',             name:'Golf course',         group:'existing', type:'poly', color:'#3E8E5A', fillOpacity:.25, popup:['Holes'], on:false},
-  {f:'trails',           name:'Trails / roads',      group:'existing', type:'line', color:'#cfcfcf', dash:'5,5', popup:['id'], on:true},
-  {f:'sani_dumps',       name:'Sani dumps',          group:'existing', type:'point',color:'#8E44AD', popup:['Location'], on:true},
-  {f:'cabins',           name:'Cabins (expansion)',  group:'planned',  type:'poly', color:'#2E7D46', popup:['id'], on:true},
-  {f:'new_sites',        name:'New sites (future)',  group:'planned',  type:'poly', color:'#F39200', popup:['Site'], on:true},
-  {f:'festival_grounds', name:'Festival grounds',    group:'planned',  type:'poly', color:'#E91E63', popup:['area_ac'], on:true},
-  // Existing utilities (built) — solid lines
-  {f:'electrical_existing', name:'Electrical', group:'util_existing', utility:{line:'#FFB300',node:'#FF8F00',source:'#D32F2F',area:'#FFB300'}, on:false},
-  {f:'water_existing',      name:'Water',      group:'util_existing', utility:{line:'#1565C0',node:'#42A5F5',source:'#0277BD',area:'#1565C0'}, on:false},
-  {f:'septic_existing',     name:'Septic',     group:'util_existing', utility:{line:'#6D4C41',node:'#8D6E63',source:'#6D4C41',area:'#8D6E63'}, on:false},
-  {f:'wifi_existing',       name:'WiFi',       group:'util_existing', utility:{line:'#00838F',node:'#00ACC1',source:'#006064',area:'#00ACC1'}, on:false},
-  // Planned-expansion utilities (concept) — dashed lines
-  {f:'electrical_planned', name:'Electrical', group:'util_planned', dashed:true, utility:{line:'#FFB300',node:'#FF8F00',source:'#D32F2F',area:'#FFB300'}, on:false},
-  {f:'water_planned',      name:'Water',      group:'util_planned', dashed:true, utility:{line:'#1565C0',node:'#42A5F5',source:'#0277BD',area:'#1565C0'}, on:false},
-  {f:'septic_planned',     name:'Septic',     group:'util_planned', dashed:true, utility:{line:'#6D4C41',node:'#8D6E63',source:'#6D4C41',area:'#8D6E63'}, on:false},
-  {f:'wifi_planned',       name:'WiFi',       group:'util_planned', dashed:true, utility:{line:'#00838F',node:'#00ACC1',source:'#006064',area:'#00ACC1'}, on:false},
-];
+// ---------- manifest-driven layers (auto-generated from QGIS) ----------
+const overlays = {};   // f -> leaflet layer
+let DEFS=[], GROUPS=[];
 
-const overlays = {};   // f -> layer
-function styleFor(d){
-  const planned = d.group==='planned';
-  if(d.type==='line') return {color:d.color, weight:3, dashArray:d.dash||null};
-  if(d.fill==='none') return {color:d.color, weight:d.weight||2.5, fill:false};
-  // Planned features read as "proposed": translucent fill + LIGHT dashed outline.
-  return {color: planned?'#f0f0f0':'#ffffff', weight:planned?1.8:1,
-          dashArray: planned?'5,4':null, fillColor:d.color,
-          fillOpacity:(d.fillOpacity!=null?d.fillOpacity:(planned?0.40:0.85))};
+function styleObj(L,c){
+  if(L.geom==='line') return {color:(c.stroke||c.fill||'#ccc'), weight:(c.weight||2.5), dashArray:(c.dash||null)};
+  return {color:(c.stroke||'#ffffff'), weight:(c.weight!=null?c.weight:1),
+          fillColor:(c.fill||'#888888'), fillOpacity:(c.fillOpacity!=null?c.fillOpacity:0.55),
+          dashArray:(c.dash||null)};
 }
-const LABELS={parcel_name:'Parcel',pid_formatted:'PID',owner_type:'Owner',
-  feature_area_sqm:'Area',Name:'Name',Site:'Site',Type:'Type',Structures:'Structure',
-  Location:'Location',Holes:'Holes',id:'Ref',length_m:'Run (m)',type:'Site type',name:'Name',area_ac:'Area (ac)'};
-function popupHtml(d,props,n){
-  let rows = `<div class="pp"><div class="t">${d.name.replace('&amp;','&')}${n?' · #'+n:''}</div>`;
-  let any=false;
-  (d.popup||[]).forEach(k=>{
-    const key = k.replace('&amp;','&');
-    let v = props[key];
-    if(v==null || String(v).trim()==='') return;
-    if(key==='feature_area_sqm'){ v=(v/4046.86).toFixed(1)+' ac ('+Math.round(v).toLocaleString()+' m²)'; }
-    rows += `<div><b>${LABELS[key]||key}:</b> ${v}</div>`; any=true;
+function pickCat(L,ft){
+  const s=L.style;
+  if(s.mode!=='categorized') return s;
+  const v = (ft && ft.properties)? String(ft.properties[s.field]) : null;
+  return (s.cats||[]).find(k=>k.v===v) || s.default || (s.cats&&s.cats[0]) || {};
+}
+function styleFor(L,ft){ return styleObj(L, pickCat(L,ft)); }
+function pointStyleFor(L,ft){
+  const c=pickCat(L,ft);
+  const r=(/label/i.test(L.name))?0.1:6;
+  return {radius:r, color:(c.stroke||'#fff'), weight:r<1?0:1.3,
+          fillColor:(c.fill||'#888'), fillOpacity:(c.fillOpacity!=null?Math.max(.65,c.fillOpacity):.92)};
+}
+const PRETTY={acres:'Area (ac)',area_ac:'Area (ac)',name:'Name',Name:'Name',Site:'Site',
+  Type:'Type',Structures:'Structure',Location:'Location',Holes:'Holes',subject:'Theme',
+  clue:'Clue',pid_formatted:'PID',owner_type:'Owner',label:'',id:'Ref',v:''};
+function popupHtml(L,props){
+  let rows=`<div class="pp"><div class="t">${L.name}</div>`, any=false;
+  (L.popup||[]).forEach(k=>{
+    let v=props[k];
+    if(v==null||String(v).trim()===''||k===L.label) return;
+    if(/(acres)/i.test(k)) v=Number(v).toFixed(1)+' ac';
+    const lbl=PRETTY[k]!=null?PRETTY[k]:k;
+    rows+=`<div>${lbl?'<b>'+lbl+':</b> ':''}${v}</div>`; any=true;
   });
-  if(!any) rows += `<div style="color:var(--muted)">Planned ${d.name.toLowerCase().replace('&amp;','&')} unit</div>`;
+  if(L.label && props[L.label]!=null && String(props[L.label]).trim()!=='' )
+    rows = `<div class="pp"><div class="t">${L.name}</div><div><b>${props[L.label]}</b></div>`+rows.slice(rows.indexOf('</div>')+6);
+  if(!any && !(L.label&&props[L.label])) rows+=`<div style="color:var(--muted)">${L.name}</div>`;
   return rows+'</div>';
 }
-function addLayer(d){
-  return fetch('data/'+d.f+'.geojson').then(r=>r.json()).then(gj=>{
-    let lyr;
-    if(d.utility){
-      // single utility layer holding mixed geometry, styled by feature.properties.elem
-      const u=d.utility;
-      lyr = L.geoJSON(gj,{
-        style:(ft)=>{
-          const e=ft.properties.elem;
-          if(e==='area') return {color:u.area,weight:1,fillColor:u.area,fillOpacity:.12,dashArray:'3,3'};
-          return {color:u.line,weight:2.4,dashArray:(d.dashed?'6,5':null)};
-        },
-        pointToLayer:(ft,latlng)=>{
-          const src=ft.properties.elem==='source';
-          return L.circleMarker(latlng,{radius:src?7:3.2,color:'#fff',weight:1.3,
-            fillColor:src?u.source:u.node,fillOpacity:.95});
-        },
-        onEachFeature:(ft,l)=>l.bindPopup(`<div class="pp"><div class="t">${d.name}</div><div>${ft.properties.info||''}</div></div>`)
-      });
-    } else {
-      let i=0;
-      lyr = L.geoJSON(gj,{
-        style: ()=>styleFor(d),
-        pointToLayer:(ft,latlng)=>L.circleMarker(latlng,{radius:(d.radius||6),color:'#fff',weight:1.4,fillColor:d.color,fillOpacity:.95}),
-        onEachFeature:(ft,l)=>{ i++; if(d.popup) l.bindPopup(popupHtml(d,ft.properties||{}, (d.group==='base'?0:i))); }
-      });
+function addLayer(L){
+  return fetch('data/'+L.f+'.geojson').then(r=>r.json()).then(gj=>{
+    const lyr=L.geom==='point'
+      ? window.L.geoJSON(gj,{pointToLayer:(ft,ll)=>window.L.circleMarker(ll,pointStyleFor(L,ft)), onEachFeature:bind})
+      : window.L.geoJSON(gj,{style:(ft)=>styleFor(L,ft), onEachFeature:bind});
+    function bind(ft,l){
+      const p=ft.properties||{};
+      l.bindPopup(popupHtml(L,p));
+      if(L.label && p[L.label]!=null && String(p[L.label]).trim()!==''){
+        const dev=/label/i.test(L.name);
+        l.bindTooltip(String(p[L.label]),{permanent:dev,direction:'center',className:'maplbl'+(dev?' dev':'')});
+      }
     }
-    overlays[d.f]=lyr;
-    if(d.on) lyr.addTo(map);
-    return {d,gj};
-  }).catch(e=>{console.warn('load fail',d.f,e);return null;});
+    overlays[L.f]=lyr;
+    if(L.on) lyr.addTo(map);
+    return L;
+  }).catch(e=>{console.warn('load fail',L.f,e);return null;});
 }
-
-// hatch pattern for planned (SVG fill) — applied after add
-function applyHatch(d){
-  const lyr=overlays[d.f]; if(!lyr) return;
-  lyr.setStyle({fillColor:d.color,color:d.color,weight:1.2,fillOpacity:.35});
-}
-
-// ---------- build control UI ----------
-function sw(d){
-  if(d.utility) return `<span class="sw" style="background:${d.utility.node};border:1.5px solid ${d.utility.line}"></span>`;
-  if(d.type==='line') return `<span class="sw line" style="border-top-color:${d.color}"></span>`;
-  if(d.fill==='none') return `<span class="sw" style="background:transparent;border:2px solid ${d.color}"></span>`;
-  if(d.group==='planned') return `<span class="sw" style="background:${d.color}33;border:1.5px dashed #f0f0f0"></span>`;
-  return `<span class="sw" style="background:${d.color}"></span>`;
+function swatch(L){
+  const s=L.style, c=(s.mode==='categorized'?(s.cats&&s.cats[0]||s.default||{}):s);
+  if(L.geom==='line') return `<span class="sw line" style="border-top-color:${c.stroke||c.fill}"></span>`;
+  if((c.fillOpacity!=null&&c.fillOpacity<0.06)) return `<span class="sw" style="background:transparent;border:2px solid ${c.stroke||c.fill}"></span>`;
+  return `<span class="sw" style="background:${c.fill||'#888'}"></span>`;
 }
 function buildUI(){
-  const host=document.getElementById('layers');
-  const groups=[['base','Property'],['existing','Existing / operational'],['planned','Planned expansion'],['util_existing','Utilities — Existing (solid)'],['util_planned','Utilities — Planned (dashed)']];
-  let html='';
-  groups.forEach(([g,label])=>{
+  const host=document.getElementById('layers'); let html='';
+  GROUPS.forEach(g=>{
     const items=DEFS.filter(d=>d.group===g);
     if(!items.length) return;
-    html+=`<div class="sec">${label}</div>`;
+    const gid='g'+g.replace(/[^a-z0-9]/gi,'');
+    html+=`<div class="sec"><div class="secbar" data-grp="${gid}"><span>${g}</span><span class="toggleall">all</span></div></div>`;
     items.forEach(d=>{
-      html+=`<label class="row"><input type="checkbox" data-f="${d.f}" ${d.on?'checked':''}>${sw(d)}<span>${d.name}</span></label>`;
+      html+=`<label class="row" data-grp="${gid}"><input type="checkbox" data-f="${d.f}" ${d.on?'checked':''}>${swatch(d)}<span class="nm">${d.name}</span></label>`;
     });
   });
   host.innerHTML=html;
-  host.querySelectorAll('input').forEach(cb=>cb.onchange=()=>{
+  host.querySelectorAll('input[data-f]').forEach(cb=>cb.onchange=()=>{
     const lyr=overlays[cb.dataset.f]; if(!lyr) return;
     cb.checked?lyr.addTo(map):map.removeLayer(lyr);
   });
+  host.querySelectorAll('.secbar').forEach(bar=>bar.onclick=()=>{
+    const g=bar.dataset.grp, boxes=[...host.querySelectorAll(`label[data-grp="${g}"] input`)];
+    const turnOn=boxes.some(b=>!b.checked);
+    boxes.forEach(b=>{ if(b.checked!==turnOn){ b.checked=turnOn; b.onchange(); } });
+  });
 }
-
-// ---------- init ----------
-Promise.all(DEFS.map(addLayer)).then(results=>{
-  buildUI();
-  // fit to parcel
-  if(overlays['parcel']){
-    try{ map.fitBounds(overlays['parcel'].getBounds().pad(0.08)); }catch(e){}
-  }
-});
-
-// ---------- Festival master plan (phased, with 500→5k selector) ----------
-let festGeo=null, festLayer=null, festOn=false, festPhase=4;
-const CAMP_COL=['','#1B5E20','#2E7D32','#66BB6A','#A5D6A7']; // by phase 1..4
-function festStyle(f){
-  const e=f.properties.elem;
-  if(e==='camp')   return {color:'#ffffff',weight:1,dashArray:'4,3',fillColor:CAMP_COL[f.properties.phase]||'#66BB6A',fillOpacity:.5};
-  if(e==='parking')return {color:'#90A4AE',weight:1,dashArray:'4,3',fillColor:'#90A4AE',fillOpacity:.25};
-  if(e==='trail')  return {color:'#FFD54F',weight:3.5};
-  return {color:'#FFD54F',weight:2};
+function fitView(){
+  let b=null;
+  const parcel=DEFS.find(d=>/parcel/i.test(d.name));
+  const pick=parcel&&overlays[parcel.f]?[overlays[parcel.f]]:Object.values(overlays);
+  pick.forEach(l=>{ try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):window.L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){} });
+  if(b&&b.isValid()) map.fitBounds(b.pad(0.06));
 }
-function festPoint(f,latlng){
-  const e=f.properties.elem;
-  if(e==='landing')return L.circleMarker(latlng,{radius:6,color:'#5D4037',weight:1.6,fillColor:'#FFC107',fillOpacity:.95});
-  if(e==='water')  return L.circleMarker(latlng,{radius:6,color:'#fff',weight:1.4,fillColor:'#29B6F6',fillOpacity:.95});
-  if(e==='wc')     return L.circleMarker(latlng,{radius:3.6,color:'#fff',weight:1,fillColor:'#6D4C41',fillOpacity:.9});
-  return L.circleMarker(latlng,{radius:4,color:'#fff',weight:1,fillColor:'#999',fillOpacity:.9});
-}
-function buildFest(){
-  if(festLayer){ map.removeLayer(festLayer); festLayer=null; }
-  if(!festOn || !festGeo) return;
-  const fc={type:'FeatureCollection',features:festGeo.features.filter(f=>(f.properties.phase||1)<=festPhase)};
-  festLayer=L.geoJSON(fc,{style:festStyle, pointToLayer:festPoint,
-    onEachFeature:(f,l)=>l.bindPopup(`<div class="pp"><div class="t">Festival</div><div>${f.properties.info||''}</div></div>`)}).addTo(map);
-}
-(function festUI(){
-  const host=document.getElementById('festctl');
-  host.innerHTML=`<div class="sec">Festival (planned)</div>
-    <label class="row"><input type="checkbox" id="festtoggle"><span class="sw" style="background:#FFC107"></span><span>Festival master plan</span></label>`;
-  document.getElementById('festtoggle').onchange=e=>{ festOn=e.target.checked; buildFest(); };
-})();
-fetch('data/festival_plan.geojson').then(r=>r.json()).then(g=>{festGeo=g; buildFest();}).catch(e=>console.warn('festival load',e));
+fetch('data/manifest.json').then(r=>r.json()).then(M=>{
+  DEFS=M.layers||[]; GROUPS=M.groups||[];
+  return Promise.all(DEFS.map(addLayer));
+}).then(()=>{ buildUI(); fitView(); })
+  .catch(e=>{ document.getElementById('layers').innerHTML='<div class="hint">Failed to load map data.</div>'; console.error(e); });
 </script>
 </body>
 </html>
