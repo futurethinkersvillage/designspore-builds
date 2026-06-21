@@ -138,13 +138,21 @@ function swatch(L){const s=L.style,c=(s.mode==='categorized'?(s.cats&&s.cats[0]|
   if(L.geom==='line') return `<span class="sw line" style="border-top-color:${c.stroke||c.fill}"></span>`;
   if(c.fillOpacity!=null&&c.fillOpacity<0.06) return `<span class="sw" style="background:transparent;border:2px solid ${c.stroke||c.fill}"></span>`;
   return `<span class="sw" style="background:${c.fill||'#888'}"></span>`;}
+function labelColor(L){const s=L.style,c=(s.mode==='categorized'?(s.cats&&s.cats[0]||s.default||{}):s);
+  let h=(L.geom==='line'?(c.stroke||c.fill):(c.fill||c.stroke))||'#ffffff';
+  const m=/^#?([0-9a-f]{6})$/i.exec(h); if(m){const n=parseInt(m[1],16),r=n>>16,g=(n>>8)&255,b=n&255;
+    if(0.299*r+0.587*g+0.114*b<120) return '#f0f0f0';} return h;}
+function repLayer(lyr){let arr=[];lyr.eachLayer(l=>arr.push(l));if(!arr.length)return null;
+  let best=arr[0],bestA=-1;arr.forEach(l=>{let a=0;try{const b=l.getBounds();a=(b.getEast()-b.getWest())*(b.getNorth()-b.getSouth());}catch(e){a=0;}if(a>bestA){bestA=a;best=l;}});return best;}
 function addLayer(L){return fetch('data/'+L.f+'.geojson').then(r=>r.json()).then(gj=>{
+    const col=labelColor(L), dev=/label/i.test(L.name);
     const lyr=window.L.geoJSON(gj, L.geom==='point'
       ? {pointToLayer:(ft,ll)=>window.L.circleMarker(ll,pointStyleFor(L,ft)),onEachFeature:bind}
       : {style:ft=>styleFor(L,ft),onEachFeature:bind});
     function bind(ft,l){const p=ft.properties||{}; l.bindPopup(popupHtml(L,p));
-      if(L.label&&p[L.label]!=null&&String(p[L.label]).trim()!==''){const dev=/label/i.test(L.name);
-        l.bindTooltip(String(p[L.label]),{permanent:dev,direction:'center',className:'maplbl'+(dev?' dev':'')});}}
+      if(L.label){const v=p[L.label]; if(v!=null&&String(v).trim()!=='')
+        l.bindTooltip(`<span style="color:${col}">${v}</span>`,{permanent:true,direction:'center',className:'maplbl'+(dev?' dev':'')});}}
+    if(!L.label){const rep=repLayer(lyr); if(rep) rep.bindTooltip(`<span style="color:${col}">${L.name}</span>`,{permanent:true,direction:'center',className:'maplbl'});}
     overlays[L.f]=lyr; return L;
   }).catch(e=>{console.warn('load fail',L.f,e);return null;});}
 
@@ -156,8 +164,12 @@ function buildTree(defs){const root={name:'',path:[],order:[],byName:{}};
     node.order.push({t:'l',L});});
   return root;}
 function descSlugs(node){let out=[];node.order.forEach(it=>{if(it.t==='l')out.push(it.L.f);else out=out.concat(descSlugs(it.n));});return out;}
+function descDefs(node){let out=[];node.order.forEach(it=>{if(it.t==='l')out.push(it.L);else out=out.concat(descDefs(it.n));});return out;}
+function setGroupOn(node,on){const ds=descDefs(node);
+  if(!on){ds.forEach(d=>setVis(d.f,false));return;}
+  let t=ds.filter(d=>d.bulk&&d.on); if(!t.length)t=ds; t.forEach(d=>setVis(d.f,true));}
 function nodeHtml(node,depth){depth=depth||0;let h='';node.order.forEach(it=>{
-    if(it.t==='g'){const c=it.n,opt=OPTPATHS.has(pk(c.path));const coll=depth>=2?' collapsed':'';
+    if(it.t==='g'){const c=it.n,opt=OPTPATHS.has(pk(c.path));const coll=depth>=1?' collapsed':'';
       h+=`<div class="grp${coll}" data-gid="${gid(c.path)}"><div class="ghead"><span class="caret">▾</span>`+
          (opt?'':`<input type="checkbox" class="gchk" data-gid="${gid(c.path)}">`)+
          `<span class="gname">${c.name}</span></div><div class="gbody">${opt?optHtml(c):nodeHtml(c,depth+1)}</div></div>`;
@@ -192,12 +204,12 @@ function wire(){
   document.querySelectorAll('.caret,.gname').forEach(el=>el.onclick=e=>{e.currentTarget.closest('.grp').classList.toggle('collapsed');});
   document.querySelectorAll('.lchk').forEach(cb=>cb.onchange=()=>{setVis(cb.dataset.f,cb.checked);refresh();writeURL();});
   document.querySelectorAll('.gchk').forEach(cb=>cb.onchange=()=>{
-      descSlugs(NODEBYID[cb.dataset.gid]).forEach(f=>setVis(f,cb.checked));refresh();writeURL();});
+      setGroupOn(NODEBYID[cb.dataset.gid],cb.checked);refresh();writeURL();});
   document.querySelectorAll('.row.opt input[type=radio]').forEach(r=>r.onchange=()=>{
       const node=NODEBYID[r.name.slice(4)]; const sm=optSlugs(node); const chosen=sm[r.value]||[];
       Object.values(sm).flat().forEach(f=>setVis(f,chosen.includes(f))); refresh(); writeURL();});
-  document.querySelectorAll('.pill').forEach(p=>p.onclick=()=>{const d=descSlugs(NODEBYID[p.dataset.gid]);
-      const anyOn=d.some(isVis); d.forEach(f=>setVis(f,!anyOn)); refresh(); writeURL();});
+  document.querySelectorAll('.pill').forEach(p=>p.onclick=()=>{const node=NODEBYID[p.dataset.gid];
+      const anyOn=descSlugs(node).some(isVis); setGroupOn(node,!anyOn); refresh(); writeURL();});
 }
 function buildPills(){document.getElementById('pills').innerHTML=GROUPS.map(g=>
   `<span class="pill" data-gid="${gid([g])}">${shortPhase(g)}</span>`).join('');}
@@ -225,7 +237,10 @@ document.getElementById('lbltoggle').onchange=e=>document.body.classList.toggle(
 fetch('data/manifest.json').then(r=>r.json()).then(M=>{
   DEFS=M.layers||[]; GROUPS=M.groups||[];
   DEFS.forEach(d=>{if(d.on)DEFAULTON.add(d.f); if(d.exclusive)OPTPATHS.add(d.exclusive);});
+  const pkey=g=>{const m=/Phase\s*(\d+)/i.exec(g);return m?+m[1]:99;};
+  GROUPS.sort((a,b)=>pkey(a)-pkey(b));
   TREE=buildTree(DEFS);
+  TREE.order.sort((a,b)=>pkey(a.t==='g'?a.n.name:'')-pkey(b.t==='g'?b.n.name:''));
   document.getElementById('tree').innerHTML=nodeHtml(TREE,0);
   buildPills();
   return Promise.all(DEFS.map(addLayer));

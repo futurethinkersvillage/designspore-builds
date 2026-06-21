@@ -13,6 +13,7 @@
    "group": "Other",
    "path": [],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#000000",
@@ -38,6 +39,7 @@
     "Tiny Home & Park Model Site Development"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#26c6da",
@@ -62,6 +64,7 @@
     "Tiny Home & Park Model Site Development"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#3c3c3c",
@@ -87,6 +90,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#a1887f",
@@ -112,6 +116,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#6d4c41",
@@ -137,6 +142,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#90caf9",
@@ -162,6 +168,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#2196f3",
@@ -187,6 +194,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#ffd089",
@@ -212,6 +220,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#ff9e17",
@@ -236,6 +245,7 @@
     "Golf North \u2014 Full Build"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#ffd54f",
@@ -260,6 +270,7 @@
     "Golf North \u2014 Full Build"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#5a5a5a",
@@ -284,6 +295,7 @@
     "Golf North \u2014 Full Build"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#a5d6a7",
@@ -308,6 +320,7 @@
     "Golf North \u2014 Full Build"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#ab47bc",
@@ -332,6 +345,7 @@
     "Golf North \u2014 Full Build"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "mode": "categorized",
@@ -382,6 +396,7 @@
     "Central Cabin Development"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "mode": "categorized",
@@ -440,6 +455,7 @@
     "Access"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#d7b377",
@@ -464,6 +480,7 @@
     "Access"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#6e6e6e",
@@ -488,6 +505,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#29b6f6",
@@ -510,6 +528,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#4caf50",
@@ -532,6 +551,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#2196f3",
@@ -556,6 +576,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#ff9e17",
@@ -580,6 +601,7 @@
     "Cabin Development 1"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#8d6e63",
@@ -605,6 +627,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#ffd54f",
@@ -631,6 +654,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#ffeb3b",
@@ -656,6 +680,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#42a5f5",
@@ -681,6 +706,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#8d6e63",
@@ -706,6 +732,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "poly",
    "style": {
     "fill": "#00acc1",
@@ -719,7 +746,7 @@
     "radius_m",
     "phase"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "wifi_backhaul",
@@ -732,6 +759,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "line",
    "style": {
     "fill": "#00838f",
@@ -745,7 +773,7 @@
     "length_m",
     "phase"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "access_points",
@@ -758,6 +786,7 @@
     "Utilities"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "point",
    "style": {
     "fill": "#00acc1",
@@ -771,7 +800,7 @@
     "name",
     "phase"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "camp_roads",
@@ -783,6 +812,7 @@
     "Festival Camping"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#efebe9",
@@ -807,6 +837,7 @@
     "Festival Camping"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#bcaaa4",
@@ -831,6 +862,7 @@
     "Festival Grounds - Burningman style festivals"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#000000",
@@ -856,6 +888,7 @@
     "Festival Grounds - Burningman style festivals"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#ffc107",
@@ -881,6 +914,7 @@
     "Festival Grounds - Burningman style festivals"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#8d6e63",
@@ -905,6 +939,7 @@
     "Festival Grounds - Burningman style festivals"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#29b6f6",
@@ -928,6 +963,7 @@
     "Festival Grounds - Burningman style festivals"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#ffd54f",
@@ -951,6 +987,7 @@
     "Festival Grounds - Burningman style festivals"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#78909c",
@@ -976,6 +1013,7 @@
     "Electrical - 50 Amp Services Upgrade"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#ff8f00",
@@ -1001,6 +1039,7 @@
     "Electrical - 50 Amp Services Upgrade"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#ffb300",
@@ -1027,6 +1066,7 @@
     "Electrical - 50 Amp Services Upgrade"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#d32f2f",
@@ -1052,6 +1092,7 @@
     "Water"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#42a5f5",
@@ -1077,6 +1118,7 @@
     "Septic"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#8d6e63",
@@ -1104,6 +1146,7 @@
     "Septic"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#8d6e63",
@@ -1129,6 +1172,7 @@
     "Internet"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "point",
    "style": {
     "fill": "#00acc1",
@@ -1142,7 +1186,7 @@
     "name",
     "phase"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "wifi_backhaul_2",
@@ -1155,6 +1199,7 @@
     "Internet"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "line",
    "style": {
     "fill": "#00838f",
@@ -1168,7 +1213,7 @@
     "length_m",
     "phase"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "wifi_coverage_2",
@@ -1181,6 +1226,7 @@
     "Internet"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "poly",
    "style": {
     "fill": "#00acc1",
@@ -1194,7 +1240,7 @@
     "radius_m",
     "phase"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "festival_wifi_headend",
@@ -1207,6 +1253,7 @@
     "Internet"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "point",
    "style": {
     "fill": "#232323",
@@ -1219,7 +1266,7 @@
    "popup": [
     "name"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "pull_through_tiny_home_sites",
@@ -1230,6 +1277,7 @@
     "RV Site + Tiny Home Development"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#1f6fa8",
@@ -1254,6 +1302,7 @@
     "RV Site + Tiny Home Development"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#f39200",
@@ -1279,6 +1328,7 @@
     "10 Acre Lot Variations"
    ],
    "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
+   "bulk": true,
    "geom": "poly",
    "style": {
     "mode": "categorized",
@@ -1333,6 +1383,7 @@
     "Phase 5 \u2014 Power"
    ],
    "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#ff9e17",
@@ -1358,6 +1409,7 @@
     "Phase 5 \u2014 Power"
    ],
    "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#ffd089",
@@ -1383,6 +1435,7 @@
     "Phase 5 \u2014 Power"
    ],
    "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
+   "bulk": true,
    "geom": "line",
    "style": {
     "mode": "categorized",
@@ -1427,6 +1480,7 @@
     "Mix - 10 acre, 5 acre, and 2.5 acre lots."
    ],
    "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
+   "bulk": true,
    "geom": "poly",
    "style": {
     "mode": "categorized",
@@ -1479,6 +1533,7 @@
     "Maker Space"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#ff9e17",
@@ -1503,6 +1558,7 @@
     "Maker Space"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#ff0000",
@@ -1528,6 +1584,7 @@
     "Disc Golf"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "line",
    "style": {
     "fill": "#ffff33",
@@ -1552,6 +1609,7 @@
     "Golf Course"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "poly",
    "style": {
     "fill": "#3e8e5a",
@@ -1577,6 +1635,7 @@
     "Water"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#3498db",
@@ -1602,6 +1661,7 @@
     "Water"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#2196f3",
@@ -1626,6 +1686,7 @@
     "Water"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#7fb3d5",
@@ -1650,6 +1711,7 @@
     "Natural Features"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#ff8f00",
@@ -1674,6 +1736,7 @@
     "Internet"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "point",
    "style": {
     "fill": "#232323",
@@ -1686,7 +1749,7 @@
    "popup": [
     "name"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "existing_wifi_aps",
@@ -1698,6 +1761,7 @@
     "Internet"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "point",
    "style": {
     "fill": "#232323",
@@ -1710,7 +1774,7 @@
    "popup": [
     "name"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "existing_wifi_backhaul",
@@ -1722,6 +1786,7 @@
     "Internet"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "line",
    "style": {
     "mode": "categorized",
@@ -1762,7 +1827,7 @@
     "link_type",
     "length_m"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "existing_wifi_coverage",
@@ -1774,6 +1839,7 @@
     "Internet"
    ],
    "exclusive": null,
+   "bulk": false,
    "geom": "poly",
    "style": {
     "fill": "#00acc1",
@@ -1787,7 +1853,7 @@
     "radius_m",
     "ap"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "well_water",
@@ -1799,6 +1865,7 @@
     "Water"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#0277bd",
@@ -1823,6 +1890,7 @@
     "Water"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#42a5f5",
@@ -1847,6 +1915,7 @@
     "Water"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#1565c0",
@@ -1871,6 +1940,7 @@
     "Septic"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#7a4b2a",
@@ -1896,6 +1966,7 @@
     "Septic"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#8e44ad",
@@ -1921,6 +1992,7 @@
     "Septic"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#8d6e63",
@@ -1945,6 +2017,7 @@
     "Septic"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#6d4c41",
@@ -1969,6 +2042,7 @@
     "Electrical"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#ffeb3b",
@@ -1993,6 +2067,7 @@
     "Electrical"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#ff8f00",
@@ -2017,6 +2092,7 @@
     "Electrical"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "line",
    "style": {
     "fill": "#ffb300",
@@ -2041,6 +2117,7 @@
     "Structures"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#7a4b2a",
@@ -2066,6 +2143,7 @@
     "Structures"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#1f6fa8",
@@ -2092,6 +2170,7 @@
     "Structures"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#5d6d7e",
@@ -2116,6 +2195,7 @@
     "Campsites"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#2e7d46",
@@ -2141,6 +2221,7 @@
     "Campsites"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#1f6fa8",
@@ -2165,6 +2246,7 @@
     "Parcel Maps"
    ],
    "exclusive": null,
+   "bulk": true,
    "geom": "poly",
    "style": {
     "fill": "#ffd400",
