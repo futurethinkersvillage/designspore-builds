@@ -11,6 +11,8 @@
    "f": "development_labels",
    "name": "Development Labels",
    "group": "Other",
+   "path": [],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#000000",
@@ -30,6 +32,12 @@
    "f": "gct_south_rv",
    "name": "GCT South RV",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Tiny Home & Park Model Site Development"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#26c6da",
@@ -48,6 +56,12 @@
    "f": "gct_south_roads",
    "name": "GCT South Roads",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Tiny Home & Park Model Site Development"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#3c3c3c",
@@ -66,6 +80,13 @@
    "f": "rv_septic_conn",
    "name": "RV Septic Conn",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Tiny Home & Park Model Site Development",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#a1887f",
@@ -84,6 +105,13 @@
    "f": "rv_septic",
    "name": "RV Septic",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Tiny Home & Park Model Site Development",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#6d4c41",
@@ -102,6 +130,13 @@
    "f": "rv_water_svc",
    "name": "RV Water Svc",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Tiny Home & Park Model Site Development",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#90caf9",
@@ -120,6 +155,13 @@
    "f": "rv_water",
    "name": "RV Water",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Tiny Home & Park Model Site Development",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#2196f3",
@@ -138,6 +180,13 @@
    "f": "rv_pedestals",
    "name": "RV Pedestals",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Tiny Home & Park Model Site Development",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#ffd089",
@@ -156,6 +205,13 @@
    "f": "rv_power",
    "name": "RV Power",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Tiny Home & Park Model Site Development",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#ff9e17",
@@ -174,6 +230,12 @@
    "f": "fb_lakeside_homes",
    "name": "FB Lakeside Homes",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Golf North \u2014 Full Build"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#ffd54f",
@@ -192,6 +254,12 @@
    "f": "fb_spokes",
    "name": "FB Spokes",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Golf North \u2014 Full Build"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#5a5a5a",
@@ -210,6 +278,12 @@
    "f": "fb_commons",
    "name": "FB Commons",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Golf North \u2014 Full Build"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#a5d6a7",
@@ -228,6 +302,12 @@
    "f": "fb_buildings",
    "name": "FB Buildings",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Golf North \u2014 Full Build"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#ab47bc",
@@ -246,6 +326,12 @@
    "f": "fb_homes",
    "name": "FB Homes",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Golf Course Housing Development",
+    "Golf North \u2014 Full Build"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "mode": "categorized",
@@ -291,6 +377,11 @@
    "f": "cabins",
    "name": "Cabins",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Central Cabin Development"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "mode": "categorized",
@@ -343,6 +434,12 @@
    "f": "walking_paths",
    "name": "Walking Paths",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Central Cabin Development",
+    "Access"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#d7b377",
@@ -361,6 +458,12 @@
    "f": "parking",
    "name": "Parking",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Central Cabin Development",
+    "Access"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#6e6e6e",
@@ -379,6 +482,12 @@
    "f": "well",
    "name": "Well",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Central Cabin Development",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#29b6f6",
@@ -395,6 +504,12 @@
    "f": "septic_field",
    "name": "Septic Field",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Central Cabin Development",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#4caf50",
@@ -411,6 +526,12 @@
    "f": "water_main",
    "name": "Water Main",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Central Cabin Development",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#2196f3",
@@ -429,6 +550,12 @@
    "f": "power",
    "name": "Power",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Central Cabin Development",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#ff9e17",
@@ -447,6 +574,12 @@
    "f": "prefab_cabins",
    "name": "Prefab Cabins",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Prefab Cabin Development",
+    "Cabin Development 1"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#8d6e63",
@@ -465,6 +598,13 @@
    "f": "electrical_network_from_trunk",
    "name": "Electrical Network (from trunk)",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Prefab Cabin Development",
+    "Cabin Development 1",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#ffd54f",
@@ -484,6 +624,13 @@
    "f": "pedestals",
    "name": "Pedestals",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Prefab Cabin Development",
+    "Cabin Development 1",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#ffeb3b",
@@ -502,6 +649,13 @@
    "f": "water_services",
    "name": "Water Services",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Prefab Cabin Development",
+    "Cabin Development 1",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#42a5f5",
@@ -520,6 +674,13 @@
    "f": "septic_connections",
    "name": "Septic Connections",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Prefab Cabin Development",
+    "Cabin Development 1",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#8d6e63",
@@ -538,6 +699,13 @@
    "f": "wifi_coverage",
    "name": "WiFi Coverage",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Prefab Cabin Development",
+    "Cabin Development 1",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#00acc1",
@@ -557,6 +725,13 @@
    "f": "wifi_backhaul",
    "name": "WiFi Backhaul",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Prefab Cabin Development",
+    "Cabin Development 1",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#00838f",
@@ -576,6 +751,13 @@
    "f": "access_points",
    "name": "Access Points",
    "group": "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+   "path": [
+    "Phase 4 - Options for Cabin & Housing Development - Dependent on Phase 2 Feasibility Study & Permitting",
+    "Prefab Cabin Development",
+    "Cabin Development 1",
+    "Utilities"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#00acc1",
@@ -595,6 +777,12 @@
    "f": "camp_roads",
    "name": "Camp Roads",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "Festival Grounds - Burningman style festivals",
+    "Festival Camping"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#efebe9",
@@ -613,6 +801,12 @@
    "f": "camp_plots",
    "name": "Camp Plots",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "Festival Grounds - Burningman style festivals",
+    "Festival Camping"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#bcaaa4",
@@ -632,6 +826,11 @@
    "f": "festival_grounds",
    "name": "Festival Grounds",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#000000",
@@ -652,6 +851,11 @@
    "f": "landings",
    "name": "Landings",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#ffc107",
@@ -672,6 +876,11 @@
    "f": "portapotties",
    "name": "Portapotties",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#8d6e63",
@@ -691,6 +900,11 @@
    "f": "central_showers",
    "name": "Central Showers",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#29b6f6",
@@ -709,6 +923,11 @@
    "f": "discovery_trail",
    "name": "Discovery Trail",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#ffd54f",
@@ -727,6 +946,11 @@
    "f": "event_parking",
    "name": "Event Parking",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#78909c",
@@ -745,6 +969,13 @@
    "f": "pedestals_2",
    "name": "Pedestals",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development",
+    "Utilities",
+    "Electrical - 50 Amp Services Upgrade"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#ff8f00",
@@ -763,6 +994,13 @@
    "f": "electrical_network",
    "name": "Electrical Network",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development",
+    "Utilities",
+    "Electrical - 50 Amp Services Upgrade"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#ffb300",
@@ -782,6 +1020,13 @@
    "f": "transformer",
    "name": "Transformer",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development",
+    "Utilities",
+    "Electrical - 50 Amp Services Upgrade"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#d32f2f",
@@ -800,6 +1045,13 @@
    "f": "water_services_2",
    "name": "Water Services",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development",
+    "Utilities",
+    "Water"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#42a5f5",
@@ -818,6 +1070,13 @@
    "f": "septic_field_rv_new_sites",
    "name": "Septic Field \u2014 RV + New Sites",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development",
+    "Utilities",
+    "Septic"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#8d6e63",
@@ -838,6 +1097,13 @@
    "f": "septic_connections_2",
    "name": "Septic Connections",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development",
+    "Utilities",
+    "Septic"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#8d6e63",
@@ -856,6 +1122,13 @@
    "f": "access_points_2",
    "name": "Access Points",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development",
+    "Utilities",
+    "Internet"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#00acc1",
@@ -875,6 +1148,13 @@
    "f": "wifi_backhaul_2",
    "name": "WiFi Backhaul",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development",
+    "Utilities",
+    "Internet"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#00838f",
@@ -894,6 +1174,13 @@
    "f": "wifi_coverage_2",
    "name": "WiFi Coverage",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development",
+    "Utilities",
+    "Internet"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#00acc1",
@@ -913,6 +1200,13 @@
    "f": "festival_wifi_headend",
    "name": "Festival WiFi \u2014 Headend",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development",
+    "Utilities",
+    "Internet"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#232323",
@@ -931,6 +1225,11 @@
    "f": "pull_through_tiny_home_sites",
    "name": "Pull-through / tiny home sites",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#1f6fa8",
@@ -950,6 +1249,11 @@
    "f": "regular_rv_sites",
    "name": "Regular RV sites",
    "group": "Phase 3 - New Sites & Festival Grounds",
+   "path": [
+    "Phase 3 - New Sites & Festival Grounds",
+    "RV Site + Tiny Home Development"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#f39200",
@@ -969,6 +1273,12 @@
    "f": "p5_lots_draft",
    "name": "P5 Lots (draft)",
    "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "path": [
+    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Lot subdivision for sale",
+    "10 Acre Lot Variations"
+   ],
+   "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
    "geom": "poly",
    "style": {
     "mode": "categorized",
@@ -1016,6 +1326,13 @@
    "f": "service_drops",
    "name": "Service Drops",
    "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "path": [
+    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Lot subdivision for sale",
+    "10 Acre Lot Variations",
+    "Phase 5 \u2014 Power"
+   ],
+   "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
    "geom": "line",
    "style": {
     "fill": "#ff9e17",
@@ -1034,6 +1351,13 @@
    "f": "pedestals_per_lot",
    "name": "Pedestals (per lot)",
    "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "path": [
+    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Lot subdivision for sale",
+    "10 Acre Lot Variations",
+    "Phase 5 \u2014 Power"
+   ],
+   "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
    "geom": "point",
    "style": {
     "fill": "#ffd089",
@@ -1052,6 +1376,13 @@
    "f": "power_primary_roads",
    "name": "Power Primary (roads)",
    "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "path": [
+    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Lot subdivision for sale",
+    "10 Acre Lot Variations",
+    "Phase 5 \u2014 Power"
+   ],
+   "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
    "geom": "line",
    "style": {
     "mode": "categorized",
@@ -1090,6 +1421,12 @@
    "f": "mix_lots",
    "name": "Mix Lots",
    "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "path": [
+    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Lot subdivision for sale",
+    "Mix - 10 acre, 5 acre, and 2.5 acre lots."
+   ],
+   "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
    "geom": "poly",
    "style": {
     "mode": "categorized",
@@ -1137,6 +1474,11 @@
    "f": "electrical_trunk_eh_maker_space",
    "name": "Electrical Trunk (EH \u2192 Maker Space)",
    "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "path": [
+    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Maker Space"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#ff9e17",
@@ -1156,6 +1498,11 @@
    "f": "maker_space",
    "name": "Maker Space",
    "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "path": [
+    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Maker Space"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#ff0000",
@@ -1175,6 +1522,12 @@
    "f": "disc_golf_course",
    "name": "Disc Golf Course",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Golf Course",
+    "Disc Golf"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#ffff33",
@@ -1194,6 +1547,11 @@
    "f": "golf_course",
    "name": "Golf Course",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Golf Course"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#3e8e5a",
@@ -1213,6 +1571,12 @@
    "f": "lakes",
    "name": "Lakes",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Natural Features",
+    "Water"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#3498db",
@@ -1232,6 +1596,12 @@
    "f": "ponds_water_avoid",
    "name": "Ponds & Water (avoid)",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Natural Features",
+    "Water"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#2196f3",
@@ -1250,6 +1620,12 @@
    "f": "culverts",
    "name": "Culverts",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Natural Features",
+    "Water"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#7fb3d5",
@@ -1269,6 +1645,11 @@
    "f": "trails",
    "name": "Trails",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Natural Features"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#ff8f00",
@@ -1287,6 +1668,12 @@
    "f": "existing_wifi_starlinks",
    "name": "Existing WiFi \u2014 Starlinks",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Internet"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#232323",
@@ -1305,6 +1692,12 @@
    "f": "existing_wifi_aps",
    "name": "Existing WiFi \u2014 APs",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Internet"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#232323",
@@ -1323,6 +1716,12 @@
    "f": "existing_wifi_backhaul",
    "name": "Existing WiFi \u2014 Backhaul",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Internet"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "mode": "categorized",
@@ -1369,6 +1768,12 @@
    "f": "existing_wifi_coverage",
    "name": "Existing WiFi \u2014 Coverage",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Internet"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#00acc1",
@@ -1388,6 +1793,12 @@
    "f": "well_water",
    "name": "Well Water",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Water"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#0277bd",
@@ -1406,6 +1817,12 @@
    "f": "connections",
    "name": "Connections",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Water"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#42a5f5",
@@ -1424,6 +1841,12 @@
    "f": "network",
    "name": "Network",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Water"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#1565c0",
@@ -1442,6 +1865,12 @@
    "f": "bathroom_shower_house",
    "name": "Bathroom / Shower House",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Septic"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#7a4b2a",
@@ -1461,6 +1890,12 @@
    "f": "sani_dumps",
    "name": "Sani Dumps",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Septic"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#8e44ad",
@@ -1480,6 +1915,12 @@
    "f": "connections_2",
    "name": "Connections",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Septic"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#8d6e63",
@@ -1498,6 +1939,12 @@
    "f": "network_2",
    "name": "Network",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Septic"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#6d4c41",
@@ -1516,6 +1963,12 @@
    "f": "source",
    "name": "Source",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Electrical"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#ffeb3b",
@@ -1534,6 +1987,12 @@
    "f": "connections_3",
    "name": "Connections",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Electrical"
+   ],
+   "exclusive": null,
    "geom": "point",
    "style": {
     "fill": "#ff8f00",
@@ -1552,6 +2011,12 @@
    "f": "network_3",
    "name": "Network",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Infrastructure",
+    "Electrical"
+   ],
+   "exclusive": null,
    "geom": "line",
    "style": {
     "fill": "#ffb300",
@@ -1570,6 +2035,12 @@
    "f": "team_buildings",
    "name": "Team Buildings",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Campsite",
+    "Structures"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#7a4b2a",
@@ -1589,6 +2060,12 @@
    "f": "for_rent",
    "name": "For Rent",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Campsite",
+    "Structures"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#1f6fa8",
@@ -1609,6 +2086,12 @@
    "f": "public_areas",
    "name": "Public Areas",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Campsite",
+    "Structures"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#5d6d7e",
@@ -1627,6 +2110,12 @@
    "f": "full_service_sites",
    "name": "Full Service Sites",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Campsite",
+    "Campsites"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#2e7d46",
@@ -1646,6 +2135,12 @@
    "f": "power_water_sites",
    "name": "Power Water Sites",
    "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Campsite",
+    "Campsites"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#1f6fa8",
@@ -1665,6 +2160,11 @@
    "f": "wells_gray_golf_rv_parcel_parcelmap_bc_parcel_fa",
    "name": "Wells Gray Golf & RV Parcel \u2014 parcelmap_bc_parcel_fabric__pubwhse_cadastrepmbc_parcel_fabric_poly_svw",
    "group": "Base Maps",
+   "path": [
+    "Base Maps",
+    "Parcel Maps"
+   ],
+   "exclusive": null,
    "geom": "poly",
    "style": {
     "fill": "#ffd400",
