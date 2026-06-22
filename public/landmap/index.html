@@ -305,7 +305,7 @@ function buildLegend(){const el=document.getElementById('legend'); if(!el)return
 // ---------- init ----------
 fetch('data/manifest.json').then(r=>r.json()).then(M=>{
   DEFS=M.layers||[]; GROUPS=M.groups||[];
-  DEFS.forEach(d=>{if(d.on)DEFAULTON.add(d.f); if(d.exclusive)OPTPATHS.add(d.exclusive);});
+  DEFS.forEach(d=>{if(d.on && /^Phase 1/i.test((d.path&&d.path[0])||'')) DEFAULTON.add(d.f); if(d.exclusive)OPTPATHS.add(d.exclusive);});
   const pkey=g=>{const m=/Phase\s*(\d+)/i.exec(g);return m?+m[1]:99;};
   GROUPS.sort((a,b)=>pkey(a)-pkey(b));
   TREE=buildTree(DEFS);
