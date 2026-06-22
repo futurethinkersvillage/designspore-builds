@@ -1,0 +1,85 @@
+{
+  "_note": "Media + info content for the map. Images under public/landmap/media/<id>/ are PLACEHOLDER aerial renders exported from the QGIS master plan — to be replaced with Nano Banana concept art (see WellsGray_ConceptShots/PROMPTS.md). writeup supports line breaks / blank-line paragraphs. video = a YouTube/Vimeo embed URL or empty. mindmap = deep link to portal.place/mind-map.",
+  "areas": [
+    {
+      "id": "wellness-village",
+      "title": "Wellness Village",
+      "center": [-120.051, 51.93993],
+      "blurb": "Car-free pod village around one shared commons, with a lakeside spa.",
+      "writeup": "The step from seasonal stays to people living here year-round. Small clusters of timber cabins — \"pods\" of about six homes around a shared green — are spread across the old golf course, each woven into its own permaculture food garden rather than zoned off into a single farm.\n\nEvery path converges on The Commons: one central hub with a café & kitchen, maker space, co-working, and movement + wellness studios — so the whole village meets in one place. A Lakeside Spa (sauna, cold-plunge, soaking deck, treatment cabins) sits on the west pond.\n\nDesigned around the culture, schooling and mutual aid the community is already building.",
+      "images": ["media/wellness-village/aerial.jpg", "media/wellness-village/commons.jpg", "media/wellness-village/spa.jpg"],
+      "video": "",
+      "mindmap": "https://portal.place/mind-map"
+    },
+    {
+      "id": "maker-village",
+      "title": "Maker Village",
+      "center": [-120.04773, 51.94193],
+      "blurb": "Prefab cabin cluster for makers and builders.",
+      "writeup": "A cluster of prefab cabins for the people who build the village. Self-sufficiency means being able to make what you need, not just buy it — so this neighbourhood pairs housing with shared maker infrastructure: workshops, power and fast internet.\n\nThe maker space here manufactures the tiny homes and cabins used across the property, built to a template that can export to other village nodes — keeping the craft, materials and money inside the local economy.",
+      "images": ["media/maker-village/aerial.jpg", "media/maker-village/makerspace.jpg"],
+      "video": "",
+      "mindmap": "https://portal.place/mind-map"
+    },
+    {
+      "id": "artist-village",
+      "title": "Artist Village",
+      "center": [-120.04638, 51.93819],
+      "blurb": "Cabin community for artists and residencies.",
+      "writeup": "A quiet cabin community on a forested slope above the lake, built for studios, residencies and creative work — art treated as infrastructure from day one.\n\nThe cabins come in four types, shown by colour on the plan: small studio cabins, larger medium cabins, low-profile \"hill\" cabins tucked into the slope, and angular \"cliffside\" cabins built in hempcrete. Walking paths link them; a small parking area sits at the edge.",
+      "images": ["media/artist-village/aerial.jpg"],
+      "video": "",
+      "mindmap": "https://portal.place/mind-map"
+    },
+    {
+      "id": "festival",
+      "title": "Festival Grounds",
+      "center": [-120.04855, 51.93397],
+      "blurb": "35-acre leave-no-trace festival meadow.",
+      "writeup": "A 35-acre festival meadow south of the lake, phased from 500 to 5,000 attendees — the gatherings and shared rituals that turn neighbours into a tribe.\n\nSelf-sufficient and leave-no-trace: organised camping bands on the grass, a winding discovery trail dotted with art \"landings\", central showers, grouped sanitation, and event parking at the north edge. No permanent buildings — the meadow returns to open land between events.",
+      "images": ["media/festival/aerial.jpg"],
+      "video": "",
+      "mindmap": "https://portal.place/mind-map"
+    },
+    {
+      "id": "subdivision",
+      "title": "Subdivision Lots",
+      "center": [-120.04334, 51.94362],
+      "blurb": "Large acreage lots for sale — funding the build.",
+      "writeup": "Residential acreage lots for sale that help fund the larger buildout — turning a slice of the land into the capital for everything else.\n\nTwo options are drawn on the plan (toggle them in the layers panel): uniform ~10-acre lots, or a mix of 10 / 5 / 2.5-acre lots. Each is mostly treed with a cleared building envelope and a shared gravel access road.",
+      "images": ["media/subdivision/aerial.jpg"],
+      "video": "",
+      "mindmap": "https://portal.place/mind-map"
+    },
+    {
+      "id": "campsite",
+      "title": "Campsite (existing)",
+      "center": [-120.04783, 51.94026],
+      "blurb": "The operating campground today — Phase 1.",
+      "writeup": "The existing, operating campground — the working prototype that's already built and earning. Full-service and power/water RV sites, rental accommodations, shower houses and the resort buildings, set among the trees beside the private lake.\n\nThis is Phase 1: proof that the land works as a place before the residential village is built on top of it.",
+      "images": ["media/campsite/aerial.jpg"],
+      "video": "",
+      "mindmap": "https://portal.place/mind-map"
+    },
+    {
+      "id": "rv-tinyhome",
+      "title": "RV & Tiny Home Sites",
+      "center": [-120.04626, 51.94025],
+      "blurb": "New pull-through RV + tiny-home sites.",
+      "writeup": "A Phase 3 expansion of the campground: rows of pull-through RV pads and tiny-home sites with upgraded 50-amp power, water and septic.\n\nThe tiny homes are built on-site in the village's own maker space — the first homes manufactured to the template that later builds the residential village and exports to other nodes.",
+      "images": ["media/rv-tinyhome/aerial.jpg"],
+      "video": "",
+      "mindmap": "https://portal.place/mind-map"
+    },
+    {
+      "id": "farm",
+      "title": "Regenerative Farm",
+      "center": [-120.05271, 51.93993],
+      "blurb": "Permaculture market farm feeding the village.",
+      "writeup": "A regenerative farm feeding residents and the wider network — resilience built on food you can count on, grown at a human scale right beside where people live.\n\nDesigned to permaculture principles: long curving contour beds, a circular mandala garden and herb spiral, a food forest of mixed fruit and nut trees, an irrigation pond and swales, polytunnel greenhouses and a timber barn — all linked by mulched paths. Smaller food gardens are also woven in beside each village pod, so growing food is part of everyday life rather than something set apart.",
+      "images": ["media/farm/aerial.jpg", "media/farm/mandala.jpg"],
+      "video": "",
+      "mindmap": "https://portal.place/mind-map"
+    }
+  ]
+}

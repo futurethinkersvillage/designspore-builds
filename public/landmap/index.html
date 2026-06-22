@@ -57,12 +57,37 @@
   .maplbl.dev{font-size:13px;font-weight:700}
   .leaflet-tooltip.maplbl:before{display:none}
   body.nolabels .maplbl{display:none!important}
-  @media(max-width:640px){ #title{max-width:none;left:10px;right:10px;top:10px} #controls{right:10px;left:10px;top:auto;bottom:10px;width:auto;max-height:48%} }
+  /* media markers + sidebar */
+  .media-badge{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;
+    background:var(--accent);color:#1a1a1a;font-size:14px;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.5);cursor:pointer}
+  #mediapanel{position:absolute;top:0;right:0;height:100%;width:360px;max-width:88%;z-index:1500;background:rgba(20,24,15,.97);
+    color:var(--ink);border-left:1px solid var(--line);box-shadow:-10px 0 30px rgba(0,0,0,.5);transform:translateX(100%);
+    transition:transform .28s ease;overflow:auto;backdrop-filter:blur(6px)}
+  #mediapanel.open{transform:translateX(0)}
+  #mediapanel .mp-head{position:sticky;top:0;background:rgba(20,24,15,.98);padding:16px 18px 10px;border-bottom:1px solid var(--line)}
+  #mediapanel h3{margin:0;font-size:18px;color:var(--ink)}
+  #mediapanel .mp-blurb{color:var(--accent);font-size:12.5px;margin-top:3px}
+  #mediapanel .mp-close{position:absolute;top:12px;right:14px;font-size:20px;cursor:pointer;color:var(--muted);line-height:1}
+  #mediapanel .mp-body{padding:14px 18px 28px}
+  #mediapanel .mp-img{width:100%;border-radius:10px;margin-bottom:8px;border:1px solid var(--line);background:#0d0f0a;display:block}
+  #mediapanel .mp-ph{width:100%;aspect-ratio:16/10;border-radius:10px;margin-bottom:8px;border:1px dashed var(--line);
+    display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;background:rgba(255,255,255,.03)}
+  #mediapanel .mp-write{font-size:13.5px;line-height:1.5;color:var(--ink);margin:10px 0}
+  #mediapanel .mp-write p{margin:0 0 9px}
+  #mediapanel iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;margin:6px 0}
+  #mediapanel .mp-link{display:inline-block;margin-top:8px;padding:9px 13px;border:1px solid var(--accent);border-radius:8px;
+    color:var(--accent);text-decoration:none;font-size:13px}
+  #mediapanel .mp-link:hover{background:var(--accent);color:#1a1a1a}
+  @media(max-width:640px){ #title{max-width:none;left:10px;right:10px;top:10px} #controls{right:10px;left:10px;top:auto;bottom:10px;width:auto;max-height:48%} #mediapanel{width:100%} }
 </style>
 </head>
 <body>
 <div id="map"></div>
 <div id="toast"></div>
+<div id="mediapanel">
+  <div class="mp-head"><span class="mp-close" id="mpclose">×</span><h3 id="mptitle"></h3><div class="mp-blurb" id="mpblurb"></div></div>
+  <div class="mp-body" id="mpbody"></div>
+</div>
 
 <div id="title" class="panel">
   <h1>Wells Gray Golf &amp; RV Resort</h1>
@@ -87,6 +112,9 @@
   </div>
   <div class="display-row">
     <label class="chk"><input type="checkbox" id="lbltoggle" checked> Show map labels</label>
+  </div>
+  <div class="display-row">
+    <label class="chk"><input type="checkbox" id="mediatoggle" checked> 📷 Show media markers</label>
   </div>
 </div>
 
@@ -152,7 +180,7 @@ function addLayer(L){return fetch('data/'+L.f+'.geojson').then(r=>r.json()).then
     function bind(ft,l){const p=ft.properties||{}; l.bindPopup(popupHtml(L,p));
       if(L.label){const v=p[L.label]; if(v!=null&&String(v).trim()!=='')
         l.bindTooltip(`<span style="color:${col}">${v}</span>`,{permanent:true,direction:'center',className:'maplbl'+(dev?' dev':'')});}}
-    if(!L.label){const rep=repLayer(lyr); if(rep) rep.bindTooltip(`<span style="color:${col}">${L.name}</span>`,{permanent:true,direction:'center',className:'maplbl'});}
+    if(!L.label && !L.nolabel){const rep=repLayer(lyr); if(rep) rep.bindTooltip(`<span style="color:${col}">${L.name}</span>`,{permanent:true,direction:'center',className:'maplbl'});}
     overlays[L.f]=lyr; return L;
   }).catch(e=>{console.warn('load fail',L.f,e);return null;});}
 
@@ -259,6 +287,33 @@ function fitView(){let b=null;const parcel=DEFS.find(d=>/parcel/i.test(d.name));
   const pick=parcel&&overlays[parcel.f]?[overlays[parcel.f]]:Object.values(overlays);
   pick.forEach(l=>{try{const lb=l.getBounds();if(lb.isValid())b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}});
   if(b&&b.isValid())map.fitBounds(b.pad(0.06));}
+
+// ---------- media / info layer ----------
+const mediaMarkers=L.layerGroup();
+function escHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function renderWrite(t){return (t||'').split(/\n\n+/).map(p=>'<p>'+escHtml(p).replace(/\n/g,'<br>')+'</p>').join('');}
+function openMedia(a){
+  document.getElementById('mptitle').textContent=a.title||'';
+  document.getElementById('mpblurb').textContent=a.blurb||'';
+  let h='';
+  (a.images||[]).forEach(src=>{ h+='<img class="mp-img" data-src="'+src+'" src="'+src+'">'; });
+  if(a.writeup) h+='<div class="mp-write">'+renderWrite(a.writeup)+'</div>';
+  if(a.video) h+='<iframe src="'+a.video+'" allowfullscreen loading="lazy"></iframe>';
+  if(a.mindmap) h+='<a class="mp-link" href="'+a.mindmap+'" target="_blank" rel="noopener">Explore in mind-map →</a>';
+  const body=document.getElementById('mpbody'); body.innerHTML=h;
+  body.querySelectorAll('img').forEach(im=>im.onerror=()=>{const s=im.getAttribute('data-src')||'';im.outerHTML='<div class="mp-ph">Concept image — add '+s+'</div>';});
+  document.getElementById('mediapanel').classList.add('open');
+}
+document.getElementById('mpclose').onclick=()=>document.getElementById('mediapanel').classList.remove('open');
+document.getElementById('mediatoggle').onchange=e=>{ e.target.checked ? mediaMarkers.addTo(map) : map.removeLayer(mediaMarkers); };
+fetch('data/media.json').then(r=>r.json()).then(M=>{
+  (M.areas||[]).forEach(a=>{
+    if(!a.center) return;
+    const icon=L.divIcon({className:'',html:'<div class="media-badge">📷</div>',iconSize:[26,26],iconAnchor:[13,13]});
+    L.marker([a.center[1],a.center[0]],{icon,title:a.title}).on('click',()=>openMedia(a)).addTo(mediaMarkers);
+  });
+  mediaMarkers.addTo(map);
+}).catch(e=>console.warn('media load',e));
 </script>
 </body>
 </html>

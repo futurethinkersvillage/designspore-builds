@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "farm_buildings",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1, "name": "Barn" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -120.055048469115562, 51.937901752067148 ], [ -120.054816034300657, 51.937895932689877 ], [ -120.054809561195455, 51.937994703520431 ], [ -120.055041996519407, 51.938000522918223 ], [ -120.055048469115562, 51.937901752067148 ] ] ] } }
+]
+}

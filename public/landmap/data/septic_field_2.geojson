@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "septic_field_2",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -120.047612218757294, 51.937290392006311 ], [ -120.04703278633599, 51.937259715899913 ], [ -120.047094825269795, 51.936812029812621 ], [ -120.047674251985242, 51.936842705527248 ], [ -120.047612218757294, 51.937290392006311 ] ] ] } }
+]
+}

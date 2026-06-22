@@ -12,9 +12,9 @@
 { "type": "Feature", "properties": { "fid": 7, "name": "Art clearing 7", "kind": "Art clearing", "phase": 4 }, "geometry": { "type": "Point", "coordinates": [ -120.0408615721351, 51.938634940313769 ] } },
 { "type": "Feature", "properties": { "fid": 8, "name": "Bar 8", "kind": "Bar", "phase": 4 }, "geometry": { "type": "Point", "coordinates": [ -120.042148687213199, 51.935436728439576 ] } },
 { "type": "Feature", "properties": { "fid": 9, "name": "Popup club 9", "kind": "Popup club", "phase": 4 }, "geometry": { "type": "Point", "coordinates": [ -120.039847481467476, 51.93293571219705 ] } },
-{ "type": "Feature", "properties": { "fid": 10, "name": null, "kind": null, "phase": null }, "geometry": { "type": "Point", "coordinates": [ -120.040354526801266, 51.935100061295962 ] } },
-{ "type": "Feature", "properties": { "fid": 11, "name": null, "kind": null, "phase": null }, "geometry": { "type": "Point", "coordinates": [ -120.039886484954692, 51.938683031985512 ] } },
-{ "type": "Feature", "properties": { "fid": 12, "name": null, "kind": null, "phase": null }, "geometry": { "type": "Point", "coordinates": [ -120.046907112653429, 51.93833035852898 ] } },
+{ "type": "Feature", "properties": { "fid": 10, "name": "Landing 10", "kind": null, "phase": null }, "geometry": { "type": "Point", "coordinates": [ -120.040354526801266, 51.935100061295962 ] } },
+{ "type": "Feature", "properties": { "fid": 11, "name": "Landing 11", "kind": null, "phase": null }, "geometry": { "type": "Point", "coordinates": [ -120.039886484954692, 51.938683031985512 ] } },
+{ "type": "Feature", "properties": { "fid": 12, "name": "Landing 12", "kind": null, "phase": null }, "geometry": { "type": "Point", "coordinates": [ -120.046907112653429, 51.93833035852898 ] } },
 { "type": "Feature", "properties": { "fid": 13, "name": "Stage", "kind": null, "phase": null }, "geometry": { "type": "Point", "coordinates": [ -120.050404425340417, 51.936607027904422 ] } }
 ]
 }
