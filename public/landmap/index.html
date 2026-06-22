@@ -79,6 +79,11 @@
     color:var(--accent);text-decoration:none;font-size:13px}
   #mediapanel .mp-link:hover{background:var(--accent);color:#1a1a1a}
   @media(max-width:640px){ #title{max-width:none;left:10px;right:10px;top:10px} #controls{right:10px;left:10px;top:auto;bottom:10px;width:auto;max-height:48%} #mediapanel{width:100%} }
+  #cabinlegend{position:absolute;left:12px;bottom:12px;z-index:1200;display:none;padding:9px 11px 8px;font-size:12px}
+  #cabinlegend .cl-h{font-weight:700;color:var(--ink);margin-bottom:5px;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase}
+  #cabinlegend .cl-row{display:flex;align-items:center;gap:7px;color:var(--ink);margin:3px 0;line-height:1.15}
+  #cabinlegend .cl-sw{width:13px;height:13px;border-radius:3px;border:1.5px solid #fff;flex:none}
+  @media(max-width:640px){ #cabinlegend{display:none!important} }
 </style>
 </head>
 <body>
@@ -117,6 +122,8 @@
     <label class="chk"><input type="checkbox" id="mediatoggle" checked> 📷 Show media markers</label>
   </div>
 </div>
+
+<div id="cabinlegend" class="panel"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -173,6 +180,8 @@ function labelColor(L){const s=L.style,c=(s.mode==='categorized'?(s.cats&&s.cats
 function repLayer(lyr){let arr=[];lyr.eachLayer(l=>arr.push(l));if(!arr.length)return null;
   let best=arr[0],bestA=-1;arr.forEach(l=>{let a=0;try{const b=l.getBounds();a=(b.getEast()-b.getWest())*(b.getNorth()-b.getSouth());}catch(e){a=0;}if(a>bestA){bestA=a;best=l;}});return best;}
 function addLayer(L){return fetch('data/'+L.f+'.geojson').then(r=>r.json()).then(gj=>{
+    // drop null/empty-geometry features — a permanent tooltip on one throws and aborts the map
+    gj.features=(gj.features||[]).filter(ft=>ft&&ft.geometry&&ft.geometry.coordinates!=null&&(!Array.isArray(ft.geometry.coordinates)||ft.geometry.coordinates.length>0));
     const col=labelColor(L), dev=/label/i.test(L.name);
     const lyr=window.L.geoJSON(gj, L.geom==='point'
       ? {pointToLayer:(ft,ll)=>window.L.circleMarker(ll,pointStyleFor(L,ft)),onEachFeature:bind}
@@ -215,6 +224,7 @@ function optSlugs(node){ // value -> slugs map for an options group
   const m={__none:[]}; node.order.forEach(it=>{ if(it.t==='g') m['g:'+gid(it.n.path)]=descSlugs(it.n); else m['l:'+it.L.f]=[it.L.f]; }); return m;}
 
 function refresh(){ // sync all checkboxes/radios/pills from actual map state
+  {const cl=document.getElementById('cabinlegend'); if(cl) cl.style.display=(typeof isVis==='function'&&isVis('cabins'))?'block':'none';}
   // layer checkboxes
   document.querySelectorAll('.lchk').forEach(cb=>cb.checked=isVis(cb.dataset.f));
   // group tri-state
@@ -260,6 +270,12 @@ document.getElementById('copylink').onclick=()=>{writeURL();setTimeout(()=>{
   navigator.clipboard.writeText(location.href).then(()=>toast('Link copied — sets layers, backdrop & view')).catch(()=>toast('Copy failed'));},160);};
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 document.getElementById('lbltoggle').onchange=e=>document.body.classList.toggle('nolabels',!e.target.checked);
+function buildCabinLegend(){const el=document.getElementById('cabinlegend');const Lc=DEFS.find(d=>d.f==='cabins');
+  if(!Lc||!Lc.style||Lc.style.mode!=='categorized'){el.style.display='none';return;}
+  const names={small:'Small cabin',medium:'Medium cabin',hill:'Hill cabin',cliffside:'Cliffside (hempcrete)'};
+  let h='<div class="cl-h">Cabin types</div>';
+  (Lc.style.cats||[]).forEach(c=>{h+=`<div class="cl-row"><span class="cl-sw" style="background:${c.fill};border-color:${c.stroke||'#fff'}"></span>${names[c.v]||c.v}</div>`;});
+  el.innerHTML=h;}
 
 // ---------- init ----------
 fetch('data/manifest.json').then(r=>r.json()).then(M=>{
@@ -270,7 +286,7 @@ fetch('data/manifest.json').then(r=>r.json()).then(M=>{
   TREE=buildTree(DEFS);
   TREE.order.sort((a,b)=>pkey(a.t==='g'?a.n.name:'')-pkey(b.t==='g'?b.n.name:''));
   document.getElementById('tree').innerHTML=nodeHtml(TREE,0);
-  buildPills();
+  buildPills(); buildCabinLegend();
   return Promise.all(DEFS.map(addLayer));
 }).then(()=>{
   const u=readURL();
