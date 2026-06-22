@@ -79,11 +79,16 @@
     color:var(--accent);text-decoration:none;font-size:13px}
   #mediapanel .mp-link:hover{background:var(--accent);color:#1a1a1a}
   @media(max-width:640px){ #title{max-width:none;left:10px;right:10px;top:10px} #controls{right:10px;left:10px;top:auto;bottom:10px;width:auto;max-height:48%} #mediapanel{width:100%} }
-  #cabinlegend{position:absolute;left:12px;bottom:12px;z-index:1200;display:none;padding:9px 11px 8px;font-size:12px}
-  #cabinlegend .cl-h{font-weight:700;color:var(--ink);margin-bottom:5px;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase}
-  #cabinlegend .cl-row{display:flex;align-items:center;gap:7px;color:var(--ink);margin:3px 0;line-height:1.15}
-  #cabinlegend .cl-sw{width:13px;height:13px;border-radius:3px;border:1.5px solid #fff;flex:none}
-  @media(max-width:640px){ #cabinlegend{display:none!important} }
+  #legend{position:absolute;left:12px;bottom:12px;z-index:1200;display:none;padding:9px 11px 8px;font-size:12px;max-width:240px}
+  #legend .lg-h{font-weight:700;color:var(--ink);margin-bottom:6px;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase}
+  #legend .lg-list{max-height:42vh;overflow:auto;padding-right:2px}
+  #legend .lg-row{display:flex;align-items:center;gap:7px;color:var(--ink);margin:3px 0;line-height:1.15}
+  #legend .lg-sub{margin-top:6px;font-weight:600;color:var(--accent);font-size:11px}
+  #legend .lg-sw{width:13px;height:13px;flex:none}
+  #legend .lg-poly{border-radius:2px;border:1.5px solid #fff}
+  #legend .lg-dot{border-radius:50%;border:1.5px solid #fff}
+  #legend .lg-line{height:3px;width:15px;border-radius:2px;align-self:center}
+  @media(max-width:640px){ #legend{display:none!important} }
 </style>
 </head>
 <body>
@@ -123,7 +128,7 @@
   </div>
 </div>
 
-<div id="cabinlegend" class="panel"></div>
+<div id="legend" class="panel"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -224,7 +229,7 @@ function optSlugs(node){ // value -> slugs map for an options group
   const m={__none:[]}; node.order.forEach(it=>{ if(it.t==='g') m['g:'+gid(it.n.path)]=descSlugs(it.n); else m['l:'+it.L.f]=[it.L.f]; }); return m;}
 
 function refresh(){ // sync all checkboxes/radios/pills from actual map state
-  {const cl=document.getElementById('cabinlegend'); if(cl) cl.style.display=(typeof isVis==='function'&&isVis('cabins'))?'block':'none';}
+  buildLegend();
   // layer checkboxes
   document.querySelectorAll('.lchk').forEach(cb=>cb.checked=isVis(cb.dataset.f));
   // group tri-state
@@ -270,12 +275,29 @@ document.getElementById('copylink').onclick=()=>{writeURL();setTimeout(()=>{
   navigator.clipboard.writeText(location.href).then(()=>toast('Link copied — sets layers, backdrop & view')).catch(()=>toast('Copy failed'));},160);};
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 document.getElementById('lbltoggle').onchange=e=>document.body.classList.toggle('nolabels',!e.target.checked);
-function buildCabinLegend(){const el=document.getElementById('cabinlegend');const Lc=DEFS.find(d=>d.f==='cabins');
-  if(!Lc||!Lc.style||Lc.style.mode!=='categorized'){el.style.display='none';return;}
-  const names={small:'Small cabin',medium:'Medium cabin',hill:'Hill cabin',cliffside:'Cliffside (hempcrete)'};
-  let h='<div class="cl-h">Cabin types</div>';
-  (Lc.style.cats||[]).forEach(c=>{h+=`<div class="cl-row"><span class="cl-sw" style="background:${c.fill};border-color:${c.stroke||'#fff'}"></span>${names[c.v]||c.v}</div>`;});
-  el.innerHTML=h;}
+const CABNAMES={small:'Small cabin',medium:'Medium cabin',hill:'Hill cabin',cliffside:'Cliffside (hempcrete)'};
+function lgSwatch(geom,st){const fill=st.fill||'#ccc',stroke=st.stroke||'#fff';
+  if(geom==='line')return `<span class="lg-sw lg-line" style="background:${stroke}"></span>`;
+  if(geom==='point')return `<span class="lg-sw lg-dot" style="background:${fill};border-color:${stroke}"></span>`;
+  return `<span class="lg-sw lg-poly" style="background:${st.fillOpacity===0?'transparent':fill};border-color:${stroke}"></span>`;}
+function cap(s){s=String(s);return s.charAt(0).toUpperCase()+s.slice(1);}
+// Contextual legend: colours/structures for whatever layers are currently visible.
+function buildLegend(){const el=document.getElementById('legend'); if(!el)return;
+  const seen=new Set(); let rows='';
+  DEFS.forEach(d=>{ if(!isVis(d.f)) return;
+    if(/label/i.test(d.name)) return;                 // skip text-label layers
+    if(d.label && d.geom==='point') return;           // skip point name-markers (hub names, landings…)
+    const s=d.style||{};
+    if(s.mode==='categorized'){
+      (s.cats||[]).forEach(c=>{const lab=(d.f==='cabins'?(CABNAMES[c.v]||c.v):(d.name+' · '+cap(c.v)));
+        const key=lab+'|'+c.fill; if(seen.has(key))return; seen.add(key);
+        rows+=`<div class="lg-row">${lgSwatch(d.geom,c)}<span>${lab}</span></div>`;});
+    } else {
+      const key=d.name+'|'+(s.fill||'')+(s.stroke||''); if(seen.has(key))return; seen.add(key);
+      rows+=`<div class="lg-row">${lgSwatch(d.geom,s)}<span>${d.name}</span></div>`;
+    }});
+  if(!rows){el.style.display='none';return;}
+  el.innerHTML='<div class="lg-h">Legend · visible</div><div class="lg-list">'+rows+'</div>'; el.style.display='block';}
 
 // ---------- init ----------
 fetch('data/manifest.json').then(r=>r.json()).then(M=>{
@@ -286,7 +308,7 @@ fetch('data/manifest.json').then(r=>r.json()).then(M=>{
   TREE=buildTree(DEFS);
   TREE.order.sort((a,b)=>pkey(a.t==='g'?a.n.name:'')-pkey(b.t==='g'?b.n.name:''));
   document.getElementById('tree').innerHTML=nodeHtml(TREE,0);
-  buildPills(); buildCabinLegend();
+  buildPills();
   return Promise.all(DEFS.map(addLayer));
 }).then(()=>{
   const u=readURL();
