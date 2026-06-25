@@ -14,11 +14,11 @@
   body.media-open #controls{right:374px}
   .panel{position:absolute;z-index:1000;background:rgba(29,36,23,.94);color:var(--ink);
     border:1px solid var(--line);border-radius:12px;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.45)}
-  #title{top:14px;left:14px;max-width:320px;padding:14px 18px}
+  #title{top:56px;left:14px;max-width:320px;padding:14px 18px}
   #title h1{margin:0 0 4px;font-size:18px;line-height:1.2}
   #title .sub{color:var(--muted);font-size:12.5px;line-height:1.45}
   #title .brand{margin-top:9px;font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
-  #controls{top:14px;right:14px;width:290px;padding:14px 16px;max-height:calc(100% - 28px);overflow:auto;transition:right .28s ease}
+  #controls{top:56px;right:14px;width:290px;padding:14px 16px;max-height:calc(100% - 70px);overflow:auto;transition:right .28s ease}
   #controls h2{margin:2px 0 8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
   .basemap-row{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
   .bm{flex:1;min-width:58px;text-align:center;font-size:11.5px;padding:7px 4px;border:1px solid var(--line);border-radius:8px;cursor:pointer;color:var(--muted)}
@@ -63,7 +63,7 @@
   /* media markers + sidebar */
   .media-badge{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;
     background:var(--accent);color:#1a1a1a;font-size:14px;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.5);cursor:pointer}
-  #mediapanel{position:absolute;top:0;right:0;height:100%;width:360px;max-width:88%;z-index:1500;background:rgba(20,24,15,.97);
+  #mediapanel{position:absolute;top:44px;right:0;height:calc(100% - 44px);width:360px;max-width:88%;z-index:1500;background:rgba(20,24,15,.97);
     color:var(--ink);border-left:1px solid var(--line);box-shadow:-10px 0 30px rgba(0,0,0,.5);transform:translateX(100%);
     transition:transform .28s ease;overflow:auto;backdrop-filter:blur(6px)}
   #mediapanel.open{transform:translateX(0)}
@@ -92,10 +92,28 @@
   #legend .lg-dot{border-radius:50%;border:1.5px solid #fff}
   #legend .lg-line{height:3px;width:15px;border-radius:2px;align-self:center}
   @media(max-width:640px){ #legend{display:none!important} }
+  /* guided tour strip */
+  #tourbar{position:absolute;top:0;left:0;right:0;z-index:1600;min-height:44px;display:flex;align-items:center;gap:12px;padding:0 14px;background:rgba(20,24,15,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(6px);color:var(--ink);font-size:13px}
+  #tourbar .tb-prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--accent);width:0;transition:width .45s ease}
+  #tourbar .tb-btn{padding:7px 14px;border:1px solid var(--accent);border-radius:999px;background:rgba(207,166,75,.16);color:var(--ink);cursor:pointer;font-size:12.5px;font-weight:600;white-space:nowrap}
+  #tourbar .tb-btn:hover{background:var(--accent);color:#1a1a1a}
+  #tourbar .tb-lead{color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #tourbar .tb-nav{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink);cursor:pointer;font-size:16px;line-height:1;flex:none}
+  #tourbar .tb-nav:hover{border-color:var(--accent)}
+  #tourbar .tb-nav[disabled]{opacity:.35;cursor:default}
+  #tourbar .tb-mid{flex:1;display:flex;align-items:center;gap:10px;justify-content:center;min-width:0}
+  #tourbar .tb-badge{font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--accent);color:var(--accent);white-space:nowrap;flex:none}
+  #tourbar .tb-badge.now{color:#9ccc65;border-color:#9ccc65}
+  #tourbar .tb-title{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #tourbar .tb-step{color:var(--muted);font-size:11.5px;flex:none}
+  #tourbar .tb-x{color:var(--muted);cursor:pointer;font-size:12.5px;flex:none}
+  #tourbar .tb-x:hover{color:var(--ink)}
+  @media(max-width:640px){ #title{top:52px} #tourbar .tb-lead{display:none} }
 </style>
 </head>
 <body>
 <div id="map"></div>
+<div id="tourbar"></div>
 <div id="toast"></div>
 <div id="mediapanel">
   <div class="mp-head"><span class="mp-close" id="mpclose">×</span><h3 id="mptitle"></h3><div class="mp-blurb" id="mpblurb"></div></div>
@@ -125,9 +143,6 @@
   </div>
   <div class="display-row">
     <label class="chk"><input type="checkbox" id="lbltoggle" checked> Show map labels</label>
-  </div>
-  <div class="display-row">
-    <label class="chk"><input type="checkbox" id="mediatoggle" checked> 📷 Show media markers</label>
   </div>
 </div>
 
@@ -329,35 +344,52 @@ function fitView(){let b=null;const parcel=DEFS.find(d=>/parcel/i.test(d.name));
   pick.forEach(l=>{try{const lb=l.getBounds();if(lb.isValid())b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}});
   if(b&&b.isValid())map.fitBounds(b.pad(0.06));}
 
-// ---------- media / info layer ----------
-const mediaMarkers=L.layerGroup();
+// ---------- guided tour ----------
 function escHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function renderWrite(t){return (t||'').split(/\n\n+/).map(p=>'<p>'+escHtml(p).replace(/\n/g,'<br>')+'</p>').join('');}
-function openMedia(a){
-  document.getElementById('mptitle').textContent=a.title||'';
-  document.getElementById('mpblurb').textContent=a.blurb||'';
-  let h='';
-  (a.images||[]).forEach(src=>{ h+='<img class="mp-img" data-src="'+src+'" src="'+src+'">'; });
-  if(a.writeup) h+='<div class="mp-write">'+renderWrite(a.writeup)+'</div>';
-  if(a.video) h+='<iframe src="'+a.video+'" allowfullscreen loading="lazy"></iframe>';
-  if(a.mindmap) h+='<a class="mp-link" href="'+a.mindmap+'" target="_blank" rel="noopener">Explore in mind-map →</a>';
-  const body=document.getElementById('mpbody'); body.innerHTML=h;
-  body.querySelectorAll('img').forEach(im=>im.onerror=()=>{const s=im.getAttribute('data-src')||'';im.outerHTML='<div class="mp-ph">Concept image — add '+s+'</div>';});
-  document.getElementById('mediapanel').classList.add('open');
-  document.body.classList.add('media-open'); setTimeout(()=>map.invalidateSize(),300);
-}
 function closeMedia(){document.getElementById('mediapanel').classList.remove('open');
   document.body.classList.remove('media-open'); setTimeout(()=>map.invalidateSize(),300);}
 document.getElementById('mpclose').onclick=closeMedia;
-document.getElementById('mediatoggle').onchange=e=>{ e.target.checked ? mediaMarkers.addTo(map) : map.removeLayer(mediaMarkers); };
-fetch('data/media.json').then(r=>r.json()).then(M=>{
-  (M.areas||[]).forEach(a=>{
-    if(!a.center) return;
-    const icon=L.divIcon({className:'',html:'<div class="media-badge">📷</div>',iconSize:[26,26],iconAnchor:[13,13]});
-    L.marker([a.center[1],a.center[0]],{icon,title:a.title}).on('click',()=>openMedia(a)).addTo(mediaMarkers);
-  });
-  mediaMarkers.addTo(map);
-}).catch(e=>console.warn('media load',e));
+
+let TOUR=[], tourIdx=-1;
+function tourPanel(s){
+  document.getElementById('mptitle').textContent=s.title||'';
+  document.getElementById('mpblurb').textContent=s.badge||'';
+  let h=''; (s.images||[]).forEach(src=>{ h+='<img class="mp-img" data-src="'+src+'" src="'+src+'">'; });
+  if(s.body) h+='<div class="mp-write">'+renderWrite(s.body)+'</div>';
+  if(s.cta) h+='<a class="mp-link" href="'+s.cta.href+'" target="_blank" rel="noopener">'+escHtml(s.cta.label)+'</a>';
+  const body=document.getElementById('mpbody'); body.innerHTML=h;
+  body.querySelectorAll('img').forEach(im=>im.onerror=()=>{const x=im.getAttribute('data-src')||'';im.outerHTML='<div class="mp-ph">Image — '+x+'</div>';});
+  const mp=document.getElementById('mediapanel'); mp.scrollTop=0; mp.classList.add('open');
+  document.body.classList.add('media-open'); setTimeout(()=>map.invalidateSize(),300);
+}
+function tourShow(slugs){ DEFS.forEach(d=>setVis(d.f,false)); (slugs||[]).forEach(f=>setVis(f,true)); refresh(); }
+function tourFit(s){
+  if(s.fit==='all'){ fitView(); return; }
+  const slugs=(s.fit&&s.fit.length)?s.fit:(s.layers||[]); let b=null;
+  slugs.forEach(f=>{const l=overlays[f]; if(!l)return; try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}});
+  if(b&&b.isValid()) map.flyToBounds(b.pad(0.22),{duration:1.0}); else fitView();
+}
+function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i]; tourShow(s.layers); tourFit(s); tourPanel(s); renderBar(); }
+function startTour(){ if(TOUR.length) goStop(0); }
+function endTour(){ tourIdx=-1; closeMedia(); DEFS.forEach(d=>setVis(d.f, DEFAULTON.has(d.f))); refresh(); fitView(); renderBar(); }
+function renderBar(){ const bar=document.getElementById('tourbar'); if(!bar) return;
+  if(tourIdx<0){ bar.innerHTML='<button class="tb-btn" id="tb-start">▶ Take the tour</button><span class="tb-lead">A guided walk through what is built and what is planned.</span>';
+    const b=document.getElementById('tb-start'); if(b) b.onclick=startTour; return; }
+  const s=TOUR[tourIdx], n=TOUR.length, isNow=/operating/i.test(s.badge||'');
+  bar.innerHTML=
+    '<button class="tb-nav" id="tb-prev"'+(tourIdx===0?' disabled':'')+'>‹</button>'+
+    '<div class="tb-mid">'+(s.badge?('<span class="tb-badge'+(isNow?' now':'')+'">'+escHtml(s.badge)+'</span>'):'')+
+      '<span class="tb-title">'+escHtml(s.title||'')+'</span><span class="tb-step">'+(tourIdx+1)+' / '+n+'</span></div>'+
+    '<button class="tb-nav" id="tb-next"'+(tourIdx===n-1?' disabled':'')+'>›</button>'+
+    '<span class="tb-x" id="tb-exit">✕ Exit</span>'+
+    '<div class="tb-prog" style="width:'+Math.round((tourIdx+1)/n*100)+'%"></div>';
+  const p=document.getElementById('tb-prev'),nx=document.getElementById('tb-next');
+  if(p&&tourIdx>0) p.onclick=()=>goStop(tourIdx-1);
+  if(nx&&tourIdx<n-1) nx.onclick=()=>goStop(tourIdx+1);
+  document.getElementById('tb-exit').onclick=endTour;
+}
+fetch('data/tour.json').then(r=>r.json()).then(M=>{ TOUR=M.stops||[]; renderBar(); }).catch(e=>{console.warn('tour load',e); renderBar();});
 </script>
 </body>
 </html>

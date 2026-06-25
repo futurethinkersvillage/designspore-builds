@@ -1,0 +1,78 @@
+{
+  "_note": "Guided tour for the map. Each stop: badge (status pill), title, body (line breaks ok), images[], layers[] (slugs shown; everything else hidden), fit ('all' = whole property, else fits the shown layers), optional cta. Site photos use /images/... (absolute); map aerials use media/... (relative). Edit freely — order = tour order.",
+  "stops": [
+    {
+      "id": "intro",
+      "badge": "",
+      "title": "Wells Gray Golf & RV Resort",
+      "body": "A 393-acre property at the gateway to Wells Gray Provincial Park, near Clearwater, BC — lake, creek, forest and open meadow.\n\nThis is a walk through what's already built and operating here, and the village we're planning to grow on the land. Use the arrows to move through it, or close the tour anytime to explore the layers yourself.",
+      "images": ["/images/tour/Golf-Course-Above2.jpg", "/images/aurora-at-night-scaled.jpg", "/images/swimming-lake-scaled.jpg"],
+      "layers": ["wells_gray_golf_rv_parcel"],
+      "fit": "all"
+    },
+    {
+      "id": "campground",
+      "badge": "Operating now",
+      "title": "The Campground",
+      "body": "Built and running for five seasons. Full-service and power/water RV sites, rental cabins and a geodesic glamping dome, a 120-person event gazebo with a commercial kitchen, a cedar sauna and cold plunge, shower houses, a private swimming lake, and a 9-hole disc golf course.\n\nIt's the working prototype — proof the land draws people before the village is built on top of it.",
+      "images": ["/images/gazebo-interior-scaled.jpg", "/images/dome-interior-scaled.jpg", "/images/sauna-in-winter-scaled.jpg", "/images/rv-in-campsite-scaled.jpg", "/images/swimming-lake-scaled.jpg", "/images/disc-golf-tournament-scaled.jpg"],
+      "layers": ["full_service_rv_sites", "power_water_rv_sites", "utility_buildings", "accomodations_for_rent", "public_areas", "bathroom_shower_house", "labels"],
+      "fit": null
+    },
+    {
+      "id": "maker-subdivision",
+      "badge": "Proposed",
+      "title": "Maker Space & Land for Sale",
+      "body": "Two moves that fund and enable the build. A community maker space — workshops, 3D printers, CNC — where the village fabricates its own cabins and tiny homes. And a handful of large acreage lots offered for sale, turning a slice of the land into the capital for everything else.\n\nThe feasibility study and legal structuring happen at this stage.",
+      "images": ["/images/wood-working-building-desk-scaled.jpg", "media/maker-village/makerspace.jpg", "media/subdivision/aerial.jpg"],
+      "layers": ["maker_space", "p5_lots_draft", "labels_2"],
+      "fit": null
+    },
+    {
+      "id": "festival-newsites",
+      "badge": "Proposed",
+      "title": "Festival Grounds & New Sites",
+      "body": "A 35-acre leave-no-trace festival meadow south of the lake — camping bands on the grass, a winding discovery trail of art landings, central showers and trucked-in sanitation, scaling from 500 to 5,000 people.\n\nAlongside it, a tidy expansion of pull-through RV pads and tiny-home sites with upgraded power, water and septic.",
+      "images": ["media/festival/aerial.jpg", "media/rv-tinyhome/aerial.jpg", "/images/canada-day-meetup-scaled.jpg", "/images/gazebo-community-meetup-scaled.jpg"],
+      "layers": ["festival_grounds", "camp_roads", "camp_plots", "landings", "central_showers", "discovery_trail", "event_parking", "portapotty_groups", "pull_through_tiny_home_sites", "regular_rv_sites", "labels_3"],
+      "fit": null
+    },
+    {
+      "id": "maker-village",
+      "badge": "Proposed",
+      "title": "Maker Village",
+      "body": "A cluster of prefab cabins for the people who build the village — housing paired with shared maker infrastructure. The cabins here are built on-site, to a template that can be repeated at other village nodes.",
+      "images": ["media/maker-village/aerial.jpg", "/images/cabins-scaled.jpg", "/images/cabin-scaled.jpg"],
+      "layers": ["prefab_cabins"],
+      "fit": null
+    },
+    {
+      "id": "artist-village",
+      "badge": "Proposed",
+      "title": "Artist Village",
+      "body": "A quiet cabin community on the forested slope above the lake — studios, residencies and creative work, with art treated as infrastructure. Four cabin types — small, medium, hillside, and pale hempcrete cliffside cabins — linked by walking paths.",
+      "images": ["media/artist-village/aerial.jpg", "/images/cabin-scaled.jpg"],
+      "layers": ["cabins", "walking_paths", "parking"],
+      "fit": null
+    },
+    {
+      "id": "wellness-village",
+      "badge": "Proposed",
+      "title": "Wellness Village, Farm & Spa",
+      "body": "The heart of the residential vision: small clusters of timber cabins — \"pods\" around shared greens — spread across the old golf course, every path converging on The Commons (café & kitchen, maker space, co-working, movement + wellness studios).\n\nA regenerative permaculture farm threads between the pods, and a Lakeside Spa — sauna, cold-plunge, soaking deck, treatment cabins — sits on the west pond.",
+      "images": ["media/wellness-village/aerial.jpg", "media/wellness-village/commons.jpg", "media/wellness-village/spa.jpg", "media/farm/aerial.jpg", "media/farm/mandala.jpg"],
+      "layers": ["wv_homes", "wv_buildings", "wv_courtyards_greens", "wv_paths_to_commons", "wv_boardwalk", "wv_hub_names", "farm_labels", "farm_buildings", "farm_greenhouses", "farm_herb_spiral", "farm_mandala_garden", "farm_food_forest", "farm_market_garden", "farm_swales", "farm_pond", "farmland", "spa_wellness_boundary", "gct_south_rv", "gct_south_roads"],
+      "fit": null
+    },
+    {
+      "id": "vision",
+      "badge": "",
+      "title": "One village — and a network",
+      "body": "Wells Gray is the flagship: a real, operating prototype and the blueprint for a network of aligned villages.\n\nExplore the full vision, or get in touch about visiting, membership, or growing one on your own land.",
+      "images": ["/images/aurora-at-night-scaled.jpg", "/images/gazebo-rainbow-scaled.jpg"],
+      "layers": ["wells_gray_golf_rv_parcel"],
+      "fit": "all",
+      "cta": { "href": "https://portal.place/mind-map", "label": "Explore the full vision →" }
+    }
+  ]
+}
