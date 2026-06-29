@@ -1,5 +1,5 @@
 {
-  "_note": "Guided tour, organized as stages -> stops. Each stage: name, badge (status pill; 'Operating now' renders green), stops[]. Each stop: title, body (blank line = paragraph), images[] (site photos use /images/... ; map aerials + CABN photos use media/...), layers[] (slugs shown; everything else hidden), fit ('all' = whole property, else fits the shown layers), optional cta. Edit freely.",
+  "_note": "Guided tour as a slide deck. stages[] -> {name,badge,stops[]}. Each stop is one vertical slide: title, image (ONE only; site photos /images/... , map aerials + CABN photos media/...), caption (optional, under image), lead (1-2 sentences), points[] (bullets), layers[] (slugs shown), fit ('all'=whole property), cta (optional). 'Operating now' badge renders green.",
   "stages": [
     {
       "name": "The Campground",
@@ -8,16 +8,27 @@
         {
           "id": "the-land",
           "title": "The Land",
-          "body": "393 acres at the gateway to Wells Gray Provincial Park, near Clearwater, BC — lake, creek, forest and open meadow.\n\nThis is a walk through what's already built and operating here, and the village planned to grow on the land. Use the arrows to move through it, or close the tour to explore the layers yourself.",
-          "images": ["/images/tour/Golf-Course-Above2.jpg", "/images/aurora-at-night-scaled.jpg", "/images/swimming-lake-scaled.jpg"],
+          "image": "/images/tour/Golf-Course-Above2.jpg",
+          "lead": "393 acres at the gateway to Wells Gray Provincial Park, near Clearwater, BC.",
+          "points": [
+            "Private land — lake, creek, forest and open meadow",
+            "Phase 1 is built and operating today",
+            "A walk through what's here, and the village planned on top of it"
+          ],
           "layers": ["wells_gray_golf_rv_parcel"],
           "fit": "all"
         },
         {
           "id": "campground-built",
           "title": "Built & Operating",
-          "body": "Five seasons in. Full-service and power/water RV sites, rental cabins and a geodesic glamping dome, a 120-person event gazebo with a commercial kitchen, a cedar sauna and cold plunge, shower houses, a private swimming lake and a disc-golf course.\n\nThis is the working prototype — proof the land draws people before the village is built on top of it.",
-          "images": ["/images/gazebo-interior-scaled.jpg", "/images/dome-interior-scaled.jpg", "/images/sauna-in-winter-scaled.jpg", "/images/rv-in-campsite-scaled.jpg", "/images/disc-golf-tournament-scaled.jpg"],
+          "image": "/images/gazebo-interior-scaled.jpg",
+          "lead": "Five seasons in — the working prototype the village builds on.",
+          "points": [
+            "Full-service & power/water RV sites, plus rental cabins",
+            "120-person event gazebo with a commercial kitchen",
+            "Geodesic glamping dome, cedar sauna & cold plunge",
+            "Private swimming lake, shower houses & disc-golf course"
+          ],
           "layers": ["full_service_rv_sites", "power_water_rv_sites", "utility_buildings", "accomodations_for_rent", "public_areas", "bathroom_shower_house", "labels"],
           "fit": null
         }
@@ -30,24 +41,42 @@
         {
           "id": "maker-space",
           "title": "Maker Space",
-          "body": "A community workshop — 3D printers, CNC, laser, woodworking — and the engine of the whole build: it fabricates and finishes the village's cabins and tiny homes.\n\nInfrastructure: wired off the existing electrical trunk that already runs to this corner of the property — a short feed, no new service needed.",
-          "images": ["/images/wood-working-building-desk-scaled.jpg", "media/maker-village/makerspace.jpg"],
+          "image": "/images/wood-working-building-desk-scaled.jpg",
+          "lead": "A community workshop — and the engine of the whole build.",
+          "points": [
+            "3D printers, CNC, laser cutter, woodworking",
+            "Fabricates and finishes the village's cabins & tiny homes",
+            "Wired off the existing electrical trunk — a short feed, no new service"
+          ],
           "layers": ["maker_space"],
           "fit": null
         },
         {
           "id": "cabins",
           "title": "The Cabins",
-          "body": "Small prefab cabins woven into the forest, sited to plug straight into infrastructure that's already here — power, water, septic and Starlink internet all run within a few metres, so each cabin needs only short service spurs (shown on the map).\n\nThe plan uses CABN (cabn.co), a BC-interior builder of net-zero, solar-ready cabins — a natural fit for an off-grid-capable village. Models range from the HUTT studio (from ~$39,500, arrives assembled with an in-roof solar array) to the MOR.II (540 sqft, 1-bed/1-bath). CABN ships the high-performance timber shell; the village's own maker space finishes the interiors, keeping the labour, skills and money local.\n\n(Cabin imagery: CABN model photos.)",
-          "images": ["media/cabins/hutt.jpg", "media/cabins/mor-ii.jpg", "media/cabins/interior.jpg"],
+          "image": "media/cabins/mor-ii.jpg",
+          "caption": "Cabin model: CABN — MOR.II (cabn.co)",
+          "lead": "Small net-zero prefab cabins woven into the forest.",
+          "points": [
+            "Plug into existing power, water, septic & Starlink — short spurs only",
+            "Built by CABN (cabn.co): BC-interior, net-zero, solar-ready",
+            "Range from the HUTT studio (~$39.5k) to the MOR.II (540 sqft)",
+            "CABN ships the timber shell; the maker space finishes the interiors"
+          ],
           "layers": ["cabins", "pedestals_2", "power_line_2", "septic_connection_2", "septic_line_2"],
           "fit": null
         },
         {
           "id": "festival",
           "title": "Festival Grounds",
-          "body": "Light-touch by design. The work here is just: clear the meadow, cut and clear the trail network, and add a new shower house and grouped portapotties — enough to run a 500-to-5,000-person, leave-no-trace festival with no permanent build.\n\nThe timber cleared from the grounds and trails doesn't leave the property — it's milled on site and stockpiled as building material for the later-phase cabins and structures.",
-          "images": ["media/festival/aerial.jpg", "/images/canada-day-meetup-scaled.jpg", "/images/gazebo-community-meetup-scaled.jpg"],
+          "image": "media/festival/aerial.jpg",
+          "lead": "Light-touch by design — no permanent build.",
+          "points": [
+            "Clear the meadow and cut/clear the trail network",
+            "Add a new shower house and grouped portapotties",
+            "Runs a 500-to-5,000-person, leave-no-trace festival",
+            "Cleared timber is milled on site for later-phase builds"
+          ],
           "layers": ["festival_grounds", "camp_roads", "camp_plots", "landings", "central_showers", "discovery_trail", "event_parking", "portapotty_groups", "labels_2"],
           "fit": null
         }
@@ -60,32 +89,52 @@
         {
           "id": "maker-village",
           "title": "Maker Village",
-          "body": "A cluster of prefab cabins for the people who build the village — housing paired with shared maker infrastructure, built on-site to a repeatable template that can be cloned at other village nodes.\n\nInfrastructure: full power, water, septic and Wi-Fi run to the cluster.",
-          "images": ["media/maker-village/aerial.jpg", "/images/cabins-scaled.jpg"],
+          "image": "media/maker-village/aerial.jpg",
+          "lead": "Prefab cabins for the people who build the village.",
+          "points": [
+            "Housing paired with shared maker infrastructure",
+            "Built on-site to a repeatable, cloneable template",
+            "Full power, water, septic & Wi-Fi run to the cluster"
+          ],
           "layers": ["prefab_cabins"],
           "fit": null
         },
         {
           "id": "rv-tinyhome",
           "title": "RV & Tiny-Home Sites",
-          "body": "A tidy expansion of the campground: pull-through RV pads and tiny-home sites.\n\nInfrastructure: upgraded 50-amp power, water and septic, tying into the services already trunked through this area (a new transformer and septic field serve the cluster).",
-          "images": ["media/rv-tinyhome/aerial.jpg", "/images/rv-in-campsite-scaled.jpg"],
+          "image": "media/rv-tinyhome/aerial.jpg",
+          "lead": "A tidy expansion of the existing campground.",
+          "points": [
+            "Pull-through RV pads and tiny-home sites",
+            "Upgraded 50-amp power, water and septic",
+            "A new transformer and septic field serve the cluster"
+          ],
           "layers": ["pull_through_tiny_home_sites", "regular_rv_sites"],
           "fit": null
         },
         {
           "id": "hotel",
           "title": "Boutique Hotel",
-          "body": "A small boutique lodge near the entrance — rooms for visitors and prospective members who aren't camping.\n\nInfrastructure: a low building footprint tied into existing power, water and septic by short spurs (the mains run right past it).",
-          "images": ["/images/buildings-in-winter-scaled.jpg", "/images/gazebo-view-scaled.jpg"],
+          "image": "/images/buildings-in-winter-scaled.jpg",
+          "lead": "A small lodge near the entrance for guests and prospective members.",
+          "points": [
+            "Rooms for visitors who aren't camping",
+            "Low, tucked-in building footprint",
+            "Ties into existing power, water & septic — the mains run right past"
+          ],
           "layers": ["hotel"],
           "fit": null
         },
         {
           "id": "subdivision",
           "title": "Land for Sale",
-          "body": "A handful of large acreage lots offered for sale — the capital that funds the rest of the build.\n\nTwo layouts are drawn (you can toggle them in the layers panel): uniform ~10-acre lots, or a mix of 10 / 5 / 2.5-acre lots.",
-          "images": ["media/subdivision/aerial.jpg"],
+          "image": "media/subdivision/aerial.jpg",
+          "lead": "Large acreage lots — the capital that funds the build.",
+          "points": [
+            "A handful of lots offered for sale",
+            "Two layouts: uniform ~10-acre, or a 10 / 5 / 2.5-acre mix",
+            "Toggle the options in the layers panel"
+          ],
           "layers": ["p5_lots_draft", "mix_lots"],
           "fit": null
         }
@@ -98,32 +147,51 @@
         {
           "id": "artist-village",
           "title": "Artist Village",
-          "body": "A quiet cabin community on the forested slope above the lake — studios, residencies and creative work, with art treated as infrastructure. Four cabin types — small, medium, hillside, and pale hempcrete cliffside cabins — linked by walking paths.",
-          "images": ["media/artist-village/aerial.jpg", "/images/cabin-scaled.jpg"],
+          "image": "media/artist-village/aerial.jpg",
+          "lead": "A quiet cabin community above the lake — art as infrastructure.",
+          "points": [
+            "Studios, residencies and creative work",
+            "Four cabin types: small, medium, hillside, cliffside-hempcrete",
+            "Linked by walking paths through the forest"
+          ],
           "layers": ["cabins_2", "walking_paths", "parking"],
           "fit": null
         },
         {
           "id": "wellness-village",
           "title": "Wellness Village & The Commons",
-          "body": "The heart of the residential vision: clusters of timber cabins — \"pods\" around shared greens — spread across the old golf course, every path converging on The Commons (café & kitchen, maker space, co-working, movement + wellness studios), so the whole village meets in one place.",
-          "images": ["media/wellness-village/aerial.jpg", "media/wellness-village/commons.jpg"],
+          "image": "media/wellness-village/aerial.jpg",
+          "lead": "The heart of the residential vision.",
+          "points": [
+            "Clusters of cabin \"pods\" around shared greens",
+            "Spread across the old golf course",
+            "Every path converges on The Commons — café, maker space, co-working, movement + wellness studios"
+          ],
           "layers": ["wv_homes", "wv_buildings", "wv_courtyards_greens", "wv_paths_to_commons", "wv_boardwalk", "wv_hub_names"],
           "fit": null
         },
         {
           "id": "farm-spa",
           "title": "Farm & Lakeside Spa",
-          "body": "A regenerative permaculture farm threads between the pods — long contour beds, a circular mandala garden and herb spiral, a food forest, greenhouses and an irrigation pond — feeding residents and the wider network.\n\nOn the west pond, a Lakeside Spa: sauna, cold-plunge, soaking deck and treatment cabins on a low boardwalk.",
-          "images": ["media/farm/aerial.jpg", "media/farm/mandala.jpg", "media/wellness-village/spa.jpg"],
+          "image": "media/farm/aerial.jpg",
+          "lead": "A regenerative farm threads between the pods; a spa sits on the pond.",
+          "points": [
+            "Contour beds, a mandala garden, food forest, greenhouses & pond",
+            "Feeds residents and the wider network",
+            "Lakeside Spa: sauna, cold-plunge, soaking deck, treatment cabins"
+          ],
           "layers": ["farm_labels", "farm_buildings", "farm_greenhouses", "farm_herb_spiral", "farm_mandala_garden", "farm_food_forest", "farm_market_garden", "farm_swales", "farm_pond", "farmland", "spa_wellness_boundary", "wv_boardwalk", "wv_hub_names"],
           "fit": null
         },
         {
           "id": "vision",
           "title": "The Bigger Picture",
-          "body": "Wells Gray is the flagship — a real, operating prototype and the blueprint for a network of aligned villages.\n\nExplore the full vision, or get in touch about visiting, membership, or growing one on your own land.",
-          "images": ["/images/aurora-at-night-scaled.jpg", "/images/gazebo-rainbow-scaled.jpg"],
+          "image": "/images/aurora-at-night-scaled.jpg",
+          "lead": "Wells Gray is the flagship — and the blueprint for a network.",
+          "points": [
+            "A real, operating prototype",
+            "A template for aligned villages elsewhere"
+          ],
           "layers": ["wells_gray_golf_rv_parcel"],
           "fit": "all",
           "cta": { "href": "https://portal.place/mind-map", "label": "Explore the full vision →" }
