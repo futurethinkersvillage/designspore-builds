@@ -1,11 +1,9 @@
 {
  "groups": [
   "Phase 1 - Complete",
-  "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
-  "Phase 3 - New Sites & Festival Grounds",
-  "Phase 4 - Maker Village",
-  "Phase 5 - Artist Village",
-  "Phase 6 - Wellness Village",
+  "Phase 2",
+  "Phase 3",
+  "Phase 4",
   "Base Maps"
  ],
  "layers": [
@@ -14,14 +12,15 @@
    "name": "Labels",
    "group": "Phase 1 - Complete",
    "path": [
-    "Phase 1 - Complete"
+    "Phase 1 - Complete",
+    "The Campground"
    ],
    "exclusive": null,
    "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#000000",
-    "fillOpacity": 0,
+    "fillOpacity": 0.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -32,7 +31,7 @@
     "label",
     "col"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "disc_golf_course",
@@ -40,6 +39,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Golf Course",
     "Disc Golf"
    ],
@@ -50,7 +50,7 @@
     "fill": "#ffff33",
     "stroke": "#ffff33",
     "fillOpacity": 0,
-    "weight": 1,
+    "weight": 1.0,
     "mode": "single"
    },
    "label": "Hole",
@@ -67,6 +67,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Golf Course"
    ],
    "exclusive": null,
@@ -74,7 +75,7 @@
    "geom": "poly",
    "style": {
     "fill": "#3e8e5a",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 0.8,
     "mode": "single"
@@ -93,6 +94,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Internet"
    ],
@@ -101,7 +103,7 @@
    "geom": "point",
    "style": {
     "fill": "#8e24aa",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -119,6 +121,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Internet"
    ],
@@ -127,7 +130,7 @@
    "geom": "point",
    "style": {
     "fill": "#8e24aa",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -145,6 +148,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Internet"
    ],
@@ -172,6 +176,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Internet"
    ],
@@ -199,6 +204,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Internet"
    ],
@@ -226,6 +232,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Internet"
    ],
@@ -253,6 +260,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Water"
    ],
@@ -261,7 +269,7 @@
    "geom": "point",
    "style": {
     "fill": "#1565c0",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -271,7 +279,7 @@
    "popup": [
     "name"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "water_service",
@@ -279,6 +287,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Water"
    ],
@@ -287,7 +296,7 @@
    "geom": "point",
    "style": {
     "fill": "#1565c0",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -297,7 +306,7 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "water_line",
@@ -305,6 +314,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Water"
    ],
@@ -323,7 +333,7 @@
    "popup": [
     "length_m"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "bathroom_shower_house",
@@ -331,6 +341,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Septic"
    ],
@@ -339,7 +350,7 @@
    "geom": "poly",
    "style": {
     "fill": "#7a4b2a",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 0.8,
     "mode": "single"
@@ -350,7 +361,7 @@
     "id",
     "Name"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "sani_dumps",
@@ -358,6 +369,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Septic"
    ],
@@ -366,7 +378,7 @@
    "geom": "point",
    "style": {
     "fill": "#2e7d32",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -377,7 +389,7 @@
     "id",
     "Location"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "septic_connection",
@@ -385,6 +397,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Septic"
    ],
@@ -393,7 +406,7 @@
    "geom": "point",
    "style": {
     "fill": "#2e7d32",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -403,7 +416,7 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "septic_line",
@@ -411,6 +424,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Septic"
    ],
@@ -429,7 +443,7 @@
    "popup": [
     "length_m"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "source",
@@ -437,6 +451,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Electrical"
    ],
@@ -445,7 +460,7 @@
    "geom": "point",
    "style": {
     "fill": "#d32f2f",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -455,7 +470,7 @@
    "popup": [
     "name"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "pedestals",
@@ -463,6 +478,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Electrical"
    ],
@@ -471,7 +487,7 @@
    "geom": "point",
    "style": {
     "fill": "#d32f2f",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -481,7 +497,7 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "power_line",
@@ -489,6 +505,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Utilities",
     "Electrical"
    ],
@@ -507,7 +524,7 @@
    "popup": [
     "length_m"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "utility_buildings",
@@ -515,6 +532,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Campsite",
     "Structures"
    ],
@@ -523,7 +541,7 @@
    "geom": "poly",
    "style": {
     "fill": "#7a4b2a",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 0.8,
     "mode": "single"
@@ -534,7 +552,7 @@
     "id",
     "Name"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "accomodations_for_rent",
@@ -542,6 +560,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Campsite",
     "Structures"
    ],
@@ -550,7 +569,7 @@
    "geom": "poly",
    "style": {
     "fill": "#1f6fa8",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 0.8,
     "mode": "single"
@@ -562,7 +581,7 @@
     "Type",
     "Site"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "public_areas",
@@ -570,6 +589,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Campsite",
     "Structures"
    ],
@@ -578,7 +598,7 @@
    "geom": "poly",
    "style": {
     "fill": "#5d6d7e",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 0.8,
     "mode": "single"
@@ -588,7 +608,7 @@
    "popup": [
     "Structures"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "full_service_rv_sites",
@@ -596,6 +616,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Campsite",
     "Campsites"
    ],
@@ -604,7 +625,7 @@
    "geom": "poly",
    "style": {
     "fill": "#2e7d46",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 0.8,
     "mode": "single"
@@ -615,7 +636,7 @@
     "id",
     "Name"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "power_water_rv_sites",
@@ -623,6 +644,7 @@
    "group": "Phase 1 - Complete",
    "path": [
     "Phase 1 - Complete",
+    "The Campground",
     "Campsite",
     "Campsites"
    ],
@@ -631,7 +653,7 @@
    "geom": "poly",
    "style": {
     "fill": "#1f6fa8",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 0.8,
     "mode": "single"
@@ -642,21 +664,99 @@
     "id",
     "Site"
    ],
-   "on": true
+   "on": false
+  },
+  {
+   "f": "electrical_feed_maker_subdivision",
+   "name": "Electrical Feed (Maker \u2192 Subdivision)",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Maker Space"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "line",
+   "style": {
+    "fill": "#d32f2f",
+    "stroke": "#d32f2f",
+    "fillOpacity": 0,
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": "name",
+   "nolabel": false,
+   "popup": [
+    "name"
+   ],
+   "on": false
+  },
+  {
+   "f": "electrical_trunk_eh_maker_space",
+   "name": "Electrical Trunk (EH \u2192 Maker Space)",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Maker Space"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "line",
+   "style": {
+    "fill": "#d32f2f",
+    "stroke": "#d32f2f",
+    "fillOpacity": 0,
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": false,
+   "popup": [
+    "length_m",
+    "phase"
+   ],
+   "on": false
+  },
+  {
+   "f": "maker_space",
+   "name": "Maker Space",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Maker Space"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "poly",
+   "style": {
+    "fill": "#ff0000",
+    "fillOpacity": 0.471,
+    "stroke": "#b71c1c",
+    "weight": 2.618184,
+    "mode": "single"
+   },
+   "label": "name",
+   "nolabel": false,
+   "popup": [
+    "name",
+    "phase"
+   ],
+   "on": false
   },
   {
    "f": "labels_2",
    "name": "Labels",
-   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "group": "Phase 2",
    "path": [
-    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education"
+    "Phase 2",
+    "Festival Grounds & New Sites"
    ],
    "exclusive": null,
    "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#000000",
-    "fillOpacity": 0,
+    "fillOpacity": 0.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -670,16 +770,609 @@
    "on": false
   },
   {
+   "f": "portapotty_groups",
+   "name": "Portapotty Groups",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Festival Grounds & New Sites",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "point",
+   "style": {
+    "fill": "#000000",
+    "fillOpacity": 0.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "label",
+   "nolabel": false,
+   "popup": [
+    "label"
+   ],
+   "on": false
+  },
+  {
+   "f": "camp_roads",
+   "name": "Camp Roads",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Festival Grounds & New Sites",
+    "Festival Grounds - Burningman style festivals",
+    "Festival Camping"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "line",
+   "style": {
+    "fill": "#ff9ad0",
+    "stroke": "#ff9ad0",
+    "fillOpacity": 0,
+    "weight": 1.0,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "type"
+   ],
+   "on": false
+  },
+  {
+   "f": "camp_plots",
+   "name": "Camp Plots",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Festival Grounds & New Sites",
+    "Festival Grounds - Burningman style festivals",
+    "Festival Camping"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "poly",
+   "style": {
+    "fill": "#ff4fa3",
+    "fillOpacity": 0.275,
+    "stroke": "#ff4fa3",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id",
+    "tents"
+   ],
+   "on": false
+  },
+  {
+   "f": "festival_grounds",
+   "name": "Festival Grounds",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Festival Grounds & New Sites",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "poly",
+   "style": {
+    "fill": "#000000",
+    "fillOpacity": 0.0,
+    "stroke": "#e91e63",
+    "weight": 1.92,
+    "mode": "single"
+   },
+   "label": "name",
+   "nolabel": false,
+   "popup": [
+    "name",
+    "area_m2",
+    "area_ac"
+   ],
+   "on": false
+  },
+  {
+   "f": "landings",
+   "name": "Landings",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Festival Grounds & New Sites",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "point",
+   "style": {
+    "fill": "#ffc107",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "nolabel": false,
+   "popup": [
+    "name",
+    "kind",
+    "phase"
+   ],
+   "on": false
+  },
+  {
+   "f": "portapotties",
+   "name": "Portapotties",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Festival Grounds & New Sites",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "point",
+   "style": {
+    "fill": "#8d6e63",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "phase",
+    "units"
+   ],
+   "on": false
+  },
+  {
+   "f": "central_showers",
+   "name": "Central Showers",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Festival Grounds & New Sites",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "point",
+   "style": {
+    "fill": "#29b6f6",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": "name",
+   "nolabel": false,
+   "popup": [
+    "name"
+   ],
+   "on": false
+  },
+  {
+   "f": "discovery_trail",
+   "name": "Discovery Trail",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Festival Grounds & New Sites",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "line",
+   "style": {
+    "fill": "#ffd54f",
+    "stroke": "#ffd54f",
+    "fillOpacity": 0,
+    "weight": 2.4,
+    "mode": "single"
+   },
+   "label": "name",
+   "nolabel": false,
+   "popup": [
+    "name"
+   ],
+   "on": false
+  },
+  {
+   "f": "event_parking",
+   "name": "Event Parking",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Festival Grounds & New Sites",
+    "Festival Grounds - Burningman style festivals"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "poly",
+   "style": {
+    "fill": "#78909c",
+    "fillOpacity": 0.314,
+    "stroke": "#90a4ae",
+    "weight": 0.96,
+    "mode": "single"
+   },
+   "label": "name",
+   "nolabel": false,
+   "popup": [
+    "name"
+   ],
+   "on": false
+  },
+  {
+   "f": "cabins",
+   "name": "Cabins",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Cabins"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "poly",
+   "style": {
+    "fill": "#8d6e63",
+    "fillOpacity": 1.0,
+    "stroke": "#3e2723",
+    "weight": 1.0472735999999998,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": false
+  },
+  {
+   "f": "pedestals_2",
+   "name": "Pedestals",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Cabins",
+    "Utilities",
+    "Electrical"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "point",
+   "style": {
+    "fill": "#d32f2f",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": false
+  },
+  {
+   "f": "power_line_2",
+   "name": "Power Line",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Cabins",
+    "Utilities",
+    "Electrical"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "line",
+   "style": {
+    "fill": "#d32f2f",
+    "stroke": "#d32f2f",
+    "fillOpacity": 0,
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": false
+  },
+  {
+   "f": "septic_connection_2",
+   "name": "Septic Connection",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Cabins",
+    "Utilities",
+    "Septic"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "point",
+   "style": {
+    "fill": "#2e7d32",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": false
+  },
+  {
+   "f": "septic_line_2",
+   "name": "Septic Line",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Cabins",
+    "Utilities",
+    "Septic"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "line",
+   "style": {
+    "fill": "#2e7d32",
+    "stroke": "#2e7d32",
+    "fillOpacity": 0,
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": false
+  },
+  {
+   "f": "prefab_cabins",
+   "name": "Prefab Cabins",
+   "group": "Phase 3",
+   "path": [
+    "Phase 3",
+    "Maker Village"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "poly",
+   "style": {
+    "fill": "#8d6e63",
+    "fillOpacity": 1.0,
+    "stroke": "#3e2723",
+    "weight": 1.0472735999999998,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "power_line_3",
+   "name": "Power Line",
+   "group": "Phase 3",
+   "path": [
+    "Phase 3",
+    "Maker Village",
+    "Utilities",
+    "Electrical"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "line",
+   "style": {
+    "fill": "#d32f2f",
+    "stroke": "#d32f2f",
+    "fillOpacity": 0,
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": false,
+   "popup": [
+    "length_m",
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "pedestals_3",
+   "name": "Pedestals",
+   "group": "Phase 3",
+   "path": [
+    "Phase 3",
+    "Maker Village",
+    "Utilities",
+    "Electrical"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "point",
+   "style": {
+    "fill": "#d32f2f",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "water_service_2",
+   "name": "Water Service",
+   "group": "Phase 3",
+   "path": [
+    "Phase 3",
+    "Maker Village",
+    "Utilities",
+    "Water"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "point",
+   "style": {
+    "fill": "#1565c0",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "septic_connection_3",
+   "name": "Septic Connection",
+   "group": "Phase 3",
+   "path": [
+    "Phase 3",
+    "Maker Village",
+    "Utilities",
+    "Septic"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "point",
+   "style": {
+    "fill": "#2e7d32",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "phase"
+   ],
+   "on": true
+  },
+  {
+   "f": "wifi_coverage",
+   "name": "WiFi Coverage",
+   "group": "Phase 3",
+   "path": [
+    "Phase 3",
+    "Maker Village",
+    "Utilities",
+    "Internet"
+   ],
+   "exclusive": null,
+   "bulk": false,
+   "geom": "poly",
+   "style": {
+    "fill": "#8e24aa",
+    "fillOpacity": 0.216,
+    "stroke": "#8e24aa",
+    "weight": 0.96,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": false,
+   "popup": [
+    "radius_m",
+    "phase"
+   ],
+   "on": false
+  },
+  {
+   "f": "wifi_backhaul",
+   "name": "WiFi Backhaul",
+   "group": "Phase 3",
+   "path": [
+    "Phase 3",
+    "Maker Village",
+    "Utilities",
+    "Internet"
+   ],
+   "exclusive": null,
+   "bulk": false,
+   "geom": "line",
+   "style": {
+    "fill": "#8e24aa",
+    "stroke": "#8e24aa",
+    "fillOpacity": 0,
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": false,
+   "popup": [
+    "length_m",
+    "phase"
+   ],
+   "on": false
+  },
+  {
+   "f": "access_point_2",
+   "name": "Access Point",
+   "group": "Phase 3",
+   "path": [
+    "Phase 3",
+    "Maker Village",
+    "Utilities",
+    "Internet"
+   ],
+   "exclusive": null,
+   "bulk": false,
+   "geom": "point",
+   "style": {
+    "fill": "#8e24aa",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "name",
+    "phase"
+   ],
+   "on": false
+  },
+  {
    "f": "service_drops",
    "name": "Service Drops",
-   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "group": "Phase 3",
    "path": [
-    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Phase 3",
     "Lot subdivision for sale",
     "10 Acre Lot Variations",
-    "Phase 5 — Power"
+    "Lot Power"
    ],
-   "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
+   "exclusive": "Phase 3|Lot subdivision for sale",
    "bulk": true,
    "geom": "line",
    "style": {
@@ -694,24 +1387,24 @@
    "popup": [
     "lot"
    ],
-   "on": false
+   "on": true
   },
   {
    "f": "pedestals_per_lot",
    "name": "Pedestals (per lot)",
-   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "group": "Phase 3",
    "path": [
-    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Phase 3",
     "Lot subdivision for sale",
     "10 Acre Lot Variations",
-    "Phase 5 — Power"
+    "Lot Power"
    ],
-   "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
+   "exclusive": "Phase 3|Lot subdivision for sale",
    "bulk": true,
    "geom": "point",
    "style": {
     "fill": "#d32f2f",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -721,19 +1414,19 @@
    "popup": [
     "id"
    ],
-   "on": false
+   "on": true
   },
   {
    "f": "power_primary_roads",
    "name": "Power Primary (roads)",
-   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "group": "Phase 3",
    "path": [
-    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Phase 3",
     "Lot subdivision for sale",
     "10 Acre Lot Variations",
-    "Phase 5 — Power"
+    "Lot Power"
    ],
-   "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
+   "exclusive": "Phase 3|Lot subdivision for sale",
    "bulk": true,
    "geom": "line",
    "style": {
@@ -748,18 +1441,18 @@
    "popup": [
     "kind"
    ],
-   "on": false
+   "on": true
   },
   {
    "f": "p5_lots_draft",
    "name": "P5 Lots (draft)",
-   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "group": "Phase 3",
    "path": [
-    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Phase 3",
     "Lot subdivision for sale",
     "10 Acre Lot Variations"
    ],
-   "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
+   "exclusive": "Phase 3|Lot subdivision for sale",
    "bulk": true,
    "geom": "poly",
    "style": {
@@ -803,18 +1496,18 @@
     "acres",
     "frontage"
    ],
-   "on": false
+   "on": true
   },
   {
    "f": "mix_lots",
    "name": "Mix Lots",
-   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+   "group": "Phase 3",
    "path": [
-    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
+    "Phase 3",
     "Lot subdivision for sale",
     "Mix - 10 acre, 5 acre, and 2.5 acre lots."
    ],
-   "exclusive": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education|Lot subdivision for sale",
+   "exclusive": "Phase 3|Lot subdivision for sale",
    "bulk": true,
    "geom": "poly",
    "style": {
@@ -861,346 +1554,11 @@
    "on": false
   },
   {
-   "f": "electrical_feed_maker_subdivision",
-   "name": "Electrical Feed (Maker → Subdivision)",
-   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
-   "path": [
-    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
-    "Maker Space"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "line",
-   "style": {
-    "fill": "#d32f2f",
-    "stroke": "#d32f2f",
-    "fillOpacity": 0,
-    "weight": 1.44,
-    "mode": "single"
-   },
-   "label": "name",
-   "nolabel": false,
-   "popup": [
-    "name"
-   ],
-   "on": false
-  },
-  {
-   "f": "electrical_trunk_eh_maker_space",
-   "name": "Electrical Trunk (EH → Maker Space)",
-   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
-   "path": [
-    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
-    "Maker Space"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "line",
-   "style": {
-    "fill": "#d32f2f",
-    "stroke": "#d32f2f",
-    "fillOpacity": 0,
-    "weight": 1.44,
-    "mode": "single"
-   },
-   "label": null,
-   "nolabel": false,
-   "popup": [
-    "length_m",
-    "phase"
-   ],
-   "on": false
-  },
-  {
-   "f": "maker_space",
-   "name": "Maker Space",
-   "group": "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
-   "path": [
-    "Phase 2 - Maker-Space, Subdivision, Feasibility study, Education",
-    "Maker Space"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "poly",
-   "style": {
-    "fill": "#ff0000",
-    "fillOpacity": 0.471,
-    "stroke": "#b71c1c",
-    "weight": 2.618184,
-    "mode": "single"
-   },
-   "label": "name",
-   "nolabel": false,
-   "popup": [
-    "name",
-    "phase"
-   ],
-   "on": false
-  },
-  {
-   "f": "labels_3",
-   "name": "Labels",
-   "group": "Phase 3 - New Sites & Festival Grounds",
-   "path": [
-    "Phase 3 - New Sites & Festival Grounds"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "point",
-   "style": {
-    "fill": "#000000",
-    "fillOpacity": 0,
-    "stroke": "#ffffff",
-    "weight": 1.3,
-    "mode": "single"
-   },
-   "label": "label",
-   "nolabel": false,
-   "popup": [
-    "label",
-    "col"
-   ],
-   "on": true
-  },
-  {
-   "f": "portapotty_groups",
-   "name": "Portapotty Groups",
-   "group": "Phase 3 - New Sites & Festival Grounds",
-   "path": [
-    "Phase 3 - New Sites & Festival Grounds",
-    "Festival Grounds - Burningman style festivals"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "point",
-   "style": {
-    "fill": "#000000",
-    "fillOpacity": 0,
-    "stroke": "#ffffff",
-    "weight": 1.3,
-    "mode": "single"
-   },
-   "label": "label",
-   "nolabel": false,
-   "popup": [
-    "label"
-   ],
-   "on": true
-  },
-  {
-   "f": "camp_roads",
-   "name": "Camp Roads",
-   "group": "Phase 3 - New Sites & Festival Grounds",
-   "path": [
-    "Phase 3 - New Sites & Festival Grounds",
-    "Festival Grounds - Burningman style festivals",
-    "Festival Camping"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "line",
-   "style": {
-    "fill": "#ff9ad0",
-    "stroke": "#ff9ad0",
-    "fillOpacity": 0,
-    "weight": 1,
-    "mode": "single"
-   },
-   "label": null,
-   "nolabel": true,
-   "popup": [
-    "type"
-   ],
-   "on": true
-  },
-  {
-   "f": "camp_plots",
-   "name": "Camp Plots",
-   "group": "Phase 3 - New Sites & Festival Grounds",
-   "path": [
-    "Phase 3 - New Sites & Festival Grounds",
-    "Festival Grounds - Burningman style festivals",
-    "Festival Camping"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "poly",
-   "style": {
-    "fill": "#ff4fa3",
-    "fillOpacity": 0.275,
-    "stroke": "#ff4fa3",
-    "weight": 0.8,
-    "mode": "single"
-   },
-   "label": null,
-   "nolabel": true,
-   "popup": [
-    "id",
-    "tents"
-   ],
-   "on": true
-  },
-  {
-   "f": "festival_grounds",
-   "name": "Festival Grounds",
-   "group": "Phase 3 - New Sites & Festival Grounds",
-   "path": [
-    "Phase 3 - New Sites & Festival Grounds",
-    "Festival Grounds - Burningman style festivals"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "poly",
-   "style": {
-    "fill": "#000000",
-    "fillOpacity": 0,
-    "stroke": "#e91e63",
-    "weight": 1.92,
-    "mode": "single"
-   },
-   "label": "name",
-   "nolabel": false,
-   "popup": [
-    "name",
-    "area_m2",
-    "area_ac"
-   ],
-   "on": true
-  },
-  {
-   "f": "landings",
-   "name": "Landings",
-   "group": "Phase 3 - New Sites & Festival Grounds",
-   "path": [
-    "Phase 3 - New Sites & Festival Grounds",
-    "Festival Grounds - Burningman style festivals"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "point",
-   "style": {
-    "fill": "#ffc107",
-    "fillOpacity": 1,
-    "stroke": "#ffffff",
-    "weight": 1.3,
-    "mode": "single"
-   },
-   "label": "name",
-   "nolabel": false,
-   "popup": [
-    "name",
-    "kind",
-    "phase"
-   ],
-   "on": true
-  },
-  {
-   "f": "portapotties",
-   "name": "Portapotties",
-   "group": "Phase 3 - New Sites & Festival Grounds",
-   "path": [
-    "Phase 3 - New Sites & Festival Grounds",
-    "Festival Grounds - Burningman style festivals"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "point",
-   "style": {
-    "fill": "#8d6e63",
-    "fillOpacity": 1,
-    "stroke": "#ffffff",
-    "weight": 1.3,
-    "mode": "single"
-   },
-   "label": null,
-   "nolabel": true,
-   "popup": [
-    "phase",
-    "units"
-   ],
-   "on": true
-  },
-  {
-   "f": "central_showers",
-   "name": "Central Showers",
-   "group": "Phase 3 - New Sites & Festival Grounds",
-   "path": [
-    "Phase 3 - New Sites & Festival Grounds",
-    "Festival Grounds - Burningman style festivals"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "point",
-   "style": {
-    "fill": "#29b6f6",
-    "fillOpacity": 1,
-    "stroke": "#ffffff",
-    "weight": 1.3,
-    "mode": "single"
-   },
-   "label": "name",
-   "nolabel": false,
-   "popup": [
-    "name"
-   ],
-   "on": true
-  },
-  {
-   "f": "discovery_trail",
-   "name": "Discovery Trail",
-   "group": "Phase 3 - New Sites & Festival Grounds",
-   "path": [
-    "Phase 3 - New Sites & Festival Grounds",
-    "Festival Grounds - Burningman style festivals"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "line",
-   "style": {
-    "fill": "#ffd54f",
-    "stroke": "#ffd54f",
-    "fillOpacity": 0,
-    "weight": 2.4,
-    "mode": "single"
-   },
-   "label": "name",
-   "nolabel": false,
-   "popup": [
-    "name"
-   ],
-   "on": true
-  },
-  {
-   "f": "event_parking",
-   "name": "Event Parking",
-   "group": "Phase 3 - New Sites & Festival Grounds",
-   "path": [
-    "Phase 3 - New Sites & Festival Grounds",
-    "Festival Grounds - Burningman style festivals"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "poly",
-   "style": {
-    "fill": "#78909c",
-    "fillOpacity": 0.314,
-    "stroke": "#90a4ae",
-    "weight": 0.96,
-    "mode": "single"
-   },
-   "label": "name",
-   "nolabel": false,
-   "popup": [
-    "name"
-   ],
-   "on": true
-  },
-  {
-   "f": "access_point_2",
+   "f": "access_point_3",
    "name": "Access Point",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development",
     "Utilities",
     "Internet"
@@ -1210,7 +1568,7 @@
    "geom": "point",
    "style": {
     "fill": "#8e24aa",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -1224,11 +1582,11 @@
    "on": false
   },
   {
-   "f": "wifi_backhaul",
+   "f": "wifi_backhaul_2",
    "name": "WiFi Backhaul",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development",
     "Utilities",
     "Internet"
@@ -1254,9 +1612,9 @@
   {
    "f": "wifi_coverage_off_2",
    "name": "WiFi Coverage",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development",
     "Utilities",
     "Internet"
@@ -1282,9 +1640,9 @@
   {
    "f": "headend",
    "name": "Headend",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development",
     "Utilities",
     "Internet"
@@ -1294,7 +1652,7 @@
    "geom": "point",
    "style": {
     "fill": "#8e24aa",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -1307,11 +1665,11 @@
    "on": false
   },
   {
-   "f": "water_service_2",
+   "f": "water_service_3",
    "name": "Water Service",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development",
     "Utilities",
     "Water"
@@ -1321,7 +1679,7 @@
    "geom": "point",
    "style": {
     "fill": "#1565c0",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -1336,9 +1694,9 @@
   {
    "f": "septic_field",
    "name": "Septic Field",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development",
     "Utilities",
     "Septic"
@@ -1363,11 +1721,11 @@
    "on": true
   },
   {
-   "f": "septic_connection_2",
+   "f": "septic_connection_4",
    "name": "Septic Connection",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development",
     "Utilities",
     "Septic"
@@ -1377,7 +1735,7 @@
    "geom": "point",
    "style": {
     "fill": "#2e7d32",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -1390,11 +1748,11 @@
    "on": true
   },
   {
-   "f": "pedestals_2",
+   "f": "pedestals_4",
    "name": "Pedestals",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development",
     "Utilities",
     "Electrical"
@@ -1404,7 +1762,7 @@
    "geom": "point",
    "style": {
     "fill": "#d32f2f",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -1417,11 +1775,11 @@
    "on": true
   },
   {
-   "f": "power_line_2",
+   "f": "power_line_4",
    "name": "Power Line",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development",
     "Utilities",
     "Electrical"
@@ -1447,9 +1805,9 @@
   {
    "f": "transformer",
    "name": "Transformer",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development",
     "Utilities",
     "Electrical"
@@ -1459,7 +1817,7 @@
    "geom": "point",
    "style": {
     "fill": "#d32f2f",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -1474,9 +1832,9 @@
   {
    "f": "pull_through_tiny_home_sites",
    "name": "Pull-through / tiny home sites",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development"
    ],
    "exclusive": null,
@@ -1500,9 +1858,9 @@
   {
    "f": "regular_rv_sites",
    "name": "Regular RV sites",
-   "group": "Phase 3 - New Sites & Festival Grounds",
+   "group": "Phase 3",
    "path": [
-    "Phase 3 - New Sites & Festival Grounds",
+    "Phase 3",
     "RV Site + Tiny Home Development"
    ],
    "exclusive": null,
@@ -1524,20 +1882,21 @@
    "on": true
   },
   {
-   "f": "prefab_cabins",
-   "name": "Prefab Cabins",
-   "group": "Phase 4 - Maker Village",
+   "f": "hotel",
+   "name": "Hotel",
+   "group": "Phase 3",
    "path": [
-    "Phase 4 - Maker Village"
+    "Phase 3",
+    "Hotel"
    ],
    "exclusive": null,
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#8d6e63",
-    "fillOpacity": 1,
-    "stroke": "#3e2723",
-    "weight": 1.0472735999999998,
+    "fill": "#1f6fa8",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 0.8,
     "mode": "single"
    },
    "label": null,
@@ -1548,11 +1907,39 @@
    "on": true
   },
   {
-   "f": "power_line_3",
-   "name": "Power Line",
-   "group": "Phase 4 - Maker Village",
+   "f": "pedestals_5",
+   "name": "Pedestals",
+   "group": "Phase 3",
    "path": [
-    "Phase 4 - Maker Village",
+    "Phase 3",
+    "Hotel",
+    "Utilities",
+    "Electrical"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "point",
+   "style": {
+    "fill": "#d32f2f",
+    "fillOpacity": 1.0,
+    "stroke": "#ffffff",
+    "weight": 1.3,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "power_line_5",
+   "name": "Power Line",
+   "group": "Phase 3",
+   "path": [
+    "Phase 3",
+    "Hotel",
     "Utilities",
     "Electrical"
    ],
@@ -1567,45 +1954,19 @@
     "mode": "single"
    },
    "label": null,
-   "nolabel": false,
-   "popup": [
-    "length_m",
-    "phase"
-   ],
-   "on": true
-  },
-  {
-   "f": "pedestals_3",
-   "name": "Pedestals",
-   "group": "Phase 4 - Maker Village",
-   "path": [
-    "Phase 4 - Maker Village",
-    "Utilities",
-    "Electrical"
-   ],
-   "exclusive": null,
-   "bulk": true,
-   "geom": "point",
-   "style": {
-    "fill": "#d32f2f",
-    "fillOpacity": 1,
-    "stroke": "#ffffff",
-    "weight": 1.3,
-    "mode": "single"
-   },
-   "label": null,
    "nolabel": true,
    "popup": [
-    "phase"
+    "id"
    ],
    "on": true
   },
   {
-   "f": "water_service_3",
+   "f": "water_service_4",
    "name": "Water Service",
-   "group": "Phase 4 - Maker Village",
+   "group": "Phase 3",
    "path": [
-    "Phase 4 - Maker Village",
+    "Phase 3",
+    "Hotel",
     "Utilities",
     "Water"
    ],
@@ -1614,7 +1975,7 @@
    "geom": "point",
    "style": {
     "fill": "#1565c0",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -1622,16 +1983,44 @@
    "label": null,
    "nolabel": true,
    "popup": [
-    "phase"
+    "id"
    ],
    "on": true
   },
   {
-   "f": "septic_connection_3",
-   "name": "Septic Connection",
-   "group": "Phase 4 - Maker Village",
+   "f": "water_line_2",
+   "name": "Water Line",
+   "group": "Phase 3",
    "path": [
-    "Phase 4 - Maker Village",
+    "Phase 3",
+    "Hotel",
+    "Utilities",
+    "Water"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "line",
+   "style": {
+    "fill": "#1565c0",
+    "stroke": "#1565c0",
+    "fillOpacity": 0,
+    "weight": 1.44,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "septic_connection_5",
+   "name": "Septic Connection",
+   "group": "Phase 3",
+   "path": [
+    "Phase 3",
+    "Hotel",
     "Utilities",
     "Septic"
    ],
@@ -1640,7 +2029,7 @@
    "geom": "point",
    "style": {
     "fill": "#2e7d32",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -1648,97 +2037,94 @@
    "label": null,
    "nolabel": true,
    "popup": [
-    "phase"
+    "id"
    ],
    "on": true
   },
   {
-   "f": "wifi_coverage",
-   "name": "WiFi Coverage",
-   "group": "Phase 4 - Maker Village",
+   "f": "septic_line_3",
+   "name": "Septic Line",
+   "group": "Phase 3",
    "path": [
-    "Phase 4 - Maker Village",
+    "Phase 3",
+    "Hotel",
     "Utilities",
-    "Internet"
+    "Septic"
    ],
    "exclusive": null,
-   "bulk": false,
-   "geom": "poly",
-   "style": {
-    "fill": "#8e24aa",
-    "fillOpacity": 0.216,
-    "stroke": "#8e24aa",
-    "weight": 0.96,
-    "mode": "single"
-   },
-   "label": null,
-   "nolabel": false,
-   "popup": [
-    "radius_m",
-    "phase"
-   ],
-   "on": false
-  },
-  {
-   "f": "wifi_backhaul_2",
-   "name": "WiFi Backhaul",
-   "group": "Phase 4 - Maker Village",
-   "path": [
-    "Phase 4 - Maker Village",
-    "Utilities",
-    "Internet"
-   ],
-   "exclusive": null,
-   "bulk": false,
+   "bulk": true,
    "geom": "line",
    "style": {
-    "fill": "#8e24aa",
-    "stroke": "#8e24aa",
+    "fill": "#2e7d32",
+    "stroke": "#2e7d32",
     "fillOpacity": 0,
     "weight": 1.44,
     "mode": "single"
    },
    "label": null,
-   "nolabel": false,
+   "nolabel": true,
    "popup": [
-    "length_m",
-    "phase"
+    "id"
    ],
-   "on": false
+   "on": true
   },
   {
-   "f": "access_point_3",
-   "name": "Access Point",
-   "group": "Phase 4 - Maker Village",
+   "f": "hotel_parking",
+   "name": "Hotel Parking",
+   "group": "Phase 3",
    "path": [
-    "Phase 4 - Maker Village",
-    "Utilities",
-    "Internet"
+    "Phase 3",
+    "Hotel"
    ],
    "exclusive": null,
-   "bulk": false,
-   "geom": "point",
+   "bulk": true,
+   "geom": "poly",
    "style": {
-    "fill": "#8e24aa",
-    "fillOpacity": 1,
-    "stroke": "#ffffff",
-    "weight": 1.3,
+    "fill": "#a47158",
+    "fillOpacity": 1.0,
+    "stroke": "#232323",
+    "weight": 0.8,
     "mode": "single"
    },
    "label": null,
    "nolabel": true,
    "popup": [
-    "name",
-    "phase"
+    "id"
    ],
-   "on": false
+   "on": true
   },
   {
-   "f": "cabins",
-   "name": "Cabins",
-   "group": "Phase 5 - Artist Village",
+   "f": "hotel_boundary",
+   "name": "Hotel Boundary",
+   "group": "Phase 3",
    "path": [
-    "Phase 5 - Artist Village"
+    "Phase 3",
+    "Hotel"
+   ],
+   "exclusive": null,
+   "bulk": true,
+   "geom": "poly",
+   "style": {
+    "fill": "#91522d",
+    "fillOpacity": 1.0,
+    "stroke": "#232323",
+    "weight": 0.8,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "cabins_2",
+   "name": "Cabins",
+   "group": "Phase 4",
+   "path": [
+    "Phase 4",
+    "Artist Village"
    ],
    "exclusive": null,
    "bulk": true,
@@ -1749,28 +2135,28 @@
     "cats": [
      {
       "fill": "#ffd54f",
-      "fillOpacity": 1,
+      "fillOpacity": 1.0,
       "stroke": "#4e342e",
       "weight": 0.96,
       "v": "small"
      },
      {
       "fill": "#ff8a65",
-      "fillOpacity": 1,
+      "fillOpacity": 1.0,
       "stroke": "#4e342e",
       "weight": 0.96,
       "v": "medium"
      },
      {
       "fill": "#4db6ac",
-      "fillOpacity": 1,
+      "fillOpacity": 1.0,
       "stroke": "#004d40",
       "weight": 0.96,
       "v": "hill"
      },
      {
       "fill": "#ab47bc",
-      "fillOpacity": 1,
+      "fillOpacity": 1.0,
       "stroke": "#ffffff",
       "weight": 1.2,
       "v": "cliffside"
@@ -1778,7 +2164,7 @@
     ],
     "default": {
      "fill": "#ab47bc",
-     "fillOpacity": 1,
+     "fillOpacity": 1.0,
      "stroke": "#ffffff",
      "weight": 1.2,
      "v": "cliffside"
@@ -1789,14 +2175,15 @@
    "popup": [
     "type"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "walking_paths",
    "name": "Walking Paths",
-   "group": "Phase 5 - Artist Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 5 - Artist Village",
+    "Phase 4",
+    "Artist Village",
     "Access"
    ],
    "exclusive": null,
@@ -1814,14 +2201,15 @@
    "popup": [
     "pod"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "parking",
    "name": "Parking",
-   "group": "Phase 5 - Artist Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 5 - Artist Village",
+    "Phase 4",
+    "Artist Village",
     "Access"
    ],
    "exclusive": null,
@@ -1839,14 +2227,15 @@
    "popup": [
     "pod"
    ],
-   "on": true
+   "on": false
   },
   {
-   "f": "power_line_4",
+   "f": "power_line_6",
    "name": "Power Line",
-   "group": "Phase 5 - Artist Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 5 - Artist Village",
+    "Phase 4",
+    "Artist Village",
     "Utilities",
     "Electrical"
    ],
@@ -1865,14 +2254,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "well_2",
    "name": "Well",
-   "group": "Phase 5 - Artist Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 5 - Artist Village",
+    "Phase 4",
+    "Artist Village",
     "Utilities",
     "Water"
    ],
@@ -1881,7 +2271,7 @@
    "geom": "point",
    "style": {
     "fill": "#1565c0",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -1889,14 +2279,15 @@
    "label": null,
    "nolabel": true,
    "popup": [],
-   "on": true
+   "on": false
   },
   {
-   "f": "water_line_2",
+   "f": "water_line_3",
    "name": "Water Line",
-   "group": "Phase 5 - Artist Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 5 - Artist Village",
+    "Phase 4",
+    "Artist Village",
     "Utilities",
     "Water"
    ],
@@ -1915,14 +2306,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "septic_field_2",
    "name": "Septic Field",
-   "group": "Phase 5 - Artist Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 5 - Artist Village",
+    "Phase 4",
+    "Artist Village",
     "Utilities",
     "Septic"
    ],
@@ -1939,14 +2331,15 @@
    "label": null,
    "nolabel": false,
    "popup": [],
-   "on": true
+   "on": false
   },
   {
    "f": "farm_labels",
    "name": "Farm Labels",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -1954,7 +2347,7 @@
    "geom": "point",
    "style": {
     "fill": "#000000",
-    "fillOpacity": 0,
+    "fillOpacity": 0.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -1964,14 +2357,15 @@
    "popup": [
     "name"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "farm_buildings",
    "name": "Farm Buildings",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -1979,7 +2373,7 @@
    "geom": "poly",
    "style": {
     "fill": "#8d6e63",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 0.8,
     "mode": "single"
@@ -1989,14 +2383,15 @@
    "popup": [
     "name"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "farm_greenhouses",
    "name": "Farm Greenhouses",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2004,7 +2399,7 @@
    "geom": "poly",
    "style": {
     "fill": "#b3e5fc",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#0277bd",
     "weight": 0.8,
     "mode": "single"
@@ -2014,14 +2409,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "farm_herb_spiral",
    "name": "Farm Herb Spiral",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2039,14 +2435,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "farm_mandala_garden",
    "name": "Farm Mandala Garden",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2064,14 +2461,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "farm_food_forest",
    "name": "Farm Food Forest",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2109,14 +2507,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "farm_market_garden",
    "name": "Farm Market Garden",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2134,14 +2533,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "farm_swales",
    "name": "Farm Swales",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2159,14 +2559,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "farm_pond",
    "name": "Farm Pond",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2184,14 +2585,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "spa_wellness_boundary",
    "name": "Spa & Wellness Boundary",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2199,7 +2601,7 @@
    "geom": "poly",
    "style": {
     "fill": "#0000ff",
-    "fillOpacity": 0,
+    "fillOpacity": 0.0,
     "stroke": "#00acc1",
     "weight": 1.44,
     "mode": "single"
@@ -2209,14 +2611,15 @@
    "popup": [
     "id"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "farmland",
    "name": "Farmland",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2224,7 +2627,7 @@
    "geom": "poly",
    "style": {
     "fill": "#0000ff",
-    "fillOpacity": 0,
+    "fillOpacity": 0.0,
     "stroke": "#9e9d24",
     "weight": 1.44,
     "mode": "single"
@@ -2234,14 +2637,15 @@
    "popup": [
     "id"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "wv_hub_names",
    "name": "WV Hub Names",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2249,7 +2653,7 @@
    "geom": "point",
    "style": {
     "fill": "#000000",
-    "fillOpacity": 0,
+    "fillOpacity": 0.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -2259,14 +2663,15 @@
    "popup": [
     "village"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "wv_buildings",
    "name": "WV Buildings",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2278,21 +2683,21 @@
     "cats": [
      {
       "fill": "#ab47bc",
-      "fillOpacity": 1,
+      "fillOpacity": 1.0,
       "stroke": "#ffffff",
       "weight": 1.2,
       "v": "large"
      },
      {
       "fill": "#42a5f5",
-      "fillOpacity": 1,
+      "fillOpacity": 1.0,
       "stroke": "#ffffff",
       "weight": 0.96,
       "v": "medium"
      },
      {
       "fill": "#26c6da",
-      "fillOpacity": 1,
+      "fillOpacity": 1.0,
       "stroke": "#ffffff",
       "weight": 0.96,
       "v": "small"
@@ -2300,7 +2705,7 @@
     ],
     "default": {
      "fill": "#26c6da",
-     "fillOpacity": 1,
+     "fillOpacity": 1.0,
      "stroke": "#ffffff",
      "weight": 0.96,
      "v": "small"
@@ -2312,14 +2717,15 @@
     "name",
     "size"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "wv_homes",
    "name": "WV Homes",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2327,7 +2733,7 @@
    "geom": "poly",
    "style": {
     "fill": "#ff8a65",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#5d4037",
     "weight": 0.8,
     "mode": "single"
@@ -2337,14 +2743,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "wv_paths_to_commons",
    "name": "WV Paths to Commons",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2362,14 +2769,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "wv_boardwalk",
    "name": "WV Boardwalk",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2387,14 +2795,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "wv_courtyards_greens",
    "name": "WV Courtyards & Greens",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Redesign (concept)"
    ],
    "exclusive": null,
@@ -2412,14 +2821,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "gct_south_rv",
    "name": "GCT South RV",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Tiny Home & Park Model Site Development"
    ],
    "exclusive": null,
@@ -2427,7 +2837,7 @@
    "geom": "poly",
    "style": {
     "fill": "#26c6da",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#004d40",
     "weight": 0.8,
     "mode": "single"
@@ -2437,14 +2847,15 @@
    "popup": [
     "id"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "gct_south_roads",
    "name": "GCT South Roads",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Tiny Home & Park Model Site Development"
    ],
    "exclusive": null,
@@ -2462,14 +2873,15 @@
    "popup": [
     "id"
    ],
-   "on": true
+   "on": false
   },
   {
-   "f": "pedestals_4",
+   "f": "pedestals_6",
    "name": "Pedestals",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Tiny Home & Park Model Site Development",
     "Utilities",
     "Electrical"
@@ -2479,7 +2891,7 @@
    "geom": "point",
    "style": {
     "fill": "#d32f2f",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -2489,14 +2901,15 @@
    "popup": [
     "pad"
    ],
-   "on": true
+   "on": false
   },
   {
-   "f": "power_line_5",
+   "f": "power_line_7",
    "name": "Power Line",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Tiny Home & Park Model Site Development",
     "Utilities",
     "Electrical"
@@ -2516,14 +2929,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
-   "f": "water_service_4",
+   "f": "water_service_5",
    "name": "Water Service",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Tiny Home & Park Model Site Development",
     "Utilities",
     "Water"
@@ -2533,7 +2947,7 @@
    "geom": "point",
    "style": {
     "fill": "#1565c0",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -2543,14 +2957,15 @@
    "popup": [
     "pad"
    ],
-   "on": true
+   "on": false
   },
   {
-   "f": "water_line_3",
+   "f": "water_line_4",
    "name": "Water Line",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Tiny Home & Park Model Site Development",
     "Utilities",
     "Water"
@@ -2570,14 +2985,15 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
-   "f": "septic_connection_4",
+   "f": "septic_connection_6",
    "name": "Septic Connection",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Tiny Home & Park Model Site Development",
     "Utilities",
     "Septic"
@@ -2587,7 +3003,7 @@
    "geom": "point",
    "style": {
     "fill": "#2e7d32",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 1.3,
     "mode": "single"
@@ -2597,14 +3013,15 @@
    "popup": [
     "pad"
    ],
-   "on": true
+   "on": false
   },
   {
-   "f": "septic_line_2",
+   "f": "septic_line_4",
    "name": "Septic Line",
-   "group": "Phase 6 - Wellness Village",
+   "group": "Phase 4",
    "path": [
-    "Phase 6 - Wellness Village",
+    "Phase 4",
+    "Wellness Village",
     "Tiny Home & Park Model Site Development",
     "Utilities",
     "Septic"
@@ -2624,7 +3041,7 @@
    "popup": [
     "kind"
    ],
-   "on": true
+   "on": false
   },
   {
    "f": "lakes",
@@ -2640,7 +3057,7 @@
    "geom": "poly",
    "style": {
     "fill": "#3498db",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 0.8,
     "mode": "single"
@@ -2693,7 +3110,7 @@
    "geom": "poly",
    "style": {
     "fill": "#7fb3d5",
-    "fillOpacity": 1,
+    "fillOpacity": 1.0,
     "stroke": "#ffffff",
     "weight": 0.8,
     "mode": "single"
@@ -2744,7 +3161,7 @@
    "geom": "poly",
    "style": {
     "fill": "#0000ff",
-    "fillOpacity": 0,
+    "fillOpacity": 0.0,
     "stroke": "#ffd400",
     "weight": 2.16,
     "mode": "single"

@@ -106,6 +106,7 @@
   #tourbar .tb-badge.now{color:#9ccc65;border-color:#9ccc65}
   #tourbar .tb-title{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   #tourbar .tb-step{color:var(--muted);font-size:11.5px;flex:none}
+  #tourbar .tb-stage{color:var(--accent);font-size:12px;font-weight:600;flex:none;white-space:nowrap}
   #tourbar .tb-x{color:var(--muted);cursor:pointer;font-size:12.5px;flex:none}
   #tourbar .tb-x:hover{color:var(--ink)}
   @media(max-width:640px){ #title{top:52px} #tourbar .tb-lead{display:none} }
@@ -365,10 +366,13 @@ function tourPanel(s){
 }
 function tourShow(slugs){ DEFS.forEach(d=>setVis(d.f,false)); (slugs||[]).forEach(f=>setVis(f,true)); refresh(); }
 function tourFit(s){
+ try{
   if(s.fit==='all'){ fitView(); return; }
   const slugs=(s.fit&&s.fit.length)?s.fit:(s.layers||[]); let b=null;
   slugs.forEach(f=>{const l=overlays[f]; if(!l)return; try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}});
-  if(b&&b.isValid()) map.flyToBounds(b.pad(0.22),{duration:1.0}); else fitView();
+  if(b&&b.isValid()){ const sz=map.getSize(); if(sz&&sz.x>0&&sz.y>0) map.flyToBounds(b.pad(0.22),{duration:1.0}); else map.fitBounds(b.pad(0.22)); }
+  else fitView();
+ }catch(e){ try{fitView()}catch(_){ } }
 }
 function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i]; tourShow(s.layers); tourFit(s); tourPanel(s); renderBar(); }
 function startTour(){ if(TOUR.length) goStop(0); }
@@ -380,6 +384,7 @@ function renderBar(){ const bar=document.getElementById('tourbar'); if(!bar) ret
   bar.innerHTML=
     '<button class="tb-nav" id="tb-prev"'+(tourIdx===0?' disabled':'')+'>‹</button>'+
     '<div class="tb-mid">'+(s.badge?('<span class="tb-badge'+(isNow?' now':'')+'">'+escHtml(s.badge)+'</span>'):'')+
+      (s.stage?('<span class="tb-stage">'+escHtml(s.stage)+' ·</span>'):'')+
       '<span class="tb-title">'+escHtml(s.title||'')+'</span><span class="tb-step">'+(tourIdx+1)+' / '+n+'</span></div>'+
     '<button class="tb-nav" id="tb-next"'+(tourIdx===n-1?' disabled':'')+'>›</button>'+
     '<span class="tb-x" id="tb-exit">✕ Exit</span>'+
@@ -389,7 +394,12 @@ function renderBar(){ const bar=document.getElementById('tourbar'); if(!bar) ret
   if(nx&&tourIdx<n-1) nx.onclick=()=>goStop(tourIdx+1);
   document.getElementById('tb-exit').onclick=endTour;
 }
-fetch('data/tour.json').then(r=>r.json()).then(M=>{ TOUR=M.stops||[]; renderBar(); }).catch(e=>{console.warn('tour load',e); renderBar();});
+fetch('data/tour.json').then(r=>r.json()).then(M=>{
+  TOUR=[];
+  if(M.stages){ M.stages.forEach(st=>(st.stops||[]).forEach(s=>{ s.stage=st.name; s.badge=st.badge; TOUR.push(s); })); }
+  else { TOUR=M.stops||[]; }
+  renderBar();
+}).catch(e=>{console.warn('tour load',e); renderBar();});
 </script>
 </body>
 </html>

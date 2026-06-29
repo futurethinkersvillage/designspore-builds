@@ -3,6 +3,10 @@
 "name": "central_showers",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
-{ "type": "Feature", "properties": { "fid": 1, "name": "Central Showers & Water (provided)" }, "geometry": { "type": "Point", "coordinates": [ -120.049780369544962, 51.935789424642493 ] } }
+{ "type": "Feature", "properties": { "fid": 1, "name": "Central Showers & Water (provided)" }, "geometry": { "type": "Point", "coordinates": [ -120.049695126945011, 51.935173083937265 ] } },
+{ "type": "Feature", "properties": { "fid": 2, "name": "Central Showers & Water (provided)" }, "geometry": { "type": "Point", "coordinates": [ -120.049694019898254, 51.935235878736734 ] } },
+{ "type": "Feature", "properties": { "fid": 3, "name": "Central Showers & Water (provided)" }, "geometry": { "type": "Point", "coordinates": [ -120.049690698757999, 51.935302086197851 ] } },
+{ "type": "Feature", "properties": { "fid": 4, "name": "Central Showers & Water (provided)" }, "geometry": { "type": "Point", "coordinates": [ -120.049708411506046, 51.935397643183038 ] } },
+{ "type": "Feature", "properties": { "fid": 5, "name": "Central Showers & Water (provided)" }, "geometry": { "type": "Point", "coordinates": [ -120.049708411506046, 51.935520501857503 ] } }
 ]
 }
