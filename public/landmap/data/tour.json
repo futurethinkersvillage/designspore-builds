@@ -12,6 +12,7 @@
       "stops": [
         {
           "id": "campground",
+          "center": [-120.0486, 51.9390], "zoom": 16,
           "title": "Built & Operating",
           "image": "/images/tour/Golf-Course-Above2.jpg",
           "lead": "Five seasons in — the working prototype the village builds on.",
@@ -25,6 +26,7 @@
         },
         {
           "id": "sauna",
+          "center": [-120.04899, 51.93820], "zoom": 19,
           "title": "The Sauna",
           "image": "/images/sauna-in-winter-scaled.jpg",
           "lead": "A wood-fired cedar barrel sauna with a cold plunge.",
@@ -38,6 +40,7 @@
         },
         {
           "id": "dome",
+          "center": [-120.04989, 51.93740], "zoom": 19,
           "title": "The Geodesic Dome",
           "image": "/images/dome-interior-scaled.jpg",
           "lead": "A geodesic glamping dome for stays and gatherings.",
@@ -51,6 +54,7 @@
         },
         {
           "id": "gazebo",
+          "center": [-120.05599, 51.93690], "zoom": 19,
           "title": "The Event Gazebo",
           "image": "/images/gazebo-interior-scaled.jpg",
           "lead": "A 120-person event gazebo with a commercial kitchen.",

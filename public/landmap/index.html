@@ -427,6 +427,7 @@ function tourPanel(s){
 function tourShow(slugs){ DEFS.forEach(d=>setVis(d.f,false)); (slugs||[]).forEach(f=>setVis(f,true)); refresh(); }
 function tourFit(s){
  try{
+  if(s.center && s.center.length===2){ const z=(s.zoom!=null?s.zoom:18); const ll=[s.center[1],s.center[0]]; const sz=map.getSize(); (sz&&sz.x>0&&sz.y>0)?map.flyTo(ll,z,{duration:1.0}):map.setView(ll,z); return; }
   if(s.fit==='all'){ fitView(); return; }
   const slugs=(s.fit&&s.fit.length)?s.fit:(s.layers||[]); let b=null;
   slugs.forEach(f=>{const l=overlays[f]; if(!l)return; try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}});
