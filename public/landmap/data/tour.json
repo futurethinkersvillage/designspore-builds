@@ -183,7 +183,6 @@
         },
         {
           "id": "forest-school",
-          "fit": "property",
           "title": "Forest School",
           "image": "media/tour/forest-school.jpg",
           "lead": "An ongoing program for the broader community.",
@@ -192,8 +191,14 @@
             "Kids aged 5–12 and their families"
           ],
           "layers": [
-            "wells_gray_golf_rv_parcel"
-          ]
+            "public_areas",
+            "labels"
+          ],
+          "center": [
+            -120.048696,
+            51.939662
+          ],
+          "zoom": 18
         }
       ]
     },
