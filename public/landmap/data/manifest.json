@@ -20,7 +20,7 @@
     "fill": "#1a1720",
     "fillOpacity": 0.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": "label",
@@ -48,7 +48,7 @@
     "fill": "#73516f",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -75,7 +75,7 @@
     "fill": "#73516f",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -102,7 +102,7 @@
     "fill": "#73516f",
     "stroke": "#73516f",
     "fillOpacity": 0,
-    "weight": 1.44,
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -130,7 +130,7 @@
     "fill": "#73516f",
     "stroke": "#73516f",
     "fillOpacity": 0,
-    "weight": 1.44,
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -158,7 +158,7 @@
     "fill": "#73516f",
     "stroke": "#73516f",
     "fillOpacity": 0,
-    "weight": 1.44,
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -183,10 +183,10 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#EA824E",
     "fillOpacity": 0.0,
-    "stroke": "#73516f",
-    "weight": 1.44,
+    "stroke": "#EA824E",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -214,7 +214,7 @@
     "fill": "#38387f",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -241,7 +241,7 @@
     "fill": "#38387f",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -268,7 +268,7 @@
     "fill": "#38387f",
     "stroke": "#38387f",
     "fillOpacity": 0,
-    "weight": 1.44,
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -292,10 +292,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#C98B82",
     "fillOpacity": 0.0,
-    "stroke": "#73516f",
-    "weight": 1.44,
+    "stroke": "#C98B82",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": "Name",
@@ -323,7 +323,7 @@
     "fill": "#73516f",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -351,7 +351,7 @@
     "fill": "#73516f",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -378,7 +378,7 @@
     "fill": "#73516f",
     "stroke": "#73516f",
     "fillOpacity": 0,
-    "weight": 1.44,
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -405,7 +405,7 @@
     "fill": "#af695e",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -432,7 +432,7 @@
     "fill": "#af695e",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -459,7 +459,7 @@
     "fill": "#af695e",
     "stroke": "#af695e",
     "fillOpacity": 0,
-    "weight": 1.44,
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -483,10 +483,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#AF695E",
     "fillOpacity": 0.0,
-    "stroke": "#73516f",
-    "weight": 1.44,
+    "stroke": "#AF695E",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": "Name",
@@ -511,10 +511,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#EA824E",
     "fillOpacity": 0.0,
-    "stroke": "#38387f",
-    "weight": 1.44,
+    "stroke": "#EA824E",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": "Type",
@@ -540,10 +540,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#73516F",
     "fillOpacity": 0.0,
-    "stroke": "#73516f",
-    "weight": 1.44,
+    "stroke": "#73516F",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": "Structures",
@@ -567,10 +567,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#38387F",
     "fillOpacity": 0.0,
-    "stroke": "#38387f",
-    "weight": 1.44,
+    "stroke": "#38387F",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": "Name",
@@ -595,10 +595,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#6B6BB0",
     "fillOpacity": 0.0,
-    "stroke": "#38387f",
-    "weight": 1.44,
+    "stroke": "#6B6BB0",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": "Site",
@@ -621,10 +621,10 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#73516F",
+    "fill": "#9A7E96",
     "fillOpacity": 0.0,
-    "stroke": "#73516F",
-    "weight": 2.4,
+    "stroke": "#9A7E96",
+    "weight": 3.9,
     "mode": "single"
    },
    "label": null,
@@ -649,7 +649,7 @@
     "fill": "#af695e",
     "stroke": "#af695e",
     "fillOpacity": 0,
-    "weight": 1.44,
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -672,10 +672,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#EA824E",
     "fillOpacity": 0.0,
-    "stroke": "#ea824e",
-    "weight": 1.44,
+    "stroke": "#EA824E",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": "name",
@@ -701,7 +701,7 @@
     "fill": "#1a1720",
     "fillOpacity": 0.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": "label",
@@ -727,7 +727,7 @@
     "fill": "#f2a878",
     "stroke": "#f2a878",
     "fillOpacity": 0,
-    "weight": 1.0,
+    "weight": 2.5,
     "mode": "single"
    },
    "label": null,
@@ -750,10 +750,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#73516F",
     "fillOpacity": 0.0,
-    "stroke": "#c98b82",
-    "weight": 1.44,
+    "stroke": "#73516F",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -776,10 +776,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#1a1720",
+    "fill": "#38387F",
     "fillOpacity": 0.0,
-    "stroke": "#af695e",
-    "weight": 1.92,
+    "stroke": "#38387F",
+    "weight": 3.42,
     "dash": "7,5",
     "mode": "single"
    },
@@ -807,7 +807,7 @@
     "fill": "#ea824e",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": "name",
@@ -834,7 +834,7 @@
     "fill": "#af695e",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -860,7 +860,7 @@
     "fill": "#6b6bb0",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": "name",
@@ -885,7 +885,7 @@
     "fill": "#f2a878",
     "stroke": "#f2a878",
     "fillOpacity": 0,
-    "weight": 2.4,
+    "weight": 3.9,
     "mode": "single"
    },
    "label": "name",
@@ -907,10 +907,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#AF695E",
     "fillOpacity": 0.0,
-    "stroke": "#9a7e96",
-    "weight": 1.44,
+    "stroke": "#AF695E",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": "name",
@@ -932,10 +932,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#AF695E",
     "fillOpacity": 0.0,
-    "stroke": "#EA824E",
-    "weight": 2.4,
+    "stroke": "#AF695E",
+    "weight": 3.9,
     "mode": "single"
    },
    "label": null,
@@ -957,10 +957,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#38387F",
     "fillOpacity": 0.0,
-    "stroke": "#EA824E",
-    "weight": 2.4,
+    "stroke": "#38387F",
+    "weight": 3.9,
     "mode": "single"
    },
    "label": null,
@@ -982,10 +982,10 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#C98B82",
+    "fill": "#F2A878",
     "fillOpacity": 0.0,
-    "stroke": "#C98B82",
-    "weight": 2.4,
+    "stroke": "#F2A878",
+    "weight": 3.9,
     "mode": "single"
    },
    "label": null,
@@ -1007,10 +1007,10 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#AF695E",
+    "fill": "#C98B82",
     "fillOpacity": 0.0,
-    "stroke": "#AF695E",
-    "weight": 2.4,
+    "stroke": "#C98B82",
+    "weight": 3.9,
     "mode": "single"
    },
    "label": null,
@@ -1037,7 +1037,7 @@
     "fill": "#af695e",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -1064,7 +1064,7 @@
     "fill": "#af695e",
     "stroke": "#af695e",
     "fillOpacity": 0,
-    "weight": 1.44,
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -1091,7 +1091,7 @@
     "fill": "#38387f",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -1118,7 +1118,7 @@
     "fill": "#38387f",
     "stroke": "#38387f",
     "fillOpacity": 0,
-    "weight": 1.44,
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -1145,7 +1145,7 @@
     "fill": "#73516f",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
-    "weight": 1.3,
+    "weight": 2.8,
     "mode": "single"
    },
    "label": null,
@@ -1172,7 +1172,7 @@
     "fill": "#73516f",
     "stroke": "#73516f",
     "fillOpacity": 0,
-    "weight": 1.44,
+    "weight": 2.94,
     "mode": "single"
    },
    "label": null,
@@ -1195,10 +1195,10 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#6B6BB0",
     "fillOpacity": 0.0,
-    "stroke": "#38387F",
-    "weight": 1.44,
+    "stroke": "#6B6BB0",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": "Name",
@@ -1222,10 +1222,10 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#38387F",
     "fillOpacity": 0.0,
-    "stroke": "#6b6bb0",
-    "weight": 1.44,
+    "stroke": "#38387F",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": "name",
@@ -1248,10 +1248,10 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#73516F",
     "fillOpacity": 0.0,
-    "stroke": "#6b6bb0",
-    "weight": 1.44,
+    "stroke": "#73516F",
+    "weight": 2.94,
     "mode": "single"
    },
    "label": "Name",
@@ -1277,7 +1277,7 @@
     "fill": "#ea824e",
     "stroke": "#ea824e",
     "fillOpacity": 0,
-    "weight": 3.36,
+    "weight": 4.86,
     "mode": "single"
    },
    "label": null,
@@ -1299,10 +1299,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387f",
+    "fill": "#6B6BB0",
     "fillOpacity": 0.0,
-    "stroke": "#ea824e",
-    "weight": 2.4,
+    "stroke": "#6B6BB0",
+    "weight": 3.9,
     "dash": "7,5",
     "mode": "single"
    },
