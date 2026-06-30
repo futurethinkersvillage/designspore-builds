@@ -21,11 +21,23 @@
             "Private swimming lake, shower houses, hiking trails, horse corrals, golf & disc-golf course",
             "3,000+ visitors a year, with minimal marketing"
           ],
-          "layers": ["full_service_rv_sites", "power_water_rv_sites", "utility_buildings", "accomodations_for_rent", "public_areas", "bathroom_shower_house", "labels"]
+          "layers": [
+            "full_service_rv_sites",
+            "power_water_rv_sites",
+            "utility_buildings",
+            "accomodations_for_rent",
+            "public_areas",
+            "bathroom_shower_house",
+            "labels"
+          ]
         },
         {
           "id": "sauna",
-          "center": [-120.04899, 51.93820], "zoom": 19,
+          "center": [
+            -120.04899,
+            51.9382
+          ],
+          "zoom": 21,
           "title": "The Sauna",
           "image": "/images/sauna-in-winter-scaled.jpg",
           "lead": "A wood-fired cedar barrel sauna with a cold plunge.",
@@ -34,12 +46,21 @@
             "Anchors the wellness rhythm already running on site",
             "A taste of the spa planned for a later phase"
           ],
-          "layers": ["public_areas", "utility_buildings", "accomodations_for_rent", "labels"]
+          "layers": [
+            "public_areas",
+            "utility_buildings",
+            "accomodations_for_rent",
+            "labels"
+          ]
         },
         {
           "id": "dome",
-          "center": [-120.04989, 51.93740], "zoom": 19,
-          "title": "The Geodesic Dome",
+          "center": [
+            -120.04989,
+            51.9374
+          ],
+          "zoom": 21,
+          "title": "Glamping Dome",
           "image": "media/tour/dome.jpg",
           "lead": "A geodesic glamping dome for stays and gatherings.",
           "points": [
@@ -47,11 +68,20 @@
             "Doubles as a space for movie nights and small events",
             "One of the signature stays on the land"
           ],
-          "layers": ["public_areas", "utility_buildings", "accomodations_for_rent", "labels"]
+          "layers": [
+            "public_areas",
+            "utility_buildings",
+            "accomodations_for_rent",
+            "labels"
+          ]
         },
         {
           "id": "bunk-cabins",
-          "center": [-120.04940, 51.93784], "zoom": 18,
+          "center": [
+            -120.0494,
+            51.93784
+          ],
+          "zoom": 20,
           "title": "The Bunk Cabins",
           "image": "media/tour/bunk-cabins.jpg",
           "lead": "Three rental bunk cabins tucked along the creek.",
@@ -60,11 +90,18 @@
             "Booked through the season alongside the dome",
             "A short walk from the lake and gathering spaces"
           ],
-          "layers": ["accomodations_for_rent", "labels"]
+          "layers": [
+            "accomodations_for_rent",
+            "labels"
+          ]
         },
         {
           "id": "gazebo",
-          "center": [-120.05599, 51.93690], "zoom": 19,
+          "center": [
+            -120.05599,
+            51.9369
+          ],
+          "zoom": 21,
           "title": "The Event Gazebo",
           "image": "media/tour/event-gazebo.jpg",
           "lead": "A 120-person event gazebo with a commercial kitchen.",
@@ -73,7 +110,12 @@
             "Campfire and shared meals at the heart of it",
             "The village's main indoor gathering space today"
           ],
-          "layers": ["public_areas", "utility_buildings", "accomodations_for_rent", "labels"]
+          "layers": [
+            "public_areas",
+            "utility_buildings",
+            "accomodations_for_rent",
+            "labels"
+          ]
         }
       ]
     },
@@ -83,7 +125,11 @@
       "stops": [
         {
           "id": "permaculture",
-          "center": [-120.05665, 51.93698], "zoom": 18,
+          "center": [
+            -120.05665,
+            51.93698
+          ],
+          "zoom": 20,
           "title": "The Permaculture Garden",
           "image": "media/tour/permaculture.jpg",
           "lead": "A working permaculture garden on the land.",
@@ -92,7 +138,10 @@
             "A living classroom for regenerative growing",
             "The seed of the larger regenerative farm in the vision"
           ],
-          "layers": ["permaculture_garden", "labels"]
+          "layers": [
+            "permaculture_garden",
+            "labels"
+          ]
         }
       ]
     },
@@ -112,11 +161,17 @@
             "A maker space, creekside cabins, festival grounds and an art-trail network",
             "Built in sequence — funded by the operating site and milled from its own cleared timber"
           ],
-          "layers": ["wells_gray_golf_rv_parcel"]
+          "layers": [
+            "wells_gray_golf_rv_parcel"
+          ]
         },
         {
           "id": "maker-space",
-          "center": [-120.04787, 51.94159], "zoom": 18,
+          "center": [
+            -120.04787,
+            51.94159
+          ],
+          "zoom": 20,
           "title": "The Maker Space",
           "image": "media/tour/maker-space.jpg",
           "lead": "A community workshop — and the engine of the build.",
@@ -124,11 +179,17 @@
             "3D printers, CNC, laser and woodworking",
             "Fabricates and finishes the village's cabins and tiny homes"
           ],
-          "layers": ["maker_space"]
+          "layers": [
+            "maker_space"
+          ]
         },
         {
           "id": "creekside-cabins",
-          "center": [-120.04727, 51.93960], "zoom": 17,
+          "center": [
+            -120.04727,
+            51.9396
+          ],
+          "zoom": 19,
           "title": "Creekside Cabins",
           "image": "media/tour/creekside-cabins.jpg",
           "lead": "A row of small cabins set along the creek.",
@@ -137,11 +198,18 @@
             "Modern net-zero prefab units, finished in the maker space",
             "A short walk from the campground core"
           ],
-          "layers": ["cabins", "creekside_cabin_boundary"]
+          "layers": [
+            "cabins",
+            "creekside_cabin_boundary"
+          ]
         },
         {
           "id": "lakeside-cabins",
-          "center": [-120.04785, 51.93685], "zoom": 17,
+          "center": [
+            -120.04785,
+            51.93685
+          ],
+          "zoom": 19,
           "title": "Lakeside Cabins",
           "image": "media/tour/lakeside-cabins.jpg",
           "lead": "Two rows of cabins curving along the lake's edge.",
@@ -150,11 +218,18 @@
             "Set back from the water, a short stroll to the lake",
             "Finished in the maker space, plugged into existing services"
           ],
-          "layers": ["lake_cabins", "lakes"]
+          "layers": [
+            "lake_cabins",
+            "lakes"
+          ]
         },
         {
           "id": "event-gazebo",
-          "center": [-120.04980, 51.93626], "zoom": 19,
+          "center": [
+            -120.0498,
+            51.93626
+          ],
+          "zoom": 21,
           "title": "Event Gazebo",
           "image": "media/tour/community-gazebo.jpg",
           "lead": "An octagonal timber pavilion for gatherings of every kind.",
@@ -163,11 +238,18 @@
             "A flexible, open community space",
             "Part of the Phase 2 community-buildings cluster"
           ],
-          "layers": ["event_gazebo", "labels"]
+          "layers": [
+            "event_gazebo",
+            "labels"
+          ]
         },
         {
           "id": "event-space",
-          "center": [-120.05052, 51.93660], "zoom": 18,
+          "center": [
+            -120.05052,
+            51.9366
+          ],
+          "zoom": 20,
           "title": "The Event Stage",
           "image": "media/tour/event-space.jpg",
           "lead": "An outdoor stage for music, performance and festival nights.",
@@ -176,11 +258,18 @@
             "Scales up with the festival grounds",
             "Part of the Phase 2 community buildings"
           ],
-          "layers": ["event_space", "labels"]
+          "layers": [
+            "event_space",
+            "labels"
+          ]
         },
         {
           "id": "festival",
-          "center": [-120.04855, 51.93397], "zoom": 16,
+          "center": [
+            -120.04855,
+            51.93397
+          ],
+          "zoom": 18,
           "title": "Festival Grounds",
           "image": "media/tour/festival.jpg",
           "lead": "A leave-no-trace festival meadow — light-touch by design.",
@@ -190,11 +279,22 @@
             "Scales from 500 to 5,000 people, no permanent build",
             "Cleared timber is milled on site for later-phase cabins"
           ],
-          "layers": ["festival_grounds", "camp_roads", "camp_plots", "portapotty_groups", "central_showers", "event_parking"]
+          "layers": [
+            "festival_grounds",
+            "camp_roads",
+            "camp_plots",
+            "portapotty_groups",
+            "central_showers",
+            "event_parking"
+          ]
         },
         {
           "id": "trails",
-          "center": [-120.04346, 51.93713], "zoom": 16,
+          "center": [
+            -120.04346,
+            51.93713
+          ],
+          "zoom": 18,
           "title": "Hiking & Art Trails",
           "image": "media/tour/art-walk.jpg",
           "lead": "An art-and-nature hike threading the property together.",
@@ -203,7 +303,11 @@
             "Art \"landings\" — installations and rest spots along the way",
             "Links the campground, creekside cabins and festival meadow"
           ],
-          "layers": ["discovery_trail", "landings", "trails"]
+          "layers": [
+            "discovery_trail",
+            "landings",
+            "trails"
+          ]
         }
       ]
     },
@@ -220,9 +324,14 @@
             "A car-free wellness village, regenerative farm and lakeside spa are planned for later phases",
             "Wells Gray is the flagship — a template for aligned villages elsewhere"
           ],
-          "layers": ["wells_gray_golf_rv_parcel"],
+          "layers": [
+            "wells_gray_golf_rv_parcel"
+          ],
           "fit": "all",
-          "cta": { "href": "https://portal.place/mind-map", "label": "Explore the full vision →" }
+          "cta": {
+            "href": "https://portal.place/mind-map",
+            "label": "Explore the full vision →"
+          }
         }
       ]
     }
