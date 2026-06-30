@@ -183,10 +183,10 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#8e24aa",
-    "fillOpacity": 0.216,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
     "stroke": "#8e24aa",
-    "weight": 0.96,
+    "weight": 1.44,
     "mode": "single"
    },
    "label": null,
@@ -292,10 +292,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#7a4b2a",
-    "fillOpacity": 1.0,
-    "stroke": "#ffffff",
-    "weight": 0.8,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#7a4b2a",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": "Name",
@@ -483,10 +483,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#7a4b2a",
-    "fillOpacity": 1.0,
-    "stroke": "#ffffff",
-    "weight": 0.8,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#7a4b2a",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": "Name",
@@ -511,10 +511,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#1f6fa8",
-    "fillOpacity": 1.0,
-    "stroke": "#ffffff",
-    "weight": 0.8,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#1f6fa8",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": "Type",
@@ -540,10 +540,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#5d6d7e",
-    "fillOpacity": 1.0,
-    "stroke": "#ffffff",
-    "weight": 0.8,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#5d6d7e",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": "Structures",
@@ -567,10 +567,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#2e7d46",
-    "fillOpacity": 1.0,
-    "stroke": "#ffffff",
-    "weight": 0.8,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#2e7d46",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": "Name",
@@ -595,10 +595,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#1f6fa8",
-    "fillOpacity": 1.0,
-    "stroke": "#ffffff",
-    "weight": 0.8,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#1f6fa8",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": "Site",
@@ -647,10 +647,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#ff0000",
-    "fillOpacity": 0.471,
-    "stroke": "#b71c1c",
-    "weight": 2.618184,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#ff0000",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": "name",
@@ -725,10 +725,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#ff4fa3",
-    "fillOpacity": 0.275,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
     "stroke": "#ff4fa3",
-    "weight": 0.8,
+    "weight": 1.44,
     "mode": "single"
    },
    "label": null,
@@ -882,11 +882,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#78909c",
-    "fillOpacity": 0.314,
-    "stroke": "#90a4ae",
-    "weight": 0.96,
-    "dash": "7,5",
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#78909c",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": "name",
@@ -908,10 +907,10 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#8d6e63",
-    "fillOpacity": 1.0,
-    "stroke": "#3e2723",
-    "weight": 1.0472735999999998,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#8d6e63",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": null,
@@ -1096,10 +1095,10 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#3498db",
-    "fillOpacity": 1.0,
-    "stroke": "#ffffff",
-    "weight": 0.8,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#3498db",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": "Name",
@@ -1123,10 +1122,10 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#2196f3",
-    "fillOpacity": 0.588,
-    "stroke": "#0d47a1",
-    "weight": 1.68,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#2196f3",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": "name",
@@ -1149,10 +1148,10 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#7fb3d5",
-    "fillOpacity": 1.0,
-    "stroke": "#ffffff",
-    "weight": 0.8,
+    "fill": "#0000ff",
+    "fillOpacity": 0.0,
+    "stroke": "#7fb3d5",
+    "weight": 1.44,
     "mode": "single"
    },
    "label": "Name",

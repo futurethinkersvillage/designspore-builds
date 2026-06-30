@@ -97,6 +97,13 @@
   .slide .s-points li:before{content:"";position:absolute;left:1px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
   .slide .s-cta{margin-top:4px;display:block;text-align:center;padding:11px 14px;border:1px solid var(--accent);border-radius:10px;color:var(--accent);text-decoration:none;font-size:14px;font-weight:600}
   .slide .s-cta:hover{background:var(--accent);color:#1a1a1a}
+  /* tour highlight ping */
+  .tp-wrap{pointer-events:none}
+  .tour-ping{position:relative;width:90px;height:90px}
+  .tour-ping .ring{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border:3px solid var(--accent);border-radius:50%;opacity:0;animation:tping 1.9s cubic-bezier(.2,.6,.3,1) infinite}
+  .tour-ping .ring.r2{animation-delay:.95s}
+  .tour-ping .dot{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(0,0,0,.5),0 0 14px var(--accent)}
+  @keyframes tping{0%{transform:scale(.35);opacity:.95}80%{opacity:.28}100%{transform:scale(3.6);opacity:0}}
   /* start lightbox */
   #introbox{position:absolute;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:rgba(8,10,6,.62);backdrop-filter:blur(3px);padding:20px}
   #introbox .ib-card{max-width:440px;width:100%;background:rgba(20,24,15,.98);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6);padding:26px}
@@ -435,9 +442,18 @@ function tourFit(s){
   else fitView();
  }catch(e){ try{fitView()}catch(_){ } }
 }
-function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i]; tourShow(s.layers); tourFit(s); tourPanel(s); renderBar(); }
+let tourPing=null;
+function clearPing(){ if(tourPing){ map.removeLayer(tourPing); tourPing=null; } }
+function showPing(ll){ clearPing(); const icon=L.divIcon({className:'tp-wrap',html:'<div class="tour-ping"><span class="ring r1"></span><span class="ring r2"></span><span class="dot"></span></div>',iconSize:[90,90],iconAnchor:[45,45]});
+  tourPing=L.marker(ll,{icon,interactive:false,keyboard:false,zIndexOffset:6000}).addTo(map); }
+function stopFocus(s){ if(s.center&&s.center.length===2) return L.latLng(s.center[1],s.center[0]);
+  let b=null; (s.layers||[]).forEach(f=>{const l=overlays[f]; if(l){try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}}});
+  return b&&b.isValid()? b.getCenter() : null; }
+function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i]; tourShow(s.layers); tourFit(s);
+  if(s.fit==='all'){ clearPing(); } else { const fp=stopFocus(s); fp?showPing(fp):clearPing(); }
+  tourPanel(s); renderBar(); }
 function startTour(){ if(TOUR.length) goStop(0); }
-function endTour(){ tourIdx=-1; closeMedia(); DEFS.forEach(d=>setVis(d.f, DEFAULTON.has(d.f))); refresh(); fitView(); renderBar(); }
+function endTour(){ tourIdx=-1; clearPing(); closeMedia(); DEFS.forEach(d=>setVis(d.f, DEFAULTON.has(d.f))); refresh(); fitView(); renderBar(); }
 function renderBar(){ const bar=document.getElementById('tourbar'); if(!bar) return;
   if(tourIdx<0){ bar.style.display='flex'; bar.innerHTML='<button class="tb-btn" id="tb-start">▶ Take the tour</button>';
     const b=document.getElementById('tb-start'); if(b) b.onclick=startTour; }
