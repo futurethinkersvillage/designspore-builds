@@ -187,10 +187,12 @@
   .tl-node:hover .tl-dot{border-color:var(--accent);transform:scale(1.3)}
   .tl-node.active .tl-dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 8px var(--accent);transform:scale(1.3)}
   .tl-node.done .tl-dot{background:var(--muted);border-color:var(--muted)}
-  .tl-label{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;font-weight:600;
-    background:rgba(20,17,25,.96);color:var(--ink);padding:3px 8px;border-radius:7px;border:1px solid var(--line);display:none;pointer-events:none;z-index:2;box-shadow:0 4px 12px rgba(0,0,0,.5)}
-  .tl-node.active .tl-label{display:block;color:var(--accent)}
-  .tl-node:hover .tl-label{display:block;z-index:3}
+  .tl-label{position:absolute;bottom:13px;left:50%;transform-origin:left bottom;transform:rotate(-45deg);
+    font-size:9px;line-height:1;white-space:nowrap;font-weight:600;color:var(--muted);pointer-events:none;z-index:2;
+    text-shadow:0 0 3px #000,0 0 4px #000,0 1px 2px #000}
+  .tl-node.done .tl-label{color:#cdbfb0}
+  .tl-node:hover .tl-label{color:var(--ink);z-index:4}
+  .tl-node.active .tl-label{color:#1a1720;font-weight:800;font-size:10px;background:var(--accent);padding:2px 7px;border-radius:6px;text-shadow:none;z-index:5;box-shadow:0 3px 10px rgba(0,0,0,.5)}
   .tl-seg{flex:1 1 auto;height:2px;background:var(--line);margin:0 4px}
   .tl-seg.done{background:var(--accent)}
   @media(max-width:640px){ #timeline{left:8px;right:8px;padding:9px 10px} body.media-open #timeline{right:8px} .tl-seg{margin:0 2px} }
