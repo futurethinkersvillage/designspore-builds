@@ -6,13 +6,13 @@
 <title>Wells Gray Golf &amp; RV Resort — Development Plan</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
-  :root{ --bg:#14180f; --panel:#1d2417; --ink:#f3f1e7; --muted:#a9b39a; --accent:#cfa64b; --line:#2c3522; }
+  :root{ --bg:#1A1720; --panel:#241C2B; --ink:#FAF8F4; --muted:#A99CAB; --accent:#EA824E; --line:#3A3243; }
   html,body{height:100%;margin:0;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink)}
   #map{position:absolute;top:0;right:0;bottom:0;left:0;background:var(--bg);transition:width .28s ease}
   /* media panel pushes the map + controls instead of overlaying (width, not right — #map's inset:0 over-constrains right) */
   body.media-open #map{width:calc(100% - 540px)}
   body.media-open #controls{right:554px}
-  .panel{position:absolute;z-index:1000;background:rgba(29,36,23,.94);color:var(--ink);
+  .panel{position:absolute;z-index:1000;background:rgba(33,27,40,.94);color:var(--ink);
     border:1px solid var(--line);border-radius:12px;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.45)}
   #title{top:14px;left:14px;max-width:320px;padding:14px 18px}
   #title h1{margin:0 0 4px;font-size:18px;line-height:1.2}
@@ -25,7 +25,7 @@
   .bm.active{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:600}
   .pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
   .pill{font-size:11.5px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;cursor:pointer;color:var(--muted)}
-  .pill.on{background:rgba(207,166,75,.22);border-color:var(--accent);color:var(--ink)}
+  .pill.on{background:rgba(234,130,78,.22);border-color:var(--accent);color:var(--ink)}
   .pill.partial{border-color:var(--accent);color:var(--ink)}
   .sec{margin:14px 0 6px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
   /* tree */
@@ -40,7 +40,20 @@
   .gbody{margin-left:13px;border-left:1px solid var(--line);padding-left:7px}
   label.row{display:flex;align-items:center;gap:8px;padding:3px;border-radius:7px;cursor:pointer}
   label.row:hover{background:rgba(255,255,255,.05)}
-  label.row input{accent-color:var(--accent);width:14px;height:14px;flex:0 0 auto}
+  label.row input[type=checkbox], .chk input[type=checkbox], input.gchk{
+    appearance:none;-webkit-appearance:none;margin:0;flex:0 0 auto;width:18px;height:18px;
+    border:1.6px solid var(--line);border-radius:5px;background:rgba(255,255,255,.05);cursor:pointer;position:relative;transition:border-color .12s,background .12s}
+  label.row input[type=checkbox]:hover, .chk input[type=checkbox]:hover, input.gchk:hover{border-color:var(--accent)}
+  label.row input[type=checkbox]:checked, .chk input[type=checkbox]:checked, input.gchk:checked{background:var(--accent);border-color:var(--accent)}
+  label.row input[type=checkbox]:checked::after, .chk input[type=checkbox]:checked::after, input.gchk:checked::after{
+    content:"";position:absolute;left:5.5px;top:2px;width:4px;height:8px;border:solid #1A1720;border-width:0 2.2px 2.2px 0;transform:rotate(45deg)}
+  input.gchk:indeterminate{background:var(--accent);border-color:var(--accent)}
+  input.gchk:indeterminate::after{content:"";position:absolute;left:3.5px;top:7.2px;width:9px;height:0;border-top:2.4px solid #1A1720}
+  label.row input[type=radio]{appearance:none;-webkit-appearance:none;margin:0;flex:0 0 auto;width:18px;height:18px;
+    border:1.6px solid var(--line);border-radius:50%;background:rgba(255,255,255,.05);cursor:pointer;position:relative;transition:border-color .12s}
+  label.row input[type=radio]:hover{border-color:var(--accent)}
+  label.row input[type=radio]:checked{border-color:var(--accent)}
+  label.row input[type=radio]:checked::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%)}
   label.row .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .row.opt .nm{font-style:normal}
   .sw{width:13px;height:13px;border-radius:3px;flex:0 0 auto;border:1px solid rgba(255,255,255,.25)}
@@ -63,17 +76,17 @@
   /* media markers + sidebar */
   .media-badge{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;
     background:var(--accent);color:#1a1a1a;font-size:14px;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.5);cursor:pointer}
-  #mediapanel{position:absolute;top:0;right:0;height:100%;width:540px;max-width:92%;z-index:1500;background:rgba(20,24,15,.97);
+  #mediapanel{position:absolute;top:0;right:0;height:100%;width:540px;max-width:92%;z-index:1500;background:rgba(26,23,32,.97);
     color:var(--ink);border-left:1px solid var(--line);box-shadow:-10px 0 30px rgba(0,0,0,.5);transform:translateX(100%);
     transition:transform .28s ease;overflow:auto;backdrop-filter:blur(6px)}
   #mediapanel.open{transform:translateX(0)}
-  #mediapanel .mp-head{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;background:rgba(20,24,15,.98);padding:11px 42px 11px 18px;border-bottom:1px solid var(--line)}
+  #mediapanel .mp-head{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;background:rgba(26,23,32,.98);padding:11px 42px 11px 18px;border-bottom:1px solid var(--line)}
   #mediapanel .mp-stage{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
   #mediapanel .mp-prog{margin-left:auto;font-size:11.5px;color:var(--muted)}
   #mediapanel .mp-close{position:absolute;top:7px;right:13px;font-size:23px;cursor:pointer;color:var(--muted);line-height:1;z-index:4}
   #mediapanel .mp-close:hover{color:var(--ink)}
   #mediapanel .mp-body{padding:0 0 6px}
-  #mediapanel .mp-nav{position:sticky;bottom:0;z-index:3;display:flex;gap:10px;padding:12px 16px;background:rgba(20,24,15,.98);border-top:1px solid var(--line)}
+  #mediapanel .mp-nav{position:sticky;bottom:0;z-index:3;display:flex;gap:10px;padding:12px 16px;background:rgba(26,23,32,.98);border-top:1px solid var(--line)}
   #mediapanel .mp-nav button{padding:13px 10px;border-radius:10px;font-size:14.5px;font-weight:700;cursor:pointer;border:1px solid var(--line)}
   #mediapanel .mp-back{flex:1;background:rgba(255,255,255,.05);color:var(--ink)}
   #mediapanel .mp-back:hover{border-color:var(--accent)}
@@ -88,7 +101,7 @@
   .slide .s-stage{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
   .slide .s-title{margin:0;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.12;font-weight:600;color:var(--ink)}
   .slide figure{margin:0}
-  .slide .s-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;border:1px solid var(--line);display:block;background:#0d0f0a}
+  .slide .s-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;border:1px solid var(--line);display:block;background:#16131c}
   .slide .s-cap{font-size:11px;color:var(--muted);margin-top:5px;text-align:right;font-style:italic}
   .slide .s-ph{width:100%;aspect-ratio:4/3;border-radius:12px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;text-align:center;padding:10px;background:rgba(255,255,255,.03)}
   .slide .s-lead{margin:0;font-size:15px;line-height:1.5;color:var(--ink);font-weight:500}
@@ -114,7 +127,7 @@
   @keyframes tping{0%{transform:scale(.35);opacity:.95}80%{opacity:.28}100%{transform:scale(3.6);opacity:0}}
   /* start lightbox */
   #introbox{position:absolute;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:rgba(8,10,6,.62);backdrop-filter:blur(3px);padding:20px}
-  #introbox .ib-card{max-width:440px;width:100%;background:rgba(20,24,15,.98);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6);padding:26px}
+  #introbox .ib-card{max-width:440px;width:100%;background:rgba(26,23,32,.98);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6);padding:26px}
   #introbox .ib-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;text-align:center}
   #introbox .ib-title{margin:0 0 14px;font-family:Georgia,'Times New Roman',serif;font-size:27px;line-height:1.12;color:var(--ink);text-align:center}
   #introbox .ib-body{font-size:14.5px;line-height:1.55;color:var(--ink)}
@@ -124,7 +137,7 @@
   #introbox .ib-skip{margin-top:12px;text-align:center;font-size:13px;color:var(--muted);cursor:pointer}
   #introbox .ib-skip:hover{color:var(--ink)}
   @media(max-width:640px){ #introbox .ib-card{padding:20px 16px} #introbox .ib-title{font-size:22px} }
-  #mediapanel .mp-img{width:100%;border-radius:10px;margin-bottom:8px;border:1px solid var(--line);background:#0d0f0a;display:block}
+  #mediapanel .mp-img{width:100%;border-radius:10px;margin-bottom:8px;border:1px solid var(--line);background:#16131c;display:block}
   #mediapanel .mp-ph{width:100%;aspect-ratio:16/10;border-radius:10px;margin-bottom:8px;border:1px dashed var(--line);
     display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;background:rgba(255,255,255,.03)}
   #mediapanel .mp-write{font-size:13.5px;line-height:1.5;color:var(--ink);margin:10px 0}
@@ -458,7 +471,7 @@ function tourFit(s){
 }
 let tourPing=null;
 function clearPing(){ if(tourPing){ map.removeLayer(tourPing); tourPing=null; } }
-function showPing(ll){ clearPing(); const icon=L.divIcon({className:'tp-wrap',html:'<div class="tour-ping"><span class="ring r1"></span><span class="ring r2"></span><span class="dot"></span></div>',iconSize:[90,90],iconAnchor:[45,45]});
+function showPing(ll){ clearPing(); const icon=L.divIcon({className:'tp-wrap',html:'<div class="tour-ping"><span class="ring r1"></span><span class="dot"></span></div>',iconSize:[90,90],iconAnchor:[45,45]});
   tourPing=L.marker(ll,{icon,interactive:false,keyboard:false,zIndexOffset:6000}).addTo(map); }
 function stopFocus(s){ if(s.center&&s.center.length===2) return L.latLng(s.center[1],s.center[0]);
   let b=null; (s.layers||[]).forEach(f=>{const l=overlays[f]; if(l){try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}}});
