@@ -1201,8 +1201,8 @@
    "style": {
     "fill": "#0000ff",
     "fillOpacity": 0.0,
-    "stroke": "#0000ff",
-    "weight": 1.92,
+    "stroke": "#ffe100",
+    "weight": 2.4,
     "dash": "7,5",
     "mode": "single"
    },

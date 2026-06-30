@@ -12,7 +12,7 @@
       "stops": [
         {
           "id": "campground",
-          "center": [-120.0486, 51.9390], "zoom": 16,
+          "fit": "property",
           "title": "Built & Operating",
           "image": "/images/tour/Golf-Course-Above2.jpg",
           "lead": "Five seasons in — the working prototype the village builds on.",
