@@ -169,7 +169,7 @@
           "id": "village-rhythm",
           "fit": "property",
           "title": "Village Rhythm",
-          "image": "media/tour/festival.jpg",
+          "image": "media/tour/village-rhythm.jpg",
           "lead": "An annual and weekly cultural rhythm.",
           "points": [
             "Work-stay programs",
@@ -185,7 +185,7 @@
           "id": "forest-school",
           "fit": "property",
           "title": "Forest School",
-          "image": "media/tour/trails.jpg",
+          "image": "media/tour/forest-school.jpg",
           "lead": "An ongoing program for the broader community.",
           "points": [
             "Outdoor learning, stories, crafts and maker days",
@@ -410,7 +410,7 @@
           "id": "become-member",
           "fit": "all",
           "title": "Become a Member",
-          "image": "media/tour/phase2-vision.jpg",
+          "image": "media/tour/become-member.jpg",
           "lead": "Join the village.",
           "points": [
             "Founding Members: a curated group, by invitation only",
