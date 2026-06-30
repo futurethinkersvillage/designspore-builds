@@ -89,6 +89,18 @@
   .slide .s-points li:before{content:"";position:absolute;left:1px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
   .slide .s-cta{margin-top:4px;display:block;text-align:center;padding:11px 14px;border:1px solid var(--accent);border-radius:10px;color:var(--accent);text-decoration:none;font-size:14px;font-weight:600}
   .slide .s-cta:hover{background:var(--accent);color:#1a1a1a}
+  /* start lightbox */
+  #introbox{position:absolute;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:rgba(8,10,6,.62);backdrop-filter:blur(3px);padding:20px}
+  #introbox .ib-card{max-width:440px;width:100%;background:rgba(20,24,15,.98);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6);padding:26px}
+  #introbox .ib-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;text-align:center}
+  #introbox .ib-title{margin:0 0 14px;font-family:Georgia,'Times New Roman',serif;font-size:27px;line-height:1.12;color:var(--ink);text-align:center}
+  #introbox .ib-body{font-size:14.5px;line-height:1.55;color:var(--ink)}
+  #introbox .ib-body p{margin:0 0 10px}
+  #introbox .ib-btn{display:block;width:100%;margin-top:18px;padding:13px;border:0;border-radius:10px;background:var(--accent);color:#1a1a1a;font-size:15px;font-weight:700;cursor:pointer}
+  #introbox .ib-btn:hover{filter:brightness(1.07)}
+  #introbox .ib-skip{margin-top:12px;text-align:center;font-size:13px;color:var(--muted);cursor:pointer}
+  #introbox .ib-skip:hover{color:var(--ink)}
+  @media(max-width:640px){ #introbox .ib-card{padding:20px 16px} #introbox .ib-title{font-size:22px} }
   #mediapanel .mp-img{width:100%;border-radius:10px;margin-bottom:8px;border:1px solid var(--line);background:#0d0f0a;display:block}
   #mediapanel .mp-ph{width:100%;aspect-ratio:16/10;border-radius:10px;margin-bottom:8px;border:1px dashed var(--line);
     display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;background:rgba(255,255,255,.03)}
@@ -132,6 +144,15 @@
 <body>
 <div id="map"></div>
 <div id="tourbar"></div>
+<div id="introbox" style="display:none">
+  <div class="ib-card">
+    <div class="ib-eyebrow">Wells Gray Golf &amp; RV Resort</div>
+    <h2 class="ib-title" id="ib-title"></h2>
+    <div class="ib-body" id="ib-body"></div>
+    <button class="ib-btn" id="ib-start">▶ Start the tour</button>
+    <div class="ib-skip" id="ib-skip">Explore the map myself</div>
+  </div>
+</div>
 <div id="toast"></div>
 <div id="mediapanel">
   <div class="mp-head"><span class="mp-close" id="mpclose">×</span><h3 id="mptitle"></h3><div class="mp-blurb" id="mpblurb"></div></div>
@@ -424,6 +445,14 @@ fetch('data/tour.json').then(r=>r.json()).then(M=>{
   if(M.stages){ M.stages.forEach(st=>(st.stops||[]).forEach(s=>{ s.stage=st.name; s.badge=st.badge; TOUR.push(s); })); }
   else { TOUR=M.stops||[]; }
   renderBar();
+  if(M.intro){
+    document.getElementById('ib-title').textContent=M.intro.title||'';
+    document.getElementById('ib-body').innerHTML=renderWrite(M.intro.body||'');
+    if(M.intro.button) document.getElementById('ib-start').textContent=M.intro.button;
+    const ib=document.getElementById('introbox'); ib.style.display='flex';
+    document.getElementById('ib-start').onclick=()=>{ib.style.display='none'; startTour();};
+    document.getElementById('ib-skip').onclick=()=>{ib.style.display='none';};
+  }
 }).catch(e=>{console.warn('tour load',e); renderBar();});
 </script>
 </body>

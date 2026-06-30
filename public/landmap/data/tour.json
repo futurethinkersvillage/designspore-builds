@@ -1,5 +1,10 @@
 {
-  "_note": "Guided tour as a slide deck. stages[] -> {name,badge,stops[]}. Each stop is one vertical slide: title, image (ONE only; site photos /images/... , map aerials + CABN photos media/...), caption (optional, under image), lead (1-2 sentences), points[] (bullets), layers[] (slugs shown), fit ('all'=whole property), cta (optional). 'Operating now' badge renders green.",
+  "_note": "Guided tour as a slide deck. stages[] -> {name,badge,stops[]}. Each stop is one vertical slide: title, image (ONE only; site photos /images/... , map aerials + CABN photos media/...), caption (optional, under image), lead (1-2 sentences), points[] (bullets), layers[] (slugs shown), fit ('all'=whole property), cta (optional). 'Operating now' badge renders green. intro = the start lightbox.",
+  "intro": {
+    "title": "Wells Gray — the Master Plan",
+    "body": "393 acres of private land beside Wells Gray Provincial Park, near Clearwater, BC.\n\nThis guided tour walks through what's already built and operating, then the plan to grow a village on the land — cabins and a maker space, festival grounds, an RV & tiny-home expansion, a boutique hotel, and a car-free wellness village with a farm and lakeside spa.\n\n13 short stops. Move with the arrows; close anytime to explore the map yourself.",
+    "button": "▶ Start the tour"
+  },
   "stages": [
     {
       "name": "The Campground",
