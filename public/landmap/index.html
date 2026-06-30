@@ -193,6 +193,12 @@
   .tl-node:hover .tl-label{display:block;z-index:3}
   .tl-seg{flex:1 1 auto;height:2px;background:var(--line);margin:0 4px}
   .tl-seg.done{background:var(--accent)}
+  .tl-seg.tl-break{flex:0 0 auto;width:0;background:transparent;margin:0 13px;position:relative}
+  .tl-seg.tl-break::after{content:"";position:absolute;left:50%;top:-8px;width:2px;height:18px;background:var(--muted);border-radius:1px;transform:translateX(-50%)}
+  .tl-phase{position:absolute;bottom:31px;left:50%;transform:translateX(-50%);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:800;white-space:nowrap;pointer-events:none;z-index:3;text-shadow:0 0 3px #000,0 0 4px #000,0 1px 2px #000}
+  .tl-phase.p1{color:#9ccc65}
+  .tl-phase.p2{color:var(--accent)}
+  .tl-phase.p3{color:var(--muted)}
   @media(max-width:640px){ #timeline{left:8px;right:8px;padding:9px 10px} body.media-open #timeline{right:8px} .tl-seg{margin:0 2px} }
 </style>
 </head>
@@ -519,15 +525,21 @@ function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
 function startTour(){ if(TOUR.length) goStop(0); }
 function endTour(){ tourIdx=-1; clearPing(); closeMedia(); document.body.classList.remove('touring'); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
 let STAGES=[];
+function tlPhase(s){const b=(s.badge||'').toLowerCase();
+  if(b.indexOf('operating')>=0) return {key:'1',name:'Phase 1'};
+  if(b.indexOf('proposed')>=0) return {key:'2',name:'Phase 2'};
+  return {key:'3',name:"What's Next"};}
 function renderTimeline(){ const el=document.getElementById('timeline'); if(!el) return;
   if(!TOUR.length || tourIdx<0){ el.innerHTML=''; return; }
-  el.innerHTML='';
+  el.innerHTML=''; let prev=null;
   TOUR.forEach((s,i)=>{
-    if(i>0){ const seg=document.createElement('div'); seg.className='tl-seg'+(i<=tourIdx?' done':''); el.appendChild(seg); }
+    const ph=tlPhase(s); const isNew=!prev||ph.key!==prev;
+    if(i>0){ const seg=document.createElement('div'); seg.className='tl-seg'+(i<=tourIdx?' done':'')+(isNew?' tl-break':''); el.appendChild(seg); }
     const node=document.createElement('div'); node.className='tl-node'+(i===tourIdx?' active':(i<tourIdx?' done':''));
-    node.innerHTML='<div class="tl-dot"></div><div class="tl-label">'+escHtml(s.title||s.stage||'')+'</div>';
-    node.onclick=()=>goStop(i);
-    el.appendChild(node);
+    let h='<div class="tl-dot"></div><div class="tl-label">'+escHtml(s.title||s.stage||'')+'</div>';
+    if(isNew) h='<div class="tl-phase p'+ph.key+'">'+escHtml(ph.name)+'</div>'+h;
+    node.innerHTML=h; node.onclick=()=>goStop(i); el.appendChild(node);
+    prev=ph.key;
   });
 }
 function renderBar(){ const bar=document.getElementById('tourbar'); if(!bar) return;
