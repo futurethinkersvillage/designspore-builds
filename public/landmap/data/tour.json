@@ -33,7 +33,7 @@
         },
         {
           "id": "rv-sites",
-          "title": "RV & Tiny-Home Sites",
+          "title": "RV Sites",
           "image": "media/tour/rv-sites.jpg",
           "lead": "Full-service and power/water sites for RVs and tiny homes.",
           "points": [
@@ -49,28 +49,6 @@
           "marker": [
             -120.047907,
             51.939958
-          ]
-        },
-        {
-          "id": "sauna",
-          "center": [
-            -120.04899,
-            51.9382
-          ],
-          "zoom": 20,
-          "title": "The Sauna",
-          "image": "/images/sauna-in-winter-scaled.jpg",
-          "lead": "A wood-fired cedar barrel sauna next to a cold creek.",
-          "points": [
-            "Steam, then a cold dip in the creek",
-            "Part of the weekly village rhythm",
-            "A taste of the wellness spa planned for a later phase"
-          ],
-          "layers": [
-            "public_areas",
-            "utility_buildings",
-            "accomodations_for_rent",
-            "labels"
           ]
         },
         {
@@ -101,7 +79,7 @@
             51.937829
           ],
           "zoom": 19,
-          "title": "The Bunk Cabins",
+          "title": "Bunk Cabins",
           "image": "media/tour/bunk-cabins.jpg",
           "lead": "Three rental bunk cabins tucked along the creek.",
           "points": [
@@ -135,13 +113,35 @@
             51.9369
           ],
           "zoom": 20,
-          "title": "The Event Gazebo",
+          "title": "Event Gazebo",
           "image": "media/tour/event-gazebo.jpg",
           "lead": "A 120-person event gazebo with a kitchen.",
           "points": [
             "Hosts weddings, gatherings and community meetups",
             "For campfires, food and good company",
             "The village's main gathering space today"
+          ],
+          "layers": [
+            "public_areas",
+            "utility_buildings",
+            "accomodations_for_rent",
+            "labels"
+          ]
+        },
+        {
+          "id": "sauna",
+          "center": [
+            -120.04899,
+            51.9382
+          ],
+          "zoom": 20,
+          "title": "The Sauna",
+          "image": "/images/sauna-in-winter-scaled.jpg",
+          "lead": "A wood-fired cedar barrel sauna next to a cold creek.",
+          "points": [
+            "Steam, then a cold dip in the creek",
+            "Part of the weekly village rhythm",
+            "A taste of the wellness spa planned for a later phase"
           ],
           "layers": [
             "public_areas",
@@ -243,25 +243,6 @@
           ]
         },
         {
-          "id": "maker-space",
-          "center": [
-            -120.04787,
-            51.94159
-          ],
-          "zoom": 19,
-          "title": "The Maker Space",
-          "image": "media/tour/maker-space.jpg",
-          "lead": "A community workshop — and a key element of village culture.",
-          "points": [
-            "3D printers, CNC, laser and woodworking",
-            "Fabricates cabin finishings and art installations",
-            "Used for workshops & maker meetups"
-          ],
-          "layers": [
-            "maker_space"
-          ]
-        },
-        {
           "id": "creekside-cabins",
           "title": "Creekside Cabins",
           "image": "media/tour/creekside-cabins.jpg",
@@ -297,33 +278,13 @@
           ]
         },
         {
-          "id": "event-gazebo",
-          "center": [
-            -120.0498,
-            51.93626
-          ],
-          "zoom": 20,
-          "title": "New Event Gazebo",
-          "image": "media/tour/community-gazebo.jpg",
-          "lead": "A new pavilion for gatherings of every kind.",
-          "points": [
-            "Hosts retreats, ceremonies, workshops, and more",
-            "A flexible, open community space",
-            "Part of the future phases of community buildings"
-          ],
-          "layers": [
-            "event_gazebo",
-            "labels"
-          ]
-        },
-        {
           "id": "event-space",
           "center": [
             -120.05052,
             51.9366
           ],
           "zoom": 19,
-          "title": "The Event Stage",
+          "title": "Event Stage",
           "image": "media/tour/event-space.jpg",
           "lead": "An outdoor stage for music, performance and festival nights.",
           "points": [
@@ -380,6 +341,45 @@
             "landings",
             "trails"
           ]
+        },
+        {
+          "id": "maker-space",
+          "center": [
+            -120.04787,
+            51.94159
+          ],
+          "zoom": 19,
+          "title": "The Maker Space",
+          "image": "media/tour/maker-space.jpg",
+          "lead": "A community workshop — and a key element of village culture.",
+          "points": [
+            "3D printers, CNC, laser and woodworking",
+            "Fabricates cabin finishings and art installations",
+            "Used for workshops & maker meetups"
+          ],
+          "layers": [
+            "maker_space"
+          ]
+        },
+        {
+          "id": "event-gazebo",
+          "center": [
+            -120.0498,
+            51.93626
+          ],
+          "zoom": 20,
+          "title": "New Event Gazebo",
+          "image": "media/tour/community-gazebo.jpg",
+          "lead": "A new pavilion for gatherings of every kind.",
+          "points": [
+            "Hosts retreats, ceremonies, workshops, and more",
+            "A flexible, open community space",
+            "Part of the future phases of community buildings"
+          ],
+          "layers": [
+            "event_gazebo",
+            "labels"
+          ]
         }
       ]
     },
@@ -400,11 +400,7 @@
           "layers": [
             "wells_gray_golf_rv_parcel"
           ],
-          "fit": "all",
-          "cta": {
-            "href": "https://portal.place/mind-map",
-            "label": "Explore the full vision →"
-          }
+          "fit": "all"
         },
         {
           "id": "become-member",
