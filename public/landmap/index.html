@@ -97,6 +97,14 @@
   .slide .s-points li:before{content:"";position:absolute;left:1px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
   .slide .s-cta{margin-top:4px;display:block;text-align:center;padding:11px 14px;border:1px solid var(--accent);border-radius:10px;color:var(--accent);text-decoration:none;font-size:14px;font-weight:600}
   .slide .s-cta:hover{background:var(--accent);color:#1a1a1a}
+  /* phase divider stop */
+  .slide.divider{gap:15px}
+  .slide.divider .s-phase{display:flex;align-items:center;gap:11px;margin-bottom:-2px}
+  .slide.divider .s-phase-k{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:800;white-space:nowrap}
+  .slide.divider .s-phase-rule{flex:1;height:1px;background:linear-gradient(90deg,var(--accent),rgba(255,255,255,.06))}
+  .slide.divider .s-title{font-size:31px}
+  .slide.divider .s-img{aspect-ratio:16/9;box-shadow:0 0 0 1px var(--accent),0 10px 30px rgba(0,0,0,.4)}
+  .slide.divider .s-lead{font-size:16px}
   /* tour highlight ping */
   .tp-wrap{pointer-events:none}
   .tour-ping{position:relative;width:90px;height:90px}
@@ -411,8 +419,10 @@ function tourPanel(s){
   document.getElementById('mp-stage').textContent=s.stage||'';
   document.getElementById('mp-prog').textContent=(tourIdx+1)+' / '+TOUR.length;
   const isNow=/operating/i.test(s.badge||'');
-  let h='<div class="slide">';
-  h+='<div class="s-eyebrow">'+(s.badge?'<span class="s-badge'+(isNow?' now':'')+'">'+escHtml(s.badge)+'</span>':'')+'</div>';
+  const isDiv=s.kind==='divider';
+  let h='<div class="slide'+(isDiv?' divider':'')+'">';
+  if(isDiv){ h+='<div class="s-phase"><span class="s-phase-k">'+escHtml(s.stageLabel||s.stage||'')+'</span><span class="s-phase-rule"></span></div>'; }
+  else { h+='<div class="s-eyebrow">'+(s.badge?'<span class="s-badge'+(isNow?' now':'')+'">'+escHtml(s.badge)+'</span>':'')+'</div>'; }
   h+='<h2 class="s-title">'+escHtml(s.title||'')+'</h2>';
   const img=s.image||(s.images&&s.images[0]);
   if(img){ h+='<figure><img class="s-img" data-src="'+img+'" src="'+img+'">'+(s.caption?'<figcaption class="s-cap">'+escHtml(s.caption)+'</figcaption>':'')+'</figure>'; }

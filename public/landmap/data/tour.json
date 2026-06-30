@@ -17,8 +17,8 @@
           "image": "/images/tour/Golf-Course-Above2.jpg",
           "lead": "Five seasons in — the working prototype the village builds on.",
           "points": [
-            "Full-service & power/water RV sites, plus rental cabins",
-            "Private swimming lake, shower houses & disc-golf course",
+            "Full-service & power/water RV sites, plus rental cabins and a glamping dome",
+            "Private swimming lake, shower houses, hiking trails, horse corrals, golf & disc-golf course",
             "3,000+ visitors a year, with minimal marketing"
           ],
           "layers": ["full_service_rv_sites", "power_water_rv_sites", "utility_buildings", "accomodations_for_rent", "public_areas", "bathroom_shower_house", "labels"]
@@ -30,7 +30,7 @@
           "image": "/images/sauna-in-winter-scaled.jpg",
           "lead": "A wood-fired cedar barrel sauna with a cold plunge.",
           "points": [
-            "Year-round — steam, then a cold dip by the lake",
+            "Year-round — steam, then a cold dip by the creek",
             "Anchors the wellness rhythm already running on site",
             "A taste of the spa planned for a later phase"
           ],
@@ -40,7 +40,7 @@
           "id": "dome",
           "center": [-120.04989, 51.93740], "zoom": 19,
           "title": "The Geodesic Dome",
-          "image": "/images/dome-interior-scaled.jpg",
+          "image": "media/tour/dome.jpg",
           "lead": "A geodesic glamping dome for stays and gatherings.",
           "points": [
             "Sleeps guests in comfort, open to the sky",
@@ -69,10 +69,24 @@
       "badge": "Proposed",
       "stops": [
         {
+          "id": "phase2-intro",
+          "kind": "divider",
+          "stageLabel": "Phase 2 · Build-Out",
+          "fit": "property",
+          "title": "Now — building the village",
+          "image": "media/tour/phase2-vision.jpg",
+          "lead": "Everything so far is built and operating. From here on is the plan: Phase 2 turns the working campground into a village.",
+          "points": [
+            "A maker space, creekside cabins, festival grounds and an art-trail network",
+            "Built in sequence — funded by the operating site and milled from its own cleared timber"
+          ],
+          "layers": ["wells_gray_golf_rv_parcel"]
+        },
+        {
           "id": "maker-space",
           "center": [-120.04787, 51.94159], "zoom": 18,
           "title": "The Maker Space",
-          "image": "/images/wood-working-building-desk-scaled.jpg",
+          "image": "media/tour/maker-space.jpg",
           "lead": "A community workshop — and the engine of the build.",
           "points": [
             "3D printers, CNC, laser and woodworking",
@@ -99,7 +113,7 @@
           "id": "festival",
           "center": [-120.04855, 51.93397], "zoom": 16,
           "title": "Festival Grounds",
-          "image": "media/festival/aerial.jpg",
+          "image": "media/tour/festival.jpg",
           "lead": "A leave-no-trace festival meadow — light-touch by design.",
           "points": [
             "Clear the meadow and cut/clear the trails",
@@ -113,7 +127,7 @@
           "id": "trails",
           "center": [-120.04346, 51.93713], "zoom": 16,
           "title": "Hiking & Art Trails",
-          "image": "/images/creek-view-1-scaled.jpg",
+          "image": "media/tour/trails.jpg",
           "lead": "An art-and-nature hike threading the property together.",
           "points": [
             "A cleared trail network through forest and along the creek",
