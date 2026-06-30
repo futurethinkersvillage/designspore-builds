@@ -497,10 +497,11 @@ function tourFit(s){
   if(b&&b.isValid()) map.flyToBounds(b.pad(0.22),{duration:1.3}); else fitView();
  }catch(e){ try{fitView()}catch(_){ } }
 }
-let tourPing=null;
-function clearPing(){ if(tourPing){ map.removeLayer(tourPing); tourPing=null; } }
-function showPing(ll){ clearPing(); const icon=L.divIcon({className:'tp-wrap',html:'<div class="tour-ping"><span class="ring r1"></span><span class="dot"></span></div>',iconSize:[90,90],iconAnchor:[45,45]});
-  tourPing=L.marker(ll,{icon,interactive:false,keyboard:false,zIndexOffset:6000}).addTo(map); }
+let tourPings=[];
+function clearPing(){ tourPings.forEach(p=>{try{map.removeLayer(p)}catch(e){}}); tourPings=[]; }
+function pingIcon(){ return L.divIcon({className:'tp-wrap',html:'<div class="tour-ping"><span class="ring r1"></span><span class="dot"></span></div>',iconSize:[90,90],iconAnchor:[45,45]}); }
+function showPing(ll){ clearPing(); tourPings.push(L.marker(ll,{icon:pingIcon(),interactive:false,keyboard:false,zIndexOffset:6000}).addTo(map)); }
+function showPings(lls){ clearPing(); lls.forEach(ll=>tourPings.push(L.marker(ll,{icon:pingIcon(),interactive:false,keyboard:false,zIndexOffset:6000}).addTo(map))); }
 function stopFocus(s){ if(s.marker&&s.marker.length===2) return L.latLng(s.marker[1],s.marker[0]);
   if(s.center&&s.center.length===2) return L.latLng(s.center[1],s.center[0]);
   let b=null; (s.layers||[]).forEach(f=>{const l=overlays[f]; if(l){try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}}});
@@ -509,7 +510,10 @@ function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
   const firstOpen=!document.getElementById('mediapanel').classList.contains('open');
   tourShow(s.layers); tourPanel(s); renderBar();
   document.body.classList.add('touring'); renderTimeline();
-  const fit=()=>{ tourFit(s); if(s.fit==='all'||s.fit==='property'){ clearPing(); } else { const fp=stopFocus(s); fp?showPing(fp):clearPing(); } };
+  const fit=()=>{ tourFit(s);
+    if(s.markers&&s.markers.length){ showPings(s.markers.map(m=>L.latLng(m[1],m[0]))); }
+    else if(s.fit==='all'||s.fit==='property'){ clearPing(); }
+    else { const fp=stopFocus(s); fp?showPing(fp):clearPing(); } };
   if(firstOpen) setTimeout(fit,360); else fit(); }
 function startTour(){ if(TOUR.length) goStop(0); }
 function endTour(){ tourIdx=-1; clearPing(); closeMedia(); document.body.classList.remove('touring'); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
