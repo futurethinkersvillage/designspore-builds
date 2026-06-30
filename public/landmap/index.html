@@ -175,6 +175,23 @@
   #tourbar .tb-x{color:var(--muted);cursor:pointer;font-size:12.5px;flex:none}
   #tourbar .tb-x:hover{color:var(--ink)}
   @media(max-width:640px){ #tourbar{top:auto;bottom:14px} }
+  /* stage timeline (bottom) */
+  #timeline{position:absolute;left:50%;bottom:13px;transform:translateX(-50%);z-index:1550;display:none;align-items:flex-start;
+    padding:9px 18px;background:rgba(33,27,40,.92);border:1px solid var(--line);border-radius:12px;backdrop-filter:blur(6px);box-shadow:0 8px 24px rgba(0,0,0,.45);max-width:calc(100% - 28px)}
+  body.touring #timeline{display:flex}
+  body.media-open #timeline{left:calc(50% - 270px)}
+  body.touring #legend{display:none!important}
+  .tl-node{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:none}
+  .tl-dot{width:12px;height:12px;border-radius:50%;background:var(--panel);border:2px solid var(--muted);transition:transform .15s,background .15s,border-color .15s}
+  .tl-node:hover .tl-dot{border-color:var(--accent);transform:scale(1.18)}
+  .tl-node.active .tl-dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 8px var(--accent)}
+  .tl-node.done .tl-dot{background:var(--muted);border-color:var(--muted)}
+  .tl-label{font-size:10.5px;color:var(--muted);white-space:nowrap;margin-top:5px;max-width:96px;overflow:hidden;text-overflow:ellipsis}
+  .tl-node:hover .tl-label{color:var(--ink)}
+  .tl-node.active .tl-label{color:var(--ink);font-weight:700}
+  .tl-seg{height:2px;width:34px;background:var(--line);margin:5px 6px 0;flex:none}
+  .tl-seg.done{background:var(--accent)}
+  @media(max-width:640px){ #timeline{left:10px;right:10px;transform:none;max-width:none;overflow-x:auto} body.media-open #timeline{left:10px} .tl-seg{width:18px} }
 </style>
 </head>
 <body>
@@ -223,6 +240,7 @@
 </div>
 
 <div id="legend" class="panel"></div>
+<div id="timeline"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -479,10 +497,25 @@ function stopFocus(s){ if(s.center&&s.center.length===2) return L.latLng(s.cente
 function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
   const firstOpen=!document.getElementById('mediapanel').classList.contains('open');
   tourShow(s.layers); tourPanel(s); renderBar();
+  document.body.classList.add('touring'); renderTimeline();
   const fit=()=>{ tourFit(s); if(s.fit==='all'||s.fit==='property'){ clearPing(); } else { const fp=stopFocus(s); fp?showPing(fp):clearPing(); } };
   if(firstOpen) setTimeout(fit,360); else fit(); }
 function startTour(){ if(TOUR.length) goStop(0); }
-function endTour(){ tourIdx=-1; clearPing(); closeMedia(); DEFS.forEach(d=>setVis(d.f, DEFAULTON.has(d.f))); refresh(); fitView(); renderBar(); }
+function endTour(){ tourIdx=-1; clearPing(); closeMedia(); document.body.classList.remove('touring'); renderTimeline(); DEFS.forEach(d=>setVis(d.f, DEFAULTON.has(d.f))); refresh(); fitView(); renderBar(); }
+let STAGES=[];
+function renderTimeline(){ const el=document.getElementById('timeline'); if(!el) return;
+  if(!STAGES.length || tourIdx<0){ el.innerHTML=''; return; }
+  const cur=TOUR[tourIdx]&&TOUR[tourIdx].stage; const ci=STAGES.findIndex(s=>s.name===cur);
+  el.innerHTML='';
+  STAGES.forEach((st,i)=>{
+    if(i>0){ const seg=document.createElement('div'); seg.className='tl-seg'+(i<=ci?' done':''); el.appendChild(seg); }
+    const node=document.createElement('div'); node.className='tl-node'+(i===ci?' active':(i<ci?' done':''));
+    node.title='Jump to '+st.name;
+    node.innerHTML='<div class="tl-dot"></div><div class="tl-label">'+escHtml(st.name)+'</div>';
+    node.onclick=()=>goStop(st.firstIdx);
+    el.appendChild(node);
+  });
+}
 function renderBar(){ const bar=document.getElementById('tourbar'); if(!bar) return;
   if(tourIdx<0){ bar.style.display='flex'; bar.innerHTML='<button class="tb-btn" id="tb-start">▶ Take the tour</button>';
     const b=document.getElementById('tb-start'); if(b) b.onclick=startTour; }
@@ -492,6 +525,7 @@ fetch('data/tour.json').then(r=>r.json()).then(M=>{
   TOUR=[];
   if(M.stages){ M.stages.forEach(st=>(st.stops||[]).forEach(s=>{ s.stage=st.name; s.badge=st.badge; TOUR.push(s); })); }
   else { TOUR=M.stops||[]; }
+  STAGES=(M.stages||[]).map(st=>({name:st.name, firstIdx:TOUR.findIndex(s=>s.stage===st.name)})).filter(s=>s.firstIdx>=0);
   renderBar();
   if(M.intro){
     document.getElementById('ib-title').textContent=M.intro.title||'';

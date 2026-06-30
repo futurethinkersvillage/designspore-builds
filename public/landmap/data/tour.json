@@ -17,8 +17,9 @@
           "image": "media/tour/built-operating.jpg",
           "lead": "Five seasons in — the working prototype the village builds on.",
           "points": [
-            "Full-service & power/water RV sites, plus rental cabins and a glamping dome",
-            "Private swimming lake, shower houses, hiking trails, horse corrals, golf & disc-golf course",
+            "Full-service & power/water RV sites, rental cabins & a glamping dome",
+            "A wood-fired sauna and a 120-person event gazebo with commercial kitchen",
+            "Private swimming lake, shower houses, hiking trails, horse corrals, golf & disc-golf",
             "3,000+ visitors a year, with minimal marketing"
           ],
           "layers": [
@@ -116,6 +117,18 @@
             "accomodations_for_rent",
             "labels"
           ]
+        },
+        {
+          "id": "golf",
+          "title": "Golf & Disc Golf",
+          "image": "media/tour/golf.jpg",
+          "lead": "A 9-hole golf course that doubles as an 18-basket disc-golf course.",
+          "points": [
+            "Golf or disc golf on the same scenic fairways",
+            "Mountain and forest views the whole way around",
+            "Open to guests and the public all season"
+          ],
+          "layers": ["golf_course", "disc_golf_course", "labels"]
         }
       ]
     },
@@ -187,7 +200,7 @@
           "id": "creekside-cabins",
           "title": "Creekside Cabins",
           "image": "media/tour/creekside-cabins.jpg",
-          "lead": "A row of small cabins set along the creek.",
+          "lead": "38 small cabins set in rows along the creek.",
           "points": [
             "Each plugs into existing power, water, septic & internet",
             "Modern net-zero prefab units, finished in the maker space",
@@ -207,7 +220,7 @@
           "zoom": 18,
           "title": "Lakeside Cabins",
           "image": "media/tour/lakeside-cabins.jpg",
-          "lead": "Two rows of cabins curving along the lake's edge.",
+          "lead": "31 cabins in two rows curving along the lake's edge.",
           "points": [
             "31 net-zero cabins in two rows, hugging the shoreline",
             "Set back from the water, a short stroll to the lake",

@@ -635,6 +635,56 @@
    "on": true
   },
   {
+   "f": "golf_course",
+   "name": "Golf Course",
+   "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "The Campground"
+   ],
+   "exclusive": null,
+   "bulk": false,
+   "geom": "poly",
+   "style": {
+    "fill": "#A27B9E",
+    "fillOpacity": 0.0,
+    "stroke": "#A27B9E",
+    "weight": 3.4,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "disc_golf_course",
+   "name": "Disc Golf Course",
+   "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "The Campground"
+   ],
+   "exclusive": null,
+   "bulk": false,
+   "geom": "line",
+   "style": {
+    "fill": "#EA824E",
+    "fillOpacity": 0.0,
+    "stroke": "#EA824E",
+    "weight": 3.4,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
    "f": "electrical_trunk_eh_maker_space",
    "name": "Electrical Trunk (EH → Maker Space)",
    "group": "Phase 2",
