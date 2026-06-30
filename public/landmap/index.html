@@ -78,15 +78,15 @@
     background:var(--accent);color:#1a1a1a;font-size:14px;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.5);cursor:pointer}
   #mediapanel{position:absolute;top:0;right:0;height:100%;width:540px;max-width:92%;z-index:1500;background:rgba(26,23,32,.97);
     color:var(--ink);border-left:1px solid var(--line);box-shadow:-10px 0 30px rgba(0,0,0,.5);transform:translateX(100%);
-    transition:transform .28s ease;overflow:auto;backdrop-filter:blur(6px)}
+    transition:transform .28s ease;overflow:hidden;backdrop-filter:blur(6px);display:flex;flex-direction:column}
   #mediapanel.open{transform:translateX(0)}
-  #mediapanel .mp-head{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;background:rgba(26,23,32,.98);padding:11px 42px 11px 18px;border-bottom:1px solid var(--line)}
+  #mediapanel .mp-head{flex:none;display:flex;align-items:center;gap:10px;background:rgba(26,23,32,.98);padding:11px 42px 11px 18px;border-bottom:1px solid var(--line)}
   #mediapanel .mp-stage{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
   #mediapanel .mp-prog{margin-left:auto;font-size:11.5px;color:var(--muted)}
   #mediapanel .mp-close{position:absolute;top:7px;right:13px;font-size:23px;cursor:pointer;color:var(--muted);line-height:1;z-index:4}
   #mediapanel .mp-close:hover{color:var(--ink)}
-  #mediapanel .mp-body{padding:0 0 6px}
-  #mediapanel .mp-nav{position:sticky;bottom:0;z-index:3;display:flex;gap:10px;padding:12px 16px;background:rgba(26,23,32,.98);border-top:1px solid var(--line)}
+  #mediapanel .mp-body{flex:1 1 auto;overflow-y:auto;padding:0 0 6px}
+  #mediapanel .mp-nav{flex:none;display:flex;gap:10px;padding:12px 16px;background:rgba(26,23,32,.98);border-top:1px solid var(--line)}
   #mediapanel .mp-nav button{padding:13px 10px;border-radius:10px;font-size:14.5px;font-weight:700;cursor:pointer;border:1px solid var(--line)}
   #mediapanel .mp-back{flex:1;background:rgba(255,255,255,.05);color:var(--ink)}
   #mediapanel .mp-back:hover{border-color:var(--accent)}
@@ -181,6 +181,7 @@
   body.touring #timeline{display:flex}
   body.media-open #timeline{left:calc(50% - 270px)}
   body.touring #legend{display:none!important}
+  body.touring #controls{display:none!important}
   .tl-node{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:none}
   .tl-dot{width:12px;height:12px;border-radius:50%;background:var(--panel);border:2px solid var(--muted);transition:transform .15s,background .15s,border-color .15s}
   .tl-node:hover .tl-dot{border-color:var(--accent);transform:scale(1.18)}
@@ -340,8 +341,16 @@ function setVis(f,on){const lyr=overlays[f];if(!lyr)return; if(on){if(!map.hasLa
 function optSlugs(node){ // value -> slugs map for an options group
   const m={__none:[]}; node.order.forEach(it=>{ if(it.t==='g') m['g:'+gid(it.n.path)]=descSlugs(it.n); else m['l:'+it.L.f]=[it.L.f]; }); return m;}
 
+let GLABELS=[];
+function buildGlabels(M){ GLABELS=[]; (M.glabels||[]).forEach(g=>{
+  if(!g.center||g.center.length!==2) return;
+  const tip=L.tooltip({permanent:true,direction:'center',className:'maplbl dev gl',interactive:false})
+    .setLatLng([g.center[1],g.center[0]]).setContent('<span style="color:'+(g.color||'#fff')+'">'+escHtml(g.text)+'</span>');
+  GLABELS.push({tip,layer:g.layer,on:false}); }); }
+function refreshGlabels(){ GLABELS.forEach(g=>{ const show=isVis(g.layer);
+  if(show&&!g.on){ g.tip.addTo(map); g.on=true; } else if(!show&&g.on){ map.removeLayer(g.tip); g.on=false; } }); }
 function refresh(){ // sync all checkboxes/radios/pills from actual map state
-  buildLegend();
+  buildLegend(); refreshGlabels();
   // layer checkboxes
   document.querySelectorAll('.lchk').forEach(cb=>cb.checked=isVis(cb.dataset.f));
   // group tri-state
@@ -421,6 +430,7 @@ fetch('data/manifest.json').then(r=>r.json()).then(M=>{
   TREE.order.sort((a,b)=>pkey(a.t==='g'?a.n.name:'')-pkey(b.t==='g'?b.n.name:''));
   document.getElementById('tree').innerHTML=nodeHtml(TREE,0);
   buildPills();
+  buildGlabels(M);
   return Promise.all(DEFS.map(addLayer));
 }).then(()=>{
   const u=readURL();
@@ -491,7 +501,8 @@ let tourPing=null;
 function clearPing(){ if(tourPing){ map.removeLayer(tourPing); tourPing=null; } }
 function showPing(ll){ clearPing(); const icon=L.divIcon({className:'tp-wrap',html:'<div class="tour-ping"><span class="ring r1"></span><span class="dot"></span></div>',iconSize:[90,90],iconAnchor:[45,45]});
   tourPing=L.marker(ll,{icon,interactive:false,keyboard:false,zIndexOffset:6000}).addTo(map); }
-function stopFocus(s){ if(s.center&&s.center.length===2) return L.latLng(s.center[1],s.center[0]);
+function stopFocus(s){ if(s.marker&&s.marker.length===2) return L.latLng(s.marker[1],s.marker[0]);
+  if(s.center&&s.center.length===2) return L.latLng(s.center[1],s.center[0]);
   let b=null; (s.layers||[]).forEach(f=>{const l=overlays[f]; if(l){try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}}});
   return b&&b.isValid()? b.getCenter() : null; }
 function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
@@ -501,7 +512,7 @@ function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
   const fit=()=>{ tourFit(s); if(s.fit==='all'||s.fit==='property'){ clearPing(); } else { const fp=stopFocus(s); fp?showPing(fp):clearPing(); } };
   if(firstOpen) setTimeout(fit,360); else fit(); }
 function startTour(){ if(TOUR.length) goStop(0); }
-function endTour(){ tourIdx=-1; clearPing(); closeMedia(); document.body.classList.remove('touring'); renderTimeline(); DEFS.forEach(d=>setVis(d.f, DEFAULTON.has(d.f))); refresh(); fitView(); renderBar(); }
+function endTour(){ tourIdx=-1; clearPing(); closeMedia(); document.body.classList.remove('touring'); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
 let STAGES=[];
 function renderTimeline(){ const el=document.getElementById('timeline'); if(!el) return;
   if(!STAGES.length || tourIdx<0){ el.innerHTML=''; return; }

@@ -33,6 +33,18 @@
           ]
         },
         {
+          "id": "rv-sites",
+          "title": "RV & Tiny-Home Sites",
+          "image": "media/tour/rv-sites.jpg",
+          "lead": "Full-service and power/water sites for RVs and tiny homes.",
+          "points": [
+            "45 serviced sites, plus power & water sites",
+            "Pull-through and back-in, shaded and open",
+            "The operating backbone of the campground"
+          ],
+          "layers": ["full_service_rv_sites", "power_water_rv_sites", "labels"]
+        },
+        {
           "id": "sauna",
           "center": [
             -120.04899,
@@ -79,8 +91,8 @@
         {
           "id": "bunk-cabins",
           "center": [
-            -120.0494,
-            51.93784
+            -120.049391,
+            51.937829
           ],
           "zoom": 19,
           "title": "The Bunk Cabins",
@@ -273,6 +285,7 @@
         },
         {
           "id": "festival",
+          "marker": [-120.04832, 51.933352],
           "title": "Festival Grounds",
           "image": "media/tour/festival.jpg",
           "lead": "A leave-no-trace festival meadow — light-touch by design.",

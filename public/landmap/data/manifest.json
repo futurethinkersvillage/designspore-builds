@@ -1370,5 +1370,70 @@
    ],
    "on": false
   }
+ ],
+ "glabels": [
+  {
+   "text": "Creekside Cabins",
+   "center": [
+    -120.046968,
+    51.939686
+   ],
+   "color": "#AF695E",
+   "layer": "cabins"
+  },
+  {
+   "text": "Lakeside Cabins",
+   "center": [
+    -120.047718,
+    51.936707
+   ],
+   "color": "#6363ba",
+   "layer": "lake_cabins"
+  },
+  {
+   "text": "Maker Space",
+   "center": [
+    -120.047871,
+    51.941595
+   ],
+   "color": "#EA824E",
+   "layer": "maker_space"
+  },
+  {
+   "text": "Permaculture Garden",
+   "center": [
+    -120.056665,
+    51.936981
+   ],
+   "color": "#9A7E96",
+   "layer": "permaculture_garden"
+  },
+  {
+   "text": "Event Gazebo",
+   "center": [
+    -120.049803,
+    51.936259
+   ],
+   "color": "#C98B82",
+   "layer": "event_gazebo"
+  },
+  {
+   "text": "Event Stage",
+   "center": [
+    -120.050534,
+    51.936608
+   ],
+   "color": "#F2A878",
+   "layer": "event_space"
+  },
+  {
+   "text": "Golf & Disc Golf",
+   "center": [
+    -120.052084,
+    51.939088
+   ],
+   "color": "#A27B9E",
+   "layer": "golf_course"
+  }
  ]
 }
