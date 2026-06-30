@@ -122,8 +122,7 @@
           "lead": "A community workshop — and the engine of the build.",
           "points": [
             "3D printers, CNC, laser and woodworking",
-            "Fabricates and finishes the village's cabins and tiny homes",
-            "Wired off the existing electrical trunk"
+            "Fabricates and finishes the village's cabins and tiny homes"
           ],
           "layers": ["maker_space"]
         },
