@@ -14,7 +14,7 @@
           "id": "campground",
           "fit": "property",
           "title": "Built & Operating",
-          "image": "media/tour/property-aerial.jpg",
+          "image": "media/tour/built-operating.jpg",
           "lead": "Five seasons in — the working prototype the village builds on.",
           "points": [
             "Full-service & power/water RV sites, plus rental cabins and a glamping dome",
@@ -53,7 +53,7 @@
           "id": "gazebo",
           "center": [-120.05599, 51.93690], "zoom": 19,
           "title": "The Event Gazebo",
-          "image": "/images/gazebo-interior-scaled.jpg",
+          "image": "media/tour/gazebo.jpg",
           "lead": "A 120-person event gazebo with a commercial kitchen.",
           "points": [
             "Hosts weddings, gatherings and community meetups",
@@ -74,7 +74,7 @@
           "stageLabel": "Phase 2 · Build-Out",
           "fit": "property",
           "title": "Now — building the village",
-          "image": "media/tour/phase2-vision.jpg",
+          "image": "media/tour/phase2-intro.jpg",
           "lead": "Everything so far is built and operating. From here on is the plan: Phase 2 turns the working campground into a village.",
           "points": [
             "A maker space, creekside cabins, festival grounds and an art-trail network",
@@ -99,8 +99,7 @@
           "id": "creekside-cabins",
           "center": [-120.04727, 51.93960], "zoom": 17,
           "title": "Creekside Cabins",
-          "image": "media/cabins/mor-ii.jpg",
-          "caption": "Cabin model: CABN — MOR.II (cabn.co)",
+          "image": "media/tour/creekside-cabins.jpg",
           "lead": "A row of small cabins set along the creek.",
           "points": [
             "Each plugs into existing power, water, septic & internet",
@@ -127,7 +126,7 @@
           "id": "trails",
           "center": [-120.04346, 51.93713], "zoom": 16,
           "title": "Hiking & Art Trails",
-          "image": "media/tour/trails.jpg",
+          "image": "media/tour/art-walk.jpg",
           "lead": "An art-and-nature hike threading the property together.",
           "points": [
             "A cleared trail network through forest and along the creek",
@@ -145,7 +144,7 @@
         {
           "id": "vision",
           "title": "The Bigger Picture",
-          "image": "/images/aurora-at-night-scaled.jpg",
+          "image": "media/tour/phase2-vision.jpg",
           "lead": "Beyond these phases — a residential village, and a network.",
           "points": [
             "A car-free wellness village, regenerative farm and lakeside spa are planned for later phases",
