@@ -37,7 +37,7 @@
             -120.04899,
             51.9382
           ],
-          "zoom": 21,
+          "zoom": 20,
           "title": "The Sauna",
           "image": "/images/sauna-in-winter-scaled.jpg",
           "lead": "A wood-fired cedar barrel sauna with a cold plunge.",
@@ -59,7 +59,7 @@
             -120.04989,
             51.9374
           ],
-          "zoom": 21,
+          "zoom": 20,
           "title": "Glamping Dome",
           "image": "media/tour/dome.jpg",
           "lead": "A geodesic glamping dome for stays and gatherings.",
@@ -81,7 +81,7 @@
             -120.0494,
             51.93784
           ],
-          "zoom": 20,
+          "zoom": 19,
           "title": "The Bunk Cabins",
           "image": "media/tour/bunk-cabins.jpg",
           "lead": "Three rental bunk cabins tucked along the creek.",
@@ -101,7 +101,7 @@
             -120.05599,
             51.9369
           ],
-          "zoom": 21,
+          "zoom": 20,
           "title": "The Event Gazebo",
           "image": "media/tour/event-gazebo.jpg",
           "lead": "A 120-person event gazebo with a commercial kitchen.",
@@ -129,7 +129,7 @@
             -120.05665,
             51.93698
           ],
-          "zoom": 20,
+          "zoom": 19,
           "title": "The Permaculture Garden",
           "image": "media/tour/permaculture.jpg",
           "lead": "A working permaculture garden on the land.",
@@ -171,7 +171,7 @@
             -120.04787,
             51.94159
           ],
-          "zoom": 20,
+          "zoom": 19,
           "title": "The Maker Space",
           "image": "media/tour/maker-space.jpg",
           "lead": "A community workshop — and the engine of the build.",
@@ -185,11 +185,6 @@
         },
         {
           "id": "creekside-cabins",
-          "center": [
-            -120.04727,
-            51.9396
-          ],
-          "zoom": 19,
           "title": "Creekside Cabins",
           "image": "media/tour/creekside-cabins.jpg",
           "lead": "A row of small cabins set along the creek.",
@@ -209,7 +204,7 @@
             -120.04785,
             51.93685
           ],
-          "zoom": 19,
+          "zoom": 18,
           "title": "Lakeside Cabins",
           "image": "media/tour/lakeside-cabins.jpg",
           "lead": "Two rows of cabins curving along the lake's edge.",
@@ -229,7 +224,7 @@
             -120.0498,
             51.93626
           ],
-          "zoom": 21,
+          "zoom": 20,
           "title": "Event Gazebo",
           "image": "media/tour/community-gazebo.jpg",
           "lead": "An octagonal timber pavilion for gatherings of every kind.",
@@ -249,7 +244,7 @@
             -120.05052,
             51.9366
           ],
-          "zoom": 20,
+          "zoom": 19,
           "title": "The Event Stage",
           "image": "media/tour/event-space.jpg",
           "lead": "An outdoor stage for music, performance and festival nights.",
@@ -265,11 +260,6 @@
         },
         {
           "id": "festival",
-          "center": [
-            -120.04855,
-            51.93397
-          ],
-          "zoom": 18,
           "title": "Festival Grounds",
           "image": "media/tour/festival.jpg",
           "lead": "A leave-no-trace festival meadow — light-touch by design.",
@@ -294,7 +284,7 @@
             -120.04346,
             51.93713
           ],
-          "zoom": 18,
+          "zoom": 17,
           "title": "Hiking & Art Trails",
           "image": "media/tour/art-walk.jpg",
           "lead": "An art-and-nature hike threading the property together.",

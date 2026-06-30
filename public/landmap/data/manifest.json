@@ -17,7 +17,7 @@
    "bulk": true,
    "geom": "point",
    "style": {
-    "fill": "#1a1720",
+    "fill": "#897ca1",
     "fillOpacity": 0.0,
     "stroke": "#faf8f4",
     "weight": 2.8,
@@ -45,7 +45,7 @@
    "bulk": false,
    "geom": "point",
    "style": {
-    "fill": "#73516f",
+    "fill": "#a27b9e",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
     "weight": 2.8,
@@ -72,7 +72,7 @@
    "bulk": false,
    "geom": "point",
    "style": {
-    "fill": "#73516f",
+    "fill": "#a27b9e",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
     "weight": 2.8,
@@ -99,8 +99,8 @@
    "bulk": false,
    "geom": "line",
    "style": {
-    "fill": "#73516f",
-    "stroke": "#73516f",
+    "fill": "#a27b9e",
+    "stroke": "#a27b9e",
     "fillOpacity": 0,
     "weight": 2.94,
     "mode": "single"
@@ -127,8 +127,8 @@
    "bulk": false,
    "geom": "line",
    "style": {
-    "fill": "#73516f",
-    "stroke": "#73516f",
+    "fill": "#a27b9e",
+    "stroke": "#a27b9e",
     "fillOpacity": 0,
     "weight": 2.94,
     "mode": "single"
@@ -155,8 +155,8 @@
    "bulk": false,
    "geom": "line",
    "style": {
-    "fill": "#73516f",
-    "stroke": "#73516f",
+    "fill": "#a27b9e",
+    "stroke": "#a27b9e",
     "fillOpacity": 0,
     "weight": 2.94,
     "mode": "single"
@@ -211,7 +211,7 @@
    "bulk": true,
    "geom": "point",
    "style": {
-    "fill": "#38387f",
+    "fill": "#6363ba",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
     "weight": 2.8,
@@ -238,7 +238,7 @@
    "bulk": true,
    "geom": "point",
    "style": {
-    "fill": "#38387f",
+    "fill": "#6363ba",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
     "weight": 2.8,
@@ -265,8 +265,8 @@
    "bulk": true,
    "geom": "line",
    "style": {
-    "fill": "#38387f",
-    "stroke": "#38387f",
+    "fill": "#6363ba",
+    "stroke": "#6363ba",
     "fillOpacity": 0,
     "weight": 2.94,
     "mode": "single"
@@ -320,7 +320,7 @@
    "bulk": true,
    "geom": "point",
    "style": {
-    "fill": "#73516f",
+    "fill": "#a27b9e",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
     "weight": 2.8,
@@ -348,7 +348,7 @@
    "bulk": true,
    "geom": "point",
    "style": {
-    "fill": "#73516f",
+    "fill": "#a27b9e",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
     "weight": 2.8,
@@ -375,8 +375,8 @@
    "bulk": true,
    "geom": "line",
    "style": {
-    "fill": "#73516f",
-    "stroke": "#73516f",
+    "fill": "#a27b9e",
+    "stroke": "#a27b9e",
     "fillOpacity": 0,
     "weight": 2.94,
     "mode": "single"
@@ -540,9 +540,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#73516F",
+    "fill": "#a27b9e",
     "fillOpacity": 0.0,
-    "stroke": "#73516F",
+    "stroke": "#a27b9e",
     "weight": 2.94,
     "mode": "single"
    },
@@ -567,9 +567,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387F",
+    "fill": "#6363ba",
     "fillOpacity": 0.0,
-    "stroke": "#38387F",
+    "stroke": "#6363ba",
     "weight": 2.94,
     "mode": "single"
    },
@@ -636,7 +636,7 @@
   },
   {
    "f": "electrical_trunk_eh_maker_space",
-   "name": "Electrical Trunk (EH \u2192 Maker Space)",
+   "name": "Electrical Trunk (EH → Maker Space)",
    "group": "Phase 2",
    "path": [
     "Phase 2",
@@ -698,7 +698,7 @@
    "bulk": true,
    "geom": "point",
    "style": {
-    "fill": "#1a1720",
+    "fill": "#897ca1",
     "fillOpacity": 0.0,
     "stroke": "#faf8f4",
     "weight": 2.8,
@@ -750,9 +750,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#73516F",
+    "fill": "#a27b9e",
     "fillOpacity": 0.0,
-    "stroke": "#73516F",
+    "stroke": "#a27b9e",
     "weight": 2.94,
     "mode": "single"
    },
@@ -776,9 +776,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387F",
+    "fill": "#6363ba",
     "fillOpacity": 0.0,
-    "stroke": "#38387F",
+    "stroke": "#6363ba",
     "weight": 3.42,
     "dash": "7,5",
     "mode": "single"
@@ -957,9 +957,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#38387F",
+    "fill": "#6363ba",
     "fillOpacity": 0.0,
-    "stroke": "#38387F",
+    "stroke": "#6363ba",
     "weight": 3.9,
     "mode": "single"
    },
@@ -1088,7 +1088,7 @@
    "bulk": true,
    "geom": "point",
    "style": {
-    "fill": "#38387f",
+    "fill": "#6363ba",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
     "weight": 2.8,
@@ -1115,8 +1115,8 @@
    "bulk": true,
    "geom": "line",
    "style": {
-    "fill": "#38387f",
-    "stroke": "#38387f",
+    "fill": "#6363ba",
+    "stroke": "#6363ba",
     "fillOpacity": 0,
     "weight": 2.94,
     "mode": "single"
@@ -1142,7 +1142,7 @@
    "bulk": true,
    "geom": "point",
    "style": {
-    "fill": "#73516f",
+    "fill": "#a27b9e",
     "fillOpacity": 1.0,
     "stroke": "#faf8f4",
     "weight": 2.8,
@@ -1169,8 +1169,8 @@
    "bulk": true,
    "geom": "line",
    "style": {
-    "fill": "#73516f",
-    "stroke": "#73516f",
+    "fill": "#a27b9e",
+    "stroke": "#a27b9e",
     "fillOpacity": 0,
     "weight": 2.94,
     "mode": "single"
@@ -1222,9 +1222,9 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#38387F",
+    "fill": "#6363ba",
     "fillOpacity": 0.0,
-    "stroke": "#38387F",
+    "stroke": "#6363ba",
     "weight": 2.94,
     "mode": "single"
    },
@@ -1248,9 +1248,9 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#73516F",
+    "fill": "#a27b9e",
     "fillOpacity": 0.0,
-    "stroke": "#73516F",
+    "stroke": "#a27b9e",
     "weight": 2.94,
     "mode": "single"
    },
