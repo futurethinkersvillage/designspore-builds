@@ -109,6 +109,19 @@
           "layers": ["cabins", "creekside_cabin_boundary"]
         },
         {
+          "id": "lakeside-cabins",
+          "center": [-120.04785, 51.93685], "zoom": 17,
+          "title": "Lakeside Cabins",
+          "image": "media/tour/creekside-cabins.jpg",
+          "lead": "Two rows of cabins curving along the lake's edge.",
+          "points": [
+            "31 net-zero cabins in two rows, hugging the shoreline",
+            "Set back from the water, a short stroll to the lake",
+            "Finished in the maker space, plugged into existing services"
+          ],
+          "layers": ["lake_cabins", "lakes"]
+        },
+        {
           "id": "festival",
           "center": [-120.04855, 51.93397], "zoom": 16,
           "title": "Festival Grounds",
