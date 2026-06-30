@@ -610,6 +610,31 @@
    "on": false
   },
   {
+   "f": "permaculture_garden",
+   "name": "Permaculture Garden",
+   "group": "Phase 1 - Complete",
+   "path": [
+    "Phase 1 - Complete",
+    "Permaculture Garden"
+   ],
+   "exclusive": null,
+   "bulk": false,
+   "geom": "poly",
+   "style": {
+    "fill": "#73516F",
+    "fillOpacity": 0.0,
+    "stroke": "#73516F",
+    "weight": 2.4,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
    "f": "electrical_trunk_eh_maker_space",
    "name": "Electrical Trunk (EH \u2192 Maker Space)",
    "group": "Phase 2",
@@ -935,6 +960,56 @@
     "fill": "#38387f",
     "fillOpacity": 0.0,
     "stroke": "#EA824E",
+    "weight": 2.4,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "event_space",
+   "name": "Event Space",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Community Buildings"
+   ],
+   "exclusive": null,
+   "bulk": false,
+   "geom": "poly",
+   "style": {
+    "fill": "#C98B82",
+    "fillOpacity": 0.0,
+    "stroke": "#C98B82",
+    "weight": 2.4,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [
+    "id"
+   ],
+   "on": true
+  },
+  {
+   "f": "event_gazebo",
+   "name": "Event Gazebo",
+   "group": "Phase 2",
+   "path": [
+    "Phase 2",
+    "Community Buildings"
+   ],
+   "exclusive": null,
+   "bulk": false,
+   "geom": "poly",
+   "style": {
+    "fill": "#AF695E",
+    "fillOpacity": 0.0,
+    "stroke": "#AF695E",
     "weight": 2.4,
     "mode": "single"
    },

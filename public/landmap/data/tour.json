@@ -50,10 +50,23 @@
           "layers": ["public_areas", "utility_buildings", "accomodations_for_rent", "labels"]
         },
         {
+          "id": "bunk-cabins",
+          "center": [-120.04940, 51.93784], "zoom": 18,
+          "title": "The Bunk Cabins",
+          "image": "media/tour/bunk-cabins.jpg",
+          "lead": "Three rental bunk cabins tucked along the creek.",
+          "points": [
+            "Simple, cozy stays — among the original built accommodation",
+            "Booked through the season alongside the dome",
+            "A short walk from the lake and gathering spaces"
+          ],
+          "layers": ["accomodations_for_rent", "labels"]
+        },
+        {
           "id": "gazebo",
           "center": [-120.05599, 51.93690], "zoom": 19,
           "title": "The Event Gazebo",
-          "image": "media/tour/gazebo.jpg",
+          "image": "media/tour/event-gazebo.jpg",
           "lead": "A 120-person event gazebo with a commercial kitchen.",
           "points": [
             "Hosts weddings, gatherings and community meetups",
@@ -61,6 +74,25 @@
             "The village's main indoor gathering space today"
           ],
           "layers": ["public_areas", "utility_buildings", "accomodations_for_rent", "labels"]
+        }
+      ]
+    },
+    {
+      "name": "Permaculture Garden",
+      "badge": "Operating now",
+      "stops": [
+        {
+          "id": "permaculture",
+          "center": [-120.05665, 51.93698], "zoom": 18,
+          "title": "The Permaculture Garden",
+          "image": "media/tour/permaculture.jpg",
+          "lead": "A working permaculture garden on the land.",
+          "points": [
+            "Food, herbs and pollinators grown on site",
+            "A living classroom for regenerative growing",
+            "The seed of the larger regenerative farm in the vision"
+          ],
+          "layers": ["permaculture_garden", "labels"]
         }
       ]
     },
@@ -120,6 +152,32 @@
             "Finished in the maker space, plugged into existing services"
           ],
           "layers": ["lake_cabins", "lakes"]
+        },
+        {
+          "id": "event-gazebo",
+          "center": [-120.04980, 51.93626], "zoom": 19,
+          "title": "The Octagon Pavilion",
+          "image": "media/tour/community-gazebo.jpg",
+          "lead": "An octagonal timber pavilion for gatherings of every kind.",
+          "points": [
+            "Hosts judo lessons, ceremonies, retreats and more",
+            "A flexible, open community space",
+            "Part of the Phase 2 community-buildings cluster"
+          ],
+          "layers": ["event_gazebo", "labels"]
+        },
+        {
+          "id": "event-space",
+          "center": [-120.05052, 51.93660], "zoom": 18,
+          "title": "The Event Stage",
+          "image": "media/tour/event-space.jpg",
+          "lead": "An outdoor stage for music, performance and festival nights.",
+          "points": [
+            "A gathering point for shows, talks and celebrations",
+            "Scales up with the festival grounds",
+            "Part of the Phase 2 community buildings"
+          ],
+          "layers": ["event_space", "labels"]
         },
         {
           "id": "festival",
