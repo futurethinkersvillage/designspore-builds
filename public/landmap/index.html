@@ -100,8 +100,8 @@
   /* tour highlight ping */
   .tp-wrap{pointer-events:none}
   .tour-ping{position:relative;width:90px;height:90px}
-  .tour-ping .ring{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border:3px solid var(--accent);border-radius:50%;opacity:0;animation:tping 1.9s cubic-bezier(.2,.6,.3,1) infinite}
-  .tour-ping .ring.r2{animation-delay:.95s}
+  .tour-ping .ring{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border:3px solid var(--accent);border-radius:50%;opacity:0;animation:tping 1.4s cubic-bezier(.2,.6,.3,1) 4}
+  .tour-ping .ring.r2{animation-delay:.7s}
   .tour-ping .dot{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(0,0,0,.5),0 0 14px var(--accent)}
   @keyframes tping{0%{transform:scale(.35);opacity:.95}80%{opacity:.28}100%{transform:scale(3.6);opacity:0}}
   /* start lightbox */
@@ -423,8 +423,8 @@ function tourPanel(s){
   h+='</div>';
   const body=document.getElementById('mpbody'); body.innerHTML=h; body.scrollTop=0;
   body.querySelectorAll('img').forEach(im=>im.onerror=()=>{const x=im.getAttribute('data-src')||'';im.outerHTML='<div class="s-ph">Image — '+x+'</div>';});
-  const mp=document.getElementById('mediapanel'); mp.scrollTop=0; mp.classList.add('open');
-  document.body.classList.add('media-open'); setTimeout(()=>map.invalidateSize(),300);
+  const mp=document.getElementById('mediapanel'); const wasOpen=mp.classList.contains('open'); mp.scrollTop=0; mp.classList.add('open');
+  document.body.classList.add('media-open'); if(!wasOpen) setTimeout(()=>map.invalidateSize(),300);
   const last=tourIdx>=TOUR.length-1;
   const bk=document.getElementById('mp-back'), nx=document.getElementById('mp-next');
   bk.disabled=(tourIdx<=0); bk.onclick=()=>goStop(tourIdx-1);
@@ -434,12 +434,11 @@ function tourPanel(s){
 function tourShow(slugs){ DEFS.forEach(d=>setVis(d.f,false)); (slugs||[]).forEach(f=>setVis(f,true)); refresh(); }
 function tourFit(s){
  try{
-  if(s.center && s.center.length===2){ const z=(s.zoom!=null?s.zoom:18); const ll=[s.center[1],s.center[0]]; const sz=map.getSize(); (sz&&sz.x>0&&sz.y>0)?map.flyTo(ll,z,{duration:1.0}):map.setView(ll,z); return; }
+  if(s.center && s.center.length===2){ map.setView([s.center[1],s.center[0]],(s.zoom!=null?s.zoom:18),{animate:false}); return; }
   if(s.fit==='all'){ fitView(); return; }
   const slugs=(s.fit&&s.fit.length)?s.fit:(s.layers||[]); let b=null;
   slugs.forEach(f=>{const l=overlays[f]; if(!l)return; try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}});
-  if(b&&b.isValid()){ const sz=map.getSize(); if(sz&&sz.x>0&&sz.y>0) map.flyToBounds(b.pad(0.22),{duration:1.0}); else map.fitBounds(b.pad(0.22)); }
-  else fitView();
+  if(b&&b.isValid()) map.fitBounds(b.pad(0.22)); else fitView();
  }catch(e){ try{fitView()}catch(_){ } }
 }
 let tourPing=null;
@@ -449,9 +448,11 @@ function showPing(ll){ clearPing(); const icon=L.divIcon({className:'tp-wrap',ht
 function stopFocus(s){ if(s.center&&s.center.length===2) return L.latLng(s.center[1],s.center[0]);
   let b=null; (s.layers||[]).forEach(f=>{const l=overlays[f]; if(l){try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}}});
   return b&&b.isValid()? b.getCenter() : null; }
-function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i]; tourShow(s.layers); tourFit(s);
-  if(s.fit==='all'){ clearPing(); } else { const fp=stopFocus(s); fp?showPing(fp):clearPing(); }
-  tourPanel(s); renderBar(); }
+function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
+  const firstOpen=!document.getElementById('mediapanel').classList.contains('open');
+  tourShow(s.layers); tourPanel(s); renderBar();
+  const fit=()=>{ tourFit(s); if(s.fit==='all'){ clearPing(); } else { const fp=stopFocus(s); fp?showPing(fp):clearPing(); } };
+  if(firstOpen) setTimeout(fit,360); else fit(); }
 function startTour(){ if(TOUR.length) goStop(0); }
 function endTour(){ tourIdx=-1; clearPing(); closeMedia(); DEFS.forEach(d=>setVis(d.f, DEFAULTON.has(d.f))); refresh(); fitView(); renderBar(); }
 function renderBar(){ const bar=document.getElementById('tourbar'); if(!bar) return;

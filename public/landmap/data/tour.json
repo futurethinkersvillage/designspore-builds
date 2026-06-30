@@ -1,8 +1,8 @@
 {
-  "_note": "Slide-deck tour. intro = start lightbox. stages[] -> {name,badge,stops[]}. Each stop = one vertical slide: title, image (ONE; site photos /images/... , aerials + CABN photos media/...), caption?, lead, points[], layers[] (slugs shown), fit ('all'=whole property), cta?. 'Operating now' badge = green.",
+  "_note": "Slide-deck tour. intro = start lightbox. stages[] -> {name,badge,stops[]}. Each stop: title, image (ONE), caption?, lead, points[], layers[] (slugs shown), center [lng,lat] + zoom (frames the stop), or fit:'all'. cta?. 'Operating now' badge = green.",
   "intro": {
     "title": "Wells Gray — the Master Plan",
-    "body": "393 acres of private land beside Wells Gray Provincial Park, near Clearwater, BC.\n\nThis guided tour walks through what's already built and operating, then the next phase of the plan — cabins along the creek, the prefab units, the festival grounds, infrastructure, and an art-and-nature trail network.\n\nA dozen short stops. Use the buttons to move; close anytime to explore the map yourself.",
+    "body": "393 acres of private land beside Wells Gray Provincial Park, near Clearwater, BC.\n\nThis guided tour walks through what's already built and operating, then the next phase of the plan — the maker space, cabins along the creek, the festival grounds, and an art-and-nature trail network.\n\nA dozen short stops. Use the buttons to move; close anytime to explore the map yourself.",
     "button": "▶ Start the tour"
   },
   "stages": [
@@ -19,10 +19,9 @@
           "points": [
             "Full-service & power/water RV sites, plus rental cabins",
             "Private swimming lake, shower houses & disc-golf course",
-            "Already drawing guests with minimal marketing"
+            "3,000+ visitors a year, with minimal marketing"
           ],
-          "layers": ["full_service_rv_sites", "power_water_rv_sites", "utility_buildings", "accomodations_for_rent", "public_areas", "bathroom_shower_house", "labels"],
-          "fit": null
+          "layers": ["full_service_rv_sites", "power_water_rv_sites", "utility_buildings", "accomodations_for_rent", "public_areas", "bathroom_shower_house", "labels"]
         },
         {
           "id": "sauna",
@@ -35,8 +34,7 @@
             "Anchors the wellness rhythm already running on site",
             "A taste of the spa planned for a later phase"
           ],
-          "layers": ["public_areas", "utility_buildings", "accomodations_for_rent", "labels"],
-          "fit": null
+          "layers": ["public_areas", "utility_buildings", "accomodations_for_rent", "labels"]
         },
         {
           "id": "dome",
@@ -49,8 +47,7 @@
             "Doubles as a space for movie nights and small events",
             "One of the signature stays on the land"
           ],
-          "layers": ["public_areas", "utility_buildings", "accomodations_for_rent", "labels"],
-          "fit": null
+          "layers": ["public_areas", "utility_buildings", "accomodations_for_rent", "labels"]
         },
         {
           "id": "gazebo",
@@ -63,8 +60,7 @@
             "Campfire and shared meals at the heart of it",
             "The village's main indoor gathering space today"
           ],
-          "layers": ["public_areas", "utility_buildings", "accomodations_for_rent", "labels"],
-          "fit": null
+          "layers": ["public_areas", "utility_buildings", "accomodations_for_rent", "labels"]
         }
       ]
     },
@@ -73,49 +69,35 @@
       "badge": "Proposed",
       "stops": [
         {
-          "id": "creekside-cabins",
-          "title": "Creekside Cabins",
-          "image": "/images/cabin-scaled.jpg",
-          "lead": "A small cabin community set along the creek.",
+          "id": "maker-space",
+          "center": [-120.04787, 51.94159], "zoom": 18,
+          "title": "The Maker Space",
+          "image": "/images/wood-working-building-desk-scaled.jpg",
+          "lead": "A community workshop — and the engine of the build.",
           "points": [
-            "Sited beside the water, a short walk from the campground core",
-            "Plugs into existing power, water, septic & internet — short spurs only",
-            "The first of the village's permanent homes"
+            "3D printers, CNC, laser and woodworking",
+            "Fabricates and finishes the village's cabins and tiny homes",
+            "Wired off the existing electrical trunk"
           ],
-          "layers": ["cabins", "creekside_cabin_boundary", "trails"],
-          "fit": null
+          "layers": ["maker_space"]
         },
         {
-          "id": "prefab-units",
-          "title": "The Prefab Cabins",
+          "id": "creekside-cabins",
+          "center": [-120.04727, 51.93960], "zoom": 17,
+          "title": "Creekside Cabins",
           "image": "media/cabins/mor-ii.jpg",
           "caption": "Cabin model: CABN — MOR.II (cabn.co)",
-          "lead": "What the cabins will look like.",
+          "lead": "A row of small cabins set along the creek.",
           "points": [
-            "Built by CABN (cabn.co): BC-interior, net-zero, solar-ready",
-            "From the HUTT studio (~$39.5k) to the MOR.II (540 sqft, 1-bed)",
-            "CABN ships the timber shell; the maker space finishes the interiors",
-            "Delivered and craned onto prepared pads — fast, low-impact"
+            "Each plugs into existing power, water, septic & internet",
+            "Modern net-zero prefab units, finished in the maker space",
+            "A short walk from the campground core"
           ],
-          "layers": ["cabins", "creekside_cabin_boundary"],
-          "fit": null
-        },
-        {
-          "id": "cabin-interior",
-          "title": "Inside the Cabins",
-          "image": "media/cabins/interior.jpg",
-          "caption": "CABN interior",
-          "lead": "Bright, efficient, built for the climate.",
-          "points": [
-            "Lofted bedroom over a compact kitchen and living space",
-            "High-performance windows and an airtight, insulated envelope",
-            "Solar + battery options — off-grid-capable"
-          ],
-          "layers": ["cabins", "creekside_cabin_boundary"],
-          "fit": null
+          "layers": ["cabins", "creekside_cabin_boundary"]
         },
         {
           "id": "festival",
+          "center": [-120.04855, 51.93397], "zoom": 16,
           "title": "Festival Grounds",
           "image": "media/festival/aerial.jpg",
           "lead": "A leave-no-trace festival meadow — light-touch by design.",
@@ -125,36 +107,20 @@
             "Scales from 500 to 5,000 people, no permanent build",
             "Cleared timber is milled on site for later-phase cabins"
           ],
-          "layers": ["festival_grounds", "camp_roads", "camp_plots", "portapotty_groups", "central_showers", "event_parking"],
-          "fit": null
-        },
-        {
-          "id": "infrastructure",
-          "title": "Infrastructure Upgrades",
-          "image": "/images/shower-house-scaled.jpg",
-          "lead": "Extending the services already on the land.",
-          "points": [
-            "Power, water and septic trunked out from the existing campground systems",
-            "Starlink internet across the property",
-            "New developments tap in with short spurs — no new utilities from scratch",
-            "Sized to stay off-grid-capable and resilient"
-          ],
-          "layers": ["power_line", "water_line", "septic_line", "well", "source", "starlink_dish"],
-          "fit": null
+          "layers": ["festival_grounds", "camp_roads", "camp_plots", "portapotty_groups", "central_showers", "event_parking"]
         },
         {
           "id": "trails",
+          "center": [-120.04346, 51.93713], "zoom": 16,
           "title": "Hiking & Art Trails",
           "image": "/images/creek-view-1-scaled.jpg",
           "lead": "An art-and-nature hike threading the property together.",
           "points": [
             "A cleared trail network through forest and along the creek",
             "Art \"landings\" — installations and rest spots along the way",
-            "Links the campground, creekside cabins and festival meadow",
-            "Immersive nature, minutes from your door"
+            "Links the campground, creekside cabins and festival meadow"
           ],
-          "layers": ["discovery_trail", "landings", "trails"],
-          "fit": null
+          "layers": ["discovery_trail", "landings", "trails"]
         }
       ]
     },
