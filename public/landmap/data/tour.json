@@ -78,7 +78,7 @@
             "Plugs into existing power, water, septic & internet — short spurs only",
             "The first of the village's permanent homes"
           ],
-          "layers": ["creekside_cabin_boundary", "trails"],
+          "layers": ["cabins", "creekside_cabin_boundary", "trails"],
           "fit": null
         },
         {
@@ -93,7 +93,7 @@
             "CABN ships the timber shell; the maker space finishes the interiors",
             "Delivered and craned onto prepared pads — fast, low-impact"
           ],
-          "layers": ["creekside_cabin_boundary"],
+          "layers": ["cabins", "creekside_cabin_boundary"],
           "fit": null
         },
         {
@@ -107,7 +107,7 @@
             "High-performance windows and an airtight, insulated envelope",
             "Solar + battery options — off-grid-capable"
           ],
-          "layers": ["creekside_cabin_boundary"],
+          "layers": ["cabins", "creekside_cabin_boundary"],
           "fit": null
         },
         {
