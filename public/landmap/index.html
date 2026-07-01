@@ -253,7 +253,6 @@
   </div>
 </div>
 
-<div id="legend" class="panel"></div>
 <div id="timeline"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -363,7 +362,7 @@ function buildGlabels(M){ GLABELS=[]; (M.glabels||[]).forEach(g=>{
 function refreshGlabels(){ GLABELS.forEach(g=>{ const show=isVis(g.layer);
   if(show&&!g.on){ g.tip.addTo(map); g.on=true; } else if(!show&&g.on){ map.removeLayer(g.tip); g.on=false; } }); }
 function refresh(){ // sync all checkboxes/radios/pills from actual map state
-  buildLegend(); refreshGlabels();
+  refreshGlabels();
   // layer checkboxes
   document.querySelectorAll('.lchk').forEach(cb=>cb.checked=isVis(cb.dataset.f));
   // group tri-state
