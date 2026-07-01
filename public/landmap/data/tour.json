@@ -35,9 +35,9 @@
           "images": [
             "media/tour/built-operating.jpg",
             "/images/lib/camper-daytime-scaled.jpg",
-            "/images/lib/campfire-in-gazebo-scaled.jpg",
             "/images/lib/canada-day-meetup-scaled.jpg",
-            "/images/lib/aurora-at-night-scaled.jpg"
+            "/images/lib/aurora-at-night-scaled.jpg",
+            "media/tour/gazebo.jpg"
           ]
         },
         {
@@ -58,9 +58,9 @@
             51.939958
           ],
           "images": [
-            "media/tour/rv-sites.jpg",
             "/images/lib/camper-daytime-scaled.jpg",
-            "/images/lib/camper-at-night-scaled.jpg"
+            "media/tour/rv-sites.jpg",
+            "/images/lib/picnic-tables-creek.jpg"
           ]
         },
         {
@@ -76,11 +76,9 @@
             "golf_course"
           ],
           "images": [
-            "media/tour/golf.jpg",
-            "/images/lib/Golf-Course-Above2.jpg",
             "/images/lib/golf-course-3.jpg",
-            "/images/lib/disc-golf-tournament-scaled.jpg",
-            "/images/lib/kids-playing-golf-scaled.jpg"
+            "media/tour/golf.jpg",
+            "/images/lib/gazebo-disc-golf-tournament-scaled.jpg"
           ]
         },
         {
@@ -105,11 +103,10 @@
             ]
           },
           "images": [
+            "/images/dome-at-night-scaled.jpg",
             "media/tour/dome.jpg",
-            "/images/lib/dome-at-night-scaled.jpg",
-            "/images/lib/dome-interior-scaled.jpg",
-            "/images/lib/dome-movie-watching.jpg",
-            "/images/lib/DomeLake1_blended_fused-2-1.jpg"
+            "/images/lib/support-stay.jpg",
+            "/images/lib/add_a_small_202511251502-572x1024.jpeg"
           ]
         },
         {
@@ -151,9 +148,8 @@
             ]
           },
           "images": [
-            "media/tour/bunk-cabins.jpg",
             "/images/lib/cabin-scaled.jpg",
-            "/images/lib/cabins-scaled.jpg"
+            "/images/lib/add_a_group_202511251511-copy.jpeg"
           ]
         },
         {
@@ -180,8 +176,8 @@
           },
           "images": [
             "/images/sauna-in-winter-scaled.jpg",
-            "/images/lib/event-sauna.jpg",
-            "/images/lib/creek-view-1-scaled.jpg"
+            "/images/lib/creek-view-1-scaled.jpg",
+            "/images/gemini-j6uwv7.png"
           ]
         },
         {
@@ -211,7 +207,8 @@
             "media/tour/forest-school.jpg",
             "media/tour/village-rhythm.jpg",
             "/images/lib/gazebo-community-meetup-scaled.jpg",
-            "/images/lib/event-kids.jpg"
+            "/images/lib/event-storytelling.jpg",
+            "/images/meditation-group.jpg"
           ]
         },
         {
@@ -232,9 +229,7 @@
           ],
           "images": [
             "media/tour/permaculture.jpg",
-            "/images/lib/event-permaculture.jpg",
-            "/images/lib/gov-garden.jpg",
-            "/images/lib/market-tomatoes.jpg"
+            "/images/lib/gov-garden.jpg"
           ]
         }
       ]
@@ -249,7 +244,6 @@
           "stageLabel": "Phase 2",
           "fit": "property",
           "title": "Phase 2: Building the Village",
-          "image": "media/tour/phase2-intro.jpg",
           "lead": "Phase 2 turns the working campground into a village — starting with the core.",
           "points": [
             "Creekside cabins — the first cabin neighbourhood",
@@ -263,7 +257,8 @@
             "wells_gray_golf_rv_parcel"
           ],
           "video": "Tf_YNgph84o",
-          "nolabels": true
+          "nolabels": true,
+          "images": []
         },
         {
           "id": "maker-space",
@@ -285,9 +280,10 @@
           "images": [
             "media/tour/maker-space.jpg",
             "/images/lib/event-maker.jpg",
-            "/images/lib/market-carpentry.jpg",
-            "/images/lib/market-pottery.jpg",
-            "/images/lib/market-webdesign.jpg"
+            "/images/a_person_filming_202512032314-1024x576.jpeg",
+            "/images/gemini-2e4dc4.png",
+            "/images/lib/bf57b989-df81-4b14-8435-046dec6e4fb1-1024x576.jpg",
+            "/images/lib/wood-working-building-desk-scaled.jpg"
           ]
         },
         {
@@ -305,10 +301,11 @@
           ],
           "images": [
             "media/tour/creekside-cabins.jpg",
-            "media/cabins/cabn-hero.jpg",
+            "/images/ffec9020-31b4-440a-bf8f-c25af6a392b9-1024x576.jpg",
+            "media/cabins/mor-ii.jpg",
             "media/cabins/hutt.jpg",
             "media/cabins/interior.jpg",
-            "media/cabins/mor-ii.jpg"
+            "media/cabins/cabn-hero.jpg"
           ]
         }
       ]
@@ -336,9 +333,8 @@
           ],
           "images": [
             "media/tour/lakeside-cabins.jpg",
-            "media/cabins/cabn-hero.jpg",
-            "/images/lib/DomeLake1_blended_fused-2-1.jpg",
-            "/images/lib/moose-at-lake-scaled.jpg"
+            "media/tour/creekside-cabins.jpg",
+            "/images/lib/bf57b989-df81-4b14-8435-046dec6e4fb1-1024x576.jpg"
           ]
         },
         {
@@ -360,10 +356,8 @@
           ],
           "images": [
             "media/tour/community-gazebo.jpg",
-            "/images/lib/gazebo-interior-2.jpg",
             "/images/lib/gazebo-view-scaled.jpg",
-            "/images/lib/gazebo-rainbow-scaled.jpg",
-            "/images/lib/gazebo-community-meetup-scaled.jpg"
+            "/images/lib/gazebo-rainbow-scaled.jpg"
           ]
         }
       ]
@@ -406,8 +400,12 @@
           },
           "images": [
             "media/tour/festival.jpg",
-            "/images/lib/artist-gathering.jpg",
-            "/images/lib/canada-day-meetup-scaled.jpg"
+            "media/landart/portal.jpg",
+            "media/landart/lake-sculpture.jpg",
+            "/images/lib/hero-artist.jpg",
+            "/images/lib/tools-1.jpg",
+            "/images/lib/thesis-portrait.jpg",
+            "/images/lib/tools-3.jpg"
           ]
         },
         {
@@ -428,9 +426,7 @@
             "event_space"
           ],
           "images": [
-            "media/tour/event-space.jpg",
-            "/images/lib/artist-gathering.jpg",
-            "/images/lib/market-guitar.jpg"
+            "media/tour/event-space.jpg"
           ]
         },
         {
@@ -453,10 +449,9 @@
           ],
           "images": [
             "media/tour/art-walk.jpg",
-            "media/landart/portal.jpg",
             "media/landart/lanterns.jpg",
             "media/landart/mushroom.jpg",
-            "media/landart/lake-sculpture.jpg"
+            "/images/lib/vision-1.jpg"
           ]
         }
       ]
