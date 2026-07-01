@@ -293,8 +293,8 @@
     "weight": 2.94,
     "mode": "single"
    },
-   "label": "name",
-   "nolabel": false,
+   "label": null,
+   "nolabel": true,
    "popup": [
     "name",
     "phase"
