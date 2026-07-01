@@ -14,7 +14,6 @@
           "id": "campground",
           "fit": "property",
           "title": "Built & Operating",
-          "image": "media/tour/built-operating.jpg",
           "lead": "Five seasons in — the working prototype the village builds on.",
           "points": [
             "Full-service RV sites, tenting, bunk cabins, and a glamping dome",
@@ -32,12 +31,18 @@
             "golf_course",
             "wells_gray_golf_rv_parcel"
           ],
-          "nolabels": true
+          "nolabels": true,
+          "images": [
+            "media/tour/built-operating.jpg",
+            "/images/lib/camper-daytime-scaled.jpg",
+            "/images/lib/campfire-in-gazebo-scaled.jpg",
+            "/images/lib/canada-day-meetup-scaled.jpg",
+            "/images/lib/aurora-at-night-scaled.jpg"
+          ]
         },
         {
           "id": "rv-sites",
           "title": "RV Sites",
-          "image": "media/tour/rv-sites.jpg",
           "lead": "Full-service and power/water sites for RVs and tiny homes.",
           "points": [
             "45 serviced sites, plus power & water sites",
@@ -51,12 +56,16 @@
           "marker": [
             -120.047907,
             51.939958
+          ],
+          "images": [
+            "media/tour/rv-sites.jpg",
+            "/images/lib/camper-daytime-scaled.jpg",
+            "/images/lib/camper-at-night-scaled.jpg"
           ]
         },
         {
           "id": "golf",
           "title": "Golf & Disc Golf",
-          "image": "media/tour/golf.jpg",
           "lead": "A 9-hole golf course that doubles as an 18-basket disc-golf course.",
           "points": [
             "Golf or disc golf on the same scenic fairways",
@@ -65,6 +74,13 @@
           ],
           "layers": [
             "golf_course"
+          ],
+          "images": [
+            "media/tour/golf.jpg",
+            "/images/lib/Golf-Course-Above2.jpg",
+            "/images/lib/golf-course-3.jpg",
+            "/images/lib/disc-golf-tournament-scaled.jpg",
+            "/images/lib/kids-playing-golf-scaled.jpg"
           ]
         },
         {
@@ -75,7 +91,6 @@
           ],
           "zoom": 20,
           "title": "Glamping Dome",
-          "image": "media/tour/dome.jpg",
           "lead": "A geodesic glamping dome for unique stays.",
           "points": [
             "Sleeps guests in comfort, open to the sky",
@@ -88,7 +103,14 @@
             "accomodations_for_rent": [
               "Dome"
             ]
-          }
+          },
+          "images": [
+            "media/tour/dome.jpg",
+            "/images/lib/dome-at-night-scaled.jpg",
+            "/images/lib/dome-interior-scaled.jpg",
+            "/images/lib/dome-movie-watching.jpg",
+            "/images/lib/DomeLake1_blended_fused-2-1.jpg"
+          ]
         },
         {
           "id": "bunk-cabins",
@@ -98,7 +120,6 @@
           ],
           "zoom": 19,
           "title": "Bunk Cabins",
-          "image": "media/tour/bunk-cabins.jpg",
           "lead": "Three rental bunk cabins tucked along the creek.",
           "points": [
             "Simple, cozy stays — among the original built accommodation",
@@ -128,7 +149,12 @@
               "Cabin 2",
               "Cabin 3"
             ]
-          }
+          },
+          "images": [
+            "media/tour/bunk-cabins.jpg",
+            "/images/lib/cabin-scaled.jpg",
+            "/images/lib/cabins-scaled.jpg"
+          ]
         },
         {
           "id": "sauna",
@@ -138,7 +164,6 @@
           ],
           "zoom": 20,
           "title": "The Sauna",
-          "image": "/images/sauna-in-winter-scaled.jpg",
           "lead": "A wood-fired cedar barrel sauna next to a cold creek.",
           "points": [
             "Steam, then a cold dip in the creek",
@@ -152,7 +177,12 @@
             "accomodations_for_rent": [
               "Sauna"
             ]
-          }
+          },
+          "images": [
+            "/images/sauna-in-winter-scaled.jpg",
+            "/images/lib/event-sauna.jpg",
+            "/images/lib/creek-view-1-scaled.jpg"
+          ]
         },
         {
           "id": "gazebo",
@@ -179,7 +209,9 @@
           "images": [
             "media/tour/event-gazebo.jpg",
             "media/tour/forest-school.jpg",
-            "media/tour/village-rhythm.jpg"
+            "media/tour/village-rhythm.jpg",
+            "/images/lib/gazebo-community-meetup-scaled.jpg",
+            "/images/lib/event-kids.jpg"
           ]
         },
         {
@@ -190,7 +222,6 @@
           ],
           "zoom": 19,
           "title": "The Permaculture Garden",
-          "image": "media/tour/permaculture.jpg",
           "lead": "A small permaculture garden on the land.",
           "points": [
             "Food, herbs and pollinators grown on site",
@@ -198,6 +229,12 @@
           ],
           "layers": [
             "permaculture_garden"
+          ],
+          "images": [
+            "media/tour/permaculture.jpg",
+            "/images/lib/event-permaculture.jpg",
+            "/images/lib/gov-garden.jpg",
+            "/images/lib/market-tomatoes.jpg"
           ]
         }
       ]
@@ -236,7 +273,6 @@
           ],
           "zoom": 19,
           "title": "The Maker Space",
-          "image": "media/tour/maker-space.jpg",
           "lead": "A community workshop — and a key element of village culture.",
           "points": [
             "3D printers, CNC, laser and woodworking",
@@ -245,12 +281,18 @@
           ],
           "layers": [
             "maker_space"
+          ],
+          "images": [
+            "media/tour/maker-space.jpg",
+            "/images/lib/event-maker.jpg",
+            "/images/lib/market-carpentry.jpg",
+            "/images/lib/market-pottery.jpg",
+            "/images/lib/market-webdesign.jpg"
           ]
         },
         {
           "id": "creekside-cabins",
           "title": "Creekside Cabins",
-          "image": "media/tour/creekside-cabins.jpg",
           "lead": "A row of small cabins set along the creek.",
           "points": [
             "Prefab wooden cabins, a mix of rustic and modern feel",
@@ -260,6 +302,13 @@
           "layers": [
             "cabins",
             "creekside_cabin_boundary"
+          ],
+          "images": [
+            "media/tour/creekside-cabins.jpg",
+            "media/cabins/cabn-hero.jpg",
+            "media/cabins/hutt.jpg",
+            "media/cabins/interior.jpg",
+            "media/cabins/mor-ii.jpg"
           ]
         }
       ]
@@ -276,7 +325,6 @@
           ],
           "zoom": 18,
           "title": "Lakeside Cabins",
-          "image": "media/tour/lakeside-cabins.jpg",
           "lead": "31 cabins in two rows curving along the lake's edge.",
           "points": [
             "31 net-zero cabins in two rows, hugging the shoreline",
@@ -285,6 +333,12 @@
           ],
           "layers": [
             "lake_cabins"
+          ],
+          "images": [
+            "media/tour/lakeside-cabins.jpg",
+            "media/cabins/cabn-hero.jpg",
+            "/images/lib/DomeLake1_blended_fused-2-1.jpg",
+            "/images/lib/moose-at-lake-scaled.jpg"
           ]
         },
         {
@@ -295,7 +349,6 @@
           ],
           "zoom": 20,
           "title": "New Event Gazebo",
-          "image": "media/tour/community-gazebo.jpg",
           "lead": "A new pavilion for gatherings of every kind.",
           "points": [
             "Hosts retreats, ceremonies, workshops, and more",
@@ -304,6 +357,13 @@
           ],
           "layers": [
             "event_gazebo"
+          ],
+          "images": [
+            "media/tour/community-gazebo.jpg",
+            "/images/lib/gazebo-interior-2.jpg",
+            "/images/lib/gazebo-view-scaled.jpg",
+            "/images/lib/gazebo-rainbow-scaled.jpg",
+            "/images/lib/gazebo-community-meetup-scaled.jpg"
           ]
         }
       ]
@@ -319,7 +379,6 @@
             51.933352
           ],
           "title": "Festival Grounds",
-          "image": "media/tour/festival.jpg",
           "lead": "A leave-no-trace festival meadow — light-touch by design.",
           "points": [
             "Clear the meadow and cut/clear the trails",
@@ -344,7 +403,12 @@
             "portapotty_groups": [
               "Portapotties (50 units)"
             ]
-          }
+          },
+          "images": [
+            "media/tour/festival.jpg",
+            "/images/lib/artist-gathering.jpg",
+            "/images/lib/canada-day-meetup-scaled.jpg"
+          ]
         },
         {
           "id": "event-space",
@@ -354,7 +418,6 @@
           ],
           "zoom": 19,
           "title": "Event Stage",
-          "image": "media/tour/event-space.jpg",
           "lead": "An outdoor stage for music, performance and festival nights.",
           "points": [
             "A gathering point for shows, talks and celebrations",
@@ -363,6 +426,11 @@
           ],
           "layers": [
             "event_space"
+          ],
+          "images": [
+            "media/tour/event-space.jpg",
+            "/images/lib/artist-gathering.jpg",
+            "/images/lib/market-guitar.jpg"
           ]
         },
         {
@@ -373,7 +441,6 @@
           ],
           "zoom": 17,
           "title": "Hiking & Art Trails",
-          "image": "media/tour/art-walk.jpg",
           "lead": "An art-and-nature hike threading through the forest.",
           "points": [
             "A trail network through the forest and along the hills",
@@ -383,6 +450,13 @@
           "layers": [
             "discovery_trail",
             "landings"
+          ],
+          "images": [
+            "media/tour/art-walk.jpg",
+            "media/landart/portal.jpg",
+            "media/landart/lanterns.jpg",
+            "media/landart/mushroom.jpg",
+            "media/landart/lake-sculpture.jpg"
           ]
         }
       ]
@@ -394,7 +468,6 @@
         {
           "id": "vision",
           "title": "The Bigger Picture",
-          "image": "media/tour/phase2-vision.jpg",
           "lead": "Beyond these phases — a village and a network.",
           "points": [
             "An art & wellness village, educational campus, and eco-resort planned for later phases",
@@ -411,7 +484,14 @@
             "href": "https://portal.place",
             "label": "Apply now — closing soon"
           },
-          "nolabels": true
+          "nolabels": true,
+          "images": [
+            "media/tour/phase2-vision.jpg",
+            "media/concept/sunrise-village.jpg",
+            "media/concept/panoramic-ecovillage.jpg",
+            "media/concept/future-village.jpg",
+            "media/concept/village-concept.jpg"
+          ]
         }
       ]
     }
