@@ -157,9 +157,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#4A5C9E",
+    "fill": "#29A3C4",
     "fillOpacity": 0.0,
-    "stroke": "#4A5C9E",
+    "stroke": "#29A3C4",
     "weight": 2.94,
     "mode": "single"
    },

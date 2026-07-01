@@ -87,7 +87,7 @@
   #mediapanel .mp-close:hover{color:var(--ink)}
   #mediapanel .mp-body{flex:1 1 auto;overflow-y:auto;padding:0 0 6px}
   #mediapanel .mp-nav{flex:none;display:flex;gap:10px;padding:12px 16px;background:rgba(26,23,32,.98);border-top:1px solid var(--line)}
-  #mediapanel .mp-nav button{padding:13px 10px;border-radius:10px;font-size:14.5px;font-weight:700;cursor:pointer;border:1px solid var(--line)}
+  #mediapanel .mp-nav button{padding:13px 10px;border-radius:10px;font-size:14.5px;font-weight:700;cursor:pointer;border:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
   #mediapanel .mp-back{flex:1;background:rgba(255,255,255,.05);color:var(--ink)}
   #mediapanel .mp-back:hover{border-color:var(--accent)}
   #mediapanel .mp-back[disabled]{opacity:.3;cursor:default}
@@ -191,16 +191,16 @@
   body.touring #mediapanel{height:calc(100% - var(--tlh,130px))}
   .tl-node{flex:1 1 0;min-width:0;position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center}
   .tl-top{display:flex;align-items:center;width:100%;height:12px}
-  .tl-ln{flex:1;height:2px;background:var(--line)}
+  .tl-ln{flex:1;height:2px;background:var(--pc,var(--line));opacity:.4}
   .tl-node:first-child .tl-ln.l{visibility:hidden}
   .tl-node:last-child .tl-ln.r{visibility:hidden}
   .tl-node.ph1{--pc:#E2B24A} .tl-node.ph2{--pc:#EA824E} .tl-node.ph3{--pc:#A98FD0}
   .tl-dot{flex:none;width:11px;height:11px;border-radius:50%;background:var(--panel);border:2px solid var(--pc,var(--muted));transition:transform .15s,background .15s,border-color .15s}
   .tl-node:hover .tl-dot{transform:scale(1.35)}
   .tl-node.done .tl-dot{background:var(--pc,var(--muted));border-color:var(--pc,var(--muted))}
-  .tl-node.done .tl-ln{background:var(--pc,var(--accent))}
+  .tl-node.done .tl-ln{opacity:1}
   .tl-node.active .tl-dot{background:var(--pc,var(--accent));border-color:var(--pc,var(--accent));box-shadow:0 0 9px var(--pc,var(--accent));transform:scale(1.4)}
-  .tl-node.active .tl-ln.l{background:var(--pc,var(--accent))}
+  .tl-node.active .tl-ln.l{opacity:1}
   .tl-label{margin-top:6px;font-size:10px;line-height:1.2;text-align:center;color:var(--muted);max-width:100%;overflow-wrap:break-word;overflow:hidden;padding:0 3px}
   .tl-node:hover .tl-label{color:var(--ink)}
   .tl-node.active .tl-label{color:var(--pc,var(--accent));font-weight:700}
@@ -214,9 +214,26 @@
     .tl-label{font-size:9px}
     body.touring #mediapanel{top:auto;bottom:var(--tlh,58px);height:52%}
   }
+  /* spotlight: dim/desaturate the basemap during the tour so the focused feature pops */
+  body.touring .leaflet-tile-pane{filter:saturate(.62) brightness(.66);transition:filter .5s ease}
+  /* slide cross-fade between stops */
+  @keyframes slidein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .slide{animation:slidein .32s ease}
+  /* image shimmer while loading (covered once the image paints) */
+  @keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+  .slide .s-img,#mediapanel .mp-img{background:linear-gradient(100deg,#1b1720 30%,#261f2d 50%,#1b1720 70%);background-size:200% 100%;animation:shimmer 1.25s linear infinite}
+  /* branded splash loader */
+  #splash{position:absolute;inset:0;z-index:3000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--bg);transition:opacity .5s ease}
+  #splash.hide{opacity:0;pointer-events:none}
+  #splash .sp-mark{font-family:Georgia,'Times New Roman',serif;font-size:26px;color:var(--ink)}
+  #splash .sp-sub{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+  #splash .sp-bar{width:120px;height:3px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}
+  #splash .sp-bar:after{content:"";display:block;height:100%;width:40%;border-radius:2px;background:var(--accent);animation:spslide 1.1s ease-in-out infinite}
+  @keyframes spslide{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
 </style>
 </head>
 <body>
+<div id="splash"><div class="sp-sub">Wells Gray Village</div><div class="sp-mark">The Master Plan</div><div class="sp-bar"></div></div>
 <div id="map"></div>
 <div id="tourbar"></div>
 <div id="introbox" style="display:none">
@@ -302,9 +319,10 @@ function styleFor(L,ft){return styleObj(L,pickCat(L,ft));}
 function pointStyleFor(L,ft){const c=pickCat(L,ft); const r=(/label/i.test(L.name))?0.1:6;
   return {radius:r,color:(c.stroke||'#fff'),weight:r<1?0:1.3,fillColor:(c.fill||'#888'),fillOpacity:(c.fillOpacity!=null?Math.max(.65,c.fillOpacity):.92)};}
 const PRETTY={acres:'Area (ac)',area_ac:'Area (ac)',Name:'Name',Site:'Site',Type:'Type',Structures:'Structure',Location:'Location',Holes:'Holes',subject:'Theme',clue:'Clue',pid_formatted:'PID',owner_type:'Owner'};
+function isJunk(v){ v=String(v); return /WHSE_|PMBC_|_SVW|OBJECTID|\.fid[-.]/i.test(v) || (v.length>26 && /[._]/.test(v) && !/\s/.test(v)); }
 function popupHtml(L,p){let rows=`<div class="pp"><div class="t">${L.name}</div>`,any=false;
-  if(L.label&&p[L.label]!=null&&String(p[L.label]).trim()!=='') {rows+=`<div><b>${p[L.label]}</b></div>`;any=true;}
-  (L.popup||[]).forEach(k=>{let v=p[k]; if(v==null||String(v).trim()===''||k===L.label) return;
+  if(L.label&&p[L.label]!=null&&String(p[L.label]).trim()!==''&&!isJunk(p[L.label])) {rows+=`<div><b>${p[L.label]}</b></div>`;any=true;}
+  (L.popup||[]).forEach(k=>{let v=p[k]; if(v==null||String(v).trim()===''||k===L.label||isJunk(v)) return;
     if(/acres/i.test(k)) v=Number(v).toFixed(1)+' ac'; const lbl=PRETTY[k]; rows+=`<div>${lbl?'<b>'+lbl+':</b> ':''}${v}</div>`;any=true;});
   if(!any) rows+=`<div style="color:var(--muted)">${L.name}</div>`; return rows+'</div>';}
 function swatch(L){const s=L.style,c=(s.mode==='categorized'?(s.cats&&s.cats[0]||s.default||{}):s);
@@ -324,7 +342,12 @@ function addLayer(L){return fetch('data/'+L.f+'.geojson').then(r=>r.json()).then
     const lyr=window.L.geoJSON(gj, L.geom==='point'
       ? {pointToLayer:(ft,ll)=>window.L.circleMarker(ll,pointStyleFor(L,ft)),onEachFeature:bind}
       : {style:ft=>styleFor(L,ft),onEachFeature:bind});
-    function bind(ft,l){const p=ft.properties||{}; l.bindPopup(popupHtml(L,p));
+    function bind(ft,l){const p=ft.properties||{};
+      l.on('click',e=>{
+        const idx=stopForFeature(L.f,p);                        // two-way: click a feature -> jump to its tour stop
+        if(idx>=0){ window.L.DomEvent.stop(e); goStop(idx); return; }
+        window.L.popup().setLatLng(e.latlng).setContent(popupHtml(L,p)).openOn(map);  // else a clean popup
+      });
       if(L.label){const v=p[L.label]; if(v!=null&&String(v).trim()!=='')
         l.bindTooltip(`<span style="color:${col}">${v}</span>`,{permanent:true,direction:'center',className:'maplbl'+(dev?' dev':'')});}}
     if(!L.label && !L.nolabel){const rep=repLayer(lyr); if(rep) rep.bindTooltip(`<span style="color:${col}">${L.name}</span>`,{permanent:true,direction:'center',className:'maplbl'});}
@@ -488,7 +511,10 @@ fetch('data/manifest.json').then(r=>r.json()).then(M=>{
   if(u&&u.b) setBackdrop(u.b,true);
   if(u&&u.v){const[z,la,ln]=u.v.split(',').map(Number); if(!isNaN(z)) map.setView([la,ln],z);}
   else fitView();
-}).catch(e=>{document.getElementById('tree').innerHTML='<div class="sec">Failed to load map data.</div>';console.error(e);});
+  hideSplash();
+}).catch(e=>{document.getElementById('tree').innerHTML='<div class="sec">Failed to load map data.</div>';console.error(e);hideSplash();});
+function hideSplash(){const s=document.getElementById('splash'); if(s){ s.classList.add('hide'); setTimeout(()=>{ if(s.parentNode) s.parentNode.removeChild(s); },600); }}
+setTimeout(hideSplash, 7000); // safety net
 
 function fitView(){let b=null;const parcel=DEFS.find(d=>/parcel/i.test(d.name));
   const pick=parcel&&overlays[parcel.f]?[overlays[parcel.f]]:Object.values(overlays);
@@ -529,8 +555,12 @@ function tourPanel(s){
   document.body.classList.add('media-open'); if(!wasOpen) setTimeout(()=>map.invalidateSize(),300);
   const last=tourIdx>=TOUR.length-1;
   const bk=document.getElementById('mp-back'), nx=document.getElementById('mp-next');
-  bk.disabled=(tourIdx<=0); bk.onclick=()=>goStop(tourIdx-1);
-  nx.textContent=last?'Finish ✓':'Next ›'; nx.onclick=()=>{ if(last) endTour(); else goStop(tourIdx+1); };
+  const strip=t=>(t||'').replace(/^The\s+/i,'');
+  bk.disabled=(tourIdx<=0);
+  bk.innerHTML=(tourIdx>0)?('‹ '+escHtml(strip(TOUR[tourIdx-1].title))):'‹ Back';
+  bk.onclick=()=>goStop(tourIdx-1);
+  nx.innerHTML=last?'Finish ✓':('Next: '+escHtml(strip(TOUR[tourIdx+1].title))+' ›');
+  nx.onclick=()=>{ if(last) endTour(); else goStop(tourIdx+1); };
   document.getElementById('mpclose').onclick=endTour;
 }
 let TOURFILT={}; // slug -> [hidden sublayers] so a later stop can restore them
@@ -541,32 +571,48 @@ function applyOnly(only){ restoreOnly(); if(!only) return;
     const keep=new Set((only[slug]||[]).map(String)); const hide=[];
     grp.eachLayer(sub=>{ const p=(sub.feature&&sub.feature.properties)||{}; if(!keep.has(String(p[field]))) hide.push(sub); });
     hide.forEach(sub=>{ try{ grp.removeLayer(sub); }catch(e){} }); TOURFILT[slug]=hide; }); }
-function tourShow(slugs,only){ DEFS.forEach(d=>setVis(d.f,false)); (slugs||[]).concat(['wells_gray_golf_rv_parcel']).forEach(f=>setVis(f,true)); applyOnly(only); refresh(); }
+function tourShow(slugs,only){ DEFS.forEach(d=>setVis(d.f,false)); (slugs||[]).forEach(f=>setVis(f,true)); applyOnly(only); refresh(); }
+// map feature -> tour stop (built from TOUR in the tour init). Feature-level for shared/only layers.
+let LAYER2STOP={}, FEAT2STOP={};
+const NAVSKIP={wells_gray_golf_rv_parcel:1,labels:1,lakes:1,ponds_water_avoid:1};
+function buildStopIndex(){ LAYER2STOP={}; FEAT2STOP={};
+  TOUR.forEach((s,i)=>{ (s.layers||[]).forEach(f=>{ if(NAVSKIP[f]) return;
+    if(s.only && s.only[f]){ s.only[f].forEach(v=>{ const k=f+'|'+v; if(FEAT2STOP[k]==null) FEAT2STOP[k]=i; }); }
+    else if(LAYER2STOP[f]==null) LAYER2STOP[f]=i; }); }); }
+function stopForFeature(slug,p){ const d=DEFS.find(x=>x.f===slug); const field=d&&d.label;
+  if(field){ const k=slug+'|'+String(p[field]); if(FEAT2STOP[k]!=null) return FEAT2STOP[k]; }
+  return (LAYER2STOP[slug]!=null)?LAYER2STOP[slug]:-1; }
 function zoomForHeight(b){ const cz=map.getZoom(); const cl=b.getCenter().lng;
   const pN=map.project([b.getNorth(),cl],cz), pS=map.project([b.getSouth(),cl],cz);
   const pxH=Math.abs(pS.y-pN.y)||1; const z=cz+Math.log2((map.getSize().y||700)/pxH);
   return Math.min(map.getMaxZoom(), Math.max(0, z-0.05)); }
 // reserved screen regions during the tour: media panel (right) + timeline (bottom)
 function tourPad(){
+  // NOTE: on desktop #map is already shrunk beside the panel (width:calc(100% - 540px)), so the map
+  // container IS the visible band — only the bottom timeline overlays it. On mobile the panel is a
+  // bottom sheet overlaying a full-width map, so reserve its height + the timeline.
   const tlh=parseInt(getComputedStyle(document.body).getPropertyValue('--tlh'))||0;
   const mp=document.getElementById('mediapanel'); const open=mp&&mp.classList.contains('open');
   const mobile=window.matchMedia&&window.matchMedia('(max-width:640px)').matches;
-  if(mobile){ let ph=0; if(open) ph=mp.getBoundingClientRect().height||0; return {right:0, bottom:tlh+ph}; } // panel is a bottom sheet
-  let pw=0; if(open) pw=mp.getBoundingClientRect().width||0;
-  const W=(map.getSize().x||1000); if(pw>W*0.5) pw=Math.round(W*0.5); // don't reserve the whole map
-  return {right:pw, bottom:tlh}; }
+  if(mobile){ let ph=0; if(open) ph=mp.getBoundingClientRect().height||0; return {right:0, bottom:tlh+ph}; }
+  return {right:0, bottom:tlh}; }
 function padOpt(){ const p=tourPad(); return {duration:1.3, paddingTopLeft:[14,14], paddingBottomRight:[p.right+14, p.bottom+14]}; }
 // center a point in the *visible* area (offset for the reserved panel/timeline) at a fixed zoom
 function flyToOffset(ll,z){ const p=tourPad(); const z2=(z!=null?z:map.getZoom());
   const pt=map.project(ll,z2); pt.x+=p.right/2; pt.y+=p.bottom/2;
   map.flyTo(map.unproject(pt,z2), z2, {duration:1.3}); }
+// bounds of the currently-visible focus features (excludes the parcel/base so the OBJECT centers, not the land)
+function visibleBounds(){ let b=null;
+  DEFS.forEach(d=>{ if(NAVSKIP[d.f]) return; const l=overlays[d.f]; if(l&&map.hasLayer(l)){ try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):window.L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){} } });
+  return b; }
 function tourFit(s){
  try{
   if(s.fit==='property'||s.fit==='all'){ const l=overlays['wells_gray_golf_rv_parcel']; if(l){ const b=l.getBounds(); if(b.isValid()){ map.flyToBounds(b, padOpt()); return; } } fitView(); return; }
+  // center on the actual focused feature(s), capped at the stop's zoom (robust vs stale hand-set centers)
+  const vb=visibleBounds();
+  if(vb&&vb.isValid()){ const opt=padOpt(); if(s.zoom!=null) opt.maxZoom=s.zoom; map.flyToBounds(vb.pad(0.12), opt); return; }
   if(s.center && s.center.length===2){ flyToOffset(L.latLng(s.center[1],s.center[0]),(s.zoom!=null?s.zoom:18)); return; }
-  const slugs=(s.fit&&s.fit.length)?s.fit:(s.layers||[]); let b=null;
-  slugs.forEach(f=>{const l=overlays[f]; if(!l)return; try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}});
-  if(b&&b.isValid()) map.flyToBounds(b.pad(0.05), padOpt()); else fitView();
+  fitView();
  }catch(e){ try{fitView()}catch(_){ } }
 }
 let tourPings=[];
@@ -589,6 +635,7 @@ function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
   tourShow(s.layers, s.only); tourPanel(s); renderBar();
   const nxt=TOUR[i+1]; if(nxt&&nxt.image){ const im=new Image(); im.src=nxt.image; }  // preload next slide image
   document.body.classList.add('touring'); renderTimeline(); writeURL();  // update deep-link hash immediately
+  try{ if(!localStorage.getItem('tourHintSeen')){ localStorage.setItem('tourHintSeen','1'); toast('Tip: use ← → or swipe to move · Esc to exit'); } }catch(e){}
   const fit=()=>{ tourFit(s);
     const pc=pinColorFor(s);
     if(s.markers&&s.markers.length){ showPings(s.markers.map(m=>L.latLng(m[1],m[0])),pc); }
@@ -637,6 +684,7 @@ fetch('data/tour.json').then(r=>r.json()).then(M=>{
   if(M.stages){ M.stages.forEach(st=>(st.stops||[]).forEach(s=>{ s.stage=st.name; s.badge=st.badge; TOUR.push(s); })); }
   else { TOUR=M.stops||[]; }
   STAGES=(M.stages||[]).map(st=>({name:st.name, firstIdx:TOUR.findIndex(s=>s.stage===st.name)})).filter(s=>s.firstIdx>=0);
+  buildStopIndex();
   renderBar();
   const ib=document.getElementById('introbox');
   if(M.intro){
