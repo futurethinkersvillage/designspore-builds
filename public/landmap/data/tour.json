@@ -42,7 +42,8 @@
             "media/library/resort/resort-102.jpg",
             "media/library/resort/resort-136.jpg",
             "media/library/resort/resort-009.jpg"
-          ]
+          ],
+          "status": "complete"
         },
         {
           "id": "rv-sites",
@@ -67,7 +68,8 @@
             "/images/lib/camper-daytime-scaled.jpg",
             "media/library/resort/resort-033.jpg",
             "media/library/resort/resort-143.jpg"
-          ]
+          ],
+          "status": "complete"
         },
         {
           "id": "golf",
@@ -88,7 +90,8 @@
             "media/library/resort/resort-092.jpg",
             "media/library/disc-golf/disc-golf-002.jpg",
             "media/library/resort/resort-024.jpg"
-          ]
+          ],
+          "status": "complete"
         },
         {
           "id": "dome",
@@ -120,7 +123,8 @@
             "media/library/resort/resort-117.jpg",
             "media/library/resort/resort-124.jpg",
             "media/library/resort/resort-066.jpg"
-          ]
+          ],
+          "status": "complete"
         },
         {
           "id": "bunk-cabins",
@@ -166,7 +170,8 @@
             "media/library/sleeping-cabins/sleeping-cabins-001.jpg",
             "media/library/sleeping-cabins/sleeping-cabins-002.jpg",
             "media/library/land-art/land-art-050.jpg"
-          ]
+          ],
+          "status": "complete"
         },
         {
           "id": "sauna",
@@ -194,7 +199,8 @@
             "/images/sauna-in-winter-scaled.jpg",
             "/images/lib/creek-view-1-scaled.jpg",
             "/images/gemini-j6uwv7.png"
-          ]
+          ],
+          "status": "complete"
         },
         {
           "id": "gazebo",
@@ -227,7 +233,8 @@
             "media/library/resort/resort-043.jpg",
             "media/library/resort/resort-055.jpg",
             "media/library/resort/resort-056.jpg"
-          ]
+          ],
+          "status": "complete"
         }
       ]
     },
@@ -255,7 +262,8 @@
           ],
           "video": "Tf_YNgph84o",
           "nolabels": true,
-          "images": []
+          "images": [],
+          "status": "planned"
         },
         {
           "id": "maker-space",
@@ -281,6 +289,11 @@
             "/images/gemini-2e4dc4.png",
             "/images/lib/bf57b989-df81-4b14-8435-046dec6e4fb1-1024x576.jpg",
             "/images/lib/event-maker.jpg"
+          ],
+          "status": "in-progress",
+          "notes": [
+            "Most tools acquired",
+            "Remaining: build larger structure, acquire CNC"
           ]
         },
         {
@@ -299,6 +312,11 @@
           "images": [
             "media/tour/creekside-cabins.jpg",
             "/images/ffec9020-31b4-440a-bf8f-c25af6a392b9-1024x576.jpg"
+          ],
+          "status": "in-progress",
+          "notes": [
+            "Land is mostly cleared",
+            "Remaining: Foundations & Cabin Builds"
           ]
         }
       ]
@@ -328,6 +346,12 @@
             "media/tour/lakeside-cabins.jpg",
             "media/tour/creekside-cabins.jpg",
             "/images/lib/bf57b989-df81-4b14-8435-046dec6e4fb1-1024x576.jpg"
+          ],
+          "status": "in-progress",
+          "notes": [
+            "Land is cleared",
+            "Lake has been enlarged",
+            "Remaining: Foundations & Cabin Builds"
           ]
         },
         {
@@ -351,7 +375,8 @@
             "media/tour/community-gazebo.jpg",
             "/images/lib/gazebo-view-scaled.jpg",
             "/images/lib/gazebo-rainbow-scaled.jpg"
-          ]
+          ],
+          "status": "planned"
         }
       ]
     },
@@ -401,6 +426,10 @@
             "/images/lib/tools-3.jpg",
             "media/library/land-art-concept/land-art-concept-006.jpg",
             "media/library/land-art-concept/land-art-concept-004.jpg"
+          ],
+          "status": "in-progress",
+          "notes": [
+            "Land is being cleared"
           ]
         },
         {
@@ -422,7 +451,8 @@
           ],
           "images": [
             "media/tour/event-space.jpg"
-          ]
+          ],
+          "status": "planned"
         },
         {
           "id": "trails",
@@ -448,7 +478,8 @@
             "media/landart/mushroom.jpg",
             "/images/lib/vision-1.jpg",
             "media/tour/trails.jpg"
-          ]
+          ],
+          "status": "planned"
         }
       ]
     },
@@ -480,7 +511,8 @@
             "media/tour/phase2-vision.jpg",
             "media/concept/panoramic-ecovillage.jpg",
             "media/concept/future-village.jpg"
-          ]
+          ],
+          "status": "planned"
         }
       ]
     }

@@ -96,8 +96,16 @@
   /* tour slide */
   .slide{display:flex;flex-direction:column;gap:13px;padding:4px 20px 22px}
   .slide .s-eyebrow{display:flex;align-items:center;gap:9px;flex-wrap:wrap;min-height:16px}
-  .slide .s-badge{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--accent);color:var(--accent);font-weight:700}
-  .slide .s-badge.now{color:#E2B24A;border-color:#E2B24A}
+  .slide .s-badge{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid var(--accent);color:var(--accent);font-weight:700}
+  .slide .s-badge svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  .slide .s-badge.st-complete{color:#6E9B5E;border-color:#6E9B5E}
+  .slide .s-badge.st-in-progress{color:#E2B24A;border-color:#E2B24A}
+  .slide .s-badge.st-planned{color:#A78FB0;border-color:#A78FB0}
+  .slide .s-notes{margin-top:2px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.03)}
+  .slide .s-notes .nh{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:7px;display:flex;align-items:center;gap:5px}
+  .slide .s-notes .nh svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .slide .s-notes ul{margin:0;padding-left:16px;display:flex;flex-direction:column;gap:5px}
+  .slide .s-notes li{font-size:13px;line-height:1.4;color:var(--ink)}
   .slide .s-stage{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
   .slide .s-title{margin:0;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.12;font-weight:600;color:var(--ink)}
   .slide figure{margin:0}
@@ -200,7 +208,12 @@
   body.touring #controls{display:none!important}
   body.touring #mediapanel{height:calc(100% - var(--tlh,130px))}
   .tl-node{flex:1 1 0;min-width:0;position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center}
-  .tl-top{display:flex;align-items:center;width:100%;height:12px}
+  .tl-top{display:flex;align-items:center;width:100%;height:20px}
+  .tl-mark{flex:none;width:20px;height:20px;border-radius:50%;background:var(--sc,#9A8FA8);display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
+  .tl-mark svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+  .tl-mark.st-complete{--sc:#6E9B5E} .tl-mark.st-in-progress{--sc:#E2B24A} .tl-mark.st-planned{--sc:#9A8FA8}
+  .tl-node:hover .tl-mark{transform:scale(1.18)}
+  .tl-node.active .tl-mark{transform:scale(1.3);box-shadow:0 0 0 3px rgba(255,255,255,.14),0 0 10px var(--sc)}
   .tl-ln{flex:1;height:2px;background:var(--pc,var(--line));opacity:.4}
   .tl-node:first-child .tl-ln.l{visibility:hidden}
   .tl-node:last-child .tl-ln.r{visibility:hidden}
@@ -540,15 +553,20 @@ function closeMedia(){document.getElementById('mediapanel').classList.remove('op
   document.body.classList.remove('media-open'); setTimeout(()=>map.invalidateSize(),300);}
 document.getElementById('mpclose').onclick=closeMedia;
 
+const ICO={
+  complete:'<svg viewBox="0 0 24 24"><path d="M5 12l5 5l10 -10"/></svg>',
+  'in-progress':'<svg viewBox="0 0 24 24"><path d="M11.414 10l-7.383 7.418a2.091 2.091 0 0 0 0 2.967a2.11 2.11 0 0 0 2.976 0l7.407 -7.385"/><path d="M18.121 15.293l2.586 -2.586a1 1 0 0 0 0 -1.414l-7.586 -7.586a1 1 0 0 0 -1.414 0l-2.586 2.586a1 1 0 0 0 0 1.414l7.586 7.586a1 1 0 0 0 1.414 0z"/></svg>',
+  planned:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>'};
+const STLABEL={complete:'Complete','in-progress':'In Progress',planned:'Planned'};
+function statusBadge(s){ const st=s.status||'planned'; return '<span class="s-badge st-'+st+'">'+(ICO[st]||'')+escHtml(STLABEL[st]||'')+'</span>'; }
 let TOUR=[], tourIdx=-1;
 function tourPanel(s){
   document.getElementById('mp-stage').textContent=s.stage||'';
   document.getElementById('mp-prog').textContent=(tourIdx+1)+' / '+TOUR.length;
-  const isNow=/operating/i.test(s.badge||'');
-  const isDiv=s.kind==='divider';
+  const isDiv=s.kind==='divider'; const badge=statusBadge(s);
   let h='<div class="slide'+(isDiv?' divider':'')+'">';
-  if(isDiv){ h+='<div class="s-phase"><span class="s-phase-k">'+escHtml(s.stageLabel||s.stage||'')+'</span><span class="s-phase-rule"></span></div>'; }
-  else { h+='<div class="s-eyebrow">'+(s.badge?'<span class="s-badge'+(isNow?' now':'')+'">'+escHtml(s.badge)+'</span>':'')+'</div>'; }
+  if(isDiv){ h+='<div class="s-phase"><span class="s-phase-k">'+escHtml(s.stageLabel||s.stage||'')+'</span><span class="s-phase-rule"></span>'+badge+'</div>'; }
+  else { h+='<div class="s-eyebrow">'+badge+'</div>'; }
   h+='<h2 class="s-title">'+escHtml(s.title||'')+'</h2>';
   const imgs=(s.images&&s.images.length)?s.images:(s.image?[s.image]:[]);
   if(s.video){ const vid=encodeURIComponent(s.video);
@@ -563,6 +581,7 @@ function tourPanel(s){
   else if(imgs.length===1){ const img=imgs[0]; h+='<figure><img class="s-img" data-src="'+img+'" src="'+img+'">'+(s.caption?'<figcaption class="s-cap">'+escHtml(s.caption)+'</figcaption>':'')+'</figure>'; }
   if(s.lead) h+='<p class="s-lead">'+escHtml(s.lead)+'</p>';
   if(s.points&&s.points.length) h+='<ul class="s-points">'+s.points.map(pt=>'<li>'+escHtml(pt)+'</li>').join('')+'</ul>';
+  if(s.notes&&s.notes.length) h+='<div class="s-notes"><div class="nh">'+ICO['in-progress']+'Progress notes</div><ul>'+s.notes.map(n=>'<li>'+escHtml(n)+'</li>').join('')+'</ul></div>';
   if(s.body) h+='<div class="mp-write">'+renderWrite(s.body)+'</div>';
   if(s.cta) h+='<a class="s-cta" href="'+s.cta.href+'" target="_blank" rel="noopener">'+escHtml(s.cta.label)+'</a>';
   h+='</div>';
@@ -688,7 +707,8 @@ function renderTimeline(){ const el=document.getElementById('timeline'); if(!el)
     const ph=tlPhase(s); const isNew=!prev||ph.key!==prev;
     const node=document.createElement('div');
     node.className='tl-node ph'+ph.key+(i===tourIdx?' active':(i<tourIdx?' done':''))+(isNew&&i>0?' tl-pstart':'');
-    let h='<div class="tl-top"><span class="tl-ln l"></span><span class="tl-dot"></span><span class="tl-ln r"></span></div>'+
+    const stt=s.status||'planned';
+    let h='<div class="tl-top"><span class="tl-ln l"></span><span class="tl-mark st-'+stt+'">'+(ICO[stt]||'')+'</span><span class="tl-ln r"></span></div>'+
           '<div class="tl-label">'+escHtml((s.title||s.stage||'').replace(/^The\s+/i,''))+'</div>';
     if(isNew) h='<div class="tl-phase p'+ph.key+'">'+escHtml(ph.name)+'</div>'+h;
     node.innerHTML=h; node.onclick=()=>goStop(i); el.appendChild(node);
