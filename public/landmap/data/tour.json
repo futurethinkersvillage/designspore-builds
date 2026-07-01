@@ -213,27 +213,16 @@
           "fit": "property",
           "title": "Phase 2: Building the Village",
           "image": "media/tour/phase2-intro.jpg",
-          "lead": "Everything so far is built and operating. From here on is the plan: Phase 2 turns the working campground into a village.",
+          "lead": "Phase 2 turns the working campground into a village — starting with the core.",
           "points": [
-            "Creekside & lakeside cabins, maker space, festival grounds, and an art-trail network",
-            "Built in sequence & funded by the Founding Members"
+            "Creekside cabins — the first cabin neighbourhood",
+            "The Maker Space — a community workshop that helps build the village",
+            "Built in sequence and funded by the Founding Members"
           ],
           "layers": [
-            "electrical_trunk_eh_maker_space",
             "maker_space",
-            "portapotty_groups",
-            "camp_roads",
-            "camp_plots",
-            "festival_grounds",
-            "landings",
-            "portapotties",
-            "central_showers",
-            "discovery_trail",
-            "event_parking",
             "cabins",
-            "lake_cabins",
-            "event_space",
-            "event_gazebo",
+            "electrical_trunk_eh_maker_space",
             "wells_gray_golf_rv_parcel"
           ],
           "video": "Tf_YNgph84o",
@@ -324,25 +313,6 @@
       "badge": "Proposed",
       "stops": [
         {
-          "id": "event-space",
-          "center": [
-            -120.05052,
-            51.9366
-          ],
-          "zoom": 19,
-          "title": "Event Stage",
-          "image": "media/tour/event-space.jpg",
-          "lead": "An outdoor stage for music, performance and festival nights.",
-          "points": [
-            "A gathering point for shows, talks and celebrations",
-            "Scales up with the festival grounds",
-            "Part of the next phase of community buildings"
-          ],
-          "layers": [
-            "event_space"
-          ]
-        },
-        {
           "id": "festival",
           "marker": [
             -120.04832,
@@ -375,6 +345,25 @@
               "Portapotties (50 units)"
             ]
           }
+        },
+        {
+          "id": "event-space",
+          "center": [
+            -120.05052,
+            51.9366
+          ],
+          "zoom": 19,
+          "title": "Event Stage",
+          "image": "media/tour/event-space.jpg",
+          "lead": "An outdoor stage for music, performance and festival nights.",
+          "points": [
+            "A gathering point for shows, talks and celebrations",
+            "Scales up with the festival grounds",
+            "Part of the next phase of community buildings"
+          ],
+          "layers": [
+            "event_space"
+          ]
         },
         {
           "id": "trails",
@@ -410,30 +399,19 @@
           "points": [
             "An art & wellness village, educational campus, and eco-resort planned for later phases",
             "Wells Gray Village is the flagship — a template to be replicated elsewhere",
-            "Part of a future network of villages"
-          ],
-          "layers": [
-            "wells_gray_golf_rv_parcel"
-          ],
-          "fit": "all"
-        },
-        {
-          "id": "become-member",
-          "fit": "all",
-          "title": "Become a Member",
-          "image": "media/tour/become-member.jpg",
-          "lead": "Join the village.",
-          "points": [
+            "Part of a future network of villages",
             "Founding Members: a curated group, by invitation only",
             "Annual Members: launching 2027"
           ],
           "layers": [
             "wells_gray_golf_rv_parcel"
           ],
+          "fit": "all",
           "cta": {
             "href": "https://portal.place",
             "label": "Apply now — closing soon"
-          }
+          },
+          "nolabels": true
         }
       ]
     }

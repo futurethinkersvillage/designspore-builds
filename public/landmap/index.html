@@ -358,7 +358,7 @@ function addLayer(L){return fetch('data/'+L.f+'.geojson').then(r=>r.json()).then
         if(idx>=0){ window.L.DomEvent.stop(e); goStop(idx); return; }
         window.L.popup().setLatLng(e.latlng).setContent(popupHtml(L,p)).openOn(map);  // else a clean popup
       });
-      if(L.label){const v=p[L.label]; if(v!=null&&String(v).trim()!=='')
+      if(L.label){const v=p[L.label]; if(v!=null&&String(v).trim()!==''&&!isJunk(v))
         l.bindTooltip(`<span style="color:${col}">${v}</span>`,{permanent:true,direction:'center',className:'maplbl'+(dev?' dev':'')});}}
     if(!L.label && !L.nolabel){const rep=repLayer(lyr); if(rep) rep.bindTooltip(`<span style="color:${col}">${L.name}</span>`,{permanent:true,direction:'center',className:'maplbl'});}
     overlays[L.f]=lyr; return L;
@@ -566,12 +566,15 @@ function tourPanel(s){
   h+='</div>';
   const body=document.getElementById('mpbody'); body.innerHTML=h; body.scrollTop=0;
   body.querySelectorAll('img:not(.ss-img)').forEach(im=>im.onerror=()=>{const x=im.getAttribute('data-src')||'';im.outerHTML='<div class="s-ph">Image — '+x+'</div>';});
+  if(window._sliderTimer){ clearInterval(window._sliderTimer); window._sliderTimer=null; }
   const sl=body.querySelector('.s-slider');
   if(sl){ const ims=[...sl.querySelectorAll('.ss-img')], dts=[...sl.querySelectorAll('.ss-dot')]; let ci=0;
     const go=k=>{ci=(k+ims.length)%ims.length; ims.forEach((im,j)=>im.classList.toggle('on',j===ci)); dts.forEach((d,j)=>d.classList.toggle('on',j===ci));};
-    sl.querySelector('.ss-prev').onclick=e=>{e.stopPropagation();go(ci-1);};
-    sl.querySelector('.ss-next').onclick=e=>{e.stopPropagation();go(ci+1);};
-    dts.forEach(d=>d.onclick=e=>{e.stopPropagation();go(+d.dataset.k);}); }
+    const auto=()=>{ clearInterval(window._sliderTimer); window._sliderTimer=setInterval(()=>go(ci+1),2000); };  // autoplay + loop, 2s
+    sl.querySelector('.ss-prev').onclick=e=>{e.stopPropagation();go(ci-1);auto();};
+    sl.querySelector('.ss-next').onclick=e=>{e.stopPropagation();go(ci+1);auto();};
+    dts.forEach(d=>d.onclick=e=>{e.stopPropagation();go(+d.dataset.k);auto();});
+    auto(); }
   const mp=document.getElementById('mediapanel'); const wasOpen=mp.classList.contains('open'); mp.scrollTop=0; mp.classList.add('open');
   document.body.classList.add('media-open'); if(!wasOpen) setTimeout(()=>map.invalidateSize(),300);
   const last=tourIdx>=TOUR.length-1;
@@ -665,7 +668,7 @@ function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
     else { const fp=stopFocus(s); fp?showPing(fp,pc):clearPing(); } };
   if(firstOpen) setTimeout(fit,360); else fit(); }
 function startTour(){ if(TOUR.length) goStop(0); }
-function endTour(){ tourIdx=-1; clearPing(); closeMedia(); restoreOnly(); document.body.classList.remove('touring'); document.body.classList.toggle('nolabels', !document.getElementById('lbltoggle').checked); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
+function endTour(){ tourIdx=-1; clearPing(); closeMedia(); restoreOnly(); if(window._sliderTimer){clearInterval(window._sliderTimer);window._sliderTimer=null;} document.body.classList.remove('touring'); document.body.classList.toggle('nolabels', !document.getElementById('lbltoggle').checked); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
 let STAGES=[];
 function tlPhase(s){const st=(s.stage||''); const b=(s.badge||'').toLowerCase();
   const m=/phase\s*(\d+)/i.exec(st); if(m) return {key:m[1],name:'Phase '+m[1]};
