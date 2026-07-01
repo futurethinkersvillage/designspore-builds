@@ -223,32 +223,10 @@
             "media/tour/forest-school.jpg",
             "media/tour/village-rhythm.jpg",
             "/images/lib/gazebo-community-meetup-scaled.jpg",
-            "/images/lib/event-storytelling.jpg",
             "/images/meditation-group.jpg",
             "media/library/resort/resort-043.jpg",
             "media/library/resort/resort-055.jpg",
             "media/library/resort/resort-056.jpg"
-          ]
-        },
-        {
-          "id": "permaculture",
-          "center": [
-            -120.05665,
-            51.93698
-          ],
-          "zoom": 19,
-          "title": "The Permaculture Garden",
-          "lead": "A small permaculture garden on the land.",
-          "points": [
-            "Food, herbs and pollinators grown on site",
-            "A living classroom & the seed of the larger vision"
-          ],
-          "layers": [
-            "permaculture_garden"
-          ],
-          "images": [
-            "media/tour/permaculture.jpg",
-            "/images/lib/gov-garden.jpg"
           ]
         }
       ]
@@ -320,10 +298,7 @@
           ],
           "images": [
             "media/tour/creekside-cabins.jpg",
-            "/images/ffec9020-31b4-440a-bf8f-c25af6a392b9-1024x576.jpg",
-            "media/cabins/mor-ii.jpg",
-            "media/cabins/hutt.jpg",
-            "media/cabins/cabn-hero.jpg"
+            "/images/ffec9020-31b4-440a-bf8f-c25af6a392b9-1024x576.jpg"
           ]
         }
       ]
@@ -503,10 +478,8 @@
           "nolabels": true,
           "images": [
             "media/tour/phase2-vision.jpg",
-            "media/concept/sunrise-village.jpg",
             "media/concept/panoramic-ecovillage.jpg",
-            "media/concept/future-village.jpg",
-            "media/concept/village-concept.jpg"
+            "media/concept/future-village.jpg"
           ]
         }
       ]
