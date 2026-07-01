@@ -101,11 +101,51 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#E8814C",
-    "fillOpacity": 0.0,
-    "stroke": "#E8814C",
-    "weight": 2.94,
-    "mode": "single"
+    "mode": "categorized",
+    "field": "Type",
+    "cats": [
+     {
+      "v": "Dome",
+      "fill": "#5F8FD0",
+      "stroke": "#5F8FD0",
+      "fillOpacity": 0.0,
+      "weight": 3.0
+     },
+     {
+      "v": "Cabin 1",
+      "fill": "#B54A40",
+      "stroke": "#B54A40",
+      "fillOpacity": 0.0,
+      "weight": 3.0
+     },
+     {
+      "v": "Cabin 2",
+      "fill": "#B54A40",
+      "stroke": "#B54A40",
+      "fillOpacity": 0.0,
+      "weight": 3.0
+     },
+     {
+      "v": "Cabin 3",
+      "fill": "#B54A40",
+      "stroke": "#B54A40",
+      "fillOpacity": 0.0,
+      "weight": 3.0
+     },
+     {
+      "v": "Sauna",
+      "fill": "#9E6B45",
+      "stroke": "#9E6B45",
+      "fillOpacity": 0.0,
+      "weight": 3.0
+     }
+    ],
+    "default": {
+     "fill": "#E8814C",
+     "stroke": "#E8814C",
+     "fillOpacity": 0.0,
+     "weight": 3.0
+    }
    },
    "label": "Type",
    "nolabel": false,
@@ -236,9 +276,9 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#5B7BB8",
+    "fill": "#6E9B5E",
     "fillOpacity": 0.0,
-    "stroke": "#5B7BB8",
+    "stroke": "#6E9B5E",
     "weight": 3.4,
     "mode": "single"
    },
@@ -391,9 +431,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#8E5AA0",
+    "fill": "#CE6A93",
     "fillOpacity": 0.0,
-    "stroke": "#8E5AA0",
+    "stroke": "#CE6A93",
     "weight": 3.42,
     "dash": "7,5",
     "mode": "single"
@@ -497,11 +537,12 @@
    "bulk": true,
    "geom": "line",
    "style": {
-    "fill": "#5B7BB8",
-    "stroke": "#5B7BB8",
+    "fill": "#7C86CC",
+    "stroke": "#7C86CC",
     "fillOpacity": 0,
     "weight": 3.9,
-    "mode": "single"
+    "mode": "single",
+    "cls": "trail-grad"
    },
    "label": "name",
    "nolabel": false,
@@ -547,9 +588,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#A9564A",
+    "fill": "#2BA89C",
     "fillOpacity": 0.0,
-    "stroke": "#A9564A",
+    "stroke": "#2BA89C",
     "weight": 3.9,
     "mode": "single"
    },
@@ -572,9 +613,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#6363BA",
+    "fill": "#5F8FD0",
     "fillOpacity": 0.0,
-    "stroke": "#6363BA",
+    "stroke": "#5F8FD0",
     "weight": 3.9,
     "mode": "single"
    },
@@ -597,9 +638,9 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#B56B8E",
+    "fill": "#6E9B5E",
     "fillOpacity": 0.0,
-    "stroke": "#B56B8E",
+    "stroke": "#6E9B5E",
     "weight": 3.9,
     "mode": "single"
    },
@@ -622,9 +663,9 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#D98C6A",
+    "fill": "#8E5AA0",
     "fillOpacity": 0.0,
-    "stroke": "#D98C6A",
+    "stroke": "#8E5AA0",
     "weight": 3.9,
     "mode": "single"
    },
@@ -781,7 +822,7 @@
     -120.046968,
     51.939686
    ],
-   "color": "#A9564A",
+   "color": "#2BA89C",
    "layer": "cabins"
   },
   {
@@ -790,7 +831,7 @@
     -120.047718,
     51.936707
    ],
-   "color": "#6363BA",
+   "color": "#5F8FD0",
    "layer": "lake_cabins"
   },
   {
@@ -817,7 +858,7 @@
     -120.049803,
     51.936259
    ],
-   "color": "#D98C6A",
+   "color": "#8E5AA0",
    "layer": "event_gazebo"
   },
   {
@@ -826,7 +867,7 @@
     -120.050534,
     51.936608
    ],
-   "color": "#B56B8E",
+   "color": "#6E9B5E",
    "layer": "event_space"
   },
   {
@@ -835,7 +876,7 @@
     -120.052084,
     51.939088
    ],
-   "color": "#5B7BB8",
+   "color": "#6E9B5E",
    "layer": "golf_course"
   },
   {
