@@ -325,7 +325,12 @@
             "portapotty_groups",
             "central_showers",
             "event_parking"
-          ]
+          ],
+          "center": [
+            -120.048662,
+            51.934585
+          ],
+          "zoom": 16.5
         },
         {
           "id": "trails",

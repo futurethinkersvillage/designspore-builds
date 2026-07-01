@@ -45,9 +45,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#C98B82",
+    "fill": "#C97F72",
     "fillOpacity": 0.0,
-    "stroke": "#C98B82",
+    "stroke": "#C97F72",
     "weight": 2.94,
     "mode": "single"
    },
@@ -73,9 +73,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#AF695E",
+    "fill": "#8E4B54",
     "fillOpacity": 0.0,
-    "stroke": "#AF695E",
+    "stroke": "#8E4B54",
     "weight": 2.94,
     "mode": "single"
    },
@@ -101,9 +101,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#EA824E",
+    "fill": "#E8814C",
     "fillOpacity": 0.0,
-    "stroke": "#EA824E",
+    "stroke": "#E8814C",
     "weight": 2.94,
     "mode": "single"
    },
@@ -130,9 +130,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#a27b9e",
+    "fill": "#C99A4E",
     "fillOpacity": 0.0,
-    "stroke": "#a27b9e",
+    "stroke": "#C99A4E",
     "weight": 2.94,
     "mode": "single"
    },
@@ -157,9 +157,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#6363ba",
+    "fill": "#4A5C9E",
     "fillOpacity": 0.0,
-    "stroke": "#6363ba",
+    "stroke": "#4A5C9E",
     "weight": 2.94,
     "mode": "single"
    },
@@ -185,9 +185,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#6B6BB0",
+    "fill": "#7E8BD0",
     "fillOpacity": 0.0,
-    "stroke": "#6B6BB0",
+    "stroke": "#7E8BD0",
     "weight": 2.94,
     "mode": "single"
    },
@@ -211,9 +211,9 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#9A7E96",
+    "fill": "#9A7EA8",
     "fillOpacity": 0.0,
-    "stroke": "#9A7E96",
+    "stroke": "#9A7EA8",
     "weight": 3.9,
     "mode": "single"
    },
@@ -236,9 +236,9 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#A27B9E",
+    "fill": "#5B7BB8",
     "fillOpacity": 0.0,
-    "stroke": "#A27B9E",
+    "stroke": "#5B7BB8",
     "weight": 3.4,
     "mode": "single"
    },
@@ -287,9 +287,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#EA824E",
+    "fill": "#C85C33",
     "fillOpacity": 0.0,
-    "stroke": "#EA824E",
+    "stroke": "#C85C33",
     "weight": 2.94,
     "mode": "single"
    },
@@ -339,8 +339,8 @@
    "bulk": true,
    "geom": "line",
    "style": {
-    "fill": "#f2a878",
-    "stroke": "#f2a878",
+    "fill": "#7E8BD0",
+    "stroke": "#7E8BD0",
     "fillOpacity": 0,
     "weight": 2.5,
     "mode": "single"
@@ -365,9 +365,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#a27b9e",
+    "fill": "#C9A45E",
     "fillOpacity": 0.0,
-    "stroke": "#a27b9e",
+    "stroke": "#C9A45E",
     "weight": 2.94,
     "mode": "single"
    },
@@ -391,9 +391,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#6363ba",
+    "fill": "#8E5AA0",
     "fillOpacity": 0.0,
-    "stroke": "#6363ba",
+    "stroke": "#8E5AA0",
     "weight": 3.42,
     "dash": "7,5",
     "mode": "single"
@@ -497,8 +497,8 @@
    "bulk": true,
    "geom": "line",
    "style": {
-    "fill": "#f2a878",
-    "stroke": "#f2a878",
+    "fill": "#5B7BB8",
+    "stroke": "#5B7BB8",
     "fillOpacity": 0,
     "weight": 3.9,
     "mode": "single"
@@ -547,9 +547,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#AF695E",
+    "fill": "#A9564A",
     "fillOpacity": 0.0,
-    "stroke": "#AF695E",
+    "stroke": "#A9564A",
     "weight": 3.9,
     "mode": "single"
    },
@@ -572,9 +572,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#6363ba",
+    "fill": "#6363BA",
     "fillOpacity": 0.0,
-    "stroke": "#6363ba",
+    "stroke": "#6363BA",
     "weight": 3.9,
     "mode": "single"
    },
@@ -597,9 +597,9 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#F2A878",
+    "fill": "#B56B8E",
     "fillOpacity": 0.0,
-    "stroke": "#F2A878",
+    "stroke": "#B56B8E",
     "weight": 3.9,
     "mode": "single"
    },
@@ -622,9 +622,9 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#C98B82",
+    "fill": "#D98C6A",
     "fillOpacity": 0.0,
-    "stroke": "#C98B82",
+    "stroke": "#D98C6A",
     "weight": 3.9,
     "mode": "single"
    },
@@ -648,9 +648,9 @@
    "bulk": false,
    "geom": "poly",
    "style": {
-    "fill": "#6B6BB0",
+    "fill": "#6B8BC8",
     "fillOpacity": 0.0,
-    "stroke": "#6B6BB0",
+    "stroke": "#6B8BC8",
     "weight": 2.94,
     "mode": "single"
    },
@@ -727,8 +727,8 @@
    "bulk": true,
    "geom": "line",
    "style": {
-    "fill": "#ea824e",
-    "stroke": "#ea824e",
+    "fill": "#9A7EA8",
+    "stroke": "#9A7EA8",
     "fillOpacity": 0,
     "weight": 4.86,
     "mode": "single"
@@ -781,7 +781,7 @@
     -120.046968,
     51.939686
    ],
-   "color": "#AF695E",
+   "color": "#A9564A",
    "layer": "cabins"
   },
   {
@@ -790,7 +790,7 @@
     -120.047718,
     51.936707
    ],
-   "color": "#6363ba",
+   "color": "#6363BA",
    "layer": "lake_cabins"
   },
   {
@@ -799,7 +799,7 @@
     -120.047871,
     51.941595
    ],
-   "color": "#EA824E",
+   "color": "#C85C33",
    "layer": "maker_space"
   },
   {
@@ -808,7 +808,7 @@
     -120.056665,
     51.936981
    ],
-   "color": "#9A7E96",
+   "color": "#9A7EA8",
    "layer": "permaculture_garden"
   },
   {
@@ -817,7 +817,7 @@
     -120.049803,
     51.936259
    ],
-   "color": "#C98B82",
+   "color": "#D98C6A",
    "layer": "event_gazebo"
   },
   {
@@ -826,7 +826,7 @@
     -120.050534,
     51.936608
    ],
-   "color": "#F2A878",
+   "color": "#B56B8E",
    "layer": "event_space"
   },
   {
@@ -835,7 +835,7 @@
     -120.052084,
     51.939088
    ],
-   "color": "#A27B9E",
+   "color": "#5B7BB8",
    "layer": "golf_course"
   }
  ]
