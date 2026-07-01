@@ -251,6 +251,25 @@
           "video": "Tf_YNgph84o"
         },
         {
+          "id": "maker-space",
+          "center": [
+            -120.04787,
+            51.94159
+          ],
+          "zoom": 19,
+          "title": "The Maker Space",
+          "image": "media/tour/maker-space.jpg",
+          "lead": "A community workshop — and a key element of village culture.",
+          "points": [
+            "3D printers, CNC, laser and woodworking",
+            "Fabricates cabin finishings and art installations",
+            "Used for workshops & maker meetups"
+          ],
+          "layers": [
+            "maker_space"
+          ]
+        },
+        {
           "id": "creekside-cabins",
           "title": "Creekside Cabins",
           "image": "media/tour/creekside-cabins.jpg",
@@ -305,6 +324,25 @@
           ]
         },
         {
+          "id": "event-gazebo",
+          "center": [
+            -120.0498,
+            51.93626
+          ],
+          "zoom": 20,
+          "title": "New Event Gazebo",
+          "image": "media/tour/community-gazebo.jpg",
+          "lead": "A new pavilion for gatherings of every kind.",
+          "points": [
+            "Hosts retreats, ceremonies, workshops, and more",
+            "A flexible, open community space",
+            "Part of the future phases of community buildings"
+          ],
+          "layers": [
+            "event_gazebo"
+          ]
+        },
+        {
           "id": "festival",
           "marker": [
             -120.04832,
@@ -331,7 +369,12 @@
             -120.048662,
             51.934585
           ],
-          "zoom": 16.5
+          "zoom": 16.5,
+          "only": {
+            "portapotty_groups": [
+              "Portapotties (50 units)"
+            ]
+          }
         },
         {
           "id": "trails",
@@ -352,44 +395,6 @@
             "discovery_trail",
             "landings",
             "trails"
-          ]
-        },
-        {
-          "id": "maker-space",
-          "center": [
-            -120.04787,
-            51.94159
-          ],
-          "zoom": 19,
-          "title": "The Maker Space",
-          "image": "media/tour/maker-space.jpg",
-          "lead": "A community workshop — and a key element of village culture.",
-          "points": [
-            "3D printers, CNC, laser and woodworking",
-            "Fabricates cabin finishings and art installations",
-            "Used for workshops & maker meetups"
-          ],
-          "layers": [
-            "maker_space"
-          ]
-        },
-        {
-          "id": "event-gazebo",
-          "center": [
-            -120.0498,
-            51.93626
-          ],
-          "zoom": 20,
-          "title": "New Event Gazebo",
-          "image": "media/tour/community-gazebo.jpg",
-          "lead": "A new pavilion for gatherings of every kind.",
-          "points": [
-            "Hosts retreats, ceremonies, workshops, and more",
-            "A flexible, open community space",
-            "Part of the future phases of community buildings"
-          ],
-          "layers": [
-            "event_gazebo"
           ]
         }
       ]

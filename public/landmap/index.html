@@ -69,8 +69,8 @@
   .leaflet-popup-content-wrapper{background:var(--panel);color:var(--ink);border-radius:10px}
   .leaflet-popup-tip{background:var(--panel)}
   .pp b{color:var(--accent)} .pp .t{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
-  .maplbl{background:transparent;border:none;box-shadow:none;color:#fff;font-weight:600;font-size:13px;text-shadow:0 0 3px #000,0 0 3px #000,0 0 2px #000;padding:0}
-  .maplbl.dev{font-size:15px;font-weight:700}
+  .maplbl{background:transparent;border:none;box-shadow:none;color:#fff;font-weight:700;font-size:13px;text-shadow:0 0 2px #000,0 0 4px #000,0 0 6px #000,0 1px 2px #000;padding:0}
+  .maplbl.dev{font-size:14.5px;font-weight:800;background:rgba(18,15,23,.62);padding:2px 9px;border-radius:9px;text-shadow:0 0 3px #000,0 1px 2px #000}
   .leaflet-tooltip.maplbl:before{display:none}
   body.nolabels .maplbl{display:none!important}
   /* media markers + sidebar */
@@ -81,7 +81,7 @@
     transition:transform .28s ease;overflow:hidden;backdrop-filter:blur(6px);display:flex;flex-direction:column}
   #mediapanel.open{transform:translateX(0)}
   #mediapanel .mp-head{flex:none;display:flex;align-items:center;gap:10px;background:rgba(26,23,32,.98);padding:11px 42px 11px 18px;border-bottom:1px solid var(--line)}
-  #mediapanel .mp-stage{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  #mediapanel .mp-stage{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--pc,var(--accent));font-weight:700}
   #mediapanel .mp-prog{margin-left:auto;font-size:11.5px;color:var(--muted)}
   #mediapanel .mp-close{position:absolute;top:7px;right:13px;font-size:23px;cursor:pointer;color:var(--muted);line-height:1;z-index:4}
   #mediapanel .mp-close:hover{color:var(--ink)}
@@ -91,7 +91,7 @@
   #mediapanel .mp-back{flex:1;background:rgba(255,255,255,.05);color:var(--ink)}
   #mediapanel .mp-back:hover{border-color:var(--accent)}
   #mediapanel .mp-back[disabled]{opacity:.3;cursor:default}
-  #mediapanel .mp-next{flex:1.5;background:var(--accent);color:#1a1a1a;border-color:var(--accent)}
+  #mediapanel .mp-next{flex:1.5;background:var(--pc,var(--accent));color:#1a1a1a;border-color:var(--pc,var(--accent))}
   #mediapanel .mp-next:hover{filter:brightness(1.07)}
   /* tour slide */
   .slide{display:flex;flex-direction:column;gap:13px;padding:4px 20px 22px}
@@ -110,9 +110,9 @@
   .slide .s-lead{margin:0;font-size:15px;line-height:1.5;color:var(--ink);font-weight:500}
   .slide .s-points{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
   .slide .s-points li{position:relative;padding-left:17px;font-size:13.5px;line-height:1.45;color:var(--ink)}
-  .slide .s-points li:before{content:"";position:absolute;left:1px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
-  .slide .s-cta{margin-top:4px;display:block;text-align:center;padding:11px 14px;border:1px solid var(--accent);border-radius:10px;color:var(--accent);text-decoration:none;font-size:14px;font-weight:600}
-  .slide .s-cta:hover{background:var(--accent);color:#1a1a1a}
+  .slide .s-points li:before{content:"";position:absolute;left:1px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--pc,var(--accent))}
+  .slide .s-cta{margin-top:4px;display:block;text-align:center;padding:11px 14px;border:1px solid var(--pc,var(--accent));border-radius:10px;color:var(--pc,var(--accent));text-decoration:none;font-size:14px;font-weight:600}
+  .slide .s-cta:hover{background:var(--pc,var(--accent));color:#1a1a1a}
   /* phase divider stop */
   .slide.divider{gap:15px}
   .slide.divider .s-phase{display:flex;align-items:center;gap:11px;margin-bottom:-2px}
@@ -198,7 +198,7 @@
   .tl-node.done .tl-ln{background:var(--pc,var(--accent))}
   .tl-node.active .tl-dot{background:var(--pc,var(--accent));border-color:var(--pc,var(--accent));box-shadow:0 0 9px var(--pc,var(--accent));transform:scale(1.4)}
   .tl-node.active .tl-ln.l{background:var(--pc,var(--accent))}
-  .tl-label{margin-top:6px;font-size:10px;line-height:1.2;text-align:center;color:var(--muted);max-width:100%;overflow-wrap:break-word;padding:0 3px}
+  .tl-label{margin-top:6px;font-size:10px;line-height:1.2;text-align:center;color:var(--muted);max-width:100%;overflow-wrap:break-word;overflow:hidden;padding:0 3px}
   .tl-node:hover .tl-label{color:var(--ink)}
   .tl-node.active .tl-label{color:var(--pc,var(--accent));font-weight:700}
   .tl-phase{position:absolute;top:-28px;left:3px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;white-space:nowrap;pointer-events:none;z-index:3;text-shadow:0 0 3px #000,0 0 4px #000}
@@ -512,14 +512,25 @@ function zoomForHeight(b){ const cz=map.getZoom(); const cl=b.getCenter().lng;
   const pN=map.project([b.getNorth(),cl],cz), pS=map.project([b.getSouth(),cl],cz);
   const pxH=Math.abs(pS.y-pN.y)||1; const z=cz+Math.log2((map.getSize().y||700)/pxH);
   return Math.min(map.getMaxZoom(), Math.max(0, z-0.05)); }
+// reserved screen regions during the tour: media panel (right) + timeline (bottom)
+function tourPad(){
+  const tlh=parseInt(getComputedStyle(document.body).getPropertyValue('--tlh'))||0;
+  const mp=document.getElementById('mediapanel'); let pw=0;
+  if(mp&&mp.classList.contains('open')){ pw=mp.getBoundingClientRect().width||0; }
+  const W=(map.getSize().x||1000); if(pw>W*0.5) pw=Math.round(W*0.5); // don't reserve the whole map (mobile full-width panel)
+  return {right:pw, bottom:tlh}; }
+function padOpt(){ const p=tourPad(); return {duration:1.3, paddingTopLeft:[14,14], paddingBottomRight:[p.right+14, p.bottom+14]}; }
+// center a point in the *visible* area (offset for the reserved panel/timeline) at a fixed zoom
+function flyToOffset(ll,z){ const p=tourPad(); const z2=(z!=null?z:map.getZoom());
+  const pt=map.project(ll,z2); pt.x+=p.right/2; pt.y+=p.bottom/2;
+  map.flyTo(map.unproject(pt,z2), z2, {duration:1.3}); }
 function tourFit(s){
  try{
-  if(s.fit==='property'){ const l=overlays['wells_gray_golf_rv_parcel']; if(l){ const b=l.getBounds(); if(b.isValid()){ map.flyTo(b.getCenter(), zoomForHeight(b), {duration:1.3}); return; } } fitView(); return; }
-  if(s.center && s.center.length===2){ map.flyTo([s.center[1],s.center[0]],(s.zoom!=null?s.zoom:18),{duration:1.3}); return; }
-  if(s.fit==='all'){ fitView(); return; }
+  if(s.fit==='property'||s.fit==='all'){ const l=overlays['wells_gray_golf_rv_parcel']; if(l){ const b=l.getBounds(); if(b.isValid()){ map.flyToBounds(b, padOpt()); return; } } fitView(); return; }
+  if(s.center && s.center.length===2){ flyToOffset(L.latLng(s.center[1],s.center[0]),(s.zoom!=null?s.zoom:18)); return; }
   const slugs=(s.fit&&s.fit.length)?s.fit:(s.layers||[]); let b=null;
   slugs.forEach(f=>{const l=overlays[f]; if(!l)return; try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}});
-  if(b&&b.isValid()) map.flyToBounds(b.pad(0.22),{duration:1.3}); else fitView();
+  if(b&&b.isValid()) map.flyToBounds(b.pad(0.05), padOpt()); else fitView();
  }catch(e){ try{fitView()}catch(_){ } }
 }
 let tourPings=[];
@@ -535,8 +546,10 @@ function stopFocus(s){ if(s.marker&&s.marker.length===2) return L.latLng(s.marke
   if(s.center&&s.center.length===2) return L.latLng(s.center[1],s.center[0]);
   let b=null; (s.layers||[]).forEach(f=>{const l=overlays[f]; if(l){try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}}});
   return b&&b.isValid()? b.getCenter() : null; }
+const PHCOL={'1':'#E2B24A','2':'#EA824E','3':'#A98FD0'};
 function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
   const firstOpen=!document.getElementById('mediapanel').classList.contains('open');
+  document.getElementById('mediapanel').style.setProperty('--pc', PHCOL[tlPhase(s).key]||'#EA824E');
   tourShow(s.layers, s.only); tourPanel(s); renderBar();
   document.body.classList.add('touring'); renderTimeline();
   const fit=()=>{ tourFit(s);
@@ -560,11 +573,17 @@ function renderTimeline(){ const el=document.getElementById('timeline'); if(!el)
     const node=document.createElement('div');
     node.className='tl-node ph'+ph.key+(i===tourIdx?' active':(i<tourIdx?' done':''))+(isNew&&i>0?' tl-pstart':'');
     let h='<div class="tl-top"><span class="tl-ln l"></span><span class="tl-dot"></span><span class="tl-ln r"></span></div>'+
-          '<div class="tl-label">'+escHtml(s.title||s.stage||'')+'</div>';
+          '<div class="tl-label">'+escHtml((s.title||s.stage||'').replace(/^The\s+/i,''))+'</div>';
     if(isNew) h='<div class="tl-phase p'+ph.key+'">'+escHtml(ph.name)+'</div>'+h;
     node.innerHTML=h; node.onclick=()=>goStop(i); el.appendChild(node);
     prev=ph.key;
   });
+  // reserve worst-case (bold) label height on every node so the active-bold label
+  // never grows the timeline and the panel height stays stable between stops
+  const labels=el.querySelectorAll('.tl-label');
+  labels.forEach(l=>{ l.style.height='auto'; l.style.fontWeight='700'; });
+  let mx=0; labels.forEach(l=>{ if(l.offsetHeight>mx) mx=l.offsetHeight; });
+  labels.forEach(l=>{ l.style.fontWeight=''; l.style.height=mx+'px'; });
   // let the media panel sit exactly on top of the timeline (no awkward gap)
   document.body.style.setProperty('--tlh', el.offsetHeight+'px');
 }
