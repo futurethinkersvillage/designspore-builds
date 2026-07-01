@@ -22,8 +22,17 @@
             "3,000+ visitors a year, with minimal marketing"
           ],
           "layers": [
+            "bathroom_shower_house",
+            "utility_buildings",
+            "accomodations_for_rent",
+            "public_areas",
+            "full_service_rv_sites",
+            "power_water_rv_sites",
+            "permaculture_garden",
+            "golf_course",
             "wells_gray_golf_rv_parcel"
-          ]
+          ],
+          "nolabels": true
         },
         {
           "id": "rv-sites",
@@ -37,8 +46,7 @@
           ],
           "layers": [
             "full_service_rv_sites",
-            "power_water_rv_sites",
-            "labels"
+            "power_water_rv_sites"
           ],
           "marker": [
             -120.047907,
@@ -207,7 +215,7 @@
           "zoom": 18,
           "only": {
             "public_areas": [
-              "Playground"
+              "Playground (Forest School)"
             ]
           }
         },
@@ -246,9 +254,25 @@
             "Built in sequence & funded by the Founding Members"
           ],
           "layers": [
+            "electrical_trunk_eh_maker_space",
+            "maker_space",
+            "portapotty_groups",
+            "camp_roads",
+            "camp_plots",
+            "festival_grounds",
+            "landings",
+            "portapotties",
+            "central_showers",
+            "discovery_trail",
+            "event_parking",
+            "cabins",
+            "lake_cabins",
+            "event_space",
+            "event_gazebo",
             "wells_gray_golf_rv_parcel"
           ],
-          "video": "Tf_YNgph84o"
+          "video": "Tf_YNgph84o",
+          "nolabels": true
         },
         {
           "id": "maker-space",
@@ -300,8 +324,7 @@
             "Finished in the maker space, plugged into existing services"
           ],
           "layers": [
-            "lake_cabins",
-            "lakes"
+            "lake_cabins"
           ]
         },
         {
@@ -363,7 +386,6 @@
             "camp_plots",
             "portapotty_groups",
             "central_showers",
-            "event_parking",
             "wells_gray_golf_rv_parcel"
           ],
           "center": [
@@ -394,8 +416,7 @@
           ],
           "layers": [
             "discovery_trail",
-            "landings",
-            "trails"
+            "landings"
           ]
         }
       ]

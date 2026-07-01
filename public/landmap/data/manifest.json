@@ -846,6 +846,24 @@
    ],
    "color": "#6b6bb0",
    "layer": "central_showers"
+  },
+  {
+   "text": "Full-Service RV Sites",
+   "center": [
+    -120.047826,
+    51.940257
+   ],
+   "color": "#29A3C4",
+   "layer": "full_service_rv_sites"
+  },
+  {
+   "text": "Power & Water RV Sites",
+   "center": [
+    -120.048169,
+    51.9397
+   ],
+   "color": "#7E8BD0",
+   "layer": "power_water_rv_sites"
   }
  ]
 }

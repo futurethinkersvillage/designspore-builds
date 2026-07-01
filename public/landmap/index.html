@@ -632,6 +632,7 @@ const PHCOL={'1':'#E2B24A','2':'#EA824E','3':'#A98FD0'};
 function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
   const firstOpen=!document.getElementById('mediapanel').classList.contains('open');
   document.getElementById('mediapanel').style.setProperty('--pc', PHCOL[tlPhase(s).key]||'#EA824E');
+  document.body.classList.toggle('nolabels', !!s.nolabels);   // per-stop label suppression
   tourShow(s.layers, s.only); tourPanel(s); renderBar();
   const nxt=TOUR[i+1]; if(nxt&&nxt.image){ const im=new Image(); im.src=nxt.image; }  // preload next slide image
   document.body.classList.add('touring'); renderTimeline(); writeURL();  // update deep-link hash immediately
@@ -643,7 +644,7 @@ function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
     else { const fp=stopFocus(s); fp?showPing(fp,pc):clearPing(); } };
   if(firstOpen) setTimeout(fit,360); else fit(); }
 function startTour(){ if(TOUR.length) goStop(0); }
-function endTour(){ tourIdx=-1; clearPing(); closeMedia(); restoreOnly(); document.body.classList.remove('touring'); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
+function endTour(){ tourIdx=-1; clearPing(); closeMedia(); restoreOnly(); document.body.classList.remove('touring'); document.body.classList.toggle('nolabels', !document.getElementById('lbltoggle').checked); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
 let STAGES=[];
 function tlPhase(s){const b=(s.badge||'').toLowerCase();
   if(b.indexOf('operating')>=0) return {key:'1',name:'Phase 1'};
