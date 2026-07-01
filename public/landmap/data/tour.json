@@ -161,13 +161,12 @@
             51.9369
           ],
           "zoom": 20,
-          "title": "Event Gazebo",
-          "image": "media/tour/event-gazebo.jpg",
-          "lead": "A 120-person event gazebo with a kitchen.",
+          "title": "Community & Gathering",
+          "lead": "The heart of village life — where people gather, learn, and celebrate together.",
           "points": [
-            "Hosts weddings, gatherings and community meetups",
-            "For campfires, food and good company",
-            "The village's main gathering space today"
+            "A 120-person Event Gazebo with a kitchen for weddings, gatherings and community meetups",
+            "Forest School — outdoor learning, stories and maker days for kids 5–12 and their families",
+            "A yearly & weekly rhythm: work-stays, workshops, community sauna days, festivals & artist residencies"
           ],
           "layers": [
             "public_areas"
@@ -176,7 +175,12 @@
             "public_areas": [
               "Gazebo"
             ]
-          }
+          },
+          "images": [
+            "media/tour/event-gazebo.jpg",
+            "media/tour/forest-school.jpg",
+            "media/tour/village-rhythm.jpg"
+          ]
         },
         {
           "id": "permaculture",
@@ -195,56 +199,17 @@
           "layers": [
             "permaculture_garden"
           ]
-        },
-        {
-          "id": "forest-school",
-          "title": "Forest School",
-          "image": "media/tour/forest-school.jpg",
-          "lead": "An ongoing program for the broader community.",
-          "points": [
-            "Outdoor learning, stories, crafts and maker days",
-            "Kids aged 5–12 and their families"
-          ],
-          "layers": [
-            "public_areas"
-          ],
-          "center": [
-            -120.048696,
-            51.939662
-          ],
-          "zoom": 18,
-          "only": {
-            "public_areas": [
-              "Playground (Forest School)"
-            ]
-          }
-        },
-        {
-          "id": "village-rhythm",
-          "fit": "property",
-          "title": "Village Rhythm",
-          "image": "media/tour/village-rhythm.jpg",
-          "lead": "An annual and weekly cultural rhythm.",
-          "points": [
-            "Work-stay programs",
-            "Educational workshops, maker & entrepreneur meetups, forest school for kids",
-            "Community sauna days",
-            "Festivals & artist residencies"
-          ],
-          "layers": [
-            "wells_gray_golf_rv_parcel"
-          ]
         }
       ]
     },
     {
-      "name": "Build-Out",
+      "name": "Phase 2",
       "badge": "Proposed",
       "stops": [
         {
           "id": "phase2-intro",
           "kind": "divider",
-          "stageLabel": "Phase 2 · Build-Out",
+          "stageLabel": "Phase 2",
           "fit": "property",
           "title": "Phase 2: Building the Village",
           "image": "media/tour/phase2-intro.jpg",
@@ -307,7 +272,13 @@
             "cabins",
             "creekside_cabin_boundary"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "Phase 3",
+      "badge": "Proposed",
+      "stops": [
         {
           "id": "lakeside-cabins",
           "center": [
@@ -328,25 +299,6 @@
           ]
         },
         {
-          "id": "event-space",
-          "center": [
-            -120.05052,
-            51.9366
-          ],
-          "zoom": 19,
-          "title": "Event Stage",
-          "image": "media/tour/event-space.jpg",
-          "lead": "An outdoor stage for music, performance and festival nights.",
-          "points": [
-            "A gathering point for shows, talks and celebrations",
-            "Scales up with the festival grounds",
-            "Part of the next phase of community buildings"
-          ],
-          "layers": [
-            "event_space"
-          ]
-        },
-        {
           "id": "event-gazebo",
           "center": [
             -120.0498,
@@ -363,6 +315,31 @@
           ],
           "layers": [
             "event_gazebo"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Phase 4",
+      "badge": "Proposed",
+      "stops": [
+        {
+          "id": "event-space",
+          "center": [
+            -120.05052,
+            51.9366
+          ],
+          "zoom": 19,
+          "title": "Event Stage",
+          "image": "media/tour/event-space.jpg",
+          "lead": "An outdoor stage for music, performance and festival nights.",
+          "points": [
+            "A gathering point for shows, talks and celebrations",
+            "Scales up with the festival grounds",
+            "Part of the next phase of community buildings"
+          ],
+          "layers": [
+            "event_space"
           ]
         },
         {
