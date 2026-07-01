@@ -97,7 +97,7 @@
   .slide{display:flex;flex-direction:column;gap:13px;padding:4px 20px 22px}
   .slide .s-eyebrow{display:flex;align-items:center;gap:9px;flex-wrap:wrap;min-height:16px}
   .slide .s-badge{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--accent);color:var(--accent);font-weight:700}
-  .slide .s-badge.now{color:#9ccc65;border-color:#9ccc65}
+  .slide .s-badge.now{color:#E2B24A;border-color:#E2B24A}
   .slide .s-stage{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
   .slide .s-title{margin:0;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.12;font-weight:600;color:var(--ink)}
   .slide figure{margin:0}
@@ -171,7 +171,7 @@
   #tourbar .tb-nav[disabled]{opacity:.35;cursor:default}
   #tourbar .tb-mid{flex:1;display:flex;align-items:center;gap:10px;justify-content:center;min-width:0}
   #tourbar .tb-badge{font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--accent);color:var(--accent);white-space:nowrap;flex:none}
-  #tourbar .tb-badge.now{color:#9ccc65;border-color:#9ccc65}
+  #tourbar .tb-badge.now{color:#E2B24A;border-color:#E2B24A}
   #tourbar .tb-title{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   #tourbar .tb-step{color:var(--muted);font-size:11.5px;flex:none}
   #tourbar .tb-stage{color:var(--accent);font-size:12px;font-weight:600;flex:none;white-space:nowrap}
@@ -185,26 +185,27 @@
   body.touring #timeline{display:flex}
   body.touring #legend{display:none!important}
   body.touring #controls{display:none!important}
-  body.touring #mediapanel{height:calc(100% - 130px)}
+  body.touring #mediapanel{height:calc(100% - var(--tlh,130px))}
   .tl-node{flex:1 1 0;min-width:0;position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center}
   .tl-top{display:flex;align-items:center;width:100%;height:12px}
   .tl-ln{flex:1;height:2px;background:var(--line)}
   .tl-node:first-child .tl-ln.l{visibility:hidden}
   .tl-node:last-child .tl-ln.r{visibility:hidden}
-  .tl-dot{flex:none;width:11px;height:11px;border-radius:50%;background:var(--panel);border:2px solid var(--muted);transition:transform .15s,background .15s,border-color .15s}
-  .tl-node:hover .tl-dot{border-color:var(--accent);transform:scale(1.35)}
-  .tl-node.done .tl-dot{background:var(--muted);border-color:var(--muted)}
-  .tl-node.done .tl-ln{background:var(--accent)}
-  .tl-node.active .tl-dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 9px var(--accent);transform:scale(1.4)}
-  .tl-node.active .tl-ln.l{background:var(--accent)}
+  .tl-node.ph1{--pc:#E2B24A} .tl-node.ph2{--pc:#EA824E} .tl-node.ph3{--pc:#A98FD0}
+  .tl-dot{flex:none;width:11px;height:11px;border-radius:50%;background:var(--panel);border:2px solid var(--pc,var(--muted));transition:transform .15s,background .15s,border-color .15s}
+  .tl-node:hover .tl-dot{transform:scale(1.35)}
+  .tl-node.done .tl-dot{background:var(--pc,var(--muted));border-color:var(--pc,var(--muted))}
+  .tl-node.done .tl-ln{background:var(--pc,var(--accent))}
+  .tl-node.active .tl-dot{background:var(--pc,var(--accent));border-color:var(--pc,var(--accent));box-shadow:0 0 9px var(--pc,var(--accent));transform:scale(1.4)}
+  .tl-node.active .tl-ln.l{background:var(--pc,var(--accent))}
   .tl-label{margin-top:6px;font-size:10px;line-height:1.2;text-align:center;color:var(--muted);max-width:100%;overflow-wrap:break-word;padding:0 3px}
   .tl-node:hover .tl-label{color:var(--ink)}
-  .tl-node.active .tl-label{color:var(--accent);font-weight:700}
+  .tl-node.active .tl-label{color:var(--pc,var(--accent));font-weight:700}
   .tl-phase{position:absolute;top:-28px;left:3px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;white-space:nowrap;pointer-events:none;z-index:3;text-shadow:0 0 3px #000,0 0 4px #000}
-  .tl-phase.p1{color:#9ccc65} .tl-phase.p2{color:var(--accent)} .tl-phase.p3{color:var(--muted)}
+  .tl-phase.p1{color:#E2B24A} .tl-phase.p2{color:#EA824E} .tl-phase.p3{color:#A98FD0}
   .tl-node.tl-pstart .tl-ln.l{position:relative}
-  .tl-node.tl-pstart .tl-ln.l::after{content:"";position:absolute;right:0;top:-6px;width:2px;height:14px;background:var(--muted);border-radius:1px}
-  @media(max-width:640px){ #timeline{padding:32px 6px 8px} .tl-label{font-size:8.5px} body.touring #mediapanel{height:calc(100% - 114px)} }
+  .tl-node.tl-pstart .tl-ln.l::after{content:"";position:absolute;left:-1px;top:-8px;width:2px;height:18px;background:var(--line);border-radius:1px}
+  @media(max-width:640px){ #timeline{padding:32px 6px 8px} .tl-label{font-size:8.5px} body.touring #mediapanel{height:calc(100% - var(--tlh,114px))} }
 </style>
 </head>
 <body>
@@ -345,7 +346,7 @@ function nodeHtml(node,depth){depth=depth||0;let h='';node.order.forEach(it=>{
 function optHtml(node){const rn='opt_'+gid(node.path);
   let h=`<label class="row opt"><input type="radio" name="${rn}" value="__none"><span class="nm" style="color:var(--muted)">— none —</span></label>`;
   node.order.forEach(it=>{const nm=it.t==='g'?it.n.name:it.L.name;const val=it.t==='g'?('g:'+gid(it.n.path)):('l:'+it.L.f);
-    const sw=it.t==='l'?swatch(it.L):'<span class="sw" style="background:#9ccc65"></span>';
+    const sw=it.t==='l'?swatch(it.L):'<span class="sw" style="background:#E2B24A"></span>';
     h+=`<label class="row opt"><input type="radio" name="${rn}" value="${val}">${sw}<span class="nm">${nm}</span></label>`;});
   return h;}
 
@@ -498,7 +499,15 @@ function tourPanel(s){
   nx.textContent=last?'Finish ✓':'Next ›'; nx.onclick=()=>{ if(last) endTour(); else goStop(tourIdx+1); };
   document.getElementById('mpclose').onclick=endTour;
 }
-function tourShow(slugs){ DEFS.forEach(d=>setVis(d.f,false)); (slugs||[]).concat(['wells_gray_golf_rv_parcel']).forEach(f=>setVis(f,true)); refresh(); }
+let TOURFILT={}; // slug -> [hidden sublayers] so a later stop can restore them
+function restoreOnly(){ Object.keys(TOURFILT).forEach(slug=>{ const grp=overlays[slug]; if(grp) TOURFILT[slug].forEach(sub=>{ try{ if(!grp.hasLayer(sub)) grp.addLayer(sub); }catch(e){} }); }); TOURFILT={}; }
+function applyOnly(only){ restoreOnly(); if(!only) return;
+  Object.keys(only).forEach(slug=>{ const grp=overlays[slug]; if(!grp) return;
+    const L=DEFS.find(d=>d.f===slug); const field=L&&L.label; if(!field) return;
+    const keep=new Set((only[slug]||[]).map(String)); const hide=[];
+    grp.eachLayer(sub=>{ const p=(sub.feature&&sub.feature.properties)||{}; if(!keep.has(String(p[field]))) hide.push(sub); });
+    hide.forEach(sub=>{ try{ grp.removeLayer(sub); }catch(e){} }); TOURFILT[slug]=hide; }); }
+function tourShow(slugs,only){ DEFS.forEach(d=>setVis(d.f,false)); (slugs||[]).concat(['wells_gray_golf_rv_parcel']).forEach(f=>setVis(f,true)); applyOnly(only); refresh(); }
 function zoomForHeight(b){ const cz=map.getZoom(); const cl=b.getCenter().lng;
   const pN=map.project([b.getNorth(),cl],cz), pS=map.project([b.getSouth(),cl],cz);
   const pxH=Math.abs(pS.y-pN.y)||1; const z=cz+Math.log2((map.getSize().y||700)/pxH);
@@ -528,7 +537,7 @@ function stopFocus(s){ if(s.marker&&s.marker.length===2) return L.latLng(s.marke
   return b&&b.isValid()? b.getCenter() : null; }
 function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
   const firstOpen=!document.getElementById('mediapanel').classList.contains('open');
-  tourShow(s.layers); tourPanel(s); renderBar();
+  tourShow(s.layers, s.only); tourPanel(s); renderBar();
   document.body.classList.add('touring'); renderTimeline();
   const fit=()=>{ tourFit(s);
     const pc=pinColorFor(s);
@@ -537,7 +546,7 @@ function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
     else { const fp=stopFocus(s); fp?showPing(fp,pc):clearPing(); } };
   if(firstOpen) setTimeout(fit,360); else fit(); }
 function startTour(){ if(TOUR.length) goStop(0); }
-function endTour(){ tourIdx=-1; clearPing(); closeMedia(); document.body.classList.remove('touring'); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
+function endTour(){ tourIdx=-1; clearPing(); closeMedia(); restoreOnly(); document.body.classList.remove('touring'); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
 let STAGES=[];
 function tlPhase(s){const b=(s.badge||'').toLowerCase();
   if(b.indexOf('operating')>=0) return {key:'1',name:'Phase 1'};
@@ -549,13 +558,15 @@ function renderTimeline(){ const el=document.getElementById('timeline'); if(!el)
   TOUR.forEach((s,i)=>{
     const ph=tlPhase(s); const isNew=!prev||ph.key!==prev;
     const node=document.createElement('div');
-    node.className='tl-node'+(i===tourIdx?' active':(i<tourIdx?' done':''))+(isNew&&i>0?' tl-pstart':'');
+    node.className='tl-node ph'+ph.key+(i===tourIdx?' active':(i<tourIdx?' done':''))+(isNew&&i>0?' tl-pstart':'');
     let h='<div class="tl-top"><span class="tl-ln l"></span><span class="tl-dot"></span><span class="tl-ln r"></span></div>'+
           '<div class="tl-label">'+escHtml(s.title||s.stage||'')+'</div>';
     if(isNew) h='<div class="tl-phase p'+ph.key+'">'+escHtml(ph.name)+'</div>'+h;
     node.innerHTML=h; node.onclick=()=>goStop(i); el.appendChild(node);
     prev=ph.key;
   });
+  // let the media panel sit exactly on top of the timeline (no awkward gap)
+  document.body.style.setProperty('--tlh', el.offsetHeight+'px');
 }
 function renderBar(){ const bar=document.getElementById('tourbar'); if(!bar) return;
   if(tourIdx<0){ bar.style.display='flex'; bar.innerHTML='<button class="tb-btn" id="tb-start">▶ Take the tour</button>';

@@ -18,17 +18,11 @@
           "lead": "Five seasons in — the working prototype the village builds on.",
           "points": [
             "Full-service RV sites, tenting, bunk cabins, and a glamping dome",
-            "Private swimming lake, sauna & cold creek, shower houses, 120-person gazebo, horse corrals, golf & disc-golf, and acres of wilderness",
+            "Private swimming lake, sauna & cold creek, shower houses, 120-person gazebo, horse corrals, golf & disc-golf course, and acres of wilderness",
             "3,000+ visitors a year, with minimal marketing"
           ],
           "layers": [
-            "full_service_rv_sites",
-            "power_water_rv_sites",
-            "utility_buildings",
-            "accomodations_for_rent",
-            "public_areas",
-            "bathroom_shower_house",
-            "labels"
+            "wells_gray_golf_rv_parcel"
           ]
         },
         {
@@ -52,6 +46,20 @@
           ]
         },
         {
+          "id": "golf",
+          "title": "Golf & Disc Golf",
+          "image": "media/tour/golf.jpg",
+          "lead": "A 9-hole golf course that doubles as an 18-basket disc-golf course.",
+          "points": [
+            "Golf or disc golf on the same scenic fairways",
+            "Mountain and forest views the whole way around",
+            "Open to guests and the public all season"
+          ],
+          "layers": [
+            "golf_course"
+          ]
+        },
+        {
           "id": "dome",
           "center": [
             -120.04989,
@@ -66,11 +74,13 @@
             "One of the signature stays on the land"
           ],
           "layers": [
-            "public_areas",
-            "utility_buildings",
-            "accomodations_for_rent",
-            "labels"
-          ]
+            "accomodations_for_rent"
+          ],
+          "only": {
+            "accomodations_for_rent": [
+              "Dome"
+            ]
+          }
         },
         {
           "id": "bunk-cabins",
@@ -88,8 +98,7 @@
             "A short walk from the lake and gathering spaces"
           ],
           "layers": [
-            "accomodations_for_rent",
-            "labels"
+            "accomodations_for_rent"
           ],
           "markers": [
             [
@@ -104,7 +113,38 @@
               -120.04967,
               51.937621
             ]
-          ]
+          ],
+          "only": {
+            "accomodations_for_rent": [
+              "Cabin 1",
+              "Cabin 2",
+              "Cabin 3"
+            ]
+          }
+        },
+        {
+          "id": "sauna",
+          "center": [
+            -120.04899,
+            51.9382
+          ],
+          "zoom": 20,
+          "title": "The Sauna",
+          "image": "/images/lib/event-sauna.jpg",
+          "lead": "A wood-fired cedar barrel sauna next to a cold creek.",
+          "points": [
+            "Steam, then a cold dip in the creek",
+            "Part of the weekly village rhythm",
+            "A taste of the wellness spa planned for a later phase"
+          ],
+          "layers": [
+            "accomodations_for_rent"
+          ],
+          "only": {
+            "accomodations_for_rent": [
+              "Sauna"
+            ]
+          }
         },
         {
           "id": "gazebo",
@@ -122,90 +162,14 @@
             "The village's main gathering space today"
           ],
           "layers": [
-            "public_areas",
-            "utility_buildings",
-            "accomodations_for_rent",
-            "labels"
-          ]
+            "public_areas"
+          ],
+          "only": {
+            "public_areas": [
+              "Gazebo"
+            ]
+          }
         },
-        {
-          "id": "sauna",
-          "center": [
-            -120.04899,
-            51.9382
-          ],
-          "zoom": 20,
-          "title": "The Sauna",
-          "image": "/images/sauna-in-winter-scaled.jpg",
-          "lead": "A wood-fired cedar barrel sauna next to a cold creek.",
-          "points": [
-            "Steam, then a cold dip in the creek",
-            "Part of the weekly village rhythm",
-            "A taste of the wellness spa planned for a later phase"
-          ],
-          "layers": [
-            "public_areas",
-            "utility_buildings",
-            "accomodations_for_rent",
-            "labels"
-          ]
-        },
-        {
-          "id": "golf",
-          "title": "Golf & Disc Golf",
-          "image": "media/tour/golf.jpg",
-          "lead": "A 9-hole golf course that doubles as an 18-basket disc-golf course.",
-          "points": [
-            "Golf or disc golf on the same scenic fairways",
-            "Mountain and forest views the whole way around",
-            "Open to guests and the public all season"
-          ],
-          "layers": [
-            "golf_course",
-            "labels"
-          ]
-        },
-        {
-          "id": "village-rhythm",
-          "fit": "property",
-          "title": "Village Rhythm",
-          "image": "media/tour/village-rhythm.jpg",
-          "lead": "An annual and weekly cultural rhythm.",
-          "points": [
-            "Work-stay programs",
-            "Educational workshops, maker & entrepreneur meetups, forest school for kids",
-            "Community sauna days",
-            "Festivals & artist residencies"
-          ],
-          "layers": [
-            "wells_gray_golf_rv_parcel"
-          ]
-        },
-        {
-          "id": "forest-school",
-          "title": "Forest School",
-          "image": "media/tour/forest-school.jpg",
-          "lead": "An ongoing program for the broader community.",
-          "points": [
-            "Outdoor learning, stories, crafts and maker days",
-            "Kids aged 5–12 and their families"
-          ],
-          "layers": [
-            "public_areas",
-            "labels"
-          ],
-          "center": [
-            -120.048696,
-            51.939662
-          ],
-          "zoom": 18
-        }
-      ]
-    },
-    {
-      "name": "Permaculture Garden",
-      "badge": "Operating now",
-      "stops": [
         {
           "id": "permaculture",
           "center": [
@@ -221,8 +185,46 @@
             "A living classroom & the seed of the larger vision"
           ],
           "layers": [
-            "permaculture_garden",
-            "labels"
+            "permaculture_garden"
+          ]
+        },
+        {
+          "id": "forest-school",
+          "title": "Forest School",
+          "image": "media/tour/forest-school.jpg",
+          "lead": "An ongoing program for the broader community.",
+          "points": [
+            "Outdoor learning, stories, crafts and maker days",
+            "Kids aged 5–12 and their families"
+          ],
+          "layers": [
+            "public_areas"
+          ],
+          "center": [
+            -120.048696,
+            51.939662
+          ],
+          "zoom": 18,
+          "only": {
+            "public_areas": [
+              "Playground"
+            ]
+          }
+        },
+        {
+          "id": "village-rhythm",
+          "fit": "property",
+          "title": "Village Rhythm",
+          "image": "media/tour/village-rhythm.jpg",
+          "lead": "An annual and weekly cultural rhythm.",
+          "points": [
+            "Work-stay programs",
+            "Educational workshops, maker & entrepreneur meetups, forest school for kids",
+            "Community sauna days",
+            "Festivals & artist residencies"
+          ],
+          "layers": [
+            "wells_gray_golf_rv_parcel"
           ]
         }
       ]
@@ -252,7 +254,7 @@
           "id": "creekside-cabins",
           "title": "Creekside Cabins",
           "image": "media/tour/creekside-cabins.jpg",
-          "lead": "38 small cabins set in rows along the creek.",
+          "lead": "A row of small cabins set along the creek.",
           "points": [
             "Prefab wooden cabins, a mix of rustic and modern feel",
             "Designed for families & friends",
@@ -299,8 +301,7 @@
             "Part of the next phase of community buildings"
           ],
           "layers": [
-            "event_space",
-            "labels"
+            "event_space"
           ]
         },
         {
@@ -388,8 +389,7 @@
             "Part of the future phases of community buildings"
           ],
           "layers": [
-            "event_gazebo",
-            "labels"
+            "event_gazebo"
           ]
         }
       ]
