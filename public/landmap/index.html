@@ -208,9 +208,9 @@
   body.touring #controls{display:none!important}
   body.touring #mediapanel{height:calc(100% - var(--tlh,130px))}
   .tl-node{flex:1 1 0;min-width:0;position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center}
-  .tl-top{display:flex;align-items:center;width:100%;height:20px}
-  .tl-mark{flex:none;width:20px;height:20px;border-radius:50%;background:var(--pc,#9A8FA8);display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
-  .tl-mark svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  .tl-top{display:flex;align-items:center;width:100%;height:23px}
+  .tl-mark{flex:none;width:23px;height:23px;border-radius:50%;background:var(--pc,#9A8FA8);display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
+  .tl-mark svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
   .tl-node:hover .tl-mark{transform:scale(1.18)}
   .tl-node.active .tl-mark{transform:scale(1.3);box-shadow:0 0 0 3px rgba(255,255,255,.14),0 0 10px var(--pc)}
   .tl-ln{flex:1;height:2px;background:var(--pc,var(--line));opacity:.4}
@@ -223,7 +223,7 @@
   .tl-node.done .tl-ln{opacity:1}
   .tl-node.active .tl-dot{background:var(--pc,var(--accent));border-color:var(--pc,var(--accent));box-shadow:0 0 9px var(--pc,var(--accent));transform:scale(1.4)}
   .tl-node.active .tl-ln.l{opacity:1}
-  .tl-label{margin-top:6px;font-size:10px;line-height:1.2;text-align:center;color:var(--muted);max-width:100%;overflow-wrap:break-word;overflow:hidden;padding:0 3px}
+  .tl-label{margin-top:6px;font-size:11px;line-height:1.2;text-align:center;color:var(--muted);max-width:100%;overflow-wrap:break-word;overflow:hidden;padding:0 3px}
   .tl-node:hover .tl-label{color:var(--ink)}
   .tl-node.active .tl-label{color:var(--pc,var(--accent));font-weight:700}
   .tl-phase{position:absolute;top:-28px;left:3px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;white-space:nowrap;pointer-events:none;z-index:3;text-shadow:0 0 3px #000,0 0 4px #000}
@@ -233,7 +233,7 @@
   @media(max-width:640px){
     #timeline{padding:30px 4px 8px;overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
     .tl-node{flex:0 0 82px;min-width:82px}
-    .tl-label{font-size:9px}
+    .tl-label{font-size:10px}
     body.touring #mediapanel{top:auto;bottom:var(--tlh,58px);height:52%}
   }
   /* spotlight: dim/desaturate the basemap during the tour so the focused feature pops */
