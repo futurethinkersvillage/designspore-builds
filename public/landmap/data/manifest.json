@@ -405,9 +405,9 @@
    "bulk": true,
    "geom": "poly",
    "style": {
-    "fill": "#C9A45E",
+    "fill": "#CE6A93",
     "fillOpacity": 0.0,
-    "stroke": "#C9A45E",
+    "stroke": "#CE6A93",
     "weight": 2.94,
     "mode": "single"
    },
