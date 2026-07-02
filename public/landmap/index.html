@@ -123,7 +123,10 @@
   .s-slider .ss-dot.on{background:#fff}
   .slide .s-video{position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000;display:block}
   .slide .s-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .slide .s-video .s-vtag{position:absolute;top:8px;left:8px;z-index:2;background:rgba(26,23,32,.88);color:var(--accent);font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:3px 9px;border-radius:6px;border:1px solid var(--accent)}
+  .slide .s-video .s-vtag{position:absolute;top:8px;left:8px;z-index:3;background:rgba(26,23,32,.88);color:var(--accent);font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:3px 9px;border-radius:6px;border:1px solid var(--accent)}
+  .slide .s-video .s-video-click{position:absolute;inset:0;z-index:2;cursor:zoom-in}
+  .slide .s-video .s-video-exp{position:absolute;bottom:8px;right:8px;z-index:3;background:rgba(26,23,32,.82);color:var(--ink);border:1px solid var(--line);border-radius:8px;font-size:11px;font-weight:600;padding:5px 10px;pointer-events:none;display:flex;align-items:center;gap:5px}
+  .slide .s-video .s-video-exp svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
   .slide .s-ph{width:100%;aspect-ratio:4/3;border-radius:12px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;text-align:center;padding:10px;background:rgba(255,255,255,.03)}
   .slide .s-lead{margin:0;font-size:15px;line-height:1.5;color:var(--ink);font-weight:500}
   .slide .s-points{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
@@ -186,7 +189,9 @@
   #lightbox{position:fixed;inset:0;z-index:3200;display:none;align-items:center;justify-content:center}
   #lightbox.on{display:flex}
   #lightbox .lb-back{position:absolute;inset:0;background:rgba(6,5,9,.93);cursor:zoom-out}
-  #lightbox .lb-img{position:relative;z-index:2;max-width:94vw;max-height:92vh;border-radius:10px;box-shadow:0 20px 70px rgba(0,0,0,.7);object-fit:contain}
+  #lightbox .lb-stage{position:relative;z-index:2;display:flex;align-items:center;justify-content:center}
+  #lightbox .lb-img{max-width:94vw;max-height:92vh;border-radius:10px;box-shadow:0 20px 70px rgba(0,0,0,.7);object-fit:contain}
+  #lightbox .lb-vid{width:min(94vw,calc(92vh*16/9));aspect-ratio:16/9;border:0;border-radius:10px;box-shadow:0 20px 70px rgba(0,0,0,.7);background:#000}
   #lightbox .lb-close{position:absolute;top:16px;right:18px;z-index:4;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.55);border:1px solid var(--line);color:#fff;font-size:19px;cursor:pointer}
   #lightbox .lb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,.55);border:1px solid var(--line);color:#fff;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
   #lightbox .lb-prev{left:18px} #lightbox .lb-next{right:18px}
@@ -614,8 +619,10 @@ function tourPanel(s){
   const imgs=(s.images&&s.images.length)?s.images:(s.image?[s.image]:[]);
   if(s.video){ const vid=encodeURIComponent(s.video);
     h+='<figure><div class="s-video"><span class="s-vtag">Concept video</span>'+
-       '<iframe src="https://www.youtube.com/embed/'+vid+'?autoplay=1&mute=1&loop=1&playlist='+vid+'&controls=0&playsinline=1&rel=0&modestbranding=1&disablekb=1&fs=0&iv_load_policy=3" title="Concept video" allow="autoplay; encrypted-media; picture-in-picture" tabindex="-1"></iframe></div>'+
-       (s.caption?'<figcaption class="s-cap">'+escHtml(s.caption)+'</figcaption>':'')+'</figure>'; }
+       '<iframe src="https://www.youtube.com/embed/'+vid+'?autoplay=1&mute=1&loop=1&playlist='+vid+'&controls=0&playsinline=1&rel=0&modestbranding=1&disablekb=1&fs=0&iv_load_policy=3" title="Concept video" allow="autoplay; encrypted-media; picture-in-picture" tabindex="-1"></iframe>'+
+       '<button class="s-video-click" aria-label="Play full video"></button>'+
+       '<span class="s-video-exp"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0 -2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1 -2 -2v-3M16 21h3a2 2 0 0 0 2 -2v-3"/></svg>Expand</span>'+
+       '</div>'+(s.caption?'<figcaption class="s-cap">'+escHtml(s.caption)+'</figcaption>':'')+'</figure>'; }
   else if(imgs.length>1){
     h+='<div class="s-slider">'+imgs.map((im,k)=>'<img class="ss-img'+(k===0?' on':'')+'" data-src="'+im+'" src="'+im+'">').join('')+
        '<button class="ss-nav ss-prev" aria-label="Previous">‹</button><button class="ss-nav ss-next" aria-label="Next">›</button>'+
@@ -641,6 +648,7 @@ function tourPanel(s){
     ims.forEach(im=>{ im.style.cursor='zoom-in'; im.onclick=()=>openLightbox(imgs,ci); });  // click slide -> lightbox at current image
     auto(); }
   const single=body.querySelector('figure .s-img'); if(single){ single.style.cursor='zoom-in'; single.onclick=()=>openLightbox(imgs,0); }
+  const vc=body.querySelector('.s-video-click'); if(vc&&s.video){ vc.onclick=()=>openLightbox([{v:s.video}],0); }
   const mp=document.getElementById('mediapanel'); const wasOpen=mp.classList.contains('open'); mp.scrollTop=0; mp.classList.add('open');
   document.body.classList.add('media-open'); if(!wasOpen) setTimeout(()=>map.invalidateSize(),300);
   const last=tourIdx>=TOUR.length-1;
@@ -729,14 +737,18 @@ function closeOverlay(){ const el=document.getElementById('bigoverlay'); if(el) 
 // image lightbox
 let lbImgs=[], lbIdx=0;
 function lbOpen(){ const el=document.getElementById('lightbox'); return el&&el.classList.contains('on'); }
-function closeLightbox(){ const el=document.getElementById('lightbox'); if(el) el.classList.remove('on'); }
-function lbUpdate(){ const el=document.getElementById('lightbox'); const im=el.querySelector('.lb-img'); if(im) im.src=lbImgs[lbIdx]; const c=el.querySelector('.lb-count'); if(c) c.textContent=(lbIdx+1)+' / '+lbImgs.length; }
+function closeLightbox(){ const el=document.getElementById('lightbox'); if(el){ el.classList.remove('on'); el.innerHTML=''; } }
+function lbIsVid(it){ return it&&typeof it==='object'&&it.v; }
+function lbUpdate(){ const el=document.getElementById('lightbox'); const st=el&&el.querySelector('.lb-stage'); if(!st) return; const it=lbImgs[lbIdx];
+  if(lbIsVid(it)){ st.innerHTML='<iframe class="lb-vid" src="https://www.youtube.com/embed/'+encodeURIComponent(it.v)+'?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'; }
+  else { st.innerHTML='<img class="lb-img" src="'+it+'" alt="">'; }
+  const c=el.querySelector('.lb-count'); if(c) c.textContent=(lbIdx+1)+' / '+lbImgs.length; }
 function lbNav(d){ if(!lbImgs.length) return; lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length; lbUpdate(); }
-function openLightbox(imgs,i){ lbImgs=(imgs||[]).filter(Boolean); if(!lbImgs.length) return; lbIdx=Math.max(0,Math.min(i||0,lbImgs.length-1));
+function openLightbox(items,i){ lbImgs=(items||[]).filter(Boolean); if(!lbImgs.length) return; lbIdx=Math.max(0,Math.min(i||0,lbImgs.length-1));
   const el=document.getElementById('lightbox'); if(!el) return; const multi=lbImgs.length>1;
   el.innerHTML='<div class="lb-back"></div><button class="lb-close" aria-label="Close">✕</button>'+
     (multi?'<button class="lb-nav lb-prev" aria-label="Previous">‹</button>':'')+
-    '<img class="lb-img" alt="">'+
+    '<div class="lb-stage"></div>'+
     (multi?'<button class="lb-nav lb-next" aria-label="Next">›</button><div class="lb-count"></div>':'');
   el.querySelector('.lb-back').onclick=closeLightbox; el.querySelector('.lb-close').onclick=closeLightbox;
   const p=el.querySelector('.lb-prev'), n=el.querySelector('.lb-next');
