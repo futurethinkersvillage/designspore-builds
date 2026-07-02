@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Membership",
-  description: "Become a founding member of Portal.Place. Priority booking, members-only events, maker space access, and a real community in the BC wilderness.",
+  title: "Founders Membership — Wells Gray Village",
+  description: "Join the founding circle at Wells Gray Village — 400 acres bordering Wells Gray Provincial Park. A non-voting equity stake, free seasonal stays, and a home base for life. 50 spots only.",
   openGraph: {
-    title: "Membership — Portal.Place",
-    description: "Become a founding member of Portal.Place.",
+    title: "Founders Membership — Wells Gray Village",
+    description: "50 founding spots. A non-voting equity stake, free seasonal stays, and a home base for life at Wells Gray Village, BC.",
+  },
+  twitter: {
+    title: "Founders Membership — Wells Gray Village",
+    description: "50 founding spots. A non-voting equity stake, free seasonal stays, and a home base for life at Wells Gray Village, BC.",
   },
 };
 
