@@ -7,45 +7,6 @@
   },
   "stages": [
     {
-      "name": "Welcome",
-      "badge": "",
-      "stops": [
-        {
-          "id": "our-story",
-          "kind": "overlay",
-          "title": "Our Story",
-          "status": "story",
-          "overlay": {
-            "eyebrow": "Portal.Place Village",
-            "heading": "Our Story",
-            "sub": "A family-run village — and the ideas behind it.",
-            "hero": "/images/lib/add_a_group_202511251511-copy.jpeg",
-            "story": [
-              "Euvie and Mike met in Vancouver in their 20s, then spent a decade living inside communities across Europe, Asia, and South America — learning what it looks like when people truly live together. When they had kids, they came home to BC to build the place they wished existed.",
-              "Portal.Place Village is family-run — built and operated by the whole family on 400 acres of riverside land near Wells Gray Park. Five seasons in, it's real: RV sites, cabins, a geodesic dome, sauna & cold plunge, gardens, a maker space, and a private lake."
-            ],
-            "thumbs": [
-              "/images/about-travel-1.jpg",
-              "/images/about-nomad-1.jpg",
-              "media/tour/property-aerial.jpg",
-              "/images/gazebo-community-meetup-scaled.jpg"
-            ],
-            "closing": "What follows is the plan for Phase 2 and beyond — walk through it stage by stage, or explore the map yourself.",
-            "buttons": [
-              {
-                "label": "▶ Start the tour",
-                "action": "start"
-              },
-              {
-                "label": "Explore the map yourself",
-                "action": "explore"
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
       "name": "The Campground",
       "badge": "Operating now",
       "stops": [

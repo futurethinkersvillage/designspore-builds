@@ -840,9 +840,18 @@ fetch('data/tour.json').then(r=>r.json()).then(M=>{
   STAGES=(M.stages||[]).map(st=>({name:st.name, firstIdx:TOUR.findIndex(s=>s.stage===st.name)})).filter(s=>s.firstIdx>=0);
   buildStopIndex();
   renderBar();
-  // deep link: #...&t=<stopId> jumps straight to that stop; otherwise open the Our Story overlay (stop 0)
+  const ib=document.getElementById('introbox');
+  if(M.intro){
+    document.getElementById('ib-title').textContent=M.intro.title||'';
+    document.getElementById('ib-body').innerHTML=renderWrite(M.intro.body||'');
+    if(M.intro.button) document.getElementById('ib-start').textContent=M.intro.button;
+    document.getElementById('ib-start').onclick=()=>{ib.style.display='none'; startTour();};
+    document.getElementById('ib-skip').onclick=()=>{ib.style.display='none';};
+  }
+  // deep link: #...&t=<stopId> jumps straight to that stop, skipping the intro
   const u=readURL(); const startIdx=(u&&u.t)?TOUR.findIndex(s=>s.id===u.t):-1;
-  if(startIdx>=0) goStop(startIdx); else if(TOUR.length) goStop(0);
+  if(startIdx>=0){ if(ib) ib.style.display='none'; goStop(startIdx); }
+  else if(M.intro){ ib.style.display='flex'; }
 }).catch(e=>{console.warn('tour load',e); renderBar();});
 </script>
 </body>
