@@ -158,6 +158,35 @@
   #introbox .ib-skip{margin-top:12px;text-align:center;font-size:13px;color:var(--muted);cursor:pointer}
   #introbox .ib-skip:hover{color:var(--ink)}
   @media(max-width:640px){ #introbox .ib-card{padding:20px 16px} #introbox .ib-title{font-size:22px} }
+  /* big story / membership overlay */
+  #bigoverlay{position:fixed;inset:0;z-index:2500;background:rgba(16,13,20,.98);display:none}
+  #bigoverlay.on{display:block}
+  #bigoverlay .bo-scroll{position:absolute;inset:0;overflow-y:auto}
+  #bigoverlay .bo-close{position:fixed;top:14px;right:16px;z-index:6;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.5);border:1px solid var(--line);color:var(--ink);font-size:18px;cursor:pointer}
+  #bigoverlay .bo-close:hover{border-color:var(--accent)}
+  #bigoverlay .bo-hero{min-height:44vh;background-size:cover;background-position:center;background-color:#241C2B;display:flex;align-items:flex-end;position:relative}
+  #bigoverlay .bo-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(16,13,20,.15),rgba(16,13,20,.96))}
+  #bigoverlay .bo-hero-in{position:relative;z-index:2;max-width:840px;margin:0 auto;width:100%;padding:0 28px 26px}
+  #bigoverlay .bo-eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px}
+  #bigoverlay .bo-h{font-family:Georgia,'Times New Roman',serif;font-size:clamp(30px,5vw,48px);line-height:1.05;color:var(--ink);margin:0}
+  #bigoverlay .bo-sub{font-size:16px;color:var(--muted);margin-top:10px}
+  #bigoverlay .bo-body{max-width:840px;margin:0 auto;padding:28px 28px 4px}
+  #bigoverlay .bo-sec{display:flex;gap:24px;align-items:center;margin:0 0 32px}
+  #bigoverlay .bo-sec.alt{flex-direction:row-reverse}
+  #bigoverlay .bo-sec-img{flex:1 1 46%;min-width:0}
+  #bigoverlay .bo-sec-img img{width:100%;border-radius:12px;border:1px solid var(--line);display:block;aspect-ratio:4/3;object-fit:cover;background:#16131c}
+  #bigoverlay .bo-sec-tx{flex:1 1 54%}
+  #bigoverlay .bo-sec-tx h3{font-size:21px;color:var(--ink);margin:0 0 8px;font-weight:600}
+  #bigoverlay .bo-sec-tx p{font-size:15px;line-height:1.62;color:#d9d2dd;margin:0}
+  #bigoverlay .bo-closing{max-width:840px;margin:0 auto;padding:6px 28px 0;font-size:16px;line-height:1.6;color:var(--ink);font-weight:500}
+  #bigoverlay .bo-foot{max-width:840px;margin:0 auto;padding:22px 28px 64px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  #bigoverlay .bo-cta{background:var(--accent);color:#1a1a1a;font-weight:800;font-size:16px;padding:15px 26px;border-radius:12px;text-decoration:none;border:0;box-shadow:0 6px 20px rgba(0,0,0,.45)}
+  #bigoverlay .bo-btn{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;padding:14px 22px;border-radius:12px;cursor:pointer}
+  #bigoverlay .bo-btn.primary{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:800}
+  #bigoverlay .bo-btn:hover,#bigoverlay .bo-cta:hover{filter:brightness(1.08)}
+  @media(max-width:640px){ #bigoverlay .bo-sec,#bigoverlay .bo-sec.alt{flex-direction:column;gap:12px} #bigoverlay .bo-sec-img,#bigoverlay .bo-sec-tx{flex:1 1 auto;width:100%} #bigoverlay .bo-hero{min-height:40vh} #bigoverlay .bo-cta,#bigoverlay .bo-btn{width:100%;text-align:center} }
+  .tl-node.phhome{--pc:#EA824E} .tl-node.phjoin{--pc:#EA824E}
+  .tl-phase.phome{color:#EA824E} .tl-phase.pjoin{color:#EA824E}
   #mediapanel .mp-img{width:100%;border-radius:10px;margin-bottom:8px;border:1px solid var(--line);background:#16131c;display:block}
   #mediapanel .mp-ph{width:100%;aspect-ratio:16/10;border-radius:10px;margin-bottom:8px;border:1px dashed var(--line);
     display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;background:rgba(255,255,255,.03)}
@@ -269,6 +298,7 @@
     <div class="ib-skip" id="ib-skip">Explore the map myself</div>
   </div>
 </div>
+<div id="bigoverlay"></div>
 <div id="toast"></div>
 <div id="mediapanel">
   <div class="mp-head"><span class="mp-stage" id="mp-stage"></span><span class="mp-prog" id="mp-prog"></span><span class="mp-close" id="mpclose">×</span></div>
@@ -555,7 +585,9 @@ document.getElementById('mpclose').onclick=closeMedia;
 const ICO={
   complete:'<svg viewBox="0 0 24 24"><path d="M5 12l5 5l10 -10"/></svg>',
   'in-progress':'<svg viewBox="0 0 24 24"><path d="M19.9 13.5a8 8 0 1 1 -1.8 -6.7"/><path d="M20 3.5v4h-4"/></svg>',
-  planned:'<svg viewBox="0 0 24 24"><path d="M6 21v-17"/><path d="M6 4.2l12 3.3l-12 3.3z"/></svg>'};
+  planned:'<svg viewBox="0 0 24 24"><path d="M6 21v-17"/><path d="M6 4.2l12 3.3l-12 3.3z"/></svg>',
+  story:'<svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v16h5.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg>',
+  join:'<svg viewBox="0 0 24 24"><path d="M12 3.6l2.6 5.3l5.8 .8l-4.2 4.1l1 5.8l-5.2 -2.7l-5.2 2.7l1 -5.8l-4.2 -4.1l5.8 -.8z"/></svg>'};
 const STLABEL={complete:'Complete','in-progress':'In Progress',planned:'Planned'};
 function statusBadge(s){ const st=s.status||'planned'; return '<span class="s-badge st-'+st+'">'+(ICO[st]||'')+escHtml(STLABEL[st]||'')+'</span>'; }
 let TOUR=[], tourIdx=-1;
@@ -677,10 +709,35 @@ function stopFocus(s){ if(s.marker&&s.marker.length===2) return L.latLng(s.marke
   if(s.center&&s.center.length===2) return L.latLng(s.center[1],s.center[0]);
   let b=null; (s.layers||[]).forEach(f=>{const l=overlays[f]; if(l){try{const lb=l.getBounds(); if(lb.isValid()) b=b?b.extend(lb):L.latLngBounds(lb.getSouthWest(),lb.getNorthEast());}catch(e){}}});
   return b&&b.isValid()? b.getCenter() : null; }
-const PHCOL={'1':'#E2B24A','2':'#EA824E','3':'#D06B8E','4':'#5F8FD0','next':'#A98FD0'};
+const PHCOL={'1':'#E2B24A','2':'#EA824E','3':'#D06B8E','4':'#5F8FD0','next':'#A98FD0','home':'#EA824E','join':'#EA824E'};
+function firstRealIdx(){ for(let i=0;i<TOUR.length;i++){ if(TOUR[i].kind!=='overlay') return i; } return 0; }
+function closeOverlay(){ const el=document.getElementById('bigoverlay'); if(el) el.classList.remove('on'); }
+function showOverlay(o){
+  const el=document.getElementById('bigoverlay'); if(!el) return;
+  let h='<button class="bo-close" aria-label="Close">✕</button><div class="bo-scroll">';
+  h+='<div class="bo-hero"'+(o.hero?' style="background-image:url(\''+o.hero+'\')"':'')+'><div class="bo-hero-in">';
+  if(o.eyebrow) h+='<div class="bo-eyebrow">'+escHtml(o.eyebrow)+'</div>';
+  h+='<h1 class="bo-h">'+escHtml(o.heading||'')+'</h1>';
+  if(o.sub) h+='<div class="bo-sub">'+escHtml(o.sub)+'</div>';
+  h+='</div></div><div class="bo-body">';
+  (o.sections||[]).forEach((sec,k)=>{ h+='<div class="bo-sec'+(k%2?' alt':'')+'">';
+    if(sec.img) h+='<div class="bo-sec-img"><img loading="lazy" src="'+sec.img+'" alt=""></div>';
+    h+='<div class="bo-sec-tx">'+(sec.h?'<h3>'+escHtml(sec.h)+'</h3>':'')+'<p>'+escHtml(sec.p||'')+'</p></div></div>'; });
+  if(o.closing) h+='<p class="bo-closing">'+escHtml(o.closing)+'</p>';
+  h+='<div class="bo-foot">';
+  if(o.cta) h+='<a class="bo-cta" href="'+o.cta.href+'" target="_blank" rel="noopener">'+escHtml(o.cta.label)+'</a>';
+  (o.buttons||[]).forEach(b=>{ h+='<button class="bo-btn'+(b.action==='start'?' primary':'')+'" data-act="'+b.action+'">'+escHtml(b.label)+'</button>'; });
+  h+='</div></div>';
+  el.innerHTML=h; el.classList.add('on'); el.querySelector('.bo-scroll').scrollTop=0;
+  el.querySelector('.bo-close').onclick=()=>{ closeOverlay(); endTour(); };
+  el.querySelectorAll('.bo-btn').forEach(b=>b.onclick=()=>{ const a=b.dataset.act;
+    if(a==='start'){ closeOverlay(); goStop(firstRealIdx()); } else { closeOverlay(); endTour(); } });
+}
 function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
   const firstOpen=!document.getElementById('mediapanel').classList.contains('open');
   document.getElementById('mediapanel').style.setProperty('--pc', PHCOL[tlPhase(s).key]||'#EA824E');
+  if(s.kind==='overlay'){ closeMedia(); clearPing(); document.body.classList.add('touring'); renderTimeline(); writeURL(); showOverlay(s.overlay||{}); return; }
+  closeOverlay();
   document.body.classList.toggle('nolabels', !!s.nolabels);   // per-stop label suppression
   tourShow(s.layers, s.only); tourPanel(s); renderBar();
   const nxt=TOUR[i+1]; if(nxt&&nxt.image){ const im=new Image(); im.src=nxt.image; }  // preload next slide image
@@ -696,6 +753,8 @@ function startTour(){ if(TOUR.length) goStop(0); }
 function endTour(){ tourIdx=-1; clearPing(); closeMedia(); restoreOnly(); if(window._sliderTimer){clearInterval(window._sliderTimer);window._sliderTimer=null;} document.body.classList.remove('touring'); document.body.classList.toggle('nolabels', !document.getElementById('lbltoggle').checked); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
 let STAGES=[];
 function tlPhase(s){const st=(s.stage||''); const b=(s.badge||'').toLowerCase();
+  if(/welcome/i.test(st)) return {key:'home',name:'Welcome'};
+  if(/join/i.test(st)) return {key:'join',name:'Join Us'};
   const m=/phase\s*(\d+)/i.exec(st); if(m) return {key:m[1],name:'Phase '+m[1]};
   if(b.indexOf('operating')>=0) return {key:'1',name:'Phase 1'};
   return {key:'next',name:"What's Next"};}
@@ -737,18 +796,9 @@ fetch('data/tour.json').then(r=>r.json()).then(M=>{
   STAGES=(M.stages||[]).map(st=>({name:st.name, firstIdx:TOUR.findIndex(s=>s.stage===st.name)})).filter(s=>s.firstIdx>=0);
   buildStopIndex();
   renderBar();
-  const ib=document.getElementById('introbox');
-  if(M.intro){
-    document.getElementById('ib-title').textContent=M.intro.title||'';
-    document.getElementById('ib-body').innerHTML=renderWrite(M.intro.body||'');
-    if(M.intro.button) document.getElementById('ib-start').textContent=M.intro.button;
-    document.getElementById('ib-start').onclick=()=>{ib.style.display='none'; startTour();};
-    document.getElementById('ib-skip').onclick=()=>{ib.style.display='none';};
-  }
-  // deep link: #...&t=<stopId> jumps straight into the tour at that stop, skipping the intro
+  // deep link: #...&t=<stopId> jumps straight to that stop; otherwise open the Our Story overlay (stop 0)
   const u=readURL(); const startIdx=(u&&u.t)?TOUR.findIndex(s=>s.id===u.t):-1;
-  if(startIdx>=0){ if(ib) ib.style.display='none'; goStop(startIdx); }
-  else if(M.intro){ ib.style.display='flex'; }
+  if(startIdx>=0) goStop(startIdx); else if(TOUR.length) goStop(0);
 }).catch(e=>{console.warn('tour load',e); renderBar();});
 </script>
 </body>

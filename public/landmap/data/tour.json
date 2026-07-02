@@ -7,6 +7,62 @@
   },
   "stages": [
     {
+      "name": "Welcome",
+      "badge": "",
+      "stops": [
+        {
+          "id": "our-story",
+          "kind": "overlay",
+          "title": "Our Story",
+          "status": "story",
+          "overlay": {
+            "eyebrow": "Portal.Place Village",
+            "heading": "Our Story",
+            "sub": "A family-run village — and the ideas behind it.",
+            "hero": "/images/76747423_10163561173205725_3017674924459294720_n-1024x577.jpg",
+            "sections": [
+              {
+                "h": "It began with a question",
+                "p": "How do humans live well — really live well — in a world changing this fast? Euvie and Mike met in Vancouver in their early 20s, freelancing in film and photography. Curious and restless, they felt modern life — for all its convenience — was leaving people lonely, stressed, and disconnected from nature and each other.",
+                "img": "/images/about-travel-1.jpg"
+              },
+              {
+                "h": "A decade of living & learning",
+                "p": "So they left — backpacks, one-way tickets, and a decade living inside cultures across Europe, Southeast Asia, and South America, not as tourists but as residents. They launched the Future Thinkers Podcast and connected with thinkers, artists, and community builders worldwide. Living among real villages taught them what most of us never see: what it looks like when people actually live together, with shared rituals, seasonal rhythms, and a real sense of place.",
+                "img": "/images/about-nomad-1.jpg"
+              },
+              {
+                "h": "A family business",
+                "p": "When Mike and Euvie had children, they knew it was time to stop observing and start building. Portal.Place Village is family-run — built and operated by the whole family, with the next generation growing up in it. This isn't a corporate resort; it's our home and our life's work.",
+                "img": "/images/lib/add_a_group_202511251511-copy.jpeg"
+              },
+              {
+                "h": "Returning home to build what we couldn't find",
+                "p": "They came back to British Columbia and began building the place they wished existed: somewhere people could live closer to nature, raise families in community, and create, learn, and grow — not just vacation. That vision took root on 400 acres of riverside land near Wells Gray Park. Five seasons in, it's real — RV and tenting sites, bunk cabins, a geodesic dome, sauna and cold plunge, gardens, a maker space, event gazebos, a private lake, and acres of forest.",
+                "img": "media/tour/property-aerial.jpg"
+              },
+              {
+                "h": "Why now",
+                "p": "The world is entering a post-AI era of automation, rising costs, and loneliness. We believe the answer is a return to real community — people coming back to the same place season after season, families growing up beside friends, nature and technology finally coexisting. Portal.Place isn't just land; it's a pattern — one village leading to many.",
+                "img": "/images/gazebo-community-meetup-scaled.jpg"
+              }
+            ],
+            "closing": "What follows is the plan for Phase 2 and beyond — turning this working campground into a full village, built in sequence and funded by the Founding Members. Walk through it stage by stage, or explore the map yourself.",
+            "buttons": [
+              {
+                "label": "▶ Start the tour",
+                "action": "start"
+              },
+              {
+                "label": "Explore the map yourself",
+                "action": "explore"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "name": "The Campground",
       "badge": "Operating now",
       "stops": [
@@ -490,22 +546,17 @@
         {
           "id": "vision",
           "title": "The Bigger Picture",
-          "lead": "Beyond these phases — a village and a network.",
+          "lead": "Beyond these phases — a village, and a network.",
           "points": [
-            "An art & wellness village, educational campus, and eco-resort planned for later phases",
+            "An art & wellness village, educational campus, and eco-resort in later phases",
             "Portal.Place Village is the flagship — a template to be replicated elsewhere",
-            "Part of a future network of villages",
-            "Founding Members: a curated group, by invitation only",
-            "Annual Members: launching 2027"
+            "Part of a growing network of villages across regions",
+            "Village AI coordinating operations, logistics, and community life"
           ],
           "layers": [
             "wells_gray_golf_rv_parcel"
           ],
           "fit": "all",
-          "cta": {
-            "href": "https://portal.place",
-            "label": "Apply now — closing soon"
-          },
           "nolabels": true,
           "images": [
             "media/tour/phase2-vision.jpg",
@@ -513,6 +564,52 @@
             "media/concept/future-village.jpg"
           ],
           "status": "planned"
+        }
+      ]
+    },
+    {
+      "name": "Join Us",
+      "badge": "",
+      "stops": [
+        {
+          "id": "become-member",
+          "kind": "overlay",
+          "title": "Become a Member",
+          "status": "join",
+          "overlay": {
+            "eyebrow": "Founding Membership",
+            "heading": "Become a Member",
+            "sub": "Join the founding community shaping Portal.Place Village.",
+            "hero": "/images/lib/add_a_group_202511251511-copy.jpeg",
+            "sections": [
+              {
+                "h": "Your doorway into village life",
+                "p": "Portal.Place membership is your way into a new model of living — seasonal, in nature, in community. As a member you join the founding community shaping the village and the network of villages beyond it. Not a resort, not full-time housing — a seasonal, community-driven lifestyle club built for the post-AI world.",
+                "img": "/images/add_a_small_202511251502-572x1024.jpeg"
+              },
+              {
+                "h": "What members receive",
+                "p": "Priority access to immersions, programs, and members-only events. Member pricing on stays and services. A voice in the village's culture and seasonal rhythms. And early invitations to future locations across the network.",
+                "img": "/images/gazebo-community-meetup-scaled.jpg"
+              },
+              {
+                "h": "Founding Member status",
+                "p": "The first wave of members receive Founding Member status — recognition as part of the first wave, priority access to future programs, invitations to early gatherings, and a hand in shaping the culture. This status won't be available later. Membership starts at $48/month, billed annually.",
+                "img": "/images/campfire-in-gazebo-scaled.jpg"
+              }
+            ],
+            "closing": "Founding membership is open now, by application, and closing soon.",
+            "cta": {
+              "label": "Apply now — closing soon",
+              "href": "https://portal.place/membership"
+            },
+            "buttons": [
+              {
+                "label": "Back to the map",
+                "action": "explore"
+              }
+            ]
+          }
         }
       ]
     }
