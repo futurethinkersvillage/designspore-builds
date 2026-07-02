@@ -250,7 +250,7 @@
   .tl-label{margin-top:6px;font-size:11px;line-height:1.2;text-align:center;color:var(--muted);max-width:100%;overflow-wrap:break-word;overflow:hidden;padding:0 3px}
   .tl-node:hover .tl-label{color:var(--ink)}
   .tl-node.active .tl-label{color:var(--pc,var(--accent));font-weight:700}
-  .tl-phase{position:absolute;top:-28px;left:3px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;white-space:nowrap;pointer-events:none;z-index:3;text-shadow:0 0 3px #000,0 0 4px #000}
+  .tl-phase{position:absolute;top:-28px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;white-space:nowrap;pointer-events:none;z-index:3;text-shadow:0 0 3px #000,0 0 4px #000}
   .tl-phase.p1{color:#E2B24A} .tl-phase.p2{color:#EA824E} .tl-phase.p3{color:#D06B8E} .tl-phase.p4{color:#5F8FD0} .tl-phase.pnext{color:#A98FD0}
   .tl-node.tl-pstart .tl-ln.l{position:relative}
   .tl-node.tl-pstart .tl-ln.l::after{content:"";position:absolute;left:-1px;top:-8px;width:2px;height:18px;background:var(--line);border-radius:1px}
@@ -382,12 +382,17 @@ function labelColor(L){const s=L.style,c=(s.mode==='categorized'?(s.cats&&s.cats
   let h=(L.geom==='line'?(c.stroke||c.fill):(c.fill||c.stroke))||'#ffffff';
   const m=/^#?([0-9a-f]{6})$/i.exec(h); if(m){const n=parseInt(m[1],16),r=n>>16,g=(n>>8)&255,b=n&255;
     if(0.299*r+0.587*g+0.114*b<120) return '#f0f0f0';} return h;}
+// exact per-feature colour so a label matches its polygon (Cabin -> red, etc.); dark halo keeps it legible
+function featColor(L,ft){const s=L.style||{}; let c;
+  if(s.mode==='categorized'){const k=pickCat(L,ft); c=(k.fill||k.stroke);}
+  else {c=(L.geom==='line'?(s.stroke||s.fill):(s.fill||s.stroke));}
+  return c||'#ffffff';}
 function repLayer(lyr){let arr=[];lyr.eachLayer(l=>arr.push(l));if(!arr.length)return null;
   let best=arr[0],bestA=-1;arr.forEach(l=>{let a=0;try{const b=l.getBounds();a=(b.getEast()-b.getWest())*(b.getNorth()-b.getSouth());}catch(e){a=0;}if(a>bestA){bestA=a;best=l;}});return best;}
 function addLayer(L){return fetch('data/'+L.f+'.geojson').then(r=>r.json()).then(gj=>{
     // drop null/empty-geometry features — a permanent tooltip on one throws and aborts the map
     gj.features=(gj.features||[]).filter(ft=>ft&&ft.geometry&&ft.geometry.coordinates!=null&&(!Array.isArray(ft.geometry.coordinates)||ft.geometry.coordinates.length>0));
-    const col=labelColor(L), dev=/label/i.test(L.name);
+    const dev=/label/i.test(L.name);
     const lyr=window.L.geoJSON(gj, L.geom==='point'
       ? {pointToLayer:(ft,ll)=>window.L.circleMarker(ll,pointStyleFor(L,ft)),onEachFeature:bind}
       : {style:ft=>styleFor(L,ft),onEachFeature:bind});
@@ -398,8 +403,8 @@ function addLayer(L){return fetch('data/'+L.f+'.geojson').then(r=>r.json()).then
         window.L.popup().setLatLng(e.latlng).setContent(popupHtml(L,p)).openOn(map);  // else a clean popup
       });
       if(L.label){const v=p[L.label]; if(v!=null&&String(v).trim()!==''&&!isJunk(v))
-        l.bindTooltip(`<span style="color:${col}">${v}</span>`,{permanent:true,direction:'center',className:'maplbl'+(dev?' dev':'')});}}
-    if(!L.label && !L.nolabel){const rep=repLayer(lyr); if(rep) rep.bindTooltip(`<span style="color:${col}">${L.name}</span>`,{permanent:true,direction:'center',className:'maplbl'});}
+        l.bindTooltip(`<span style="color:${featColor(L,ft)}">${v}</span>`,{permanent:true,direction:'center',className:'maplbl'+(dev?' dev':'')});}}
+    if(!L.label && !L.nolabel){const rep=repLayer(lyr); if(rep) rep.bindTooltip(`<span style="color:${featColor(L,{})}">${L.name}</span>`,{permanent:true,direction:'center',className:'maplbl'});}
     overlays[L.f]=lyr; return L;
   }).catch(e=>{console.warn('load fail',L.f,e);return null;});}
 
