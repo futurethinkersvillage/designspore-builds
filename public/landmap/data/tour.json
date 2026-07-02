@@ -1,7 +1,7 @@
 {
   "_note": "Slide-deck tour. intro = start lightbox. stages[] -> {name,badge,stops[]}. Each stop: title, image (ONE), caption?, lead, points[], layers[] (slugs shown), center [lng,lat] + zoom (frames the stop), or fit:'all'. cta?. 'Operating now' badge = green.",
   "intro": {
-    "title": "Wells Gray Village",
+    "title": "Portal.Place Village",
     "body": "Phase 2 plan — a seasonal recreational community for families, nature lovers, and creators, on 400 acres of private land bordering Wells Gray Provincial Park, near Clearwater, BC.\n\nThis guided tour walks through what's built and operating, then the plan for the village. Use the buttons or the timeline to move; close anytime to explore the map yourself.",
     "button": "▶ Start the tour"
   },
@@ -493,7 +493,7 @@
           "lead": "Beyond these phases — a village and a network.",
           "points": [
             "An art & wellness village, educational campus, and eco-resort planned for later phases",
-            "Wells Gray Village is the flagship — a template to be replicated elsewhere",
+            "Portal.Place Village is the flagship — a template to be replicated elsewhere",
             "Part of a future network of villages",
             "Founding Members: a curated group, by invitation only",
             "Annual Members: launching 2027"
