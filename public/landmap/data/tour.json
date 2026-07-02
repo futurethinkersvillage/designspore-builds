@@ -43,7 +43,8 @@
             "media/library/resort/resort-136.jpg",
             "media/library/resort/resort-009.jpg"
           ],
-          "status": "complete"
+          "status": "complete",
+          "pano": "/images/tour/Golf-Course-Above2.jpg"
         },
         {
           "id": "rv-sites",
@@ -171,7 +172,8 @@
             "media/library/sleeping-cabins/sleeping-cabins-002.jpg",
             "media/library/land-art/land-art-050.jpg"
           ],
-          "status": "complete"
+          "status": "complete",
+          "pano": "/images/tour/Cabin-3.2_PANO_0001-Cabin-3-2-1.jpg"
         },
         {
           "id": "sauna",
@@ -200,7 +202,8 @@
             "/images/lib/creek-view-1-scaled.jpg",
             "/images/gemini-j6uwv7.png"
           ],
-          "status": "complete"
+          "status": "complete",
+          "pano": "/images/tour/Sauna-1_PANO_0001-Sauna-1_PANO_0035_blended_fused.jpg"
         },
         {
           "id": "gazebo",
@@ -234,7 +237,8 @@
             "media/library/resort/resort-055.jpg",
             "media/library/resort/resort-056.jpg"
           ],
-          "status": "complete"
+          "status": "complete",
+          "pano": "/images/tour/Gazebo-5_PANO_0001-Gazebo-5_PANO_0035_blended_fused-2-1.jpg"
         }
       ]
     },
@@ -352,7 +356,8 @@
             "Land is cleared",
             "Lake has been enlarged",
             "Remaining: Foundations & Cabin Builds"
-          ]
+          ],
+          "pano": "/images/tour/DomeLake1_blended_fused-2-1.jpg"
         },
         {
           "id": "event-gazebo",

@@ -813,6 +813,29 @@
     "descriptionreference_title"
    ],
    "on": false
+  },
+  {
+   "f": "pano_points",
+   "name": "360° Photo Tours",
+   "group": "360° Tours",
+   "path": [
+    "360° Tours"
+   ],
+   "exclusive": null,
+   "bulk": false,
+   "geom": "point",
+   "style": {
+    "fill": "#EA824E",
+    "stroke": "#faf8f4",
+    "fillOpacity": 1.0,
+    "weight": 2,
+    "mode": "single"
+   },
+   "label": null,
+   "nolabel": true,
+   "popup": [],
+   "on": false,
+   "pano": true
   }
  ],
  "glabels": [
