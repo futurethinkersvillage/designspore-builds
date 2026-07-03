@@ -23,6 +23,20 @@ export default function MapPage() {
     const params = new URLSearchParams(window.location.search);
     params.set("cb", String(Date.now()));
     setSrc("/landmap/index.html?" + params.toString() + window.location.hash);
+    // mirror the inner map's hash to this page's URL so each slide/view is linkable
+    const onMsg = (e: MessageEvent) => {
+      if (e.origin !== window.location.origin) return;
+      const d = e.data as { __ppmap?: string; hash?: string };
+      if (d && d.__ppmap === "hash") {
+        window.history.replaceState(
+          null,
+          "",
+          window.location.pathname + window.location.search + (d.hash || ""),
+        );
+      }
+    };
+    window.addEventListener("message", onMsg);
+    return () => window.removeEventListener("message", onMsg);
   }, []);
   return (
     <iframe
