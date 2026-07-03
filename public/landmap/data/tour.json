@@ -556,7 +556,7 @@
             "eyebrow": "Founding Membership",
             "heading": "Founding Memberships",
             "sub": "A summer home base here for years to come.",
-            "hero": "media/story/story-family-a.jpg",
+            "hero": "media/story/story-meetup.jpg",
             "story": [
               "We're opening a small round of Founding Memberships for people who want to make this a summer home base here for years to come. Founding Members get 1–2 weeks of free cabin or RV stays each season plus generous perks, as well as a stake in the membership company behind the village, and a voice in the future direction of the place.",
               "The round is capped at 50 Founding Members, and we break ground once 30 are committed. We're starting with the people we already know: friends, family, past guests, and longtime podcast listeners. It's offered privately by invitation, not sold to the public, and we get to know every member personally before they join.",
@@ -574,7 +574,7 @@
                 "action": "explore"
               }
             ],
-            "heroPos": "center 40%"
+            "heroPos": "center 45%"
           }
         }
       ]
