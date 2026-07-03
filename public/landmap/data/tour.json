@@ -294,7 +294,9 @@
           "video": "Tf_YNgph84o",
           "nolabels": true,
           "images": [],
-          "status": "planned"
+          "status": "planned",
+          "videoFile": "media/video/smart-village.mp4",
+          "poster": "media/video/smart-village.jpg"
         },
         {
           "id": "maker-space",
