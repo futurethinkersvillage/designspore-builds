@@ -16,16 +16,11 @@
             "sub": "A seasonal recreational community for families, creators, and nature lovers, on 400 acres bordering Wells Gray Provincial Park near Clearwater, BC.",
             "hero": "media/story/story-aerial.jpg",
             "story": [
-              "In 2021, Mike and Euvie crowdfunded this land through their podcast, Future Thinkers, with the intention of building a seasonal village centered around family, creativity, and maker culture.",
-              "Our whole extended family joined us on the land, and for five years, we have run this as a working RV park, campground & golf resort. We welcomed 3,000 guests per season, completed Phase 1 upgrades, and started building what comes next — event programs, cabins, a maker space, and a community of people who return every season.",
-              "It's a place to make memories: summers by the river, wood-fired saunas, golf and disc golf, campfires, stargazing, and long evenings with the people you love. Kids and adults learn hands-on skills while spending time outside with friends, and there's always something being built, grown, or made.",
-              "This map is where you can see it taking shape. Walk through what's built and operating, then the plan for the village — use the buttons or the timeline to move, and close anytime to explore the map yourself."
+              "In 2021, Mike and Euvie crowdfunded this land through their podcast, Future Thinkers, to build a seasonal village centered on family, creativity, and maker culture — and our whole extended family joined us on the land.",
+              "For five years we've run it as a working RV park, campground and golf resort: 3,000 guests a season, Phase 1 complete, and the next chapter already underway — cabins, a maker space, event programs, and a community that returns every summer.",
+              "This map is where you can see it taking shape. Walk through what's built and operating, then the plan for the village — or close anytime to explore the map yourself."
             ],
-            "thumbs": [
-              "media/story/story-family-a.jpg",
-              "media/story/story-canadaday.jpg",
-              "media/story/story-meetup.jpg"
-            ],
+            "thumbs": [],
             "buttons": [
               {
                 "label": "▶ Start the tour",
@@ -35,7 +30,8 @@
                 "label": "Explore the map myself",
                 "action": "explore"
               }
-            ]
+            ],
+            "heroPos": "center 35%"
           }
         }
       ]
@@ -215,7 +211,7 @@
             51.9382
           ],
           "zoom": 20,
-          "title": "The Sauna",
+          "title": "Sauna",
           "lead": "A wood-fired cedar barrel sauna next to a cold creek.",
           "points": [
             "Steam, then a cold dip in the creek",
@@ -560,17 +556,13 @@
             "eyebrow": "Founding Membership",
             "heading": "Founding Memberships",
             "sub": "A summer home base here for years to come.",
-            "hero": "media/story/story-concept.jpg",
+            "hero": "media/story/story-family-a.jpg",
             "story": [
               "We're opening a small round of Founding Memberships for people who want to make this a summer home base here for years to come. Founding Members get 1–2 weeks of free cabin or RV stays each season plus generous perks, as well as a stake in the membership company behind the village, and a voice in the future direction of the place.",
               "The round is capped at 50 Founding Members, and we break ground once 30 are committed. We're starting with the people we already know: friends, family, past guests, and longtime podcast listeners. It's offered privately by invitation, not sold to the public, and we get to know every member personally before they join.",
               "If that's you, we'd love to hear from you."
             ],
-            "thumbs": [
-              "media/story/story-family-a.jpg",
-              "media/story/story-meditation.jpg",
-              "media/story/story-family-b.jpg"
-            ],
+            "thumbs": [],
             "cta": {
               "label": "Explore Membership",
               "href": "https://portal.place/membership"
@@ -581,7 +573,8 @@
                 "label": "Back to the map",
                 "action": "explore"
               }
-            ]
+            ],
+            "heroPos": "center 40%"
           }
         }
       ]

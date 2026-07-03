@@ -164,26 +164,26 @@
   /* big story / membership overlay — floating card over a blurred map */
   #bigoverlay{position:fixed;inset:0;z-index:2500;display:none;align-items:center;justify-content:center;padding:3vh 3vw;background:rgba(14,11,18,.5);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
   #bigoverlay.on{display:flex}
-  #bigoverlay .bo-card{position:relative;width:80vw;height:80vh;max-width:1120px;max-height:800px;display:flex;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+  #bigoverlay .bo-card{position:relative;width:80vw;height:80vh;max-width:960px;max-height:820px;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.6)}
   #bigoverlay .bo-close{position:absolute;top:12px;right:14px;z-index:5;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.45);border:1px solid var(--line);color:var(--ink);font-size:17px;cursor:pointer}
   #bigoverlay .bo-close:hover{border-color:var(--accent)}
-  #bigoverlay .bo-media{flex:0 0 42%;background-size:cover;background-position:center;background-color:#16131c}
-  #bigoverlay .bo-content{flex:1 1 58%;min-width:0;padding:clamp(20px,4vh,40px) clamp(20px,3vw,42px);display:flex;flex-direction:column;overflow:auto}
+  #bigoverlay .bo-media{flex:0 0 40vh;max-height:42%;width:100%;background-size:cover;background-position:center;background-color:#16131c;cursor:zoom-in}
+  #bigoverlay .bo-body{flex:1 1 auto;min-height:0;overflow:auto;padding:clamp(18px,3vh,32px) clamp(20px,3.5vw,46px) 6px}
   #bigoverlay .bo-eyebrow{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}
-  #bigoverlay .bo-h{font-family:Georgia,'Times New Roman',serif;font-size:clamp(26px,3.4vw,42px);line-height:1.05;color:var(--ink);margin:6px 0 0}
+  #bigoverlay .bo-h{font-family:Georgia,'Times New Roman',serif;font-size:clamp(24px,3vw,38px);line-height:1.06;color:var(--ink);margin:6px 0 0}
   #bigoverlay .bo-sub{font-size:clamp(13px,1.6vw,16px);color:var(--muted);margin:8px 0 0}
-  #bigoverlay .bo-story{margin:16px 0 0;display:flex;flex-direction:column;gap:10px}
+  #bigoverlay .bo-story{margin:14px 0 0;display:flex;flex-direction:column;gap:10px}
   #bigoverlay .bo-story p{font-size:clamp(12.5px,1.45vw,15px);line-height:1.55;color:#d9d2dd;margin:0}
-  #bigoverlay .bo-thumbs{display:flex;gap:8px;margin:16px 0 0}
+  #bigoverlay .bo-thumbs{display:flex;gap:8px;margin:14px 0 0}
   #bigoverlay .bo-thumbs img{flex:1 1 0;width:0;height:clamp(60px,9vh,92px);object-fit:cover;border-radius:8px;border:1px solid var(--line);background:#16131c}
-  #bigoverlay .bo-closing{margin:16px 0 0;font-size:clamp(13px,1.5vw,15px);line-height:1.55;color:var(--ink);font-weight:500}
+  #bigoverlay .bo-closing{margin:14px 0 0;font-size:clamp(13px,1.5vw,15px);line-height:1.55;color:var(--ink);font-weight:500}
   #bigoverlay .bo-ctanote{flex:1 1 100%;margin:2px 0 0;font-size:12.5px;color:var(--muted)}
-  #bigoverlay .bo-foot{margin-top:auto;padding-top:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  #bigoverlay .bo-foot{flex:none;padding:14px clamp(20px,3.5vw,46px);display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--panel);border-top:1px solid var(--line)}
   #bigoverlay .bo-cta{background:var(--accent);color:#1a1a1a;font-weight:800;font-size:15px;padding:13px 24px;border-radius:11px;text-decoration:none;border:0;box-shadow:0 6px 18px rgba(0,0,0,.4)}
   #bigoverlay .bo-btn{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);font-size:14.5px;font-weight:600;padding:12px 20px;border-radius:11px;cursor:pointer}
   #bigoverlay .bo-btn.primary{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:800}
   #bigoverlay .bo-btn:hover,#bigoverlay .bo-cta:hover{filter:brightness(1.08)}
-  @media(max-width:760px){ #bigoverlay{padding:0} #bigoverlay .bo-card{width:100vw;height:100vh;max-height:none;border-radius:0;flex-direction:column} #bigoverlay .bo-media{flex:0 0 30%} #bigoverlay .bo-cta,#bigoverlay .bo-btn{flex:1 1 auto;text-align:center} }
+  @media(max-width:760px){ #bigoverlay{padding:0} #bigoverlay .bo-card{width:100vw;height:100vh;max-width:none;max-height:none;border-radius:0} #bigoverlay .bo-media{flex:0 0 30vh;max-height:34%} #bigoverlay .bo-cta,#bigoverlay .bo-btn{flex:1 1 auto;text-align:center} }
   .tl-node.phhome{--pc:#EA824E} .tl-node.phjoin{--pc:#EA824E}
   .tl-phase.phome{color:#EA824E} .tl-phase.pjoin{color:#EA824E}
   /* image lightbox */
@@ -653,7 +653,12 @@ const ALIGN={
   'media/tour/golf.jpg':'50% 100%',
   '/images/lib/gazebo-disc-golf-tournament-scaled.jpg':'50% 100%',
   'media/library/resort/resort-121.jpg':'50% 0%',
-  'media/tour/forest-school.jpg':'50% 0%'
+  'media/tour/forest-school.jpg':'50% 0%',
+  '/images/lib/cabin-scaled.jpg':'50% 0%',
+  '/images/lib/add_a_group_202511251511-copy.jpeg':'50% 0%',
+  '/images/gemini-j6uwv7.png':'50% 20%',
+  '/images/lib/gazebo-view-scaled.jpg':'50% 100%',
+  '/images/lib/gazebo-rainbow-scaled.jpg':'50% 100%'
 };
 function alignStyle(im){ return ALIGN[im]?(';object-position:'+ALIGN[im]):''; }
 // fall back to full-res if a thumbnail is missing, then to a placeholder
@@ -670,7 +675,7 @@ function tourPanel(s){
   h+='<h2 class="s-title">'+escHtml(s.title||'')+'</h2>';
   const imgs=(s.images&&s.images.length)?s.images:(s.image?[s.image]:[]);
   if(s.video){ const vid=encodeURIComponent(s.video);
-    h+='<figure><div class="s-video"><span class="s-vtag">Concept video</span>'+
+    h+='<figure><div class="s-video" style="background-image:url(\'https://i.ytimg.com/vi/'+vid+'/hqdefault.jpg\');background-size:cover;background-position:center"><span class="s-vtag">Concept video</span>'+
        '<iframe src="https://www.youtube.com/embed/'+vid+'?autoplay=1&mute=1&loop=1&playlist='+vid+'&controls=0&playsinline=1&rel=0&modestbranding=1&disablekb=1&fs=0&iv_load_policy=3" title="Concept video" allow="autoplay; encrypted-media; picture-in-picture" tabindex="-1"></iframe>'+
        '<button class="s-video-click" aria-label="Play full video"></button>'+
        '<span class="s-video-exp"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0 -2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1 -2 -2v-3M16 21h3a2 2 0 0 0 2 -2v-3"/></svg>Expand</span>'+
@@ -887,18 +892,19 @@ function setAlign(cont,pos){ const img=cont.querySelector('.ss-img.on')||cont.qu
 function showOverlay(o){
   const el=document.getElementById('bigoverlay'); if(!el) return;
   let h='<div class="bo-card"><button class="bo-close" aria-label="Close">✕</button>';
-  h+='<div class="bo-media"'+(o.hero?' style="background-image:url(\''+thumbSrc(o.hero)+'\')"':'')+'></div>';
-  h+='<div class="bo-content">';
+  h+='<div class="bo-media"'+(o.hero?' style="background-image:url(\''+thumbSrc(o.hero)+'\')'+(o.heroPos?';background-position:'+o.heroPos:'')+'"':'')+'></div>';
+  h+='<div class="bo-body">';
   if(o.eyebrow) h+='<div class="bo-eyebrow">'+escHtml(o.eyebrow)+'</div>';
   h+='<h1 class="bo-h">'+escHtml(o.heading||'')+'</h1>';
   if(o.sub) h+='<div class="bo-sub">'+escHtml(o.sub)+'</div>';
   if(o.story&&o.story.length){ h+='<div class="bo-story">'+o.story.map(p=>'<p>'+escHtml(p)+'</p>').join('')+'</div>'; }
   if(o.thumbs&&o.thumbs.length){ h+='<div class="bo-thumbs">'+o.thumbs.map(t=>'<img loading="lazy" src="'+thumbSrc(t)+'" alt="">').join('')+'</div>'; }
   if(o.closing) h+='<div class="bo-closing">'+escHtml(o.closing)+'</div>';
-  h+='<div class="bo-foot">';
+  h+='</div>';                                                  // end bo-body (scrolls)
+  h+='<div class="bo-foot">';                                   // pinned footer
   if(o.cta) h+='<a class="bo-cta" href="'+o.cta.href+'" target="_blank" rel="noopener">'+escHtml(o.cta.label)+'</a>';
-  if(o.ctaNote) h+='<div class="bo-ctanote">'+escHtml(o.ctaNote)+'</div>';
   (o.buttons||[]).forEach(b=>{ h+='<button class="bo-btn'+(b.action==='start'?' primary':'')+'" data-act="'+b.action+'">'+escHtml(b.label)+'</button>'; });
+  if(o.ctaNote) h+='<div class="bo-ctanote">'+escHtml(o.ctaNote)+'</div>';
   h+='</div></div>';
   el.innerHTML=h; el.classList.add('on');
   el.querySelector('.bo-close').onclick=()=>{ closeOverlay(); endTour(); };
