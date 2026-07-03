@@ -633,7 +633,11 @@ function fitView(){let b=null;const parcel=DEFS.find(d=>/parcel/i.test(d.name));
 function escHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function renderWrite(t){return (t||'').split(/\n\n+/).map(p=>'<p>'+escHtml(p).replace(/\n/g,'<br>')+'</p>').join('');}
 function closeMedia(){document.getElementById('mediapanel').classList.remove('open');
-  document.body.classList.remove('media-open'); setTimeout(()=>map.invalidateSize(),300);}
+  document.body.classList.remove('media-open');
+  // stop any playing media so a hidden panel doesn't keep decoding video (map repaint glitches)
+  if(window._sliderTimer){ clearInterval(window._sliderTimer); window._sliderTimer=null; }
+  const b=document.getElementById('mpbody'); if(b){ b.querySelectorAll('video').forEach(v=>{try{v.pause();}catch(e){}}); b.innerHTML=''; }
+  setTimeout(()=>map.invalidateSize(),300);}
 document.getElementById('mpclose').onclick=closeMedia;
 
 const ICO={

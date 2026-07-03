@@ -18,8 +18,11 @@ import { useEffect, useState } from "react";
 export default function MapPage() {
   const [src, setSrc] = useState("/landmap/index.html");
   useEffect(() => {
-    const q = window.location.search + window.location.hash;
-    if (q) setSrc("/landmap/index.html" + q);
+    // forward parent query flags (?place/?align) + a cache-buster so the iframe
+    // never serves a stale cached index.html, then the deep-link hash
+    const params = new URLSearchParams(window.location.search);
+    params.set("cb", String(Date.now()));
+    setSrc("/landmap/index.html?" + params.toString() + window.location.hash);
   }, []);
   return (
     <iframe
