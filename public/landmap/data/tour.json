@@ -172,8 +172,7 @@
             "media/library/sleeping-cabins/sleeping-cabins-002.jpg",
             "media/library/land-art/land-art-050.jpg"
           ],
-          "status": "complete",
-          "pano": "/images/tour/Cabin-3.2_PANO_0001-Cabin-3-2-1.jpg"
+          "status": "complete"
         },
         {
           "id": "sauna",
@@ -202,8 +201,7 @@
             "/images/lib/creek-view-1-scaled.jpg",
             "/images/gemini-j6uwv7.png"
           ],
-          "status": "complete",
-          "pano": "/images/tour/Sauna-1_PANO_0001-Sauna-1_PANO_0035_blended_fused.jpg"
+          "status": "complete"
         },
         {
           "id": "gazebo",
@@ -237,8 +235,7 @@
             "media/library/resort/resort-055.jpg",
             "media/library/resort/resort-056.jpg"
           ],
-          "status": "complete",
-          "pano": "/images/tour/Gazebo-5_PANO_0001-Gazebo-5_PANO_0035_blended_fused-2-1.jpg"
+          "status": "complete"
         }
       ]
     },
