@@ -14,10 +14,10 @@
   body.media-open #controls{right:554px}
   .panel{position:absolute;z-index:1000;background:rgba(33,27,40,.94);color:var(--ink);
     border:1px solid var(--line);border-radius:12px;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.45)}
-  #title{top:14px;left:14px;max-width:320px;padding:14px 18px}
-  #title h1{margin:0 0 4px;font-size:18px;line-height:1.2}
-  #title .sub{color:var(--muted);font-size:12.5px;line-height:1.45}
-  #title .brand{margin-top:9px;font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
+  #title{top:14px;left:14px;padding:11px 16px;display:flex;align-items:center;gap:11px;text-decoration:none;cursor:pointer}
+  #title:hover{border-color:var(--accent)}
+  #title .title-logo{width:30px;height:30px;flex:none;display:block}
+  #title h1{margin:0;font-size:16px;line-height:1.15;color:var(--ink);font-weight:700}
   #controls{top:14px;right:14px;width:290px;padding:14px 16px;max-height:calc(100% - 28px);overflow:auto;transition:right .28s ease}
   #controls h2{margin:2px 0 8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
   .basemap-row{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
@@ -182,7 +182,7 @@
   #bigoverlay .bo-foot{flex:none;padding:14px clamp(20px,3.5vw,46px);display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--panel);border-top:1px solid var(--line)}
   #bigoverlay .bo-cta{background:var(--accent);color:#1a1a1a;font-weight:800;font-size:15px;padding:13px 24px;border-radius:11px;text-decoration:none;border:0;box-shadow:0 6px 18px rgba(0,0,0,.4)}
   #bigoverlay .bo-btn{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);font-size:14.5px;font-weight:600;padding:12px 20px;border-radius:11px;cursor:pointer}
-  #bigoverlay .bo-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:800}
+  #bigoverlay .bo-btn.primary{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:800}
   #bigoverlay .bo-btn:hover,#bigoverlay .bo-cta:hover{filter:brightness(1.08)}
   @media(max-width:760px){ #bigoverlay{padding:0} #bigoverlay .bo-card{width:100vw;height:100vh;max-width:none;max-height:none;border-radius:0} #bigoverlay .bo-media{flex:0 0 30vh;max-height:34%} #bigoverlay .bo-cta,#bigoverlay .bo-btn{flex:1 1 auto;text-align:center} }
   .tl-node.phhome{--pc:#EA824E} .tl-node.phjoin{--pc:#EA824E}
@@ -347,11 +347,10 @@
   <div class="mp-nav"><button class="mp-back" id="mp-back">‹ Back</button><button class="mp-next" id="mp-next">Next ›</button></div>
 </div>
 
-<div id="title" class="panel">
-  <h1>Wells Gray Golf &amp; RV Resort</h1>
-  <div class="sub">Development master plan — phased build-out. Toggle phases, groups or layers; share the link for the same view.</div>
-  <div class="brand">Clearwater, BC</div>
-</div>
+<a id="title" class="panel" href="https://portal.place" target="_top" rel="noopener" aria-label="Portal.Place home">
+  <img class="title-logo" src="/images/portal-icon.png" alt="">
+  <h1>Portal.Place Development Plan</h1>
+</a>
 
 <div id="controls" class="panel">
   <h2>Backdrop</h2>
