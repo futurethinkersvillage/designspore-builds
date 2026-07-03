@@ -107,6 +107,9 @@ export default function MembershipPage1() {
               — plus free weeks in a cabin or on a serviced RV site every season, for life. Priority booking, golf, sauna, and a guaranteed home in the mountains.
             </p>
             <p>
+              The village is also a place for people who build things. There is a makerspace, a co-working gazebo by the river, and a growing art-nature trail on the land. Each summer, Otherworld — a small arts and music gathering — happens here. This is the community behind Future Thinkers. This is the land it comes from.
+            </p>
+            <p>
               50 spots total. When the 50th member commits, the founding round closes. The public membership, when it launches, will not include equity, free stays, or founding terms.
             </p>
             <p>
@@ -154,6 +157,27 @@ export default function MembershipPage1() {
         <p className="text-white/20 text-xs mt-8">
           Membership pricing is in the Founders Brief — shared after inquiry. Not published publicly.
         </p>
+      </section>
+
+      {/* WHO THIS IS FOR */}
+      <section className="max-w-[800px] mx-auto px-8 pt-10 pb-20">
+        <motion.div {...FI} className="space-y-5">
+          <p className="text-white/25 text-[11px] uppercase tracking-[0.28em]">Who it's for</p>
+          <div className="space-y-2 text-[15px] leading-[1.9] text-white/45">
+            {[
+              "Families who want the same river, the same trails, the same community every summer — with a stake in it.",
+              "Future Thinkers listeners who already feel connected to Mike and Euvie's work and want to be close to where it happens.",
+              "Builders, designers, and remote workers who want a mountain base that functions — co-working space, fast wifi, a sauna, and people around.",
+              "Multigenerational families who need a place big enough for three generations, every season.",
+              "People who care about how land is held and used — and want to be part of something designed to last.",
+            ].map((line, i) => (
+              <p key={i}>
+                <span className="text-white/15 text-xs font-mono mr-4">{String(i + 1).padStart(2, "0")}</span>
+                {line}
+              </p>
+            ))}
+          </div>
+        </motion.div>
       </section>
 
       {/* OPERATING TODAY */}

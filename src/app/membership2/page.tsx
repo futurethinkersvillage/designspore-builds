@@ -133,12 +133,12 @@ export default function MembershipPage2() {
             {
               icon: "🏔️",
               title: "An equity stake",
-              body: "Non-voting shares in the company behind Wells Gray Village. Your founding investment grows with the property.",
+              body: "Non-voting shares in the company behind Wells Gray Village. You hold a stake in the land, the infrastructure, and whatever it becomes.",
             },
             {
               icon: "🔥",
               title: "Lifetime access",
-              body: "Golf, sauna, hot tubs, river access, and the annual Founders Gathering — the in-person event for founding members only.",
+              body: "Golf, sauna, hot tubs, river access, makerspace, co-working gazebo, and the annual Founders Gathering. Otherworld — a small arts and music festival — happens on the land each summer.",
             },
           ].map((item, i) => (
             <motion.div
@@ -291,16 +291,34 @@ export default function MembershipPage2() {
         </motion.div>
       </section>
 
-      {/* TESTIMONIAL */}
+      {/* WHO THIS IS FOR */}
       <section className="bg-[#0C0B0F] py-24 px-6">
-        <motion.div {...FI} className="max-w-[680px] mx-auto text-center">
-          <p className="font-serif italic text-[clamp(17px,2.8vw,22px)] text-white/70 leading-[1.6] mb-8">
-            "We&apos;ve been driving to the Interior every summer for years. When Mike and Euvie offered founding spots, it took us about 24 hours to say yes. The idea of the same place, the same dock, the same mountains — with a stake in it — was exactly what we&apos;d been looking for."
-          </p>
-          <div className="flex items-center justify-center gap-3">
-            <div className="w-8 h-px bg-amber/40" />
-            <p className="text-white/30 text-xs tracking-[0.2em] uppercase">James &amp; Claire M. — Vancouver, BC</p>
-            <div className="w-8 h-px bg-amber/40" />
+        <motion.div {...FI} className="max-w-4xl mx-auto">
+          <p className="text-white/25 text-[11px] uppercase tracking-[0.28em] text-center mb-4">Who joins the founding circle</p>
+          <h2 className="font-serif text-[clamp(22px,3.5vw,30px)] text-white text-center mb-14 leading-snug">
+            Families who want a place — not just a trip.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { label: "Families with kids", body: "Who want the same trails, the same river, the same community — every summer." },
+              { label: "Multigenerational families", body: "Three generations under one sky, on land you all have a stake in." },
+              { label: "Future Thinkers listeners", body: "Who already feel connected to Mike and Euvie's work and want to be part of the place behind it." },
+              { label: "Remote workers & builders", body: "Who want a base in the mountains that works as hard as they do — co-working gazebo, sauna, fast wifi." },
+              { label: "Couples & retirees", body: "Looking for a beautiful, active place with a community already in place when you arrive." },
+              { label: "Investors in intentional living", body: "Who see land-backed community membership as a meaningful place to park capital alongside personal use." },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.08 }}
+                className="rounded-xl border border-white/[0.07] bg-white/[0.02] p-6"
+              >
+                <p className="text-white/80 text-sm font-medium mb-2">{item.label}</p>
+                <p className="text-white/40 text-sm leading-relaxed">{item.body}</p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </section>

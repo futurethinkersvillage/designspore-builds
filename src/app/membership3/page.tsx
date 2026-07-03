@@ -28,6 +28,8 @@ const BENEFITS: BenefitRow[] = [
   { label: "Golf rounds / season", max: "10", cabin: "5", rv: "5" },
   { label: "Sauna sessions / season", max: "6", cabin: "3", rv: "3" },
   { label: "Guest nights / year", max: "4", cabin: "2", rv: "2" },
+  { label: "Makerspace & co-working gazebo", max: true, cabin: true, rv: true },
+  { label: "Otherworld festival access", max: true, cabin: true, rv: true },
   { label: "Lifetime access", max: true, cabin: true, rv: true },
   { label: "Annual Founders Gathering", max: true, cabin: true, rv: true },
 ];
@@ -35,7 +37,7 @@ const BENEFITS: BenefitRow[] = [
 const FAQ_ITEMS = [
   {
     q: "Is this a timeshare?",
-    a: "No — and the differences matter. Timeshares lock you to a fixed week, charge rising annual fees indefinitely, and are notoriously hard to exit. A Founding Membership gives you a flexible booking window, no annual membership fees, and a right-of-first-refusal exit. Your stake grows with the property.",
+    a: "No — and the differences matter. Timeshares lock you to a fixed week, charge rising annual fees indefinitely, and are notoriously hard to exit. A Founding Membership gives you a flexible booking window, no annual membership fees, and a right-of-first-refusal exit. You hold a non-voting equity stake in the company — not just a booking right.",
   },
   {
     q: "What does the $2,000 deposit do?",
@@ -55,22 +57,13 @@ const FAQ_ITEMS = [
   },
 ];
 
-const TESTIMONIALS = [
-  {
-    quote: "We did the math. What we spend renting comparable places over 20 years is more than the founding price — and we'd have nothing to show for it.",
-    name: "David K.",
-    location: "Edmonton, AB",
-  },
-  {
-    quote: "The idea of the same cabin, the same trails, the same community every summer — that's what we've been looking for since the kids were born.",
-    name: "Tom & Sarah H.",
-    location: "Vancouver, BC",
-  },
-  {
-    quote: "I've camped in Wells Gray for 15 years. When I heard about founding spots I called Mike the same day.",
-    name: "Chris M.",
-    location: "Kamloops, BC",
-  },
+const WHO_ITS_FOR = [
+  { label: "Families with kids", body: "Who want the same trails, the same river, the same community every summer — with an equity stake instead of a rental receipt." },
+  { label: "Future Thinkers listeners", body: "Already connected to Mike and Euvie's work and want to be part of the land behind it." },
+  { label: "Past Wells Gray guests", body: "Who've experienced the property and want to make it theirs." },
+  { label: "Remote workers & builders", body: "Who want a mountain base that works — co-working gazebo, fast wifi, sauna, and a community already there." },
+  { label: "Multigenerational families", body: "A home base for grandparents, parents, and kids — every season, for life." },
+  { label: "Intentional investors", body: "Who want land-backed community membership as a meaningful place to put capital alongside personal use." },
 ];
 
 function Cell({ value }: { value: boolean | string }) {
@@ -117,9 +110,9 @@ export default function MembershipPage3() {
               "Non-voting equity stake",
               "Free cabin or RV weeks, every season",
               "Priority booking — 60–90 days out",
-              "Golf, sauna, hot tubs, river access",
+              "Golf, sauna, hot tubs, river access, makerspace",
+              "Otherworld arts festival on the land each summer",
               "No annual membership fees",
-              "Fully refundable $2,000 deposit to hold your spot",
             ].map((b) => (
               <div key={b} className="flex items-start gap-2.5">
                 <Check size={14} weight="bold" className="text-amber mt-0.5 shrink-0" />
@@ -270,7 +263,7 @@ export default function MembershipPage3() {
               {
                 step: "02",
                 title: "Receive the Founders Brief",
-                body: "If it looks like a fit, we send the two-page brief — full tier pricing, legal structure, and how to hold your spot with a refundable $2,000 deposit.",
+                body: "If it looks like a fit, we send the Founders Brief — full tier pricing, legal structure, and how to hold your spot with a refundable $2,000 deposit.",
               },
               {
                 step: "03",
@@ -344,27 +337,25 @@ export default function MembershipPage3() {
         </motion.div>
       </section>
 
-      {/* TESTIMONIALS */}
+      {/* WHO IT'S FOR */}
       <section className="bg-[#0C0B0F] py-24 px-6">
         <motion.div {...FI} className="max-w-5xl mx-auto">
-          <p className="text-white/25 text-[11px] uppercase tracking-[0.28em] text-center mb-14">From the founding circle</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {TESTIMONIALS.map((t, i) => (
+          <p className="text-white/25 text-[11px] uppercase tracking-[0.28em] text-center mb-4">Who joins the founding circle</p>
+          <h2 className="font-serif text-[clamp(22px,3.5vw,30px)] text-white text-center mb-14 leading-snug">
+            This is for people with a reason to be here.
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {WHO_ITS_FOR.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-7"
+                transition={{ duration: 0.6, delay: i * 0.08 }}
+                className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-6"
               >
-                <p className="font-serif italic text-white/60 text-[15px] leading-[1.7] mb-6">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div>
-                  <p className="text-white/70 text-sm font-medium">{t.name}</p>
-                  <p className="text-white/30 text-xs">{t.location}</p>
-                </div>
+                <p className="text-white/80 text-sm font-medium mb-2">{item.label}</p>
+                <p className="text-white/40 text-sm leading-relaxed">{item.body}</p>
               </motion.div>
             ))}
           </div>
