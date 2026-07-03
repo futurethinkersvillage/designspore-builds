@@ -530,20 +530,22 @@ function shortPhase(g){const m=g.match(/Phase\s*(\d+)/i); return m?('Phase '+m[1
 let urlT=null;
 function writeURL(){ if(urlT)clearTimeout(urlT); urlT=setTimeout(()=>{
   const touring=document.body.classList.contains('touring')&&tourIdx>=0&&TOUR[tourIdx];
-  let parts;
-  if(touring){ parts=['t='+TOUR[tourIdx].id]; }        // clean slide link, no coordinates
+  let hash;
+  if(touring){ hash='#'+encodeURIComponent(TOUR[tourIdx].id); }   // clean bare slide link, e.g. #event-gazebo
   else {
-    const c=map.getCenter(); parts=['b='+curBm,'v='+map.getZoom()+','+c.lat.toFixed(5)+','+c.lng.toFixed(5)];
+    const c=map.getCenter(); const parts=['b='+curBm,'v='+map.getZoom()+','+c.lat.toFixed(5)+','+c.lng.toFixed(5)];
     const cur=new Set(DEFS.map(d=>d.f).filter(isVis));
     const add=[...cur].filter(f=>!DEFAULTON.has(f)), rem=[...DEFAULTON].filter(f=>!cur.has(f));
     if(add.length)parts.push('on='+add.join(',')); if(rem.length)parts.push('off='+rem.join(','));
+    hash='#'+parts.join('&');
   }
-  const hash='#'+parts.join('&');
   history.replaceState(null,'',hash);
   // mirror to the parent page (when embedded in /map) so slides get shareable links
   try{ if(window.parent&&window.parent!==window) window.parent.postMessage({__ppmap:'hash',hash:hash},'*'); }catch(e){}
 },120); }
-function readURL(){const h=location.hash.replace(/^#/,'');if(!h)return null;const o={};
+function readURL(){const h=location.hash.replace(/^#/,'');if(!h)return null;
+  if(h.indexOf('=')<0)return {t:decodeURIComponent(h)};   // bare slide id, e.g. #event-gazebo
+  const o={};
   h.split('&').forEach(kv=>{const i=kv.indexOf('=');if(i<0)return;o[kv.slice(0,i)]=decodeURIComponent(kv.slice(i+1));});return o;}
 map.on('moveend zoomend',()=>writeURL());
 
