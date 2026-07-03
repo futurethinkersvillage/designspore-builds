@@ -214,6 +214,9 @@
   #placebox .pb-hd{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:12px;margin-bottom:7px}
   #placebox #pb-copy{background:var(--accent);color:#241a10;border:0;border-radius:6px;padding:4px 11px;font-weight:800;cursor:pointer;font-size:11px}
   #placebox #pb-txt{width:100%;height:210px;background:#0b0910;color:#bfe;border:1px solid var(--line);border-radius:6px;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.45;resize:vertical;padding:6px}
+  .al-bar{position:absolute;top:8px;left:8px;z-index:6;display:flex;gap:4px;background:rgba(10,9,14,.86);border:1px solid var(--line);border-radius:9px;padding:4px}
+  .al-bar button{background:rgba(255,255,255,.09);border:0;color:#fff;font-size:11.5px;font-weight:700;padding:6px 10px;border-radius:6px;cursor:pointer}
+  .al-bar button:hover{background:var(--accent);color:#1a1a1a}
   .media-pin{background:transparent!important;border:0!important}
   .media-pin .mp-box{width:28px;height:28px;border-radius:7px;border:2px solid #fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.55);cursor:pointer}
   .media-pin.is-pano .mp-box{background:var(--accent)}
@@ -447,8 +450,7 @@ function addLayer(L){return fetch('data/'+L.f+'.geojson').then(r=>r.json()).then
     function bind(ft,l){const p=ft.properties||{};
       l.on('click',e=>{
         const idx=stopForFeature(L.f,p);                        // two-way: click a feature -> jump to its tour stop
-        if(idx>=0){ window.L.DomEvent.stop(e); goStop(idx); return; }
-        window.L.popup().setLatLng(e.latlng).setContent(popupHtml(L,p)).openOn(map);  // else a clean popup
+        if(idx>=0){ window.L.DomEvent.stop(e); goStop(idx); }   // else do nothing (no popup)
       });
       if(L.label){const v=p[L.label]; if(v!=null&&String(v).trim()!==''&&!isJunk(v))
         l.bindTooltip(`<span style="color:${featColor(L,ft)}">${v}</span>`,{permanent:true,direction:'center',className:'maplbl'+(dev?' dev':'')});}}
@@ -697,8 +699,14 @@ function tourPanel(s){
     sl.querySelector('.ss-next').onclick=e=>{e.stopPropagation();go(ci+1);auto();};
     dts.forEach(d=>d.onclick=e=>{e.stopPropagation();go(+d.dataset.k);auto();});
     ims.forEach(im=>{ im.style.cursor='zoom-in'; im.onclick=()=>openLightbox(imgs,ci); });  // click slide -> lightbox at current image
-    auto(); }
+    if(!ALIGN_MODE) auto(); }                                  // in align mode keep the current image still
   const single=body.querySelector('figure .s-img'); if(single){ single.style.cursor='zoom-in'; single.onclick=()=>openLightbox(imgs,0); }
+  if(ALIGN_MODE){ const cont=body.querySelector('.s-slider')||body.querySelector('figure'); if(cont){ cont.style.position='relative';
+    const bar=document.createElement('div'); bar.className='al-bar';
+    bar.innerHTML='<button data-p="50% 0%">▲ Top</button><button data-p="50% 50%">● Mid</button><button data-p="50% 100%">▼ Bottom</button>';
+    cont.appendChild(bar);
+    bar.querySelectorAll('button').forEach(b=>b.onclick=e=>{ e.stopPropagation(); setAlign(cont,b.dataset.p); });
+    alignReadout(); } }
   const vc=body.querySelector('.s-video-click'); if(vc&&s.video){ vc.onclick=()=>openLightbox([{v:s.video}],0); }
   const b360=body.querySelector('.s-360'); if(b360&&s.pano){ b360.onclick=()=>openPano(s.pano,s.title,panoOptsFor(s.pano)); }
   const mp=document.getElementById('mediapanel'); const wasOpen=mp.classList.contains('open'); mp.scrollTop=0; mp.classList.add('open');
@@ -858,6 +866,24 @@ function placeReadout(){
   const obj={}; _placeReg.forEach(r=>{ const ll=r.l.getLatLng(); obj[r.name]=[+ll.lng.toFixed(6),+ll.lat.toFixed(6)]; });
   box.querySelector('#pb-txt').value=JSON.stringify(obj,null,2);
 }
+// ── Temporary image-alignment editor (?align) ──────────────────────────
+const ALIGN_MODE=/[?&]align\b/.test(location.search);
+const ALIGN_EDITS={};
+function alignReadout(){
+  let box=document.getElementById('placebox');
+  if(!box){ box=document.createElement('div'); box.id='placebox';
+    box.innerHTML='<div class="pb-hd"><span>Image alignment</span><button id="pb-copy">Copy</button></div><textarea id="pb-txt" readonly spellcheck="false"></textarea>';
+    document.body.appendChild(box);
+    box.querySelector('#pb-copy').onclick=function(){ const t=box.querySelector('#pb-txt'); t.select();
+      try{navigator.clipboard.writeText(t.value);}catch(e){} try{document.execCommand('copy');}catch(e){}
+      this.textContent='Copied!'; setTimeout(()=>{this.textContent='Copy';},1200); };
+  }
+  const merged=Object.assign({},ALIGN,ALIGN_EDITS);
+  const lines=Object.keys(merged).filter(k=>merged[k]&&merged[k]!=='50% 50%').map(k=>"  '"+k+"':'"+merged[k]+"'");
+  box.querySelector('#pb-txt').value=lines.length?lines.join(',\n'):'(all centered)';
+}
+function setAlign(cont,pos){ const img=cont.querySelector('.ss-img.on')||cont.querySelector('.s-img'); if(!img) return;
+  img.style.objectPosition=pos; const k=img.getAttribute('data-src'); if(k){ ALIGN_EDITS[k]=pos; alignReadout(); } }
 function showOverlay(o){
   const el=document.getElementById('bigoverlay'); if(!el) return;
   let h='<div class="bo-card"><button class="bo-close" aria-label="Close">✕</button>';
