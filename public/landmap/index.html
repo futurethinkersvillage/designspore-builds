@@ -109,10 +109,10 @@
   .slide .s-stage{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
   .slide .s-title{margin:0;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.12;font-weight:600;color:var(--ink)}
   .slide figure{margin:0}
-  .slide .s-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;border:1px solid var(--line);display:block;background:#16131c}
+  .slide .s-img{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center;border-radius:12px;border:1px solid var(--line);display:block;background:#16131c}
   .slide .s-cap{font-size:11px;color:var(--muted);margin-top:5px;text-align:right;font-style:italic}
   /* image slider (multi-image stops) */
-  .s-slider{position:relative;width:100%;aspect-ratio:4/3;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#16131c}
+  .s-slider{position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#16131c}
   .s-slider .ss-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s ease}
   .s-slider .ss-img.on{opacity:1}
   .s-slider .ss-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:34px;height:34px;border-radius:50%;border:0;background:rgba(18,15,23,.62);color:#fff;font-size:19px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
@@ -177,6 +177,7 @@
   #bigoverlay .bo-thumbs{display:flex;gap:8px;margin:16px 0 0}
   #bigoverlay .bo-thumbs img{flex:1 1 0;width:0;height:clamp(60px,9vh,92px);object-fit:cover;border-radius:8px;border:1px solid var(--line);background:#16131c}
   #bigoverlay .bo-closing{margin:16px 0 0;font-size:clamp(13px,1.5vw,15px);line-height:1.55;color:var(--ink);font-weight:500}
+  #bigoverlay .bo-ctanote{flex:1 1 100%;margin:2px 0 0;font-size:12.5px;color:var(--muted)}
   #bigoverlay .bo-foot{margin-top:auto;padding-top:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
   #bigoverlay .bo-cta{background:var(--accent);color:#1a1a1a;font-weight:800;font-size:15px;padding:13px 24px;border-radius:11px;text-decoration:none;border:0;box-shadow:0 6px 18px rgba(0,0,0,.4)}
   #bigoverlay .bo-btn{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);font-size:14.5px;font-weight:600;padding:12px 20px;border-radius:11px;cursor:pointer}
@@ -641,6 +642,22 @@ const ICO={
 const STLABEL={complete:'Complete','in-progress':'In Progress',planned:'Planned'};
 function statusBadge(s){ const st=s.status||'planned'; return '<span class="s-badge st-'+st+'">'+(ICO[st]||'')+escHtml(STLABEL[st]||'')+'</span>'; }
 let TOUR=[], tourIdx=-1;
+// optimized panel thumbnails (originals reserved for the lightbox)
+function flatImg(p){ return (p||'').replace(/^\//,'').replace(/\//g,'__').replace(/ /g,'_').replace(/\.[^.]+$/,'')+'.jpg'; }
+function thumbSrc(p){ return p ? 'media/thumbs/'+flatImg(p) : p; }
+// per-image vertical crop alignment inside the 16:9 container (default centre)
+const ALIGN={
+  '/images/lib/golf-course-3.jpg':'50% 100%',
+  'media/tour/golf.jpg':'50% 100%',
+  '/images/lib/gazebo-disc-golf-tournament-scaled.jpg':'50% 100%',
+  'media/library/resort/resort-121.jpg':'50% 0%',
+  'media/tour/forest-school.jpg':'50% 0%'
+};
+function alignStyle(im){ return ALIGN[im]?(';object-position:'+ALIGN[im]):''; }
+// fall back to full-res if a thumbnail is missing, then to a placeholder
+function imgFallback(im){ im.onerror=function(){ const full=im.getAttribute('data-src')||'';
+  if(full&&!im._triedFull){ im._triedFull=true; im.src=full; return; }
+  im.outerHTML='<div class="s-ph">Image — '+full+'</div>'; }; }
 function tourPanel(s){
   document.getElementById('mp-stage').textContent=s.stage||'';
   document.getElementById('mp-prog').textContent=(tourIdx+1)+' / '+TOUR.length;
@@ -657,11 +674,11 @@ function tourPanel(s){
        '<span class="s-video-exp"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0 -2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1 -2 -2v-3M16 21h3a2 2 0 0 0 2 -2v-3"/></svg>Expand</span>'+
        '</div>'+(s.caption?'<figcaption class="s-cap">'+escHtml(s.caption)+'</figcaption>':'')+'</figure>'; }
   else if(imgs.length>1){
-    h+='<div class="s-slider">'+imgs.map((im,k)=>'<img class="ss-img'+(k===0?' on':'')+'" data-src="'+im+'" src="'+im+'">').join('')+
+    h+='<div class="s-slider">'+imgs.map((im,k)=>'<img class="ss-img'+(k===0?' on':'')+'" data-src="'+im+'" src="'+thumbSrc(im)+'" style="object-fit:cover'+alignStyle(im)+'">').join('')+
        '<button class="ss-nav ss-prev" aria-label="Previous">‹</button><button class="ss-nav ss-next" aria-label="Next">›</button>'+
        '<div class="ss-dots">'+imgs.map((_,k)=>'<span class="ss-dot'+(k===0?' on':'')+'" data-k="'+k+'"></span>').join('')+'</div></div>'+
        (s.caption?'<div class="s-cap">'+escHtml(s.caption)+'</div>':''); }
-  else if(imgs.length===1){ const img=imgs[0]; h+='<figure><img class="s-img" data-src="'+img+'" src="'+img+'">'+(s.caption?'<figcaption class="s-cap">'+escHtml(s.caption)+'</figcaption>':'')+'</figure>'; }
+  else if(imgs.length===1){ const img=imgs[0]; h+='<figure><img class="s-img" data-src="'+img+'" src="'+thumbSrc(img)+'"'+(ALIGN[img]?' style="object-position:'+ALIGN[img]+'"':'')+'>'+(s.caption?'<figcaption class="s-cap">'+escHtml(s.caption)+'</figcaption>':'')+'</figure>'; }
   if(s.pano) h+='<button class="s-360"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.4"/></svg>View in 360°</button>';
   if(s.lead) h+='<p class="s-lead">'+escHtml(s.lead)+'</p>';
   if(s.points&&s.points.length) h+='<ul class="s-points">'+s.points.map(pt=>'<li>'+escHtml(pt)+'</li>').join('')+'</ul>';
@@ -670,7 +687,7 @@ function tourPanel(s){
   if(s.cta) h+='<a class="s-cta" href="'+s.cta.href+'" target="_blank" rel="noopener">'+escHtml(s.cta.label)+'</a>';
   h+='</div>';
   const body=document.getElementById('mpbody'); body.innerHTML=h; body.scrollTop=0;
-  body.querySelectorAll('img:not(.ss-img)').forEach(im=>im.onerror=()=>{const x=im.getAttribute('data-src')||'';im.outerHTML='<div class="s-ph">Image — '+x+'</div>';});
+  body.querySelectorAll('img[data-src]').forEach(imgFallback);
   if(window._sliderTimer){ clearInterval(window._sliderTimer); window._sliderTimer=null; }
   const sl=body.querySelector('.s-slider');
   if(sl){ const ims=[...sl.querySelectorAll('.ss-img')], dts=[...sl.querySelectorAll('.ss-dot')]; let ci=0;
@@ -844,16 +861,17 @@ function placeReadout(){
 function showOverlay(o){
   const el=document.getElementById('bigoverlay'); if(!el) return;
   let h='<div class="bo-card"><button class="bo-close" aria-label="Close">✕</button>';
-  h+='<div class="bo-media"'+(o.hero?' style="background-image:url(\''+o.hero+'\')"':'')+'></div>';
+  h+='<div class="bo-media"'+(o.hero?' style="background-image:url(\''+thumbSrc(o.hero)+'\')"':'')+'></div>';
   h+='<div class="bo-content">';
   if(o.eyebrow) h+='<div class="bo-eyebrow">'+escHtml(o.eyebrow)+'</div>';
   h+='<h1 class="bo-h">'+escHtml(o.heading||'')+'</h1>';
   if(o.sub) h+='<div class="bo-sub">'+escHtml(o.sub)+'</div>';
   if(o.story&&o.story.length){ h+='<div class="bo-story">'+o.story.map(p=>'<p>'+escHtml(p)+'</p>').join('')+'</div>'; }
-  if(o.thumbs&&o.thumbs.length){ h+='<div class="bo-thumbs">'+o.thumbs.map(t=>'<img loading="lazy" src="'+t+'" alt="">').join('')+'</div>'; }
+  if(o.thumbs&&o.thumbs.length){ h+='<div class="bo-thumbs">'+o.thumbs.map(t=>'<img loading="lazy" src="'+thumbSrc(t)+'" alt="">').join('')+'</div>'; }
   if(o.closing) h+='<div class="bo-closing">'+escHtml(o.closing)+'</div>';
   h+='<div class="bo-foot">';
   if(o.cta) h+='<a class="bo-cta" href="'+o.cta.href+'" target="_blank" rel="noopener">'+escHtml(o.cta.label)+'</a>';
+  if(o.ctaNote) h+='<div class="bo-ctanote">'+escHtml(o.ctaNote)+'</div>';
   (o.buttons||[]).forEach(b=>{ h+='<button class="bo-btn'+(b.action==='start'?' primary':'')+'" data-act="'+b.action+'">'+escHtml(b.label)+'</button>'; });
   h+='</div></div>';
   el.innerHTML=h; el.classList.add('on');
@@ -927,18 +945,12 @@ fetch('data/tour.json').then(r=>r.json()).then(M=>{
   STAGES=(M.stages||[]).map(st=>({name:st.name, firstIdx:TOUR.findIndex(s=>s.stage===st.name)})).filter(s=>s.firstIdx>=0);
   buildStopIndex();
   renderBar();
-  const ib=document.getElementById('introbox');
-  if(M.intro){
-    document.getElementById('ib-title').textContent=M.intro.title||'';
-    document.getElementById('ib-body').innerHTML=renderWrite(M.intro.body||'');
-    if(M.intro.button) document.getElementById('ib-start').textContent=M.intro.button;
-    document.getElementById('ib-start').onclick=()=>{ib.style.display='none'; startTour();};
-    document.getElementById('ib-skip').onclick=()=>{ib.style.display='none';};
-  }
+  const ib=document.getElementById('introbox'); if(ib) ib.style.display='none';
   // deep link: #...&t=<stopId> jumps straight to that stop, skipping the intro
   const u=readURL(); const startIdx=(u&&u.t)?TOUR.findIndex(s=>s.id===u.t):-1;
-  if(startIdx>=0){ if(ib) ib.style.display='none'; goStop(startIdx); }
-  else if(M.intro){ ib.style.display='flex'; }
+  const introIsOverlay=TOUR.length&&TOUR[0].kind==='overlay';
+  if(startIdx>=0){ goStop(startIdx); }
+  else if(introIsOverlay){ goStop(0); }   // open the Our Story overlay on load
 }).catch(e=>{console.warn('tour load',e); renderBar();});
 </script>
 </body>

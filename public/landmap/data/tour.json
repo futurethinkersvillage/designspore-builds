@@ -1,11 +1,45 @@
 {
   "_note": "Slide-deck tour. intro = start lightbox. stages[] -> {name,badge,stops[]}. Each stop: title, image (ONE), caption?, lead, points[], layers[] (slugs shown), center [lng,lat] + zoom (frames the stop), or fit:'all'. cta?. 'Operating now' badge = green.",
-  "intro": {
-    "title": "Portal.Place Village",
-    "body": "Phase 2 plan — a seasonal recreational community for families, nature lovers, and creators, on 400 acres of private land bordering Wells Gray Provincial Park, near Clearwater, BC.\n\nThis guided tour walks through what's built and operating, then the plan for the village. Use the buttons or the timeline to move; close anytime to explore the map yourself.",
-    "button": "▶ Start the tour"
-  },
   "stages": [
+    {
+      "name": "Welcome",
+      "badge": "",
+      "stops": [
+        {
+          "id": "our-story",
+          "kind": "overlay",
+          "title": "Our Story",
+          "status": "story",
+          "overlay": {
+            "eyebrow": "Wells Gray Golf & RV Resort",
+            "heading": "Portal.Place Village: Our Story",
+            "sub": "A seasonal recreational community for families, creators, and nature lovers, on 400 acres bordering Wells Gray Provincial Park near Clearwater, BC.",
+            "hero": "media/story/story-aerial.jpg",
+            "story": [
+              "In 2021, Mike and Euvie crowdfunded this land through their podcast, Future Thinkers, with the intention of building a seasonal village centered around family, creativity, and maker culture.",
+              "Our whole extended family joined us on the land, and for five years, we have run this as a working RV park, campground & golf resort. We welcomed 3,000 guests per season, completed Phase 1 upgrades, and started building what comes next — event programs, cabins, a maker space, and a community of people who return every season.",
+              "It's a place to make memories: summers by the river, wood-fired saunas, golf and disc golf, campfires, stargazing, and long evenings with the people you love. Kids and adults learn hands-on skills while spending time outside with friends, and there's always something being built, grown, or made.",
+              "This map is where you can see it taking shape. Walk through what's built and operating, then the plan for the village — use the buttons or the timeline to move, and close anytime to explore the map yourself."
+            ],
+            "thumbs": [
+              "media/story/story-family-a.jpg",
+              "media/story/story-canadaday.jpg",
+              "media/story/story-meetup.jpg"
+            ],
+            "buttons": [
+              {
+                "label": "▶ Start the tour",
+                "action": "start"
+              },
+              {
+                "label": "Explore the map myself",
+                "action": "explore"
+              }
+            ]
+          }
+        }
+      ]
+    },
     {
       "name": "The Campground",
       "badge": "Operating now",
@@ -520,27 +554,28 @@
         {
           "id": "become-member",
           "kind": "overlay",
-          "title": "Become a Member",
+          "title": "Founding Memberships",
           "status": "join",
           "overlay": {
             "eyebrow": "Founding Membership",
-            "heading": "Become a Member",
-            "sub": "Join the founding community shaping Portal.Place Village.",
-            "hero": "/images/add_a_small_202511251502-572x1024.jpeg",
+            "heading": "Founding Memberships",
+            "sub": "A summer home base here for years to come.",
+            "hero": "media/story/story-concept.jpg",
             "story": [
-              "Membership is your doorway into a new model of living — seasonal, in nature, in community. Members get priority access to immersions and events, member pricing on stays, and a voice in the village's culture and rhythms.",
-              "The first wave receive Founding Member status — recognition, early access, and a hand in shaping what comes next. It won't be offered later. From $48/month, billed annually."
+              "We're opening a small round of Founding Memberships for people who want to make this a summer home base here for years to come. Founding Members get 1–2 weeks of free cabin or RV stays each season plus generous perks, as well as a stake in the membership company behind the village, and a voice in the future direction of the place.",
+              "The round is capped at 50 Founding Members, and we break ground once 30 are committed. We're starting with the people we already know: friends, family, past guests, and longtime podcast listeners. It's offered privately by invitation, not sold to the public, and we get to know every member personally before they join.",
+              "If that's you, we'd love to hear from you."
             ],
             "thumbs": [
-              "/images/gazebo-community-meetup-scaled.jpg",
-              "/images/campfire-in-gazebo-scaled.jpg",
-              "media/tour/village-rhythm.jpg"
+              "media/story/story-family-a.jpg",
+              "media/story/story-meditation.jpg",
+              "media/story/story-family-b.jpg"
             ],
-            "closing": "Founding membership is open now, by application — and closing soon.",
             "cta": {
-              "label": "Apply now — closing soon",
+              "label": "Explore Membership",
               "href": "https://portal.place/membership"
             },
+            "ctaNote": "Or reach out directly — contact@futurethinkers.org",
             "buttons": [
               {
                 "label": "Back to the map",
