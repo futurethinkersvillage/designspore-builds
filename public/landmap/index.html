@@ -200,11 +200,19 @@
   /* 360 pano viewer */
   #panobox{position:fixed;inset:0;z-index:3400;display:none;background:#0b0910}
   #panobox.on{display:block}
-  #panobox .pano-view{position:absolute;inset:0;z-index:1}
-  #panobox .pano-close{position:absolute;top:16px;right:18px;z-index:5;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.55);border:1px solid var(--line);color:#fff;font-size:19px;cursor:pointer}
-  #panobox .pano-close:hover{border-color:var(--accent)}
-  #panobox .pano-title{position:absolute;top:16px;left:18px;z-index:5;color:#fff;background:rgba(0,0,0,.5);border:1px solid var(--line);padding:6px 13px;border-radius:999px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px}
-  #panobox .pano-load{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;color:var(--muted);font-size:14px}
+  #panobox .pano-view{position:absolute;left:0;right:0;bottom:0;top:54px;z-index:1}
+  #panobox .pano-bar{position:absolute;top:0;left:0;right:0;height:54px;z-index:5;background:var(--accent);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 12px 0 16px;box-shadow:0 2px 12px rgba(0,0,0,.45)}
+  #panobox .pano-title{color:#241a10;font-size:14.5px;font-weight:800;display:flex;align-items:center;gap:9px;letter-spacing:.2px;min-width:0}
+  #panobox .pano-title span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #panobox .pano-title svg{width:19px;height:19px;stroke:#241a10;fill:none;stroke-width:2;flex:none}
+  #panobox .pano-back{flex:none;background:#241a10;color:#fff;border:0;border-radius:999px;padding:10px 20px;font-size:13.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px}
+  #panobox .pano-back:hover{background:#000}
+  #panobox .pano-back svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  #panobox .pano-load{position:absolute;top:calc(50% + 27px);left:50%;transform:translate(-50%,-50%);z-index:2;color:var(--muted);font-size:14px}
+  #placebox{position:fixed;left:12px;bottom:12px;z-index:4200;width:270px;background:rgba(15,12,20,.96);border:1px solid var(--line);border-radius:10px;padding:10px;color:#fff;box-shadow:0 6px 22px rgba(0,0,0,.55)}
+  #placebox .pb-hd{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:12px;margin-bottom:7px}
+  #placebox #pb-copy{background:var(--accent);color:#241a10;border:0;border-radius:6px;padding:4px 11px;font-weight:800;cursor:pointer;font-size:11px}
+  #placebox #pb-txt{width:100%;height:210px;background:#0b0910;color:#bfe;border:1px solid var(--line);border-radius:6px;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.45;resize:vertical;padding:6px}
   .media-pin{background:transparent!important;border:0!important}
   .media-pin .mp-box{width:28px;height:28px;border-radius:7px;border:2px solid #fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.55);cursor:pointer}
   .media-pin.is-pano .mp-box{background:var(--accent)}
@@ -427,9 +435,10 @@ function addLayer(L){return fetch('data/'+L.f+'.geojson').then(r=>r.json()).then
     gj.features=(gj.features||[]).filter(ft=>ft&&ft.geometry&&ft.geometry.coordinates!=null&&(!Array.isArray(ft.geometry.coordinates)||ft.geometry.coordinates.length>0));
     const dev=/label/i.test(L.name);
     const lyr = L.pano
-      ? window.L.geoJSON(gj,{pointToLayer:(ft,ll)=>window.L.marker(ll,{icon:mediaIcon((ft.properties||{}).type),keyboard:false}),
-          onEachFeature:(ft,l)=>{ const p=ft.properties||{}; const src=p.src||p.pano;
-            l.on('click',()=>{ if(p.type==='photo') openLightbox([src],0); else openPano(src,p.name); });
+      ? window.L.geoJSON(gj,{pointToLayer:(ft,ll)=>window.L.marker(ll,{icon:mediaIcon((ft.properties||{}).type),keyboard:false,draggable:PLACE_MODE}),
+          onEachFeature:(ft,l)=>{ const p=ft.properties||{}; const src=p.src||p.pano; const imgs=(p.srcs&&p.srcs.length)?p.srcs:[src];
+            if(PLACE_MODE){ placeRegister(p.name,l); l.on('dragend',()=>placeReadout()); }
+            else l.on('click',()=>{ if(p.type==='photo') openLightbox(imgs,0); else openPano(src,p.name,{yaw:p.yaw,pitch:p.pitch,hfov:p.hfov}); });
             l.bindTooltip('<span style="color:#EA824E">'+escHtml(p.name||'')+'</span>',{direction:'top',className:'maplbl dev',offset:[0,-16]}); }})
       : window.L.geoJSON(gj, L.geom==='point'
           ? {pointToLayer:(ft,ll)=>window.L.circleMarker(ll,pointStyleFor(L,ft)),onEachFeature:bind}
@@ -601,6 +610,7 @@ fetch('data/manifest.json').then(r=>r.json()).then(M=>{
   let visible=new Set(DEFAULTON);
   if(u){ if(u.on)u.on.split(',').forEach(f=>visible.add(f)); if(u.off)u.off.split(',').forEach(f=>visible.delete(f)); }
   DEFS.forEach(d=>setVis(d.f, visible.has(d.f)));
+  if(PLACE_MODE){ DEFS.filter(d=>d.pano).forEach(d=>setVis(d.f,true)); placeReadout(); }
   wire(); refresh();
   if(u&&u.b) setBackdrop(u.b,true);
   if(u&&u.v){const[z,la,ln]=u.v.split(',').map(Number); if(!isNaN(z)) map.setView([la,ln],z);}
@@ -673,7 +683,7 @@ function tourPanel(s){
     auto(); }
   const single=body.querySelector('figure .s-img'); if(single){ single.style.cursor='zoom-in'; single.onclick=()=>openLightbox(imgs,0); }
   const vc=body.querySelector('.s-video-click'); if(vc&&s.video){ vc.onclick=()=>openLightbox([{v:s.video}],0); }
-  const b360=body.querySelector('.s-360'); if(b360&&s.pano){ b360.onclick=()=>openPano(s.pano,s.title); }
+  const b360=body.querySelector('.s-360'); if(b360&&s.pano){ b360.onclick=()=>openPano(s.pano,s.title,panoOptsFor(s.pano)); }
   const mp=document.getElementById('mediapanel'); const wasOpen=mp.classList.contains('open'); mp.scrollTop=0; mp.classList.add('open');
   document.body.classList.add('media-open'); if(!wasOpen) setTimeout(()=>map.invalidateSize(),300);
   const last=tourIdx>=TOUR.length-1;
@@ -792,14 +802,45 @@ function loadPannellum(cb){ if(window.pannellum) return cb();
   const css=document.createElement('link'); css.rel='stylesheet'; css.href='https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css'; document.head.appendChild(css);
   const js=document.createElement('script'); js.src='https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js'; js.onload=()=>{ if(window.pannellum) cb(); }; js.onerror=()=>{_panoLoading=false;}; document.head.appendChild(js); }
 function closePano(){ const el=document.getElementById('panobox'); if(!el) return; el.classList.remove('on'); if(panoViewer){ try{panoViewer.destroy();}catch(e){} panoViewer=null; } el.innerHTML=''; }
-function openPano(url,title){ const el=document.getElementById('panobox'); if(!el||!url) return;
-  el.innerHTML='<div class="pano-view" id="pano-view"></div>'+
-    '<div class="pano-title"><svg viewBox="0 0 24 24" width="14" height="14" style="stroke:#fff;fill:none;stroke-width:2"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.4"/></svg>'+escHtml(title||'360° view')+'</div>'+
-    '<button class="pano-close" aria-label="Close">✕</button><div class="pano-load">Loading 360°…</div>';
-  el.classList.add('on'); el.querySelector('.pano-close').onclick=closePano;
+function openPano(url,title,opts){ const el=document.getElementById('panobox'); if(!el||!url) return; opts=opts||{};
+  const backLabel=document.body.classList.contains('touring')?'Return to tour':'Back to map';
+  el.innerHTML='<div class="pano-bar">'+
+      '<div class="pano-title"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.4"/></svg><span>'+escHtml(title||'360° view')+'</span></div>'+
+      '<button class="pano-back" aria-label="'+backLabel+'"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>'+backLabel+'</button>'+
+    '</div>'+
+    '<div class="pano-view" id="pano-view"></div><div class="pano-load">Loading 360°…</div>';
+  el.classList.add('on'); el.querySelector('.pano-back').onclick=closePano;
   loadPannellum(()=>{ const v=document.getElementById('pano-view'); if(!v||!window.pannellum) return;
-    try{ if(panoViewer){try{panoViewer.destroy();}catch(e){}} panoViewer=window.pannellum.viewer('pano-view',{type:'equirectangular',panorama:url,autoLoad:true,autoRotate:-2,showZoomCtrl:true,compass:false,hfov:100}); }catch(e){}
+    const cfg={type:'equirectangular',panorama:url,autoLoad:true,autoRotate:-2,showZoomCtrl:true,compass:false,hfov:opts.hfov||100};
+    if(opts.yaw!=null) cfg.yaw=opts.yaw; if(opts.pitch!=null) cfg.pitch=opts.pitch;
+    try{ if(panoViewer){try{panoViewer.destroy();}catch(e){}} panoViewer=window.pannellum.viewer('pano-view',cfg); }catch(e){}
     const ld=el.querySelector('.pano-load'); if(ld) ld.style.display='none'; }); }
+// Default view orientations pulled from the /tour scene calibrations (keyed by pano filename)
+const PANO_VIEW={
+  'Golf-Course-Above2.jpg':{yaw:288.20,pitch:-90,hfov:120},
+  'Sauna-1_PANO_0001-Sauna-1_PANO_0035_blended_fused.jpg':{yaw:41.44,pitch:-15.35},
+  'Cabin-3.2_PANO_0001-Cabin-3-2-1.jpg':{yaw:0,pitch:0},
+  'Shower-House-1_PANO_0001-Shower-House-1_PANO_0035_blended_fused-2-1.jpg':{yaw:319.11,pitch:-15.69},
+  'Gazebo-5_PANO_0001-Gazebo-5_PANO_0035_blended_fused-2-1.jpg':{yaw:222.49,pitch:-30.83},
+  'DomeLake1_blended_fused-2-1.jpg':{yaw:35.59,pitch:-11.86}
+};
+function panoOptsFor(url){ return PANO_VIEW[(url||'').split('/').pop()]||{}; }
+// ── Temporary drag-to-place mode (?place) ──────────────────────────────
+const PLACE_MODE=/[?&]place\b/.test(location.search);
+const _placeReg=[];
+function placeRegister(name,l){ _placeReg.push({name:name,l:l}); placeReadout(); }
+function placeReadout(){
+  let box=document.getElementById('placebox');
+  if(!box){ box=document.createElement('div'); box.id='placebox';
+    box.innerHTML='<div class="pb-hd"><span>Drag pins • coords</span><button id="pb-copy">Copy</button></div><textarea id="pb-txt" readonly spellcheck="false"></textarea>';
+    document.body.appendChild(box);
+    box.querySelector('#pb-copy').onclick=function(){ const t=box.querySelector('#pb-txt'); t.select();
+      try{navigator.clipboard.writeText(t.value);}catch(e){} try{document.execCommand('copy');}catch(e){}
+      this.textContent='Copied!'; setTimeout(()=>{this.textContent='Copy';},1200); };
+  }
+  const obj={}; _placeReg.forEach(r=>{ const ll=r.l.getLatLng(); obj[r.name]=[+ll.lng.toFixed(6),+ll.lat.toFixed(6)]; });
+  box.querySelector('#pb-txt').value=JSON.stringify(obj,null,2);
+}
 function showOverlay(o){
   const el=document.getElementById('bigoverlay'); if(!el) return;
   let h='<div class="bo-card"><button class="bo-close" aria-label="Close">✕</button>';
