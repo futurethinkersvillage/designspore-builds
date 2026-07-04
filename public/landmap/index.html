@@ -215,15 +215,6 @@
   #placebox .pb-hd{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:12px;margin-bottom:7px}
   #placebox #pb-copy{background:var(--accent);color:#241a10;border:0;border-radius:6px;padding:4px 11px;font-weight:800;cursor:pointer;font-size:11px}
   #placebox #pb-txt{width:100%;height:210px;background:#0b0910;color:#bfe;border:1px solid var(--line);border-radius:6px;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.45;resize:vertical;padding:6px}
-  /* Bigger Picture finale — global village network */
-  .net-arc{filter:drop-shadow(0 0 3px rgba(234,130,78,.55))}
-  .net-pin{background:transparent!important;border:0!important}
-  .net-pin .np-dot{display:block;width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(234,130,78,.28),0 0 12px rgba(234,130,78,.8);opacity:0;transform:scale(.2);animation:netpop .5s cubic-bezier(.2,1.4,.4,1) forwards}
-  .net-pin.is-home .np-dot{width:15px;height:15px;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.35),0 0 18px rgba(255,255,255,.85)}
-  .net-pin .np-lbl{position:absolute;left:15px;top:-3px;white-space:nowrap;font-size:11.5px;font-weight:700;color:#fff;text-shadow:0 1px 4px #000,0 0 2px #000;opacity:0;animation:netfade .6s ease forwards}
-  .net-pin.is-home .np-lbl{font-size:12.5px;color:var(--accent)}
-  @keyframes netpop{to{opacity:1;transform:scale(1)}}
-  @keyframes netfade{to{opacity:1}}
   .al-bar{position:absolute;top:8px;left:8px;z-index:6;display:flex;gap:4px;background:rgba(10,9,14,.86);border:1px solid var(--line);border-radius:9px;padding:4px}
   .al-bar button{background:rgba(255,255,255,.09);border:0;color:#fff;font-size:11.5px;font-weight:700;padding:6px 10px;border-radius:6px;cursor:pointer}
   .al-bar button:hover{background:var(--accent);color:#1a1a1a}
@@ -385,16 +376,7 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// ---- embed mode (?embed): hide all UI chrome, for iframing in the deck ----
-const EMBED_MODE=/[?&]embed\b/.test(location.search);
-if(EMBED_MODE){
-  document.body.classList.add('embed');
-  const st=document.createElement('style');
-  st.textContent='#controls,#title,#tourbar,#timeline,#introbox,#bigoverlay,#mediapanel{display:none!important}'
-    +'.leaflet-control-scale{opacity:.5}.leaflet-control-attribution{font-size:9px;opacity:.35}';
-  document.head.appendChild(st);
-}
-const map=L.map('map',{zoomControl:!EMBED_MODE,attributionControl:true,zoomSnap:0,zoomDelta:0.5,wheelPxPerZoomLevel:90,renderer:L.svg({padding:5})}).setView([51.93,-120.05],14);
+const map=L.map('map',{zoomControl:true,attributionControl:true,zoomSnap:0,zoomDelta:0.5,wheelPxPerZoomLevel:90,renderer:L.svg({padding:5})}).setView([51.93,-120.05],14);
 L.control.scale({imperial:true,metric:true}).addTo(map);
 const basemaps={
   sat:L.tileLayer('https://mt{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{subdomains:['0','1','2','3'],maxZoom:22,maxNativeZoom:21,attribution:'Imagery © Google'}),
@@ -636,9 +618,6 @@ fetch('data/manifest.json').then(r=>r.json()).then(M=>{
   const u=readURL();
   let visible=new Set(DEFAULTON);
   if(u){ if(u.on)u.on.split(',').forEach(f=>visible.add(f)); if(u.off)u.off.split(',').forEach(f=>visible.delete(f)); }
-  // embed + ?only=a,b,c → show ONLY those layers (clean curated view)
-  const ONLY=(new URLSearchParams(location.search).get('only')||'').split(',').filter(Boolean);
-  if(EMBED_MODE && ONLY.length) visible=new Set(ONLY);
   DEFS.forEach(d=>setVis(d.f, visible.has(d.f)));
   if(PLACE_MODE){ DEFS.filter(d=>d.pano).forEach(d=>setVis(d.f,true)); placeReadout(); }
   wire(); refresh();
@@ -833,48 +812,6 @@ function stopFocus(s){ if(s.marker&&s.marker.length===2) return L.latLng(s.marke
   return b&&b.isValid()? b.getCenter() : null; }
 const PHCOL={'1':'#E2B24A','2':'#EA824E','3':'#D06B8E','4':'#5F8FD0','next':'#A98FD0','home':'#EA824E','join':'#EA824E'};
 function firstRealIdx(){ for(let i=0;i<TOUR.length;i++){ if(TOUR[i].kind!=='overlay') return i; } return 0; }
-// ── "Bigger Picture" finale: reveal all phases, zoom to the globe, draw the village network ──
-const NET_HOME=[51.938,-120.049];
-const NET_SITES=[
-  {n:'Patagonia',   c:[-41.13,-71.31]},
-  {n:'Colombia',    c:[6.24,-75.58]},
-  {n:'Costa Rica',  c:[9.93,-84.08]},
-  {n:'Portugal',    c:[40.20,-7.90]},
-  {n:'Thailand',    c:[18.79,98.99]},
-  {n:'Bali',        c:[-8.41,115.19]},
-  {n:'New Zealand', c:[-41.0,174.0]}
-];
-let netFX={active:false,timers:[],layer:null};
-function arcPts(a,b,n){ const [la1,lo1]=a; let [la2,lo2]=b;
-  if(lo2-lo1>180) lo2-=360; else if(lo2-lo1<-180) lo2+=360;   // take the short way around
-  const mx=(la1+la2)/2,my=(lo1+lo2)/2, dx=la2-la1,dy=lo2-lo1, len=Math.hypot(dx,dy)||1;
-  const off=Math.min(len*0.22,26); const cx=mx-(dy/len)*off, cy=my+(dx/len)*off;  // perpendicular bulge
-  const pts=[]; for(let i=0;i<=n;i++){ const t=i/n, u=1-t;
-    pts.push([u*u*la1+2*u*t*cx+t*t*la2, u*u*lo1+2*u*t*cy+t*t*lo2]); } return pts; }
-function netDot(home,label,delay){ return L.divIcon({className:'net-pin'+(home?' is-home':''),
-  html:'<span class="np-dot" style="animation-delay:'+delay+'s"></span><span class="np-lbl" style="animation-delay:'+(delay+0.15)+'s">'+escHtml(label)+'</span>',
-  iconSize:[11,11],iconAnchor:[5.5,5.5]}); }
-function drawNetwork(){ if(!netFX.active) return; const g=L.layerGroup().addTo(map); netFX.layer=g;
-  NET_SITES.forEach((s,i)=>{ const d=i*0.18;
-    const pl=L.polyline(arcPts(NET_HOME,s.c,28),{className:'net-arc',color:'#EA824E',weight:2,opacity:.85,interactive:false}).addTo(g);
-    const path=pl._path;
-    if(path){ const len=path.getTotalLength(); path.style.strokeDasharray=len; path.style.strokeDashoffset=len;
-      path.style.transition='stroke-dashoffset 1.5s ease '+d+'s';
-      requestAnimationFrame(()=>requestAnimationFrame(()=>{ path.style.strokeDashoffset='0'; })); }
-    L.marker(s.c,{icon:netDot(false,s.n,d+0.9),interactive:false,keyboard:false}).addTo(g);
-  });
-  L.marker(NET_HOME,{icon:netDot(true,'Wells Gray, BC',0.2),interactive:false,keyboard:false,zIndexOffset:1000}).addTo(g);
-}
-function startVisionFX(){ stopVisionFX(); netFX.active=true;
-  DEFS.forEach(d=>setVis(d.f,true)); refresh(); clearPing();      // reveal all phases
-  try{ const l=overlays['wells_gray_golf_rv_parcel']; if(l){ const b=l.getBounds(); if(b.isValid()) map.flyToBounds(b,padOpt()); } }catch(e){}
-  netFX.timers.push(setTimeout(()=>{ if(!netFX.active) return;
-    map.flyTo([22,4],2,{duration:2.6});                            // zoom out to the globe
-    netFX.timers.push(setTimeout(drawNetwork,2750));
-  },3000));
-}
-function stopVisionFX(){ netFX.active=false; netFX.timers.forEach(t=>clearTimeout(t)); netFX.timers=[];
-  if(netFX.layer){ try{map.removeLayer(netFX.layer);}catch(e){} netFX.layer=null; } }
 function closeOverlay(){ const el=document.getElementById('bigoverlay'); if(el) el.classList.remove('on'); }
 // image lightbox
 let lbImgs=[], lbIdx=0;
@@ -992,7 +929,6 @@ function showOverlay(o){
   el.querySelectorAll('.bo-thumbs img').forEach((im,k)=>{ im.style.cursor='zoom-in'; im.onclick=()=>openLightbox(gal,k+1); });
 }
 function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
-  stopVisionFX();   // tear down the globe/network finale when moving to any stop
   const firstOpen=!document.getElementById('mediapanel').classList.contains('open');
   document.getElementById('mediapanel').style.setProperty('--pc', PHCOL[tlPhase(s).key]||'#EA824E');
   if(s.kind==='overlay'){ closeMedia(); clearPing(); document.body.classList.add('touring'); renderTimeline(); writeURL(); showOverlay(s.overlay||{}); return; }
@@ -1002,7 +938,6 @@ function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
   const nxt=TOUR[i+1]; if(nxt&&nxt.image){ const im=new Image(); im.src=nxt.image; }  // preload next slide image
   document.body.classList.add('touring'); renderTimeline(); writeURL();  // update deep-link hash immediately
   try{ if(!localStorage.getItem('tourHintSeen')){ localStorage.setItem('tourHintSeen','1'); toast('Tip: use ← → or swipe to move · Esc to exit'); } }catch(e){}
-  if(s.network){ startVisionFX(); return; }   // finale drives its own map choreography
   const fit=()=>{ tourFit(s);
     const pc=pinColorFor(s);
     if(s.markers&&s.markers.length){ showPings(s.markers.map(m=>L.latLng(m[1],m[0])),pc); }
@@ -1010,7 +945,7 @@ function goStop(i){ if(i<0||i>=TOUR.length) return; tourIdx=i; const s=TOUR[i];
     else { const fp=stopFocus(s); fp?showPing(fp,pc):clearPing(); } };
   if(firstOpen) setTimeout(fit,360); else fit(); }
 function startTour(){ if(TOUR.length) goStop(0); }
-function endTour(){ tourIdx=-1; stopVisionFX(); clearPing(); closeMedia(); restoreOnly(); if(window._sliderTimer){clearInterval(window._sliderTimer);window._sliderTimer=null;} document.body.classList.remove('touring'); document.body.classList.toggle('nolabels', !document.getElementById('lbltoggle').checked); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
+function endTour(){ tourIdx=-1; clearPing(); closeMedia(); restoreOnly(); if(window._sliderTimer){clearInterval(window._sliderTimer);window._sliderTimer=null;} document.body.classList.remove('touring'); document.body.classList.toggle('nolabels', !document.getElementById('lbltoggle').checked); renderTimeline(); DEFS.forEach(d=>setVis(d.f, true)); refresh(); fitView(); renderBar(); }
 let STAGES=[];
 function tlPhase(s){const st=(s.stage||''); const b=(s.badge||'').toLowerCase();
   if(/welcome/i.test(st)) return {key:'home',name:'Welcome'};
@@ -1060,8 +995,7 @@ fetch('data/tour.json').then(r=>r.json()).then(M=>{
   // deep link: #...&t=<stopId> jumps straight to that stop, skipping the intro
   const u=readURL(); const startIdx=(u&&u.t)?TOUR.findIndex(s=>s.id===u.t):-1;
   const introIsOverlay=TOUR.length&&TOUR[0].kind==='overlay';
-  if(EMBED_MODE){ /* embed: no intro/tour, just the map */ }
-  else if(startIdx>=0){ goStop(startIdx); }
+  if(startIdx>=0){ goStop(startIdx); }
   else if(introIsOverlay){ goStop(0); }   // open the Our Story overlay on load
 }).catch(e=>{console.warn('tour load',e); renderBar();});
 </script>
