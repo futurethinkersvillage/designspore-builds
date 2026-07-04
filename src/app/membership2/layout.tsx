@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Founders Membership — Wells Gray Village",
-  description: "Your family's summer home for life. 400 acres bordering Wells Gray Provincial Park — non-voting equity stake, free seasonal cabin stays, lifetime access. 50 founding spots.",
+  title: "Founding Membership — Wells Gray Village",
+  description: "A founding stake in a 400-acre village bordering Wells Gray Provincial Park — free weeks every season, for life. 50 founding spots, reserved with a fully refundable deposit.",
   openGraph: {
-    title: "Founders Membership — Wells Gray Village",
-    description: "50 founding spots. Equity stake + free cabin stays every season for life. Wells Gray Village, BC.",
+    title: "Founding Membership — Wells Gray Village",
+    description: "50 founding spots. A founding stake in 400 acres bordering Wells Gray Provincial Park — free weeks every season, for life.",
+    images: ["/images/membership/hero-aerial.jpg"],
   },
 };
 
