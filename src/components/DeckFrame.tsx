@@ -13,10 +13,31 @@ export default function DeckFrame({ src }: { src: string }) {
   const [full, setFull] = useState(src);
 
   useEffect(() => {
-    setFull(src + window.location.search);
+    // carry the parent's ?query and #slide into the iframe so /deck#5 opens slide 5
+    setFull(src + window.location.search + window.location.hash);
     const id = window.setTimeout(() => ref.current?.focus(), 250);
     return () => window.clearTimeout(id);
   }, [src]);
+
+  // Keep the shareable parent URL (portal.place/deck#N) in sync with the slide.
+  useEffect(() => {
+    function onMsg(e: MessageEvent) {
+      if (e.origin !== window.location.origin) return;
+      if (e.data && e.data.t === "deckslide" && typeof e.data.n === "number") {
+        history.replaceState(null, "", "#" + e.data.n);
+      }
+    }
+    function onHash() {
+      const n = parseInt(window.location.hash.slice(1)) || 1;
+      ref.current?.contentWindow?.postMessage({ t: "deckgoto", n }, window.location.origin);
+    }
+    window.addEventListener("message", onMsg);
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      window.removeEventListener("message", onMsg);
+      window.removeEventListener("hashchange", onHash);
+    };
+  }, []);
 
   return (
     <iframe

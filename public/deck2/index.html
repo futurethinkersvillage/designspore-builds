@@ -1103,6 +1103,7 @@ function show(i,dir){
   const s=slides[i]; s.classList.add("active");
   prog.style.width=((i+1)/total*100)+"%";
   history.replaceState(null,"","#"+(i+1));
+  try{ if(window.parent&&window.parent!==window) window.parent.postMessage({t:"deckslide",n:i+1},location.origin); }catch(e){}
   // motion triggers
   requestAnimationFrame(()=>{ drawBars(s); countUp(s); });
   markOverview();
@@ -1135,6 +1136,8 @@ addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.cha
   if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)){ dx<0?next():prev(); }},{passive:true});
 // ---- hash nav ----
 addEventListener("hashchange",()=>{const n=(parseInt(location.hash.slice(1))||1)-1; if(n!==cur)show(n);});
+// ---- parent-frame nav (portal.place/deck#N deep links) ----
+addEventListener("message",e=>{ if(e.data&&e.data.t==="deckgoto"&&typeof e.data.n==="number"){const n=e.data.n-1; if(n!==cur)show(n);} });
 
 // ---- edge chevrons: reveal on mouse move, idle-fade ----
 const edges=[...document.querySelectorAll(".deck-edge")]; let idle;
