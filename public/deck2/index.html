@@ -1163,7 +1163,7 @@ function buildDrawer(){
     inner.appendChild(clone); cell.appendChild(inner);
     if(contentNo[idx]) cell.insertAdjacentHTML("beforeend",`<span class="num">${String(contentNo[idx]).padStart(2,"0")}</span>`);
     cell.insertAdjacentHTML("beforeend",`<span class="lbl">${label}</span>`);
-    cell.addEventListener("click",()=>{ show(idx); closeDrawer(); });
+    cell.addEventListener("click",()=>{ show(idx); });  // jump but keep drawer open
     dwList.appendChild(cell);
   });
 }

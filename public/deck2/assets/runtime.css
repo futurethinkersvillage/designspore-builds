@@ -98,7 +98,9 @@ body.drawer-open #deck-drawer{transform:translateX(0)}
 #deck-drawer .thumb-inner [data-draw]{clip-path:none!important}
 #deck-drawer .thumb-inner .bleed{animation:none!important;transform:none!important}
 #deck-drawer .thumb-inner .foot,#deck-drawer .thumb-inner .foot-wm,#deck-drawer .thumb-inner .foot-pg{opacity:.9}
-#deck-scrim{position:fixed;inset:0;z-index:135;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;
+/* light scrim: drawer is a persistent panel, keep the previewed slide visible;
+   clicking the scrim (outside the drawer) closes it */
+#deck-scrim{position:fixed;inset:0;z-index:135;background:rgba(0,0,0,.16);opacity:0;pointer-events:none;
   transition:opacity .34s}
 body.drawer-open #deck-scrim{opacity:1;pointer-events:auto}
 
