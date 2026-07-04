@@ -48,23 +48,28 @@ section.slide.active{opacity:1;visibility:visible;pointer-events:auto;z-index:1}
 #deck-progress .ticks{position:absolute;inset:0;pointer-events:none}
 #deck-progress .ticks b{position:absolute;top:0;width:1px;height:100%;background:rgba(255,255,255,.18)}
 
-/* ---- Edge nav affordances ---- */
-.deck-edge{position:fixed;top:0;bottom:0;width:12%;z-index:90;display:flex;align-items:center;
-  opacity:0;transition:opacity .3s;pointer-events:none;color:var(--ink)}
-.deck-edge.show{opacity:.5}
-.deck-edge.l{left:0;justify-content:flex-start;padding-left:26px}
-.deck-edge.r{right:0;justify-content:flex-end;padding-right:26px}
-.deck-edge svg{width:34px;height:34px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+/* ---- Edge nav arrows: clear, always-visible circular buttons ---- */
+.deck-edge{position:fixed;top:50%;transform:translateY(-50%);z-index:90;width:56px;height:56px;
+  display:flex;align-items:center;justify-content:center;border-radius:50%;
+  background:rgba(20,18,24,.6);border:1px solid rgba(234,130,78,.45);backdrop-filter:blur(6px);
+  color:var(--ink);cursor:pointer;opacity:.62;pointer-events:auto;
+  box-shadow:0 3px 14px rgba(0,0,0,.45);transition:opacity .2s,background .2s,border-color .2s,transform .2s}
+.deck-edge:hover{opacity:1;background:rgba(234,130,78,.92);border-color:var(--amber);color:#1a1008}
+.deck-edge.l{left:22px}
+.deck-edge.l:hover{transform:translateY(-50%) translateX(-2px)}
+.deck-edge.r{right:22px}
+.deck-edge.r:hover{transform:translateY(-50%) translateX(2px)}
+.deck-edge svg{width:28px;height:28px;stroke-width:2}
+body.drawer-open .deck-edge.r{opacity:0;pointer-events:none}
 
 /* ---- Thumbnail drawer (right side) ---- */
-#deck-handle{position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:130;
-  display:flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer;
-  padding:16px 11px;background:rgba(23,21,27,.82);border:1px solid var(--line);border-right:none;
-  border-radius:12px 0 0 12px;backdrop-filter:blur(8px);transition:background .2s,padding-right .2s;color:var(--body)}
-#deck-handle:hover{background:rgba(35,32,42,.92);color:var(--ink);padding-right:15px}
-#deck-handle svg{width:20px;height:20px}
-#deck-handle span{writing-mode:vertical-rl;font-family:var(--sans);font-size:12px;font-weight:500;
-  letter-spacing:.22em;text-transform:uppercase}
+#deck-handle{position:fixed;bottom:20px;right:22px;z-index:130;
+  display:flex;flex-direction:row;align-items:center;gap:9px;cursor:pointer;
+  padding:11px 18px;background:rgba(23,21,27,.85);border:1px solid var(--line);
+  border-radius:999px;backdrop-filter:blur(8px);transition:background .2s,color .2s,border-color .2s;color:var(--body)}
+#deck-handle:hover{background:rgba(35,32,42,.95);color:var(--ink);border-color:var(--amber)}
+#deck-handle svg{width:18px;height:18px}
+#deck-handle span{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
 body.drawer-open #deck-handle{opacity:0;pointer-events:none}
 
 #deck-drawer{position:fixed;top:0;right:0;bottom:0;width:352px;z-index:140;
@@ -77,15 +82,15 @@ body.drawer-open #deck-drawer{transform:translateX(0)}
 #deck-drawer .dw-head b{font-family:var(--serif);font-weight:400;font-size:24px;color:var(--ink)}
 #deck-drawer .dw-x{cursor:pointer;color:var(--dim);font-size:22px;line-height:1;padding:4px 8px}
 #deck-drawer .dw-x:hover{color:var(--ink)}
-#deck-drawer .dw-list{flex:1;overflow-y:auto;padding:16px 20px 40px}
+#deck-drawer .dw-list{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 16px 40px}
 #deck-drawer .dw-sec{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.24em;
   text-transform:uppercase;color:var(--amber);margin:20px 4px 12px}
 #deck-drawer .dw-sec:first-child{margin-top:4px}
-.thumb{position:relative;width:312px;height:175.5px;margin:0 auto 14px;border-radius:9px;overflow:hidden;
+.thumb{position:relative;width:300px;height:168.75px;margin:0 auto 14px;border-radius:9px;overflow:hidden;
   border:1px solid var(--line-soft);cursor:pointer;background:var(--bg);transition:border-color .18s,transform .18s}
 .thumb:hover{border-color:var(--amber);transform:translateY(-2px)}
 .thumb.cur{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber)}
-.thumb .thumb-inner{width:1920px;height:1080px;transform:scale(.1625);transform-origin:top left;pointer-events:none}
+.thumb .thumb-inner{width:1920px;height:1080px;transform:scale(.15625);transform-origin:top left;pointer-events:none}
 .thumb .lbl{position:absolute;left:8px;bottom:6px;z-index:2;font-family:var(--sans);font-size:12px;
   font-weight:500;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.9)}
 .thumb .num{position:absolute;top:6px;left:9px;z-index:2;font-family:var(--serif);font-size:15px;

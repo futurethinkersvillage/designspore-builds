@@ -1139,10 +1139,7 @@ addEventListener("hashchange",()=>{const n=(parseInt(location.hash.slice(1))||1)
 // ---- parent-frame nav (portal.place/deck#N deep links) ----
 addEventListener("message",e=>{ if(e.data&&e.data.t==="deckgoto"&&typeof e.data.n==="number"){const n=e.data.n-1; if(n!==cur)show(n);} });
 
-// ---- edge chevrons: reveal on mouse move, idle-fade ----
-const edges=[...document.querySelectorAll(".deck-edge")]; let idle;
-addEventListener("mousemove",()=>{ edges.forEach(x=>x.classList.add("show")); clearTimeout(idle);
-  idle=setTimeout(()=>edges.forEach(x=>x.classList.remove("show")),1600); });
+// ---- edge arrows (always visible; click to navigate) ----
 document.querySelector(".deck-edge.l").addEventListener("click",prev);
 document.querySelector(".deck-edge.r").addEventListener("click",next);
 
