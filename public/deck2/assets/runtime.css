@@ -56,30 +56,51 @@ section.slide.active{opacity:1;visibility:visible;pointer-events:auto;z-index:1}
 .deck-edge.r{right:0;justify-content:flex-end;padding-right:26px}
 .deck-edge svg{width:34px;height:34px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
 
-/* ---- Slide counter ---- */
-#deck-counter{position:fixed;right:18px;bottom:14px;z-index:90;font-family:var(--sans);
-  font-size:13px;letter-spacing:.05em;color:var(--dim);background:rgba(15,14,18,.5);
-  padding:5px 10px;border-radius:20px;backdrop-filter:blur(6px)}
+/* ---- Thumbnail drawer (right side) ---- */
+#deck-handle{position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:130;
+  display:flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer;
+  padding:16px 11px;background:rgba(23,21,27,.82);border:1px solid var(--line);border-right:none;
+  border-radius:12px 0 0 12px;backdrop-filter:blur(8px);transition:background .2s,padding-right .2s;color:var(--body)}
+#deck-handle:hover{background:rgba(35,32,42,.92);color:var(--ink);padding-right:15px}
+#deck-handle svg{width:20px;height:20px}
+#deck-handle span{writing-mode:vertical-rl;font-family:var(--sans);font-size:12px;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase}
+body.drawer-open #deck-handle{opacity:0;pointer-events:none}
 
-/* ---- Overview grid (press O / Esc) ---- */
-#deck-overview{position:fixed;inset:0;z-index:150;background:rgba(10,9,13,.97);
-  backdrop-filter:blur(8px);overflow-y:auto;padding:64px 72px;display:none}
-#deck-overview.open{display:block}
-#deck-overview h3{font-family:var(--serif);font-weight:300;font-size:34px;color:var(--ink);margin-bottom:6px}
-#deck-overview .ov-sub{font-family:var(--sans);font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:34px}
-#deck-overview .ov-sec{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.24em;
-  text-transform:uppercase;color:var(--amber);margin:26px 0 16px}
-#deck-overview .ov-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
-.ov-card{position:relative;aspect-ratio:16/9;border:1px solid var(--line);border-radius:12px;
-  background:var(--surface);cursor:pointer;overflow:hidden;transition:border-color .2s,transform .2s}
-.ov-card:hover{border-color:var(--amber);transform:translateY(-3px)}
-.ov-card.cur{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber)}
-.ov-card .n{position:absolute;top:10px;left:12px;font-family:var(--serif);font-size:26px;color:var(--amber)}
-.ov-card .t{position:absolute;left:12px;right:12px;bottom:12px;font-family:var(--sans);font-size:14px;
-  line-height:1.3;color:var(--body)}
-.ov-hint{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);font-family:var(--sans);
-  font-size:13px;color:var(--dim);letter-spacing:.05em}
-.ov-hint kbd{background:var(--surface);border:1px solid var(--line);border-radius:5px;padding:2px 7px;color:var(--ink)}
+#deck-drawer{position:fixed;top:0;right:0;bottom:0;width:352px;z-index:140;
+  background:rgba(13,12,16,.94);backdrop-filter:blur(14px);border-left:1px solid var(--line);
+  transform:translateX(100%);transition:transform .34s cubic-bezier(.16,1,.3,1);
+  display:flex;flex-direction:column}
+body.drawer-open #deck-drawer{transform:translateX(0)}
+#deck-drawer .dw-head{display:flex;align-items:center;justify-content:space-between;
+  padding:22px 24px 14px;border-bottom:1px solid var(--line-soft)}
+#deck-drawer .dw-head b{font-family:var(--serif);font-weight:400;font-size:24px;color:var(--ink)}
+#deck-drawer .dw-x{cursor:pointer;color:var(--dim);font-size:22px;line-height:1;padding:4px 8px}
+#deck-drawer .dw-x:hover{color:var(--ink)}
+#deck-drawer .dw-list{flex:1;overflow-y:auto;padding:16px 20px 40px}
+#deck-drawer .dw-sec{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--amber);margin:20px 4px 12px}
+#deck-drawer .dw-sec:first-child{margin-top:4px}
+.thumb{position:relative;width:312px;height:175.5px;margin:0 auto 14px;border-radius:9px;overflow:hidden;
+  border:1px solid var(--line-soft);cursor:pointer;background:var(--bg);transition:border-color .18s,transform .18s}
+.thumb:hover{border-color:var(--amber);transform:translateY(-2px)}
+.thumb.cur{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber)}
+.thumb .thumb-inner{width:1920px;height:1080px;transform:scale(.1625);transform-origin:top left;pointer-events:none}
+.thumb .lbl{position:absolute;left:8px;bottom:6px;z-index:2;font-family:var(--sans);font-size:12px;
+  font-weight:500;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+.thumb .num{position:absolute;top:6px;left:9px;z-index:2;font-family:var(--serif);font-size:15px;
+  color:var(--amber);text-shadow:0 1px 4px rgba(0,0,0,.9)}
+.thumb.cur .lbl{color:var(--amber-lt)}
+/* force cloned slides to render at final state inside thumbs */
+#deck-drawer .thumb-inner .slide{position:absolute!important;inset:0!important;opacity:1!important;
+  visibility:visible!important;display:block!important;animation:none!important}
+#deck-drawer .thumb-inner .reveal{opacity:1!important;transform:none!important;animation:none!important}
+#deck-drawer .thumb-inner [data-draw]{clip-path:none!important}
+#deck-drawer .thumb-inner .bleed{animation:none!important;transform:none!important}
+#deck-drawer .thumb-inner .foot,#deck-drawer .thumb-inner .foot-wm,#deck-drawer .thumb-inner .foot-pg{opacity:.9}
+#deck-scrim{position:fixed;inset:0;z-index:135;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;
+  transition:opacity .34s}
+body.drawer-open #deck-scrim{opacity:1;pointer-events:auto}
 
 /* ---- Section-divider slide ---- */
 section.slide.divider{background:
@@ -102,5 +123,5 @@ section.slide.divider{background:
   section.slide{position:relative;opacity:1!important;visibility:visible!important;
     page-break-after:always;display:block!important;transform:none!important}
   .reveal{opacity:1!important;transform:none!important}
-  #deck-splash,#deck-progress,#deck-counter,#deck-overview,.deck-edge,#deck-grain{display:none!important}
+  #deck-splash,#deck-progress,#deck-handle,#deck-drawer,#deck-scrim,.deck-edge,#deck-grain{display:none!important}
 }

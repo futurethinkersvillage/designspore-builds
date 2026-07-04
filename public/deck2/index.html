@@ -219,10 +219,10 @@
     <p class="intro" style="font-size:25px;max-width:800px">New infrastructure across four focused buckets — each adds revenue, extends the season, reaches new audiences, and reduces risk.</p>
 
     <div class="buckets">
-      <div class="bkt"><span class="dot" style="background:#62b6c4"></span><p><b>Cabin Developments</b> — prefab creek &amp; lakeside cabins, funded by a membership model.</p></div>
-      <div class="bkt"><span class="dot" style="background:#7fae5a"></span><p><b>Makerspace</b> — on-site CNC fabrication of cabins &amp; furnishings, plus build workshops; cuts costs, extends the season.</p></div>
-      <div class="bkt"><span class="dot" style="background:var(--amber)"></span><p><b>Shared Facilities</b> — coworking/café, wellness, and event/learning spaces.</p></div>
-      <div class="bkt"><span class="dot" style="background:#c9a24a"></span><p><b>Festival Grounds</b> — new revenue, new audiences, new attractions — and a content engine.</p></div>
+      <div class="bkt"><span class="dot" style="background:#29B6E8"></span><p><b>Cabin Developments</b> — prefab creek &amp; lakeside cabins, funded by a membership model.</p></div>
+      <div class="bkt"><span class="dot" style="background:#46C463"></span><p><b>Makerspace</b> — on-site CNC fabrication of cabins &amp; furnishings, plus build workshops; cuts costs, extends the season.</p></div>
+      <div class="bkt"><span class="dot" style="background:#D0563A"></span><p><b>Shared Facilities</b> — coworking/café, wellness, and event/learning spaces.</p></div>
+      <div class="bkt"><span class="dot" style="background:#F5972B"></span><p><b>Festival Grounds</b> — new revenue, new audiences, new attractions — and a content engine.</p></div>
       <div class="bkt"><span class="dot" style="background:var(--amber)"></span><p><b>Foundations</b> — land security, utilities, access, season extension.</p></div>
     </div>
 
@@ -231,7 +231,7 @@
 
   <!-- right: site map -->
   <div style="position:absolute;left:1000px;right:120px;top:300px;bottom:96px;display:flex;align-items:center;justify-content:center">
-    <img class="framed" src="/deck2/assets/img/s08_SLIDES_API766214036_57.webp" alt="Portal.Place site map — annotated aerial" style="height:660px;width:auto;max-width:100%">
+    <img src="/deck2/assets/img/expansion_map.webp" alt="Portal.Place site map — build-project areas: Makerspace, Cabin Developments, Shared Facilities, Festival Grounds" style="height:700px;width:auto;max-width:100%;border-radius:12px">
   </div>
 
   <div class="foot"></div>
@@ -1033,11 +1033,14 @@
 <div class="deck-edge l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></div>
 <div class="deck-edge r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></div>
 
-<div id="deck-overview">
-  <h3>Overview</h3>
-  <div class="ov-sub">Portal.Place — Wells Gray Village</div>
-  <div class="ov-body"></div>
-  <div class="ov-hint">Click a slide to jump &nbsp;·&nbsp; <kbd>O</kbd> or <kbd>Esc</kbd> to close</div>
+<div id="deck-scrim"></div>
+<div id="deck-handle" title="All slides (O)">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  <span>Slides</span>
+</div>
+<div id="deck-drawer">
+  <div class="dw-head"><b>All slides</b><div class="dw-x" title="Close (Esc)">&times;</div></div>
+  <div class="dw-list"></div>
 </div>
 
 <script>
@@ -1112,12 +1115,13 @@ addEventListener("keydown",e=>{
   else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();prev();}
   else if(e.key==="Home")show(0);
   else if(e.key==="End")show(total-1);
-  else if(e.key.toLowerCase()==="o"){toggleOverview();}
-  else if(e.key==="Escape"){ if(ov.classList.contains("open"))toggleOverview(); else toggleOverview(); }
+  else if(e.key.toLowerCase()==="o"){toggleDrawer();}
+  else if(e.key==="Escape"){ closeDrawer(); }
 });
 // ---- click zones (ignore links/cards/overview) ----
 addEventListener("click",e=>{
-  if(e.target.closest("a,button,#deck-overview,.ov-card"))return;
+  if(e.target.closest("a,button,#deck-drawer,#deck-handle,#deck-scrim,.thumb"))return;
+  if(document.body.classList.contains("drawer-open"))return;
   const x=e.clientX/innerWidth;
   if(x>0.66)next(); else if(x<0.28)prev();
 });
@@ -1136,30 +1140,42 @@ addEventListener("mousemove",()=>{ edges.forEach(x=>x.classList.add("show")); cl
 document.querySelector(".deck-edge.l").addEventListener("click",prev);
 document.querySelector(".deck-edge.r").addEventListener("click",next);
 
-// ---- overview ----
-const ov=document.getElementById("deck-overview");
-const ovBody=ov.querySelector(".ov-body");
-(function buildOverview(){
-  let html="",openSec=false;
+// ---- thumbnail drawer (live-cloned slides, built lazily on first open) ----
+const drawer=document.getElementById("deck-drawer");
+const dwList=drawer.querySelector(".dw-list");
+let drawerBuilt=false;
+function buildDrawer(){
+  if(drawerBuilt)return; drawerBuilt=true;
+  let openSec=false;
   slides.forEach((s,idx)=>{
     if(s.dataset.divider){
-      if(openSec)html+="</div>";
-      const t=(s.querySelector(".dv-t")?.textContent||"").trim();
       const n=(s.querySelector(".dv-n")?.textContent||"").trim();
-      html+=`<div class="ov-sec">${n} — ${t}</div><div class="ov-grid">`; openSec=true;
-    } else {
-      if(!openSec){ html+=`<div class="ov-grid">`; openSec=true; }
-      const t = idx===0 ? "Portal.Place — Cover"
-               : (s.querySelector(".eyebrow b")?.textContent||s.querySelector("h1,.title,.wordmark")?.textContent||"").trim();
-      html+=`<div class="ov-card" data-i="${idx}"><span class="n">${String(contentNo[idx]||"•").padStart(2,"0")}</span><span class="t">${t}</span></div>`;
+      const t=(s.querySelector(".dv-t")?.textContent||"").trim();
+      const h=document.createElement("div"); h.className="dw-sec"; h.textContent=n+" — "+t; dwList.appendChild(h); openSec=true;
     }
+    const label = idx===0 ? "Cover"
+      : s.dataset.divider ? (s.querySelector(".dv-t")?.textContent||"").trim()
+      : (s.querySelector(".eyebrow b")?.textContent||"").trim();
+    const cell=document.createElement("div"); cell.className="thumb"; cell.dataset.i=idx;
+    const inner=document.createElement("div"); inner.className="thumb-inner";
+    const clone=s.cloneNode(true); clone.classList.remove("active"); clone.removeAttribute("style");
+    clone.querySelectorAll("style").forEach(x=>x.remove());  // doc-level scoped styles already apply
+    inner.appendChild(clone); cell.appendChild(inner);
+    if(contentNo[idx]) cell.insertAdjacentHTML("beforeend",`<span class="num">${String(contentNo[idx]).padStart(2,"0")}</span>`);
+    cell.insertAdjacentHTML("beforeend",`<span class="lbl">${label}</span>`);
+    cell.addEventListener("click",()=>{ show(idx); closeDrawer(); });
+    dwList.appendChild(cell);
   });
-  if(openSec)html+="</div>";
-  ovBody.innerHTML=html;
-  ovBody.querySelectorAll(".ov-card").forEach(c=>c.addEventListener("click",()=>{toggleOverview();show(+c.dataset.i);}));
-})();
-function markOverview(){ ov.querySelectorAll(".ov-card").forEach(c=>c.classList.toggle("cur",+c.dataset.i===cur)); }
-function toggleOverview(){ ov.classList.toggle("open"); }
+}
+function markDrawer(){ dwList.querySelectorAll(".thumb").forEach(c=>c.classList.toggle("cur",+c.dataset.i===cur)); }
+function openDrawer(){ buildDrawer(); document.body.classList.add("drawer-open"); markDrawer();
+  const c=dwList.querySelector(".thumb.cur"); if(c)c.scrollIntoView({block:"center"}); }
+function closeDrawer(){ document.body.classList.remove("drawer-open"); }
+function toggleDrawer(){ document.body.classList.contains("drawer-open")?closeDrawer():openDrawer(); }
+function markOverview(){ if(drawerBuilt)markDrawer(); }
+document.getElementById("deck-handle").addEventListener("click",openDrawer);
+document.querySelector("#deck-drawer .dw-x").addEventListener("click",closeDrawer);
+document.getElementById("deck-scrim").addEventListener("click",closeDrawer);
 
 // ---- fit stage to viewport ----
 function fit(){ const sc=Math.min(innerWidth/1920,innerHeight/1080);
