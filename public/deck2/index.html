@@ -884,10 +884,12 @@
       </ul>
     </div>
 
-    <div class="card" style="display:flex;flex-direction:column;justify-content:center">
-      <h4 style="margin-bottom:22px">Additional Upside</h4>
-      <ul class="bullets" style="margin-bottom:0">
+    <div class="card" style="display:flex;flex-direction:column">
+      <h4>Additional Upside</h4>
+      <ul class="bullets" style="margin-top:4px">
         <li>Optional conversion kicker at the next round — <b>~50%+ target upside</b></li>
+        <li>Upside <b>tracks the platform's next-round valuation</b></li>
+        <li>Founding-investor standing for the <b>$20M+ round</b></li>
       </ul>
     </div>
 
@@ -970,8 +972,8 @@
     Book a call, schedule a site visit, or dig into the material.</p>
 
   <!-- seven resource links: tidy 2-column grid -->
-  <div style="position:absolute;left:120px;top:436px;width:1680px;
-       display:grid;grid-template-columns:1fr 1fr;column-gap:96px;row-gap:34px">
+  <div style="position:absolute;left:120px;top:412px;width:1680px;
+       display:grid;grid-template-columns:1fr 1fr;column-gap:96px;row-gap:22px">
 
     <div class="lk">
       <a href="https://portal.place">Portal<span class="amber">.</span>Place</a>
@@ -1007,10 +1009,10 @@
   </div>
 
   <!-- CTA + contact block on a subtle surface strip -->
-  <div style="position:absolute;left:120px;right:120px;bottom:120px;
+  <div style="position:absolute;left:120px;right:120px;bottom:78px;
        border:1px solid var(--line);border-radius:20px;
        background:linear-gradient(135deg,rgba(234,130,78,.10),rgba(20,18,24,.55));
-       padding:40px 48px;display:flex;align-items:center;justify-content:space-between;gap:48px">
+       padding:32px 46px;display:flex;align-items:center;justify-content:space-between;gap:48px">
     <div>
       <div style="font-family:var(--serif);font-weight:400;font-size:38px;line-height:1.06;color:var(--ink)">
         Let's start the <i style="font-style:italic;color:var(--amber)">conversation</i></div>
@@ -1024,8 +1026,8 @@
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>20</b> / 20</div>
 
-  <style>section[data-n="20"] .lk{border-left:2px solid var(--line);padding-left:26px}section[data-n="20"] .lk a, section[data-n="20"] .lk .lk-name{display:inline-block;font-family:var(--sans);font-weight:600;font-size:27px;
-      letter-spacing:.005em;color:var(--ink);text-decoration:none;line-height:1.1}section[data-n="20"] .lk a:hover{color:var(--amber-lt)}section[data-n="20"] .lk .amber{color:var(--amber)}section[data-n="20"] .lk p{font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.4;color:var(--body);margin-top:9px}
+  <style>section[data-n="20"] .lk{border-left:2px solid var(--line);padding-left:26px}section[data-n="20"] .lk a, section[data-n="20"] .lk .lk-name{display:inline-block;font-family:var(--sans);font-weight:600;font-size:25px;
+      letter-spacing:.005em;color:var(--ink);text-decoration:none;line-height:1.1}section[data-n="20"] .lk a:hover{color:var(--amber-lt)}section[data-n="20"] .lk .amber{color:var(--amber)}section[data-n="20"] .lk p{font-family:var(--sans);font-weight:400;font-size:21px;line-height:1.38;color:var(--body);margin-top:7px}
   </style>
 </section>
 </div>
@@ -1120,6 +1122,7 @@ addEventListener("keydown",e=>{
 });
 // ---- click zones (ignore links/cards/overview) ----
 addEventListener("click",e=>{
+  if(document.body.classList.contains("admin-on"))return;   // admin mode owns clicks
   if(e.target.closest("a,button,#deck-drawer,#deck-handle,#deck-scrim,.thumb"))return;
   if(document.body.classList.contains("drawer-open"))return;
   const x=e.clientX/innerWidth;
@@ -1168,18 +1171,20 @@ function buildDrawer(){
   });
 }
 function markDrawer(){ dwList.querySelectorAll(".thumb").forEach(c=>c.classList.toggle("cur",+c.dataset.i===cur)); }
-function openDrawer(){ buildDrawer(); document.body.classList.add("drawer-open"); markDrawer();
+function openDrawer(){ buildDrawer(); document.body.classList.add("drawer-open"); fit(); markDrawer();
   const c=dwList.querySelector(".thumb.cur"); if(c)c.scrollIntoView({block:"center"}); }
-function closeDrawer(){ document.body.classList.remove("drawer-open"); }
+function closeDrawer(){ document.body.classList.remove("drawer-open"); fit(); }
 function toggleDrawer(){ document.body.classList.contains("drawer-open")?closeDrawer():openDrawer(); }
 function markOverview(){ if(drawerBuilt)markDrawer(); }
 document.getElementById("deck-handle").addEventListener("click",openDrawer);
 document.querySelector("#deck-drawer .dw-x").addEventListener("click",closeDrawer);
 document.getElementById("deck-scrim").addEventListener("click",closeDrawer);
 
-// ---- fit stage to viewport ----
-function fit(){ const sc=Math.min(innerWidth/1920,innerHeight/1080);
-  stage.style.transform="scale("+sc+")"; stage.style.left=((innerWidth-1920*sc)/2)+"px"; stage.style.top=((innerHeight-1080*sc)/2)+"px"; }
+// ---- fit stage to viewport (reserve drawer width when open → push, not overlay) ----
+const DRAWER_W=352;
+function fit(){ const availW=innerWidth-(document.body.classList.contains("drawer-open")?DRAWER_W:0);
+  const sc=Math.min(availW/1920,innerHeight/1080);
+  stage.style.transform="scale("+sc+")"; stage.style.left=((availW-1920*sc)/2)+"px"; stage.style.top=((innerHeight-1080*sc)/2)+"px"; }
 addEventListener("resize",fit); fit();
 
 // ---- build progress ticks at section boundaries ----
@@ -1194,5 +1199,9 @@ Promise.race([document.fonts?document.fonts.ready:Promise.resolve(), new Promise
   setTimeout(()=>document.getElementById("deck-splash").classList.add("hide"),180);
 });
 addEventListener("beforeunload",()=>{ if(cur>=0)beacon("slide_leave",{dwellMs:Math.round(performance.now()-enterT),to:0}); beacon("deck_close",{}); });
+
+// expose a small API for admin/edit mode (assets/admin.js, activates on ?edit)
+window.DECK={slides:slides,contentNo:contentNo,total:total,version:DECK_VERSION,show:show,get cur(){return cur}};
 </script>
+<script src="/deck2/assets/admin.js"></script>
 </body></html>
