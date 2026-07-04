@@ -276,19 +276,26 @@
         {
           "id": "phase2-intro",
           "kind": "divider",
-          "stageLabel": "Phase 2",
+          "stageLabel": "The Plan",
           "fit": "property",
-          "title": "Phase 2: Building the Village",
-          "lead": "Phase 2 turns the working campground into a village — starting with the core.",
+          "title": "Building the Village",
+          "lead": "The next chapters turn the working campground into a village — built in phases, funded by the Founding Members.",
           "points": [
-            "Creekside cabins — the first cabin neighbourhood",
-            "The Maker Space — a community workshop that helps build the village",
-            "Built in sequence and funded by the Founding Members"
+            "Phase 2 — Creekside cabins and a community Maker Space at the core",
+            "Phase 3 — Lakeside cabins along the shoreline and a new event gazebo",
+            "Phase 4 — Festival grounds, an outdoor event stage, and hiking & art trails"
           ],
           "layers": [
             "maker_space",
             "cabins",
             "electrical_trunk_eh_maker_space",
+            "lake_cabins",
+            "event_gazebo",
+            "festival_grounds",
+            "camp_plots",
+            "event_space",
+            "discovery_trail",
+            "landings",
             "wells_gray_golf_rv_parcel"
           ],
           "video": "Tf_YNgph84o",
