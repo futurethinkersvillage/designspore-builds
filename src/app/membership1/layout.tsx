@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Founders Membership — Wells Gray Village",
-  description: "Founding Membership at Wells Gray Village — a non-voting equity stake, free seasonal stays, and lifetime access. 50 spots only.",
+  title: "Founding Membership — Wells Gray Village",
+  description: "A founding stake in a 400-acre village bordering Wells Gray Provincial Park — free weeks every season, for life. 50 founding spots, reserved with a fully refundable deposit.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
