@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const PROTECTED_PATHS = ["/investor-print"];
+// Password-gated paths (startsWith match). "/deck" also covers the static deck
+// bundle served from "/deck-v2/*" (since "/deck-v2".startsWith("/deck")). The
+// investor deck contains membership pricing, which must never be public.
+const PROTECTED_PATHS = ["/investor-print", "/deck"];
 
 const DASHBOARD_HOSTS = [
   "village-dashboard.portal.place",
@@ -65,7 +68,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  return NextResponse.next();
+  // Authed. The /deck route is a full-screen iframe deck — render without site
+  // chrome (Nav/Footer/Chat), reusing the dashboard flag the layout checks.
+  const res = NextResponse.next();
+  if (pathname === "/deck") {
+    res.headers.set("x-is-dashboard", "1");
+  }
+  return res;
 }
 
 export const config = {
