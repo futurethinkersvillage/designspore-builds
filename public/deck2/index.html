@@ -229,10 +229,15 @@
     <a class="btn" href="https://portal.place/map" style="margin-top:26px">Take the tour — portal.place/map</a>
   </div>
 
-  <!-- right: site map -->
-  <div style="position:absolute;left:1000px;right:120px;top:300px;bottom:96px;display:flex;align-items:center;justify-content:center">
-    <img src="/deck2/assets/img/expansion_map.webp" alt="Portal.Place site map — build-project areas: Makerspace, Cabin Developments, Shared Facilities, Festival Grounds" style="height:700px;width:auto;max-width:100%;border-radius:12px">
+  <!-- right: interactive site map (embedded portal.place/map, curated dev-plan layers) -->
+  <div style="position:absolute;left:955px;right:96px;top:290px;bottom:150px;border-radius:14px;overflow:hidden;
+       border:1px solid var(--line);background:#17151b url('assets/img/expansion_map.png') center/cover">
+    <iframe class="map-embed" title="Interactive site map — Wells Gray Village development plan"
+      src="/landmap/index.html?embed&only=wells_gray_golf_rv_parcel,lakes,trails,discovery_trail,maker_space,cabins,lake_cabins,festival_grounds,event_space,event_gazebo,event_parking"
+      style="width:100%;height:100%;border:0;display:block"></iframe>
   </div>
+  <div style="position:absolute;left:955px;right:96px;bottom:112px;text-align:center;
+       font-family:var(--sans);font-size:19px;color:var(--dim)">Drag, zoom &amp; explore &mdash; or open the full map below</div>
 
   <div class="foot"></div>
   <div class="foot-wm">Portal<b>.</b>Place</div>
@@ -1165,6 +1170,7 @@ function buildDrawer(){
     const inner=document.createElement("div"); inner.className="thumb-inner";
     const clone=s.cloneNode(true); clone.classList.remove("active"); clone.removeAttribute("style");
     clone.querySelectorAll("style").forEach(x=>x.remove());  // doc-level scoped styles already apply
+    clone.querySelectorAll("iframe").forEach(x=>x.remove());  // no live embeds in thumbnails (poster bg shows)
     inner.appendChild(clone); cell.appendChild(inner);
     if(contentNo[idx]) cell.insertAdjacentHTML("beforeend",`<span class="num">${String(contentNo[idx]).padStart(2,"0")}</span>`);
     cell.insertAdjacentHTML("beforeend",`<span class="lbl">${label}</span>`);
