@@ -520,7 +520,11 @@
             "/images/lib/vision-1.jpg",
             "media/tour/trails.jpg"
           ],
-          "status": "planned"
+          "status": "planned",
+          "marker": [
+            -120.047643,
+            51.937196
+          ]
         }
       ]
     },
