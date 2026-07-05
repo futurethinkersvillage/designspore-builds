@@ -2,14 +2,23 @@
 import sharp from "sharp";
 import { writeFileSync } from "fs";
 
-const SRC = "C:/Users/miken/Projects/portal-place/app/public/images/icon-512.png";
+// portal-icon.png is the transparent-background brand mark
+const SRC = "C:/Users/miken/Projects/portal-place/app/public/images/portal-icon.png";
 const OUT_ICO = "C:/Users/miken/Projects/portal-place/app/src/app/favicon.ico";
 const OUT_PNG = "C:/Users/miken/Projects/portal-place/app/src/app/icon.png";
+
+// trim transparent padding so the mark fills the icon, keep aspect with transparent letterbox
+const trimmed = await sharp(SRC).trim().png().toBuffer();
 
 const sizes = [16, 32, 48];
 const pngs = [];
 for (const size of sizes) {
-  pngs.push(await sharp(SRC).resize(size, size, { kernel: "lanczos3" }).png().toBuffer());
+  pngs.push(
+    await sharp(trimmed)
+      .resize(size, size, { kernel: "lanczos3", fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .png()
+      .toBuffer()
+  );
 }
 
 // ICO container with PNG-compressed entries (supported by all modern browsers)
@@ -36,5 +45,8 @@ pngs.forEach((buf, i) => {
 });
 
 writeFileSync(OUT_ICO, Buffer.concat([header, ...entries, ...pngs]));
-await sharp(SRC).resize(192, 192).png().toFile(OUT_PNG);
+await sharp(trimmed)
+  .resize(192, 192, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+  .png()
+  .toFile(OUT_PNG);
 console.log("wrote", OUT_ICO, "and", OUT_PNG);
