@@ -548,7 +548,8 @@
             "media/concept/panoramic-ecovillage.jpg",
             "media/concept/future-village.jpg"
           ],
-          "status": "planned"
+          "status": "planned",
+          "network": true
         }
       ]
     },

@@ -845,8 +845,7 @@ const NET_SITES=[
   {n:'New Zealand', c:[-41.0,174.0]}
 ];
 let netFX={active:false,timers:[],layer:null};
-function arcPts(a,b,n){ const [la1,lo1]=a; let [la2,lo2]=b;
-  if(lo2-lo1>180) lo2-=360; else if(lo2-lo1<-180) lo2+=360;   // take the short way around
+function arcPts(a,b,n){ const [la1,lo1]=a; const [la2,lo2]=b;   // raw lng so the arc stays on-map and meets its pin
   const mx=(la1+la2)/2,my=(lo1+lo2)/2, dx=la2-la1,dy=lo2-lo1, len=Math.hypot(dx,dy)||1;
   const off=Math.min(len*0.22,26); const cx=mx-(dy/len)*off, cy=my+(dx/len)*off;  // perpendicular bulge
   const pts=[]; for(let i=0;i<=n;i++){ const t=i/n, u=1-t;
