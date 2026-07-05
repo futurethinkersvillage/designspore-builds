@@ -634,18 +634,29 @@ fetch('data/manifest.json').then(r=>r.json()).then(M=>{
   buildGlabels(M);
   return Promise.all(DEFS.map(addLayer));
 }).then(()=>{
-  // deck embed: show Phase-2 (development) layers + base context (parcel, water, trails)
-  const isP2=d=>/^Phase 2/i.test((d.path&&d.path[0])||'');
-  const BASE=new Set(['wells_gray_golf_rv_parcel','lakes','trails','discovery_trail']);
-  const visible=new Set(DEFS.filter(d=>isP2(d)||BASE.has(d.f)).map(d=>d.f));
+  // deck embed: the four project areas + base context only (no utility clutter),
+  // so the polygon colors read cleanly against the 4 deck bullets
+  const visible=new Set(['wells_gray_golf_rv_parcel','lakes','trails','discovery_trail',
+    'maker_space','cabins','lake_cabins','event_space','event_gazebo','festival_grounds','camp_plots']);
   DEFS.forEach(d=>setVis(d.f, visible.has(d.f)));
   wire(); refresh();
   fitView();
+  styleDeckLayers();
   addDeckLabels();
   hideSplash();
 }).catch(e=>{document.getElementById('tree').innerHTML='<div class="sec">Failed to load map data.</div>';console.error(e);hideSplash();});
 function hideSplash(){const s=document.getElementById('splash'); if(s){ s.classList.add('hide'); setTimeout(()=>{ if(s.parentNode) s.parentNode.removeChild(s); },600); }}
 setTimeout(hideSplash, 7000); // safety net
+// recolor the project polygons to match the deck's bullet colors (deck embed only)
+function styleDeckLayers(){
+  const M={maker_space:'#46C463',
+           cabins:'#29B6E8',lake_cabins:'#29B6E8',creekside_cabin_boundary:'#29B6E8',
+           event_space:'#D0563A',event_gazebo:'#D0563A',
+           festival_grounds:'#F5972B',camp_plots:'#F5972B',camp_roads:'#F5972B'};
+  Object.entries(M).forEach(([slug,color])=>{ const grp=overlays[slug];
+    if(grp&&grp.setStyle){ try{ grp.setStyle({color:color,fillColor:color}); }catch(e){}
+      try{ grp.eachLayer(l=>{ if(l.setStyle) l.setStyle({color:color,fillColor:color}); }); }catch(e){} } });
+}
 // custom project labels (Google-Slides style), colored to match the deck bullets
 function addDeckLabels(){
   const L4=[['maker_space','Makerspace','#46C463'],['cabins','Cabin Developments','#29B6E8'],
