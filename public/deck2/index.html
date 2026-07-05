@@ -60,7 +60,7 @@
   </div>
 
   <!-- right: disciplined 2x2 photo grid -->
-  <div class="pgrid" style="position:absolute;left:912px;top:300px;width:888px;height:684px;
+  <div class="pgrid" style="position:absolute;left:912px;top:352px;width:888px;height:512px;
        grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr">
     <img src="/deck2/assets/img/s03_SLIDES_API766214036_3.webp" alt="riverside RV village">
     <img src="/deck2/assets/img/s03_SLIDES_API766214036_8.webp" alt="fireside gathering">
@@ -79,9 +79,9 @@
 
   <!-- left: lead statement + supporting bullets -->
   <div style="position:absolute;left:120px;top:352px;width:760px">
-    <p class="lead" style="font-size:36px">Every era redefines how people live, work, and organize. AI disruption, remote work, housing pressure, and loneliness mark the next shift — we're building the <i>physical infrastructure</i> for it.</p>
+    <p class="lead" style="font-size:31px">Every era redefines how people live, work, and organize. AI disruption, remote work, housing pressure, and loneliness mark the next shift — we're building the <i>physical infrastructure</i> for it.</p>
 
-    <ul class="bullets" style="margin-top:44px">
+    <ul class="bullets" style="margin-top:30px">
       <li>Millions are <b>redesigning how they live, work, learn, and belong</b>.</li>
       <li>Wellness, outdoor living, and experience-based travel are <b>trillion-dollar markets</b>.</li>
       <li>Remote work, digital nomadism, alternative education, and membership lifestyles are <b>going mainstream</b>.</li>
@@ -100,6 +100,8 @@
   <div class="foot"></div>
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>03</b> / 20</div>
+
+  <style>section[data-n="3"] ul.bullets li{margin-bottom:13px;font-size:23px}</style>
 </section>
 <section class="slide" data-n="4">
   <div class="eyebrow">04<b>The Gap</b></div>
@@ -113,19 +115,28 @@
   <!-- 3x2 grid of category cards -->
   <div style="position:absolute;left:120px;top:436px;width:1680px;height:452px;
        display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:24px">
-    <div class="card" style="display:flex;align-items:center">
+    <div class="card mcard">
+      <span class="mico"><svg viewBox="0 0 24 24"><path d="M23 12a11.05 11.05 0 0 0-22 0Zm-5 7a3 3 0 0 1-6 0v-7"/></svg></span>
       <p><b>Resorts</b> &mdash; seasonal comfort and services, but built for short, passive stays.</p></div>
-    <div class="card" style="display:flex;align-items:center">
+    <div class="card mcard">
+      <span class="mico"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
       <p><b>Retreats &amp; festivals</b> &mdash; powerful experiences, but not a long-term lifestyle.</p></div>
-    <div class="card" style="display:flex;align-items:center">
+    <div class="card mcard">
+      <span class="mico"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
       <p><b>RV parks, glamping &amp; campsites</b> &mdash; nature and basic amenities, but no cultural continuity.</p></div>
-    <div class="card" style="display:flex;align-items:center">
+    <div class="card mcard">
+      <span class="mico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
       <p><b>Co-living / co-working</b> &mdash; shared infrastructure and community, but urban, transient, not for families.</p></div>
-    <div class="card" style="display:flex;align-items:center">
+    <div class="card mcard">
+      <span class="mico"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
       <p><b>Wellness membership clubs</b> &mdash; health amenities, but visit-based, not lifestyle-integrated.</p></div>
-    <div class="card" style="display:flex;align-items:center">
+    <div class="card mcard">
+      <span class="mico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
       <p><b>Intentional communities / ecovillages</b> &mdash; holistic vision, but no professional operations, capital discipline, or repeatability.</p></div>
   </div>
+  <style>section[data-n="4"] .mcard{display:flex;align-items:center;gap:22px}section[data-n="4"] .mico{flex:0 0 auto;width:48px;height:48px;display:flex;align-items:center;justify-content:center}section[data-n="4"] .mico svg{width:42px;height:42px;fill:none;stroke:var(--amber);stroke-width:1.6;
+      stroke-linecap:round;stroke-linejoin:round}
+  </style>
 
   <!-- closer -->
   <p style="position:absolute;left:120px;top:912px;width:1680px;font-family:var(--serif);
@@ -143,18 +154,18 @@
 
   <!-- left: statement, intro, bullets, closer -->
   <div style="position:absolute;left:120px;top:352px;width:720px">
-    <p class="statement" style="font-size:28px;margin-bottom:22px">Portal.Place combines <b>real estate, membership, education &amp; technology</b>.</p>
-    <p class="intro" style="font-size:25px;margin-bottom:18px">A membership-based village campus, built to scale into a network:</p>
-    <ul class="bullets" style="--gap:14px">
+    <p class="statement" style="font-size:26px;margin-bottom:16px">Portal.Place combines <b>real estate, membership, education &amp; technology</b>.</p>
+    <p class="intro" style="font-size:23px;margin-bottom:14px">A membership-based village campus, built to scale into a network:</p>
+    <ul class="bullets">
       <li><b>Monthly, seasonal, and annual memberships</b> for lifestyle + learning stays</li>
       <li>Shared <b>co-working, wellness, event, and maker</b> infrastructure</li>
       <li>Culture, rhythms, and programs that <b>drive return visits</b></li>
       <li>Tech-enabled operations &amp; repeatable standards — <b>The Village Stack</b></li>
       <li>An operating system that onboards other destinations into an <b>asset-backed network</b></li>
     </ul>
-    <p class="statement" style="font-size:27px;margin-top:20px;margin-bottom:0">A repeatable operating model for <b>lifestyle-first living in the post-AI world</b>.</p>
+    <p class="statement" style="font-size:25px;margin-top:16px;margin-bottom:0">A repeatable operating model for <b>lifestyle-first living in the post-AI world</b>.</p>
   </div>
-  <style>section[data-n="5"] ul.bullets li{margin-bottom:14px}</style>
+  <style>section[data-n="5"] ul.bullets li{margin-bottom:11px;font-size:23px}</style>
 
   <!-- right: disciplined 2x2 photo grid -->
   <div class="pgrid" style="position:absolute;left:912px;top:300px;width:888px;height:684px;
@@ -204,23 +215,25 @@
   <div style="position:absolute;left:120px;top:812px;width:1680px">
     <div style="font-family:var(--sans);font-size:20px;font-weight:600;letter-spacing:.26em;
          text-transform:uppercase;color:var(--amber);margin-bottom:14px">Already on the ground</div>
-    <div style="display:flex;flex-wrap:wrap;gap:11px">
-      <span class="pill" style="font-size:20px;padding:9px 16px">45 RV sites</span>
-      <span class="pill" style="font-size:20px;padding:9px 16px">3 bunk cabins</span>
-      <span class="pill" style="font-size:20px;padding:9px 16px">Geodesic dome</span>
-      <span class="pill" style="font-size:20px;padding:9px 16px">120-person gazebo</span>
-      <span class="pill" style="font-size:20px;padding:9px 16px">9- &amp; 18-hole golf</span>
-      <span class="pill" style="font-size:20px;padding:9px 16px">Sauna</span>
-      <span class="pill" style="font-size:20px;padding:9px 16px">Shower houses</span>
-      <span class="pill" style="font-size:20px;padding:9px 16px">Horse corrals</span>
-      <span class="pill" style="font-size:20px;padding:9px 16px">Private lake</span>
-      <span class="pill" style="font-size:20px;padding:9px 16px">Creeks</span>
+    <div style="display:flex;flex-wrap:nowrap;gap:8px">
+      <span class="pill" style="font-size:16px;padding:7px 12px">45 RV sites</span>
+      <span class="pill" style="font-size:16px;padding:7px 12px">3 bunk cabins</span>
+      <span class="pill" style="font-size:16px;padding:7px 12px">Geodesic dome</span>
+      <span class="pill" style="font-size:16px;padding:7px 12px">120-person gazebo</span>
+      <span class="pill" style="font-size:16px;padding:7px 12px">9- &amp; 18-hole golf</span>
+      <span class="pill" style="font-size:16px;padding:7px 12px">Sauna</span>
+      <span class="pill" style="font-size:16px;padding:7px 12px">Shower houses</span>
+      <span class="pill" style="font-size:16px;padding:7px 12px">Horse corrals</span>
+      <span class="pill" style="font-size:16px;padding:7px 12px">Private lake</span>
+      <span class="pill" style="font-size:16px;padding:7px 12px">Creeks</span>
     </div>
   </div>
 
   <div class="foot"></div>
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>06</b> / 20</div>
+
+  <style>section[data-n="6"] .card ul.bullets li{font-size:21px;margin-bottom:14px;line-height:1.4}</style>
 </section>
 <section class="slide" data-n="7">
   <div class="eyebrow">07<b>Expansion Plan</b></div>
@@ -257,7 +270,7 @@
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>07</b> / 20</div>
 
-  <style>section[data-n="7"] .buckets{margin-top:24px}section[data-n="7"] .bkt{position:relative;padding-left:30px;margin-bottom:20px}section[data-n="7"] .bkt .dot{position:absolute;left:0;top:13px;width:11px;height:11px;border-radius:50%}section[data-n="7"] .bkt p{font-family:var(--sans);font-weight:300;font-size:24px;line-height:1.42;color:var(--body)}section[data-n="7"] .bkt p b{color:var(--ink);font-weight:600}section[data-n="7"] /* map hover hint → guided tour */
+  <style>section[data-n="7"] .buckets{margin-top:20px}section[data-n="7"] .bkt{position:relative;padding-left:30px;margin-bottom:15px}section[data-n="7"] .bkt .dot{position:absolute;left:0;top:12px;width:11px;height:11px;border-radius:50%}section[data-n="7"] .bkt p{font-family:var(--sans);font-weight:300;font-size:22px;line-height:1.4;color:var(--body)}section[data-n="7"] .bkt p b{color:var(--ink);font-weight:600}section[data-n="7"] /* map hover hint → guided tour */
     .map-wrap .map-tour-hint{position:absolute;left:50%;bottom:18px;transform:translateX(-50%) translateY(8px);
       z-index:5;display:inline-flex;align-items:center;background:rgba(234,130,78,.95);color:#1a1008;
       font-family:var(--sans);font-weight:700;font-size:18px;letter-spacing:.01em;padding:12px 22px;border-radius:999px;
@@ -266,70 +279,66 @@
   </style>
 </section>
 <section class="slide" data-n="8">
-  <!-- full-bleed grass aerial -->
-  <img class="bleed" src="/deck2/assets/img/s09_g3bad7fb84a8_0_147.webp" alt="">
+  <!-- full-bleed grass aerial (static — no Ken Burns so the pinned products don't drift) -->
+  <img style="position:absolute;inset:0;width:1920px;height:1080px;object-fit:cover" src="/deck2/assets/img/s09_g3bad7fb84a8_0_147.webp" alt="">
   <!-- scrims: top-left darken for the title box + overall darken so labels read -->
   <div class="scrim-l" style="background:radial-gradient(120% 120% at 14% 12%, rgba(15,14,18,.86) 0%, rgba(15,14,18,.30) 46%, transparent 72%)"></div>
   <div style="position:absolute;inset:0;background:rgba(15,14,18,.35)"></div>
 
   <!-- overlay title card -->
-  <div style="position:absolute;left:96px;top:72px;width:720px;background:rgba(15,14,18,.66);
-       border:1px solid var(--line);border-radius:20px;padding:34px 40px;backdrop-filter:blur(2px)">
+  <div style="position:absolute;left:80px;top:60px;width:620px;background:rgba(15,14,18,.66);
+       border:1px solid var(--line);border-radius:20px;padding:30px 38px;backdrop-filter:blur(2px)">
     <div style="font-family:var(--sans);font-size:20px;font-weight:500;letter-spacing:.30em;
          text-transform:uppercase;color:var(--amber)">08 — Makerspace Builds</div>
-    <h1 style="font-family:var(--serif);font-weight:300;font-size:76px;line-height:.98;
-         letter-spacing:-.015em;color:var(--ink);margin-top:18px">What we <i style="font-style:italic;color:var(--amber)">build</i> on-site</h1>
-    <p style="font-family:var(--sans);font-weight:300;font-size:23px;line-height:1.45;
-         color:var(--body);margin-top:20px;max-width:600px">Green, high-tech, biophilic design — fabricated in our own shop.</p>
+    <h1 style="font-family:var(--serif);font-weight:300;font-size:66px;line-height:.98;
+         letter-spacing:-.015em;color:var(--ink);margin-top:16px">What we <i style="font-style:italic;color:var(--amber)">build</i> on-site</h1>
+    <p style="font-family:var(--sans);font-weight:300;font-size:22px;line-height:1.45;
+         color:var(--body);margin-top:16px;max-width:520px">Green, high-tech, biophilic design — fabricated in our own shop.</p>
   </div>
 
   <!-- ================= HERO ROW (three larger structures) ================= -->
-  <!-- PREFAB CABINS -->
-  <div style="position:absolute;left:150px;top:522px;width:430px;text-align:center">
-    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_148.webp" style="width:430px;height:auto;object-fit:contain;filter:drop-shadow(0 24px 40px rgba(0,0,0,.55))" alt="">
+  <!-- PARK MODEL RV'S (widest, ar 1.88) -->
+  <div style="position:absolute;left:712px;top:300px;width:590px;text-align:center">
+    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_162.webp" style="width:590px;height:auto;object-fit:contain;filter:drop-shadow(0 24px 40px rgba(0,0,0,.55))" alt="">
   </div>
-  <div class="mk-pill" style="left:302px;top:842px">Prefab Cabins</div>
+  <div class="mk-pill" style="left:1007px;top:632px">Park Model RV's</div>
 
-  <!-- PARK MODEL RV'S (widest) -->
-  <div style="position:absolute;left:640px;top:250px;width:560px;text-align:center">
-    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_162.webp" style="width:560px;height:auto;object-fit:contain;filter:drop-shadow(0 24px 40px rgba(0,0,0,.55))" alt="">
+  <!-- MULTI-USE DOMES (square) -->
+  <div style="position:absolute;left:1360px;top:286px;width:404px;text-align:center">
+    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_153.webp" style="width:404px;height:auto;object-fit:contain;filter:drop-shadow(0 24px 40px rgba(0,0,0,.55))" alt="">
   </div>
-  <div class="mk-pill" style="left:844px;top:520px">Park Model RV's</div>
+  <div class="mk-pill" style="left:1562px;top:702px">Multi-Use Domes</div>
 
-  <!-- MULTI-USE DOMES -->
-  <div style="position:absolute;left:1310px;top:236px;width:400px;text-align:center">
-    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_153.webp" style="width:400px;height:auto;object-fit:contain;filter:drop-shadow(0 24px 40px rgba(0,0,0,.55))" alt="">
+  <!-- PREFAB CABINS (ar 1.13) -->
+  <div style="position:absolute;left:104px;top:346px;width:470px;text-align:center">
+    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_148.webp" style="width:470px;height:auto;object-fit:contain;filter:drop-shadow(0 24px 40px rgba(0,0,0,.55))" alt="">
   </div>
-  <div class="mk-pill" style="left:1428px;top:604px">Multi-Use Domes</div>
+  <div class="mk-pill" style="left:339px;top:772px">Prefab Cabins</div>
 
-  <!-- ================= ROUND UNITS ROW (four smaller) ================= -->
-  <!-- PRIVATE OFFICES -->
-  <div style="position:absolute;left:722px;top:686px;width:180px;text-align:center">
-    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_154.webp" style="width:180px;height:auto;object-fit:contain;filter:drop-shadow(0 16px 26px rgba(0,0,0,.55))" alt="">
+  <!-- ================= ROUND UNITS ROW (four smaller, square) ================= -->
+  <div style="position:absolute;left:628px;top:726px;width:190px;text-align:center">
+    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_154.webp" style="width:190px;height:auto;object-fit:contain;filter:drop-shadow(0 16px 26px rgba(0,0,0,.55))" alt="">
   </div>
-  <div class="mk-pill" style="left:722px;top:872px">Private Offices</div>
+  <div class="mk-pill" style="left:723px;top:930px">Private Offices</div>
 
-  <!-- MEDIA CENTER -->
-  <div style="position:absolute;left:980px;top:686px;width:180px;text-align:center">
-    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_156.webp" style="width:180px;height:auto;object-fit:contain;filter:drop-shadow(0 16px 26px rgba(0,0,0,.55))" alt="">
+  <div style="position:absolute;left:872px;top:726px;width:190px;text-align:center">
+    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_156.webp" style="width:190px;height:auto;object-fit:contain;filter:drop-shadow(0 16px 26px rgba(0,0,0,.55))" alt="">
   </div>
-  <div class="mk-pill" style="left:986px;top:872px">Media Center</div>
+  <div class="mk-pill" style="left:967px;top:930px">Media Center</div>
 
-  <!-- SPA -->
-  <div style="position:absolute;left:1238px;top:686px;width:180px;text-align:center">
-    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_158.webp" style="width:180px;height:auto;object-fit:contain;filter:drop-shadow(0 16px 26px rgba(0,0,0,.55))" alt="">
+  <div style="position:absolute;left:1116px;top:726px;width:190px;text-align:center">
+    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_158.webp" style="width:190px;height:auto;object-fit:contain;filter:drop-shadow(0 16px 26px rgba(0,0,0,.55))" alt="">
   </div>
-  <div class="mk-pill" style="left:1288px;top:872px">Spa</div>
+  <div class="mk-pill" style="left:1211px;top:930px">Spa</div>
 
-  <!-- GLAMPING -->
-  <div style="position:absolute;left:1496px;top:686px;width:180px;text-align:center">
-    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_160.webp" style="width:180px;height:auto;object-fit:contain;filter:drop-shadow(0 16px 26px rgba(0,0,0,.55))" alt="">
+  <div style="position:absolute;left:1360px;top:726px;width:190px;text-align:center">
+    <img src="/deck2/assets/img/s09_g3bad7fb84a8_0_160.webp" style="width:190px;height:auto;object-fit:contain;filter:drop-shadow(0 16px 26px rgba(0,0,0,.55))" alt="">
   </div>
-  <div class="mk-pill" style="left:1522px;top:872px">Glamping</div>
+  <div class="mk-pill" style="left:1455px;top:930px">Glamping</div>
 
   <!-- ================= key line (bottom-left, ties the story) ================= -->
-  <div style="position:absolute;left:96px;bottom:118px;font-family:var(--serif);font-weight:300;
-       font-size:34px;line-height:1.2;color:var(--ink)">Seven structure types — <i style="font-style:italic;color:var(--amber)">one shop.</i></div>
+  <div style="position:absolute;left:96px;bottom:70px;font-family:var(--serif);font-weight:300;
+       font-size:34px;line-height:1.2;color:var(--ink);text-shadow:0 2px 10px rgba(0,0,0,.6)">Seven structure types — <i style="font-style:italic;color:var(--amber)">one shop.</i></div>
 
   <!-- footer (no hairline over the full-bleed) -->
   <div class="foot-wm" style="text-shadow:0 2px 8px rgba(0,0,0,.7)">Portal<b>.</b>Place</div>
@@ -398,11 +407,11 @@
   <div class="foot-pg"><b>09</b> / 20</div>
 
   <style>section[data-n="9"] .layer{position:relative;display:flex;gap:24px;align-items:flex-start;
-      padding:0 0 17px 26px;margin-bottom:17px;border-left:3px solid var(--amber);
+      padding:0 0 13px 26px;margin-bottom:13px;border-left:3px solid var(--amber);
       border-bottom:1px solid var(--line-soft)}section[data-n="9"] .lx{font-family:var(--serif);font-weight:300;font-size:40px;line-height:1;
       color:var(--amber-dim);min-width:56px;padding-top:2px}section[data-n="9"] .lc{flex:1}section[data-n="9"] .lh{font-family:var(--sans);font-weight:600;font-size:27px;color:var(--ink);
       letter-spacing:.005em;margin-bottom:9px}section[data-n="9"] .lh em{font-style:normal;color:var(--amber);font-weight:500;font-size:22px;
-      margin-left:6px;letter-spacing:.02em}section[data-n="9"] .ld{font-family:var(--sans);font-weight:400;font-size:23px;line-height:1.42;color:var(--body)}section[data-n="9"] .ld b{color:var(--ink);font-weight:600}section[data-n="9"] .closer{margin-top:22px;font-family:var(--serif);font-weight:300;font-size:31px;
+      margin-left:6px;letter-spacing:.02em}section[data-n="9"] .ld{font-family:var(--sans);font-weight:400;font-size:23px;line-height:1.42;color:var(--body)}section[data-n="9"] .ld b{color:var(--ink);font-weight:600}section[data-n="9"] .closer{margin-top:14px;font-family:var(--serif);font-weight:300;font-size:28px;
       line-height:1.3;color:var(--ink)}section[data-n="9"] .closer i{font-style:italic;color:var(--amber)}
   </style>
 </section>
@@ -513,7 +522,7 @@
   </div>
 
   <!-- two cards -->
-  <div class="card" style="position:absolute;left:120px;top:648px;width:810px;height:322px">
+  <div class="card" style="position:absolute;left:120px;top:626px;width:810px;height:340px">
     <h4>7 Cabins Repay the Bridge</h4>
     <ul class="bullets" style="margin-top:2px">
       <li>Build 3 winterized + 4 dry = <b>7 cabins</b> (~$1.0M)</li>
@@ -523,7 +532,7 @@
     </ul>
   </div>
 
-  <div class="card" style="position:absolute;left:970px;top:648px;width:810px;height:322px">
+  <div class="card" style="position:absolute;left:970px;top:626px;width:810px;height:340px">
     <h4>The Flywheel &mdash; <em>growth pays for itself</em></h4>
     <ul class="bullets" style="margin-top:2px">
       <li>Bridge &rarr; build &rarr; pre-sell memberships &rarr; repay &rarr; surplus builds more &rarr; repeat</li>
@@ -540,12 +549,12 @@
       background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:30px 38px}section[data-n="11"] .tl-step--hi{background:linear-gradient(135deg,rgba(234,130,78,.16),rgba(234,130,78,.03));
       border:1px solid var(--amber);box-shadow:0 0 0 1px rgba(234,130,78,.12)}section[data-n="11"] .tl-k{font-family:var(--sans);font-weight:600;font-size:24px;letter-spacing:.10em;
       text-transform:uppercase;color:var(--ink)}section[data-n="11"] .tl-v{font-family:var(--serif);font-weight:400;font-size:38px;line-height:1;color:var(--body)}section[data-n="11"] .tl-arrow{flex:0 0 96px;display:flex;align-items:center;justify-content:center;
-      font-family:var(--serif);font-size:52px;font-weight:300;color:var(--amber);opacity:.85}section[data-n="11"] .rv-callout{position:absolute;left:120px;top:520px;width:1680px;
+      font-family:var(--serif);font-size:52px;font-weight:300;color:var(--amber);opacity:.85}section[data-n="11"] .rv-callout{position:absolute;left:120px;top:502px;width:1680px;
       display:flex;align-items:center;gap:28px;
       background:linear-gradient(135deg,rgba(234,130,78,.16),rgba(234,130,78,.03));
-      border:1px solid var(--amber);border-radius:18px;padding:24px 36px}section[data-n="11"] .rv-tag{flex:0 0 auto;font-family:var(--sans);font-weight:600;font-size:20px;
+      border:1px solid var(--amber);border-radius:18px;padding:20px 36px}section[data-n="11"] .card ul.bullets li{font-size:20px;margin-bottom:11px;line-height:1.38}section[data-n="11"] .rv-tag{flex:0 0 auto;font-family:var(--sans);font-weight:600;font-size:20px;
       letter-spacing:.10em;text-transform:uppercase;color:var(--amber);
-      border:1px solid var(--amber-dim);border-radius:999px;padding:10px 22px}section[data-n="11"] .rv-callout p{font-family:var(--sans);font-weight:300;font-size:27px;line-height:1.4;color:var(--body)}section[data-n="11"] .rv-callout p b{color:var(--ink);font-weight:600}section[data-n="11"] .rv-callout p i{font-style:italic;color:var(--amber);font-weight:400}
+      border:1px solid var(--amber-dim);border-radius:999px;padding:10px 22px}section[data-n="11"] .rv-callout p{font-family:var(--sans);font-weight:300;font-size:24px;line-height:1.38;color:var(--body)}section[data-n="11"] .rv-callout p b{color:var(--ink);font-weight:600}section[data-n="11"] .rv-callout p i{font-style:italic;color:var(--amber);font-weight:400}
   </style>
 </section>
 <section class="slide" data-n="12">
@@ -602,7 +611,7 @@
          text-transform:uppercase;color:var(--ink)">Seasonal units &mdash; one season, 168 nights</div>
 
     <!-- Bar 1: Cabin -->
-    <div style="margin-top:32px">
+    <div style="margin-top:24px">
       <div class="bar-lbl">Each seasonal cabin <em>(5 cabins serve 20 Max + 15 Cabin members)</em></div>
       <div class="bar" data-draw>
         <div class="seg fill" style="flex:56;background:#ea824e">
@@ -622,7 +631,7 @@
     </div>
 
     <!-- Bar 2: RV -->
-    <div style="margin-top:34px">
+    <div style="margin-top:22px">
       <div class="bar-lbl">Each RV site <em>(4 sites serve 15 RV members)</em></div>
       <div class="bar" data-draw>
         <div class="seg fill" style="flex:56;background:#ea824e">
@@ -668,11 +677,11 @@
       background:linear-gradient(90deg,var(--amber),var(--amber-lt))}section[data-n="12"] .strip-key{display:flex;align-items:center;gap:26px;margin-top:14px;
       font-family:var(--sans);font-size:20px;color:var(--dim)}section[data-n="12"] .strip-key i{display:inline-block;width:16px;height:12px;border-radius:3px;
       margin-right:8px;vertical-align:middle}section[data-n="12"] .strip-key .k-amber{background:var(--amber)}section[data-n="12"] .strip-key .k-mute{background:rgba(255,255,255,.09);border:1px solid var(--line-soft)}section[data-n="12"] .strip-key .wrap{margin-left:auto;letter-spacing:.10em;text-transform:uppercase;font-size:18px}section[data-n="12"] /* --- season bars (right) --- */
-    .bar-lbl{font-family:var(--sans);font-size:22px;font-weight:600;color:var(--ink);margin-bottom:14px}section[data-n="12"] .bar-lbl em{font-style:normal;font-weight:400;font-size:20px;color:var(--dim)}section[data-n="12"] .bar{display:flex;gap:8px;height:94px}section[data-n="12"] .seg{display:flex;flex-direction:column;justify-content:center;border-radius:12px;
+    .bar-lbl{font-family:var(--sans);font-size:22px;font-weight:600;color:var(--ink);margin-bottom:14px}section[data-n="12"] .bar-lbl em{font-style:normal;font-weight:400;font-size:20px;color:var(--dim)}section[data-n="12"] .bar{display:flex;gap:8px;height:86px}section[data-n="12"] .seg{display:flex;flex-direction:column;justify-content:center;border-radius:12px;
       padding:0 22px;overflow:hidden}section[data-n="12"] .seg b{font-family:var(--sans);font-size:22px;font-weight:600;color:#fff;line-height:1.1;white-space:nowrap}section[data-n="12"] .seg span{font-family:var(--sans);font-size:17px;font-weight:400;color:rgba(255,255,255,.82);margin-top:5px}section[data-n="12"] .seg.fill b{color:#1a1008}section[data-n="12"] .seg.fill span{color:rgba(26,16,8,.7)}section[data-n="12"] .seg.open{background:transparent;border:2px dashed var(--amber)}section[data-n="12"] .seg.open b{color:var(--amber)}section[data-n="12"] .seg.open span{color:var(--amber-dim)}section[data-n="12"] .bar-cap{display:flex;justify-content:space-between;margin-top:12px;
       font-family:var(--sans);font-size:20px;color:var(--body)}section[data-n="12"] .bar-cap .amber{color:var(--amber);font-weight:500}section[data-n="12"] /* --- compact facts row (right) --- */
-    .facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:26px}section[data-n="12"] .fact{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 20px}section[data-n="12"] .fact h4{font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:.02em;
-      color:var(--ink);margin-bottom:8px;text-transform:uppercase}section[data-n="12"] .fact p{font-family:var(--sans);font-weight:400;font-size:21px;line-height:1.3;color:var(--body)}section[data-n="12"] .fact p b{color:var(--amber);font-weight:600}section[data-n="12"] .scaling{margin-top:16px;font-family:var(--sans);font-size:20px;line-height:1.45;color:var(--dim)}
+    .facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:20px}section[data-n="12"] .fact{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 20px}section[data-n="12"] .fact h4{font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:.02em;
+      color:var(--ink);margin-bottom:8px;text-transform:uppercase}section[data-n="12"] .fact p{font-family:var(--sans);font-weight:400;font-size:21px;line-height:1.3;color:var(--body)}section[data-n="12"] .fact p b{color:var(--amber);font-weight:600}section[data-n="12"] .scaling{margin-top:12px;font-family:var(--sans);font-size:20px;line-height:1.45;color:var(--dim)}
   </style>
 </section>
 <section class="slide" data-n="13">
@@ -722,9 +731,9 @@
   </table>
 
   <!-- callout: 6–7x stat, clear right-side band below the table -->
-  <div class="stat" style="position:absolute;right:120px;top:824px;width:560px;text-align:right">
-    <b style="font-size:104px">6–7×</b>
-    <span style="font-size:22px;max-width:440px;margin-left:auto">membership capital raised per cabin vs build cost</span>
+  <div class="stat" style="position:absolute;right:120px;top:806px;width:560px;text-align:right">
+    <b style="font-size:70px">6–7×</b>
+    <span style="font-size:21px;max-width:420px;margin-left:auto">membership capital raised per cabin vs build cost</span>
   </div>
 
   <!-- fineprint, left column only (clear of the right callout) -->
@@ -816,20 +825,20 @@
   <div style="position:absolute;left:912px;top:352px;width:888px">
     <!-- two founder portraits -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
-      <img class="framed" src="/deck2/assets/img/s17_SLIDES_API766214036_86.webp" style="width:100%;height:442px" alt="Mike Gilliland">
-      <img class="framed" src="/deck2/assets/img/s17_SLIDES_API766214036_87.webp" style="width:100%;height:442px" alt="Euvie Gilliland">
+      <img class="framed" src="/deck2/assets/img/s17_SLIDES_API766214036_86.webp" style="width:100%;height:442px;object-position:50% 18%" alt="Mike Gilliland">
+      <img class="framed" src="/deck2/assets/img/s17_SLIDES_API766214036_87.webp" style="width:100%;height:442px;object-position:50% 14%" alt="Euvie Gilliland">
     </div>
 
     <!-- as seen in -->
-    <div class="card" style="margin-top:18px;padding:24px 34px">
-      <div style="font-family:var(--sans);font-size:18px;font-weight:500;letter-spacing:.30em;text-transform:uppercase;color:var(--amber);margin-bottom:16px">As Seen In</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:22px 40px;align-items:center;justify-items:center">
-        <img src="/deck2/assets/img/s17_SLIDES_API766214036_88.webp" style="max-height:46px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
-        <img src="/deck2/assets/img/s17_SLIDES_API766214036_89.webp" style="max-height:46px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
-        <img src="/deck2/assets/img/s17_SLIDES_API766214036_90.webp" style="max-height:46px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
-        <img src="/deck2/assets/img/s17_SLIDES_API766214036_91.webp" style="max-height:46px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
-        <img src="/deck2/assets/img/s17_SLIDES_API766214036_92.webp" style="max-height:46px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
-        <img src="/deck2/assets/img/s17_SLIDES_API766214036_93.webp" style="max-height:46px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
+    <div class="card" style="margin-top:20px;padding:26px 40px">
+      <div style="font-family:var(--sans);font-size:18px;font-weight:500;letter-spacing:.30em;text-transform:uppercase;color:var(--amber);margin-bottom:20px">As Seen In</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:28px 48px;align-items:center;justify-items:center">
+        <img src="/deck2/assets/img/s17_SLIDES_API766214036_88.webp" style="max-height:38px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
+        <img src="/deck2/assets/img/s17_SLIDES_API766214036_89.webp" style="max-height:38px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
+        <img src="/deck2/assets/img/s17_SLIDES_API766214036_90.webp" style="max-height:38px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
+        <img src="/deck2/assets/img/s17_SLIDES_API766214036_91.webp" style="max-height:38px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
+        <img src="/deck2/assets/img/s17_SLIDES_API766214036_92.webp" style="max-height:38px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
+        <img src="/deck2/assets/img/s17_SLIDES_API766214036_93.webp" style="max-height:38px;max-width:100%;width:auto;object-fit:contain" alt="press logo">
       </div>
     </div>
   </div>
@@ -914,7 +923,7 @@
   </div>
 
   <!-- RIGHT column: two stacked bullet groups -->
-  <div style="position:absolute;left:820px;top:372px;width:980px">
+  <div style="position:absolute;left:908px;top:372px;width:892px">
     <div class="lbl">What this capital unlocks immediately</div>
     <ul class="bullets" style="margin-top:22px">
       <li>New revenue via <b>cabin rentals &amp; membership fees</b></li>
@@ -1072,16 +1081,16 @@
       <p>10+ years podcasting on technology, society &amp; consciousness</p>
     </div>
     <div class="lk">
-      <a href="https://www.youtube.com/@FutureThinkers" target="_blank" rel="noopener">Smart Village Video Series <span class="ext">↗</span></a>
+      <a href="https://portal.place/videos-documentary/" target="_blank" rel="noopener">Smart Village Video Series <span class="ext">↗</span></a>
       <p>Why smart villages are the future</p>
     </div>
 
     <div class="lk">
-      <a href="https://www.youtube.com/@FutureThinkers" target="_blank" rel="noopener">Meta Skills Video <span class="ext">↗</span></a>
+      <a href="https://youtu.be/xrL-wL5Bueg" target="_blank" rel="noopener">Meta Skills Video <span class="ext">↗</span></a>
       <p>Lessons from years operating our village destination</p>
     </div>
     <div class="lk">
-      <a href="https://wellsgrayresort.com" target="_blank" rel="noopener">Wells Gray Resort <span class="ext">↗</span></a>
+      <a href="https://wellsgrayresort.ca" target="_blank" rel="noopener">Wells Gray Resort <span class="ext">↗</span></a>
       <p>Public site for the 400-acre flagship resort in BC</p>
     </div>
 
