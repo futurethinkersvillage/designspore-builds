@@ -40,24 +40,19 @@ section.slide.active{opacity:1;visibility:visible;pointer-events:auto;z-index:1}
   animation:deck-load 1.1s ease-in-out infinite}
 @keyframes deck-load{0%{transform:translateX(-120%)}100%{transform:translateX(360%)}}
 
-/* ---- Maker slide: auto-cycling product showcase (7 items x 2s = 14s loop) ---- */
-@keyframes makerCycle{
-  0%{opacity:0;transform:scale(.975)}
-  1.5%{opacity:1;transform:scale(1)}
-  12.5%{opacity:1;transform:scale(1)}
-  15.5%{opacity:0;transform:scale(.975)}
-  100%{opacity:0;transform:scale(.975)}
-}
-@keyframes makerDot{
-  0%,100%{background:rgba(255,255,255,.20);transform:scale(1)}
-  1.5%,12.5%{background:var(--amber);transform:scale(1.3)}
-  15.5%{background:rgba(255,255,255,.20);transform:scale(1)}
+/* ---- Maker slide: multi-use dome cutaway cycle (5 stages x 2s = 10s loop) ---- */
+/* one stage = 2s of a 10s loop = 20%; interiors reveal via a diagonal cutaway */
+@keyframes domeStage{
+  0%{opacity:0}
+  3%{opacity:1}
+  18%{opacity:1}
+  21%{opacity:0}
+  100%{opacity:0}
 }
 @media (prefers-reduced-motion:reduce){
-  .maker-cyc{animation:none!important;opacity:0!important}
-  .maker-cyc:first-of-type{opacity:1!important}
-  .maker-dot{animation:none!important}
-  .maker-dot:first-of-type{background:var(--amber)!important}
+  .dome-int{animation:none!important;opacity:0!important}
+  .dome-lbl{animation:none!important;opacity:0!important}
+  .dome-lbl:first-of-type{opacity:1!important}
 }
 
 /* ---- Progress bar (top) ---- */
