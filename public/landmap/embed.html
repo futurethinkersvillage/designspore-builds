@@ -385,13 +385,14 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// ---- embed mode (?embed): hide all UI chrome, for iframing in the deck ----
-const EMBED_MODE=/[?&]embed\b/.test(location.search);
-if(EMBED_MODE){
-  document.body.classList.add('embed');
+// ---- DEDICATED DECK-EMBED MAP (always embed; no chrome; Phase-2 dev plan) ----
+const EMBED_MODE=true;
+{
+  document.body.classList.add('embed','nolabels');   // nolabels: hide default map labels
   const st=document.createElement('style');
-  st.textContent='#controls,#title,#tourbar,#timeline,#introbox,#bigoverlay,#mediapanel{display:none!important}'
-    +'.leaflet-control-scale{opacity:.5}.leaflet-control-attribution{font-size:9px;opacity:.35}';
+  st.textContent='#controls,#title,#tourbar,#timeline,#introbox,#bigoverlay,#mediapanel,.leaflet-control-scale{display:none!important}'
+    +'.leaflet-control-attribution{font-size:9px;opacity:.3}'
+    +'.deck-lbl{font:700 16px Inter,-apple-system,sans-serif;color:#fff;white-space:nowrap;text-shadow:0 1px 3px #000,0 0 9px rgba(0,0,0,.95);pointer-events:none}';
   document.head.appendChild(st);
 }
 const map=L.map('map',{zoomControl:!EMBED_MODE,attributionControl:true,zoomSnap:0,zoomDelta:0.5,wheelPxPerZoomLevel:90,renderer:L.svg({padding:5})}).setView([51.93,-120.05],14);
@@ -633,22 +634,27 @@ fetch('data/manifest.json').then(r=>r.json()).then(M=>{
   buildGlabels(M);
   return Promise.all(DEFS.map(addLayer));
 }).then(()=>{
-  const u=readURL();
-  let visible=new Set(DEFAULTON);
-  if(u){ if(u.on)u.on.split(',').forEach(f=>visible.add(f)); if(u.off)u.off.split(',').forEach(f=>visible.delete(f)); }
-  // embed + ?only=a,b,c → show ONLY those layers (clean curated view)
-  const ONLY=(new URLSearchParams(location.search).get('only')||'').split(',').filter(Boolean);
-  if(EMBED_MODE && ONLY.length) visible=new Set(ONLY);
+  // deck embed: show Phase-2 (development) layers + base context (parcel, water, trails)
+  const isP2=d=>/^Phase 2/i.test((d.path&&d.path[0])||'');
+  const BASE=new Set(['wells_gray_golf_rv_parcel','lakes','trails','discovery_trail']);
+  const visible=new Set(DEFS.filter(d=>isP2(d)||BASE.has(d.f)).map(d=>d.f));
   DEFS.forEach(d=>setVis(d.f, visible.has(d.f)));
-  if(PLACE_MODE){ DEFS.filter(d=>d.pano).forEach(d=>setVis(d.f,true)); placeReadout(); }
   wire(); refresh();
-  if(u&&u.b) setBackdrop(u.b,true);
-  if(u&&u.v){const[z,la,ln]=u.v.split(',').map(Number); if(!isNaN(z)) map.setView([la,ln],z);}
-  else fitView();
+  fitView();
+  addDeckLabels();
   hideSplash();
 }).catch(e=>{document.getElementById('tree').innerHTML='<div class="sec">Failed to load map data.</div>';console.error(e);hideSplash();});
 function hideSplash(){const s=document.getElementById('splash'); if(s){ s.classList.add('hide'); setTimeout(()=>{ if(s.parentNode) s.parentNode.removeChild(s); },600); }}
 setTimeout(hideSplash, 7000); // safety net
+// custom project labels (Google-Slides style), colored to match the deck bullets
+function addDeckLabels(){
+  const L4=[['maker_space','Makerspace','#46C463'],['cabins','Cabin Developments','#29B6E8'],
+            ['event_space','Shared Facilities','#D0563A'],['festival_grounds','Festival Grounds','#F5972B']];
+  L4.forEach(([slug,text,color])=>{ const grp=overlays[slug]; if(!grp)return;
+    let c; try{ c=grp.getBounds().getCenter(); }catch(e){ return; }
+    const icon=L.divIcon({className:'',html:'<div class="deck-lbl" style="color:'+color+'">'+text+'</div>',iconSize:[0,0]});
+    L.marker(c,{icon:icon,interactive:false,keyboard:false}).addTo(map); });
+}
 
 function fitView(){let b=null;const parcel=DEFS.find(d=>/parcel/i.test(d.name));
   const pick=parcel&&overlays[parcel.f]?[overlays[parcel.f]]:Object.values(overlays);
@@ -866,12 +872,11 @@ function drawNetwork(){ if(!netFX.active) return; const g=L.layerGroup().addTo(m
   L.marker(NET_HOME,{icon:netDot(true,'Wells Gray, BC',0.2),interactive:false,keyboard:false,zIndexOffset:1000}).addTo(g);
 }
 function startVisionFX(){ stopVisionFX(); netFX.active=true;
-  DEFS.forEach(d=>setVis(d.f,true)); refresh(); clearPing();      // 1) reveal all phases
-  try{ map.invalidateSize(); const l=overlays['wells_gray_golf_rv_parcel']; if(l){ const b=l.getBounds(); if(b.isValid()) map.fitBounds(b,padOpt()); } }catch(e){}
+  DEFS.forEach(d=>setVis(d.f,true)); refresh(); clearPing();      // reveal all phases
+  try{ const l=overlays['wells_gray_golf_rv_parcel']; if(l){ const b=l.getBounds(); if(b.isValid()) map.flyToBounds(b,padOpt()); } }catch(e){}
   netFX.timers.push(setTimeout(()=>{ if(!netFX.active) return;
-    DEFS.forEach(d=>setVis(d.f,false)); refresh();                // 2) drop the phase layers -> only the global network
-    try{ map.setView([22,4],2,{animate:true}); }catch(e){ try{map.setView([22,4],2);}catch(_){} }  // zoom out to the globe (setView avoids flyTo NaN at low zoom)
-    netFX.timers.push(setTimeout(drawNetwork,2200));
+    map.flyTo([22,4],2,{duration:2.6});                            // zoom out to the globe
+    netFX.timers.push(setTimeout(drawNetwork,2750));
   },3000));
 }
 function stopVisionFX(){ netFX.active=false; netFX.timers.forEach(t=>clearTimeout(t)); netFX.timers=[];

@@ -180,7 +180,7 @@
     We are <i style="font-style:italic;color:var(--amber)">not</i> starting from scratch.</p>
 
   <!-- two equal cards side by side -->
-  <div class="card" style="position:absolute;left:120px;top:452px;width:810px;height:430px">
+  <div class="card" style="position:absolute;left:120px;top:424px;width:810px;height:352px">
     <h4>Proven on the ground</h4>
     <ul class="bullets" style="margin-top:4px">
       <li>Acquired a <b>400-acre resort property</b> in BC, Canada</li>
@@ -190,7 +190,7 @@
     </ul>
   </div>
 
-  <div class="card" style="position:absolute;left:970px;top:452px;width:810px;height:430px">
+  <div class="card" style="position:absolute;left:970px;top:424px;width:810px;height:352px">
     <h4>Already building the model</h4>
     <ul class="bullets" style="margin-top:4px">
       <li>Upgraded infrastructure: <b>water/septic, sauna, dome, makerspace</b> &amp; more</li>
@@ -200,10 +200,23 @@
     </ul>
   </div>
 
-  <!-- closer -->
-  <p style="position:absolute;left:120px;top:918px;width:1680px;text-align:center;
-       font-family:var(--serif);font-weight:300;font-size:40px;line-height:1.25;color:var(--ink);letter-spacing:-.01em">
-    Portal.Place <i style="font-style:italic;color:var(--amber)">standardizes and scales</i> what we're learning first-hand.</p>
+  <!-- existing infrastructure chip strip -->
+  <div style="position:absolute;left:120px;top:812px;width:1680px">
+    <div style="font-family:var(--sans);font-size:20px;font-weight:600;letter-spacing:.26em;
+         text-transform:uppercase;color:var(--amber);margin-bottom:14px">Already on the ground</div>
+    <div style="display:flex;flex-wrap:wrap;gap:11px">
+      <span class="pill" style="font-size:20px;padding:9px 16px">45 RV sites</span>
+      <span class="pill" style="font-size:20px;padding:9px 16px">3 bunk cabins</span>
+      <span class="pill" style="font-size:20px;padding:9px 16px">Geodesic dome</span>
+      <span class="pill" style="font-size:20px;padding:9px 16px">120-person gazebo</span>
+      <span class="pill" style="font-size:20px;padding:9px 16px">9- &amp; 18-hole golf</span>
+      <span class="pill" style="font-size:20px;padding:9px 16px">Sauna</span>
+      <span class="pill" style="font-size:20px;padding:9px 16px">Shower houses</span>
+      <span class="pill" style="font-size:20px;padding:9px 16px">Horse corrals</span>
+      <span class="pill" style="font-size:20px;padding:9px 16px">Private lake</span>
+      <span class="pill" style="font-size:20px;padding:9px 16px">Creeks</span>
+    </div>
+  </div>
 
   <div class="foot"></div>
   <div class="foot-wm">Portal<b>.</b>Place</div>
@@ -226,24 +239,30 @@
       <div class="bkt"><span class="dot" style="background:var(--amber)"></span><p><b>Foundations</b> — land security, utilities, access, season extension.</p></div>
     </div>
 
-    <a class="btn" href="https://portal.place/map" style="margin-top:26px">Take the tour — portal.place/map</a>
+    <a class="btn" href="https://portal.place/map" target="_blank" rel="noopener" style="margin-top:26px">Take the tour — portal.place/map ↗</a>
   </div>
 
-  <!-- right: interactive site map (embedded portal.place/map, curated dev-plan layers) -->
-  <div style="position:absolute;left:955px;right:96px;top:290px;bottom:150px;border-radius:14px;overflow:hidden;
+  <!-- right: interactive site map (dedicated deck embed — Phase-2 dev plan, no chrome) -->
+  <div class="map-wrap" style="position:absolute;left:955px;right:96px;top:290px;bottom:150px;border-radius:14px;overflow:hidden;
        border:1px solid var(--line);background:#17151b url('assets/img/expansion_map.png') center/cover">
     <iframe class="map-embed" title="Interactive site map — Wells Gray Village development plan"
-      src="/landmap/index.html?embed&only=wells_gray_golf_rv_parcel,lakes,trails,discovery_trail,maker_space,cabins,lake_cabins,festival_grounds,event_space,event_gazebo,event_parking"
+      src="/landmap/embed.html"
       style="width:100%;height:100%;border:0;display:block"></iframe>
+    <a class="map-tour-hint" href="https://portal.place/map" target="_blank" rel="noopener">▶&ensp;Take the full guided tour&ensp;↗</a>
   </div>
   <div style="position:absolute;left:955px;right:96px;bottom:112px;text-align:center;
-       font-family:var(--sans);font-size:19px;color:var(--dim)">Drag, zoom &amp; explore &mdash; or open the full map below</div>
+       font-family:var(--sans);font-size:19px;color:var(--dim)">Drag &amp; zoom to explore &mdash; hover for the guided tour</div>
 
   <div class="foot"></div>
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>07</b> / 20</div>
 
-  <style>section[data-n="7"] .buckets{margin-top:24px}section[data-n="7"] .bkt{position:relative;padding-left:30px;margin-bottom:20px}section[data-n="7"] .bkt .dot{position:absolute;left:0;top:13px;width:11px;height:11px;border-radius:50%}section[data-n="7"] .bkt p{font-family:var(--sans);font-weight:300;font-size:24px;line-height:1.42;color:var(--body)}section[data-n="7"] .bkt p b{color:var(--ink);font-weight:600}
+  <style>section[data-n="7"] .buckets{margin-top:24px}section[data-n="7"] .bkt{position:relative;padding-left:30px;margin-bottom:20px}section[data-n="7"] .bkt .dot{position:absolute;left:0;top:13px;width:11px;height:11px;border-radius:50%}section[data-n="7"] .bkt p{font-family:var(--sans);font-weight:300;font-size:24px;line-height:1.42;color:var(--body)}section[data-n="7"] .bkt p b{color:var(--ink);font-weight:600}section[data-n="7"] /* map hover hint → guided tour */
+    .map-wrap .map-tour-hint{position:absolute;left:50%;bottom:18px;transform:translateX(-50%) translateY(8px);
+      z-index:5;display:inline-flex;align-items:center;background:rgba(234,130,78,.95);color:#1a1008;
+      font-family:var(--sans);font-weight:700;font-size:18px;letter-spacing:.01em;padding:12px 22px;border-radius:999px;
+      text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.5);opacity:0;pointer-events:none;
+      transition:opacity .22s ease,transform .22s ease;white-space:nowrap}section[data-n="7"] .map-wrap:hover .map-tour-hint{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}section[data-n="7"] .map-wrap .map-tour-hint:hover{background:#f2a878}
   </style>
 </section>
 <section class="slide" data-n="8">
@@ -415,7 +434,7 @@
 
     <!-- funding ladder -->
     <p class="statement" style="font-size:26px;margin-top:34px;margin-bottom:0;color:var(--body)">
-      Break ground at <b>30 members (~$2.1M)</b> · Land secured at <b>~40 (~$3.0M)</b> · Full round of <b>50 (~$3.5–4.0M)</b>
+      Break ground at <b>30 members (~$2.1M)</b> · Bridge repaid at <b>~40 (~$3.0M)</b> · Full round of <b>50 (~$3.5–4.0M)</b>
     </p>
 
     <!-- use of funds -->
@@ -424,7 +443,7 @@
       <div data-draw style="display:flex;width:1680px;height:120px;border-radius:16px;overflow:hidden;gap:3px">
         <div style="flex:50;background:#ea824e;display:flex;flex-direction:column;justify-content:center;padding:0 28px;color:#1a1008">
           <div style="font-family:var(--sans);font-size:32px;font-weight:700;line-height:1">50%</div>
-          <div style="font-family:var(--sans);font-size:18px;font-weight:500;line-height:1.25;margin-top:8px">Secure land &amp; retire obligations</div>
+          <div style="font-family:var(--sans);font-size:18px;font-weight:500;line-height:1.25;margin-top:8px">Business foundations <span style="opacity:.82">(secure land &amp; retire obligations)</span></div>
         </div>
         <div style="flex:27;background:#c9683a;display:flex;flex-direction:column;justify-content:center;padding:0 24px;color:#faf8f4">
           <div style="font-family:var(--sans);font-size:30px;font-weight:700;line-height:1">27%</div>
@@ -487,25 +506,29 @@
     </div>
   </div>
 
+  <!-- de-risk callout: RV founding memberships repay with no build delay -->
+  <div class="rv-callout">
+    <span class="rv-tag">No construction delay</span>
+    <p><b>Founding RV-site memberships</b> repay the bridge starting <i>day one</i> &mdash; the sites operate today, so they sell before a single cabin is built.</p>
+  </div>
+
   <!-- two cards -->
-  <div class="card" style="position:absolute;left:120px;top:540px;width:810px;height:420px">
+  <div class="card" style="position:absolute;left:120px;top:648px;width:810px;height:322px">
     <h4>7 Cabins Repay the Bridge</h4>
-    <ul class="bullets" style="margin-top:4px">
+    <ul class="bullets" style="margin-top:2px">
       <li>Build 3 winterized + 4 dry = <b>7 cabins</b> (~$1.0M)</li>
       <li>Membership capacity created: <b>$6.4M</b></li>
-      <li>Repay $3M by selling 20 &times; $100K + 20 &times; $50K = 40 memberships</li>
-      <li>= <b>0.4% of our 10,000-person list</b> (podcast listeners + past guests)</li>
-      <li>Still leaves ~half the capacity &mdash; plus rental &amp; wedding income</li>
+      <li>Repay $3M via 20 &times; $100K + 20 &times; $50K = 40 memberships</li>
+      <li>= <b>0.4% of our 10,000-person list</b> &mdash; still leaves ~half the capacity</li>
     </ul>
   </div>
 
-  <div class="card" style="position:absolute;left:970px;top:540px;width:810px;height:420px">
+  <div class="card" style="position:absolute;left:970px;top:648px;width:810px;height:322px">
     <h4>The Flywheel &mdash; <em>growth pays for itself</em></h4>
-    <ul class="bullets" style="margin-top:4px">
-      <li>Bridge &rarr; build cabins &rarr; pre-sell memberships &rarr; repay bridge &rarr; surplus builds more cabins &rarr; repeat</li>
+    <ul class="bullets" style="margin-top:2px">
+      <li>Bridge &rarr; build &rarr; pre-sell memberships &rarr; repay &rarr; surplus builds more &rarr; repeat</li>
       <li>Only <b>7 cabins</b> and <b>0.4%</b> of our audience clears the entire bridge</li>
       <li>Every new member brings friends &amp; family &mdash; widening the funnel</li>
-      <li>Operating season May 1 &ndash; Oct 15; winterized cabins run year-round</li>
     </ul>
   </div>
 
@@ -517,7 +540,12 @@
       background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:30px 38px}section[data-n="11"] .tl-step--hi{background:linear-gradient(135deg,rgba(234,130,78,.16),rgba(234,130,78,.03));
       border:1px solid var(--amber);box-shadow:0 0 0 1px rgba(234,130,78,.12)}section[data-n="11"] .tl-k{font-family:var(--sans);font-weight:600;font-size:24px;letter-spacing:.10em;
       text-transform:uppercase;color:var(--ink)}section[data-n="11"] .tl-v{font-family:var(--serif);font-weight:400;font-size:38px;line-height:1;color:var(--body)}section[data-n="11"] .tl-arrow{flex:0 0 96px;display:flex;align-items:center;justify-content:center;
-      font-family:var(--serif);font-size:52px;font-weight:300;color:var(--amber);opacity:.85}
+      font-family:var(--serif);font-size:52px;font-weight:300;color:var(--amber);opacity:.85}section[data-n="11"] .rv-callout{position:absolute;left:120px;top:520px;width:1680px;
+      display:flex;align-items:center;gap:28px;
+      background:linear-gradient(135deg,rgba(234,130,78,.16),rgba(234,130,78,.03));
+      border:1px solid var(--amber);border-radius:18px;padding:24px 36px}section[data-n="11"] .rv-tag{flex:0 0 auto;font-family:var(--sans);font-weight:600;font-size:20px;
+      letter-spacing:.10em;text-transform:uppercase;color:var(--amber);
+      border:1px solid var(--amber-dim);border-radius:999px;padding:10px 22px}section[data-n="11"] .rv-callout p{font-family:var(--sans);font-weight:300;font-size:27px;line-height:1.4;color:var(--body)}section[data-n="11"] .rv-callout p b{color:var(--ink);font-weight:600}section[data-n="11"] .rv-callout p i{font-style:italic;color:var(--amber);font-weight:400}
   </style>
 </section>
 <section class="slide" data-n="12">
@@ -527,40 +555,55 @@
 
   <!-- LEFT column -->
   <div style="position:absolute;left:120px;top:352px;width:640px">
-    <p class="intro" style="font-size:25px;margin-bottom:18px">Founder free weeks use only part of each unit&rsquo;s season &mdash; the rest stays on sale.</p>
+    <p class="intro" style="font-size:24px;margin-bottom:20px">Founder free weeks use only part of each unit&rsquo;s season &mdash; the rest stays on sale.</p>
 
-    <div class="hero-panel" style="padding:30px 36px;margin-bottom:18px">
-      <b style="font-size:44px">50 founding <i>members</i></b>
-      <span style="font-size:23px;margin-top:10px">served by just 5 cabins + 4 RV sites</span>
+    <div class="hero-panel" style="padding:28px 34px;margin-bottom:24px">
+      <b style="font-size:42px">50 founding <i>members</i></b>
+      <span style="font-size:22px;margin-top:10px">served by just 5 cabins + 4 RV sites</span>
     </div>
 
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <div class="card" style="padding:20px 26px">
-        <h4 style="margin-bottom:8px;font-size:20px">24-Week Season</h4>
-        <p style="font-size:22px">168 nights &middot; 4 long weekends</p>
+    <!-- Three unit types & operating windows -->
+    <div class="ut-title">Three unit types &middot; operating windows</div>
+
+    <div class="ut">
+      <div class="ut-head">
+        <span class="ut-name">Winterized cabin</span>
+        <span class="ut-win">Year-round &middot; all 12 months</span>
       </div>
-      <div class="card" style="padding:20px 26px">
-        <h4 style="margin-bottom:8px;font-size:20px">Free Nights</h4>
-        <p style="font-size:22px">Cabin Max <b>14</b> &middot; Cabin <b>7</b> &middot; RV <b>14</b> per season</p>
-      </div>
-      <div class="card" style="padding:20px 26px">
-        <h4 style="margin-bottom:8px;font-size:20px">Peak Demand</h4>
-        <p style="font-size:22px">priority windows &middot; fair-use caps &middot; founders credits</p>
-      </div>
+      <div class="strip"><i class="strip-fill" style="width:100%"></i></div>
     </div>
 
-    <p style="margin-top:14px;font-family:var(--sans);font-size:18px;line-height:1.5;color:var(--dim)">
-      Scales down cleanly &mdash; 30 members: 3 cabins + 3 sites &middot; 40: 5 + 3 &middot; 50: 5 + 4.</p>
+    <div class="ut">
+      <div class="ut-head">
+        <span class="ut-name">Dry seasonal cabin</span>
+        <span class="ut-win">May 1 &ndash; Oct 15 &middot; 168 nights</span>
+      </div>
+      <div class="strip"><i class="strip-fill" style="width:46%"></i></div>
+    </div>
+
+    <div class="ut">
+      <div class="ut-head">
+        <span class="ut-name">RV site</span>
+        <span class="ut-win">May 1 &ndash; Oct 15 &middot; 168 nights</span>
+      </div>
+      <div class="strip"><i class="strip-fill" style="width:46%"></i></div>
+    </div>
+
+    <div class="strip-key">
+      <span><i class="k-amber"></i>Operating season</span>
+      <span><i class="k-mute"></i>Closed</span>
+      <span class="wrap">Jan &rarr; Dec</span>
+    </div>
   </div>
 
   <!-- RIGHT column -->
   <div style="position:absolute;left:800px;top:352px;width:1000px">
     <div style="font-family:var(--sans);font-size:22px;font-weight:600;letter-spacing:.16em;
-         text-transform:uppercase;color:var(--ink)">One unit, one season &mdash; 168 nights</div>
+         text-transform:uppercase;color:var(--ink)">Seasonal units &mdash; one season, 168 nights</div>
 
     <!-- Bar 1: Cabin -->
-    <div style="margin-top:52px">
-      <div class="bar-lbl">Each cabin <em>(5 cabins serve 20 Max + 15 Cabin members)</em></div>
+    <div style="margin-top:32px">
+      <div class="bar-lbl">Each seasonal cabin <em>(5 cabins serve 20 Max + 15 Cabin members)</em></div>
       <div class="bar" data-draw>
         <div class="seg fill" style="flex:56;background:#ea824e">
           <b>4 &times; Cabin Max</b><span>56 nights</span>
@@ -579,7 +622,7 @@
     </div>
 
     <!-- Bar 2: RV -->
-    <div style="margin-top:56px">
+    <div style="margin-top:34px">
       <div class="bar-lbl">Each RV site <em>(4 sites serve 15 RV members)</em></div>
       <div class="bar" data-draw>
         <div class="seg fill" style="flex:56;background:#ea824e">
@@ -594,15 +637,42 @@
         <span class="amber">67% of the season stays on sale</span>
       </div>
     </div>
+
+    <!-- Compact facts row -->
+    <div class="facts">
+      <div class="fact">
+        <h4>24-Week Season</h4>
+        <p>168 nights &middot; 4 long weekends</p>
+      </div>
+      <div class="fact">
+        <h4>Free Nights</h4>
+        <p>Cabin Max <b>14</b> &middot; Cabin <b>7</b> &middot; RV <b>14</b></p>
+      </div>
+      <div class="fact">
+        <h4>Peak Demand</h4>
+        <p>priority windows &middot; fair-use caps</p>
+      </div>
+    </div>
+
+    <p class="scaling">Scales down cleanly &mdash; 30 members: 3 cabins + 3 sites &middot; 40: 5 + 3 &middot; 50: 5 + 4.</p>
   </div>
 
   <div class="foot"></div>
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>12</b> / 20</div>
 
-  <style>section[data-n="12"] .bar-lbl{font-family:var(--sans);font-size:22px;font-weight:600;color:var(--ink);margin-bottom:16px}section[data-n="12"] .bar-lbl em{font-style:normal;font-weight:400;font-size:20px;color:var(--dim)}section[data-n="12"] .bar{display:flex;gap:8px;height:110px}section[data-n="12"] .seg{display:flex;flex-direction:column;justify-content:center;border-radius:12px;
-      padding:0 22px;overflow:hidden}section[data-n="12"] .seg b{font-family:var(--sans);font-size:22px;font-weight:600;color:#fff;line-height:1.1;white-space:nowrap}section[data-n="12"] .seg span{font-family:var(--sans);font-size:17px;font-weight:400;color:rgba(255,255,255,.82);margin-top:5px}section[data-n="12"] .seg.fill b{color:#1a1008}section[data-n="12"] .seg.fill span{color:rgba(26,16,8,.7)}section[data-n="12"] .seg.open{background:transparent;border:2px dashed var(--amber)}section[data-n="12"] .seg.open b{color:var(--amber)}section[data-n="12"] .seg.open span{color:var(--amber-dim)}section[data-n="12"] .bar-cap{display:flex;justify-content:space-between;margin-top:14px;
-      font-family:var(--sans);font-size:20px;color:var(--body)}section[data-n="12"] .bar-cap .amber{color:var(--amber);font-weight:500}
+  <style>section[data-n="12"] /* --- unit-type breakdown (left) --- */
+    .ut-title{font-family:var(--sans);font-size:20px;font-weight:600;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--ink);margin-bottom:18px}section[data-n="12"] .ut{margin-bottom:16px}section[data-n="12"] .ut-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}section[data-n="12"] .ut-name{font-family:var(--sans);font-size:23px;font-weight:600;color:var(--ink)}section[data-n="12"] .ut-win{font-family:var(--sans);font-size:20px;font-weight:400;color:var(--amber)}section[data-n="12"] .strip{height:16px;border-radius:8px;background:rgba(255,255,255,.05);
+      border:1px solid var(--line-soft);overflow:hidden}section[data-n="12"] .strip-fill{display:block;height:100%;border-radius:8px;
+      background:linear-gradient(90deg,var(--amber),var(--amber-lt))}section[data-n="12"] .strip-key{display:flex;align-items:center;gap:26px;margin-top:14px;
+      font-family:var(--sans);font-size:20px;color:var(--dim)}section[data-n="12"] .strip-key i{display:inline-block;width:16px;height:12px;border-radius:3px;
+      margin-right:8px;vertical-align:middle}section[data-n="12"] .strip-key .k-amber{background:var(--amber)}section[data-n="12"] .strip-key .k-mute{background:rgba(255,255,255,.09);border:1px solid var(--line-soft)}section[data-n="12"] .strip-key .wrap{margin-left:auto;letter-spacing:.10em;text-transform:uppercase;font-size:18px}section[data-n="12"] /* --- season bars (right) --- */
+    .bar-lbl{font-family:var(--sans);font-size:22px;font-weight:600;color:var(--ink);margin-bottom:14px}section[data-n="12"] .bar-lbl em{font-style:normal;font-weight:400;font-size:20px;color:var(--dim)}section[data-n="12"] .bar{display:flex;gap:8px;height:94px}section[data-n="12"] .seg{display:flex;flex-direction:column;justify-content:center;border-radius:12px;
+      padding:0 22px;overflow:hidden}section[data-n="12"] .seg b{font-family:var(--sans);font-size:22px;font-weight:600;color:#fff;line-height:1.1;white-space:nowrap}section[data-n="12"] .seg span{font-family:var(--sans);font-size:17px;font-weight:400;color:rgba(255,255,255,.82);margin-top:5px}section[data-n="12"] .seg.fill b{color:#1a1008}section[data-n="12"] .seg.fill span{color:rgba(26,16,8,.7)}section[data-n="12"] .seg.open{background:transparent;border:2px dashed var(--amber)}section[data-n="12"] .seg.open b{color:var(--amber)}section[data-n="12"] .seg.open span{color:var(--amber-dim)}section[data-n="12"] .bar-cap{display:flex;justify-content:space-between;margin-top:12px;
+      font-family:var(--sans);font-size:20px;color:var(--body)}section[data-n="12"] .bar-cap .amber{color:var(--amber);font-weight:500}section[data-n="12"] /* --- compact facts row (right) --- */
+    .facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:26px}section[data-n="12"] .fact{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 20px}section[data-n="12"] .fact h4{font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:.02em;
+      color:var(--ink);margin-bottom:8px;text-transform:uppercase}section[data-n="12"] .fact p{font-family:var(--sans);font-weight:400;font-size:21px;line-height:1.3;color:var(--body)}section[data-n="12"] .fact p b{color:var(--amber);font-weight:600}section[data-n="12"] .scaling{margin-top:16px;font-family:var(--sans);font-size:20px;line-height:1.45;color:var(--dim)}
   </style>
 </section>
 <section class="slide" data-n="13">
@@ -681,26 +751,34 @@
        display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:28px">
 
     <div class="ent">
-      <b>Portal.Place</b>
-      <em>Membership Platform</em>
+      <div class="ent-head">
+        <img class="ent-logo" src="/deck2/assets/img/s16_g273e9abf1e7232f7_240.webp" alt="Portal.Place logo">
+        <div class="ent-name"><b>Portal.Place</b><em>Membership Platform</em></div>
+      </div>
       <p>The membership company — sets standards and coordinates the network.</p>
     </div>
 
     <div class="ent">
-      <b>Wells Gray Resort</b>
-      <em>First Village Site</em>
+      <div class="ent-head">
+        <img class="ent-logo" src="/deck2/assets/img/s16_g273e9abf1e7232f7_239.webp" alt="Wells Gray Resort logo">
+        <div class="ent-name"><b>Wells Gray Resort</b><em>First Village Site</em></div>
+      </div>
       <p>Owns and operates the flagship physical site — the proving ground for the model.</p>
     </div>
 
     <div class="ent">
-      <b>Future Thinkers Foundation</b>
-      <em>Media &amp; Education</em>
+      <div class="ent-head">
+        <img class="ent-logo" src="/deck2/assets/img/s16_g273e9abf1e7232f7_238.webp" alt="Future Thinkers Foundation logo">
+        <div class="ent-name"><b>Future Thinkers Foundation</b><em>Media &amp; Education</em></div>
+      </div>
       <p>Houses media, education, and open-sourcing to support the broader mission.</p>
     </div>
 
     <div class="ent">
-      <b>Design Spore</b>
-      <em>Launch &amp; Marketing Studio</em>
+      <div class="ent-head">
+        <img class="ent-logo" src="/deck2/assets/img/s16_g273e9abf1e7232f7_242.webp" alt="Design Spore logo">
+        <div class="ent-name"><b>Design Spore</b><em>Launch &amp; Marketing Studio</em></div>
+      </div>
       <p>In-house media production for branding, storytelling, and launch marketing.</p>
     </div>
   </div>
@@ -710,10 +788,10 @@
   <div class="foot-pg"><b>14</b> / 20</div>
 
   <style>section[data-n="14"] .ent{background:var(--surface);border:1px solid var(--line);border-radius:18px;
-      padding:40px 44px;display:flex;flex-direction:column}section[data-n="14"] .ent > b{font-family:var(--sans);font-weight:600;font-size:34px;letter-spacing:-.01em;
-      color:var(--ink);line-height:1.05}section[data-n="14"] .ent > em{font-style:normal;font-family:var(--sans);font-weight:500;font-size:18px;
-      letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-top:12px}section[data-n="14"] .ent > p{font-family:var(--sans);font-weight:400;font-size:24px;line-height:1.45;
-      color:var(--body);margin-top:20px}
+      padding:36px 44px;display:flex;flex-direction:column}section[data-n="14"] .ent-head{display:flex;align-items:center;gap:22px}section[data-n="14"] .ent-logo{height:64px;width:auto;max-width:120px;object-fit:contain;flex:0 0 auto;display:block}section[data-n="14"] .ent-name{display:flex;flex-direction:column;min-width:0}section[data-n="14"] .ent-name b{font-family:var(--sans);font-weight:600;font-size:32px;letter-spacing:-.01em;
+      color:var(--ink);line-height:1.05}section[data-n="14"] .ent-name em{font-style:normal;font-family:var(--sans);font-weight:500;font-size:18px;
+      letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-top:10px}section[data-n="14"] .ent > p{font-family:var(--sans);font-weight:400;font-size:24px;line-height:1.45;
+      color:var(--body);margin-top:22px}
   </style>
 </section>
 <section class="slide divider" data-divider="1"><div class="dv-wrap"><div class="dv-n reveal" style="--ri:0">Section IV</div><div class="dv-t reveal" style="--ri:1">The <i>Team</i></div><div class="dv-d reveal" style="--ri:2">The people who move from ideas to audience to land to operations.</div></div><div class="dv-rule"></div></section>
@@ -981,34 +1059,34 @@
        display:grid;grid-template-columns:1fr 1fr;column-gap:96px;row-gap:22px">
 
     <div class="lk">
-      <a href="https://portal.place">Portal<span class="amber">.</span>Place</a>
+      <a href="https://portal.place" target="_blank" rel="noopener">Portal.Place <span class="ext">↗</span></a>
       <p>The membership platform</p>
     </div>
     <div class="lk">
-      <a href="https://portal.place/map">Portal.Place<span class="amber">/map</span></a>
+      <a href="https://portal.place/map" target="_blank" rel="noopener">Portal.Place/map <span class="ext">↗</span></a>
       <p>Interactive tour of the flagship site</p>
     </div>
 
     <div class="lk">
-      <a href="https://futurethinkers.org">FutureThinkers<span class="amber">.org</span></a>
+      <a href="https://futurethinkers.org" target="_blank" rel="noopener">FutureThinkers.org <span class="ext">↗</span></a>
       <p>10+ years podcasting on technology, society &amp; consciousness</p>
     </div>
     <div class="lk">
-      <span class="lk-name">Smart Village Video Series</span>
+      <a href="https://www.youtube.com/@FutureThinkers" target="_blank" rel="noopener">Smart Village Video Series <span class="ext">↗</span></a>
       <p>Why smart villages are the future</p>
     </div>
 
     <div class="lk">
-      <span class="lk-name">Meta Skills Video</span>
+      <a href="https://www.youtube.com/@FutureThinkers" target="_blank" rel="noopener">Meta Skills Video <span class="ext">↗</span></a>
       <p>Lessons from years operating our village destination</p>
     </div>
     <div class="lk">
-      <span class="lk-name">Wells Gray Resort</span>
+      <a href="https://wellsgrayresort.com" target="_blank" rel="noopener">Wells Gray Resort <span class="ext">↗</span></a>
       <p>Public site for the 400-acre flagship resort in BC</p>
     </div>
 
     <div class="lk">
-      <a href="https://designspore.co">DesignSpore<span class="amber">.co</span></a>
+      <a href="https://designspore.co" target="_blank" rel="noopener">DesignSpore.co <span class="ext">↗</span></a>
       <p>Our brand launch &amp; design studio</p>
     </div>
   </div>
@@ -1031,8 +1109,8 @@
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>20</b> / 20</div>
 
-  <style>section[data-n="20"] .lk{border-left:2px solid var(--line);padding-left:26px}section[data-n="20"] .lk a, section[data-n="20"] .lk .lk-name{display:inline-block;font-family:var(--sans);font-weight:600;font-size:25px;
-      letter-spacing:.005em;color:var(--ink);text-decoration:none;line-height:1.1}section[data-n="20"] .lk a:hover{color:var(--amber-lt)}section[data-n="20"] .lk .amber{color:var(--amber)}section[data-n="20"] .lk p{font-family:var(--sans);font-weight:400;font-size:21px;line-height:1.38;color:var(--body);margin-top:7px}
+  <style>section[data-n="20"] .lk{border-left:2px solid var(--line);padding-left:26px}section[data-n="20"] .lk a{display:inline-block;font-family:var(--sans);font-weight:600;font-size:25px;
+      letter-spacing:.005em;color:var(--ink);text-decoration:none;line-height:1.1;transition:color .15s}section[data-n="20"] .lk a:hover{color:var(--amber-lt)}section[data-n="20"] .lk a .ext{color:var(--amber);font-size:19px;font-weight:500}section[data-n="20"] .lk p{font-family:var(--sans);font-weight:400;font-size:21px;line-height:1.38;color:var(--body);margin-top:7px}
   </style>
 </section>
 </div>
