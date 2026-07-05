@@ -861,18 +861,24 @@ function arcPts(a,b,n){ const [la1,lo1]=a; const [la2,lo2]=b;   // raw lng so th
 function netDot(home,label,delay){ return L.divIcon({className:'net-pin'+(home?' is-home':''),
   html:'<span class="np-dot" style="animation-delay:'+delay+'s"></span><span class="np-lbl" style="animation-delay:'+(delay+0.15)+'s">'+escHtml(label)+'</span>',
   iconSize:[11,11],iconAnchor:[5.5,5.5]}); }
+// route every destination the short way around from home, so the arcs fan out (hub-and-spoke) around Wells Gray
+function adjLng(lng){ const h=NET_HOME[1]; while(lng-h>180)lng-=360; while(lng-h<-180)lng+=360; return lng; }
+function siteLL(s){ return [s.c[0], adjLng(s.c[1])]; }
 function drawNetwork(){ if(!netFX.active) return; const g=L.layerGroup().addTo(map); netFX.layer=g;
-  NET_SITES.forEach((s,i)=>{ const d=i*0.18;
-    const pl=L.polyline(arcPts(NET_HOME,s.c,28),{className:'net-arc',color:'#EA824E',weight:2,opacity:.85,interactive:false}).addTo(g);
+  NET_SITES.forEach((s,i)=>{ const d=i*0.18; const cc=siteLL(s);
+    const pl=L.polyline(arcPts(NET_HOME,cc,28),{className:'net-arc',color:'#EA824E',weight:2,opacity:.85,interactive:false}).addTo(g);
     const path=pl._path;
     if(path){ const len=path.getTotalLength(); path.style.strokeDasharray=len; path.style.strokeDashoffset=len;
       path.style.transition='stroke-dashoffset 1.5s ease '+d+'s';
       requestAnimationFrame(()=>requestAnimationFrame(()=>{ path.style.strokeDashoffset='0'; })); }
-    L.marker(s.c,{icon:netDot(false,s.n,d+0.9),interactive:false,keyboard:false}).addTo(g);
+    L.marker(cc,{icon:netDot(false,s.n,d+0.9),interactive:false,keyboard:false}).addTo(g);
   });
   L.marker(NET_HOME,{icon:netDot(true,'Wells Gray, BC',0.2),interactive:false,keyboard:false,zIndexOffset:1000}).addTo(g);
 }
-function netBounds(){ const b=L.latLngBounds([NET_HOME]); NET_SITES.forEach(s=>b.extend(s.c)); return b; }
+// bounds symmetric in longitude around home so Wells Gray sits in the middle
+function netBounds(){ let minLat=NET_HOME[0],maxLat=NET_HOME[0],maxD=0;
+  NET_SITES.forEach(s=>{ maxD=Math.max(maxD,Math.abs(adjLng(s.c[1])-NET_HOME[1])); minLat=Math.min(minLat,s.c[0]); maxLat=Math.max(maxLat,s.c[0]); });
+  return L.latLngBounds([[minLat,NET_HOME[1]-maxD],[maxLat,NET_HOME[1]+maxD]]); }
 // manual eased zoom (Leaflet flyTo/flyToBounds NaN/no-op across a ~12-level zoom-out; setInterval so it runs in background tabs too)
 function animateView(center,zoom,ms,done){ const sC=map.getCenter(), sZ=map.getZoom(), t0=Date.now();
   const iv=setInterval(()=>{ if(!netFX.active){ clearInterval(iv); return; }
@@ -886,7 +892,7 @@ function startVisionFX(){ stopVisionFX(); netFX.active=true;
   netFX.timers.push(setTimeout(()=>{ if(!netFX.active) return;
     DEFS.forEach(d=>setVis(d.f,false)); refresh();                // 2) drop the phase layers -> only the global network
     // fit the whole network to the actual viewport (no repeated globe) and zoom out smoothly, then draw
-    let tc=L.latLng(20,0), tz=2; try{ const b=netBounds(); tz=Math.max(1,map.getBoundsZoom(b,false,L.point(60,60))); tc=b.getCenter(); }catch(e){}
+    let tc=L.latLng(20,NET_HOME[1]), tz=2; try{ const b=netBounds(); tz=Math.max(1,map.getBoundsZoom(b,false,L.point(60,60))); tc=L.latLng(b.getCenter().lat, NET_HOME[1]); }catch(e){}
     animateView(tc,tz,2400,drawNetwork);
   },3000));
 }
