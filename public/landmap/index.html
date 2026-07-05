@@ -781,7 +781,8 @@ function tourShow(slugs,only){ DEFS.forEach(d=>setVis(d.f,false)); (slugs||[]).f
 let LAYER2STOP={}, FEAT2STOP={};
 const NAVSKIP={wells_gray_golf_rv_parcel:1,labels:1,lakes:1,ponds_water_avoid:1};
 function buildStopIndex(){ LAYER2STOP={}; FEAT2STOP={};
-  TOUR.forEach((s,i)=>{ (s.layers||[]).forEach(f=>{ if(NAVSKIP[f]) return;
+  TOUR.forEach((s,i)=>{ if(s.kind==='divider'||s.kind==='overlay') return;   // overviews don't own click->stop nav
+    (s.layers||[]).forEach(f=>{ if(NAVSKIP[f]) return;
     if(s.only && s.only[f]){ s.only[f].forEach(v=>{ const k=f+'|'+v; if(FEAT2STOP[k]==null) FEAT2STOP[k]=i; }); }
     else if(LAYER2STOP[f]==null) LAYER2STOP[f]=i; }); }); }
 function stopForFeature(slug,p){ const d=DEFS.find(x=>x.f===slug); const field=d&&d.label;
