@@ -70,6 +70,9 @@
   .leaflet-popup-tip{background:var(--panel)}
   .pp b{color:var(--accent)} .pp .t{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
   .maplbl{background:transparent;border:none;box-shadow:none;color:#fff;font-weight:700;font-size:13px;text-shadow:0 0 2px #000,0 0 4px #000,0 0 6px #000,0 1px 2px #000;padding:0}
+  .landing-tip{background:rgba(20,17,26,.97);border:1px solid var(--line);border-radius:9px;padding:8px 11px;color:#eae4ef;font-weight:400;font-size:12px;line-height:1.45;max-width:240px;white-space:normal;text-align:left;box-shadow:0 6px 18px rgba(0,0,0,.55)}
+  .landing-tip b{display:block;color:var(--accent);font-size:13px;font-weight:800;margin-bottom:3px}
+  .leaflet-tooltip-top.landing-tip::before{border-top-color:rgba(20,17,26,.97)}
   .maplbl.dev{font-size:14.5px;font-weight:800;background:rgba(18,15,23,.62);padding:2px 9px;border-radius:9px;text-shadow:0 0 3px #000,0 1px 2px #000}
   .leaflet-tooltip.maplbl:before{display:none}
   body.nolabels .maplbl{display:none!important}
@@ -471,7 +474,11 @@ function addLayer(L){return fetch('data/'+L.f+'.geojson').then(r=>r.json()).then
         if(idx>=0){ window.L.DomEvent.stop(e); goStop(idx); }   // else do nothing (no popup)
       });
       if(L.label){const v=p[L.label]; if(v!=null&&String(v).trim()!==''&&!isJunk(v))
-        l.bindTooltip(`<span style="color:${featColor(L,ft)}">${v}</span>`,{permanent:true,direction:'center',className:'maplbl'+(dev?' dev':'')});}}
+        l.bindTooltip(`<span style="color:${featColor(L,ft)}">${v}</span>`,{permanent:true,direction:'center',className:'maplbl'+(dev?' dev':'')});}
+      if(p.desc){ let _dt=null;   // hover -> description card (standalone tooltip; layer's own tooltip is the title label)
+        l.on('mouseover',()=>{ if(_dt) return; _dt=L.tooltip({direction:'top',offset:[0,-7],className:'landing-tip',interactive:false,opacity:1})
+          .setContent('<b>'+escHtml(p[L.label]||p.name||'')+'</b>'+escHtml(p.desc)).setLatLng(l.getLatLng()); _dt.addTo(map); });
+        l.on('mouseout',()=>{ if(_dt){ map.removeLayer(_dt); _dt=null; } }); } }
     if(!L.label && !L.nolabel){const rep=repLayer(lyr); if(rep) rep.bindTooltip(`<span style="color:${featColor(L,{})}">${L.name}</span>`,{permanent:true,direction:'center',className:'maplbl'});}
     overlays[L.f]=lyr; return L;
   }).catch(e=>{console.warn('load fail',L.f,e);return null;});}
