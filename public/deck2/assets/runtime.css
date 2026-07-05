@@ -41,12 +41,22 @@ section.slide.active{opacity:1;visibility:visible;pointer-events:auto;z-index:1}
 @keyframes deck-load{0%{transform:translateX(-120%)}100%{transform:translateX(360%)}}
 
 /* ---- Maker slide: multi-use dome cutaway cycle (5 stages x 2s = 10s loop) ---- */
-/* one stage = 2s of a 10s loop = 20%; interiors reveal via a diagonal cutaway */
+/* labels: brief crossfade between pills */
 @keyframes domeStage{
   0%{opacity:0}
   3%{opacity:1}
   18%{opacity:1}
   21%{opacity:0}
+  100%{opacity:0}
+}
+/* interiors: hold at full until the NEXT interior (stacked on top, delayed +20%)
+   is fully faded in, so the sphere never flashes between interior stages; only the
+   last interior fades out at the loop point to reveal the exterior (stage 1). */
+@keyframes domeInt{
+  0%{opacity:0}
+  4%{opacity:1}
+  24%{opacity:1}
+  28%{opacity:0}
   100%{opacity:0}
 }
 @media (prefers-reduced-motion:reduce){
