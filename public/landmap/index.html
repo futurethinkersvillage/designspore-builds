@@ -864,13 +864,22 @@ function drawNetwork(){ if(!netFX.active) return; const g=L.layerGroup().addTo(m
   });
   L.marker(NET_HOME,{icon:netDot(true,'Wells Gray, BC',0.2),interactive:false,keyboard:false,zIndexOffset:1000}).addTo(g);
 }
+function netBounds(){ const b=L.latLngBounds([NET_HOME]); NET_SITES.forEach(s=>b.extend(s.c)); return b; }
+// manual eased zoom (Leaflet flyTo/flyToBounds NaN/no-op across a ~12-level zoom-out; setInterval so it runs in background tabs too)
+function animateView(center,zoom,ms,done){ const sC=map.getCenter(), sZ=map.getZoom(), t0=Date.now();
+  const iv=setInterval(()=>{ if(!netFX.active){ clearInterval(iv); return; }
+    let t=Math.min(1,(Date.now()-t0)/ms); const e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;  // easeInOutQuad
+    try{ map.setView([sC.lat+(center.lat-sC.lat)*e, sC.lng+(center.lng-sC.lng)*e], sZ+(zoom-sZ)*e, {animate:false}); }catch(err){}
+    if(t>=1){ clearInterval(iv); if(done) done(); }
+  },25); netFX.timers.push(iv); }
 function startVisionFX(){ stopVisionFX(); netFX.active=true;
   DEFS.forEach(d=>setVis(d.f,true)); refresh(); clearPing();      // 1) reveal all phases
   try{ map.invalidateSize(); const l=overlays['wells_gray_golf_rv_parcel']; if(l){ const b=l.getBounds(); if(b.isValid()) map.fitBounds(b,padOpt()); } }catch(e){}
   netFX.timers.push(setTimeout(()=>{ if(!netFX.active) return;
     DEFS.forEach(d=>setVis(d.f,false)); refresh();                // 2) drop the phase layers -> only the global network
-    try{ map.setView([22,4],2,{animate:true}); }catch(e){ try{map.setView([22,4],2);}catch(_){} }  // zoom out to the globe (setView avoids flyTo NaN at low zoom)
-    netFX.timers.push(setTimeout(drawNetwork,2200));
+    // fit the whole network to the actual viewport (no repeated globe) and zoom out smoothly, then draw
+    let tc=L.latLng(20,0), tz=2; try{ const b=netBounds(); tz=Math.max(1,map.getBoundsZoom(b,false,L.point(60,60))); tc=b.getCenter(); }catch(e){}
+    animateView(tc,tz,2400,drawNetwork);
   },3000));
 }
 function stopVisionFX(){ netFX.active=false; netFX.timers.forEach(t=>clearTimeout(t)); netFX.timers=[];
