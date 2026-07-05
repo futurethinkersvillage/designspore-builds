@@ -891,8 +891,8 @@ function startVisionFX(){ stopVisionFX(); netFX.active=true;
   try{ map.invalidateSize(); const l=overlays['wells_gray_golf_rv_parcel']; if(l){ const b=l.getBounds(); if(b.isValid()) map.fitBounds(b,padOpt()); } }catch(e){}
   netFX.timers.push(setTimeout(()=>{ if(!netFX.active) return;
     DEFS.forEach(d=>setVis(d.f,false)); refresh();                // 2) drop the phase layers -> only the global network
-    // fit the whole network to the actual viewport (no repeated globe) and zoom out smoothly, then draw
-    let tc=L.latLng(20,NET_HOME[1]), tz=2; try{ const b=netBounds(); tz=Math.max(1,map.getBoundsZoom(b,false,L.point(60,60))); tc=L.latLng(b.getCenter().lat, NET_HOME[1]); }catch(e){}
+    // fit the network centered on home, then back off ~a few scrolls for breathing room
+    let tc=L.latLng(20,NET_HOME[1]), tz=2; try{ const b=netBounds(); tz=Math.max(0.5,map.getBoundsZoom(b,false,L.point(60,60))-0.8); tc=L.latLng(b.getCenter().lat, NET_HOME[1]); }catch(e){}
     animateView(tc,tz,2400,drawNetwork);
   },3000));
 }
