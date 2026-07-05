@@ -49,10 +49,10 @@ h1.title i{font-style:italic;color:var(--amber);font-weight:400}
 
 /* ---- Footer (minimal, no white bar) ---- */
 .foot{position:absolute;left:120px;right:120px;bottom:46px;height:1px;background:var(--line-soft)}
-.foot-wm{position:absolute;left:120px;bottom:26px;font-size:16px;letter-spacing:.22em;
+.foot-wm{position:absolute;left:120px;bottom:21px;font-size:16px;letter-spacing:.22em;
   text-transform:uppercase;color:var(--dim);font-weight:500}
 .foot-wm b{color:var(--amber);font-weight:500}
-.foot-pg{position:absolute;right:120px;bottom:24px;font-family:var(--serif);font-size:22px;color:var(--dim)}
+.foot-pg{position:absolute;right:120px;bottom:19px;font-family:var(--serif);font-size:22px;color:var(--dim)}
 .foot-pg b{color:var(--ink);font-style:italic}
 
 /* ---- Typography primitives ---- */
