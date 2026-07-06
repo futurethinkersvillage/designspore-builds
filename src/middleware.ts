@@ -3,10 +3,10 @@ import type { NextRequest } from "next/server";
 
 // Password-gated paths (startsWith match). "/deck" also covers /deck, /deckN,
 // and the static bundles at /deck1/*, /deck2/* (all start with "/deck").
-// NOTE: "/cabin-fund" and "/join" are intentionally NOT gated. "/join" is the
-// public club-membership sales deck (access membership, not a security) that
-// replaces the public /membership page and collects $2,000 deposits; cabin-fund
-// is public for review. Both render chrome-free via the full-screen block below.
+// NOTE: "/cabin-fund" and "/membership" are intentionally NOT gated. "/membership"
+// is the public club-membership sales deck (access membership, not a security) that
+// collects $2,000 deposits; cabin-fund is public for review. Both render chrome-free
+// via the full-screen block below. (/join is a legacy alias → redirects to /membership.)
 const PROTECTED_PATHS = ["/investor-print", "/deck"];
 
 const DASHBOARD_HOSTS = [
@@ -53,7 +53,7 @@ export function middleware(request: NextRequest) {
     pathname === "/map" || pathname.startsWith("/map/") ||
     pathname === "/map-editor" || pathname.startsWith("/map-editor/") ||
     pathname === "/cabin-fund" || pathname.startsWith("/cabin-fund/") ||
-    pathname === "/join" || pathname.startsWith("/join/")
+    pathname === "/membership" || pathname.startsWith("/membership/")
   ) {
     const res = NextResponse.next();
     res.headers.set("x-is-dashboard", "1");
