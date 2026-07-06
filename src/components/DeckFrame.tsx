@@ -14,7 +14,12 @@ export default function DeckFrame({ src }: { src: string }) {
 
   useEffect(() => {
     // carry the parent's ?query and #slide into the iframe so /deck#5 opens slide 5
-    setFull(src + window.location.search + window.location.hash);
+    // (merge cleanly so a versioned src like ".../index.html?v=3" stays valid)
+    const parentQuery = window.location.search.slice(1); // drop leading "?"
+    const merged = parentQuery
+      ? src + (src.includes("?") ? "&" : "?") + parentQuery
+      : src;
+    setFull(merged + window.location.hash);
     const id = window.setTimeout(() => ref.current?.focus(), 250);
     return () => window.clearTimeout(id);
   }, [src]);
