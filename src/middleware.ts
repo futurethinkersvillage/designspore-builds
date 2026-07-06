@@ -3,9 +3,10 @@ import type { NextRequest } from "next/server";
 
 // Password-gated paths (startsWith match). "/deck" also covers /deck, /deckN,
 // and the static bundles at /deck1/*, /deck2/* (all start with "/deck"). "/join"
-// covers the member sales deck + its /join/* bundle. Both decks contain
-// membership pricing, which must never be public.
-const PROTECTED_PATHS = ["/investor-print", "/deck", "/join"];
+// covers the member sales deck + its /join/* bundle. "/cabin-fund" covers the
+// cabin-investment deck + its /cabin-fund/* bundle. All contain investment terms
+// / membership pricing, which must never be public.
+const PROTECTED_PATHS = ["/investor-print", "/deck", "/join", "/cabin-fund"];
 
 const DASHBOARD_HOSTS = [
   "village-dashboard.portal.place",
@@ -72,7 +73,7 @@ export function middleware(request: NextRequest) {
   // Authed. The /deck, /deckN and /join routes are full-screen iframe decks —
   // render without site chrome (Nav/Footer/Chat), reusing the dashboard flag.
   const res = NextResponse.next();
-  if (pathname === "/deck" || /^\/deck\d+$/.test(pathname) || pathname === "/join") {
+  if (pathname === "/deck" || /^\/deck\d+$/.test(pathname) || pathname === "/join" || pathname === "/cabin-fund") {
     res.headers.set("x-is-dashboard", "1");
   }
   return res;
