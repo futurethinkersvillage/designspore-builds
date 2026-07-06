@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
       { source: "/variant-a", destination: "/", permanent: false },
       { source: "/variant-b", destination: "/", permanent: false },
       { source: "/variant-c", destination: "/", permanent: false },
+      // The member sales deck at /join replaces the old /membership page.
+      { source: "/membership", destination: "/join", permanent: false },
     ];
   },
 };

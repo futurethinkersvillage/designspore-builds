@@ -2,13 +2,12 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Password-gated paths (startsWith match). "/deck" also covers /deck, /deckN,
-// and the static bundles at /deck1/*, /deck2/* (all start with "/deck"). "/join"
-// covers the member sales deck + its /join/* bundle. Both contain membership
-// pricing, which must never be public.
-// NOTE: "/cabin-fund" is intentionally NOT gated — Mike wants it public for review
-// (it renders chrome-free via the full-screen block below). Re-add here before it
-// goes investor-facing (it carries investment terms).
-const PROTECTED_PATHS = ["/investor-print", "/deck", "/join"];
+// and the static bundles at /deck1/*, /deck2/* (all start with "/deck").
+// NOTE: "/cabin-fund" and "/join" are intentionally NOT gated. "/join" is the
+// public club-membership sales deck (access membership, not a security) that
+// replaces the public /membership page and collects $2,000 deposits; cabin-fund
+// is public for review. Both render chrome-free via the full-screen block below.
+const PROTECTED_PATHS = ["/investor-print", "/deck"];
 
 const DASHBOARD_HOSTS = [
   "village-dashboard.portal.place",
@@ -53,7 +52,8 @@ export function middleware(request: NextRequest) {
     pathname === "/mind-map" || pathname.startsWith("/mind-map/") ||
     pathname === "/map" || pathname.startsWith("/map/") ||
     pathname === "/map-editor" || pathname.startsWith("/map-editor/") ||
-    pathname === "/cabin-fund" || pathname.startsWith("/cabin-fund/")
+    pathname === "/cabin-fund" || pathname.startsWith("/cabin-fund/") ||
+    pathname === "/join" || pathname.startsWith("/join/")
   ) {
     const res = NextResponse.next();
     res.headers.set("x-is-dashboard", "1");
@@ -73,10 +73,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Authed. The /deck, /deckN and /join routes are full-screen iframe decks —
-  // render without site chrome (Nav/Footer/Chat), reusing the dashboard flag.
+  // Authed. The /deck and /deckN routes are full-screen iframe decks — render
+  // without site chrome (Nav/Footer/Chat), reusing the dashboard flag.
   const res = NextResponse.next();
-  if (pathname === "/deck" || /^\/deck\d+$/.test(pathname) || pathname === "/join") {
+  if (pathname === "/deck" || /^\/deck\d+$/.test(pathname)) {
     res.headers.set("x-is-dashboard", "1");
   }
   return res;

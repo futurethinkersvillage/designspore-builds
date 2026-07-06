@@ -30,7 +30,7 @@ const navItems = [
       { label: "Host An Event", href: "/host" },
     ],
   },
-  { label: "Members", href: "/membership" },
+  { label: "Members", href: "/join" },
   { label: "Partners", href: "/partner" },
   { label: "Intel", href: "https://intel.portal.place", external: true },
   {
@@ -144,7 +144,7 @@ export function Nav() {
         {/* CTA + mobile toggle */}
         <div className="flex items-center gap-4">
           <Link
-            href="/membership"
+            href="/join"
             className="hidden rounded-full bg-amber px-5 py-2 text-sm font-medium text-white transition-all hover:bg-amber/90 active:scale-[0.98] lg:block"
           >
             Become a Member
@@ -218,7 +218,7 @@ export function Nav() {
               ))}
               <div className="pt-4 pb-2">
                 <Link
-                  href="/membership"
+                  href="/join"
                   className="inline-flex rounded-full bg-amber px-6 py-2.5 text-sm font-medium text-white"
                   onClick={() => setMobileOpen(false)}
                 >

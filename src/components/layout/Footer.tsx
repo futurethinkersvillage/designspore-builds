@@ -22,7 +22,7 @@ const footerLinks: { title: string; links: FooterLink[] }[] = [
   {
     title: "Join",
     links: [
-      { label: "Members", href: "/membership" },
+      { label: "Members", href: "/join" },
       { label: "Partners", href: "/partner" },
       { label: "Consulting", href: "/consulting" },
     ],
