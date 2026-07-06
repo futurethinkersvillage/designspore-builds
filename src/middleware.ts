@@ -3,10 +3,12 @@ import type { NextRequest } from "next/server";
 
 // Password-gated paths (startsWith match). "/deck" also covers /deck, /deckN,
 // and the static bundles at /deck1/*, /deck2/* (all start with "/deck"). "/join"
-// covers the member sales deck + its /join/* bundle. "/cabin-fund" covers the
-// cabin-investment deck + its /cabin-fund/* bundle. All contain investment terms
-// / membership pricing, which must never be public.
-const PROTECTED_PATHS = ["/investor-print", "/deck", "/join", "/cabin-fund"];
+// covers the member sales deck + its /join/* bundle. Both contain membership
+// pricing, which must never be public.
+// NOTE: "/cabin-fund" is intentionally NOT gated — Mike wants it public for review
+// (it renders chrome-free via the full-screen block below). Re-add here before it
+// goes investor-facing (it carries investment terms).
+const PROTECTED_PATHS = ["/investor-print", "/deck", "/join"];
 
 const DASHBOARD_HOSTS = [
   "village-dashboard.portal.place",
@@ -50,7 +52,8 @@ export function middleware(request: NextRequest) {
   if (
     pathname === "/mind-map" || pathname.startsWith("/mind-map/") ||
     pathname === "/map" || pathname.startsWith("/map/") ||
-    pathname === "/map-editor" || pathname.startsWith("/map-editor/")
+    pathname === "/map-editor" || pathname.startsWith("/map-editor/") ||
+    pathname === "/cabin-fund" || pathname.startsWith("/cabin-fund/")
   ) {
     const res = NextResponse.next();
     res.headers.set("x-is-dashboard", "1");
@@ -73,7 +76,7 @@ export function middleware(request: NextRequest) {
   // Authed. The /deck, /deckN and /join routes are full-screen iframe decks —
   // render without site chrome (Nav/Footer/Chat), reusing the dashboard flag.
   const res = NextResponse.next();
-  if (pathname === "/deck" || /^\/deck\d+$/.test(pathname) || pathname === "/join" || pathname === "/cabin-fund") {
+  if (pathname === "/deck" || /^\/deck\d+$/.test(pathname) || pathname === "/join") {
     res.headers.set("x-is-dashboard", "1");
   }
   return res;
