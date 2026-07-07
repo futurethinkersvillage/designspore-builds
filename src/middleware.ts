@@ -47,10 +47,19 @@ export function middleware(request: NextRequest) {
     return res;
   }
 
+  // Legacy: the interactive map moved from /map to /tour (the deck and older
+  // links still say portal.place/map). Permanent redirect, search preserved
+  // (the #deep-link fragment survives redirects client-side).
+  if (pathname === "/map" || pathname.startsWith("/map/")) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/tour";
+    return NextResponse.redirect(url, 308);
+  }
+
   // Full-screen routes (no Nav/Footer/Chat) — reuse the dashboard chrome flag.
   if (
     pathname === "/mind-map" || pathname.startsWith("/mind-map/") ||
-    pathname === "/map" || pathname.startsWith("/map/") ||
+    pathname === "/tour" || pathname.startsWith("/tour/") ||
     pathname === "/map-editor" || pathname.startsWith("/map-editor/") ||
     pathname === "/cabin-fund" || pathname.startsWith("/cabin-fund/") ||
     pathname === "/membership" || pathname.startsWith("/membership/")

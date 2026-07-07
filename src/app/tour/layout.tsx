@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Virtual Tour",
-  description: "Explore Wells Gray Village in 360°. Panoramic tours of the sauna, cabins, gazebo, lake, and more — all on 400 acres near Wells Gray Provincial Park.",
+  description:
+    "Interactive tour of the Wells Gray Golf & RV Resort property — existing operations and planned expansion. Toggle layers and backdrops.",
 };
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function TourLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

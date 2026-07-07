@@ -9,7 +9,7 @@ export function BackToTop() {
   const pathname = usePathname();
 
   // Don't show on full-screen tour or dashboard
-  if (pathname === "/tour" || pathname === "/investor-print" || pathname.startsWith("/village-dashboard")) return null;
+  if (pathname === "/tour" || pathname === "/panorama" || pathname === "/investor-print" || pathname.startsWith("/village-dashboard")) return null;
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {

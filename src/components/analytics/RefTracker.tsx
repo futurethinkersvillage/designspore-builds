@@ -29,7 +29,7 @@ const PATH_EVENT_MAP: Record<string, string> = {
 
 function eventTypeFor(path: string): string {
   if (PATH_EVENT_MAP[path]) return PATH_EVENT_MAP[path];
-  if (path.startsWith("/tour")) return "tour_viewed";
+  if (path.startsWith("/tour") || path.startsWith("/panorama")) return "tour_viewed";
   if (path.startsWith("/village-dashboard")) return "dashboard_viewed";
   return "page_viewed";
 }
