@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 // Public Stripe Payment Link for the $2,000 cabin-fund reservation deposit.
 // Not a secret (it's a hosted checkout URL); env var lets it be rotated without a redeploy.
+// Wells Gray Resort Stripe account (acct_16d7ht…). NOT Design Spore.
 const DEPOSIT_URL =
-  process.env.CABIN_FUND_DEPOSIT_LINK || "https://buy.stripe.com/cNieVddGE97n22ge5D00000";
+  process.env.CABIN_FUND_DEPOSIT_LINK || "https://buy.stripe.com/7sYaEY0gv9M3ewE3Xh0Jq03";
 
 const AMOUNT_LABELS: Record<string, string> = {
   "100k": "$100K",
