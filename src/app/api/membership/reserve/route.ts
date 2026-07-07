@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 // Stripe Payment Link for the $2,000 Founding Membership reservation deposit.
 // Not a secret (hosted checkout URL); env var lets it be rotated without a redeploy.
-// NOTE: the live account currently has charges_enabled=false — set MEMBERSHIP_DEPOSIT_LINK
-// to the test link in Coolify to verify the flow until Stripe activates live charges.
+// LIVE link on the Wells Gray / Portal.Place Stripe account (acct_16d7htJMVGI3vtR9,
+// charges_enabled=true) — NOT the Design Spore account. Rotate via MEMBERSHIP_DEPOSIT_LINK.
 const DEPOSIT_URL =
-  process.env.MEMBERSHIP_DEPOSIT_LINK || "https://buy.stripe.com/14A14n3200AR0Yc5z700001";
+  process.env.MEMBERSHIP_DEPOSIT_LINK || "https://buy.stripe.com/8x25kE8N15vN4W4ctN0Jq04";
 
 const JOINING_LABELS: Record<string, string> = {
   family: "Family with children",
