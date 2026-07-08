@@ -562,9 +562,9 @@
     A <b style="color:var(--ink);font-weight:500">fully refundable $2,000 deposit</b> holds your allocation in this cabin cohort &mdash; applied to your investment if you proceed, returned in full if you don&rsquo;t.</p>
 
   <!-- reservation form -->
-  <form id="cf-reserve" style="position:absolute;left:120px;top:452px;width:1000px">
+  <form id="cf-reserve" style="position:absolute;left:120px;top:448px;width:1000px">
     <div class="lbl">Reserve in 60 seconds</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px 24px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 24px">
       <div>
         <label class="fl" for="cf-name">Full name</label>
         <input class="fi" id="cf-name" type="text" placeholder="Jane Doe" autocomplete="name">
@@ -589,18 +589,44 @@
           </select>
         </div>
       </div>
+      <div>
+        <label class="fl" for="cf-youare">You are</label>
+        <div class="selwrap">
+          <select class="fi" id="cf-youare">
+            <option value="">Select one&hellip;</option>
+            <option value="accredited">Accredited investor</option>
+            <option value="friends_family">Friends &amp; family</option>
+            <option value="past_guest">Past guest of Wells Gray Resort</option>
+            <option value="list_podcast">Mailing list / podcast subscriber</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="fl" for="cf-referral">How did you hear about this?</label>
+        <div class="selwrap">
+          <select class="fi" id="cf-referral">
+            <option value="">Select one&hellip;</option>
+            <option value="mailing_list">Mailing list (Wells Gray / Future Thinkers)</option>
+            <option value="founders_message">Personal message from the founders</option>
+            <option value="referred">Referred by a friend</option>
+            <option value="group">Saw it in a group</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
     </div>
-    <label class="cbx" for="cf-consent" style="margin-top:24px">
+    <label class="cbx" for="cf-consent" style="margin-top:16px">
       <input type="checkbox" id="cf-consent">
       <span>I have read and agree to the Reservation Deposit Terms, and understand this deposit doesn&rsquo;t guarantee a right to invest.</span>
     </label>
-    <a href="/cabin-fund/deposit-terms.pdf" target="_blank" rel="noopener" class="tlink" style="display:inline-block;margin-top:12px">&#128196;&nbsp; Read the Reservation Deposit Terms (PDF)</a>
-    <button type="submit" class="rbtn" style="margin-top:22px">Reserve &mdash; pay $2,000 deposit &rarr;</button>
-    <p id="cf-status" style="margin-top:14px;font-family:var(--sans);font-size:17px;color:var(--dim);min-height:22px"></p>
+    <a href="/cabin-fund/deposit-terms.pdf" target="_blank" rel="noopener" class="tlink" style="display:inline-block;margin-top:10px">&#128196;&nbsp; Read the Reservation Deposit Terms (PDF)</a>
+    <button type="submit" class="rbtn" style="margin-top:14px">Reserve &mdash; pay $2,000 deposit &rarr;</button>
+    <p id="cf-status" style="margin-top:9px;font-family:var(--sans);font-size:17px;color:var(--dim);min-height:20px"></p>
   </form>
 
   <!-- what you're reserving + secondary CTA -->
-  <div style="position:absolute;left:1180px;top:452px;width:620px">
+  <div style="position:absolute;left:1180px;top:448px;width:620px">
     <div class="lbl">What you&rsquo;re reserving</div>
     <div class="trow"><span class="k">Deposit</span><span class="v">$2,000 &middot; refundable</span></div>
     <div class="trow"><span class="k">Minimum</span><span class="v">$100K &middot; pooled note</span></div>
@@ -612,14 +638,14 @@
   </div>
 
   <!-- fineprint -->
-  <p style="position:absolute;left:120px;top:944px;width:1680px;font-family:var(--sans);font-size:18px;color:var(--dim);font-weight:300">
-    The deposit reserves your allocation and is applied to your investment, or returned in full if you don&rsquo;t proceed. Full terms confirmed in writing. Illustrative figures only &mdash; not an offer of securities.</p>
+  <p style="position:absolute;left:120px;top:954px;width:1680px;font-family:var(--sans);font-size:18px;color:var(--dim);font-weight:300">
+    The deposit is applied to your investment or returned in full. Illustrative figures only &mdash; not an offer of securities.</p>
 
   <div class="foot"></div>
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>12</b> / 12</div>
 
-  <style>section[data-n="11"] .lbl{font-family:var(--sans);font-size:18px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:20px}section[data-n="11"] .fl{display:block;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}section[data-n="11"] .fi{width:100%;height:56px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:0 18px;font-family:var(--sans);font-size:20px;color:var(--ink);outline:none;transition:border-color .15s}section[data-n="11"] .fi:focus{border-color:var(--amber)}section[data-n="11"] .fi::placeholder{color:var(--dim)}section[data-n="11"] select.fi{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:44px}section[data-n="11"] select.fi option{background:#1c1712;color:#f2ebe1}section[data-n="11"] .selwrap{position:relative}section[data-n="11"] .selwrap::after{content:"\25be";position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--amber);pointer-events:none;font-size:16px}section[data-n="11"] .cbx{display:flex;align-items:flex-start;gap:12px;cursor:pointer}section[data-n="11"] .cbx input{width:22px;height:22px;margin-top:2px;accent-color:var(--amber);flex:none;cursor:pointer}section[data-n="11"] .cbx span{font-family:var(--sans);font-size:18px;line-height:1.4;color:var(--body)}section[data-n="11"] .tlink{font-family:var(--sans);font-size:17px;color:var(--amber-lt);text-decoration:none;font-weight:500}section[data-n="11"] .tlink:hover{color:var(--amber)}section[data-n="11"] .rbtn{width:100%;height:62px;border:none;border-radius:14px;background:var(--amber);color:#1a1008;font-family:var(--sans);font-size:22px;font-weight:600;cursor:pointer;transition:filter .15s}section[data-n="11"] .rbtn:hover{filter:brightness(1.06)}section[data-n="11"] .rbtn:disabled{opacity:.6;cursor:default}section[data-n="11"] .trow{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:17px 0;border-bottom:1px solid var(--line-soft)}section[data-n="11"] .trow .k{font-family:var(--sans);font-size:19px;color:var(--dim);letter-spacing:.02em}section[data-n="11"] .trow .v{font-family:var(--sans);font-weight:500;font-size:21px;color:var(--ink);text-align:right}
+  <style>section[data-n="11"] .lbl{font-family:var(--sans);font-size:18px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}section[data-n="11"] .fl{display:block;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}section[data-n="11"] .fi{width:100%;height:52px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:0 18px;font-family:var(--sans);font-size:19px;color:var(--ink);outline:none;transition:border-color .15s}section[data-n="11"] .fi:focus{border-color:var(--amber)}section[data-n="11"] .fi::placeholder{color:var(--dim)}section[data-n="11"] select.fi{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:44px}section[data-n="11"] select.fi option{background:#1c1712;color:#f2ebe1}section[data-n="11"] .selwrap{position:relative}section[data-n="11"] .selwrap::after{content:"\25be";position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--amber);pointer-events:none;font-size:16px}section[data-n="11"] .cbx{display:flex;align-items:flex-start;gap:12px;cursor:pointer}section[data-n="11"] .cbx input{width:22px;height:22px;margin-top:2px;accent-color:var(--amber);flex:none;cursor:pointer}section[data-n="11"] .cbx span{font-family:var(--sans);font-size:18px;line-height:1.4;color:var(--body)}section[data-n="11"] .tlink{font-family:var(--sans);font-size:17px;color:var(--amber-lt);text-decoration:none;font-weight:500}section[data-n="11"] .tlink:hover{color:var(--amber)}section[data-n="11"] .rbtn{width:100%;height:58px;border:none;border-radius:14px;background:var(--amber);color:#1a1008;font-family:var(--sans);font-size:22px;font-weight:600;cursor:pointer;transition:filter .15s}section[data-n="11"] .rbtn:hover{filter:brightness(1.06)}section[data-n="11"] .rbtn:disabled{opacity:.6;cursor:default}section[data-n="11"] .trow{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:17px 0;border-bottom:1px solid var(--line-soft)}section[data-n="11"] .trow .k{font-family:var(--sans);font-size:19px;color:var(--dim);letter-spacing:.02em}section[data-n="11"] .trow .v{font-family:var(--sans);font-weight:500;font-size:21px;color:var(--ink);text-align:right}
   </style>
 
   <script>
@@ -635,6 +661,8 @@
         email:(g("cf-email").value||"").trim(),
         phone:(g("cf-phone").value||"").trim(),
         amount:g("cf-amount").value,
+        youare:g("cf-youare").value,
+        referral:g("cf-referral").value,
         consent:g("cf-consent").checked
       };
       if(!d.name||!d.email||!d.consent){

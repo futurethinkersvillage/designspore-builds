@@ -14,12 +14,30 @@ const AMOUNT_LABELS: Record<string, string> = {
   undecided: "Undecided",
 };
 
+const YOUARE_LABELS: Record<string, string> = {
+  accredited: "Accredited investor",
+  friends_family: "Friends & family",
+  past_guest: "Past guest of Wells Gray Resort",
+  list_podcast: "Mailing list / podcast subscriber",
+  other: "Other",
+};
+
+const REFERRAL_LABELS: Record<string, string> = {
+  mailing_list: "Mailing list (Wells Gray / Future Thinkers)",
+  founders_message: "Personal message from the founders",
+  referred: "Referred by a friend",
+  group: "Saw it in a group",
+  other: "Other",
+};
+
 function buildAdminHtml(d: Record<string, string>): string {
   const rows: [string, string][] = [
     ["Name", d.name],
     ["Email", d.email],
     ["Phone", d.phone || "—"],
     ["Amount considering", AMOUNT_LABELS[d.amount] || d.amount || "—"],
+    ["You are", YOUARE_LABELS[d.youare] || d.youare || "—"],
+    ["How they heard", REFERRAL_LABELS[d.referral] || d.referral || "—"],
   ];
   const tableRows = rows
     .map(
@@ -47,7 +65,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   if (!body) return NextResponse.json({ error: "Invalid body" }, { status: 400 });
 
-  const { name, email, phone, amount, consent } = body;
+  const { name, email, phone, amount, youare, referral, consent } = body;
   if (!name || !email || !consent) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
@@ -69,6 +87,8 @@ export async function POST(req: NextRequest) {
             email,
             phone: phone || "",
             amount: amount || "",
+            youare: youare || "",
+            referral: referral || "",
           }),
         }),
       });
