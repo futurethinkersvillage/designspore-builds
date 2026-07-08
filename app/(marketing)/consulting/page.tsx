@@ -141,6 +141,9 @@ export default function ConsultingPage() {
                 I work at both altitudes. Strategy: where AI actually fits your business, what to build first, what to ignore. Engineering: building the systems themselves — AI phone agents, automated pipelines, custom dashboards, internal tools that run without anyone prompting them.
               </p>
               <p>
+                And the part nobody puts on a slide: getting real results from AI comes down to a hundred small things — habits, phrasings, tool choices, judgment calls — that only come from using it every day for years. I&apos;ve done the trial and error already. You get the shortcut.
+              </p>
+              <p>
                 The question isn&apos;t whether AI will affect your business. It&apos;s whether you&apos;re the one using it or the one getting outcompeted by someone who is.
               </p>
             </div>

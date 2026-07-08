@@ -195,9 +195,10 @@ export default function UchennaPage() {
               Your team walks out using AI like power users.
             </h2>
             <p className="mt-5 text-white/45 leading-relaxed max-w-2xl">
-              Automation is half the value. The other half is your people — most teams get a fraction of
-              what AI can do because nobody ever showed them how to use it properly. We&apos;ll fix that
-              in the same session.
+              Automation is half the value. The other half is your people. The gap between average and
+              great AI use is a hundred small things — which tool for which job, how to phrase what you
+              want, when to trust the output and when to push back. I learned them through years of
+              trial and error. Your team gets them in an afternoon.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
