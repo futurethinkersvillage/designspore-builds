@@ -12,31 +12,31 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
-  title: "AI Consulting for Local Business — Design Spore",
+  title: "AI Strategy & Automation Consulting — Design Spore",
   description:
-    "Practical AI consulting for trades, home services, tourism, and small businesses in BC's interior. $200/hr. Plain language, no hype.",
+    "High-level AI strategy, automation, and engineering consulting. Plain language, real systems, measurable results. $400/hr.",
 };
 
 const offerings = [
   {
-    title: "AI Readiness Assessment",
-    price: "$600",
-    duration: "3 hours",
-    desc: "A focused deep-dive into your business. Where AI can save you time today, what your competitors will be doing in 18 months, and an honest answer on what's actually worth doing first.",
-    deliverable: "Written report + 90-day action roadmap",
-    best: false,
-  },
-  {
-    title: "Half-Day Workshop",
-    price: "$1,200",
-    duration: "4 hours on-site or remote",
-    desc: "Hands-on session for you and your team. Live demonstrations of the tools your industry is already using, plus a clear map of your top 3 opportunities — with implementation steps.",
-    deliverable: "Workshop summary + team implementation guide",
+    title: "Automation Audit",
+    price: "$800",
+    duration: "2 hours",
+    desc: "An exploratory deep-dive into how your business runs day to day. We map out where you're losing time, which of it AI can take over today, and what's actually worth doing first — in plain language.",
+    deliverable: "Written recommendations + 90-day action roadmap",
     best: true,
   },
   {
+    title: "Half-Day Workshop",
+    price: "$1,600",
+    duration: "4 hours on-site or remote",
+    desc: "Hands-on session for you and your team. Live demonstrations of the tools your industry is already using, plus a clear map of your top 3 opportunities — with implementation steps.",
+    deliverable: "Workshop summary + team implementation guide",
+    best: false,
+  },
+  {
     title: "Monthly Advisory",
-    price: "$800/mo",
+    price: "$1,200/mo",
     duration: "Ongoing",
     desc: "A standing monthly call plus async support between sessions. Ideal for owners who are actively implementing AI and want a plain-language resource to lean on as they go.",
     deliverable: "Monthly strategy call + email/Slack access",
@@ -46,36 +46,36 @@ const offerings = [
 
 const problems = [
   {
-    Icon: PhoneIcon,
-    headline: "You're losing leads while you're working",
-    body: "If your phone goes to voicemail and you don't call back within 5 minutes, 80% of those leads call someone else. AI can close that gap automatically.",
-  },
-  {
-    Icon: EnvelopeSimpleIcon,
-    headline: "Your follow-up is inconsistent",
-    body: "Most small businesses lose jobs not because they quoted too high, but because they didn't follow up fast enough. AI can send the right message at the right time without you lifting a finger.",
-  },
-  {
     Icon: ChartLineUpIcon,
-    headline: "Your competitors are getting ahead",
-    body: "This isn't happening in 5 years. The businesses in your area that adopt AI systems in the next 12 months will have a structural advantage that's hard to close. The gap is opening now.",
+    headline: "You have AI curiosity, not an AI strategy",
+    body: "Experiments are happening all over your business, but none of them connect to revenue, cost, or a plan. Strategy means deciding where AI creates leverage for you specifically — and in what order.",
   },
   {
     Icon: RobotIcon,
-    headline: "You don't know where to start",
-    body: "There are thousands of AI tools. Most of them are not useful for a trades company in Clearwater. Knowing which ones matter for your specific situation is exactly what this consulting is for.",
+    headline: "You're using AI like a chat window, not a system",
+    body: "Copy-pasting into a chatbot is the shallow end. The real gains come from engineered workflows that run on their own — no one prompting, nothing forgotten, every time.",
+  },
+  {
+    Icon: EnvelopeSimpleIcon,
+    headline: "Manual work is your biggest hidden expense",
+    body: "Follow-ups, data entry, reporting, scheduling, quoting — hours of repeatable process that software should be doing. Every week it stays manual, it costs you again.",
+  },
+  {
+    Icon: PhoneIcon,
+    headline: "Opportunities slip while you're busy",
+    body: "Slow responses and dropped follow-ups quietly lose deals that were yours to win. Automated systems respond in seconds and never let a thread go cold.",
   },
 ];
 
 const whoFor = [
-  "Trades & construction",
-  "Home services (cleaning, landscaping, HVAC, plumbing)",
-  "Tourism & hospitality",
-  "Real estate & property management",
-  "Health & wellness practitioners",
-  "Professional services (accountants, lawyers, consultants)",
-  "Retail & e-commerce",
-  "Any owner-operated business in BC's interior",
+  "Founders & executives who want a real AI roadmap, not hype",
+  "Operations-heavy businesses drowning in manual process",
+  "Professional services (legal, accounting, consulting)",
+  "Agencies & studios productizing their delivery",
+  "E-commerce & SaaS teams automating ops and support",
+  "Real estate, property & asset management",
+  "Tourism, hospitality & service businesses",
+  "Owner-operated businesses ready to scale without hiring",
 ];
 
 export default function ConsultingPage() {
@@ -86,7 +86,7 @@ export default function ConsultingPage() {
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <div className="max-w-4xl">
             <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-5">
-              AI Consulting · Local Business · Clearwater, BC
+              AI Strategy · Automation · Engineering
             </p>
             <h1
               className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[0.92] mb-6"
@@ -95,10 +95,10 @@ export default function ConsultingPage() {
               Your competitors are figuring out AI. Let&apos;s make sure you&apos;re ahead of them.
             </h1>
             <p className="text-xl md:text-2xl text-white/50 leading-relaxed max-w-2xl mb-4">
-              Practical, plain-language AI consulting for small and medium businesses. No jargon. No fluff. Just what actually works for a business like yours.
+              Plain-language AI strategy, automation, and engineering — for businesses that want AI doing real work, not just answering questions.
             </p>
             <p className="text-base text-white/30 mb-10">
-              $200/hr · Based in Clearwater, BC · Available in-person across the Thompson-Okanagan or remote
+              $400/hr · Based in Clearwater, BC · Working remotely with clients everywhere
             </p>
             <div className="flex flex-wrap gap-4">
               <a
@@ -130,15 +130,15 @@ export default function ConsultingPage() {
                 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight"
                 style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
               >
-                Interior BC is behind. That&apos;s a window — but it won&apos;t stay open long.
+                Most businesses use 10% of what AI can do. The other 90% is where the advantage is.
               </h2>
             </div>
             <div className="md:col-span-6 md:col-start-7 space-y-5 text-white/55 leading-relaxed text-lg">
               <p>
-                In Vancouver, AI is already built into how businesses operate. In Clearwater and most of interior BC, the majority of business owners haven&apos;t touched it yet. That gap is closing — and fast.
+                Nearly every business &quot;uses AI&quot; now — usually a chat window and a few prompts. Very few have engineered it into how the business actually operates: lead handling, follow-up, reporting, quoting, support, internal tools. That&apos;s the gap between a novelty and a structural advantage.
               </p>
               <p>
-                I run AI meetups in Clearwater. I build these systems for real businesses. I&apos;ve seen firsthand how much of a lift even simple automations give to owner-operated companies. A missed-call text-back system alone recovers jobs that were walking out the door.
+                I work at both altitudes. Strategy: where AI actually fits your business, what to build first, what to ignore. Engineering: building the systems themselves — AI phone agents, automated pipelines, custom dashboards, internal tools that run without anyone prompting them.
               </p>
               <p>
                 The question isn&apos;t whether AI will affect your business. It&apos;s whether you&apos;re the one using it or the one getting outcompeted by someone who is.
@@ -193,7 +193,7 @@ export default function ConsultingPage() {
             >
               Three simple entry points.
             </h2>
-            <p className="mt-3 text-white/40 text-sm">All engagements billed at $200/hr. Packages below are flat-rate for convenience.</p>
+            <p className="mt-3 text-white/40 text-sm">All engagements billed at $400/hr. Packages below are flat-rate for convenience.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {offerings.map((o) => (
@@ -207,7 +207,7 @@ export default function ConsultingPage() {
               >
                 {o.best && (
                   <span className="absolute -top-3 left-6 text-[11px] font-bold bg-gold text-dark px-3 py-1 rounded-full uppercase tracking-wider">
-                    Most popular
+                    Start here
                   </span>
                 )}
                 <div className="flex items-center justify-between mb-5">
@@ -259,10 +259,10 @@ export default function ConsultingPage() {
                 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight"
                 style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
               >
-                Owner-operated businesses that run on reputation and hustle.
+                Teams ready to move from experimenting to engineering.
               </h2>
               <p className="mt-5 text-white/45 leading-relaxed">
-                You don&apos;t have a tech team. You don&apos;t have time to become an AI expert. You need someone to cut through the noise and tell you exactly what&apos;s worth doing for a business like yours, in a market like this.
+                You don&apos;t need another AI demo. You need someone who can look at how your business runs, design the systems that remove the busywork, and build them — or hand you a plan your team can execute.
               </p>
             </div>
             <div className="md:col-span-6 md:col-start-7">
@@ -332,7 +332,7 @@ export default function ConsultingPage() {
               </a>
             </div>
             <p className="mt-6 text-sm text-white/25">
-              Based in Clearwater, BC. Available in person in the Thompson–Nicola region and remotely across Canada.
+              Based in Clearwater, BC. Available in person across BC&apos;s interior and remotely worldwide.
             </p>
           </div>
         </div>
