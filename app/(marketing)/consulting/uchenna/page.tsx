@@ -6,8 +6,11 @@ import {
   ClockIcon,
   CreditCardIcon,
   FileTextIcon,
+  LightningIcon,
   MagnifyingGlassIcon,
   MapTrifoldIcon,
+  StackIcon,
+  UsersThreeIcon,
 } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
@@ -28,7 +31,7 @@ const steps = [
   {
     Icon: MagnifyingGlassIcon,
     title: "The session — 2 hours",
-    body: "We walk through how your business actually runs: where the hours go, what gets dropped, what you're doing manually that a system should be doing. Exploratory and practical — bring your real problems.",
+    body: "We walk through how your business actually runs: where the hours go, what gets dropped, what you're doing manually that a system should be doing. Exploratory and practical — bring your real problems, and bring your team.",
   },
   {
     Icon: FileTextIcon,
@@ -59,8 +62,9 @@ export default function UchennaPage() {
               Uchenna — good talking with you. Here&apos;s the plan.
             </h1>
             <p className="text-xl md:text-2xl text-white/50 leading-relaxed max-w-2xl mb-10">
-              Two hours together to find what&apos;s worth automating in your business, followed by written
-              recommendations and a 90-day roadmap you can act on right away.
+              Two hours together to find what&apos;s worth automating in your business — and to get your
+              team using AI at a genuinely high level. Followed by written recommendations and a 90-day
+              roadmap you can act on right away.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mb-10">
               {sessionFacts.map(({ Icon, label, value }) => (
@@ -163,6 +167,7 @@ export default function UchennaPage() {
                   "Where leads or follow-ups slip through the cracks",
                   "Tools you already pay for (CRM, email, booking, invoicing)",
                   "One thing you wish just handled itself",
+                  "Who on your team should be in the room",
                 ].map((item) => (
                   <div
                     key={item}
@@ -174,6 +179,61 @@ export default function UchennaPage() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TEAM ENABLEMENT ───────────────────────────────────────── */}
+      <section className="section-pad bg-raised border-b border-white/[0.06]">
+        <div className="max-w-7xl mx-auto px-5 md:px-8">
+          <div className="mb-12">
+            <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">Bring your team</p>
+            <h2
+              className="text-4xl md:text-5xl font-bold tracking-tight text-white max-w-3xl"
+              style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
+            >
+              Your team walks out using AI like power users.
+            </h2>
+            <p className="mt-5 text-white/45 leading-relaxed max-w-2xl">
+              Automation is half the value. The other half is your people — most teams get a fraction of
+              what AI can do because nobody ever showed them how to use it properly. We&apos;ll fix that
+              in the same session.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                Icon: LightningIcon,
+                title: "Prompting that actually works",
+                body: "The difference between a mediocre answer and a great one is technique, not luck. Your team learns the patterns power users rely on every day.",
+              },
+              {
+                Icon: StackIcon,
+                title: "The right tool for the job",
+                body: "Writing, research, analysis, code, operations — each has a best tool and a best way to use it. We cut through the noise to the handful that matter for your work.",
+              },
+              {
+                Icon: UsersThreeIcon,
+                title: "Habits that stick team-wide",
+                body: "Individual wins are nice; shared workflows are leverage. How to turn one person's AI trick into something the whole team does by default.",
+              },
+            ].map(({ Icon, title, body }) => (
+              <div
+                key={title}
+                className="rounded-2xl border border-white/[0.07] bg-dark p-7 hover:border-gold/25 transition-all group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-5">
+                  <Icon size={20} className="text-gold" weight="duotone" />
+                </div>
+                <h3
+                  className="text-lg font-bold text-white mb-2 group-hover:text-gold transition-colors"
+                  style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
+                >
+                  {title}
+                </h3>
+                <p className="text-white/50 leading-relaxed">{body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
