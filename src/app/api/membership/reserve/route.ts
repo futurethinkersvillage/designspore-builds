@@ -15,12 +15,20 @@ const JOINING_LABELS: Record<string, string> = {
   other: "Other",
 };
 
+const TIER_LABELS: Record<string, string> = {
+  cabin_max: "Cabin Max — $250K",
+  cabin_regular: "Cabin Regular — $50K",
+  rv: "RV — $10K",
+  undecided: "Undecided / tell me more",
+};
+
 function buildAdminHtml(d: Record<string, string>): string {
   const rows: [string, string][] = [
     ["Name", d.name],
     ["Email", d.email],
     ["Phone", d.phone || "—"],
     ["Joining as", JOINING_LABELS[d.joining_as] || d.joining_as || "—"],
+    ["Preferred tier", TIER_LABELS[d.tier] || d.tier || "—"],
   ];
   const tableRows = rows
     .map(
@@ -48,7 +56,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   if (!body) return NextResponse.json({ error: "Invalid body" }, { status: 400 });
 
-  const { name, email, phone, joining_as, consent } = body;
+  const { name, email, phone, joining_as, tier, consent } = body;
   if (!name || !email || !consent) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
@@ -65,7 +73,7 @@ export async function POST(req: NextRequest) {
           to: ["mike@futurethinkers.org"],
           reply_to: email,
           subject: `🏡 Founding Membership reservation — ${name}`,
-          html: buildAdminHtml({ name, email, phone: phone || "", joining_as: joining_as || "" }),
+          html: buildAdminHtml({ name, email, phone: phone || "", joining_as: joining_as || "", tier: tier || "" }),
         }),
       });
     } catch (e) {
