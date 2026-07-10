@@ -834,7 +834,7 @@ addEventListener("keydown",e=>{
 // ---- click zones (ignore links/cards/overview) ----
 addEventListener("click",e=>{
   if(document.body.classList.contains("admin-comment"))return;   // comment mode owns clicks
-  if(e.target.closest("a,button,input,select,textarea,label,form,.no-nav,#deck-drawer,#deck-handle,#deck-scrim,.thumb,[data-eid],[contenteditable],.cmt-pin,.cmt-pop,#admin-bar,iframe"))return;
+  if(e.target.closest("a,button,input,select,textarea,label,form,.no-nav,.deck-edge,#deck-drawer,#deck-handle,#deck-scrim,.thumb,[data-eid],[contenteditable],.cmt-pin,.cmt-pop,#admin-bar,iframe"))return;
   if(document.body.classList.contains("drawer-open"))return;
   const x=e.clientX/innerWidth;
   if(x>0.66)next(); else if(x<0.28)prev();
