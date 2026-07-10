@@ -62,6 +62,7 @@ export function middleware(request: NextRequest) {
     pathname === "/tour" || pathname.startsWith("/tour/") ||
     pathname === "/map-editor" || pathname.startsWith("/map-editor/") ||
     pathname === "/cabin-fund" || pathname.startsWith("/cabin-fund/") ||
+    pathname === "/cabin-fund2" || pathname.startsWith("/cabin-fund2/") ||
     pathname === "/membership" || pathname.startsWith("/membership/")
   ) {
     const res = NextResponse.next();
