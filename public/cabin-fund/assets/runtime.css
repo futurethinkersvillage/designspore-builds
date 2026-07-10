@@ -194,6 +194,12 @@ section.slide.divider{background:
 }
 .btn:active,.rbtn:active{transform:translateY(1px)}
 
+/* Persistent compliance footer (every slide, fixed to viewport bottom) */
+#deck-legal{position:fixed;left:0;right:0;bottom:0;z-index:115;text-align:center;pointer-events:none;
+  font-family:var(--sans);font-size:11.5px;font-weight:400;letter-spacing:.03em;color:rgba(255,255,255,.5);
+  padding:6px 14px;background:linear-gradient(0deg,rgba(9,8,11,.9),rgba(9,8,11,0))}
+@media print{ #deck-legal{position:fixed;color:#666;background:none} }
+
 /* Cover background video: very slight blur + over-scale to hide blur edges */
 .cover-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   filter:blur(2.5px);transform:scale(1.06)}
