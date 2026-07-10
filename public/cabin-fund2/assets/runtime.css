@@ -194,6 +194,10 @@ section.slide.divider{background:
 }
 .btn:active,.rbtn:active{transform:translateY(1px)}
 
+/* Cover background video: very slight blur + over-scale to hide blur edges */
+.cover-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:blur(2.5px);transform:scale(1.06)}
+
 /* ---- Interactive return calculator ---- */
 .calc-range{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:6px;
   background:linear-gradient(90deg,var(--amber) 0%,var(--amber) var(--fill,40%),rgba(255,255,255,.12) var(--fill,40%));
