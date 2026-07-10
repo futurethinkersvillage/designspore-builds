@@ -14,6 +14,7 @@
 <div id="stage">
 <section class="slide" data-n="1">
   <img class="bleed" src="/cabin-fund2/assets/img/cabin_lake_cover.webp" alt="">
+  <video class="bleed" autoplay muted loop playsinline preload="auto" poster="assets/img/cabin_lake_cover.webp" src="/cabin-fund2/assets/video/vision.mp4"></video>
   <div class="scrim-l"></div>
   <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,14,18,.72),transparent 46%)"></div>
 
@@ -70,9 +71,9 @@
 
   <!-- proof strip -->
   <div style="position:absolute;left:120px;top:908px;width:1680px;display:flex;gap:64px">
-    <div class="pf"><b>400</b><span>acres owned</span></div>
-    <div class="pf"><b>5 yrs</b><span>operating</span></div>
-    <div class="pf"><b>~3,000</b><span>guests / year</span></div>
+    <div class="pf"><b class="countup" data-count="400">400</b><span>acres owned</span></div>
+    <div class="pf"><b class="countup" data-count="5" data-suffix=" yrs">5 yrs</b><span>operating</span></div>
+    <div class="pf"><b class="countup" data-count="3000" data-prefix="~">~3,000</b><span>guests / year</span></div>
     <div class="pf"><b>6&ndash;7&times;</b><span>membership vs build cost</span></div>
   </div>
 
@@ -223,7 +224,7 @@
         transition:flex .5s cubic-bezier(.4,0,.2,1)}section[data-n="13"] .pan:hover{flex:3.4}section[data-n="13"] .p1{background-image:url("assets/img/art_lanterns.webp")}section[data-n="13"] .p2{background-image:url("assets/img/art_village.webp")}section[data-n="13"] .p3{background-image:url("assets/img/art_lake.webp")}section[data-n="13"] .p4{background-image:url("assets/img/art_walk.webp")}section[data-n="13"] .p5{background-image:url("assets/img/art_dome.webp")}section[data-n="13"] .p6{background-image:url("assets/img/art_portal.webp")}
   </style>
 </section>
-<section class="slide divider" data-divider="1"><div class="dv-wrap"><div class="dv-n reveal" style="--ri:0">Section I</div><div class="dv-t reveal" style="--ri:1">The <i>Deal</i></div><div class="dv-d reveal" style="--ri:2">A lifestyle-backed mezzanine note — your capital returned with a premium, and the cabin life while you wait.</div></div><div class="dv-rule"></div></section>
+<section class="slide divider" data-divider="1"><div class="dv-topo"></div><div class="dv-wrap"><div class="dv-n reveal" style="--ri:0">Section I</div><div class="dv-t reveal" style="--ri:1">The <i>Deal</i></div><div class="dv-d reveal" style="--ri:2">A lifestyle-backed mezzanine note — your capital returned with a premium, and the cabin life while you wait.</div></div><div class="dv-rule"></div></section>
 <section class="slide" data-n="4">
   <div class="eyebrow">06<b>The Instrument</b></div>
   <h1 class="title">How the <i>note</i> works</h1>
@@ -292,46 +293,59 @@
   <div class="title-rule" style="top:300px"></div>
 
   <p class="intro" style="position:absolute;left:120px;top:352px;width:1400px;font-size:26px">
-    On an illustrative <b style="color:var(--ink);font-weight:500">$100K</b> note &mdash; a cash premium <i>and</i> a lifestyle you actually use.</p>
+    A cash premium <i>and</i> a lifestyle you actually use. <b style="color:var(--ink);font-weight:500">Drag the slider</b> to see it on your number.</p>
 
-  <!-- two return cards -->
-  <div style="position:absolute;left:120px;top:448px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:34px">
-    <div class="card rcard">
-      <div class="r-h">Financial return</div>
-      <div class="r-big"><b class="countup" data-count="10" data-suffix="%">10%</b><span>/ yr</span></div>
-      <p class="r-sub">Your capital back <b>plus a premium</b> &mdash; floor <b>1.2&times;</b>, cap <b>1.5&times;</b>. A hard floor if we repay fast; upside protected for the project if it runs long.</p>
-      <div class="r-tag">~$10K / yr cash</div>
+  <div class="calc" style="position:absolute;left:120px;top:452px;width:1680px;
+       background:linear-gradient(135deg,rgba(234,130,78,.13),rgba(20,18,24,.5));
+       border:1px solid var(--amber);border-radius:22px;padding:36px 48px">
+    <div class="calc-top">
+      <div>
+        <div class="calc-lbl">Your investment</div>
+        <div class="calc-amt" id="cf2-amt">$250,000</div>
+      </div>
+      <div style="text-align:right">
+        <div class="calc-lbl">Blended return</div>
+        <div class="calc-amt amber" id="cf2-blend">~13% / yr</div>
+      </div>
     </div>
-    <div class="card rcard">
-      <div class="r-h">Lifestyle return</div>
-      <div class="r-big"><b>~$8K</b><span>/ yr value</span></div>
-      <p class="r-sub"><b>1&ndash;2 weeks in a cabin, unlimited golf &amp; the sauna</b> &mdash; the full membership, every year you&rsquo;re invested. Yield you can use, not just count.</p>
-      <div class="r-tag">in-kind, tax-friendly</div>
+    <input type="range" class="calc-range" id="cf2-range" min="100000" max="1000000" step="25000" value="250000" style="margin-top:24px" aria-label="Investment amount">
+    <div class="calc-marks"><span>$100K</span><span>$1M+</span></div>
+    <div class="calc-out">
+      <div class="co"><span>Cash return</span><b id="cf2-cash">$25,000</b><em>10% / yr</em></div>
+      <div class="co"><span>Lifestyle perks</span><b id="cf2-perks">$8,000</b><em>/ yr &middot; in-kind</em></div>
+      <div class="co" style="border:none"><span>Repaid, in full</span><b id="cf2-repaid">$300K &ndash; $375K</b><em>floor 1.2&times; &middot; cap 1.5&times;</em></div>
     </div>
   </div>
 
-  <!-- blended hero band -->
-  <div style="position:absolute;left:120px;top:812px;width:1680px;
-       background:linear-gradient(135deg,rgba(234,130,78,.18),rgba(20,18,24,.55));
-       border:1px solid var(--amber);border-radius:20px;padding:30px 46px;
-       display:flex;align-items:center;justify-content:space-between;gap:48px">
-    <div>
-      <div style="font-family:var(--sans);font-size:19px;font-weight:600;letter-spacing:.20em;text-transform:uppercase;color:var(--amber)">Blended return</div>
-      <p style="font-family:var(--sans);font-size:23px;color:var(--body);margin-top:8px">$10K cash <span style="color:var(--amber)">+</span> ~$8K lifestyle <span style="color:var(--amber)">=</span> ~$18K a year on $100K</p>
-    </div>
-    <div style="text-align:right;flex:none;display:flex;align-items:baseline;gap:14px">
-      <b style="font-family:var(--serif);font-weight:300;font-size:94px;line-height:.85;color:var(--amber)">~18%</b>
-      <span style="font-family:var(--sans);font-size:24px;color:var(--body)">/ yr</span>
-    </div>
-  </div>
+  <p style="position:absolute;left:120px;top:902px;width:1680px;font-family:var(--sans);font-size:18px;color:var(--dim);font-weight:300">
+    Illustrative &mdash; smaller notes blend higher because the fixed ~$8K lifestyle value carries more weight. Not an offer of securities.</p>
 
   <div class="foot"></div>
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>07</b> / 13</div>
 
-  <style>section[data-n="5"] .rcard{padding:30px 36px}section[data-n="5"] .r-h{font-family:var(--sans);font-size:20px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}section[data-n="5"] .r-big{display:flex;align-items:baseline;gap:12px;margin-top:12px}section[data-n="5"] .r-big b{font-family:var(--serif);font-weight:300;font-size:82px;line-height:.9;color:var(--ink)}section[data-n="5"] .r-big span{font-family:var(--sans);font-size:26px;color:var(--body)}section[data-n="5"] .r-sub{font-family:var(--sans);font-weight:400;font-size:22px;line-height:1.45;color:var(--body);margin-top:14px}section[data-n="5"] .r-sub b{color:var(--ink);font-weight:600}section[data-n="5"] .r-tag{display:inline-block;margin-top:18px;font-family:var(--sans);font-size:18px;font-weight:600;
-      letter-spacing:.10em;text-transform:uppercase;color:var(--amber);border:1px solid var(--amber-dim);border-radius:999px;padding:8px 18px}
+  <style>section[data-n="5"] .calc-top{display:flex;justify-content:space-between;align-items:flex-start}section[data-n="5"] .calc-lbl{font-family:var(--sans);font-size:18px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}section[data-n="5"] .calc-amt{font-family:var(--serif);font-weight:300;font-size:70px;line-height:1;color:var(--ink);margin-top:8px}section[data-n="5"] .calc-amt.amber{color:var(--amber)}section[data-n="5"] .calc-marks{display:flex;justify-content:space-between;margin-top:10px;font-family:var(--sans);font-size:16px;color:var(--dim)}section[data-n="5"] .calc-out{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-top:28px;border-top:1px solid var(--line-soft);padding-top:26px}section[data-n="5"] .co{padding:0 32px;border-right:1px solid var(--line-soft)}section[data-n="5"] .co:first-child{padding-left:0}section[data-n="5"] .co span{display:block;font-family:var(--sans);font-size:18px;letter-spacing:.05em;text-transform:uppercase;color:var(--dim)}section[data-n="5"] .co b{display:block;font-family:var(--serif);font-weight:300;font-size:46px;line-height:1.05;color:var(--ink);margin-top:8px}section[data-n="5"] .co em{display:block;font-style:normal;font-family:var(--sans);font-size:19px;color:var(--body);margin-top:6px}
   </style>
+
+  <script>
+  (function(){
+    var r=document.getElementById("cf2-range"); if(!r||r.dataset.b) return; r.dataset.b="1";
+    var g=function(id){return document.getElementById(id);};
+    var f=function(n){return "$"+Math.round(n).toLocaleString();};
+    var fk=function(n){return n>=1000000 ? "$"+(n/1000000).toFixed(n%1000000?1:0)+"M" : "$"+Math.round(n/1000)+"K";};
+    function upd(){
+      var A=+r.value;
+      g("cf2-amt").textContent = (A>=1000000 ? "$1M+" : f(A));
+      var cash=0.10*A, perks=8000, blend=(cash+perks)/A*100;
+      g("cf2-cash").textContent=f(cash);
+      g("cf2-perks").textContent=f(perks);
+      g("cf2-blend").textContent="~"+blend.toFixed(0)+"% / yr";
+      g("cf2-repaid").textContent=fk(1.2*A)+" – "+fk(1.5*A);
+      r.style.setProperty("--fill", ((A-100000)/900000*100)+"%");
+    }
+    r.addEventListener("input",upd); upd();
+  })();
+  </script>
 </section>
 <section class="slide" data-n="6">
   <div class="eyebrow">08<b>The Lifestyle Dividend</b></div>
@@ -400,12 +414,12 @@
     <!-- band label -->
     <text x="1592" y="52" text-anchor="end" fill="var(--amber)" font-family="Inter" font-size="19" font-weight="600">REPAYMENT WINDOW &middot; FLOOR 1.2&#215; / CAP 1.5&#215;</text>
     <!-- area under curve (spans full timeline; only vertical edge is the chart boundary) -->
-    <path d="M80 400 C 340 375, 540 320, 740 245 C 940 172, 1140 138, 1360 112 C 1470 100, 1540 97, 1600 95 L1600 400 Z" fill="url(#cf)"/>
+    <path class="draw-fade" d="M80 400 C 340 375, 540 320, 740 245 C 940 172, 1140 138, 1360 112 C 1470 100, 1540 97, 1600 95 L1600 400 Z" fill="url(#cf)"/>
     <!-- curve: rises, crosses the floor into the window, then plateaus inside the 1.2x-1.5x band -->
-    <path d="M80 400 C 340 375, 540 320, 740 245 C 940 172, 1140 138, 1360 112 C 1470 100, 1540 97, 1600 95" fill="none" stroke="var(--amber)" stroke-width="4" stroke-linecap="round"/>
+    <path class="draw-line" style="--len:2200" d="M80 400 C 340 375, 540 320, 740 245 C 940 172, 1140 138, 1360 112 C 1470 100, 1540 97, 1600 95" fill="none" stroke="var(--amber)" stroke-width="4" stroke-linecap="round"/>
     <!-- repaid marker where the curve crosses the 1.2x floor -->
-    <circle cx="1220" cy="130" r="9" fill="var(--amber)"/>
-    <text x="1220" y="111" text-anchor="middle" fill="var(--ink)" font-family="Inter" font-size="20" font-weight="600">Repaid</text>
+    <circle class="draw-fade d2" cx="1220" cy="130" r="9" fill="var(--amber)"/>
+    <text class="draw-fade d2" x="1220" y="111" text-anchor="middle" fill="var(--ink)" font-family="Inter" font-size="20" font-weight="600">Repaid</text>
     <!-- x labels -->
     <text x="80" y="432" text-anchor="middle" fill="var(--dim)" font-family="Inter" font-size="19">Year 0</text>
     <text x="80" y="456" text-anchor="middle" fill="var(--body)" font-family="Inter" font-size="18">Fund &amp; build</text>
@@ -523,7 +537,7 @@
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>11</b> / 13</div>
 </section>
-<section class="slide divider" data-divider="1"><div class="dv-wrap"><div class="dv-n reveal" style="--ri:0">Section II</div><div class="dv-t reveal" style="--ri:1">The <i>Ask</i></div><div class="dv-d reveal" style="--ri:2">A focused raise to build the next cohort of cabins — secured, and repaid from what they earn.</div></div><div class="dv-rule"></div></section>
+<section class="slide divider" data-divider="1"><div class="dv-topo"></div><div class="dv-wrap"><div class="dv-n reveal" style="--ri:0">Section II</div><div class="dv-t reveal" style="--ri:1">The <i>Ask</i></div><div class="dv-d reveal" style="--ri:2">A focused raise to build the next cohort of cabins — secured, and repaid from what they earn.</div></div><div class="dv-rule"></div></section>
 <section class="slide" data-n="10">
   <div class="eyebrow">12<b>The Ask</b></div>
   <h1 class="title">The <i>ask</i></h1>
@@ -768,10 +782,11 @@ function resetBars(s){ s.querySelectorAll("[data-draw]").forEach(b=>b.classList.
 function countUp(s){
   s.querySelectorAll(".countup").forEach(el=>{
     const target=parseFloat(el.dataset.count), pre=el.dataset.prefix||"", suf=el.dataset.suffix||"", dec=+(el.dataset.dec||0);
-    if(reduce()){ el.textContent=pre+target.toFixed(dec)+suf; return; }
-    const dur=900, t0=performance.now();
+    const fmt=v=>dec?v.toFixed(dec):Math.round(v).toLocaleString();
+    if(reduce()){ el.textContent=pre+fmt(target)+suf; return; }
+    const dur=1100, t0=performance.now();
     (function tick(t){ const k=Math.min(1,(t-t0)/dur); const e=1-Math.pow(1-k,3);
-      el.textContent=pre+(target*e).toFixed(dec)+suf; if(k<1)requestAnimationFrame(tick); })(t0);
+      el.textContent=pre+fmt(target*e)+suf; if(k<1)requestAnimationFrame(tick); })(t0);
   });
 }
 
@@ -791,6 +806,8 @@ function show(i,dir){
   if(cur>=0){ beacon("slide_leave",{dwellMs:Math.round(now-enterT),to:i+1}); resetBars(slides[cur]); slides[cur].classList.remove("active"); }
   enterT=now; cur=i;
   const s=slides[i]; s.classList.add("active");
+  try{ slides.forEach(x=>x.querySelectorAll("video").forEach(v=>v.pause()));
+       s.querySelectorAll("video").forEach(v=>{ v.play&&v.play().catch(()=>{}); }); }catch(e){}
   prog.style.width=((i+1)/total*100)+"%";
   history.replaceState(null,"","#"+(i+1));
   try{ if(window.parent&&window.parent!==window) window.parent.postMessage({t:"deckslide",n:i+1},location.origin); }catch(e){}
