@@ -111,6 +111,13 @@ table.data td:first-child{color:var(--ink);font-weight:500}
 table.data b{color:var(--amber);font-weight:600}
 table.data tr:nth-child(even) td{background:rgba(255,255,255,.015)}
 
+/* ---- Native <select> option list ----
+   The open dropdown menu is drawn by the OS/browser, not the styled <select>.
+   Chrome on Windows paints it on a WHITE background but inherits the light --ink
+   text, giving unreadable light-grey-on-white. Force an OPAQUE dark surface +
+   light text (no rgba alpha — the popup needs a solid fill). Applies deck-wide. */
+select option,select optgroup{background:#1E1B22;color:#faf8f4;font-family:var(--sans)}
+
 /* ---- Button ---- */
 .btn{display:inline-flex;align-items:center;gap:12px;background:var(--amber);color:#1a1008;
   font-family:var(--sans);font-weight:600;font-size:23px;letter-spacing:.03em;
