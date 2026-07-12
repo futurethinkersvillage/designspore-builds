@@ -671,7 +671,7 @@ addEventListener("keydown",e=>{
   else if(e.key==="Escape"){ closeDrawer(); }
 });
 addEventListener("click",e=>{
-  if(e.target.closest("a,button,input,select,textarea,label,#deck-drawer,#deck-handle,#deck-scrim,.thumb,iframe,form"))return;
+  if(e.target.closest("a,button,input,select,textarea,label,#deck-drawer,#deck-handle,#deck-scrim,.thumb,.deck-edge,iframe,form"))return;
   if(document.body.classList.contains("drawer-open"))return;
   const x=e.clientX/innerWidth;
   if(x>0.66)next(); else if(x<0.28)prev();
