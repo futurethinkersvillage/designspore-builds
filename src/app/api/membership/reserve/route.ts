@@ -16,7 +16,7 @@ const JOINING_LABELS: Record<string, string> = {
 };
 
 const TIER_LABELS: Record<string, string> = {
-  cabin_max: "Cabin Max — $250K",
+  cabin_max: "Cabin Max — by application",
   cabin_regular: "Cabin Regular — $50K",
   rv: "RV — $10K",
   undecided: "Undecided / tell me more",
