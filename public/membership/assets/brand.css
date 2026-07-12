@@ -3,7 +3,7 @@
    Warm cinematic: Cormorant serif display + Inter body,
    terracotta amber on near-black, warm off-whites.
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+@import url('fonts/fonts.css');   /* self-hosted Cormorant + Inter (no external call) */
 
 :root{
   --bg:#0F0E12;         /* page near-black */
@@ -47,10 +47,10 @@ h1.title i{font-style:italic;color:var(--amber);font-weight:400}
 
 /* ---- Footer (minimal, no white bar) ---- */
 .foot{position:absolute;left:120px;right:120px;bottom:46px;height:1px;background:var(--line-soft)}
-.foot-wm{position:absolute;left:120px;bottom:26px;font-size:16px;letter-spacing:.22em;
+.foot-wm{position:absolute;left:120px;bottom:21px;font-size:16px;letter-spacing:.22em;
   text-transform:uppercase;color:var(--dim);font-weight:500}
 .foot-wm b{color:var(--amber);font-weight:500}
-.foot-pg{position:absolute;right:120px;bottom:24px;font-family:var(--serif);font-size:22px;color:var(--dim)}
+.foot-pg{position:absolute;right:120px;bottom:19px;font-family:var(--serif);font-size:22px;color:var(--dim)}
 .foot-pg b{color:var(--ink);font-style:italic}
 
 /* ---- Typography primitives ---- */
@@ -96,6 +96,8 @@ ul.bullets li b{color:var(--ink);font-weight:600}
 
 /* ---- Photo grid (uniform, disciplined) ---- */
 .pgrid{display:grid;gap:18px}
+/* cohesive warm-cinematic grade so every photo reads as one set */
+.pgrid img,img.framed,.gal img,.bleed{filter:saturate(.94) contrast(1.03) brightness(.97)}
 .pgrid img{width:100%;height:100%;min-width:0;min-height:0;object-fit:cover;border-radius:14px;
   border:1px solid var(--line-soft);display:block}
 img.framed{border-radius:14px;border:1px solid var(--line-soft);object-fit:cover;display:block}

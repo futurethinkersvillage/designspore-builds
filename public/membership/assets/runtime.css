@@ -160,3 +160,24 @@ section.slide.divider{background:
   .reveal{opacity:1!important;transform:none!important}
   #deck-splash,#deck-progress,#deck-handle,#deck-drawer,#deck-scrim,.deck-edge,#deck-grain{display:none!important}
 }
+
+/* ============================================================
+   Member-deck level-ups (from cabin-fund): hover lift on cards,
+   link underline-sweep, button press. All motion-gated.
+   ============================================================ */
+@media (prefers-reduced-motion:no-preference){
+  @media (hover:hover){
+    .card,.mcard,.tier{transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+    .card:hover,.mcard:hover{transform:translateY(-4px)!important;border-color:var(--amber-dim);
+      box-shadow:0 12px 34px rgba(0,0,0,.38)}
+    .tier:hover{transform:translateY(-4px)!important;box-shadow:0 14px 38px rgba(0,0,0,.42)}
+    a.lk-sweep{background-image:linear-gradient(var(--amber),var(--amber));
+      background-size:0% 1.5px;background-position:0 100%;background-repeat:no-repeat;
+      transition:background-size .28s cubic-bezier(.16,1,.3,1)}
+    a.lk-sweep:hover{background-size:100% 1.5px}
+    .tcall{transition:background .2s ease,color .2s ease}
+    .tcall:hover{background:var(--amber);color:#1a1008}
+    .btn,.rbtn{transition:filter .15s ease,transform .1s ease}
+  }
+  .btn:active,.rbtn:active,.tcall:active{transform:translateY(1px)}
+}
