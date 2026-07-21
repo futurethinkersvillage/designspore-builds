@@ -1,0 +1,3799 @@
+{
+ "generated": "build_manifest.py",
+ "system": "SKYLARK250",
+ "library": "SKYLARK250 v0.2.2",
+ "grid": {
+  "module_mm": 600,
+  "vertical_step_mm": 300,
+  "sheet_mm": [
+   2440,
+   1220,
+   18
+  ]
+ },
+ "spans_mm": {
+  "L": 6130,
+  "M": 5530,
+  "S": 4930,
+  "XS": 4330,
+  "XXS": 3730
+ },
+ "blocks": {
+  "CORNER-L": {
+   "category": "wall",
+   "type": "corner",
+   "size": "L",
+   "pitch": null,
+   "variant": null,
+   "sheets": 2,
+   "parts": 8,
+   "cut_area_m2": 3.14,
+   "waste_cut_m2": 0.029,
+   "bbox_mm": {
+    "min": [
+     -324.8,
+     -31.8,
+     -2715.0
+    ],
+    "max": [
+     56.8,
+     349.8,
+     15.0
+    ],
+    "size": [
+     381.6,
+     381.6,
+     2730.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/CORNER-L.svg",
+   "sheets_est": 1.4,
+   "insulation_m2": 0.8,
+   "data_source": "estimated"
+  },
+  "CORNER-M": {
+   "category": "wall",
+   "type": "corner",
+   "size": "M",
+   "pitch": null,
+   "variant": null,
+   "sheets": 2,
+   "parts": 4,
+   "cut_area_m2": 2.782,
+   "waste_cut_m2": 0.029,
+   "bbox_mm": {
+    "min": [
+     -299.8,
+     -56.8,
+     -15.0
+    ],
+    "max": [
+     81.8,
+     324.8,
+     2415.0
+    ],
+    "size": [
+     381.6,
+     381.6,
+     2430.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/CORNER-M.svg",
+   "sheets_est": 1.3,
+   "insulation_m2": 0.8,
+   "data_source": "official-bom"
+  },
+  "CORNER-S": {
+   "category": "wall",
+   "type": "corner",
+   "size": "S",
+   "pitch": null,
+   "variant": null,
+   "sheets": 2,
+   "parts": 4,
+   "cut_area_m2": 2.44,
+   "waste_cut_m2": 0.023,
+   "bbox_mm": {
+    "min": [
+     -299.8,
+     -56.8,
+     -2115.0
+    ],
+    "max": [
+     81.8,
+     324.8,
+     15.0
+    ],
+    "size": [
+     381.6,
+     381.6,
+     2130.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/CORNER-S.svg",
+   "sheets_est": 1.1,
+   "insulation_m2": 0.7,
+   "data_source": "estimated"
+  },
+  "CORNER-XL": {
+   "category": "wall",
+   "type": "corner",
+   "size": "XL",
+   "pitch": null,
+   "variant": null,
+   "sheets": 2,
+   "parts": 8,
+   "cut_area_m2": 3.482,
+   "waste_cut_m2": 0.035,
+   "bbox_mm": {
+    "min": [
+     -299.8,
+     -56.8,
+     -15.0
+    ],
+    "max": [
+     81.8,
+     324.8,
+     3015.0
+    ],
+    "size": [
+     381.6,
+     381.6,
+     3030.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/CORNER-XL.svg",
+   "sheets_est": 1.8,
+   "insulation_m2": 1.0,
+   "data_source": "official-bom"
+  },
+  "WALL-G42-1": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "1",
+   "sheets": 2,
+   "parts": 8,
+   "cut_area_m2": 2.455,
+   "waste_cut_m2": 0.023,
+   "bbox_mm": {
+    "min": [
+     -1008.7,
+     -31.8,
+     112.0
+    ],
+    "max": [
+     91.6,
+     349.8,
+     1428.2
+    ],
+    "size": [
+     1100.3,
+     381.6,
+     1316.2
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-1.svg",
+   "sheets_est": 1.1,
+   "insulation_m2": 1.2,
+   "data_source": "estimated"
+  },
+  "WALL-G42-2": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "2",
+   "sheets": 2,
+   "parts": 6,
+   "cut_area_m2": 2.768,
+   "waste_cut_m2": 0.024,
+   "bbox_mm": {
+    "min": [
+     -71.1,
+     -299.8,
+     2371.4
+    ],
+    "max": [
+     660.9,
+     81.8,
+     4190.4
+    ],
+    "size": [
+     732.0,
+     381.6,
+     1819.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-2.svg",
+   "sheets_est": 1.3,
+   "insulation_m2": 1.1,
+   "data_source": "estimated"
+  },
+  "WALL-G42-3": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "3",
+   "sheets": 2,
+   "parts": 7,
+   "cut_area_m2": 3.821,
+   "waste_cut_m2": 0.037,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     2371.4
+    ],
+    "max": [
+     60.0,
+     349.8,
+     4735.9
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2364.5
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-3.svg",
+   "sheets_est": 1.7,
+   "insulation_m2": 1.4,
+   "data_source": "estimated"
+  },
+  "WALL-G42-3R": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "3R",
+   "sheets": 2,
+   "parts": 10,
+   "cut_area_m2": 3.392,
+   "waste_cut_m2": 0.033,
+   "bbox_mm": {
+    "min": [
+     -659.7,
+     -31.8,
+     2373.6
+    ],
+    "max": [
+     60.3,
+     349.8,
+     4515.7
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2142.1
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-3R.svg",
+   "sheets_est": 1.5,
+   "insulation_m2": 1.2,
+   "data_source": "estimated"
+  },
+  "WALL-G42-3R2": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "3R2",
+   "sheets": 2,
+   "parts": 8,
+   "cut_area_m2": 3.679,
+   "waste_cut_m2": 0.036,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     2371.4
+    ],
+    "max": [
+     60.0,
+     349.8,
+     4709.2
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2337.7
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-3R2.svg",
+   "sheets_est": 1.7,
+   "insulation_m2": 1.3,
+   "data_source": "estimated"
+  },
+  "WALL-G42-4": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "4",
+   "sheets": 3,
+   "parts": 11,
+   "cut_area_m2": 4.865,
+   "waste_cut_m2": 0.053,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -28.2
+    ],
+    "max": [
+     60.0,
+     349.8,
+     2837.3
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2865.5
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-4.svg",
+   "sheets_est": 2.2,
+   "insulation_m2": 1.7,
+   "data_source": "estimated"
+  },
+  "WALL-G42-4R": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "4R",
+   "sheets": 3,
+   "parts": 13,
+   "cut_area_m2": 4.426,
+   "waste_cut_m2": 0.047,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -299.8,
+     2371.4
+    ],
+    "max": [
+     60.0,
+     81.8,
+     5047.5
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2676.1
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-4R.svg",
+   "sheets_est": 2.0,
+   "insulation_m2": 1.5,
+   "data_source": "estimated"
+  },
+  "WALL-G42-4R2": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "4R2",
+   "sheets": 3,
+   "parts": 11,
+   "cut_area_m2": 4.726,
+   "waste_cut_m2": 0.052,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -31.8,
+     -28.2
+    ],
+    "max": [
+     660.0,
+     349.8,
+     2836.0
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2864.2
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-4R2.svg",
+   "sheets_est": 2.2,
+   "insulation_m2": 1.6,
+   "data_source": "estimated"
+  },
+  "WALL-G42-5R": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "5R",
+   "sheets": 3,
+   "parts": 16,
+   "cut_area_m2": 5.476,
+   "waste_cut_m2": 0.062,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -28.2
+    ],
+    "max": [
+     60.0,
+     349.8,
+     3105.9
+    ],
+    "size": [
+     720.0,
+     381.6,
+     3134.1
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-5R.svg",
+   "sheets_est": 2.5,
+   "insulation_m2": 1.8,
+   "data_source": "estimated"
+  },
+  "WALL-G42-6": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "6",
+   "sheets": 3,
+   "parts": 11,
+   "cut_area_m2": 4.865,
+   "waste_cut_m2": 0.053,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -2822.9
+    ],
+    "max": [
+     60.0,
+     349.8,
+     28.2
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2851.1
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-6.svg",
+   "sheets_est": 2.2,
+   "insulation_m2": 1.6,
+   "data_source": "estimated"
+  },
+  "WALL-G42-6R2": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "6R2",
+   "sheets": 3,
+   "parts": 11,
+   "cut_area_m2": 4.726,
+   "waste_cut_m2": 0.052,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -31.8,
+     -2836.0
+    ],
+    "max": [
+     660.0,
+     349.8,
+     28.2
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2864.2
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-6R2.svg",
+   "sheets_est": 2.2,
+   "insulation_m2": 1.6,
+   "data_source": "estimated"
+  },
+  "WALL-G42-7": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "7",
+   "sheets": 2,
+   "parts": 7,
+   "cut_area_m2": 3.821,
+   "waste_cut_m2": 0.037,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -4735.9
+    ],
+    "max": [
+     60.0,
+     349.8,
+     -2371.4
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2364.5
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-7.svg",
+   "sheets_est": 1.7,
+   "insulation_m2": 1.4,
+   "data_source": "estimated"
+  },
+  "WALL-G42-7R2": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "7R2",
+   "sheets": 2,
+   "parts": 8,
+   "cut_area_m2": 3.679,
+   "waste_cut_m2": 0.036,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -4709.2
+    ],
+    "max": [
+     60.0,
+     349.8,
+     -2371.4
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2337.7
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-7R2.svg",
+   "sheets_est": 1.7,
+   "insulation_m2": 1.3,
+   "data_source": "estimated"
+  },
+  "WALL-G42-8": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "8",
+   "sheets": 2,
+   "parts": 6,
+   "cut_area_m2": 2.768,
+   "waste_cut_m2": 0.024,
+   "bbox_mm": {
+    "min": [
+     -71.1,
+     -299.8,
+     -4190.4
+    ],
+    "max": [
+     660.9,
+     81.8,
+     -2371.4
+    ],
+    "size": [
+     732.0,
+     381.6,
+     1819.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-8.svg",
+   "sheets_est": 1.3,
+   "insulation_m2": 1.1,
+   "data_source": "estimated"
+  },
+  "WALL-G42-9": {
+   "category": "wall",
+   "type": "wall-gable42",
+   "size": null,
+   "pitch": 42,
+   "variant": "9",
+   "sheets": 2,
+   "parts": 8,
+   "cut_area_m2": 2.455,
+   "waste_cut_m2": 0.023,
+   "bbox_mm": {
+    "min": [
+     -1008.7,
+     -31.8,
+     -1428.2
+    ],
+    "max": [
+     91.6,
+     349.8,
+     -112.0
+    ],
+    "size": [
+     1100.3,
+     381.6,
+     1316.2
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-G42-9.svg",
+   "sheets_est": 1.1,
+   "insulation_m2": 1.2,
+   "data_source": "estimated"
+  },
+  "WALL-L": {
+   "category": "wall",
+   "type": "wall",
+   "size": "L",
+   "pitch": null,
+   "variant": null,
+   "sheets": 3,
+   "parts": 12,
+   "cut_area_m2": 5.039,
+   "waste_cut_m2": 0.061,
+   "bbox_mm": {
+    "min": [
+     -360.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     360.0,
+     349.8,
+     2715.0
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2730.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-L.svg",
+   "sheets_est": 2.3,
+   "insulation_m2": 1.6,
+   "data_source": "estimated"
+  },
+  "WALL-M": {
+   "category": "wall",
+   "type": "wall",
+   "size": "M",
+   "pitch": null,
+   "variant": null,
+   "sheets": 2,
+   "parts": 7,
+   "cut_area_m2": 4.371,
+   "waste_cut_m2": 0.046,
+   "bbox_mm": {
+    "min": [
+     -360.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     360.0,
+     349.8,
+     2415.0
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2430.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-M.svg",
+   "sheets_est": 2.0,
+   "insulation_m2": 1.4,
+   "data_source": "official-bom"
+  },
+  "WALL-S": {
+   "category": "wall",
+   "type": "wall",
+   "size": "S",
+   "pitch": null,
+   "variant": null,
+   "sheets": 2,
+   "parts": 7,
+   "cut_area_m2": 3.896,
+   "waste_cut_m2": 0.046,
+   "bbox_mm": {
+    "min": [
+     -360.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     360.0,
+     349.8,
+     2115.0
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2130.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S.svg",
+   "sheets_est": 1.8,
+   "insulation_m2": 1.2,
+   "data_source": "estimated"
+  },
+  "WALL-S10+1": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+1",
+   "sheets": 1,
+   "parts": 8,
+   "cut_area_m2": 1.59,
+   "waste_cut_m2": 0.015,
+   "bbox_mm": {
+    "min": [
+     -1009.5,
+     -31.8,
+     2056.0
+    ],
+    "max": [
+     91.5,
+     349.8,
+     2692.8
+    ],
+    "size": [
+     1101.0,
+     381.6,
+     636.9
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+1.svg",
+   "sheets_est": 0.7,
+   "insulation_m2": 0.6,
+   "data_source": "estimated"
+  },
+  "WALL-S10+2": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+2",
+   "sheets": 1,
+   "parts": 6,
+   "cut_area_m2": 1.326,
+   "waste_cut_m2": 0.02,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.8,
+     2788.4
+    ],
+    "size": [
+     723.1,
+     381.6,
+     708.1
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+2.svg",
+   "sheets_est": 0.6,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WALL-S10+3": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+3",
+   "sheets": 1,
+   "parts": 6,
+   "cut_area_m2": 1.498,
+   "waste_cut_m2": 0.02,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.8,
+     2884.3
+    ],
+    "size": [
+     723.1,
+     381.6,
+     804.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+3.svg",
+   "sheets_est": 0.7,
+   "insulation_m2": 0.5,
+   "data_source": "estimated"
+  },
+  "WALL-S10+4": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+4",
+   "sheets": 1,
+   "parts": 6,
+   "cut_area_m2": 1.668,
+   "waste_cut_m2": 0.02,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.8,
+     2990.1
+    ],
+    "size": [
+     723.1,
+     381.6,
+     909.8
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+4.svg",
+   "sheets_est": 0.8,
+   "insulation_m2": 0.5,
+   "data_source": "estimated"
+  },
+  "WALL-S10+5": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+5",
+   "sheets": 1,
+   "parts": 6,
+   "cut_area_m2": 1.838,
+   "waste_cut_m2": 0.02,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.8,
+     3095.9
+    ],
+    "size": [
+     723.1,
+     381.6,
+     1015.6
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+5.svg",
+   "sheets_est": 0.8,
+   "insulation_m2": 0.6,
+   "data_source": "estimated"
+  },
+  "WALL-S10+5R": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+5R",
+   "sheets": 2,
+   "parts": 9,
+   "cut_area_m2": 2.422,
+   "waste_cut_m2": 0.024,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -31.8,
+     -19.7
+    ],
+    "max": [
+     918.0,
+     349.8,
+     1082.7
+    ],
+    "size": [
+     978.0,
+     381.6,
+     1102.4
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+5R.svg",
+   "sheets_est": 1.1,
+   "insulation_m2": 0.9,
+   "data_source": "estimated"
+  },
+  "WALL-S10+6": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+6",
+   "sheets": 1,
+   "parts": 6,
+   "cut_area_m2": 2.023,
+   "waste_cut_m2": 0.022,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.9,
+     3201.7
+    ],
+    "size": [
+     723.1,
+     381.7,
+     1121.4
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+6.svg",
+   "sheets_est": 0.9,
+   "insulation_m2": 0.6,
+   "data_source": "estimated"
+  },
+  "WALL-S10+6R": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+6R",
+   "sheets": 2,
+   "parts": 9,
+   "cut_area_m2": 2.733,
+   "waste_cut_m2": 0.026,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -19.7
+    ],
+    "max": [
+     318.0,
+     349.8,
+     1199.1
+    ],
+    "size": [
+     978.0,
+     381.6,
+     1218.7
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+6R.svg",
+   "sheets_est": 1.2,
+   "insulation_m2": 1.0,
+   "data_source": "estimated"
+  },
+  "WALL-S10+7": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+7",
+   "sheets": 2,
+   "parts": 7,
+   "cut_area_m2": 2.356,
+   "waste_cut_m2": 0.034,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.8,
+     3307.5
+    ],
+    "size": [
+     723.1,
+     381.6,
+     1227.2
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+7.svg",
+   "sheets_est": 1.1,
+   "insulation_m2": 0.7,
+   "data_source": "estimated"
+  },
+  "WALL-S10+7R": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+7R",
+   "sheets": 2,
+   "parts": 10,
+   "cut_area_m2": 3.193,
+   "waste_cut_m2": 0.038,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -19.7
+    ],
+    "max": [
+     318.0,
+     349.8,
+     1315.4
+    ],
+    "size": [
+     978.0,
+     381.6,
+     1335.1
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+7R.svg",
+   "sheets_est": 1.5,
+   "insulation_m2": 1.0,
+   "data_source": "estimated"
+  },
+  "WALL-S10+8": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+8",
+   "sheets": 2,
+   "parts": 7,
+   "cut_area_m2": 2.539,
+   "waste_cut_m2": 0.034,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.9,
+     3425.1
+    ],
+    "size": [
+     723.1,
+     381.7,
+     1344.8
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+8.svg",
+   "sheets_est": 1.2,
+   "insulation_m2": 0.8,
+   "data_source": "estimated"
+  },
+  "WALL-S10+8R": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+8R",
+   "sheets": 2,
+   "parts": 10,
+   "cut_area_m2": 3.126,
+   "waste_cut_m2": 0.039,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -31.8,
+     -19.7
+    ],
+    "max": [
+     918.0,
+     349.9,
+     1401.8
+    ],
+    "size": [
+     978.0,
+     381.7,
+     1421.5
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+8R.svg",
+   "sheets_est": 1.4,
+   "insulation_m2": 1.1,
+   "data_source": "estimated"
+  },
+  "WALL-S10+9R": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "+9R",
+   "sheets": 2,
+   "parts": 10,
+   "cut_area_m2": 3.433,
+   "waste_cut_m2": 0.039,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     318.0,
+     349.8,
+     3618.2
+    ],
+    "size": [
+     978.0,
+     381.6,
+     1537.9
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10+9R.svg",
+   "sheets_est": 1.6,
+   "insulation_m2": 1.2,
+   "data_source": "estimated"
+  },
+  "WALL-S10-1": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-1",
+   "sheets": 1,
+   "parts": 8,
+   "cut_area_m2": 1.59,
+   "waste_cut_m2": 0.016,
+   "bbox_mm": {
+    "min": [
+     -1009.5,
+     -349.8,
+     -588.4
+    ],
+    "max": [
+     91.5,
+     31.8,
+     48.4
+    ],
+    "size": [
+     1101.0,
+     381.6,
+     636.9
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-1.svg",
+   "sheets_est": 0.7,
+   "insulation_m2": 0.6,
+   "data_source": "estimated"
+  },
+  "WALL-S10-2": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-2",
+   "sheets": 1,
+   "parts": 6,
+   "cut_area_m2": 1.326,
+   "waste_cut_m2": 0.02,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.8,
+     2788.4
+    ],
+    "size": [
+     723.1,
+     381.6,
+     708.1
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-2.svg",
+   "sheets_est": 0.6,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WALL-S10-3": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-3",
+   "sheets": 1,
+   "parts": 6,
+   "cut_area_m2": 1.498,
+   "waste_cut_m2": 0.02,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.8,
+     2884.3
+    ],
+    "size": [
+     723.1,
+     381.6,
+     804.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-3.svg",
+   "sheets_est": 0.7,
+   "insulation_m2": 0.5,
+   "data_source": "estimated"
+  },
+  "WALL-S10-4": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-4",
+   "sheets": 1,
+   "parts": 6,
+   "cut_area_m2": 1.668,
+   "waste_cut_m2": 0.02,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.8,
+     2990.1
+    ],
+    "size": [
+     723.1,
+     381.6,
+     909.8
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-4.svg",
+   "sheets_est": 0.8,
+   "insulation_m2": 0.5,
+   "data_source": "estimated"
+  },
+  "WALL-S10-5": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-5",
+   "sheets": 1,
+   "parts": 6,
+   "cut_area_m2": 1.838,
+   "waste_cut_m2": 0.02,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.8,
+     3095.9
+    ],
+    "size": [
+     723.1,
+     381.6,
+     1015.6
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-5.svg",
+   "sheets_est": 0.8,
+   "insulation_m2": 0.6,
+   "data_source": "estimated"
+  },
+  "WALL-S10-5R": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-5R",
+   "sheets": 2,
+   "parts": 9,
+   "cut_area_m2": 2.422,
+   "waste_cut_m2": 0.024,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -31.8,
+     -19.7
+    ],
+    "max": [
+     918.0,
+     349.8,
+     1082.7
+    ],
+    "size": [
+     978.0,
+     381.6,
+     1102.4
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-5R.svg",
+   "sheets_est": 1.1,
+   "insulation_m2": 0.9,
+   "data_source": "estimated"
+  },
+  "WALL-S10-6": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-6",
+   "sheets": 1,
+   "parts": 6,
+   "cut_area_m2": 2.023,
+   "waste_cut_m2": 0.022,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.9,
+     3201.7
+    ],
+    "size": [
+     723.1,
+     381.7,
+     1121.4
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-6.svg",
+   "sheets_est": 0.9,
+   "insulation_m2": 0.6,
+   "data_source": "estimated"
+  },
+  "WALL-S10-6R": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-6R",
+   "sheets": 2,
+   "parts": 9,
+   "cut_area_m2": 2.733,
+   "waste_cut_m2": 0.026,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -19.7
+    ],
+    "max": [
+     318.0,
+     349.8,
+     1199.1
+    ],
+    "size": [
+     978.0,
+     381.6,
+     1218.7
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-6R.svg",
+   "sheets_est": 1.2,
+   "insulation_m2": 1.0,
+   "data_source": "estimated"
+  },
+  "WALL-S10-7": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-7",
+   "sheets": 2,
+   "parts": 7,
+   "cut_area_m2": 2.356,
+   "waste_cut_m2": 0.034,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.8,
+     3307.5
+    ],
+    "size": [
+     723.1,
+     381.6,
+     1227.2
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-7.svg",
+   "sheets_est": 1.1,
+   "insulation_m2": 0.7,
+   "data_source": "estimated"
+  },
+  "WALL-S10-7R": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-7R",
+   "sheets": 2,
+   "parts": 10,
+   "cut_area_m2": 3.193,
+   "waste_cut_m2": 0.038,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -19.7
+    ],
+    "max": [
+     318.0,
+     349.8,
+     1315.4
+    ],
+    "size": [
+     978.0,
+     381.6,
+     1335.1
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-7R.svg",
+   "sheets_est": 1.5,
+   "insulation_m2": 1.0,
+   "data_source": "estimated"
+  },
+  "WALL-S10-8": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-8",
+   "sheets": 2,
+   "parts": 7,
+   "cut_area_m2": 2.539,
+   "waste_cut_m2": 0.034,
+   "bbox_mm": {
+    "min": [
+     -663.1,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     60.0,
+     349.9,
+     3425.1
+    ],
+    "size": [
+     723.1,
+     381.7,
+     1344.8
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-8.svg",
+   "sheets_est": 1.2,
+   "insulation_m2": 0.8,
+   "data_source": "estimated"
+  },
+  "WALL-S10-8R": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-8R",
+   "sheets": 2,
+   "parts": 10,
+   "cut_area_m2": 3.126,
+   "waste_cut_m2": 0.039,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -31.8,
+     -19.7
+    ],
+    "max": [
+     918.0,
+     349.9,
+     1401.8
+    ],
+    "size": [
+     978.0,
+     381.7,
+     1421.5
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-8R.svg",
+   "sheets_est": 1.4,
+   "insulation_m2": 1.1,
+   "data_source": "estimated"
+  },
+  "WALL-S10-9": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-9",
+   "sheets": 3,
+   "parts": 12,
+   "cut_area_m2": 5.632,
+   "waste_cut_m2": 0.046,
+   "bbox_mm": {
+    "min": [
+     -580.2,
+     -2244.2,
+     -18.0
+    ],
+    "max": [
+     349.8,
+     2137.0,
+     0.0
+    ],
+    "size": [
+     930.0,
+     4381.2,
+     18.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-9.svg",
+   "sheets_est": 2.6,
+   "insulation_m2": 3.3,
+   "data_source": "estimated"
+  },
+  "WALL-S10-9R": {
+   "category": "wall",
+   "type": "wall-skillion10",
+   "size": "S",
+   "pitch": 10,
+   "variant": "-9R",
+   "sheets": 2,
+   "parts": 10,
+   "cut_area_m2": 3.433,
+   "waste_cut_m2": 0.039,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     2080.3
+    ],
+    "max": [
+     318.0,
+     349.8,
+     3618.2
+    ],
+    "size": [
+     978.0,
+     381.6,
+     1537.9
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-S10-9R.svg",
+   "sheets_est": 1.6,
+   "insulation_m2": 1.2,
+   "data_source": "estimated"
+  },
+  "WALL-XL": {
+   "category": "wall",
+   "type": "wall",
+   "size": "XL",
+   "pitch": null,
+   "variant": null,
+   "sheets": 3,
+   "parts": 8,
+   "cut_area_m2": 4.93,
+   "waste_cut_m2": 0.061,
+   "bbox_mm": {
+    "min": [
+     -360.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     360.0,
+     349.8,
+     3015.0
+    ],
+    "size": [
+     720.0,
+     381.6,
+     3030.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WALL-XL.svg",
+   "sheets_est": 2.5,
+   "insulation_m2": 1.8,
+   "data_source": "official-bom"
+  },
+  "END-L-0": {
+   "category": "floor",
+   "type": "floor-end",
+   "size": "L",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 4,
+   "parts": 51,
+   "cut_area_m2": 6.818,
+   "waste_cut_m2": 0.008,
+   "bbox_mm": {
+    "min": [
+     -349.8,
+     -31.8,
+     -419.2
+    ],
+    "max": [
+     32.0,
+     6067.8,
+     51.2
+    ],
+    "size": [
+     381.8,
+     6099.6,
+     470.4
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/END-L-0.svg",
+   "sheets_est": 3.3,
+   "insulation_m2": 1.9,
+   "data_source": "official-bom"
+  },
+  "END-L-1": {
+   "category": "floor",
+   "type": "floor-end",
+   "size": "L",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 5,
+   "parts": 51,
+   "cut_area_m2": 7.237,
+   "waste_cut_m2": 0.004,
+   "bbox_mm": {
+    "min": [
+     -349.8,
+     -31.8,
+     -302.4
+    ],
+    "max": [
+     31.8,
+     6067.8,
+     182.4
+    ],
+    "size": [
+     381.6,
+     6099.6,
+     484.8
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/END-L-1.svg",
+   "sheets_est": 3.3,
+   "insulation_m2": 1.9,
+   "data_source": "official-bom"
+  },
+  "END-M-0": {
+   "category": "floor",
+   "type": "floor-end",
+   "size": "M",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 3,
+   "parts": 46,
+   "cut_area_m2": 6.141,
+   "waste_cut_m2": 0.008,
+   "bbox_mm": {
+    "min": [
+     -349.8,
+     -31.8,
+     -419.2
+    ],
+    "max": [
+     32.0,
+     5467.8,
+     51.2
+    ],
+    "size": [
+     381.8,
+     5499.6,
+     470.4
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/END-M-0.svg",
+   "sheets_est": 2.8,
+   "insulation_m2": 2.1,
+   "data_source": "estimated"
+  },
+  "END-M-1": {
+   "category": "floor",
+   "type": "floor-end",
+   "size": "M",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 4,
+   "parts": 46,
+   "cut_area_m2": 6.528,
+   "waste_cut_m2": 0.004,
+   "bbox_mm": {
+    "min": [
+     -349.8,
+     -31.8,
+     -432.4
+    ],
+    "max": [
+     31.8,
+     5467.8,
+     52.4
+    ],
+    "size": [
+     381.6,
+     5499.6,
+     484.8
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/END-M-1.svg",
+   "sheets_est": 3.0,
+   "insulation_m2": 2.1,
+   "data_source": "estimated"
+  },
+  "END-S-0": {
+   "category": "floor",
+   "type": "floor-end",
+   "size": "S",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 3,
+   "parts": 41,
+   "cut_area_m2": 5.464,
+   "waste_cut_m2": 0.008,
+   "bbox_mm": {
+    "min": [
+     -331.8,
+     -31.8,
+     -419.2
+    ],
+    "max": [
+     50.0,
+     4867.8,
+     51.2
+    ],
+    "size": [
+     381.8,
+     4899.6,
+     470.4
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/END-S-0.svg",
+   "sheets_est": 2.5,
+   "insulation_m2": 1.8,
+   "data_source": "estimated"
+  },
+  "END-S-1": {
+   "category": "floor",
+   "type": "floor-end",
+   "size": "S",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 4,
+   "parts": 41,
+   "cut_area_m2": 5.818,
+   "waste_cut_m2": 0.004,
+   "bbox_mm": {
+    "min": [
+     -349.8,
+     -31.8,
+     -432.4
+    ],
+    "max": [
+     31.8,
+     4867.8,
+     52.4
+    ],
+    "size": [
+     381.6,
+     4899.6,
+     484.8
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/END-S-1.svg",
+   "sheets_est": 2.7,
+   "insulation_m2": 1.9,
+   "data_source": "estimated"
+  },
+  "END-XS-0": {
+   "category": "floor",
+   "type": "floor-end",
+   "size": "XS",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 3,
+   "parts": 36,
+   "cut_area_m2": 4.787,
+   "waste_cut_m2": 0.008,
+   "bbox_mm": {
+    "min": [
+     -331.8,
+     -31.8,
+     -419.2
+    ],
+    "max": [
+     50.0,
+     4267.8,
+     51.2
+    ],
+    "size": [
+     381.8,
+     4299.6,
+     470.4
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/END-XS-0.svg",
+   "sheets_est": 2.2,
+   "insulation_m2": 1.6,
+   "data_source": "estimated"
+  },
+  "END-XS-1": {
+   "category": "floor",
+   "type": "floor-end",
+   "size": "XS",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 3,
+   "parts": 36,
+   "cut_area_m2": 5.108,
+   "waste_cut_m2": 0.004,
+   "bbox_mm": {
+    "min": [
+     -349.8,
+     -31.8,
+     -432.4
+    ],
+    "max": [
+     31.8,
+     4267.8,
+     52.4
+    ],
+    "size": [
+     381.6,
+     4299.6,
+     484.8
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/END-XS-1.svg",
+   "sheets_est": 2.3,
+   "insulation_m2": 1.7,
+   "data_source": "estimated"
+  },
+  "END-XXS-0": {
+   "category": "floor",
+   "type": "floor-end",
+   "size": "XXS",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 2,
+   "parts": 31,
+   "cut_area_m2": 4.11,
+   "waste_cut_m2": 0.008,
+   "bbox_mm": {
+    "min": [
+     -349.8,
+     -31.8,
+     -419.2
+    ],
+    "max": [
+     32.0,
+     3667.8,
+     51.2
+    ],
+    "size": [
+     381.8,
+     3699.6,
+     470.4
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/END-XXS-0.svg",
+   "sheets_est": 1.9,
+   "insulation_m2": 1.4,
+   "data_source": "estimated"
+  },
+  "END-XXS-1": {
+   "category": "floor",
+   "type": "floor-end",
+   "size": "XXS",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 3,
+   "parts": 31,
+   "cut_area_m2": 4.399,
+   "waste_cut_m2": 0.004,
+   "bbox_mm": {
+    "min": [
+     -349.8,
+     -31.8,
+     -432.4
+    ],
+    "max": [
+     31.8,
+     3667.8,
+     52.4
+    ],
+    "size": [
+     381.6,
+     3699.6,
+     484.8
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/END-XXS-1.svg",
+   "sheets_est": 2.0,
+   "insulation_m2": 1.4,
+   "data_source": "estimated"
+  },
+  "FLOOR-L-0": {
+   "category": "floor",
+   "type": "floor",
+   "size": "L",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 0,
+   "parts": 27,
+   "cut_area_m2": 12.274,
+   "waste_cut_m2": 0.187,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -46.8,
+     -419.8
+    ],
+    "max": [
+     60.0,
+     6082.8,
+     57.8
+    ],
+    "size": [
+     720.0,
+     6129.6,
+     477.6
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/FLOOR-L-0.svg",
+   "sheets_est": 4.8,
+   "insulation_m2": 3.6,
+   "data_source": "official-bom"
+  },
+  "FLOOR-L-1": {
+   "category": "floor",
+   "type": "floor",
+   "size": "L",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 0,
+   "parts": 27,
+   "cut_area_m2": 12.342,
+   "waste_cut_m2": 0.19,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -3022.7,
+     -38.0
+    ],
+    "max": [
+     660.0,
+     3022.7,
+     418.0
+    ],
+    "size": [
+     720.0,
+     6045.4,
+     456.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/FLOOR-L-1.svg",
+   "sheets_est": 4.8,
+   "insulation_m2": 3.6,
+   "data_source": "official-bom"
+  },
+  "FLOOR-M-0": {
+   "category": "floor",
+   "type": "floor",
+   "size": "M",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 5,
+   "parts": 24,
+   "cut_area_m2": 11.07,
+   "waste_cut_m2": 0.171,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -46.8,
+     -419.8
+    ],
+    "max": [
+     60.0,
+     5482.8,
+     57.8
+    ],
+    "size": [
+     720.0,
+     5529.6,
+     477.6
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/FLOOR-M-0.svg",
+   "sheets_est": 5.0,
+   "insulation_m2": 3.2,
+   "data_source": "estimated"
+  },
+  "FLOOR-M-1": {
+   "category": "floor",
+   "type": "floor",
+   "size": "M",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 5,
+   "parts": 24,
+   "cut_area_m2": 11.138,
+   "waste_cut_m2": 0.174,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -2722.7,
+     -38.0
+    ],
+    "max": [
+     660.0,
+     2722.7,
+     418.0
+    ],
+    "size": [
+     720.0,
+     5445.4,
+     456.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/FLOOR-M-1.svg",
+   "sheets_est": 5.1,
+   "insulation_m2": 3.1,
+   "data_source": "estimated"
+  },
+  "FLOOR-S-0": {
+   "category": "floor",
+   "type": "floor",
+   "size": "S",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 0,
+   "parts": 27,
+   "cut_area_m2": 9.889,
+   "waste_cut_m2": 0.13,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -46.8,
+     -419.8
+    ],
+    "max": [
+     60.0,
+     4882.8,
+     57.8
+    ],
+    "size": [
+     720.0,
+     4929.6,
+     477.6
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/FLOOR-S-0.svg",
+   "sheets_est": 4.5,
+   "insulation_m2": 2.8,
+   "data_source": "estimated"
+  },
+  "FLOOR-S-1": {
+   "category": "floor",
+   "type": "floor",
+   "size": "S",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 0,
+   "parts": 25,
+   "cut_area_m2": 9.933,
+   "waste_cut_m2": 0.157,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -2422.7,
+     -38.0
+    ],
+    "max": [
+     660.0,
+     2422.7,
+     418.0
+    ],
+    "size": [
+     720.0,
+     4845.4,
+     456.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/FLOOR-S-1.svg",
+   "sheets_est": 4.0,
+   "insulation_m2": 2.9,
+   "data_source": "official-bom"
+  },
+  "FLOOR-XS-0": {
+   "category": "floor",
+   "type": "floor",
+   "size": "XS",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 4,
+   "parts": 22,
+   "cut_area_m2": 8.661,
+   "waste_cut_m2": 0.138,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -46.8,
+     -419.8
+    ],
+    "max": [
+     60.0,
+     4282.8,
+     57.8
+    ],
+    "size": [
+     720.0,
+     4329.6,
+     477.6
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/FLOOR-XS-0.svg",
+   "sheets_est": 3.9,
+   "insulation_m2": 2.5,
+   "data_source": "estimated"
+  },
+  "FLOOR-XS-1": {
+   "category": "floor",
+   "type": "floor",
+   "size": "XS",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 4,
+   "parts": 22,
+   "cut_area_m2": 8.729,
+   "waste_cut_m2": 0.141,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -2122.7,
+     -38.0
+    ],
+    "max": [
+     660.0,
+     2122.7,
+     418.0
+    ],
+    "size": [
+     720.0,
+     4245.4,
+     456.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/FLOOR-XS-1.svg",
+   "sheets_est": 4.0,
+   "insulation_m2": 2.4,
+   "data_source": "estimated"
+  },
+  "FLOOR-XXS-0": {
+   "category": "floor",
+   "type": "floor",
+   "size": "XXS",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 4,
+   "parts": 23,
+   "cut_area_m2": 7.454,
+   "waste_cut_m2": 0.119,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -46.8,
+     -419.8
+    ],
+    "max": [
+     60.0,
+     3682.8,
+     57.8
+    ],
+    "size": [
+     720.0,
+     3729.6,
+     477.6
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/FLOOR-XXS-0.svg",
+   "sheets_est": 3.4,
+   "insulation_m2": 2.1,
+   "data_source": "estimated"
+  },
+  "FLOOR-XXS-1": {
+   "category": "floor",
+   "type": "floor",
+   "size": "XXS",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 4,
+   "parts": 21,
+   "cut_area_m2": 7.533,
+   "waste_cut_m2": 0.127,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -1822.7,
+     -38.0
+    ],
+    "max": [
+     660.0,
+     1822.7,
+     418.0
+    ],
+    "size": [
+     720.0,
+     3645.4,
+     456.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/FLOOR-XXS-1.svg",
+   "sheets_est": 3.4,
+   "insulation_m2": 2.1,
+   "data_source": "estimated"
+  },
+  "XFLOOR-L-0": {
+   "category": "floor",
+   "type": "xfloor",
+   "size": "L",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 7,
+   "parts": 30,
+   "cut_area_m2": 13.828,
+   "waste_cut_m2": 0.214,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -2464.8,
+     -48.0
+    ],
+    "max": [
+     660.0,
+     3664.8,
+     528.0
+    ],
+    "size": [
+     720.0,
+     6129.6,
+     576.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/XFLOOR-L-0.svg",
+   "sheets_est": 6.2,
+   "insulation_m2": 3.6,
+   "data_source": "official-bom"
+  },
+  "XFLOOR-M-0": {
+   "category": "floor",
+   "type": "xfloor",
+   "size": "M",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 6,
+   "parts": 27,
+   "cut_area_m2": 12.444,
+   "waste_cut_m2": 0.191,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -2464.8,
+     -48.0
+    ],
+    "max": [
+     660.0,
+     3064.8,
+     528.0
+    ],
+    "size": [
+     720.0,
+     5529.6,
+     576.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/XFLOOR-M-0.svg",
+   "sheets_est": 5.7,
+   "insulation_m2": 3.2,
+   "data_source": "estimated"
+  },
+  "XFLOOR-S-0": {
+   "category": "floor",
+   "type": "xfloor",
+   "size": "S",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 6,
+   "parts": 28,
+   "cut_area_m2": 11.058,
+   "waste_cut_m2": 0.168,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -2464.8,
+     -48.0
+    ],
+    "max": [
+     660.0,
+     2464.8,
+     528.0
+    ],
+    "size": [
+     720.0,
+     4929.6,
+     576.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/XFLOOR-S-0.svg",
+   "sheets_est": 5.0,
+   "insulation_m2": 2.8,
+   "data_source": "estimated"
+  },
+  "XFLOOR-XS-0": {
+   "category": "floor",
+   "type": "xfloor",
+   "size": "XS",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 5,
+   "parts": 25,
+   "cut_area_m2": 9.673,
+   "waste_cut_m2": 0.144,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -2164.8,
+     -48.0
+    ],
+    "max": [
+     660.0,
+     2164.8,
+     528.0
+    ],
+    "size": [
+     720.0,
+     4329.6,
+     576.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/XFLOOR-XS-0.svg",
+   "sheets_est": 4.4,
+   "insulation_m2": 2.5,
+   "data_source": "estimated"
+  },
+  "XFLOOR-XXS-0": {
+   "category": "floor",
+   "type": "xfloor",
+   "size": "XXS",
+   "pitch": null,
+   "variant": "0",
+   "sheets": 5,
+   "parts": 26,
+   "cut_area_m2": 8.287,
+   "waste_cut_m2": 0.121,
+   "bbox_mm": {
+    "min": [
+     -60.0,
+     -1864.8,
+     -48.0
+    ],
+    "max": [
+     660.0,
+     1864.8,
+     528.0
+    ],
+    "size": [
+     720.0,
+     3729.6,
+     576.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/XFLOOR-XXS-0.svg",
+   "sheets_est": 3.8,
+   "insulation_m2": 2.1,
+   "data_source": "estimated"
+  },
+  "ROOF-L10": {
+   "category": "roof",
+   "type": "roof",
+   "size": "L",
+   "pitch": 10,
+   "variant": null,
+   "sheets": 5,
+   "parts": 16,
+   "cut_area_m2": 12.186,
+   "waste_cut_m2": 0.168,
+   "bbox_mm": {
+    "min": [
+     -176.8,
+     -60.0,
+     -191.8
+    ],
+    "max": [
+     6140.6,
+     660.0,
+     1449.1
+    ],
+    "size": [
+     6317.4,
+     720.0,
+     1640.8
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/ROOF-L10.svg",
+   "sheets_est": 5.6,
+   "insulation_m2": 8.3,
+   "data_source": "estimated"
+  },
+  "ROOF-L42": {
+   "category": "roof",
+   "type": "roof",
+   "size": "L",
+   "pitch": 42,
+   "variant": null,
+   "sheets": 4,
+   "parts": 14,
+   "cut_area_m2": 7.796,
+   "waste_cut_m2": 0.107,
+   "bbox_mm": {
+    "min": [
+     -237.5,
+     -60.0,
+     -208.8
+    ],
+    "max": [
+     3328.9,
+     660.0,
+     3153.8
+    ],
+    "size": [
+     3566.4,
+     720.0,
+     3362.6
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/ROOF-L42.svg",
+   "sheets_est": 3.6,
+   "insulation_m2": 9.6,
+   "data_source": "estimated"
+  },
+  "ROOF-M10": {
+   "category": "roof",
+   "type": "roof",
+   "size": "M",
+   "pitch": 10,
+   "variant": null,
+   "sheets": 5,
+   "parts": 16,
+   "cut_area_m2": 10.858,
+   "waste_cut_m2": 0.147,
+   "bbox_mm": {
+    "min": [
+     -176.8,
+     -60.0,
+     -138.1
+    ],
+    "max": [
+     5613.6,
+     660.0,
+     1403.1
+    ],
+    "size": [
+     5790.4,
+     720.0,
+     1541.2
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/ROOF-M10.svg",
+   "sheets_est": 5.0,
+   "insulation_m2": 7.1,
+   "data_source": "estimated"
+  },
+  "ROOF-M42": {
+   "category": "roof",
+   "type": "roof",
+   "size": "M",
+   "pitch": 42,
+   "variant": null,
+   "sheets": 4,
+   "parts": 14,
+   "cut_area_m2": 7.035,
+   "waste_cut_m2": 0.091,
+   "bbox_mm": {
+    "min": [
+     -7.8,
+     -60.0,
+     -51.2
+    ],
+    "max": [
+     3008.1,
+     660.0,
+     2864.9
+    ],
+    "size": [
+     3015.9,
+     720.0,
+     2916.1
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/ROOF-M42.svg",
+   "sheets_est": 3.2,
+   "insulation_m2": 7.0,
+   "data_source": "estimated"
+  },
+  "ROOF-S10": {
+   "category": "roof",
+   "type": "roof",
+   "size": "S",
+   "pitch": 10,
+   "variant": null,
+   "sheets": 5,
+   "parts": 15,
+   "cut_area_m2": 10.066,
+   "waste_cut_m2": 0.13,
+   "bbox_mm": {
+    "min": [
+     -176.8,
+     -60.0,
+     -32.3
+    ],
+    "max": [
+     4839.3,
+     660.0,
+     1404.9
+    ],
+    "size": [
+     5016.2,
+     720.0,
+     1437.2
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/ROOF-S10.svg",
+   "sheets_est": 4.6,
+   "insulation_m2": 5.8,
+   "data_source": "estimated"
+  },
+  "ROOF-S42": {
+   "category": "roof",
+   "type": "roof",
+   "size": "S",
+   "pitch": 42,
+   "variant": null,
+   "sheets": 3,
+   "parts": 12,
+   "cut_area_m2": 6.283,
+   "waste_cut_m2": 0.084,
+   "bbox_mm": {
+    "min": [
+     -7.8,
+     -60.0,
+     -51.2
+    ],
+    "max": [
+     2425.9,
+     660.0,
+     2553.7
+    ],
+    "size": [
+     2433.7,
+     720.0,
+     2604.9
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/ROOF-S42.svg",
+   "sheets_est": 2.9,
+   "insulation_m2": 5.1,
+   "data_source": "estimated"
+  },
+  "ROOF-XS10": {
+   "category": "roof",
+   "type": "roof",
+   "size": "XS",
+   "pitch": 10,
+   "variant": null,
+   "sheets": 4,
+   "parts": 14,
+   "cut_area_m2": 8.747,
+   "waste_cut_m2": 0.114,
+   "bbox_mm": {
+    "min": [
+     -4.9,
+     -60.0,
+     -127.1
+    ],
+    "max": [
+     4239.3,
+     660.0,
+     1078.5
+    ],
+    "size": [
+     4244.2,
+     720.0,
+     1205.6
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/ROOF-XS10.svg",
+   "sheets_est": 4.0,
+   "insulation_m2": 4.1,
+   "data_source": "estimated"
+  },
+  "ROOF-XS42": {
+   "category": "roof",
+   "type": "roof",
+   "size": "XS",
+   "pitch": 42,
+   "variant": null,
+   "sheets": 3,
+   "parts": 12,
+   "cut_area_m2": 5.532,
+   "waste_cut_m2": 0.074,
+   "bbox_mm": {
+    "min": [
+     -7.8,
+     -60.0,
+     -51.2
+    ],
+    "max": [
+     2402.2,
+     660.0,
+     2319.4
+    ],
+    "size": [
+     2410.0,
+     720.0,
+     2370.6
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/ROOF-XS42.svg",
+   "sheets_est": 2.5,
+   "insulation_m2": 4.6,
+   "data_source": "estimated"
+  },
+  "ROOF-XXS10": {
+   "category": "roof",
+   "type": "roof",
+   "size": "XXS",
+   "pitch": 10,
+   "variant": null,
+   "sheets": 4,
+   "parts": 12,
+   "cut_area_m2": 7.422,
+   "waste_cut_m2": 0.098,
+   "bbox_mm": {
+    "min": [
+     -4.9,
+     -60.0,
+     -56.1
+    ],
+    "max": [
+     3813.0,
+     660.0,
+     1101.8
+    ],
+    "size": [
+     3817.9,
+     720.0,
+     1157.9
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/ROOF-XXS10.svg",
+   "sheets_est": 3.4,
+   "insulation_m2": 3.5,
+   "data_source": "estimated"
+  },
+  "ROOF-XXS42": {
+   "category": "roof",
+   "type": "roof",
+   "size": "XXS",
+   "pitch": 42,
+   "variant": null,
+   "sheets": 2,
+   "parts": 10,
+   "cut_area_m2": 4.79,
+   "waste_cut_m2": 0.061,
+   "bbox_mm": {
+    "min": [
+     -7.8,
+     -60.0,
+     -51.2
+    ],
+    "max": [
+     2157.2,
+     660.0,
+     2098.7
+    ],
+    "size": [
+     2165.0,
+     720.0,
+     2149.9
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/ROOF-XXS42.svg",
+   "sheets_est": 2.2,
+   "insulation_m2": 3.7,
+   "data_source": "estimated"
+  },
+  "SKYLIGHT-L": {
+   "category": "roof",
+   "type": "skylight",
+   "size": "L",
+   "pitch": null,
+   "variant": null,
+   "sheets": 6,
+   "parts": 34,
+   "cut_area_m2": 13.709,
+   "waste_cut_m2": 0.22,
+   "bbox_mm": {
+    "min": [
+     -1320.1,
+     -20.9,
+     -651.1
+    ],
+    "max": [
+     119.9,
+     4407.5,
+     752.8
+    ],
+    "size": [
+     1440.0,
+     4428.4,
+     1403.9
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/SKYLIGHT-L.svg",
+   "sheets_est": 5.0,
+   "insulation_m2": 3.6,
+   "data_source": "official-bom"
+  },
+  "SKYLIGHT-M": {
+   "category": "roof",
+   "type": "skylight",
+   "size": "M",
+   "pitch": null,
+   "variant": null,
+   "sheets": 6,
+   "parts": 34,
+   "cut_area_m2": 12.187,
+   "waste_cut_m2": 0.19,
+   "bbox_mm": {
+    "min": [
+     -1320.1,
+     -20.9,
+     -667.1
+    ],
+    "max": [
+     119.9,
+     3975.8,
+     812.4
+    ],
+    "size": [
+     1440.0,
+     3996.7,
+     1479.6
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/SKYLIGHT-M.svg",
+   "sheets_est": 5.6,
+   "insulation_m2": 4.7,
+   "data_source": "estimated"
+  },
+  "SKYLIGHT-S": {
+   "category": "roof",
+   "type": "skylight",
+   "size": "S",
+   "pitch": null,
+   "variant": null,
+   "sheets": 5,
+   "parts": 32,
+   "cut_area_m2": 10.676,
+   "waste_cut_m2": 0.169,
+   "bbox_mm": {
+    "min": [
+     -1320.1,
+     -20.9,
+     -651.1
+    ],
+    "max": [
+     119.9,
+     3670.0,
+     841.6
+    ],
+    "size": [
+     1440.0,
+     3690.8,
+     1492.7
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/SKYLIGHT-S.svg",
+   "sheets_est": 4.9,
+   "insulation_m2": 4.4,
+   "data_source": "estimated"
+  },
+  "SKYLIGHT-XS": {
+   "category": "roof",
+   "type": "skylight",
+   "size": "XS",
+   "pitch": null,
+   "variant": null,
+   "sheets": 4,
+   "parts": 32,
+   "cut_area_m2": 9.175,
+   "waste_cut_m2": 0.151,
+   "bbox_mm": {
+    "min": [
+     -1320.1,
+     -20.9,
+     -667.1
+    ],
+    "max": [
+     119.9,
+     3113.7,
+     768.8
+    ],
+    "size": [
+     1440.0,
+     3134.5,
+     1436.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/SKYLIGHT-XS.svg",
+   "sheets_est": 4.2,
+   "insulation_m2": 3.6,
+   "data_source": "estimated"
+  },
+  "SKYLIGHT-XXS": {
+   "category": "roof",
+   "type": "skylight",
+   "size": "XXS",
+   "pitch": null,
+   "variant": null,
+   "sheets": 4,
+   "parts": 31,
+   "cut_area_m2": 7.615,
+   "waste_cut_m2": 0.128,
+   "bbox_mm": {
+    "min": [
+     -1320.1,
+     -20.9,
+     -502.2
+    ],
+    "max": [
+     119.9,
+     2812.7,
+     593.8
+    ],
+    "size": [
+     1440.0,
+     2833.6,
+     1096.1
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/SKYLIGHT-XXS.svg",
+   "sheets_est": 3.5,
+   "insulation_m2": 3.3,
+   "data_source": "estimated"
+  },
+  "STAIR-L1": {
+   "category": "stair",
+   "type": "stair",
+   "size": "L",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 4,
+   "parts": 33,
+   "cut_area_m2": 7.715,
+   "waste_cut_m2": 0.1,
+   "bbox_mm": {
+    "min": [
+     -167.7,
+     -17.1,
+     -18.0
+    ],
+    "max": [
+     1810.3,
+     1729.6,
+     0.0
+    ],
+    "size": [
+     1978.0,
+     1746.7,
+     18.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/STAIR-L1.svg",
+   "sheets_est": 3.5,
+   "insulation_m2": 0.0,
+   "data_source": "estimated"
+  },
+  "STAIR-M1": {
+   "category": "stair",
+   "type": "stair",
+   "size": "M",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 3,
+   "parts": 30,
+   "cut_area_m2": 6.725,
+   "waste_cut_m2": 0.092,
+   "bbox_mm": {
+    "min": [
+     -161.7,
+     -16.5,
+     -18.0
+    ],
+    "max": [
+     1742.2,
+     1664.5,
+     0.0
+    ],
+    "size": [
+     1903.9,
+     1681.0,
+     18.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/STAIR-M1.svg",
+   "sheets_est": 3.1,
+   "insulation_m2": 0.0,
+   "data_source": "estimated"
+  },
+  "STAIR-S1": {
+   "category": "stair",
+   "type": "stair",
+   "size": "S",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 3,
+   "parts": 27,
+   "cut_area_m2": 6.141,
+   "waste_cut_m2": 0.078,
+   "bbox_mm": {
+    "min": [
+     -166.2,
+     -14.1,
+     -18.0
+    ],
+    "max": [
+     1351.8,
+     1421.4,
+     0.0
+    ],
+    "size": [
+     1518.0,
+     1435.4,
+     18.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/STAIR-S1.svg",
+   "sheets_est": 2.8,
+   "insulation_m2": 0.0,
+   "data_source": "estimated"
+  },
+  "STAIR-XL1": {
+   "category": "stair",
+   "type": "stair",
+   "size": "XL",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 4,
+   "parts": 39,
+   "cut_area_m2": 8.557,
+   "waste_cut_m2": 0.114,
+   "bbox_mm": {
+    "min": [
+     -166.0,
+     -21.5,
+     -18.0
+    ],
+    "max": [
+     1612.7,
+     1613.0,
+     9.7
+    ],
+    "size": [
+     1778.7,
+     1634.5,
+     27.7
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/STAIR-XL1.svg",
+   "sheets_est": 3.9,
+   "insulation_m2": 0.0,
+   "data_source": "estimated"
+  },
+  "DOOR-L1": {
+   "category": "opening",
+   "type": "door",
+   "size": "L",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 3,
+   "parts": 14,
+   "cut_area_m2": 4.918,
+   "waste_cut_m2": 0.034,
+   "bbox_mm": {
+    "min": [
+     -1320.0,
+     -349.8,
+     -2115.0
+    ],
+    "max": [
+     120.0,
+     31.8,
+     790.0
+    ],
+    "size": [
+     1440.0,
+     381.6,
+     2905.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/DOOR-L1.svg",
+   "sheets_est": 2.2,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "DOOR-L2": {
+   "category": "opening",
+   "type": "door",
+   "size": "L",
+   "pitch": null,
+   "variant": "2",
+   "sheets": 4,
+   "parts": 14,
+   "cut_area_m2": 6.709,
+   "waste_cut_m2": 0.119,
+   "bbox_mm": {
+    "min": [
+     -2040.0,
+     -349.8,
+     -2115.0
+    ],
+    "max": [
+     840.0,
+     31.8,
+     824.0
+    ],
+    "size": [
+     2880.0,
+     381.6,
+     2939.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/DOOR-L2.svg",
+   "sheets_est": 3.1,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "DOOR-M1": {
+   "category": "opening",
+   "type": "door",
+   "size": "M",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 2,
+   "parts": 10,
+   "cut_area_m2": 4.538,
+   "waste_cut_m2": 0.034,
+   "bbox_mm": {
+    "min": [
+     -1320.0,
+     -349.8,
+     -2115.0
+    ],
+    "max": [
+     120.0,
+     31.8,
+     490.0
+    ],
+    "size": [
+     1440.0,
+     381.6,
+     2605.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/DOOR-M1.svg",
+   "sheets_est": 2.0,
+   "insulation_m2": 0.4,
+   "data_source": "official-bom"
+  },
+  "DOOR-M2": {
+   "category": "opening",
+   "type": "door",
+   "size": "M",
+   "pitch": null,
+   "variant": "2",
+   "sheets": 3,
+   "parts": 10,
+   "cut_area_m2": 6.329,
+   "waste_cut_m2": 0.119,
+   "bbox_mm": {
+    "min": [
+     -2040.0,
+     -349.8,
+     -2115.0
+    ],
+    "max": [
+     840.0,
+     31.8,
+     524.0
+    ],
+    "size": [
+     2880.0,
+     381.6,
+     2639.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/DOOR-M2.svg",
+   "sheets_est": 2.9,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "DOOR-S1": {
+   "category": "opening",
+   "type": "door",
+   "size": "S",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 2,
+   "parts": 10,
+   "cut_area_m2": 4.196,
+   "waste_cut_m2": 0.034,
+   "bbox_mm": {
+    "min": [
+     -1320.0,
+     -349.8,
+     -2115.0
+    ],
+    "max": [
+     120.0,
+     31.8,
+     190.0
+    ],
+    "size": [
+     1440.0,
+     381.6,
+     2305.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/DOOR-S1.svg",
+   "sheets_est": 1.9,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "DOOR-S2": {
+   "category": "opening",
+   "type": "door",
+   "size": "S",
+   "pitch": null,
+   "variant": "2",
+   "sheets": 3,
+   "parts": 10,
+   "cut_area_m2": 5.987,
+   "waste_cut_m2": 0.119,
+   "bbox_mm": {
+    "min": [
+     -2040.0,
+     -349.8,
+     -2115.0
+    ],
+    "max": [
+     840.0,
+     31.8,
+     224.0
+    ],
+    "size": [
+     2880.0,
+     381.6,
+     2339.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/DOOR-S2.svg",
+   "sheets_est": 2.7,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "DOOR-XL1": {
+   "category": "opening",
+   "type": "door",
+   "size": "XL",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 3,
+   "parts": 14,
+   "cut_area_m2": 5.261,
+   "waste_cut_m2": 0.034,
+   "bbox_mm": {
+    "min": [
+     -1320.0,
+     -349.8,
+     -2115.0
+    ],
+    "max": [
+     120.0,
+     31.8,
+     1090.0
+    ],
+    "size": [
+     1440.0,
+     381.6,
+     3205.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/DOOR-XL1.svg",
+   "sheets_est": 2.5,
+   "insulation_m2": 0.4,
+   "data_source": "official-bom"
+  },
+  "DOOR-XL2": {
+   "category": "opening",
+   "type": "door",
+   "size": "XL",
+   "pitch": null,
+   "variant": "2",
+   "sheets": 4,
+   "parts": 14,
+   "cut_area_m2": 7.052,
+   "waste_cut_m2": 0.119,
+   "bbox_mm": {
+    "min": [
+     -2040.0,
+     -349.8,
+     -2115.0
+    ],
+    "max": [
+     840.0,
+     31.8,
+     1124.0
+    ],
+    "size": [
+     2880.0,
+     381.6,
+     3239.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/DOOR-XL2.svg",
+   "sheets_est": 3.2,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-L1": {
+   "category": "opening",
+   "type": "window",
+   "size": "L",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 3,
+   "parts": 14,
+   "cut_area_m2": 4.463,
+   "waste_cut_m2": 0.045,
+   "bbox_mm": {
+    "min": [
+     -360.0,
+     -31.8,
+     -33.0
+    ],
+    "max": [
+     360.0,
+     349.8,
+     2872.0
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2905.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-L1.svg",
+   "sheets_est": 2.0,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-L2": {
+   "category": "opening",
+   "type": "window",
+   "size": "L",
+   "pitch": null,
+   "variant": "2",
+   "sheets": 3,
+   "parts": 15,
+   "cut_area_m2": 6.69,
+   "waste_cut_m2": 0.05,
+   "bbox_mm": {
+    "min": [
+     -720.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     720.0,
+     349.8,
+     2890.0
+    ],
+    "size": [
+     1440.0,
+     381.6,
+     2905.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-L2.svg",
+   "sheets_est": 3.1,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-L3": {
+   "category": "opening",
+   "type": "window",
+   "size": "L",
+   "pitch": null,
+   "variant": "3",
+   "sheets": 2,
+   "parts": 13,
+   "cut_area_m2": 4.042,
+   "waste_cut_m2": 0.031,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     60.0,
+     349.8,
+     2890.0
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2905.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-L3.svg",
+   "sheets_est": 1.8,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-L4": {
+   "category": "opening",
+   "type": "window",
+   "size": "L",
+   "pitch": null,
+   "variant": "4",
+   "sheets": 3,
+   "parts": 14,
+   "cut_area_m2": 5.584,
+   "waste_cut_m2": 0.035,
+   "bbox_mm": {
+    "min": [
+     -120.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     1320.0,
+     349.8,
+     2890.0
+    ],
+    "size": [
+     1440.0,
+     381.6,
+     2905.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-L4.svg",
+   "sheets_est": 2.5,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-M1": {
+   "category": "opening",
+   "type": "window",
+   "size": "M",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 2,
+   "parts": 12,
+   "cut_area_m2": 4.083,
+   "waste_cut_m2": 0.045,
+   "bbox_mm": {
+    "min": [
+     -360.0,
+     -31.8,
+     -33.0
+    ],
+    "max": [
+     360.0,
+     349.8,
+     2572.0
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2605.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-M1.svg",
+   "sheets_est": 1.9,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-M2": {
+   "category": "opening",
+   "type": "window",
+   "size": "M",
+   "pitch": null,
+   "variant": "2",
+   "sheets": 3,
+   "parts": 13,
+   "cut_area_m2": 6.499,
+   "waste_cut_m2": 0.051,
+   "bbox_mm": {
+    "min": [
+     -720.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     720.0,
+     349.8,
+     2590.0
+    ],
+    "size": [
+     1440.0,
+     381.6,
+     2605.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-M2.svg",
+   "sheets_est": 3.0,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-M3": {
+   "category": "opening",
+   "type": "window",
+   "size": "M",
+   "pitch": null,
+   "variant": "3",
+   "sheets": 2,
+   "parts": 11,
+   "cut_area_m2": 3.661,
+   "waste_cut_m2": 0.031,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.9,
+     -15.0
+    ],
+    "max": [
+     60.0,
+     349.8,
+     2590.0
+    ],
+    "size": [
+     720.0,
+     381.7,
+     2605.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-M3.svg",
+   "sheets_est": 1.7,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-M4": {
+   "category": "opening",
+   "type": "window",
+   "size": "M",
+   "pitch": null,
+   "variant": "4",
+   "sheets": 3,
+   "parts": 12,
+   "cut_area_m2": 5.204,
+   "waste_cut_m2": 0.035,
+   "bbox_mm": {
+    "min": [
+     -120.0,
+     -31.9,
+     -15.0
+    ],
+    "max": [
+     1320.0,
+     349.8,
+     2590.0
+    ],
+    "size": [
+     1440.0,
+     381.7,
+     2605.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-M4.svg",
+   "sheets_est": 2.1,
+   "insulation_m2": 0.4,
+   "data_source": "official-bom"
+  },
+  "WINDOW-S1": {
+   "category": "opening",
+   "type": "window",
+   "size": "S",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 2,
+   "parts": 12,
+   "cut_area_m2": 3.74,
+   "waste_cut_m2": 0.045,
+   "bbox_mm": {
+    "min": [
+     -31.8,
+     -660.0,
+     -15.0
+    ],
+    "max": [
+     349.8,
+     60.0,
+     2290.0
+    ],
+    "size": [
+     381.6,
+     720.0,
+     2305.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-S1.svg",
+   "sheets_est": 1.7,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-S2": {
+   "category": "opening",
+   "type": "window",
+   "size": "S",
+   "pitch": null,
+   "variant": "2",
+   "sheets": 3,
+   "parts": 13,
+   "cut_area_m2": 6.156,
+   "waste_cut_m2": 0.051,
+   "bbox_mm": {
+    "min": [
+     -120.0,
+     -31.8,
+     -15.4
+    ],
+    "max": [
+     1320.0,
+     349.8,
+     2290.0
+    ],
+    "size": [
+     1440.0,
+     381.6,
+     2305.4
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-S2.svg",
+   "sheets_est": 2.8,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-S3": {
+   "category": "opening",
+   "type": "window",
+   "size": "S",
+   "pitch": null,
+   "variant": "3",
+   "sheets": 2,
+   "parts": 11,
+   "cut_area_m2": 3.319,
+   "waste_cut_m2": 0.031,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     60.0,
+     349.8,
+     2290.0
+    ],
+    "size": [
+     720.0,
+     381.6,
+     2305.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-S3.svg",
+   "sheets_est": 1.5,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-S4": {
+   "category": "opening",
+   "type": "window",
+   "size": "S",
+   "pitch": null,
+   "variant": "4",
+   "sheets": 3,
+   "parts": 12,
+   "cut_area_m2": 4.861,
+   "waste_cut_m2": 0.035,
+   "bbox_mm": {
+    "min": [
+     -120.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     1320.0,
+     349.8,
+     2290.0
+    ],
+    "size": [
+     1440.0,
+     381.6,
+     2305.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-S4.svg",
+   "sheets_est": 2.2,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-XL1": {
+   "category": "opening",
+   "type": "window",
+   "size": "XL",
+   "pitch": null,
+   "variant": "1",
+   "sheets": 3,
+   "parts": 14,
+   "cut_area_m2": 4.806,
+   "waste_cut_m2": 0.045,
+   "bbox_mm": {
+    "min": [
+     -360.0,
+     -31.8,
+     -33.0
+    ],
+    "max": [
+     360.0,
+     349.8,
+     3172.0
+    ],
+    "size": [
+     720.0,
+     381.6,
+     3205.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-XL1.svg",
+   "sheets_est": 2.2,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-XL2": {
+   "category": "opening",
+   "type": "window",
+   "size": "XL",
+   "pitch": null,
+   "variant": "2",
+   "sheets": 3,
+   "parts": 15,
+   "cut_area_m2": 7.222,
+   "waste_cut_m2": 0.051,
+   "bbox_mm": {
+    "min": [
+     -720.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     720.0,
+     349.8,
+     3190.0
+    ],
+    "size": [
+     1440.0,
+     381.6,
+     3205.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-XL2.svg",
+   "sheets_est": 3.3,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-XL3": {
+   "category": "opening",
+   "type": "window",
+   "size": "XL",
+   "pitch": null,
+   "variant": "3",
+   "sheets": 3,
+   "parts": 15,
+   "cut_area_m2": 4.384,
+   "waste_cut_m2": 0.031,
+   "bbox_mm": {
+    "min": [
+     -660.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     60.0,
+     349.8,
+     3190.0
+    ],
+    "size": [
+     720.0,
+     381.6,
+     3205.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-XL3.svg",
+   "sheets_est": 2.0,
+   "insulation_m2": 0.4,
+   "data_source": "estimated"
+  },
+  "WINDOW-XL4": {
+   "category": "opening",
+   "type": "window",
+   "size": "XL",
+   "pitch": null,
+   "variant": "4",
+   "sheets": 3,
+   "parts": 17,
+   "cut_area_m2": 6.012,
+   "waste_cut_m2": 0.035,
+   "bbox_mm": {
+    "min": [
+     -120.0,
+     -31.8,
+     -15.0
+    ],
+    "max": [
+     1320.0,
+     349.8,
+     3190.0
+    ],
+    "size": [
+     1440.0,
+     381.6,
+     3205.0
+    ]
+   },
+   "thumb": "thumbs/SKYLARK250/WINDOW-XL4.svg",
+   "sheets_est": 2.8,
+   "insulation_m2": 0.4,
+   "data_source": "official-bom"
+  }
+ }
+}

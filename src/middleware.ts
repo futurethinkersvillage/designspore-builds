@@ -19,6 +19,17 @@ function isDashboardHost(host: string): boolean {
   return DASHBOARD_HOSTS.includes(hostname);
 }
 
+// wikihouse-configurator.portal.place → static app at /wikihouse-configurator/*
+const CONFIGURATOR_HOSTS = [
+  "wikihouse-configurator.portal.place",
+  "wikihouse-configurator.localhost",
+];
+
+function isConfiguratorHost(host: string): boolean {
+  const hostname = host.split(":")[0];
+  return CONFIGURATOR_HOSTS.includes(hostname);
+}
+
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host") || "";
   const { pathname } = request.nextUrl;
@@ -45,6 +56,20 @@ export function middleware(request: NextRequest) {
     const res = NextResponse.next();
     res.headers.set("x-is-dashboard", "1");
     return res;
+  }
+
+  // Subdomain routing: wikihouse-configurator.portal.place → static app files.
+  // Serve index.html at the root and prefix all other (asset) paths so the app's
+  // relative fetches (blocks-*.json, js/, vendor/) resolve under the bundle.
+  if (isConfiguratorHost(host)) {
+    if (!pathname.startsWith("/wikihouse-configurator")) {
+      const url = request.nextUrl.clone();
+      url.pathname = pathname === "/"
+        ? "/wikihouse-configurator/index.html"
+        : `/wikihouse-configurator${pathname}`;
+      return NextResponse.rewrite(url);
+    }
+    return NextResponse.next();
   }
 
   // Legacy: the interactive map moved from /map to /tour (the deck and older

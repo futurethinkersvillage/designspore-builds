@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WikiHouse Cabin Configurator — Skylark 250</title>
+<style>
+  :root {
+    --bg: #14171c; --panel: #1d222a; --panel2: #232a34; --line: #313a47;
+    --text: #e8ebf0; --dim: #9aa5b4; --accent: #f5a524; --accent2: #4ea8de;
+    --ok: #7bc47f;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body {
+    font: 14px/1.45 "Segoe UI", system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    display: grid; grid-template-columns: clamp(200px, 20vw, 300px) minmax(280px, 1fr) clamp(230px, 24vw, 360px); grid-template-rows: 100%;
+    overflow: hidden;
+  }
+  h1 { font-size: 16px; letter-spacing: .02em; }
+  h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); margin: 18px 0 8px; }
+  .panel { background: var(--panel); overflow-y: auto; padding: 16px; border-right: 1px solid var(--line); }
+  #costPanel { border-right: 0; border-left: 1px solid var(--line); }
+  #viewport { position: relative; min-width: 0; }
+  #viewport canvas { display: block; }
+  #hud {
+    position: absolute; left: 12px; top: 12px; background: rgba(20,23,28,.82);
+    padding: 8px 12px; border-radius: 8px; font-size: 12.5px; color: var(--dim);
+    pointer-events: none; white-space: pre-line;
+  }
+  label { display: block; color: var(--dim); font-size: 12px; margin: 10px 0 4px; }
+  select, input[type=number], input[type=text] {
+    width: 100%; background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font-size: 13px;
+  }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .row { display: flex; gap: 8px; }
+  .row > * { flex: 1; }
+  button {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--line);
+    border-radius: 6px; padding: 6px 10px; font-size: 12.5px; cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); color: #14171c; font-weight: 600; border: 0; }
+  .presets { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .presets button { font-size: 11.5px; padding: 6px 4px; }
+  /* interior panel */
+  .intCat { margin-top: 10px; }
+  .intCat > .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--accent2); }
+  .intItem { display: flex; align-items: center; gap: 7px; padding: 3px 0; font-size: 12px; }
+  .intItem input { width: auto; }
+  .intItem .price { margin-left: auto; color: var(--dim); font-size: 11px; }
+  .intItem a { font-size: 10px; }
+  .val { color: var(--accent); font-weight: 600; }
+  /* openings grid */
+  .openGrid { display: grid; gap: 3px; margin-top: 4px; }
+  .openGrid .cell {
+    height: 30px; border-radius: 4px; border: 1px solid var(--line);
+    background: var(--panel2); cursor: pointer; font-size: 11px; color: var(--dim);
+    display: flex; align-items: center; justify-content: center; user-select: none;
+  }
+  .cell.win { background: #2b4a63; color: #bfe0f7; border-color: #4ea8de; }
+  .cell.winL { background: #24557d; color: #d6ecff; border-color: #4ea8de; }
+  .cell.door { background: #5e4a1f; color: #ffe2a8; border-color: var(--accent); }
+  .cell.sky { background: #24557d; color: #d6ecff; border-color: #7ec8f7; }
+  .cell.blocked { opacity: .35; cursor: default; }
+  .hint { font-size: 11px; color: var(--dim); margin-top: 4px; }
+  /* cost table */
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  td, th { padding: 4px 6px; border-bottom: 1px solid var(--line); text-align: right; }
+  td:first-child, th:first-child { text-align: left; }
+  th { color: var(--dim); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+  .group td { color: var(--accent2); font-weight: 600; padding-top: 10px; }
+  .totalRow td { font-size: 15px; font-weight: 700; color: var(--accent); border-bottom: 0; padding-top: 10px; }
+  .subtotalRow td { font-weight: 600; color: var(--ok); border-top: 1px solid var(--line); padding-top: 8px; }
+  .rate { width: 74px; background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 4px; padding: 2px 5px; font-size: 12px; text-align: right; }
+  .muted { color: var(--dim); }
+  .badge { font-size: 10px; padding: 1px 5px; border-radius: 4px; background: var(--panel2); color: var(--dim); border: 1px solid var(--line); }
+  #bomTable { max-height: 260px; overflow-y: auto; display: block; }
+  .disclaimer { font-size: 11px; color: var(--dim); margin-top: 14px; line-height: 1.5; border-top: 1px solid var(--line); padding-top: 10px; }
+  a { color: var(--accent2); }
+</style>
+</head>
+<body>
+
+<div class="panel" id="controls">
+  <h1>🏠 WikiHouse Configurator</h1>
+  <div class="hint" id="sysHint">v0.2.2 block library</div>
+
+  <h2>Building system</h2>
+  <select id="system"></select>
+  <div class="hint" id="sysBlurb"></div>
+
+  <h2>Presets</h2>
+  <div class="presets" id="presets"></div>
+
+  <h2>Shape</h2>
+  <label>Internal span (width)</label>
+  <select id="span"></select>
+
+  <label>Length: <span class="val" id="lenLabel"></span></label>
+  <input type="range" id="modules" min="3" max="14" step="1">
+
+  <label>Wall height</label>
+  <select id="wallHeight">
+    <option value="S">S — 2.1 m</option>
+    <option value="M" selected>M — 2.4 m</option>
+    <option value="L">L — 2.7 m</option>
+    <option value="XL">XL — 3.0 m</option>
+  </select>
+
+  <label>Roof</label>
+  <select id="roof"></select>
+
+  <label>Storeys</label>
+  <select id="storeys">
+    <option value="1" selected>1 storey</option>
+    <option value="2">2 storeys</option>
+    <option value="3">3 storeys</option>
+  </select>
+  <div class="hint" id="storeyHint"></div>
+
+  <label>Roof — click a bay to place a skylight</label>
+  <div class="openGrid" id="gridSkylight"></div>
+
+  <h2>Finishes</h2>
+  <label>Roofing</label>
+  <select id="roofing"></select>
+  <label>Cladding</label>
+  <select id="cladding"></select>
+  <div class="hint">Finish colours show in the simple view; detailed view shows the raw plywood chassis.</div>
+
+  <h2>Windows &amp; doors</h2>
+  <div class="hint">Click a bay to cycle: empty → window → wide window → <b>door</b> → empty. Doors &amp; wide windows need the next bay free (click a bay with an empty bay to its right).</div>
+  <label>Front wall</label>
+  <div class="openGrid" id="gridFront"></div>
+  <label>Back wall</label>
+  <div class="openGrid" id="gridBack"></div>
+
+  <h2>View</h2>
+  <div class="hint">Fusion 360 controls: <b>middle-drag</b> pans · <b>Shift+middle-drag</b> orbits · <b>wheel</b> zooms. (Left-drag also orbits.)</div>
+  <label>Exploded view: <span class="val" id="explodeLabel">0%</span></label>
+  <input type="range" id="explode" min="0" max="100" step="1" value="0">
+  <div class="row" style="margin-top:8px">
+    <button id="spinBtn">⟳ Auto-rotate</button>
+    <button id="resetCam">Reset view</button>
+  </div>
+
+  <h2>Interior &amp; services
+    <label style="float:right; font-size:11px; text-transform:none; letter-spacing:0; cursor:pointer">
+      <input type="checkbox" id="showInterior" style="width:auto"> show in 3D
+    </label>
+  </h2>
+  <div class="hint">Optional — adds Canadian-priced line items and furnishings. CNC furniture references opendesk / obrary / 3axis / AtFAB cut-file libraries.</div>
+  <label>Layout template</label>
+  <select id="interiorTemplate"></select>
+  <div class="hint">Pick a furnished layout in one click; it reflows to the building size. Or fine-tune items below.</div>
+  <div id="interiorPanel"></div>
+
+  <div class="row" style="margin-top:14px">
+    <button id="saveBtn">Save design</button>
+    <button id="loadBtn">Load</button>
+  </div>
+</div>
+
+<div id="viewport"><div id="hud"></div></div>
+
+<div class="panel" id="costPanel">
+  <h1>Cost estimate <span class="badge" id="currBadge">CAD</span></h1>
+  <div class="hint">Every rate is editable — click the numbers.</div>
+  <div id="costTables"></div>
+
+  <h2>Bill of materials <button id="csvBtn" style="float:right; margin-top:-4px">⬇ CSV</button></h2>
+  <table id="bomTable"></table>
+
+  <div class="disclaimer">
+    <b>Estimates only — not a quote, not engineering.</b> Sheet counts for blocks marked
+    “est.” are derived from CNC cut areas (median nesting utilization 0.74); others come from
+    WikiHouse’s published BoM data. Gable-end and skillion wall-topper sets are approximations.
+    Every WikiHouse project must be checked by a structural engineer.
+    <br><br>
+    Block system: <a href="https://www.wikihouse.cc" target="_blank">WikiHouse Skylark</a> by
+    Open Systems Lab, CC BY-SA 4.0. This tool is an unofficial community configurator.
+  </div>
+</div>
+
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js", "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js", "three/addons/loaders/GLTFLoader.js": "./vendor/GLTFLoader.js" } }
+</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
