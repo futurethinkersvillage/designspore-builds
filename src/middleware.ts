@@ -88,6 +88,7 @@ export function middleware(request: NextRequest) {
     pathname === "/map-editor" || pathname.startsWith("/map-editor/") ||
     pathname === "/cabin-fund" || pathname.startsWith("/cabin-fund/") ||
     pathname === "/cabin-fund2" || pathname.startsWith("/cabin-fund2/") ||
+    pathname === "/sienci" || pathname.startsWith("/sienci/") ||
     pathname === "/future-school" || pathname.startsWith("/future-school/") ||
     pathname === "/future-school4" || pathname.startsWith("/future-school4/") ||
     pathname === "/membership" || pathname.startsWith("/membership/")
