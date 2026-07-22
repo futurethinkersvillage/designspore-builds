@@ -138,8 +138,20 @@
     <div class="adv" style="border-bottom:none"><b>The gear &amp; the AI</b><span>High-end cameras, plus AI tools I&rsquo;ve built (WikiHouse configurator, an art generator).</span></div>
   </div>
 
-  <!-- right: video -->
-  <video style="position:absolute;left:1180px;top:520px;width:620px;height:428px;object-fit:cover;border-radius:16px;border:1px solid var(--line)" autoplay muted loop playsinline preload="auto" poster="assets/img/tree_tower.webp" src="/sienci/assets/video/art_tower.mp4"></video>
+  <!-- right: video (YouTube embed - muted autoplay loop, controls let them unmute) -->
+  <iframe class="ytv no-nav" title="3 Years on 400 Acres" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" frameborder="0"
+    style="position:absolute;left:1180px;top:520px;width:620px;height:428px;border-radius:16px;border:1px solid var(--line);background:#0a090c"></iframe>
+  <script>
+  (function(){
+    var sec=document.currentScript.closest('section'); if(!sec) return;
+    var f=sec.querySelector('.ytv'); if(!f) return;
+    var ID='xrL-wL5Bueg';
+    var EMBED='https://www.youtube.com/embed/'+ID+'?autoplay=1&mute=1&loop=1&playlist='+ID+'&controls=1&modestbranding=1&rel=0&playsinline=1&enablejsapi=1';
+    function post(fn){ try{ f.contentWindow&&f.contentWindow.postMessage(JSON.stringify({event:'command',func:fn,args:[]}),'*'); }catch(e){} }
+    sec.addEventListener('deck:enter',function(){ if(!f.getAttribute('src')) f.src=EMBED; else post('playVideo'); });
+    sec.addEventListener('deck:leave',function(){ if(f.getAttribute('src')) post('pauseVideo'); });
+  })();
+  </script>
 
   <p class="statement" style="position:absolute;left:1180px;top:352px;width:620px;font-family:var(--serif);font-weight:300;font-size:27px;color:var(--ink);margin:0;line-height:1.2">
     I&rsquo;m doing all of this <i style="color:var(--amber)">anyway.</i> A CNC just makes it better &mdash; and filmable.</p>
@@ -166,7 +178,28 @@
     <div class="beat" style="border-bottom:none"><span class="bn">04</span><div><b>Distinctive enough to travel</b><p>The algorithm rewards what nobody else is making.</p></div></div>
   </div>
 
-  <video style="position:absolute;left:1180px;top:352px;width:620px;height:596px;object-fit:cover;border-radius:18px;border:1px solid var(--line)" autoplay muted loop playsinline preload="auto" poster="assets/img/art_walk.webp" src="/sienci/assets/video/mushroom_glow.mp4"></video>
+  <div class="reel no-nav" style="position:absolute;left:1180px;top:352px;width:620px;height:596px;border-radius:18px;overflow:hidden;background:#0a090c;border:1px solid var(--line)">
+    <video class="rv ra" data-seq muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s"></video>
+    <video class="rv rb" data-seq muted playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s"></video>
+  </div>
+  <script>
+  (function(){
+    var sec=document.currentScript.closest('section'); if(!sec) return;
+    var AB='assets'; try{var l=document.querySelector('link[rel="stylesheet"][href*="brand.css"]'); if(l)AB=l.getAttribute('href').replace(/\/brand\.css.*$/,'');}catch(e){}
+    var LIST=['mushroom_glow','fest_5','show_6582','fest_1','show_2337','show_2242'].map(function(n){return AB+'/video/'+n+'.mp4';});
+    var box=sec.querySelector('.reel'); if(!box) return;
+    var ra=box.querySelector('.ra'), rb=box.querySelector('.rb');
+    var i=-1, act=null, running=false;
+    function fade(el){ [ra,rb].forEach(function(v){v.style.opacity=(v===el)?'1':'0';}); }
+    function play(n){ i=n; var buf=(act===ra)?rb:ra; if(buf.getAttribute('src')!==LIST[i])buf.src=LIST[i]; try{buf.currentTime=0;}catch(e){} var p=buf.play(); if(p&&p.catch)p.catch(function(){}); fade(buf); act=buf; }
+    function nx(){ if(running) play((i+1)%LIST.length); }
+    ra.addEventListener('ended',function(){ if(running&&act===ra)nx(); });
+    rb.addEventListener('ended',function(){ if(running&&act===rb)nx(); });
+    ra.preload='metadata'; ra.src=LIST[0]; fade(ra); act=ra;
+    sec.addEventListener('deck:enter',function(){ if(!running){running=true; play(i<0?0:i);} });
+    sec.addEventListener('deck:leave',function(){ running=false; try{ra.pause();rb.pause();}catch(e){} });
+  })();
+  </script>
 
   <div class="foot"></div>
   <div class="foot-wm">Future<b>.</b>Thinkers</div>
@@ -319,7 +352,7 @@
       glamp:['v/glamp_1','v/glamp_2'],
       artgen:['v/artgen_v'],
       cabingen:['v/app_demo'],
-      furn:['v/furn_1','v/furn_2','i/furn_i1','i/furn_i2','i/furn_i3'],
+      furn:['v/furn_1','v/furn_2','i/furn_i1','i/furn_i3'],
       sign:['v/sign_1','v/sign_2','i/sign_i1','i/sign_i2'],
       arch:['v/arch_1','v/arch_2','v/arch_3'],
       decor:['v/decor_1','v/decor_2','v/decor_3','v/decor_4','v/decor_5']
