@@ -77,6 +77,7 @@
     ra.preload='metadata'; ra.src=LIST[0]; fade(ra); act=ra;
     sec.addEventListener('deck:enter',function(){ if(!running){running=true; play(i<0?0:i);} });
     sec.addEventListener('deck:leave',function(){ running=false; try{ra.pause();rb.pause();}catch(e){} });
+    sec.addEventListener('deck:preload',function(){ if(ra.preload!=='auto'){ra.preload='auto'; try{ra.load();}catch(e){}} });
   })();
   </script>
 
@@ -140,8 +141,8 @@
 
   <!-- right: video (YouTube embed - muted autoplay loop, controls let them unmute) -->
   <iframe class="ytv no-nav" title="3 Years on 400 Acres" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" frameborder="0"
-    style="position:absolute;left:1180px;top:520px;width:620px;height:412px;border-radius:16px;border:1px solid var(--line);background:#0a090c"></iframe>
-  <p style="position:absolute;left:1180px;top:944px;width:620px;font-family:var(--sans);font-size:17px;line-height:1.4;color:var(--dim);margin:0">
+    style="position:absolute;left:1180px;top:540px;width:620px;height:349px;border-radius:16px;border:1px solid var(--line);background:#0a090c"></iframe>
+  <p style="position:absolute;left:1180px;top:906px;width:620px;font-family:var(--sans);font-size:17px;line-height:1.4;color:var(--dim);margin:0">
     A film I shot and cut myself &mdash; a tour of the land and the story behind why we started.</p>
   <script>
   (function(){
@@ -152,6 +153,7 @@
     function post(fn){ try{ f.contentWindow&&f.contentWindow.postMessage(JSON.stringify({event:'command',func:fn,args:[]}),'*'); }catch(e){} }
     sec.addEventListener('deck:enter',function(){ if(!f.getAttribute('src')) f.src=EMBED; else post('playVideo'); });
     sec.addEventListener('deck:leave',function(){ if(f.getAttribute('src')) post('pauseVideo'); });
+    sec.addEventListener('deck:preload',function(){ if(!f.getAttribute('src')) f.src=EMBED; });
   })();
   </script>
 
@@ -200,6 +202,7 @@
     ra.preload='metadata'; ra.src=LIST[0]; fade(ra); act=ra;
     sec.addEventListener('deck:enter',function(){ if(!running){running=true; play(i<0?0:i);} });
     sec.addEventListener('deck:leave',function(){ running=false; try{ra.pause();rb.pause();}catch(e){} });
+    sec.addEventListener('deck:preload',function(){ if(ra.preload!=='auto'){ra.preload='auto'; try{ra.load();}catch(e){}} });
   })();
   </script>
 
@@ -325,7 +328,7 @@
   <div class="foot-pg"><b>06</b> / 11</div>
 
   <style>section[data-n="6"] .acc{position:absolute;left:120px;top:448px;width:1680px;height:452px;display:flex;gap:8px;align-items:center}section[data-n="6"] .pan{position:relative;flex:1 1 0;min-width:0;height:100%;border-radius:14px;overflow:hidden;background:#0a090c;
-      border:1px solid var(--line);transition:flex .7s cubic-bezier(.33,0,.2,1)}section[data-n="6"] .mstack{position:absolute;inset:0}section[data-n="6"] /* media is a FIXED size (full panel height, section[data-n="6"] natural width), section[data-n="6"] centered; the panel
+      border:1px solid var(--line);transition:flex .7s cubic-bezier(.33,0,.2,1)}section[data-n="6"] .mstack{position:absolute;top:0;left:0;width:100%;height:100%}section[data-n="6"] /* media is a FIXED size (full panel height, section[data-n="6"] natural width), section[data-n="6"] centered; the panel
        is a window that widens to reveal it. The media itself never scales. */
     [data-n="6"] .ly{position:absolute;top:0;left:50%;transform:translateX(-50%);height:100%;width:auto;max-width:none;opacity:0;transition:opacity .4s}section[data-n="6"] .pan::after{content:"";position:absolute;inset:0;z-index:1;transition:background .4s;pointer-events:none;
       background:linear-gradient(0deg,rgba(8,7,10,.92),rgba(8,7,10,.12) 56%,rgba(8,7,10,.42))}section[data-n="6"] .pan:hover::after{background:linear-gradient(0deg,rgba(8,7,10,.86),rgba(8,7,10,.16) 74%,rgba(8,7,10,.4))}section[data-n="6"] .num{position:absolute;top:13px;left:13px;z-index:3;font-family:var(--serif);font-weight:300;
@@ -371,11 +374,15 @@
       function fade(el){ activeLayer=el; layers.forEach(function(l){ l.style.opacity=(l===el)?'1':'0'; }); }
       function clearT(){ if(timer){clearTimeout(timer);timer=null;} }
       function set(el,u){ if(el.getAttribute('src')!==u) el.src=u; }
+      // pin media to the panel's pixel height (percentage-height won't resolve through
+      // the flex-item/abs-child chain, so the media would render at intrinsic size).
+      function fitH(){ var h=pan.clientHeight; if(!h) return; var hp=h+'px';
+        layers.forEach(function(l){ if(l.style.height!==hp) l.style.height=hp; }); }
       // size the (hovered) panel to the current media's aspect so it fills with no crop / no bars
       function aspectOf(el){ if(!el) return 0;
         if(el.tagName==='VIDEO') return el.videoWidth ? el.videoWidth/el.videoHeight : 0;
         return el.naturalWidth ? el.naturalWidth/el.naturalHeight : 0; }
-      function resize(){ if(!hovered) return; var a=aspectOf(activeLayer); if(!a) return;
+      function resize(){ fitH(); if(!hovered) return; var a=aspectOf(activeLayer); if(!a) return;
         var h=pan.clientHeight||452; var w=Math.max(228,Math.min(880,Math.round(h*a)));
         pan.style.flex='0 0 '+w+'px'; }
       function fitWhenReady(){ var el=activeLayer; if(!el) return;
@@ -401,11 +408,13 @@
       return {
         pan:pan,
         setHovered:function(b){ hovered=b; if(b) resize(); },
-        start:function(){ if(running||!list.length) return; running=true; play(i<0?0:i); },
+        start:function(){ fitH(); if(running||!list.length) return; running=true; play(i<0?0:i); },
         stop:function(){ running=false; clearT(); try{va.pause();vb.pause();}catch(e){} },
         poster:function(){ var it=list[0]; if(!it) return;
           if(it.t==='v'){ va.preload='metadata'; set(va,url(it.src)); fade(va); activeV=va; }
-          else { set(im,url(it.src)); fade(im); } }
+          else { set(im,url(it.src)); fade(im); } },
+        preload:function(){ var it=list[0]; if(!it||it.t!=='v') return;
+          if(va.preload!=='auto'){ va.preload='auto'; try{va.load();}catch(e){} } }
       };
     }
 
@@ -426,6 +435,7 @@
     acc.addEventListener('mouseleave',function(){ layout(-1); });
     sec.addEventListener('deck:enter',function(){ ctls.forEach(function(c){ c.start(); }); });
     sec.addEventListener('deck:leave',function(){ ctls.forEach(function(c){ c.stop(); }); });
+    sec.addEventListener('deck:preload',function(){ ctls.forEach(function(c){ c.preload&&c.preload(); }); });
   })();
   </script>
 </section>
@@ -516,7 +526,26 @@
 </section>
 <section class="slide" data-n="11">
   <img class="bleed" src="/sienci/assets/img/art_lanterns.webp" alt="">
-  <video style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" autoplay muted loop playsinline preload="auto" poster="assets/img/art_lanterns.webp" src="/sienci/assets/video/close_tower.mp4"></video>
+  <video class="cv ca" data-seq muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s"></video>
+  <video class="cv cb" data-seq muted playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s"></video>
+  <script>
+  (function(){
+    var sec=document.currentScript.closest('section'); if(!sec) return;
+    var AB='assets'; try{var l=document.querySelector('link[rel="stylesheet"][href*="brand.css"]'); if(l)AB=l.getAttribute('href').replace(/\/brand\.css.*$/,'');}catch(e){}
+    var LIST=['mushroom_glow','fest_5','show_6582','fest_1','show_2337','show_2242','show_400acres'].map(function(n){return AB+'/video/'+n+'.mp4';});
+    var ca=sec.querySelector('.ca'), cb=sec.querySelector('.cb'); if(!ca) return;
+    var i=-1, act=null, running=false;
+    function fade(el){ [ca,cb].forEach(function(v){v.style.opacity=(v===el)?'1':'0';}); }
+    function play(n){ i=n; var buf=(act===ca)?cb:ca; if(buf.getAttribute('src')!==LIST[i])buf.src=LIST[i]; try{buf.currentTime=0;}catch(e){} var p=buf.play(); if(p&&p.catch)p.catch(function(){}); fade(buf); act=buf; }
+    function nx(){ if(running) play((i+1)%LIST.length); }
+    ca.addEventListener('ended',function(){ if(running&&act===ca)nx(); });
+    cb.addEventListener('ended',function(){ if(running&&act===cb)nx(); });
+    ca.preload='metadata'; ca.src=LIST[0]; fade(ca); act=ca;
+    sec.addEventListener('deck:enter',function(){ if(!running){running=true; play(i<0?0:i);} });
+    sec.addEventListener('deck:leave',function(){ running=false; try{ca.pause();cb.pause();}catch(e){} });
+    sec.addEventListener('deck:preload',function(){ if(ca.preload!=='auto'){ca.preload='auto'; try{ca.load();}catch(e){}} });
+  })();
+  </script>
   <div style="position:absolute;inset:0;background:rgba(10,9,13,.56)"></div>
   <div class="scrim-l"></div>
   <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,11,15,.74),transparent 44%)"></div>
@@ -620,6 +649,8 @@ function show(i,dir){
        s.querySelectorAll("video:not([data-seq])").forEach(v=>{ v.play&&v.play().catch(()=>{}); }); }catch(e){}
   // notify per-slide media sequencers (they own [data-seq] videos themselves)
   try{ slides.forEach(x=>x.dispatchEvent(new CustomEvent("deck:"+(x===s?"enter":"leave")))); }catch(e){}
+  // warm the neighbours one slide out so their media is buffered before arrival
+  try{ [i-1,i+1].forEach(function(k){ if(k>=0&&k<total&&k!==i) slides[k].dispatchEvent(new CustomEvent("deck:preload")); }); }catch(e){}
   prog.style.width=((i+1)/total*100)+"%";
   history.replaceState(null,"","#"+(i+1));
   try{ if(window.parent&&window.parent!==window) window.parent.postMessage({t:"deckslide",n:i+1},location.origin); }catch(e){}
