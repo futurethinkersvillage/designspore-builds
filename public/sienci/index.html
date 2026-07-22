@@ -188,7 +188,7 @@
   (function(){
     var sec=document.currentScript.closest('section'); if(!sec) return;
     var AB='assets'; try{var l=document.querySelector('link[rel="stylesheet"][href*="brand.css"]'); if(l)AB=l.getAttribute('href').replace(/\/brand\.css.*$/,'');}catch(e){}
-    var LIST=['mushroom_glow','fest_5','show_6582','fest_1','show_2337','show_2242'].map(function(n){return AB+'/video/'+n+'.mp4';});
+    var LIST=['mushroom_glow','fest_5','show_6582','fest_1','show_2337','show_2242','show_400acres'].map(function(n){return AB+'/video/'+n+'.mp4';});
     var box=sec.querySelector('.reel'); if(!box) return;
     var ra=box.querySelector('.ra'), rb=box.querySelector('.rb');
     var i=-1, act=null, running=false;
