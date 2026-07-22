@@ -14,7 +14,7 @@
 <div id="stage">
 <section class="slide" data-n="1">
   <img class="bleed" src="/sienci/assets/img/art_portal.webp" alt="">
-  <video style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" autoplay muted loop playsinline preload="auto" poster="assets/img/art_portal.webp" src="/sienci/assets/video/art_tower.mp4"></video>
+  <video style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" autoplay muted loop playsinline preload="auto" poster="assets/img/art_portal.webp" src="/sienci/assets/video/cover_walk.mp4"></video>
   <div style="position:absolute;inset:0;background:rgba(10,9,13,.5)"></div>
   <div class="scrim-l"></div>
   <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,11,15,.74),transparent 46%)"></div>
@@ -118,13 +118,8 @@
     <div class="adv" style="border-bottom:none"><b>The gear &amp; the AI</b><span>High-end cameras, plus AI tools I&rsquo;ve built (WikiHouse configurator, an art generator).</span></div>
   </div>
 
-  <!-- right: image grid -->
-  <div class="pgrid" style="position:absolute;left:1180px;top:520px;width:620px;height:428px;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr">
-    <img src="/sienci/assets/img/wikihouse_frame.webp" alt="cnc-cut wikihouse cabins">
-    <img src="/sienci/assets/img/music_stage.webp" alt="cnc art festival stage">
-    <img src="/sienci/assets/img/makerspace.webp" alt="maker space">
-    <img src="/sienci/assets/img/tree_tower.webp" alt="cnc art tower">
-  </div>
+  <!-- right: video -->
+  <video style="position:absolute;left:1180px;top:520px;width:620px;height:428px;object-fit:cover;border-radius:16px;border:1px solid var(--line)" autoplay muted loop playsinline preload="auto" poster="assets/img/tree_tower.webp" src="/sienci/assets/video/art_tower.mp4"></video>
 
   <p class="statement" style="position:absolute;left:1180px;top:352px;width:620px;font-family:var(--serif);font-weight:300;font-size:27px;color:var(--ink);margin:0;line-height:1.2">
     I&rsquo;m doing all of this <i style="color:var(--amber)">anyway.</i> A CNC just makes it better &mdash; and filmable.</p>
@@ -151,7 +146,7 @@
     <div class="beat" style="border-bottom:none"><span class="bn">04</span><div><b>Distinctive enough to travel</b><p>The algorithm rewards what nobody else is making.</p></div></div>
   </div>
 
-  <video style="position:absolute;left:1180px;top:352px;width:620px;height:596px;object-fit:cover;border-radius:18px;border:1px solid var(--line)" autoplay muted loop playsinline preload="auto" poster="assets/img/art_walk.webp" src="/sienci/assets/video/artwalk.mp4"></video>
+  <video style="position:absolute;left:1180px;top:352px;width:620px;height:596px;object-fit:cover;border-radius:18px;border:1px solid var(--line)" autoplay muted loop playsinline preload="auto" poster="assets/img/art_walk.webp" src="/sienci/assets/video/mushroom_glow.mp4"></video>
 
   <div class="foot"></div>
   <div class="foot-wm">Future<b>.</b>Thinkers</div>
@@ -206,7 +201,7 @@
       <div class="cap"><b>CNC-cut glamping cabins</b><span>WikiHouse flat-pack builds, artfully finished &mdash; the rural build series.</span></div>
     </div>
     <div class="itile">
-      <video class="im" autoplay muted loop playsinline preload="auto" poster="assets/img/tree_tower.webp" src="/sienci/assets/video/art_tower.mp4"></video>
+      <video class="im" autoplay muted loop playsinline preload="auto" poster="assets/img/tree_tower.webp" src="/sienci/assets/video/tour_walk.mp4"></video>
       <div class="cap"><b>Art &amp; Nature tour</b><span>Giant CNC sculptures with embedded LEDs along the trails. Burning Man in the forest.</span></div>
     </div>
     <div class="itile">
@@ -222,7 +217,7 @@
       <div class="cap"><b>Educational treasure hunt</b><span>CNC-cut boxes, carved prizes and wooden maps &mdash; ties into the kids&rsquo; maker school.</span></div>
     </div>
     <div class="itile">
-      <video class="im" autoplay muted loop playsinline preload="auto" src="/sienci/assets/video/icosahedron.mp4"></video>
+      <video class="im" autoplay muted loop playsinline preload="auto" src="/sienci/assets/video/icosahedron_slow.mp4"></video>
       <div class="cap"><b>The art-generator app &rarr; CNC</b><span>An AI app I&rsquo;m building spits out laser/CNC art &mdash; generate, cut, film the whole loop.</span></div>
     </div>
   </div>
@@ -280,8 +275,10 @@
   <div class="foot-wm">Future<b>.</b>Thinkers</div>
   <div class="foot-pg"><b>07</b> / 12</div>
 
-  <style>section[data-n="7"] .proj{display:flex;flex-direction:column;text-decoration:none;background:var(--surface);
-      border:1px solid var(--line);border-radius:16px;padding:24px 26px;transition:border-color .18s,transform .18s}section[data-n="7"] .proj:hover{border-color:var(--amber);transform:translateY(-3px)}section[data-n="7"] .proj b{font-family:var(--sans);font-weight:600;font-size:23px;color:var(--ink);margin-bottom:9px}section[data-n="7"] .proj p{font-family:var(--sans);font-weight:400;font-size:18.5px;line-height:1.4;color:var(--body);margin:0 0 14px;flex:1}section[data-n="7"] .proj .lk{font-family:var(--sans);font-weight:600;font-size:18px;color:var(--amber)}
+  <style>section[data-n="7"] .proj{position:relative;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;
+      background-color:var(--surface);background-size:cover;background-position:center;
+      border:1px solid var(--line);border-radius:16px;padding:24px 26px;transition:border-color .18s,transform .18s}section[data-n="7"] .proj::before{content:"";position:absolute;inset:0;z-index:0;
+      background:linear-gradient(180deg,rgba(12,10,14,.80),rgba(12,10,14,.93))}section[data-n="7"] .proj > *{position:relative;z-index:1}section[data-n="7"] .proj:hover{border-color:var(--amber);transform:translateY(-3px)}section[data-n="7"] a.proj:nth-of-type(1){background-image:url("assets/img/makerspace.webp")}section[data-n="7"] a.proj:nth-of-type(2){background-image:url("assets/img/mushroom_art.webp")}section[data-n="7"] a.proj:nth-of-type(3){background-image:url("assets/img/art_lanterns.webp")}section[data-n="7"] a.proj:nth-of-type(4){background-image:url("assets/img/mask.webp")}section[data-n="7"] a.proj:nth-of-type(5){background-image:url("assets/img/art_walk.webp")}section[data-n="7"] a.proj:nth-of-type(6){background-image:url("assets/img/music_stage.webp")}section[data-n="7"] .proj b{font-family:var(--sans);font-weight:600;font-size:23px;color:var(--ink);margin-bottom:9px}section[data-n="7"] .proj p{font-family:var(--sans);font-weight:400;font-size:18.5px;line-height:1.4;color:var(--body);margin:0 0 14px;flex:1}section[data-n="7"] .proj .lk{font-family:var(--sans);font-weight:600;font-size:18px;color:var(--amber)}
   </style>
 </section>
 <section class="slide" data-n="8">
@@ -371,7 +368,7 @@
 </section>
 <section class="slide" data-n="11">
   <img class="bleed" src="/sienci/assets/img/art_lanterns.webp" alt="">
-  <video style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" autoplay muted loop playsinline preload="auto" poster="assets/img/art_lanterns.webp" src="/sienci/assets/video/festival.mp4"></video>
+  <video style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" autoplay muted loop playsinline preload="auto" poster="assets/img/art_lanterns.webp" src="/sienci/assets/video/close_tower.mp4"></video>
   <div style="position:absolute;inset:0;background:rgba(10,9,13,.56)"></div>
   <div class="scrim-l"></div>
   <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,11,15,.74),transparent 44%)"></div>
