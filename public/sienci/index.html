@@ -327,16 +327,15 @@
   <div class="foot-wm">Future<b>.</b>Thinkers</div>
   <div class="foot-pg"><b>06</b> / 11</div>
 
-  <style>section[data-n="6"] .acc{position:absolute;left:120px;top:448px;width:1680px;height:452px;display:flex;gap:8px;align-items:center}section[data-n="6"] .pan{position:relative;flex:1 1 0;min-width:0;height:100%;border-radius:14px;overflow:hidden;background:#0a090c;
-      border:1px solid var(--line);transition:flex .7s cubic-bezier(.33,0,.2,1)}section[data-n="6"] .mstack{position:absolute;top:0;left:0;width:100%;height:100%}section[data-n="6"] /* media is a FIXED size (full panel height, section[data-n="6"] natural width), section[data-n="6"] centered; the panel
-       is a window that widens to reveal it. The media itself never scales. */
-    [data-n="6"] .ly{position:absolute;top:0;left:50%;transform:translateX(-50%);height:100%;width:auto;max-width:none;opacity:0;transition:opacity .4s}section[data-n="6"] .pan::after{content:"";position:absolute;inset:0;z-index:1;transition:background .4s;pointer-events:none;
-      background:linear-gradient(0deg,rgba(8,7,10,.92),rgba(8,7,10,.12) 56%,rgba(8,7,10,.42))}section[data-n="6"] .pan:hover::after{background:linear-gradient(0deg,rgba(8,7,10,.86),rgba(8,7,10,.16) 74%,rgba(8,7,10,.4))}section[data-n="6"] .num{position:absolute;top:13px;left:13px;z-index:3;font-family:var(--serif);font-weight:300;
+  <style>section[data-n="6"] .acc{position:absolute;left:120px;top:448px;width:1680px;height:452px}section[data-n="6"] .pan{position:absolute;top:0;bottom:0;width:120px;border-radius:14px;overflow:hidden;background:#0a090c;
+      border:1px solid var(--line);z-index:1;box-shadow:0 0 0 rgba(0,0,0,0);
+      transition:left .5s cubic-bezier(.33,0,.2,1),width .5s cubic-bezier(.33,0,.2,1),box-shadow .5s}section[data-n="6"] .pan.open{z-index:10;box-shadow:0 18px 60px rgba(0,0,0,.6)}section[data-n="6"] .mstack{position:absolute;top:0;left:0;width:100%;height:100%}section[data-n="6"] .ly{position:absolute;top:0;left:50%;transform:translateX(-50%);height:100%;width:auto;max-width:none;opacity:0;transition:opacity .4s}section[data-n="6"] .pan::after{content:"";position:absolute;inset:0;z-index:1;transition:background .4s;pointer-events:none;
+      background:linear-gradient(0deg,rgba(8,7,10,.92),rgba(8,7,10,.12) 56%,rgba(8,7,10,.42))}section[data-n="6"] .pan.open::after{background:linear-gradient(0deg,rgba(8,7,10,.86),rgba(8,7,10,.16) 74%,rgba(8,7,10,.4))}section[data-n="6"] .num{position:absolute;top:13px;left:13px;z-index:3;font-family:var(--serif);font-weight:300;
       font-size:22px;color:rgba(255,255,255,.72);text-shadow:0 2px 8px rgba(0,0,0,.8);transition:opacity .25s}section[data-n="6"] .vlabel{position:absolute;left:50%;top:50%;z-index:3;transform:translate(-50%,-50%) rotate(180deg);
       writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap;pointer-events:none;
       font-family:var(--sans);font-weight:600;font-size:18px;letter-spacing:.02em;color:#fff;
       text-shadow:0 2px 12px rgba(0,0,0,.9);transition:opacity .25s}section[data-n="6"] .full{position:absolute;left:20px;right:20px;bottom:18px;z-index:4;opacity:0;transform:translateY(8px);
-      pointer-events:none;transition:opacity .3s .12s,transform .3s .12s}section[data-n="6"] .pan:hover .full{opacity:1;transform:none;pointer-events:auto}section[data-n="6"] .pan:hover .vlabel, section[data-n="6"] .pan:hover .num{opacity:0}section[data-n="6"] .full b{display:block;font-family:var(--sans);font-weight:600;font-size:23px;line-height:1.15;
+      pointer-events:none;transition:opacity .3s .12s,transform .3s .12s}section[data-n="6"] .pan.open .full{opacity:1;transform:none;pointer-events:auto}section[data-n="6"] .pan.open .vlabel, section[data-n="6"] .pan.open .num{opacity:0}section[data-n="6"] .full b{display:block;font-family:var(--sans);font-weight:600;font-size:23px;line-height:1.15;
       color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.95)}section[data-n="6"] .full p{font-family:var(--sans);font-weight:400;font-size:16.5px;line-height:1.35;
       color:rgba(255,255,255,.94);margin:8px 0 0;text-shadow:0 2px 12px rgba(0,0,0,.98)}section[data-n="6"] .full .lk{display:inline-block;margin-top:10px;font-family:var(--sans);font-weight:600;font-size:16px;
       color:var(--amber);text-decoration:none;text-shadow:0 2px 12px rgba(0,0,0,.98)}
@@ -366,28 +365,26 @@
     };
     function toItem(s){ return {t:s[0], src: s[0]==='v' ? ('video/'+s.slice(2)+'.mp4') : ('img/'+s.slice(2)+'.webp')}; }
 
-    function makeCtl(pan){
+    function makeCtl(pan, idx, onExpand){
       var list=(PL[pan.dataset.k]||[]).map(toItem);
       var va=pan.querySelector('.va'), vb=pan.querySelector('.vb'), im=pan.querySelector('.im');
       var layers=[va,vb,im];
-      var i=-1, activeV=null, activeLayer=null, timer=null, running=false, kb=null, hovered=false;
+      var i=-1, activeV=null, activeLayer=null, timer=null, running=false, hovered=false;
       function fade(el){ activeLayer=el; layers.forEach(function(l){ l.style.opacity=(l===el)?'1':'0'; }); }
       function clearT(){ if(timer){clearTimeout(timer);timer=null;} }
       function set(el,u){ if(el.getAttribute('src')!==u) el.src=u; }
       // pin media to the panel's pixel height (percentage-height won't resolve through
-      // the flex-item/abs-child chain, so the media would render at intrinsic size).
+      // the abs-child chain, so the media would render at intrinsic size).
       function fitH(){ var h=pan.clientHeight; if(!h) return; var hp=h+'px';
         layers.forEach(function(l){ if(l.style.height!==hp) l.style.height=hp; }); }
-      // size the (hovered) panel to the current media's aspect so it fills with no crop / no bars
-      function aspectOf(el){ if(!el) return 0;
+      function aspect(){ var el=activeLayer; if(!el) return 0;
         if(el.tagName==='VIDEO') return el.videoWidth ? el.videoWidth/el.videoHeight : 0;
         return el.naturalWidth ? el.naturalWidth/el.naturalHeight : 0; }
-      function resize(){ fitH(); if(!hovered) return; var a=aspectOf(activeLayer); if(!a) return;
-        var h=pan.clientHeight||452; var w=Math.max(228,Math.min(880,Math.round(h*a)));
-        pan.style.flex='0 0 '+w+'px'; }
+      // when hovered, (re)expand to fit the current clip's aspect
+      function refit(){ fitH(); if(hovered&&onExpand) onExpand(idx); }
       function fitWhenReady(){ var el=activeLayer; if(!el) return;
-        if(el.tagName==='VIDEO'){ if(el.videoWidth) resize(); else el.addEventListener('loadedmetadata',resize,{once:true}); }
-        else { if(el.complete&&el.naturalWidth) resize(); else el.addEventListener('load',resize,{once:true}); } }
+        if(el.tagName==='VIDEO'){ if(el.videoWidth) refit(); else el.addEventListener('loadedmetadata',refit,{once:true}); }
+        else { if(el.complete&&el.naturalWidth) refit(); else el.addEventListener('load',refit,{once:true}); } }
       function play(n){
         clearT(); if(!list.length) return; i=n; var it=list[i];
         if(it.t==='v'){
@@ -406,8 +403,8 @@
       va.addEventListener('ended',function(){ if(running&&activeV===va) nx(); });
       vb.addEventListener('ended',function(){ if(running&&activeV===vb) nx(); });
       return {
-        pan:pan,
-        setHovered:function(b){ hovered=b; if(b) resize(); },
+        pan:pan, aspect:aspect,
+        setHovered:function(b){ hovered=b; if(b) refit(); },
         start:function(){ fitH(); if(running||!list.length) return; running=true; play(i<0?0:i); },
         stop:function(){ running=false; clearT(); try{va.pause();vb.pause();}catch(e){} },
         poster:function(){ var it=list[0]; if(!it) return;
@@ -419,20 +416,23 @@
     }
 
     var acc=sec.querySelector('.acc');
-    var ctls=[].slice.call(sec.querySelectorAll('.pan')).map(function(p){ var c=makeCtl(p); c.poster(); return c; });
-    // graduated widths: hovered panel fits its media aspect; neighbours fall off
-    // by distance (1 -> 2x, 2 -> 1.5x, further -> 1x base) so moving between panels
-    // shifts the layout gently instead of snapping.
-    function grow(d){ return d===1?2 : d===2?1.5 : 1; }
-    function layout(hi){
-      ctls.forEach(function(c,j){
-        if(hi<0){ c.setHovered(false); c.pan.style.flex=''; return; }
-        if(j===hi){ c.setHovered(true); }            // setHovered -> resize() sets flex-basis
-        else { c.setHovered(false); c.pan.style.flex=grow(Math.abs(j-hi))+' 1 0'; }
-      });
+    var GAP=8, ACCW=1680;
+    var pans=[].slice.call(sec.querySelectorAll('.pan'));
+    var N=pans.length, SLOTW=Math.round((ACCW-GAP*(N-1))/N);
+    var slotL=pans.map(function(_,i){ return i*(SLOTW+GAP); });
+    function placeSlot(i){ var p=pans[i]; p.classList.remove('open'); p.style.left=slotL[i]+'px'; p.style.width=SLOTW+'px'; }
+    // fixed slots that never move; hovered panel expands in place over its neighbours
+    function doExpand(i){
+      var c=ctls[i], a=c.aspect(); if(!a) return;
+      var h=c.pan.clientHeight||450, W=Math.max(SLOTW, Math.min(ACCW, Math.round(h*a)));
+      var cx=slotL[i]+SLOTW/2, L=Math.max(0, Math.min(ACCW-W, Math.round(cx-W/2)));
+      c.pan.style.left=L+'px'; c.pan.style.width=W+'px';
     }
-    ctls.forEach(function(c,j){ c.pan.addEventListener('mouseenter',function(){ layout(j); }); });
-    acc.addEventListener('mouseleave',function(){ layout(-1); });
+    var ctls=pans.map(function(p,idx){ var c=makeCtl(p, idx, doExpand); placeSlot(idx); c.poster(); return c; });
+    ctls.forEach(function(c,i){
+      c.pan.addEventListener('mouseenter',function(){ c.pan.classList.add('open'); c.setHovered(true); doExpand(i); });
+      c.pan.addEventListener('mouseleave',function(){ c.setHovered(false); placeSlot(i); });
+    });
     sec.addEventListener('deck:enter',function(){ ctls.forEach(function(c){ c.start(); }); });
     sec.addEventListener('deck:leave',function(){ ctls.forEach(function(c){ c.stop(); }); });
     sec.addEventListener('deck:preload',function(){ ctls.forEach(function(c){ c.preload&&c.preload(); }); });
