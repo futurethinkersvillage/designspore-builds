@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Interactive LED wiring maps for the five Platonic solids — optimal single-string routes for edge-lit infinity sculptures.">
+<meta name="color-scheme" content="light dark">
+<title>Infinity Polyhedron — LED Wiring Map</title>
+<style>
+  :root{
+    --ink:#0a0f17;--panel:#0f1622;--panel-2:#131c2b;--line:#22304a;--line-soft:#1a2436;
+    --fg:#dbe6f5;--fg-dim:#8698b5;--fg-faint:#5a6b88;
+    --din:#34e5a0;--dout:#ff5b6e;--jump:#f5b73d;--sig-a:#28d1ef;--sig-b:#e05bff;
+    --grid:rgba(120,150,200,.05);
+    --shadow:0 1px 0 rgba(255,255,255,.03), 0 18px 50px -20px rgba(0,0,0,.7);
+    --mono:ui-monospace,"Cascadia Code","SF Mono",Consolas,"Liberation Mono",monospace;
+    --sans:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:light){
+    :root{--ink:#eef1f6;--panel:#ffffff;--panel-2:#f4f7fb;--line:#d3dbe8;--line-soft:#e4e9f2;
+      --fg:#141c2b;--fg-dim:#4a5a75;--fg-faint:#8493ad;--grid:rgba(30,60,110,.05);
+      --shadow:0 1px 0 rgba(255,255,255,.6), 0 18px 44px -22px rgba(20,40,80,.28);}
+  }
+  :root[data-theme="dark"]{--ink:#0a0f17;--panel:#0f1622;--panel-2:#131c2b;--line:#22304a;--line-soft:#1a2436;
+    --fg:#dbe6f5;--fg-dim:#8698b5;--fg-faint:#5a6b88;--grid:rgba(120,150,200,.05);
+    --shadow:0 1px 0 rgba(255,255,255,.03), 0 18px 50px -20px rgba(0,0,0,.7);}
+  :root[data-theme="light"]{--ink:#eef1f6;--panel:#ffffff;--panel-2:#f4f7fb;--line:#d3dbe8;--line-soft:#e4e9f2;
+    --fg:#141c2b;--fg-dim:#4a5a75;--fg-faint:#8493ad;--grid:rgba(30,60,110,.05);
+    --shadow:0 1px 0 rgba(255,255,255,.6), 0 18px 44px -22px rgba(20,40,80,.28);}
+
+  *{box-sizing:border-box}
+  body{background:var(--ink);color:var(--fg);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1120px;margin:0 auto;padding:34px 22px 90px;}
+
+  header.masthead{display:flex;flex-wrap:wrap;align-items:flex-end;gap:18px 26px;
+       border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:22px;}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--fg-faint);margin:0 0 10px;}
+  h1{font-family:var(--sans);font-weight:800;font-size:clamp(26px,4.4vw,42px);line-height:1.02;
+       letter-spacing:-.02em;margin:0;text-wrap:balance;max-width:16ch;}
+  h1 .thin{font-weight:300;color:var(--fg-dim);}
+  .spec{margin-left:auto;display:grid;grid-template-columns:repeat(4,auto);gap:2px 22px;font-family:var(--mono);}
+  .spec .n{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em;}
+  .spec .k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-faint);}
+  .spec .jmp{color:var(--jump)}
+
+  .lede{color:var(--fg-dim);max-width:72ch;font-size:15px;margin:0 0 20px;}
+  .lede b{color:var(--fg);font-weight:600;}
+
+  /* shape selector */
+  .shapebar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;}
+  .shape{font-family:var(--mono);font-size:13px;color:var(--fg);background:var(--panel);
+       border:1px solid var(--line);border-radius:10px;padding:9px 13px;cursor:pointer;display:flex;
+       align-items:center;gap:9px;transition:border-color .15s,background .15s,color .15s;}
+  .shape:hover{border-color:var(--fg-faint);}
+  .shape[aria-pressed="true"]{border-color:var(--sig-a);color:#fff;
+       background:linear-gradient(180deg,rgba(40,209,239,.20),rgba(40,209,239,.06));box-shadow:var(--shadow);}
+  :root[data-theme="light"] .shape[aria-pressed="true"]{color:#06323b;}
+  .shape .badge{font-size:10px;letter-spacing:.04em;color:var(--fg-faint);background:var(--panel-2);
+       border:1px solid var(--line-soft);border-radius:20px;padding:2px 8px;white-space:nowrap;}
+  .shape[aria-pressed="true"] .badge{color:var(--sig-a);border-color:var(--sig-a);}
+  .shape:focus-visible{outline:2px solid var(--sig-a);outline-offset:2px;}
+
+  .stage-card{background:linear-gradient(180deg,var(--panel-2),var(--panel));
+       border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;}
+  .stage-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line-soft);
+       background:linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/26px 26px,
+                  linear-gradient(0deg,var(--grid) 1px,transparent 1px) 0 0/26px 26px;}
+  .stage-head .tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-dim);}
+  .stage-head .dot{width:7px;height:7px;border-radius:50%;background:var(--din);box-shadow:0 0 10px var(--din);}
+  #cv{display:block;width:100%;height:min(66vh,620px);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;}
+  #cv:active{cursor:grabbing;}
+
+  .controls{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;border-top:1px solid var(--line-soft);background:var(--panel);}
+  button.ctl{font-family:var(--mono);font-size:12px;letter-spacing:.03em;color:var(--fg);background:var(--panel-2);
+       border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer;transition:border-color .15s,background .15s,color .15s;}
+  button.ctl:hover{border-color:var(--fg-faint);}
+  button.ctl[aria-pressed="true"]{border-color:var(--sig-a);color:#fff;background:linear-gradient(180deg,rgba(40,209,239,.22),rgba(40,209,239,.08));}
+  :root[data-theme="light"] button.ctl[aria-pressed="true"]{color:#06323b;}
+  button.ctl:focus-visible{outline:2px solid var(--sig-a);outline-offset:2px;}
+  .ctl-spacer{flex:1 1 12px;}
+  .speed{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.03em;
+       color:var(--fg-dim);background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:5px 11px;}
+  .speed input[type=range]{-webkit-appearance:none;appearance:none;width:104px;height:3px;border-radius:3px;
+       background:linear-gradient(90deg,var(--sig-a),var(--sig-b));outline:none;cursor:pointer;margin:0;}
+  .speed input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:13px;height:13px;border-radius:50%;
+       background:#fff;border:2px solid var(--sig-a);box-shadow:0 0 8px rgba(40,209,239,.5);cursor:pointer;}
+  .speed input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid var(--sig-a);box-shadow:0 0 8px rgba(40,209,239,.5);cursor:pointer;}
+  .speed input[type=range]:focus-visible{outline:2px solid var(--sig-a);outline-offset:3px;}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:var(--mono);font-size:11px;color:var(--fg-dim);}
+  .legend i{display:inline-block;width:16px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px;}
+  .legend .sig{background:linear-gradient(90deg,var(--sig-a),var(--sig-b));height:3px;}
+  .legend .jmp{background:repeating-linear-gradient(90deg,var(--jump) 0 4px,transparent 4px 7px);}
+  .legend .s{background:var(--din)} .legend .e{background:var(--dout)}
+
+  .cols{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:26px;}
+  @media(max-width:820px){.cols{grid-template-columns:1fr}.spec{margin-left:0}}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--fg-dim);margin:0 0 12px;font-weight:600;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 6px;box-shadow:var(--shadow);}
+  .note{font-size:14px;color:var(--fg-dim);}
+  .note p{margin:0 0 12px} .note b{color:var(--fg);font-weight:600}
+  .mathline{font-size:13px;color:var(--fg-dim);margin:0 0 16px;padding:10px 14px;border-radius:10px;
+       background:var(--panel-2);border:1px solid var(--line-soft);font-family:var(--mono);line-height:1.5;}
+  .keybox{border-left:2px solid var(--jump);padding:2px 0 2px 14px;margin:0 0 14px;}
+  .keybox .h{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--jump);margin-bottom:4px;}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);}
+  table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:12.5px;}
+  thead th{position:sticky;top:0;background:var(--panel-2);color:var(--fg-faint);text-align:left;font-weight:600;
+       letter-spacing:.1em;text-transform:uppercase;font-size:10px;padding:9px 12px;border-bottom:1px solid var(--line);}
+  tbody td{padding:7px 12px;border-bottom:1px solid var(--line-soft);white-space:nowrap;font-variant-numeric:tabular-nums;}
+  tbody tr:hover{background:var(--panel-2);}
+  tr.jump td{color:var(--jump);}
+  .chip{display:inline-block;min-width:34px;text-align:center;border-radius:6px;padding:2px 7px;font-weight:700;color:#04121a;}
+  .chip.j{background:var(--jump);color:#241701;}
+  .v{color:var(--fg);} .arrow{color:var(--fg-faint);padding:0 4px;}
+  .mark.s{color:var(--din);font-weight:700} .mark.e{color:var(--dout);font-weight:700}
+  caption{caption-side:bottom;text-align:left;padding:10px 12px;color:var(--fg-faint);font-family:var(--mono);font-size:11px;}
+
+  .foot{margin-top:30px;padding-top:16px;border-top:1px solid var(--line);color:var(--fg-faint);font-family:var(--mono);font-size:11px;letter-spacing:.04em;}
+</style>
+<style>html,body{margin:0;padding:0}</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">Addressable LED build · single-data-line routing</p>
+      <h1>Infinity Polyhedron <span class="thin">Wiring Map</span></h1>
+    </div>
+    <div class="spec" aria-label="Build summary">
+      <div><div class="n" id="sp-e">–</div><div class="k">Edge strips</div></div>
+      <div><div class="n jmp" id="sp-j">–</div><div class="k">Jumper wires</div></div>
+      <div><div class="n" id="sp-v">–</div><div class="k">Corners</div></div>
+      <div><div class="n" id="sp-f">–</div><div class="k">Faces</div></div>
+    </div>
+  </header>
+
+  <p class="lede">Your LEDs live on the <b>edges</b> of the solid. Feeding one continuous WS2812-style data string
+  through every edge is an <b>Euler-path</b> problem — fully possible only when at most two corners have an odd
+  number of meeting edges. Pick a solid: the map numbers every edge-strip in signal order from a bottom corner,
+  shows the direction, and adds the <b>minimum</b> bridge wires the math requires — sometimes zero.
+  Drag to rotate · scroll/pinch to zoom · right-drag or two fingers to pan.</p>
+
+  <div class="shapebar" id="shapebar" role="group" aria-label="Choose a shape"></div>
+
+  <div class="stage-card">
+    <div class="stage-head">
+      <span class="dot"></span>
+      <span class="tag" id="stage-tag">—</span>
+      <div class="legend" style="margin-left:auto">
+        <span><i class="sig"></i><span id="lg-strip">strip</span></span>
+        <span><i class="jmp"></i>jumper</span>
+        <span><i class="s"></i>DIN start</span>
+        <span><i class="e"></i>DOUT end</span>
+      </div>
+    </div>
+    <canvas id="cv"></canvas>
+    <div class="controls">
+      <button class="ctl" id="b-rot" aria-pressed="false">◐ auto-rotate</button>
+      <button class="ctl" id="b-sig" aria-pressed="true">▷ animate signal</button>
+      <button class="ctl" id="b-num" aria-pressed="true"># strip numbers</button>
+      <button class="ctl" id="b-jmp" aria-pressed="true">⌇ jumpers</button>
+      <button class="ctl" id="b-cid" aria-pressed="false">◦ corner IDs</button>
+      <label class="speed">speed
+        <input type="range" id="b-speed" min="0" max="1" step="0.01" value="0.5" aria-label="animation speed">
+      </label>
+      <span class="ctl-spacer"></span>
+      <button class="ctl" id="b-zout" aria-label="zoom out">－ zoom</button>
+      <button class="ctl" id="b-zin" aria-label="zoom in">＋ zoom</button>
+      <button class="ctl" id="b-reset">⟲ reset view</button>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Step</th><th>Solder path</th><th>What it is</th></tr></thead>
+        <tbody id="tbody"></tbody>
+        <caption>Build order = signal order. Solder DOUT→DIN at every corner. Jumper rows are bare bridge wires (data + V+/GND), no LEDs.</caption>
+      </table>
+    </div>
+    <div>
+      <div class="card">
+        <h2>How to read it</h2>
+        <div class="mathline" id="shape-math">—</div>
+        <div class="note" id="note"></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">Geometry: the five Platonic solids (golden-ratio / unit coordinates), each oriented face-down · Routes solved as minimum Eulerian paths (perfect-matching + Hierholzer).</p>
+</div>
+
+<script>
+const SHAPES = {"order": ["tetrahedron", "cube", "octahedron", "dodecahedron", "icosahedron"], "labels": {"tetrahedron": "Tetrahedron", "cube": "Cube", "octahedron": "Octahedron", "dodecahedron": "Dodecahedron", "icosahedron": "Icosahedron"}, "shapes": {"tetrahedron": {"verts": [[0.910683602522959, -0.33333333333333337, 0.24401693585629225], [-0.6666666666666667, -0.33333333333333337, 0.6666666666666667], [-0.24401693585629225, -0.33333333333333337, -0.910683602522959], [0.0, 1.0, -1.3877787807814457e-17]], "edges": [[0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3]], "start": 1, "end": 0, "path": [1, 0, 2, 1, 3, 2, 3, 0], "sequence": [{"from": 1, "to": 0, "type": "STRIP", "strip": 1}, {"from": 0, "to": 2, "type": "STRIP", "strip": 2}, {"from": 2, "to": 1, "type": "STRIP", "strip": 3}, {"from": 1, "to": 3, "type": "STRIP", "strip": 4}, {"from": 3, "to": 2, "type": "STRIP", "strip": 5}, {"from": 2, "to": 3, "type": "JUMP", "strip": null}, {"from": 3, "to": 0, "type": "STRIP", "strip": 6}], "V": 4, "E": 6, "F": 4, "degree": 3, "jumpers": 1, "strips": 6, "mathNote": "All 4 corners are odd (degree 3), so a single unbroken pass is impossible. 1 bridge wire is the minimum \u2014 exactly (corners \u2212 2) \u00f7 2."}, "cube": {"verts": [[0.5773502691896258, -0.5773502691896258, -0.5773502691896258], [0.5773502691896258, -0.5773502691896258, 0.5773502691896258], [-0.5773502691896258, -0.5773502691896258, -0.5773502691896258], [-0.5773502691896258, -0.5773502691896258, 0.5773502691896258], [0.5773502691896258, 0.5773502691896258, -0.5773502691896258], [0.5773502691896258, 0.5773502691896258, 0.5773502691896258], [-0.5773502691896258, 0.5773502691896258, -0.5773502691896258], [-0.5773502691896258, 0.5773502691896258, 0.5773502691896258]], "edges": [[0, 1], [0, 2], [0, 4], [1, 3], [1, 5], [2, 3], [2, 6], [3, 7], [4, 5], [4, 6], [5, 7], [6, 7]], "start": 3, "end": 2, "path": [3, 1, 0, 2, 3, 7, 5, 1, 0, 4, 5, 4, 6, 7, 6, 2], "sequence": [{"from": 3, "to": 1, "type": "STRIP", "strip": 1}, {"from": 1, "to": 0, "type": "STRIP", "strip": 2}, {"from": 0, "to": 2, "type": "STRIP", "strip": 3}, {"from": 2, "to": 3, "type": "STRIP", "strip": 4}, {"from": 3, "to": 7, "type": "STRIP", "strip": 5}, {"from": 7, "to": 5, "type": "STRIP", "strip": 6}, {"from": 5, "to": 1, "type": "STRIP", "strip": 7}, {"from": 1, "to": 0, "type": "JUMP", "strip": null}, {"from": 0, "to": 4, "type": "STRIP", "strip": 8}, {"from": 4, "to": 5, "type": "STRIP", "strip": 9}, {"from": 5, "to": 4, "type": "JUMP", "strip": null}, {"from": 4, "to": 6, "type": "STRIP", "strip": 10}, {"from": 6, "to": 7, "type": "STRIP", "strip": 11}, {"from": 7, "to": 6, "type": "JUMP", "strip": null}, {"from": 6, "to": 2, "type": "STRIP", "strip": 12}], "V": 8, "E": 12, "F": 6, "degree": 3, "jumpers": 3, "strips": 12, "mathNote": "All 8 corners are odd (degree 3), so a single unbroken pass is impossible. 3 bridge wires is the minimum \u2014 exactly (corners \u2212 2) \u00f7 2."}, "octahedron": {"verts": [[0.21132486540518725, -0.5773502691896258, -0.788675134594813], [-0.21132486540518725, 0.5773502691896258, 0.788675134594813], [0.5773502691896258, -0.5773502691896257, 0.5773502691896258], [-0.5773502691896258, 0.5773502691896257, -0.5773502691896258], [-0.788675134594813, -0.5773502691896258, 0.21132486540518725], [0.788675134594813, 0.5773502691896258, -0.21132486540518725]], "edges": [[0, 2], [0, 3], [0, 4], [0, 5], [1, 2], [1, 3], [1, 4], [1, 5], [2, 4], [2, 5], [3, 4], [3, 5]], "start": 2, "end": 2, "path": [2, 0, 3, 1, 2, 4, 0, 5, 1, 4, 3, 5, 2], "sequence": [{"from": 2, "to": 0, "type": "STRIP", "strip": 1}, {"from": 0, "to": 3, "type": "STRIP", "strip": 2}, {"from": 3, "to": 1, "type": "STRIP", "strip": 3}, {"from": 1, "to": 2, "type": "STRIP", "strip": 4}, {"from": 2, "to": 4, "type": "STRIP", "strip": 5}, {"from": 4, "to": 0, "type": "STRIP", "strip": 6}, {"from": 0, "to": 5, "type": "STRIP", "strip": 7}, {"from": 5, "to": 1, "type": "STRIP", "strip": 8}, {"from": 1, "to": 4, "type": "STRIP", "strip": 9}, {"from": 4, "to": 3, "type": "STRIP", "strip": 10}, {"from": 3, "to": 5, "type": "STRIP", "strip": 11}, {"from": 5, "to": 2, "type": "STRIP", "strip": 12}], "V": 6, "E": 12, "F": 8, "degree": 4, "jumpers": 0, "strips": 12, "mathNote": "Every corner joins an even number of edges (degree 4), so the whole run is one continuous loop \u2014 no bridge wires, and the string ends back at the start corner."}, "dodecahedron": {"verts": [[-0.577350269189626, -0.7946544722917661, -0.18759247408507995], [-0.577350269189626, -0.1875924740850799, 0.7946544722917662], [-0.5773502691896257, 0.18759247408508, -0.7946544722917662], [-0.5773502691896257, 0.7946544722917663, 0.18759247408507995], [0.5773502691896257, -0.7946544722917663, -0.18759247408507995], [0.5773502691896257, -0.18759247408508, 0.7946544722917662], [0.577350269189626, 0.1875924740850799, -0.7946544722917662], [0.577350269189626, 0.7946544722917661, 0.18759247408507995], [-7.130846267895879e-17, -0.7946544722917661, -0.6070619982066863], [-1.0480025501190636e-17, 0.1875924740850799, 0.9822469463768462], [1.0480025501190636e-17, -0.1875924740850799, -0.9822469463768462], [7.130846267895879e-17, 0.7946544722917661, 0.6070619982066863], [-0.35682208977309005, -0.7946544722917662, 0.49112347318842303], [-0.3568220897730898, 0.7946544722917662, -0.49112347318842303], [0.3568220897730898, -0.7946544722917662, 0.49112347318842303], [0.35682208977309005, 0.7946544722917662, -0.49112347318842303], [-0.9341723589627158, -0.18759247408507979, -0.3035309991033432], [-0.9341723589627158, 0.18759247408508, 0.3035309991033431], [0.9341723589627158, -0.18759247408508, -0.3035309991033431], [0.9341723589627158, 0.18759247408507979, 0.3035309991033432]], "edges": [[0, 8], [0, 12], [0, 16], [1, 9], [1, 12], [1, 17], [2, 10], [2, 13], [2, 16], [3, 11], [3, 13], [3, 17], [4, 8], [4, 14], [4, 18], [5, 9], [5, 14], [5, 19], [6, 10], [6, 15], [6, 18], [7, 11], [7, 15], [7, 19], [8, 10], [9, 11], [12, 14], [13, 15], [16, 17], [18, 19]], "start": 12, "end": 14, "path": [12, 0, 8, 4, 14, 5, 9, 1, 17, 3, 11, 7, 15, 6, 10, 2, 16, 17, 16, 0, 8, 10, 2, 13, 3, 13, 15, 6, 18, 4, 18, 19, 5, 19, 7, 11, 9, 1, 12, 14], "sequence": [{"from": 12, "to": 0, "type": "STRIP", "strip": 1}, {"from": 0, "to": 8, "type": "STRIP", "strip": 2}, {"from": 8, "to": 4, "type": "STRIP", "strip": 3}, {"from": 4, "to": 14, "type": "STRIP", "strip": 4}, {"from": 14, "to": 5, "type": "STRIP", "strip": 5}, {"from": 5, "to": 9, "type": "STRIP", "strip": 6}, {"from": 9, "to": 1, "type": "STRIP", "strip": 7}, {"from": 1, "to": 17, "type": "STRIP", "strip": 8}, {"from": 17, "to": 3, "type": "STRIP", "strip": 9}, {"from": 3, "to": 11, "type": "STRIP", "strip": 10}, {"from": 11, "to": 7, "type": "STRIP", "strip": 11}, {"from": 7, "to": 15, "type": "STRIP", "strip": 12}, {"from": 15, "to": 6, "type": "STRIP", "strip": 13}, {"from": 6, "to": 10, "type": "STRIP", "strip": 14}, {"from": 10, "to": 2, "type": "STRIP", "strip": 15}, {"from": 2, "to": 16, "type": "STRIP", "strip": 16}, {"from": 16, "to": 17, "type": "STRIP", "strip": 17}, {"from": 17, "to": 16, "type": "JUMP", "strip": null}, {"from": 16, "to": 0, "type": "STRIP", "strip": 18}, {"from": 0, "to": 8, "type": "JUMP", "strip": null}, {"from": 8, "to": 10, "type": "STRIP", "strip": 19}, {"from": 10, "to": 2, "type": "JUMP", "strip": null}, {"from": 2, "to": 13, "type": "STRIP", "strip": 20}, {"from": 13, "to": 3, "type": "STRIP", "strip": 21}, {"from": 3, "to": 13, "type": "JUMP", "strip": null}, {"from": 13, "to": 15, "type": "STRIP", "strip": 22}, {"from": 15, "to": 6, "type": "JUMP", "strip": null}, {"from": 6, "to": 18, "type": "STRIP", "strip": 23}, {"from": 18, "to": 4, "type": "STRIP", "strip": 24}, {"from": 4, "to": 18, "type": "JUMP", "strip": null}, {"from": 18, "to": 19, "type": "STRIP", "strip": 25}, {"from": 19, "to": 5, "type": "STRIP", "strip": 26}, {"from": 5, "to": 19, "type": "JUMP", "strip": null}, {"from": 19, "to": 7, "type": "STRIP", "strip": 27}, {"from": 7, "to": 11, "type": "JUMP", "strip": null}, {"from": 11, "to": 9, "type": "STRIP", "strip": 28}, {"from": 9, "to": 1, "type": "JUMP", "strip": null}, {"from": 1, "to": 12, "type": "STRIP", "strip": 29}, {"from": 12, "to": 14, "type": "STRIP", "strip": 30}], "V": 20, "E": 30, "F": 12, "degree": 3, "jumpers": 9, "strips": 30, "mathNote": "All 20 corners are odd (degree 3), so a single unbroken pass is impossible. 9 bridge wires is the minimum \u2014 exactly (corners \u2212 2) \u00f7 2."}, "icosahedron": {"verts": [[0.4711427435357599, -0.7946544722917661, 0.38281690777745414], [-0.09595779536560003, 0.7946544722917661, 0.5994300385993918], [0.09595779536560003, -0.7946544722917661, -0.5994300385993918], [-0.4711427435357599, 0.7946544722917661, -0.38281690777745414], [-0.15526297438704795, -0.18759247408507998, 0.9698981763314773], [-0.7623249725937343, -0.18759247408507987, -0.6194107682520549], [0.7623249725937343, 0.18759247408507987, 0.6194107682520549], [0.15526297438704795, 0.18759247408507998, -0.9698981763314773], [-0.5671005389013599, -0.7946544722917661, 0.2166131308219375], [-0.9175879469807824, 0.18759247408507979, 0.3504874080794224], [0.9175879469807824, -0.18759247408507979, -0.3504874080794224], [0.5671005389013599, 0.7946544722917661, -0.2166131308219375]], "edges": [[0, 2], [0, 4], [0, 6], [0, 8], [0, 10], [1, 3], [1, 4], [1, 6], [1, 9], [1, 11], [2, 5], [2, 7], [2, 8], [2, 10], [3, 5], [3, 7], [3, 9], [3, 11], [4, 6], [4, 8], [4, 9], [5, 7], [5, 8], [5, 9], [6, 10], [6, 11], [7, 10], [7, 11], [8, 9], [10, 11]], "start": 0, "end": 2, "path": [0, 2, 5, 3, 1, 4, 0, 6, 1, 9, 3, 7, 2, 8, 0, 10, 6, 4, 8, 5, 7, 10, 11, 1, 3, 11, 6, 4, 9, 8, 9, 5, 7, 11, 10, 2], "sequence": [{"from": 0, "to": 2, "type": "STRIP", "strip": 1}, {"from": 2, "to": 5, "type": "STRIP", "strip": 2}, {"from": 5, "to": 3, "type": "STRIP", "strip": 3}, {"from": 3, "to": 1, "type": "STRIP", "strip": 4}, {"from": 1, "to": 4, "type": "STRIP", "strip": 5}, {"from": 4, "to": 0, "type": "STRIP", "strip": 6}, {"from": 0, "to": 6, "type": "STRIP", "strip": 7}, {"from": 6, "to": 1, "type": "STRIP", "strip": 8}, {"from": 1, "to": 9, "type": "STRIP", "strip": 9}, {"from": 9, "to": 3, "type": "STRIP", "strip": 10}, {"from": 3, "to": 7, "type": "STRIP", "strip": 11}, {"from": 7, "to": 2, "type": "STRIP", "strip": 12}, {"from": 2, "to": 8, "type": "STRIP", "strip": 13}, {"from": 8, "to": 0, "type": "STRIP", "strip": 14}, {"from": 0, "to": 10, "type": "STRIP", "strip": 15}, {"from": 10, "to": 6, "type": "STRIP", "strip": 16}, {"from": 6, "to": 4, "type": "STRIP", "strip": 17}, {"from": 4, "to": 8, "type": "STRIP", "strip": 18}, {"from": 8, "to": 5, "type": "STRIP", "strip": 19}, {"from": 5, "to": 7, "type": "STRIP", "strip": 20}, {"from": 7, "to": 10, "type": "STRIP", "strip": 21}, {"from": 10, "to": 11, "type": "STRIP", "strip": 22}, {"from": 11, "to": 1, "type": "STRIP", "strip": 23}, {"from": 1, "to": 3, "type": "JUMP", "strip": null}, {"from": 3, "to": 11, "type": "STRIP", "strip": 24}, {"from": 11, "to": 6, "type": "STRIP", "strip": 25}, {"from": 6, "to": 4, "type": "JUMP", "strip": null}, {"from": 4, "to": 9, "type": "STRIP", "strip": 26}, {"from": 9, "to": 8, "type": "STRIP", "strip": 27}, {"from": 8, "to": 9, "type": "JUMP", "strip": null}, {"from": 9, "to": 5, "type": "STRIP", "strip": 28}, {"from": 5, "to": 7, "type": "JUMP", "strip": null}, {"from": 7, "to": 11, "type": "STRIP", "strip": 29}, {"from": 11, "to": 10, "type": "JUMP", "strip": null}, {"from": 10, "to": 2, "type": "STRIP", "strip": 30}], "V": 12, "E": 30, "F": 20, "degree": 5, "jumpers": 5, "strips": 30, "mathNote": "All 12 corners are odd (degree 5), so a single unbroken pass is impossible. 5 bridge wires is the minimum \u2014 exactly (corners \u2212 2) \u00f7 2."}}};
+
+const cs = ()=>getComputedStyle(document.documentElement);
+function col(name){return cs().getPropertyValue(name).trim();}
+
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+let W=0,H=0,DPR=1;
+function resize(){
+  DPR = Math.min(window.devicePixelRatio||1, 2);
+  const r = cv.getBoundingClientRect();
+  W=r.width; H=r.height;
+  cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR);
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+}
+window.addEventListener('resize',resize);
+
+// state
+let DATA=null, V=[], seq=[];
+let rotX=-0.32, rotY=0.5, autoRot=false, showSig=true, showNum=true, showJmp=true, showCid=false;
+let dragging=false, lastX=0,lastY=0;
+let zoom=1, panX=0, panY=0;
+let sigSpeed=0.02;
+let userInteracted=false;
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduce){showSig=false;autoRot=false;}
+
+function rot(p){
+  let [x,y,z]=p;
+  let cx=Math.cos(rotY), sx=Math.sin(rotY);
+  let x1=x*cx - z*sx, z1=x*sx + z*cx;
+  let cy=Math.cos(rotX), sy=Math.sin(rotX);
+  let y1=y*cy - z1*sy, z2=y*sy + z1*cy;
+  return [x1,y1,z2];
+}
+function project(p){
+  const [x,y,z]=rot(p);
+  const f=4.2, R=Math.min(W,H)*0.34*zoom;
+  const s=f/(f - z);
+  return [W/2 + panX + x*s*R, H/2 + panY - y*s*R, z, s];
+}
+function zoomAt(clientX,clientY,factor){
+  const rect=cv.getBoundingClientRect();
+  const mx=clientX-rect.left, my=clientY-rect.top;
+  const nz=Math.max(0.4,Math.min(5, zoom*factor));
+  const k=nz/zoom;
+  const A=W/2+panX, B=H/2+panY;
+  panX=(mx-(mx-A)*k)-W/2; panY=(my-(my-B)*k)-H/2;
+  zoom=nz;
+}
+function fitView(){
+  rotX=-0.32; rotY=0.5; panX=0; panY=0; zoom=1;
+  let maxX=1e-6, maxY=1e-6;
+  for(const v of V){
+    const p=project(v);
+    maxX=Math.max(maxX, Math.abs(p[0]-W/2));
+    maxY=Math.max(maxY, Math.abs(p[1]-H/2));
+  }
+  zoom = Math.min((W/2)*0.84/maxX, (H/2)*0.82/maxY);
+}
+function sigColor(t){ const h = 188 + (312-188)*t; return `hsl(${h} 85% 60%)`; }
+function cn(){ return Math.max(1, DATA.E-1); }   // color denominator for this shape
+
+let frame=0;
+function draw(){
+  frame++;
+  if(autoRot && !dragging){ rotY += 0.0045; }
+  ctx.clearRect(0,0,W,H);
+  if(!DATA){ requestAnimationFrame(draw); return; }
+
+  const P = V.map(project);
+  const total=seq.length;
+  const pulsePos = showSig ? (frame*sigSpeed)%(total+3) : -1;
+
+  const segs = seq.map((s,i)=>{
+    const a=P[s.from], b=P[s.to];
+    return {s,i,a,b,zmid:(a[2]+b[2])/2};
+  }).sort((p,q)=>p.zmid-q.zmid);
+
+  const dinC=col('--din'), doutC=col('--dout'), jmpC=col('--jump'), fg=col('--fg');
+
+  for(const seg of segs){
+    const {s,a,b,zmid}=seg;
+    const isJump = s.type==='JUMP';
+    if(isJump && !showJmp) continue;
+    const depth = (zmid+2.2)/4.4;
+    const near = Math.max(0.18, Math.min(1, depth));
+    let ax=a[0],ay=a[1],bx=b[0],by=b[1];
+
+    if(isJump){
+      let dx=bx-ax, dy=by-ay, L=Math.hypot(dx,dy)||1;
+      const off=9; ax+= -dy/L*off; ay+= dx/L*off; bx+= -dy/L*off; by+= dx/L*off;
+      const active = pulsePos>=0 && Math.floor(pulsePos)===seg.i;
+      ctx.setLineDash([5,5]);
+      ctx.lineDashOffset = active ? -frame*(1.2+sigSpeed*8) : 0;
+      ctx.lineCap='butt';
+      ctx.lineWidth=(active?3.2:1.8)*near+0.4;
+      ctx.strokeStyle=jmpC;
+      ctx.globalAlpha= active ? Math.min(1,0.85+0.15*near) : 0.42+0.28*near;
+      if(active){ctx.shadowColor=jmpC;ctx.shadowBlur=12;}
+      ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();
+      ctx.shadowBlur=0; ctx.setLineDash([]); ctx.lineDashOffset=0; ctx.globalAlpha=1;
+      continue;
+    }
+
+    const t=(s.strip-1)/cn();
+    const lit = pulsePos>=0 && Math.floor(pulsePos)===seg.i;
+    ctx.lineCap='round';
+    ctx.globalAlpha= lit ? 1 : 0.35+0.65*near;
+    ctx.lineWidth= (lit?6.5:3.4)*near+0.6;
+    const g=ctx.createLinearGradient(ax,ay,bx,by);
+    g.addColorStop(0,sigColor(t)); g.addColorStop(1,sigColor(Math.min(1,t+1/cn())));
+    ctx.strokeStyle=g;
+    if(lit){ctx.shadowColor=sigColor(t);ctx.shadowBlur=18;}
+    ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();
+    ctx.shadowBlur=0;
+
+    let dx=bx-ax, dy=by-ay, L=Math.hypot(dx,dy)||1; dx/=L; dy/=L;
+    const hx=bx-dx*(11*near+5), hy=by-dy*(11*near+5), aw=4.5*near+2;
+    ctx.globalAlpha=0.5+0.5*near;
+    ctx.fillStyle=sigColor(t);
+    ctx.beginPath();
+    ctx.moveTo(bx-dx*4,by-dy*4);
+    ctx.lineTo(hx-dy*aw,hy+dx*aw);
+    ctx.lineTo(hx+dy*aw,hy-dx*aw);
+    ctx.closePath();ctx.fill();
+
+    if(showNum){
+      const mx=(ax+bx)/2, my=(ay+by)/2;
+      ctx.globalAlpha=Math.max(.72,near);
+      const fs=13.5*Math.max(.75,near), h=fs+5;
+      ctx.font=`700 ${fs}px ui-monospace,Consolas,monospace`;
+      const label=String(s.strip);
+      const tw=ctx.measureText(label).width;
+      ctx.fillStyle='rgba(6,10,18,.80)';
+      ctx.fillRect(mx-tw/2-4, my-h/2, tw+8, h);
+      ctx.fillStyle='#eaf2ff';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(label,mx,my);
+    }
+    ctx.globalAlpha=1;
+  }
+
+  // vertices
+  for(let i=0;i<P.length;i++){
+    const p=P[i]; const depth=(p[2]+2.2)/4.4; const near=Math.max(.2,Math.min(1,depth));
+    const isStart=i===DATA.start, isEnd=i===DATA.end;
+    let r=2.6*near+1.2, fill=col('--fg-faint'), label=null;
+    if(isStart&&isEnd){ r=6; fill=dinC; label='LOOP ▸ IN/OUT'; }
+    else if(isStart){ r=6; fill=dinC; label='DIN ▸ START'; }
+    else if(isEnd){ r=6; fill=doutC; label='END ▸ DOUT'; }
+    ctx.globalAlpha=0.5+0.5*near;
+    ctx.beginPath();ctx.arc(p[0],p[1],r,0,7);ctx.fillStyle=fill;ctx.fill();
+    if(label){
+      ctx.globalAlpha=0.9;ctx.lineWidth=2;ctx.strokeStyle=fill;
+      ctx.beginPath();ctx.arc(p[0],p[1],r+4+Math.sin(frame*0.08)*1.5,0,7);ctx.stroke();
+      ctx.font='700 11px ui-monospace,Consolas,monospace';ctx.fillStyle=fill;
+      ctx.textAlign='center';ctx.textBaseline='bottom';
+      ctx.fillText(label,p[0],p[1]-9);
+    }
+    if(showCid){
+      ctx.globalAlpha=Math.max(.62,near);
+      const fs=13*Math.max(.78,near);
+      ctx.font=`700 ${fs}px ui-monospace,Consolas,monospace`;
+      const label=String(i), tw=ctx.measureText(label).width;
+      const tx=p[0]+r+5, ty=p[1]-r-4;
+      ctx.textAlign='left';ctx.textBaseline='middle';
+      ctx.fillStyle='rgba(6,10,18,.78)';
+      ctx.fillRect(tx-3, ty-fs/2-1, tw+6, fs+3);
+      ctx.fillStyle=col('--sig-a');
+      ctx.fillText(label,tx,ty);
+    }
+    ctx.globalAlpha=1;
+  }
+
+  // single travelling dot
+  if(showSig && pulsePos>=0){
+    const idx=Math.floor(pulsePos);
+    if(idx<total){
+      const s=seq[idx], fr=pulsePos-idx;
+      const a=P[s.from], b=P[s.to];
+      const onJump = s.type==='JUMP';
+      let x,y;
+      if(onJump){
+        let dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy)||1, off=9;
+        x=a[0]-dy/L*off+(b[0]-a[0])*fr; y=a[1]+dx/L*off+(b[1]-a[1])*fr;
+      } else { x=a[0]+(b[0]-a[0])*fr; y=a[1]+(b[1]-a[1])*fr; }
+      ctx.globalAlpha=1;
+      ctx.beginPath();ctx.arc(x,y, onJump?4.6:5.4, 0,7);
+      ctx.fillStyle = onJump ? jmpC : '#ffffff';
+      ctx.shadowColor = onJump ? jmpC : col('--sig-a');
+      ctx.shadowBlur=16; ctx.fill(); ctx.shadowBlur=0;
+    }
+    ctx.globalAlpha=1;
+  }
+  requestAnimationFrame(draw);
+}
+
+// ---- interaction ----
+const pointers=new Map();
+let mode=null, pinchDist=0, pinchCX=0, pinchCY=0;
+cv.addEventListener('pointerdown',e=>{
+  if(e.button===1||e.button===2) e.preventDefault();
+  userInteracted=true;
+  cv.setPointerCapture(e.pointerId);
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pointers.size===1){ dragging=true; mode=(e.button===2||e.button===1||e.shiftKey)?'pan':'rotate'; lastX=e.clientX; lastY=e.clientY; }
+  else if(pointers.size===2){ dragging=true; mode='pinch'; const p=[...pointers.values()];
+    pinchDist=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y); pinchCX=(p[0].x+p[1].x)/2; pinchCY=(p[0].y+p[1].y)/2; }
+});
+cv.addEventListener('pointermove',e=>{
+  if(!pointers.has(e.pointerId))return;
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(mode==='pinch' && pointers.size>=2){
+    const p=[...pointers.values()];
+    const d=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);
+    const cx=(p[0].x+p[1].x)/2, cy=(p[0].y+p[1].y)/2;
+    if(pinchDist>0) zoomAt(cx,cy, d/pinchDist);
+    panX+=cx-pinchCX; panY+=cy-pinchCY; pinchDist=d; pinchCX=cx; pinchCY=cy; return;
+  }
+  if(!dragging)return;
+  const dx=e.clientX-lastX, dy=e.clientY-lastY;
+  if(mode==='pan'){ panX+=dx; panY+=dy; }
+  else { rotY+=dx*0.008; rotX+=dy*0.008; rotX=Math.max(-1.4,Math.min(1.4,rotX)); }
+  lastX=e.clientX; lastY=e.clientY;
+});
+function endPtr(e){
+  pointers.delete(e.pointerId);
+  if(pointers.size===0){ dragging=false; mode=null; }
+  else { const p=[...pointers.values()][0]; lastX=p.x; lastY=p.y; mode='rotate'; dragging=true; }
+}
+cv.addEventListener('pointerup',endPtr);
+cv.addEventListener('pointercancel',endPtr);
+cv.addEventListener('contextmenu',e=>e.preventDefault());
+cv.addEventListener('mousedown',e=>{ if(e.button===1) e.preventDefault(); });
+cv.addEventListener('auxclick',e=>e.preventDefault());
+cv.addEventListener('wheel',e=>{ e.preventDefault(); userInteracted=true; zoomAt(e.clientX,e.clientY, e.deltaY<0?1.12:1/1.12); },{passive:false});
+
+function bind(id,setter){const b=document.getElementById(id);b.addEventListener('click',()=>{const v=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',v);setter(v);});}
+bind('b-rot',v=>autoRot=v);
+bind('b-sig',v=>showSig=v);
+bind('b-num',v=>showNum=v);
+bind('b-jmp',v=>showJmp=v);
+bind('b-cid',v=>showCid=v);
+document.getElementById('b-speed').addEventListener('input',e=>{sigSpeed=0.005*Math.pow(16,parseFloat(e.target.value));});
+document.getElementById('b-reset').addEventListener('click',fitView);
+const rc=cv.getBoundingClientRect.bind(cv);
+document.getElementById('b-zin').addEventListener('click',()=>{const r=rc();zoomAt(r.left+W/2,r.top+H/2,1.2);});
+document.getElementById('b-zout').addEventListener('click',()=>{const r=rc();zoomAt(r.left+W/2,r.top+H/2,1/1.2);});
+
+// ---- shape switching ----
+function buildTable(){
+  const tb=document.getElementById('tbody'); tb.innerHTML='';
+  seq.forEach((s,i)=>{
+    const tr=document.createElement('tr');
+    if(s.type==='JUMP')tr.className='jump';
+    const startMark = (i===0)?' <span class="mark s">◀ FEED IN</span>':'';
+    const endMark = (i===seq.length-1)?' <span class="mark e">▶ END</span>':'';
+    const chip = s.type==='STRIP'
+        ? `<span class="chip" style="background:${sigColor((s.strip-1)/cn())}">${s.strip}</span>`
+        : `<span class="chip j">JMP</span>`;
+    const what = s.type==='STRIP'? `LED strip #${s.strip}` : 'bridge wire (no LEDs)';
+    tr.innerHTML=`<td class="step">${chip}</td>`+
+      `<td><span class="v">C${s.from}</span><span class="arrow">→</span><span class="v">C${s.to}</span>${startMark}${endMark}</td>`+
+      `<td>${what}</td>`;
+    tb.appendChild(tr);
+  });
+}
+function updateNote(){
+  const j=DATA.jumpers, E=DATA.E, loop=(DATA.start===DATA.end);
+  const jumperBlock = j>0
+    ? `<div class="keybox"><div class="h">The ${j} jumper${j>1?'s':''}</div>
+        After placing all ${E} strips, ${j} corner${j>1?'s':''} still need the signal carried <b>past</b> an
+        already-lit edge. Run a short 3-wire jumper (data + V+ + GND) parallel to that edge — amber in the model.
+        They're what make the single string physically possible.</div>`
+    : `<div class="keybox" style="border-color:var(--din)"><div class="h" style="color:var(--din)">No jumpers needed</div>
+        Every corner joins an even number of edges, so the signal threads all ${E} strips in one clean loop —
+        no bridge wires. The last strip's DOUT lands right back at the start corner.</div>`;
+  const endLine = loop
+    ? `<p><b>End</b>: strip ${E} returns to the start corner — a closed ring. Leave the final DOUT free, or tie it back for a true loop.</p>`
+    : `<p><b>End</b> at the red corner (C${DATA.end}). Nothing connects after strip ${E}'s DOUT.</p>`;
+  document.getElementById('note').innerHTML =
+    `<p><b>Start</b> at the green corner (C${DATA.start}) on the bottom face. Feed your controller's data + 5V + GND into strip <b>1</b>'s DIN end.</p>`+
+    `<p>Follow the arrows. Each strip's <b>DOUT</b> solders to the next strip's <b>DIN</b> at the shared corner. Color runs cyan→magenta so you can watch the chain age as it travels.</p>`+
+    jumperBlock + endLine +
+    `<p style="color:var(--fg-faint)"><b style="color:var(--fg-dim)">Power tip:</b> don't rely on the data line for current. Inject 5V/GND from the supply at several corners (every ~4–6 strips), keeping all grounds common.</p>`;
+}
+function setShape(name){
+  DATA=SHAPES.shapes[name]; V=DATA.verts; seq=DATA.sequence;
+  document.querySelectorAll('.shape').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.shape===name)));
+  document.getElementById('sp-e').textContent=DATA.E;
+  document.getElementById('sp-j').textContent=DATA.jumpers;
+  document.getElementById('sp-v').textContent=DATA.V;
+  document.getElementById('sp-f').textContent=DATA.F;
+  const loop=DATA.start===DATA.end;
+  document.getElementById('stage-tag').textContent =
+    `${SHAPES.labels[name]} · ${loop? 'single loop from corner '+DATA.start+' (bottom)' : 'corner '+DATA.start+' (bottom) → corner '+DATA.end}`;
+  document.getElementById('lg-strip').textContent=`strip 1→${DATA.E}`;
+  document.getElementById('shape-math').textContent=DATA.mathNote;
+  buildTable(); updateNote();
+  userInteracted=false; resize(); fitView();
+}
+
+// build selector
+const bar=document.getElementById('shapebar');
+SHAPES.order.forEach(name=>{
+  const s=SHAPES.shapes[name];
+  const b=document.createElement('button');
+  b.className='shape'; b.type='button'; b.dataset.shape=name; b.setAttribute('aria-pressed','false');
+  b.title=`${SHAPES.labels[name]}: ${s.E} strips · ${s.jumpers} jumper${s.jumpers!==1?'s':''}`;
+  const jb=s.jumpers>0?`${s.jumpers}⌇`:'loop';
+  b.innerHTML=`${SHAPES.labels[name]}<span class="badge">${s.E}▬ ${jb}</span>`;
+  b.addEventListener('click',()=>setShape(name));
+  bar.appendChild(b);
+});
+
+resize();
+setShape('dodecahedron');
+requestAnimationFrame(draw);
+window.addEventListener('load',()=>{ resize(); if(!userInteracted) fitView(); });
+new MutationObserver(()=>{}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+</script>
+</body>
+</html>
