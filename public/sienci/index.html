@@ -57,7 +57,28 @@
       Design it, build it, film it, cut it &mdash; <i style="color:var(--amber)">one head, one vision, no hand-offs.</i></p>
   </div>
 
-  <video style="position:absolute;left:1180px;top:352px;width:620px;height:596px;object-fit:cover;border-radius:16px;border:1px solid var(--line)" autoplay muted loop playsinline preload="auto" src="/sienci/assets/video/reel.mp4"></video>
+  <div class="reel no-nav" style="position:absolute;left:1290px;top:352px;width:400px;height:596px;border-radius:16px;overflow:hidden;background:#0a090c;border:1px solid var(--line)">
+    <video class="rv ra" data-seq muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s"></video>
+    <video class="rv rb" data-seq muted playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s"></video>
+  </div>
+  <script>
+  (function(){
+    var sec=document.currentScript.closest('section'); if(!sec) return;
+    var AB='assets'; try{var l=document.querySelector('link[rel="stylesheet"][href*="brand.css"]'); if(l)AB=l.getAttribute('href').replace(/\/brand\.css.*$/,'');}catch(e){}
+    var LIST=['who_1','who_2','who_3','who_4'].map(function(n){return AB+'/video/'+n+'.mp4';});
+    var box=sec.querySelector('.reel'); if(!box) return;
+    var ra=box.querySelector('.ra'), rb=box.querySelector('.rb');
+    var i=-1, act=null, running=false;
+    function fade(el){ [ra,rb].forEach(function(v){v.style.opacity=(v===el)?'1':'0';}); }
+    function play(n){ i=n; var buf=(act===ra)?rb:ra; if(buf.getAttribute('src')!==LIST[i])buf.src=LIST[i]; try{buf.currentTime=0;}catch(e){} var p=buf.play(); if(p&&p.catch)p.catch(function(){}); fade(buf); act=buf; }
+    function nx(){ if(running) play((i+1)%LIST.length); }
+    ra.addEventListener('ended',function(){ if(running&&act===ra)nx(); });
+    rb.addEventListener('ended',function(){ if(running&&act===rb)nx(); });
+    ra.preload='metadata'; ra.src=LIST[0]; fade(ra); act=ra;
+    sec.addEventListener('deck:enter',function(){ if(!running){running=true; play(i<0?0:i);} });
+    sec.addEventListener('deck:leave',function(){ running=false; try{ra.pause();rb.pause();}catch(e){} });
+  })();
+  </script>
 
   <div class="foot"></div>
   <div class="foot-wm">Future<b>.</b>Thinkers</div>
@@ -163,7 +184,7 @@
     The machine isn&rsquo;t the story &mdash; <b style="color:var(--ink);font-weight:500">how it&rsquo;s filmed is.</b> Motion-controlled camera moves, macro on the bit and the chips, a real colour grade, sound designed like a scene.</p>
 
   <div class="vband">
-    <video class="vb" autoplay muted loop playsinline preload="auto" src="/sienci/assets/video/studio_cam.mp4"></video>
+    <video class="vb" autoplay muted loop playsinline preload="auto" src="/sienci/assets/video/jib_table.mp4"></video>
     <div class="vcap">The vision &mdash; a CNC studio built for the camera</div>
   </div>
 
@@ -194,104 +215,91 @@
   <p class="intro" style="position:absolute;left:120px;top:342px;width:1560px;font-size:24px">
     Every one of these is a content series in itself &mdash; and I have a hundred more. <span style="color:var(--dim)">Hover any panel.</span></p>
 
-  <div class="acc-wrap no-nav">
+  <div class="acc no-nav">
 
-    <div class="page on">
-      <div class="pan" data-k="retro">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">01</span><span class="vlabel">Retrotendo</span>
-        <div class="full"><b>Retrotendo controller</b><p>Fusion 360 &rarr; CNC&rsquo;d box &rarr; 3D-printed buttons + LEDs. Two working controllers, AI-coded games, played at Otherworld.</p><a class="lk" href="https://photos.google.com/share/AF1QipNO1IP9YSmFZNXt2Ye3Pg1axEBFWRKC_tsN8ATHiXLk_uUql_7MsGbMfJTTXuh_Vw" target="_blank" rel="noopener">View photos &rarr;</a></div>
-      </div>
-      <div class="pan" data-k="mush">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">02</span><span class="vlabel">Mushroom LEDs</span>
-        <div class="full"><b>Parametric mushroom LED sculptures</b><p>Designed parametrically and 3D-printed &mdash; endless variations from one model.</p><a class="lk" href="https://photos.google.com/search/CghtdXNocm9vbSIKCghtdXNocm9vbSiwwbm49zM4Aw%3D%3D/photo/AF1QipP7WOxC1uMBqFRjR1pUpQE_96BDu6AbsOBXIh_o" target="_blank" rel="noopener">View photos &rarr;</a></div>
-      </div>
-      <div class="pan" data-k="masks">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">03</span><span class="vlabel">Maker masks</span>
-        <div class="full"><b>CNC maker masks</b><p>Carved, illuminated festival masks &mdash; wildly shareable, endlessly variable.</p><a class="lk" href="https://photos.google.com/share/AF1QipNu_b2W6mEGO0RdIOTW7U_Vkbu-hWo0FpZCxMbTGWYdU3ZgWnVdbn21jEGIcDSchA?key=UG0yX3VjUnB0RDVmTkxxX0dtdE9zMlBrUlVSRW1B" target="_blank" rel="noopener">View photos &rarr;</a></div>
-      </div>
-      <div class="pan" data-k="drone">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">04</span><span class="vlabel">Drone gates</span>
-        <div class="full"><b>FPV drone racing gates</b><p>CNC-fabricated, LED-embedded gates and portals &mdash; built to race through and film in the forest.</p><a class="lk" href="https://photos.google.com/share/AF1QipMns5khFHwCKj6aQtyRWyPBeY-xcZZ85A0qOhZyOOh-evWbKagwgxmrjFDo5KeD_g?key=TklkcVFnd29ITWp5V3BoaVZqVGFUd1pKaG54ZlNR" target="_blank" rel="noopener">View photos &rarr;</a></div>
-      </div>
-      <div class="pan" data-k="fest">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">05</span><span class="vlabel">Art &amp; Festival</span>
-        <div class="full"><b>Art &amp; Festival</b><p>A forest art-and-music festival &mdash; giant CNC sculptures, stages and LEDs everywhere. Burning Man in the forest.</p></div>
-      </div>
-      <div class="pan" data-k="treasure">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">06</span><span class="vlabel">Treasure hunt</span>
-        <div class="full"><b>Educational treasure hunt</b><p>CNC-cut boxes, carved prizes and wooden maps &mdash; ties into the kids&rsquo; maker school.</p><a class="lk" href="https://photos.google.com/share/AF1QipNNvdPvLYMQZlHMX_1zFIiWxt9vzp42WU-GQd3LhuDEABFzK-gcTn11K8zBUHyZBg" target="_blank" rel="noopener">View photos &rarr;</a></div>
-      </div>
-      <div class="pan" data-k="glamp">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">07</span><span class="vlabel">Glamping cabins</span>
-        <div class="full"><b>CNC-cut glamping cabins</b><p>WikiHouse flat-pack builds, artfully finished &mdash; the rural build series.</p></div>
-      </div>
+    <div class="pan" data-k="retro">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">01</span><span class="vlabel">Retrotendo</span>
+      <div class="full"><b>Retrotendo controller</b><p>Fusion 360 &rarr; CNC&rsquo;d box &rarr; 3D-printed buttons + LEDs. Two working controllers, AI-coded games, played at Otherworld.</p><a class="lk" href="https://photos.google.com/share/AF1QipNO1IP9YSmFZNXt2Ye3Pg1axEBFWRKC_tsN8ATHiXLk_uUql_7MsGbMfJTTXuh_Vw" target="_blank" rel="noopener">View photos &rarr;</a></div>
+    </div>
+    <div class="pan" data-k="mush">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">02</span><span class="vlabel">Mushroom LEDs</span>
+      <div class="full"><b>Parametric mushroom LED sculptures</b><p>Designed parametrically and 3D-printed &mdash; endless variations from one model.</p><a class="lk" href="https://photos.google.com/search/CghtdXNocm9vbSIKCghtdXNocm9vbSiwwbm49zM4Aw%3D%3D/photo/AF1QipP7WOxC1uMBqFRjR1pUpQE_96BDu6AbsOBXIh_o" target="_blank" rel="noopener">View photos &rarr;</a></div>
+    </div>
+    <div class="pan" data-k="masks">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">03</span><span class="vlabel">Maker masks</span>
+      <div class="full"><b>CNC maker masks</b><p>Carved, layered, illuminated festival masks &mdash; wildly shareable, endlessly variable.</p><a class="lk" href="https://photos.google.com/share/AF1QipNu_b2W6mEGO0RdIOTW7U_Vkbu-hWo0FpZCxMbTGWYdU3ZgWnVdbn21jEGIcDSchA?key=UG0yX3VjUnB0RDVmTkxxX0dtdE9zMlBrUlVSRW1B" target="_blank" rel="noopener">View photos &rarr;</a></div>
+    </div>
+    <div class="pan" data-k="drone">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">04</span><span class="vlabel">Drone gates</span>
+      <div class="full"><b>FPV drone racing gates</b><p>CNC-fabricated, LED-embedded gates and portals &mdash; built to race through and film in the forest.</p><a class="lk" href="https://photos.google.com/share/AF1QipMns5khFHwCKj6aQtyRWyPBeY-xcZZ85A0qOhZyOOh-evWbKagwgxmrjFDo5KeD_g?key=TklkcVFnd29ITWp5V3BoaVZqVGFUd1pKaG54ZlNR" target="_blank" rel="noopener">View photos &rarr;</a></div>
+    </div>
+    <div class="pan" data-k="fest">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">05</span><span class="vlabel">Art &amp; Festival</span>
+      <div class="full"><b>Art &amp; Festival</b><p>A forest art-and-music festival &mdash; giant CNC sculptures, stages and LEDs everywhere. Burning Man in the forest.</p></div>
+    </div>
+    <div class="pan" data-k="treasure">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">06</span><span class="vlabel">Treasure hunt</span>
+      <div class="full"><b>Educational treasure hunt</b><p>CNC-cut boxes, carved prizes and wooden maps &mdash; ties into the kids&rsquo; maker school.</p><a class="lk" href="https://photos.google.com/share/AF1QipNNvdPvLYMQZlHMX_1zFIiWxt9vzp42WU-GQd3LhuDEABFzK-gcTn11K8zBUHyZBg" target="_blank" rel="noopener">View photos &rarr;</a></div>
+    </div>
+    <div class="pan" data-k="glamp">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">07</span><span class="vlabel">Glamping cabins</span>
+      <div class="full"><b>CNC-cut glamping cabins</b><p>WikiHouse flat-pack builds, artfully finished &mdash; the rural build series.</p></div>
+    </div>
+    <div class="pan" data-k="artgen">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">08</span><span class="vlabel">Art generator</span>
+      <div class="full"><b>The art-generator app &rarr; CNC</b><p>An AI app I&rsquo;m building spits out laser/CNC art &mdash; generate, cut, film the whole loop.</p></div>
+    </div>
+    <div class="pan" data-k="cabingen">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">09</span><span class="vlabel">Cabin generator</span>
+      <div class="full"><b>Cabin generator app</b><p>An AI configurator I&rsquo;m building &mdash; design a WikiHouse cabin, get the cut files, film the build.</p></div>
+    </div>
+    <div class="pan" data-k="furn">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">10</span><span class="vlabel">Furniture</span>
+      <div class="full"><b>Furniture</b><p>CNC and hand-built furniture &mdash; desks, tables and one-off pieces, start to finish.</p></div>
+    </div>
+    <div class="pan" data-k="sign">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">11</span><span class="vlabel">Signage</span>
+      <div class="full"><b>Signage</b><p>CNC-cut and painted signage &mdash; wayfinding and golf-course signs across the resort.</p></div>
+    </div>
+    <div class="pan" data-k="arch">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">12</span><span class="vlabel">Archetypes</span>
+      <div class="full"><b>Archetypes art</b><p>A generative art series &mdash; from NFT visuals to physical, fabricated prints.</p></div>
+    </div>
+    <div class="pan" data-k="decor">
+      <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">13</span><span class="vlabel">Cabin d&eacute;cor</span>
+      <div class="full"><b>Cabin art &amp; d&eacute;cor</b><p>Carved wall art, d&eacute;cor and finishing pieces &mdash; the details that make the cabins.</p></div>
     </div>
 
-    <div class="page">
-      <div class="pan" data-k="artgen">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">08</span><span class="vlabel">Art generator</span>
-        <div class="full"><b>The art-generator app &rarr; CNC</b><p>An AI app I&rsquo;m building spits out laser/CNC art &mdash; generate, cut, film the whole loop.</p></div>
-      </div>
-      <div class="pan" data-k="cabingen">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">09</span><span class="vlabel">Cabin generator</span>
-        <div class="full"><b>Cabin generator app</b><p>An AI configurator I&rsquo;m building &mdash; design a WikiHouse cabin, get the cut files, film the build.</p></div>
-      </div>
-      <div class="pan" data-k="furn">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">10</span><span class="vlabel">Furniture</span>
-        <div class="full"><b>Furniture</b><p>CNC and hand-built furniture &mdash; desks, tables and one-off pieces, start to finish.</p></div>
-      </div>
-      <div class="pan" data-k="sign">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">11</span><span class="vlabel">Signage</span>
-        <div class="full"><b>Signage</b><p>CNC-cut and painted signage &mdash; wayfinding and golf-course signs across the resort.</p></div>
-      </div>
-      <div class="pan" data-k="arch">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">12</span><span class="vlabel">Archetypes</span>
-        <div class="full"><b>Archetypes art</b><p>A generative art series &mdash; from NFT visuals to physical, fabricated prints.</p></div>
-      </div>
-      <div class="pan" data-k="decor">
-        <div class="mstack"><video class="ly va" data-seq muted playsinline preload="none"></video><video class="ly vb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
-        <span class="num">13</span><span class="vlabel">Cabin d&eacute;cor</span>
-        <div class="full"><b>Cabin art &amp; d&eacute;cor</b><p>Carved wall art, d&eacute;cor and finishing pieces &mdash; the details that make the cabins.</p></div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="pager no-nav">
-    <button class="pg-arw" data-dir="-1" aria-label="Previous projects">&lsaquo;</button>
-    <span class="pg-dots"><i class="on"></i><i></i></span>
-    <button class="pg-arw" data-dir="1" aria-label="More projects">&rsaquo;</button>
-    <span class="pg-label">Page 1 / 2 &middot; 13 projects</span>
   </div>
 
   <div class="foot"></div>
   <div class="foot-wm">Future<b>.</b>Thinkers</div>
   <div class="foot-pg"><b>06</b> / 11</div>
 
-  <style>section[data-n="6"] .acc-wrap{position:absolute;left:120px;top:430px;width:1680px;height:452px}section[data-n="6"] .page{position:absolute;inset:0;display:flex;gap:10px;opacity:0;pointer-events:none;transition:opacity .35s}section[data-n="6"] .page.on{opacity:1;pointer-events:auto}section[data-n="6"] .pan{position:relative;flex:1;height:100%;border-radius:16px;overflow:hidden;background:#0a090c;
-      border:1px solid var(--line);transition:flex .5s cubic-bezier(.4,0,.2,1)}section[data-n="6"] .page.on .pan:hover{flex:3.6}section[data-n="6"] .mstack{position:absolute;inset:0}section[data-n="6"] .ly{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}section[data-n="6"] .pan:hover .ly{object-fit:contain}section[data-n="6"] .pan::after{content:"";position:absolute;inset:0;z-index:1;transition:background .4s;pointer-events:none;
-      background:linear-gradient(0deg,rgba(8,7,10,.92),rgba(8,7,10,.12) 56%,rgba(8,7,10,.42))}section[data-n="6"] .pan:hover::after{background:linear-gradient(0deg,rgba(8,7,10,.9),rgba(8,7,10,.28) 74%,rgba(8,7,10,.5))}section[data-n="6"] .num{position:absolute;top:14px;left:15px;z-index:3;font-family:var(--serif);font-weight:300;
-      font-size:24px;color:rgba(255,255,255,.72);text-shadow:0 2px 8px rgba(0,0,0,.8);transition:opacity .25s}section[data-n="6"] .vlabel{position:absolute;left:50%;top:50%;z-index:3;transform:translate(-50%,-50%) rotate(180deg);
+  <style>section[data-n="6"] .acc{position:absolute;left:120px;top:436px;width:1680px;height:476px;display:flex;gap:8px}section[data-n="6"] .pan{position:relative;flex:1;min-width:0;height:100%;border-radius:14px;overflow:hidden;background:#0a090c;
+      border:1px solid var(--line);transition:flex .5s cubic-bezier(.4,0,.2,1)}section[data-n="6"] .acc:hover .pan{flex:.62}section[data-n="6"] .acc .pan:hover{flex:6}section[data-n="6"] .mstack{position:absolute;inset:0}section[data-n="6"] .ly{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}section[data-n="6"] .pan:hover .ly{object-fit:contain}section[data-n="6"] .pan::after{content:"";position:absolute;inset:0;z-index:1;transition:background .4s;pointer-events:none;
+      background:linear-gradient(0deg,rgba(8,7,10,.92),rgba(8,7,10,.12) 56%,rgba(8,7,10,.42))}section[data-n="6"] .pan:hover::after{background:linear-gradient(0deg,rgba(8,7,10,.9),rgba(8,7,10,.28) 74%,rgba(8,7,10,.5))}section[data-n="6"] .num{position:absolute;top:13px;left:13px;z-index:3;font-family:var(--serif);font-weight:300;
+      font-size:22px;color:rgba(255,255,255,.72);text-shadow:0 2px 8px rgba(0,0,0,.8);transition:opacity .25s}section[data-n="6"] .vlabel{position:absolute;left:50%;top:50%;z-index:3;transform:translate(-50%,-50%) rotate(180deg);
       writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap;pointer-events:none;
-      font-family:var(--sans);font-weight:600;font-size:19px;letter-spacing:.02em;color:#fff;
-      text-shadow:0 2px 12px rgba(0,0,0,.9);transition:opacity .25s}section[data-n="6"] .full{position:absolute;left:22px;right:22px;bottom:20px;z-index:4;opacity:0;transform:translateY(8px);
-      pointer-events:none;transition:opacity .3s .12s,transform .3s .12s}section[data-n="6"] .pan:hover .full{opacity:1;transform:none;pointer-events:auto}section[data-n="6"] .pan:hover .vlabel, section[data-n="6"] .pan:hover .num{opacity:0}section[data-n="6"] .full b{display:block;font-family:var(--sans);font-weight:600;font-size:24px;line-height:1.15;
-      color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.9)}section[data-n="6"] .full p{font-family:var(--sans);font-weight:400;font-size:17px;line-height:1.35;
-      color:rgba(255,255,255,.92);margin:8px 0 0;text-shadow:0 2px 12px rgba(0,0,0,.95)}section[data-n="6"] .full .lk{display:inline-block;margin-top:11px;font-family:var(--sans);font-weight:600;font-size:16px;
-      color:var(--amber);text-decoration:none;text-shadow:0 2px 12px rgba(0,0,0,.95)}section[data-n="6"] .pager{position:absolute;left:120px;top:902px;width:1680px;display:flex;align-items:center;justify-content:center;gap:18px}section[data-n="6"] .pg-arw{width:42px;height:42px;border-radius:999px;border:1px solid var(--line);background:var(--surface);
-      color:var(--ink);font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:border-color .18s,color .18s}section[data-n="6"] .pg-arw:hover{border-color:var(--amber);color:var(--amber)}section[data-n="6"] .pg-dots{display:flex;gap:9px}section[data-n="6"] .pg-dots i{width:9px;height:9px;border-radius:999px;background:var(--line);transition:background .2s}section[data-n="6"] .pg-dots i.on{background:var(--amber)}section[data-n="6"] .pg-label{font-family:var(--sans);font-size:16px;color:var(--dim);margin-left:8px}
+      font-family:var(--sans);font-weight:600;font-size:18px;letter-spacing:.02em;color:#fff;
+      text-shadow:0 2px 12px rgba(0,0,0,.9);transition:opacity .25s}section[data-n="6"] .full{position:absolute;left:20px;right:20px;bottom:18px;z-index:4;opacity:0;transform:translateY(8px);
+      pointer-events:none;transition:opacity .3s .12s,transform .3s .12s}section[data-n="6"] .pan:hover .full{opacity:1;transform:none;pointer-events:auto}section[data-n="6"] .pan:hover .vlabel, section[data-n="6"] .pan:hover .num{opacity:0}section[data-n="6"] .full b{display:block;font-family:var(--sans);font-weight:600;font-size:23px;line-height:1.15;
+      color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.9)}section[data-n="6"] .full p{font-family:var(--sans);font-weight:400;font-size:16.5px;line-height:1.35;
+      color:rgba(255,255,255,.92);margin:8px 0 0;text-shadow:0 2px 12px rgba(0,0,0,.95)}section[data-n="6"] .full .lk{display:inline-block;margin-top:10px;font-family:var(--sans);font-weight:600;font-size:16px;
+      color:var(--amber);text-decoration:none;text-shadow:0 2px 12px rgba(0,0,0,.95)}
   </style>
 
   <script>
@@ -301,16 +309,15 @@
     try{ var l=document.querySelector('link[rel="stylesheet"][href*="brand.css"]');
          if(l){ AB=l.getAttribute('href').replace(/\/brand\.css.*$/,''); } }catch(e){}
     function url(p){ return AB+'/'+p; }
-    // playlists: "v/name" -> video/name.mp4 , "i/name" -> img/name.webp
     var PL={
       retro:['v/retro_ctrl','v/retro_1','v/retro_2','v/retro_3','v/retro_4','v/retro_5','v/retro_6','v/retro_7','v/retro_8','v/retro_9'],
       mush:['v/mush_1','v/mush_2','v/mush_3'],
-      masks:['i/masks_charcoal'],
+      masks:['i/masks_charcoal','i/mask_explorer','i/mask_king','i/mask_sage1','i/mask_sage2','v/mask_v1'],
       drone:['v/drone_v1','v/drone_v2','i/drone_i1','i/drone_i2','i/drone_i3','i/drone_i4'],
       fest:['v/fest_1','v/fest_2','v/fest_3','v/fest_4','v/fest_5','v/fest_6'],
       treasure:['v/treasure_hunt','i/treasure_i1','i/treasure_i2'],
       glamp:['v/glamp_1','v/glamp_2'],
-      artgen:['v/app_demo'],
+      artgen:['v/artgen_v'],
       cabingen:['v/app_demo'],
       furn:['v/furn_1','v/furn_2','i/furn_i1','i/furn_i2','i/furn_i3'],
       sign:['v/sign_1','v/sign_2','i/sign_i1','i/sign_i2'],
@@ -354,22 +361,9 @@
       };
     }
 
-    var pages=[].slice.call(sec.querySelectorAll('.page'));
-    var dots=[].slice.call(sec.querySelectorAll('.pg-dots i'));
-    var lbl=sec.querySelector('.pg-label');
-    [].slice.call(sec.querySelectorAll('.pan')).forEach(function(p){ p._ctl=makeCtl(p); p._ctl.poster(); });
-    var curPage=0, active=false;
-    function panelsOf(p){ return [].slice.call(pages[p].querySelectorAll('.pan')).map(function(x){return x._ctl;}); }
-    function startPage(p){ pages.forEach(function(pg,idx){ panelsOf(idx).forEach(function(c){ if(idx!==p||!active) c.stop(); }); });
-      if(active) panelsOf(p).forEach(function(c){ c.start(); }); }
-    function setPage(p){ p=(p+pages.length)%pages.length; curPage=p;
-      pages.forEach(function(pg,idx){ pg.classList.toggle('on',idx===p); });
-      dots.forEach(function(d,idx){ d.classList.toggle('on',idx===p); });
-      if(lbl) lbl.textContent='Page '+(p+1)+' / '+pages.length+' · 13 projects';
-      startPage(p); }
-    sec.querySelectorAll('.pg-arw').forEach(function(b){ b.addEventListener('click',function(){ setPage(curPage+(+b.dataset.dir)); }); });
-    sec.addEventListener('deck:enter',function(){ active=true; startPage(curPage); });
-    sec.addEventListener('deck:leave',function(){ active=false; [].slice.call(sec.querySelectorAll('.pan')).forEach(function(p){ p._ctl.stop(); }); });
+    var ctls=[].slice.call(sec.querySelectorAll('.pan')).map(function(p){ var c=makeCtl(p); c.poster(); return c; });
+    sec.addEventListener('deck:enter',function(){ ctls.forEach(function(c){ c.start(); }); });
+    sec.addEventListener('deck:leave',function(){ ctls.forEach(function(c){ c.stop(); }); });
   })();
   </script>
 </section>
