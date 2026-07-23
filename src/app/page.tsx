@@ -3,6 +3,7 @@ import Bio from "@/components/Bio";
 import Businesses from "@/components/Businesses";
 import Speaking from "@/components/Speaking";
 import Projects from "@/components/Projects";
+import ThreeD from "@/components/ThreeD";
 import Vlogs from "@/components/Vlogs";
 import Contact from "@/components/Contact";
 
@@ -17,6 +18,7 @@ export default function Home() {
       <Speaking />
       <div className="mx-auto max-w-6xl">
         <Projects />
+        <ThreeD />
         <Vlogs />
         <Contact />
       </div>

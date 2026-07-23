@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "conference-badge",
+    "name": "Conference Badge",
+    "oneLiner": "Custom 3D-printed conference badge with a swappable raised-QR code plate.",
+    "status": "draft",
+    "date": "2026-05",
+    "software": "Fusion 360",
+    "tags": ["fusion-360", "3d-print"],
+    "model": { "src": "/3d/conference-badge/model.stl", "format": "stl" },
+    "downloads": [
+      { "label": "Badge STL", "href": "/3d/conference-badge/model.stl" },
+      { "label": "QR plate STL", "href": "/3d/conference-badge/qr-plate.stl" }
+    ],
+    "video": null,
+    "writeup": [
+      "A custom name badge designed in Fusion 360 for conference wear: a 114 × 161 mm framed face with detail banding around the border and a recessed center field.",
+      "The QR code is a separate 77.5 mm plate with the code modeled as raised geometry — print it in a contrasting filament and it scans straight off the badge, and the code can be swapped without reprinting the whole thing."
+    ]
+  },
+  {
+    "slug": "designspore-logo",
+    "name": "Design Spore Mark",
+    "oneLiner": "The Design Spore mushroom logo as a printable relief.",
+    "status": "draft",
+    "date": "2026-03",
+    "software": "Fusion 360",
+    "tags": ["fusion-360", "3d-print", "branding"],
+    "model": { "src": "/3d/designspore-logo/model.stl", "format": "stl" },
+    "downloads": [
+      { "label": "STL", "href": "/3d/designspore-logo/model.stl" }
+    ],
+    "video": null,
+    "writeup": [
+      "The Design Spore mushroom mark translated from line art into solid geometry — a 21 × 24 mm relief, 0.8 mm thick, sized for pins, charms, and embossing onto other prints so the brand can live off the screen."
+    ]
+  },
+  {
+    "slug": "hex-wall-insert",
+    "name": "Honeycomb Wall Insert (M4)",
+    "oneLiner": "Hex inserts for a honeycomb storage wall — M4 hardware mount and blank variants.",
+    "status": "draft",
+    "date": "2026-03",
+    "software": "Fusion 360",
+    "tags": ["fusion-360", "3d-print", "workshop"],
+    "model": { "src": "/3d/hex-wall-insert/model.stl", "format": "stl" },
+    "downloads": [
+      { "label": "M4 insert STL", "href": "/3d/hex-wall-insert/model.stl" },
+      { "label": "Blank insert STL", "href": "/3d/hex-wall-insert/blank.stl" }
+    ],
+    "video": null,
+    "writeup": [
+      "Snap-in hex inserts for a honeycomb storage wall: a 26 mm hexagonal body with spring clips on the sides, in two variants — one with an M4 through-hole for bolting on hooks and holders, and a blank for capping unused cells."
+    ]
+  }
+]
