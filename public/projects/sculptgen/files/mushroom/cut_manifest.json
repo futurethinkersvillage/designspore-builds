@@ -1,0 +1,64 @@
+{
+  "sheets": [
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\mushroom\\sheet-01.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\mushroom\\sheet-02.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\mushroom\\sheet-03.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\mushroom\\sheet-04.svg"
+  ],
+  "bed_mm": [
+    600.0,
+    400.0
+  ],
+  "kerf_mm": 0.15,
+  "material": {
+    "key": "ply3mm",
+    "name": "3mm plywood",
+    "thickness": 3.0
+  },
+  "part_count": 24,
+  "printed_parts_skipped": 1,
+  "assembly": {
+    "region_meta": {
+      "stem": {
+        "technique": "interlocked",
+        "parts": 8,
+        "a_slices": 4,
+        "b_slices": 4,
+        "crossings": 16,
+        "slot_width": 3.2,
+        "footprint": [
+          -35.7,
+          -41.2,
+          41.2,
+          41.2
+        ]
+      },
+      "cap": {
+        "technique": "radial",
+        "parts": 16,
+        "ribs": 14,
+        "hubs": [
+          [
+            245.0,
+            96.5
+          ],
+          [
+            294.0,
+            104.0
+          ]
+        ],
+        "r_inner": 7.6,
+        "slot_width": 3.2
+      },
+      "platform": {
+        "technique": "printed",
+        "parts": 1,
+        "radius_mm": 78.9,
+        "sockets": 8,
+        "socket_depth": 6.0,
+        "print_height_mm": 21.0
+      }
+    },
+    "note": "assemble by ascending part number; labels are engraved in blue"
+  }
+}

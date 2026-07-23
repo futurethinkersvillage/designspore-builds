@@ -1,0 +1,40 @@
+{
+  "sheets": [
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\lantern\\sheet-01.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\lantern\\sheet-02.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\lantern\\sheet-03.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\lantern\\sheet-04.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\lantern\\sheet-05.svg"
+  ],
+  "bed_mm": [
+    600.0,
+    400.0
+  ],
+  "kerf_mm": 0.15,
+  "material": {
+    "key": "ply3mm",
+    "name": "3mm plywood",
+    "thickness": 3.0
+  },
+  "part_count": 10,
+  "printed_parts_skipped": 0,
+  "assembly": {
+    "region_meta": {
+      "body": {
+        "technique": "interlocked",
+        "parts": 10,
+        "a_slices": 5,
+        "b_slices": 5,
+        "crossings": 25,
+        "slot_width": 3.2,
+        "footprint": [
+          -54.2,
+          -58.9,
+          54.2,
+          58.9
+        ]
+      }
+    },
+    "note": "assemble by ascending part number; labels are engraved in blue"
+  }
+}

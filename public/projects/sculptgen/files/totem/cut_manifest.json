@@ -1,0 +1,75 @@
+{
+  "sheets": [
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-01.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-02.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-03.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-04.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-05.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-06.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-07.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-08.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-09.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-10.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-11.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\totem\\sheet-12.svg"
+  ],
+  "bed_mm": [
+    600.0,
+    400.0
+  ],
+  "kerf_mm": 0.15,
+  "material": {
+    "key": "ply3mm",
+    "name": "3mm plywood",
+    "thickness": 3.0
+  },
+  "part_count": 35,
+  "printed_parts_skipped": 0,
+  "assembly": {
+    "region_meta": {
+      "base": {
+        "technique": "stacked",
+        "parts": 16,
+        "layers": 16,
+        "dowels": [
+          [
+            14.5,
+            -8.0
+          ],
+          [
+            -79.2,
+            -53.5
+          ],
+          [
+            -32.4,
+            68.0
+          ]
+        ],
+        "dowel_diameter": 6.0,
+        "dowel_length_mm": 48.0
+      },
+      "body": {
+        "technique": "radial",
+        "parts": 19,
+        "ribs": 16,
+        "hubs": [
+          [
+            103.4,
+            42.8
+          ],
+          [
+            186.6,
+            84.1
+          ],
+          [
+            262.2,
+            40.5
+          ]
+        ],
+        "r_inner": 8.5,
+        "slot_width": 3.2
+      }
+    },
+    "note": "assemble by ascending part number; labels are engraved in blue"
+  }
+}

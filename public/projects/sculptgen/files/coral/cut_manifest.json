@@ -1,0 +1,61 @@
+{
+  "sheets": [
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\coral\\sheet-01.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\coral\\sheet-02.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\coral\\sheet-03.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\coral\\sheet-04.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\coral\\sheet-05.svg",
+    "C:\\Users\\miken\\Projects\\mikegilliland-site\\public\\projects\\sculptgen\\files\\coral\\sheet-06.svg"
+  ],
+  "bed_mm": [
+    600.0,
+    400.0
+  ],
+  "kerf_mm": 0.15,
+  "material": {
+    "key": "ply3mm",
+    "name": "3mm plywood",
+    "thickness": 3.0
+  },
+  "part_count": 34,
+  "printed_parts_skipped": 0,
+  "assembly": {
+    "region_meta": {
+      "foot": {
+        "technique": "stacked",
+        "parts": 13,
+        "layers": 13,
+        "dowels": [
+          [
+            36.6,
+            -31.9
+          ]
+        ],
+        "dowel_diameter": 6.0,
+        "dowel_length_mm": 39.0
+      },
+      "mass": {
+        "technique": "radial",
+        "parts": 21,
+        "ribs": 18,
+        "hubs": [
+          [
+            115.2,
+            65.2
+          ],
+          [
+            192.0,
+            61.7
+          ],
+          [
+            268.8,
+            22.2
+          ]
+        ],
+        "r_inner": 9.5,
+        "slot_width": 3.2
+      }
+    },
+    "note": "assemble by ascending part number; labels are engraved in blue"
+  }
+}

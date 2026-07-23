@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SculptGen — generative fabrication artwork</title>
+<meta name="description" content="Generative sculpture that compiles into real laser/CNC cut files and 3D-printed parts.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #14171c; --panel: #1c2129; --line: #2b323d;
+    --text: #e8e4da; --dim: #8a93a1; --accent: #e8a84c; --bad: #e05252;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { display: flex; height: 100vh; background: var(--bg); color: var(--text);
+         font: 13px/1.45 "Segoe UI", system-ui, sans-serif; overflow: hidden; }
+  #panel { width: 300px; min-width: 300px; background: var(--panel);
+           border-right: 1px solid var(--line); padding: 14px 16px;
+           display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+  h1 { font-size: 17px; letter-spacing: .04em; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--dim); font-size: 11.5px; }
+  .card { background: #171b22; border: 1px solid var(--line); border-radius: 8px;
+          padding: 10px 12px; }
+  .card h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .09em;
+             color: var(--dim); margin-bottom: 7px; }
+  .row { display: flex; justify-content: space-between; padding: 2px 0; }
+  .row b { font-weight: 600; }
+  .chip { display: inline-block; width: 10px; height: 10px; border-radius: 3px;
+          margin-right: 7px; }
+  button { background: #262d38; color: var(--text); border: 1px solid var(--line);
+           border-radius: 6px; padding: 7px 10px; cursor: pointer; font: inherit; }
+  button:hover { border-color: var(--accent); }
+  .btnrow { display: flex; gap: 8px; }
+  .btnrow button { flex: 1; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  #issues { color: #d9b16a; font-size: 12px; white-space: pre-wrap; }
+  #err { display: none; background: #3a1d1d; border: 1px solid var(--bad);
+         color: #f0c0c0; border-radius: 8px; padding: 10px 12px;
+         font-family: Consolas, monospace; font-size: 11px;
+         white-space: pre-wrap; max-height: 220px; overflow: auto; }
+  #viewport { flex: 1; position: relative; }
+  #viewport canvas { display: block; }
+  #hover { position: absolute; pointer-events: none; background: #000c;
+           border: 1px solid var(--line); border-radius: 6px; padding: 4px 9px;
+           font-size: 12px; display: none; z-index: 5; }
+  #status { position: absolute; right: 12px; bottom: 10px; color: var(--dim);
+            font-size: 11px; }
+  .hint { color: var(--dim); font-size: 11px; }
+  button.gal { display: block; width: 100%; text-align: left; margin-bottom: 6px;
+               padding: 8px 10px; }
+  button.gal b { display: block; font-size: 13px; }
+  button.gal span { display: block; color: var(--dim); font-size: 11px; margin-top: 2px; }
+  button.gal.on { border-color: var(--accent); background: #2e2519; }
+  #downloads a { display: block; color: var(--accent); font-size: 12px;
+                 text-decoration: none; padding: 2px 0; }
+  #downloads a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div id="panel">
+  <div>
+    <h1>Sculpt<span>Gen</span></h1>
+    <div class="sub">generative fabrication artwork</div>
+  </div>
+  <div id="err"></div>
+  <div class="card">
+    <h2>Sculpture</h2>
+    <div id="summary"></div>
+  </div>
+  <div class="card">
+    <h2>Regions</h2>
+    <div id="regions"></div>
+  </div>
+  <div class="card">
+    <h2>Gallery</h2>
+    <div id="gallery"></div>
+  </div>
+  <div class="card">
+    <h2>View</h2>
+    <label class="hint">Exploded view</label>
+    <input type="range" id="explode" min="0" max="1" step="0.01" value="0">
+  </div>
+  <div class="card">
+    <h2>Cut files</h2>
+    <div id="downloads"></div>
+  </div>
+  <div class="card">
+    <h2>How it works</h2>
+    <div class="sub" style="line-height:1.5">
+      Each sculpture starts as a mathematical form field, then gets deconstructed
+      region by region into flat parts using real construction techniques —
+      <b>stacked</b> layers, <b>radial</b> ribs with slotted hubs,
+      <b>interlocked</b> egg-crate grids, and <b>3D-printed</b> connectors.
+      Every part you see is a real cut piece: the 3D view is built from the
+      same polygons as the downloadable cut sheets.
+    </div>
+  </div>
+  <div class="hint">
+    Drag to orbit · wheel to zoom · hover a part for its number.
+    Built by <a href="https://mikegilliland.ca" style="color:#e8a84c">Mike Gilliland</a>.
+  </div>
+</div>
+<div id="viewport">
+  <div id="hover"></div>
+  <div id="status"></div>
+</div>
+<script>window.SCULPTGEN_STATIC = {"sculptures": [{"id": "mushroom", "name": "Mushroom", "blurb": "radial cap \u00b7 interlocked stem \u00b7 printed platform", "parts": 25, "sheets": ["files/mushroom/sheet-01.svg", "files/mushroom/sheet-02.svg", "files/mushroom/sheet-03.svg", "files/mushroom/sheet-04.svg"], "printed": "files/mushroom/printed_parts.3mf"}, {"id": "totem", "name": "Totem", "blurb": "stacked plinth \u00b7 radial twisted body", "parts": 35, "sheets": ["files/totem/sheet-01.svg", "files/totem/sheet-02.svg", "files/totem/sheet-03.svg", "files/totem/sheet-04.svg", "files/totem/sheet-05.svg", "files/totem/sheet-06.svg", "files/totem/sheet-07.svg", "files/totem/sheet-08.svg", "files/totem/sheet-09.svg", "files/totem/sheet-10.svg", "files/totem/sheet-11.svg", "files/totem/sheet-12.svg"], "printed": null}, {"id": "coral", "name": "Coral", "blurb": "organic blob mass \u00b7 dense radial ribs", "parts": 34, "sheets": ["files/coral/sheet-01.svg", "files/coral/sheet-02.svg", "files/coral/sheet-03.svg", "files/coral/sheet-04.svg", "files/coral/sheet-05.svg", "files/coral/sheet-06.svg"], "printed": null}, {"id": "lantern", "name": "Lantern", "blurb": "six-fold symmetry \u00b7 egg-crate interlock", "parts": 10, "sheets": ["files/lantern/sheet-01.svg", "files/lantern/sheet-02.svg", "files/lantern/sheet-03.svg", "files/lantern/sheet-04.svg", "files/lantern/sheet-05.svg"], "printed": null}]};</script>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js",
+               "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js" } }
+</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
