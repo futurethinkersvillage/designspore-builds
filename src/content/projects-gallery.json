@@ -1,0 +1,19 @@
+{
+  "overrides": {
+    "wikihouse-configurator": {
+      "description": "Interactive 3D configurator for a WikiHouse Skylark 250 cabin — arrange modules, preview the build, and export the block list.",
+      "order": 2
+    },
+    "sculptgen": { "order": 1 },
+    "infinity-polyhedron-wiring": { "order": 3 }
+  },
+  "extras": [
+    {
+      "slug": "3d",
+      "href": "/3d",
+      "title": "3D Modeling Portfolio",
+      "description": "Fusion 360 designs and functional prints, viewable and spinnable right in the browser.",
+      "order": 0
+    }
+  ]
+}
