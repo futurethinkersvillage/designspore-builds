@@ -1,5 +1,10 @@
 {
   "overrides": {
+    "landquest": {
+      "title": "LandQuest",
+      "description": "A GPS + NFC treasure-hunt app for real land. Play a demo hunt — follow riddles across a moonlit map, home in with the radar, and uncover the property's secrets.",
+      "order": 0
+    },
     "wikihouse-configurator": {
       "description": "Interactive 3D configurator for a WikiHouse Skylark 250 cabin — arrange modules, preview the build, and export the block list.",
       "order": 2

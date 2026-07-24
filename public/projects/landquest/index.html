@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<title>LandQuest — an offline treasure hunt for real land</title>
+<meta name="description" content="A playable demo of LandQuest: a GPS + NFC treasure-hunt app for real property — follow riddles across a moonlit map, home in with the radar, and uncover the land's secrets.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --bg:#0d0f22; --bg2:#161933; --panel:#171a34; --line:#2a2f52;
+    --text:#eef0ff; --dim:#9aa0c8; --cream:#faf8f4;
+    --amber:#ea824e; --green:#7bc950; --mauve:#b58fae; --indigo:#6d79c9; --hot:#ff5a4d;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    color:var(--text); background:radial-gradient(1200px 800px at 70% -10%,#20244a 0%,var(--bg) 55%,#080a18 100%);
+    overflow:hidden;
+  }
+  #app{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  .screen{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+  .screen.on{display:flex;animation:fade .45s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  h1{font-size:clamp(30px,7vw,52px);margin:.2em 0 .1em;letter-spacing:.5px}
+  .tag{color:var(--dim);max-width:30ch;line-height:1.5}
+  .btn{margin-top:22px;background:var(--green);color:#08140a;border:0;border-radius:14px;
+    padding:14px 26px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 6px 24px rgba(123,201,80,.3);transition:transform .1s}
+  .btn:active{transform:scale(.97)}
+  .btn.ghost{background:transparent;color:var(--dim);box-shadow:none;border:1px solid var(--line);font-weight:600}
+  .mush{font-size:64px;filter:drop-shadow(0 6px 20px rgba(234,130,78,.5))}
+  .fine{position:fixed;bottom:12px;left:0;right:0;text-align:center;color:#5a608c;font-size:12px}
+  .fine a{color:#7f86bd}
+
+  /* MAP */
+  #mapWrap{width:100%;height:100%;position:relative}
+  canvas{width:100%;height:100%;display:block;touch-action:none}
+  .hud{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;
+    padding:14px 16px;background:linear-gradient(#0d0f22cc,transparent)}
+  .hud .name{font-weight:800}
+  .hud .prog{font-family:ui-monospace,monospace;color:var(--green);font-size:13px}
+  .hint{position:absolute;bottom:16px;left:16px;right:16px;text-align:center;color:var(--dim);font-size:14px;pointer-events:none;text-shadow:0 1px 6px #000}
+
+  /* FINDER */
+  #finder .ring{width:min(72vw,300px);height:min(72vw,300px);border-radius:50%;border:3px solid var(--amber);
+    position:relative;display:flex;align-items:center;justify-content:center;box-shadow:0 0 60px -10px var(--amber) inset,0 0 40px -20px var(--amber)}
+  #arrow{font-size:88px;line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1);will-change:transform}
+  .state{font-size:20px;font-weight:800;margin-top:24px}
+  .dist{font-size:52px;font-weight:900;letter-spacing:1px;margin-top:2px}
+  .gps{color:var(--dim);font-size:13px}
+  .riddle{font-style:italic;color:var(--cream);max-width:34ch;line-height:1.5;margin-top:22px}
+  .title-sm{color:var(--dim);text-transform:uppercase;letter-spacing:3px;font-size:12px;font-weight:700}
+
+  /* REVEAL / DONE cards */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:26px 22px;max-width:440px;width:100%}
+  .card h2{margin:.1em 0 .4em;font-size:24px}
+  .edu{color:#d7dbff;line-height:1.6;text-align:left}
+  .badge{display:inline-block;background:#0d1a10;color:var(--green);border:1px solid #2f5a34;border-radius:999px;
+    padding:5px 12px;font-size:12px;font-weight:700;margin-bottom:12px;letter-spacing:1px}
+  .code{font-family:ui-monospace,monospace;font-size:30px;font-weight:900;color:var(--amber);letter-spacing:4px;margin:6px 0}
+  .codebox{background:#0d0f22;border:1px solid var(--amber);border-radius:14px;padding:16px;margin-top:16px}
+  .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+</style>
+
+<div id="app">
+  <!-- INTRO -->
+  <section class="screen on" id="intro">
+    <div class="mush">🍄</div>
+    <h1>LandQuest</h1>
+    <p class="tag">A treasure hunt for real land. Follow riddles across the property, home in with the radar, tap the hidden object to confirm your find — and uncover what makes the place special.</p>
+    <button class="btn" onclick="go('map')">Begin the hunt</button>
+    <p class="tag" style="margin-top:18px;font-size:13px;opacity:.8">Demo of the real app — which runs on GPS, compass &amp; NFC out on the land, fully offline.</p>
+  </section>
+
+  <!-- MAP -->
+  <section class="screen" id="map">
+    <div id="mapWrap">
+      <canvas id="cv"></canvas>
+      <div class="hud"><span class="name">🍄 Wells Gray hunt</span><span class="prog" id="prog">0 / 3 found</span></div>
+      <div class="hint" id="mapHint">Tap a glowing marker to head there.</div>
+    </div>
+  </section>
+
+  <!-- FINDER -->
+  <section class="screen" id="finder">
+    <div class="title-sm" id="fTitle">The Lone Pine</div>
+    <div class="ring" style="margin-top:16px"><div id="arrow">↑</div></div>
+    <div class="state" id="fState" style="color:var(--amber)">Getting warmer</div>
+    <div class="dist" id="fDist">60 m</div>
+    <div class="gps">GPS ±8 m</div>
+    <p class="riddle" id="fRiddle">…</p>
+    <div class="row">
+      <button class="btn" id="walkBtn" onclick="walk()">Take steps →</button>
+      <button class="btn ghost" onclick="go('map')">Back to map</button>
+    </div>
+  </section>
+
+  <!-- REVEAL -->
+  <section class="screen" id="reveal">
+    <div class="card">
+      <span class="badge">✓ FOUND</span>
+      <h2 id="rTitle">The Lone Pine</h2>
+      <p class="edu" id="rEdu">…</p>
+      <div class="row"><button class="btn" id="nextBtn" onclick="nextStop()">Next clue →</button></div>
+    </div>
+  </section>
+
+  <!-- DONE -->
+  <section class="screen" id="done">
+    <div class="mush" style="font-size:52px">🏆</div>
+    <h1 style="font-size:34px">Hunt complete!</h1>
+    <p class="tag">You found all three and learned the land's secrets. In the real hunt, this is where your prize unlocks.</p>
+    <div class="card" style="max-width:340px;margin-top:8px">
+      <span class="badge">🎁 PRIZE — LODGE REWARD</span>
+      <div class="codebox"><div style="color:var(--dim);font-size:11px;letter-spacing:2px">REDEEM CODE</div><div class="code" id="code">— — —</div></div>
+      <p class="edu" style="text-align:center;margin:12px 0 0;font-size:14px">Show this at the lodge for a free hot drink by the fire.</p>
+    </div>
+    <div class="row"><button class="btn ghost" onclick="location.reload()">Play again</button></div>
+  </section>
+</div>
+
+<p class="fine">A working demo. The real LandQuest is a native GPS + NFC app for touring real property. · <a href="/projects">← more projects</a></p>
+
+<script>
+const LAND = {"boundary":[[0.3891,0.9758],[0.3858,0.4147],[0.1403,0.4164],[0.1414,0.4484],[0.0965,0.5926],[0.1029,0.6196],[0.098,0.659],[0.0,0.6751],[0.0583,0.7136],[0.0716,0.7526],[0.0823,0.7838],[0.1027,0.8384],[0.1198,0.8807],[0.1217,0.8854],[0.1238,0.89],[0.1258,0.8947],[0.1281,0.8992],[0.1304,0.9038],[0.1327,0.9083],[0.1352,0.9128],[0.1377,0.9172],[0.1404,0.9216],[0.1431,0.926],[0.1459,0.9303],[0.1488,0.9346],[0.1517,0.9388],[0.1548,0.943],[0.1579,0.9472],[0.1611,0.9513],[0.1644,0.9553],[0.1677,0.9593],[0.1711,0.9632],[0.1747,0.9671],[0.1782,0.971],[0.1819,0.9747],[0.3891,0.9772],[0.3891,0.9758]],"trails":[[[0.5101,0.6741],[0.5454,0.6392],[0.5706,0.6115],[0.5695,0.5776],[0.547,0.5627],[0.5497,0.5383],[0.5764,0.5183],[0.6171,0.5193],[0.6374,0.5236],[0.6775,0.5136],[0.7112,0.5016],[0.738,0.4944],[0.7567,0.4848],[0.7888,0.4848],[0.8167,0.502],[0.8311,0.5226],[0.8455,0.5336],[0.8653,0.5441],[0.9028,0.5522],[0.9419,0.547]],[[0.5615,0.5716],[0.5802,0.5728],[0.5957,0.5842],[0.6101,0.6153],[0.6203,0.6464],[0.6283,0.6488],[0.6546,0.6702],[0.6668,0.6889],[0.6925,0.7056],[0.7091,0.7161],[0.7251,0.7233],[0.7257,0.7429],[0.7305,0.7654],[0.7444,0.775],[0.7508,0.8017],[0.7562,0.8132],[0.7717,0.8165],[0.799,0.8079],[0.8167,0.8108],[0.8338,0.8232],[0.8487,0.8309],[0.8674,0.8347],[0.8862,0.8347],[0.9092,0.8275],[0.922,0.8318],[0.9199,0.861],[0.9135,0.8886],[0.9124,0.9174],[0.9285,0.9446],[0.937,0.9618],[0.9343,0.9914],[0.9279,1.0]],[[0.5161,0.4061],[0.5359,0.378],[0.569,0.3353],[0.5275,0.2436],[0.5313,0.2016],[0.5731,0.2072],[0.6167,0.2427],[0.6542,0.2769],[0.7435,0.3],[0.7994,0.2808],[0.8624,0.2546],[0.938,0.2677],[0.9983,0.2343],[1.0,0.1661],[0.9923,0.0346],[0.9296,0.0234],[0.8984,0.0623],[0.8486,0.0632],[0.8014,0.0313],[0.7666,0.0636],[0.7424,0.1183],[0.7206,0.1525],[0.6696,0.1767],[0.591,0.1351],[0.5315,0.2016]]]};
+
+const STOPS = [
+  { name:"The Lone Pine", pos:[0.565,0.58], riddle:"I stand alone where the old trail bends — oldest of my kind, and I count the winters in my bark.",
+    edu:"You've found a veteran <b>Douglas-fir</b>. Its thick, corky bark is a fire adaptation — it can survive the low ground-fires that sweep this forest every few decades, while thinner-barked neighbours burn. Trees like this can pass 500 years, quietly recording drought and fire in their rings." },
+  { name:"Sunrise Stone", pos:[0.80,0.485], riddle:"Face east at dawn and I catch the first light — glacier-left, lichen-clad, and I have not moved in ten thousand years.",
+    edu:"This <b>glacial erratic</b> was carried here and dropped by a retreating ice sheet at the end of the last ice age. The pale crust on its north face is <b>map lichen</b> — one of the slowest-growing living things on Earth (a few millimetres a century). Geologists literally use it as a clock to date when the rock was exposed." },
+  { name:"The Old Crossing", pos:[0.735,0.79], riddle:"Where the water was once forded, listen for the rush — creatures knew this path long before the first boot.",
+    edu:"A creek crossing — the <b>riparian</b> ribbon along it is the richest habitat on the whole property. The moving water oxygenates gravel beds where insects (and, downstream, spawning fish) begin life, and the streamside willows feed beaver, moose, and songbirds. Protect the banks and you protect nearly everything else." },
+];
+
+let cur = 0;                 // current stop index being hunted
+const found = new Set();     // indices found
+let dist = 60;
+
+const $ = id => document.getElementById(id);
+function go(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on')); $(id).classList.add('on'); if(id==='map') drawMap(); }
+
+/* ---------- MAP ---------- */
+const cv = $('cv'); const ctx = cv.getContext('2d');
+let M = {ox:0,oy:0,s:1}; // transform from 0..1 land space to canvas px
+function fit(){
+  const r = cv.getBoundingClientRect(); cv.width=r.width*devicePixelRatio; cv.height=r.height*devicePixelRatio;
+  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  const W=r.width,H=r.height, pad=Math.min(W,H)*0.10;
+  const s=Math.min((W-2*pad),(H-2*pad)); // square fit
+  M.s=s; M.ox=(W-s)/2; M.oy=(H-s)/2;
+}
+const px = p => [M.ox+p[0]*M.s, M.oy+p[1]*M.s];
+function drawMap(){
+  if(!$('map').classList.contains('on')) return;
+  fit();
+  const r=cv.getBoundingClientRect(); ctx.clearRect(0,0,r.width,r.height);
+  // mist glow
+  const g=ctx.createRadialGradient(r.width*0.6,r.height*0.35,10,r.width*0.6,r.height*0.35,r.width*0.7);
+  g.addColorStop(0,'rgba(56,60,120,.35)'); g.addColorStop(1,'transparent'); ctx.fillStyle=g; ctx.fillRect(0,0,r.width,r.height);
+  // trails
+  ctx.lineWidth=2; ctx.strokeStyle='rgba(250,248,244,.55)'; ctx.lineCap='round'; ctx.lineJoin='round';
+  LAND.trails.forEach(t=>{ctx.beginPath();t.forEach((p,i)=>{const q=px(p);i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1])});ctx.stroke();});
+  // boundary
+  ctx.beginPath(); LAND.boundary.forEach((p,i)=>{const q=px(p);i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1])}); ctx.closePath();
+  ctx.strokeStyle='#ea824e'; ctx.lineWidth=2.5; ctx.shadowColor='#ea824e'; ctx.shadowBlur=16; ctx.stroke(); ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(234,130,78,.05)'; ctx.fill();
+  // waypoints
+  const t=Date.now()/600;
+  STOPS.forEach((st,i)=>{
+    const q=px(st.pos); const done=found.has(i);
+    const pulse=done?0:(Math.sin(t)+1)/2;
+    ctx.beginPath(); ctx.arc(q[0],q[1],10+pulse*5,0,7); ctx.fillStyle=done?'rgba(123,201,80,.15)':'rgba(234,130,78,.18)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(q[0],q[1],7,0,7); ctx.fillStyle=done?'#7bc950':'#ea824e';
+    ctx.shadowColor=done?'#7bc950':'#ea824e'; ctx.shadowBlur=14; ctx.fill(); ctx.shadowBlur=0;
+    ctx.fillStyle='#08140a'; ctx.font='bold 11px system-ui'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(done?'✓':(i+1), q[0], q[1]+.5);
+    ctx.fillStyle='#eef0ff'; ctx.font='600 12px system-ui'; ctx.textBaseline='bottom';
+    ctx.fillText(st.name, q[0], q[1]-14);
+  });
+  requestAnimationFrame(drawMap);
+}
+cv.addEventListener('pointerdown',e=>{
+  const r=cv.getBoundingClientRect(); const x=e.clientX-r.left,y=e.clientY-r.top;
+  for(let i=0;i<STOPS.length;i++){ if(found.has(i))continue; const q=px(STOPS[i].pos);
+    if(Math.hypot(x-q[0],y-q[1])<26){ startFinder(i); return; } }
+});
+addEventListener('resize',()=>{ if($('map').classList.contains('on')) fit(); });
+
+/* ---------- FINDER ---------- */
+function startFinder(i){
+  cur=i; dist=55+Math.round(Math.random()*15);
+  const s=STOPS[i];
+  $('fTitle').textContent=s.name; $('fRiddle').textContent='“'+s.riddle+'”';
+  updateFinder(); go('finder');
+}
+function updateFinder(){
+  $('fDist').textContent = dist>0 ? dist+' m' : 'here!';
+  let state,col;
+  if(dist>40){state='Cold';col='#6d79c9';}
+  else if(dist>20){state='Getting warmer';col='#ea824e';}
+  else if(dist>4){state='Hot!';col='#ff5a4d';}
+  else {state='You\'re here';col='#7bc950';}
+  $('fState').textContent=state; $('fState').style.color=col;
+  document.querySelector('#finder .ring').style.borderColor=col;
+  document.querySelector('#finder .ring').style.boxShadow=`0 0 60px -10px ${col} inset,0 0 40px -20px ${col}`;
+  const wob=(Math.random()*30-15); $('arrow').style.transform=`rotate(${dist>4?wob:0}deg)`;
+  $('arrow').textContent = dist>4 ? '↑' : '🍄';
+  $('walkBtn').textContent = dist>4 ? 'Take steps →' : '🍄 Tap to find it';
+}
+function walk(){
+  if(dist>4){ dist=Math.max(0,dist-Math.round(10+Math.random()*8)); if(dist<4)dist=0; updateFinder(); }
+  else { // FOUND
+    found.add(cur);
+    const s=STOPS[cur]; $('rTitle').textContent=s.name; $('rEdu').innerHTML=s.edu;
+    $('nextBtn').textContent = found.size>=STOPS.length ? 'Claim your prize →' : 'Next clue →';
+    go('reveal');
+    $('prog').textContent = found.size+' / '+STOPS.length+' found';
+  }
+}
+function nextStop(){
+  if(found.size>=STOPS.length){ $('code').textContent = code(); go('done'); }
+  else go('map');
+}
+function code(){ const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s=''; for(let i=0;i<6;i++) s+=c[Math.floor(Math.random()*c.length)]; return s.slice(0,3)+'-'+s.slice(3); }
+</script>
