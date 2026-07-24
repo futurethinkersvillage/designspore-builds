@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<base href="/projects/wikihouse-configurator/">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WikiHouse Cabin Configurator — Skylark 250</title>
@@ -146,6 +147,24 @@
     <button id="spinBtn">⟳ Auto-rotate</button>
     <button id="resetCam">Reset view</button>
   </div>
+
+  <h2>3D print</h2>
+  <label>Scale</label>
+  <div class="row">
+    <select id="printScale">
+      <option value="20">1:20 (big, max detail)</option>
+      <option value="25" selected>1:25</option>
+      <option value="33">1:33</option>
+      <option value="50">1:50 (compact)</option>
+      <option value="100">1:100 (tiny)</option>
+    </select>
+  </div>
+  <div class="hint" id="printSizeHint"></div>
+  <div class="row" style="margin-top:8px">
+    <button id="printBlocksBtn" title="Unique detailed blocks on a plate + quantity CSV">⬇ Block set (STL)</button>
+    <button id="printBuildingBtn" title="Exactly what's on screen, as one STL">⬇ Building (STL)</button>
+  </div>
+  <div class="hint" id="printStatus">Block set = each unique block printed once as a solid (panels pre-merged), with a CSV of quantities — print, then assemble like the real thing.</div>
 
   <h2>Interior &amp; services
     <label style="float:right; font-size:11px; text-transform:none; letter-spacing:0; cursor:pointer">

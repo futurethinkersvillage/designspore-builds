@@ -4,6 +4,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { loadSystem, loadDetailed } from "./blocks.js";
 import { DEFAULT_SYSTEM } from "./systems.js";
 import { initUI, onConfigChange, refresh, config } from "./ui.js";
+import { exportBuildingSTL, exportBlockPlateSTL, printedSizeText } from "./export3d.js";
 import { roofingById, claddingById } from "./materials.js";
 import { artCanvas } from "./interior.js";
 import { buildFurniture } from "./furniture-models.js";
@@ -252,6 +253,7 @@ function buildPiece(p) {
   mesh.castShadow = true;
   mesh.receiveShadow = true;
   if (p.rotY && p.kind === "furniture") mesh.rotation.y = p.rotY;
+  mesh.userData.kind = p.kind;
   mesh.userData.base = new THREE.Vector3(p.x, p.y, p.z);
   mesh.userData.explodeDir = new THREE.Vector3(p.ex || 0, p.ey || 0, p.ez || 0);
   mesh.position.copy(mesh.userData.base);
@@ -303,6 +305,7 @@ export function rebuild(cfg, result) {
   }
   applyExplode();
   if (renderer) renderer.render(scene, camera);
+  updatePrintHint();
   const m = result.metrics;
   hud.textContent =
     `${m.outerW.toFixed(1)} × ${m.outerL.toFixed(1)} m  ·  ${m.floorArea.toFixed(0)} m² internal\n` +
@@ -337,6 +340,33 @@ function hookViewControls() {
     detailedMode = e.target.checked;
     if (lastResult) rebuild(null, lastResult);
   });
+
+  // ---- 3D print export ----
+  const printScaleSel = document.getElementById("printScale");
+  const printStatus = document.getElementById("printStatus");
+  const scaleN = () => +printScaleSel.value;
+  printScaleSel?.addEventListener("change", updatePrintHint);
+  document.getElementById("printBuildingBtn")?.addEventListener("click", () => {
+    const r = exportBuildingSTL(buildingGroup, scaleN(), { includeInterior: false });
+    printStatus.textContent = r.ok
+      ? `Building STL: ${(r.bytes / 1e6).toFixed(1)} MB, ${r.triangles.toLocaleString()} triangles (as shown on screen).`
+      : `Export failed: ${r.reason}`;
+  });
+  document.getElementById("printBlocksBtn")?.addEventListener("click", async () => {
+    printStatus.textContent = "Loading block geometry…";
+    const r = await exportBlockPlateSTL(lastResult, scaleN(), (msg) => { printStatus.textContent = msg; });
+    printStatus.textContent = r.ok
+      ? `Block plate: ${r.blocks} unique blocks, ${(r.bytes / 1e6).toFixed(1)} MB STL + quantity CSV.` +
+        (r.missing.length ? ` Not included (approximated sets): ${r.missing.join(", ")}.` : "")
+      : `Export failed: ${r.reason}`;
+  });
+}
+
+function updatePrintHint() {
+  const el = document.getElementById("printSizeHint");
+  const sel = document.getElementById("printScale");
+  if (!el || !sel || !lastResult) return;
+  el.textContent = `Printed size: ${printedSizeText(lastResult.metrics, +sel.value)}`;
 }
 
 function animate() {
