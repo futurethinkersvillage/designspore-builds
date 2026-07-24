@@ -1,0 +1,26 @@
+{
+  "laser": {
+    "name": "Laser cutter",
+    "bed_mm": [
+      600,
+      400
+    ],
+    "kerf_mm": 0.15,
+    "kerf_calibrated": false,
+    "min_feature_mm": 2.0,
+    "tool_diameter_mm": 0,
+    "dogbones": false
+  },
+  "cnc": {
+    "name": "CNC router",
+    "bed_mm": [
+      1220,
+      2440
+    ],
+    "kerf_mm": 0.0,
+    "kerf_calibrated": false,
+    "min_feature_mm": 4.0,
+    "tool_diameter_mm": 6.35,
+    "dogbones": true
+  }
+}

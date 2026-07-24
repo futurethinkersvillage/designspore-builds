@@ -1,0 +1,37 @@
+{
+  "seed": 1,
+  "size_mm": {
+    "height": 200.0
+  },
+  "material": "ply3mm",
+  "machine": "laser",
+  "resolution": 200,
+  "form": {
+    "base": "mesh",
+    "base_params": {
+      "path": "C:\\Users\\miken\\Projects\\sculptgen\\testdata\\wide.stl",
+      "up": "z",
+      "voxel_res": 160
+    },
+    "modifiers": [],
+    "symmetry": {}
+  },
+  "regions": [
+    {
+      "id": "whole",
+      "bounds": {
+        "z": [
+          0.0,
+          1.0
+        ]
+      },
+      "technique": "stacked",
+      "params": {
+        "dowels": 3
+      }
+    }
+  ],
+  "surface": {
+    "pattern": "none"
+  }
+}

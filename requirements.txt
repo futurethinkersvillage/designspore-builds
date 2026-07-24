@@ -1,0 +1,6 @@
+numpy
+shapely
+scikit-image
+scipy
+trimesh
+pillow

@@ -1,0 +1,11 @@
+_*.json
+_*.png
+out/
+out_mask/
+parts*.json
+snapshot.jpg
+maskgen/.env
+maskgen/workspaces/
+maskgen/_ui_*.png
+__pycache__/
+*.pyc

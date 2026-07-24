@@ -1,0 +1,31 @@
+{
+  "_name": "Mushroom",
+  "_blurb": "radial cap · interlocked stem · printed platform",
+  "seed": 4242,
+  "size_mm": {"height": 350},
+  "material": "ply3mm",
+  "machine": "laser",
+  "resolution": 200,
+  "form": {
+    "base": "mushroom",
+    "base_params": {
+      "cap_radius": 0.42, "cap_height": 0.2, "cap_center": 0.8,
+      "cap_underside": 0.62, "stem_radius": 0.13, "flare": 0.55, "stem_wobble": 0.2
+    },
+    "modifiers": [{"type": "noise", "amount": 0.3}],
+    "symmetry": {}
+  },
+  "regions": [
+    {"id": "platform", "bounds": {"z": [0.0, 0.06]}, "technique": "printed",
+     "params": {"socket_depth": 6}},
+    {"id": "stem", "bounds": {"z": [0.06, 0.6]}, "technique": "interlocked",
+     "params": {"x_slices": 4, "y_slices": 4}},
+    {"id": "cap", "bounds": {"z": [0.6, 1.0]}, "technique": "radial",
+     "params": {"ribs": 14, "hub_fracs": [0.25, 0.6]}}
+  ],
+  "connections": [
+    {"between": ["platform", "stem"], "joint": "socket-collar"},
+    {"between": ["stem", "cap"], "joint": "abut"}
+  ],
+  "surface": {"pattern": "none"}
+}

@@ -1,0 +1,16 @@
+{
+  "mode": "relief",
+  "seed": 7,
+  "size_mm": {"width": 300, "height": 300},
+  "material": "ply3mm",
+  "machine": "laser",
+  "resolution": 260,
+  "relief": {
+    "layers": 6,
+    "spacer_mm": 3,
+    "source": "mandala",
+    "border_mm": 16,
+    "backlight": true,
+    "mandala": {"symmetry": 8, "rings": 5, "seed": 7}
+  }
+}

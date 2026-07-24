@@ -1,0 +1,51 @@
+{
+  "seed": 1,
+  "size_mm": {
+    "height": 250.0
+  },
+  "material": "ply3mm",
+  "machine": "laser",
+  "resolution": 200,
+  "form": {
+    "base": "mesh",
+    "base_params": {
+      "path": "C:\\Users\\miken\\Projects\\sculptgen\\testdata\\open_shell.stl",
+      "up": "z",
+      "voxel_res": 160
+    },
+    "modifiers": [],
+    "symmetry": {}
+  },
+  "regions": [
+    {
+      "id": "foot",
+      "bounds": {
+        "z": [
+          0.0,
+          0.1
+        ]
+      },
+      "technique": "stacked",
+      "params": {
+        "dowels": 3
+      }
+    },
+    {
+      "id": "body",
+      "bounds": {
+        "z": [
+          0.1,
+          1.0
+        ]
+      },
+      "technique": "interlocked",
+      "params": {
+        "x_slices": 5,
+        "y_slices": 5
+      }
+    }
+  ],
+  "surface": {
+    "pattern": "none"
+  }
+}

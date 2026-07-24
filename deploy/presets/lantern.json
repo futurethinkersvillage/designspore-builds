@@ -1,0 +1,23 @@
+{
+  "_name": "Lantern",
+  "_blurb": "six-fold symmetry · egg-crate interlock",
+  "seed": 5150,
+  "size_mm": {"height": 300},
+  "material": "ply3mm",
+  "machine": "laser",
+  "resolution": 200,
+  "form": {
+    "base": "superellipsoid",
+    "base_params": {"exponent": 3.2, "rx": 0.34, "ry": 0.34},
+    "modifiers": [
+      {"type": "ripple", "amount": 0.5},
+      {"type": "twist", "amount": 0.3}
+    ],
+    "symmetry": {"radial": 6}
+  },
+  "regions": [
+    {"id": "body", "bounds": {"z": [0.0, 1.0]}, "technique": "interlocked",
+     "params": {"x_slices": 5, "y_slices": 5}}
+  ],
+  "surface": {"pattern": "none"}
+}

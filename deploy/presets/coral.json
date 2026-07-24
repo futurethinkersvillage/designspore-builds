@@ -1,0 +1,25 @@
+{
+  "_name": "Coral",
+  "_blurb": "organic blob mass · dense radial ribs",
+  "seed": 91177,
+  "size_mm": {"height": 320},
+  "material": "ply3mm",
+  "machine": "laser",
+  "resolution": 220,
+  "form": {
+    "base": "blob",
+    "base_params": {"count": 7, "spread": 0.2, "rmin": 0.15, "rmax": 0.26},
+    "modifiers": [
+      {"type": "noise", "amount": 0.85},
+      {"type": "twist", "amount": 0.45}
+    ],
+    "symmetry": {}
+  },
+  "regions": [
+    {"id": "foot", "bounds": {"z": [0.0, 0.2]}, "technique": "stacked",
+     "params": {"dowels": 3, "dowel_diameter": 6}},
+    {"id": "mass", "bounds": {"z": [0.2, 1.0]}, "technique": "radial",
+     "params": {"ribs": 18, "hub_fracs": [0.2, 0.5, 0.8]}}
+  ],
+  "surface": {"pattern": "none"}
+}

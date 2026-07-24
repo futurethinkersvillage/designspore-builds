@@ -1,0 +1,50 @@
+{
+  "seed": 1,
+  "size_mm": {
+    "height": 300.0
+  },
+  "material": "ply3mm",
+  "machine": "laser",
+  "resolution": 200,
+  "form": {
+    "base": "mesh",
+    "base_params": {
+      "path": "C:\\Users\\miken\\Projects\\sculptgen\\testdata\\tall.stl",
+      "up": "z",
+      "voxel_res": 160
+    },
+    "modifiers": [],
+    "symmetry": {}
+  },
+  "regions": [
+    {
+      "id": "foot",
+      "bounds": {
+        "z": [
+          0.0,
+          0.12
+        ]
+      },
+      "technique": "stacked",
+      "params": {
+        "dowels": 3
+      }
+    },
+    {
+      "id": "body",
+      "bounds": {
+        "z": [
+          0.12,
+          1.0
+        ]
+      },
+      "technique": "radial",
+      "params": {
+        "ribs": 14
+      }
+    }
+  ],
+  "surface": {
+    "pattern": "none"
+  }
+}

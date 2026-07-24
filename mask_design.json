@@ -1,0 +1,26 @@
+{
+  "mode": "mask",
+  "seed": 7,
+  "material": "ply6mm",
+  "resolution": 240,
+  "mask": {
+    "face": {
+      "width_mm": 160,
+      "height_mm": 220,
+      "pd_mm": 63,
+      "eye_w_mm": 42,
+      "eye_h_mm": 22,
+      "nose_clearance_mm": 45,
+      "mouth_vents": true,
+      "vent_rows": 2,
+      "margin_mm": 18
+    },
+    "depth_mm": 80,
+    "wall_mm": 10,
+    "chin_taper": 0.35,
+    "brow_flat": 0.15,
+    "strap": "slots",
+    "dowels": 2,
+    "output": "stacked"
+  }
+}

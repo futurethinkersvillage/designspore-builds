@@ -1,0 +1,26 @@
+{
+  "ply3mm": {
+    "thickness": 3.0,
+    "name": "3mm plywood"
+  },
+  "ply6mm": {
+    "thickness": 6.0,
+    "name": "6mm plywood"
+  },
+  "mdf3mm": {
+    "thickness": 3.0,
+    "name": "3mm MDF"
+  },
+  "mdf6mm": {
+    "thickness": 6.0,
+    "name": "6mm MDF"
+  },
+  "card2mm": {
+    "thickness": 2.0,
+    "name": "2mm cardboard"
+  },
+  "acrylic3mm": {
+    "thickness": 3.0,
+    "name": "3mm acrylic"
+  }
+}
