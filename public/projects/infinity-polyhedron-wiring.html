@@ -156,7 +156,7 @@
     </div>
     <canvas id="cv"></canvas>
     <div class="controls">
-      <button class="ctl" id="b-rot" aria-pressed="false">◐ auto-rotate</button>
+      <button class="ctl" id="b-rot" aria-pressed="true">◐ auto-rotate</button>
       <button class="ctl" id="b-sig" aria-pressed="true">▷ animate signal</button>
       <button class="ctl" id="b-num" aria-pressed="true"># strip numbers</button>
       <button class="ctl" id="b-jmp" aria-pressed="true">⌇ jumpers</button>
@@ -211,7 +211,7 @@ window.addEventListener('resize',resize);
 
 // state
 let DATA=null, V=[], seq=[];
-let rotX=-0.32, rotY=0.5, autoRot=false, showSig=true, showNum=true, showJmp=true, showCid=false;
+let rotX=-0.32, rotY=0.5, autoRot=true, showSig=true, showNum=true, showJmp=true, showCid=false;
 let dragging=false, lastX=0,lastY=0;
 let zoom=1, panX=0, panY=0;
 let sigSpeed=0.02;
