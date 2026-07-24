@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
   // so real files (e.g. /projects/foo.html) still resolve directly.
   async rewrites() {
     return [
+      // MaskGen generation + downloads proxy to its Python service (Coolify
+      // app on the sculptgen branch); must precede the generic /projects rule.
+      { source: "/projects/mask-generator/api/:path*",
+        destination: "https://maskgen.designspore.co/api/:path*" },
+      { source: "/projects/mask-generator/files/:path*",
+        destination: "https://maskgen.designspore.co/files/:path*" },
       { source: "/projects/:name", destination: "/projects/:name/index.html" },
     ];
   },

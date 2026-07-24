@@ -7,10 +7,14 @@
     },
     "wikihouse-configurator": {
       "description": "Interactive 3D configurator for a WikiHouse Skylark 250 cabin — arrange modules, preview the build, and export the block list.",
-      "order": 2
+      "order": 3
     },
     "sculptgen": { "order": 1 },
-    "infinity-polyhedron-wiring": { "order": 3 }
+    "mask-generator": {
+      "description": "Design a wearable CNC mask from your face measurements — AI-generated carving, stacked/egg-crate/rotary outputs, real cut files.",
+      "order": 2
+    },
+    "infinity-polyhedron-wiring": { "order": 4 }
   },
   "extras": [
     {
