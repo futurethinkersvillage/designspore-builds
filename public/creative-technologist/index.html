@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Mike Gilliland — Creative Technologist for CNC</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="/creative-technologist/assets/brand.css">
+<link rel="stylesheet" href="/creative-technologist/assets/runtime.css">
+</head><body>
+
+<div id="deck-splash"><div class="wm">Portal<span>.</span>Place</div><div class="load"><i></i></div></div>
+<div id="deck-progress"><i></i><div class="ticks"></div></div>
+<div id="deck-grain"></div>
+
+<div id="stage">
+<section class="slide" data-n="1">
+  <img class="bleed" src="/creative-technologist/assets/img/art_portal.webp" alt="">
+  <video style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" autoplay muted loop playsinline preload="auto" poster="assets/img/art_portal.webp" src="/creative-technologist/assets/video/cover_walk.mp4"></video>
+  <div style="position:absolute;inset:0;background:rgba(10,9,13,.5)"></div>
+  <div class="scrim-l"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,11,15,.74),transparent 46%)"></div>
+
+  <div style="position:absolute;left:120px;top:172px;width:1180px">
+    <div style="font-family:var(--sans);font-size:20px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--amber)">Creative Technologist &middot; for CNC brands</div>
+    <h1 style="font-family:var(--serif);font-weight:300;font-size:86px;line-height:1.02;letter-spacing:-.02em;color:var(--ink);margin-top:24px">
+      The creative-CNC role<br>you&rsquo;re <i style="font-style:italic;color:var(--amber)">missing</i></h1>
+    <p class="intro" style="margin-top:30px;max-width:900px;font-size:26px">One person who films it, builds it, and codes the tools around it &mdash; cinematic content, generative design apps, and real machine work, on a 400-acre canvas no competitor can copy.</p>
+  </div>
+
+  <p style="position:absolute;left:120px;bottom:58px;font-family:var(--sans);font-size:19px;letter-spacing:.02em;color:var(--body)">
+    A portfolio and a proposal &mdash; for the CNC brand ready to <b style="color:var(--ink);font-weight:600">own the creative side.</b></p>
+  <p style="position:absolute;right:120px;bottom:56px;font-family:var(--sans);font-size:19px;color:var(--body);text-align:right;line-height:1.9">
+    Mike Gilliland &nbsp;·&nbsp; <span style="color:var(--amber)">mikegilliland.ca</span><br>Creative Technologist &nbsp;·&nbsp; Wells Gray, BC</p>
+</section>
+<section class="slide" data-n="2">
+  <div class="eyebrow">01<b>Who&rsquo;s Talking</b></div>
+  <h1 class="title">One person, the <i>whole</i> pipeline</h1>
+  <div class="title-rule" style="top:300px"></div>
+
+  <p class="intro" style="position:absolute;left:120px;top:352px;width:1010px;font-size:26px">
+    Most creators can film <i>or</i> fabricate. I do both &mdash; concept to camera to cut. Two decades self-employed, most of it through <b style="color:var(--ink);font-weight:500">Design Spore</b>, where I&rsquo;ve built a reputation for high-end work across every part of production.</p>
+
+  <div style="position:absolute;left:120px;top:522px;width:1010px">
+    <div class="lbl">What I bring to a shoot</div>
+    <div class="chips">
+      <span class="chip">Strategy</span>
+      <span class="chip">Cinematography</span>
+      <span class="chip">Editing &amp; post</span>
+      <span class="chip">Motion graphics</span>
+      <span class="chip">Sound</span>
+      <span class="chip">Design</span>
+      <span class="chip">Fusion 360 / 3D</span>
+      <span class="chip">Engineering</span>
+      <span class="chip">CNC · 3D print · laser</span>
+      <span class="chip">AI / vibe-coding</span>
+    </div>
+    <p class="statement" style="margin-top:34px;font-family:var(--serif);font-weight:300;font-size:30px;color:var(--ink)">
+      Design it, build it, film it, cut it &mdash; <i style="color:var(--amber)">one head, one vision, no hand-offs.</i></p>
+  </div>
+
+  <div class="reel no-nav" style="position:absolute;left:1290px;top:352px;width:400px;height:596px;border-radius:16px;overflow:hidden;background:#0a090c;border:1px solid var(--line)">
+    <video class="rv ra" data-seq muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s"></video>
+    <video class="rv rb" data-seq muted playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s"></video>
+  </div>
+  <script>
+  (function(){
+    var sec=document.currentScript.closest('section'); if(!sec) return;
+    var AB='assets'; try{var l=document.querySelector('link[rel="stylesheet"][href*="brand.css"]'); if(l)AB=l.getAttribute('href').replace(/\/brand\.css.*$/,'');}catch(e){}
+    var LIST=['who_1','who_2','who_3','who_4'].map(function(n){return AB+'/video/'+n+'.mp4';});
+    var box=sec.querySelector('.reel'); if(!box) return;
+    var ra=box.querySelector('.ra'), rb=box.querySelector('.rb');
+    var i=-1, act=null, running=false;
+    function fade(el){ [ra,rb].forEach(function(v){v.style.opacity=(v===el)?'1':'0';}); }
+    function play(n){ i=n; var buf=(act===ra)?rb:ra; if(buf.getAttribute('src')!==LIST[i])buf.src=LIST[i]; try{buf.currentTime=0;}catch(e){} var p=buf.play(); if(p&&p.catch)p.catch(function(){}); fade(buf); act=buf; }
+    function nx(){ if(running) play((i+1)%LIST.length); }
+    ra.addEventListener('ended',function(){ if(running&&act===ra)nx(); });
+    rb.addEventListener('ended',function(){ if(running&&act===rb)nx(); });
+    ra.preload='metadata'; ra.src=LIST[0]; fade(ra); act=ra;
+    sec.addEventListener('deck:enter',function(){ if(!running){running=true; play(i<0?0:i);} });
+    sec.addEventListener('deck:leave',function(){ running=false; try{ra.pause();rb.pause();}catch(e){} });
+    sec.addEventListener('deck:preload',function(){ if(ra.preload!=='auto'){ra.preload='auto'; try{ra.load();}catch(e){}} });
+  })();
+  </script>
+
+  <div class="foot"></div>
+  <div class="foot-wm">Mike<b>.</b>Gilliland</div>
+  <div class="foot-pg"><b>01</b> / 12</div>
+
+  <style>section[data-n="2"] .lbl{font-family:var(--sans);font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}section[data-n="2"] .chips{display:flex;flex-wrap:wrap;gap:11px}section[data-n="2"] .chip{font-family:var(--sans);font-size:20px;color:var(--ink);background:var(--surface);
+      border:1px solid var(--line);border-radius:999px;padding:11px 20px}
+  </style>
+</section>
+<section class="slide" data-n="3">
+  <div class="eyebrow">02<b>The Opening</b></div>
+  <h1 class="title">Nobody owns <i>creative</i> CNC</h1>
+  <div class="title-rule" style="top:300px"></div>
+
+  <p class="intro" style="position:absolute;left:120px;top:352px;width:1560px;font-size:26px">
+    Generic CNC clips already run as b-roll under a million unrelated videos &mdash; the appetite for the machine is proven. Yet <b style="color:var(--ink);font-weight:500">no brand has claimed the creative side of it.</b></p>
+
+  <div style="position:absolute;left:120px;top:470px;width:820px">
+    <div class="lbl dim">What fills the feed today</div>
+    <div class="gcard dull">
+      <p>Practical, repeatable builds &mdash; signs, racks, reliefs, one more walnut cutting board. Genuinely useful. Endlessly the same.</p>
+      <p class="tag">Useful &middot; repetitive &middot; forgettable</p>
+    </div>
+  </div>
+  <div style="position:absolute;left:980px;top:470px;width:820px">
+    <div class="lbl">What&rsquo;s missing</div>
+    <div class="gcard hot">
+      <p>Cinematic, ambitious, genuinely creative fabrication &mdash; the kind of piece people stop scrolling for, and can&rsquo;t help sharing.</p>
+      <p class="tag amber">Creative &middot; cinematic &middot; unforgettable</p>
+    </div>
+  </div>
+
+  <p class="statement" style="position:absolute;left:120px;top:812px;width:1680px;font-family:var(--serif);font-weight:300;font-size:32px;color:var(--ink);margin:0">
+    The brand that hires for <i style="color:var(--amber)">this</i> owns the space nobody&rsquo;s taken &mdash; the on-ramp for every creative maker.</p>
+
+  <div class="foot"></div>
+  <div class="foot-wm">Mike<b>.</b>Gilliland</div>
+  <div class="foot-pg"><b>02</b> / 12</div>
+
+  <style>section[data-n="3"] .lbl{font-family:var(--sans);font-size:19px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:16px}section[data-n="3"] .lbl.dim{color:var(--dim)}section[data-n="3"] .gcard{border-radius:18px;padding:30px 34px;min-height:214px}section[data-n="3"] .gcard.dull{background:var(--surface);border:1px solid var(--line)}section[data-n="3"] .gcard.hot{background:linear-gradient(135deg,rgba(234,130,78,.15),rgba(20,18,24,.5));border:1px solid var(--amber)}section[data-n="3"] .gcard p{font-family:var(--sans);font-weight:400;font-size:24px;line-height:1.45;color:var(--body);margin:0 0 16px}section[data-n="3"] .gcard p b{color:var(--ink);font-weight:600}section[data-n="3"] .gcard .tag{font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0}section[data-n="3"] .gcard .tag.amber{color:var(--amber)}
+  </style>
+</section>
+<section class="slide" data-n="4">
+  <div class="eyebrow">03<b>Why Me, Why Now</b></div>
+  <h1 class="title">An infinite content <i>playground</i></h1>
+  <div class="title-rule" style="top:300px"></div>
+
+  <p class="intro" style="position:absolute;left:120px;top:352px;width:1010px;font-size:26px">
+    We crowdfunded a <b style="color:var(--ink);font-weight:500">400-acre camping &amp; golf resort</b> in BC. I&rsquo;m building a smart village on it &mdash; and it&rsquo;s the setting no other CNC creator has.</p>
+
+  <!-- left: the assets -->
+  <div style="position:absolute;left:120px;top:520px;width:1010px">
+    <div class="adv"><b>The land</b><span>400 acres, owned &mdash; space for an endless number of projects.</span></div>
+    <div class="adv"><b>CNC-cut cabins</b><span>A cabin development using WikiHouse &mdash; digitally fabricated, flat-pack.</span></div>
+    <div class="adv"><b>A forest art festival</b><span>In talks with Otherworld &mdash; maker-space-produced art everywhere.</span></div>
+    <div class="adv"><b>A public maker space + Future School</b><span>Teaching kids and the public to build &mdash; my wife runs the school on our land.</span></div>
+    <div class="adv" style="border-bottom:none"><b>The gear &amp; the AI</b><span>High-end cameras, plus AI tools I&rsquo;ve built (WikiHouse configurator, an art generator).</span></div>
+  </div>
+
+  <!-- right: video (YouTube embed - muted autoplay loop, controls let them unmute) -->
+  <iframe class="ytv no-nav" title="3 Years on 400 Acres" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" frameborder="0"
+    style="position:absolute;left:1180px;top:540px;width:620px;height:349px;border-radius:16px;border:1px solid var(--line);background:#0a090c"></iframe>
+  <p style="position:absolute;left:1180px;top:906px;width:620px;font-family:var(--sans);font-size:17px;line-height:1.4;color:var(--dim);margin:0">
+    A film I shot and cut myself &mdash; a tour of the land and the story behind why we started.</p>
+  <script>
+  (function(){
+    var sec=document.currentScript.closest('section'); if(!sec) return;
+    var f=sec.querySelector('.ytv'); if(!f) return;
+    var ID='xrL-wL5Bueg';
+    var EMBED='https://www.youtube.com/embed/'+ID+'?autoplay=1&mute=1&loop=1&playlist='+ID+'&controls=1&modestbranding=1&rel=0&playsinline=1&enablejsapi=1';
+    function post(fn){ try{ f.contentWindow&&f.contentWindow.postMessage(JSON.stringify({event:'command',func:fn,args:[]}),'*'); }catch(e){} }
+    sec.addEventListener('deck:enter',function(){ if(!f.getAttribute('src')) f.src=EMBED; else post('playVideo'); });
+    sec.addEventListener('deck:leave',function(){ if(f.getAttribute('src')) post('pauseVideo'); });
+    sec.addEventListener('deck:preload',function(){ if(!f.getAttribute('src')) f.src=EMBED; });
+  })();
+  </script>
+
+  <p class="statement" style="position:absolute;left:1180px;top:352px;width:620px;font-family:var(--serif);font-weight:300;font-size:27px;color:var(--ink);margin:0;line-height:1.2">
+    I&rsquo;m doing all of this <i style="color:var(--amber)">anyway.</i> A CNC just makes it better &mdash; and filmable.</p>
+
+  <div class="foot"></div>
+  <div class="foot-wm">Mike<b>.</b>Gilliland</div>
+  <div class="foot-pg"><b>03</b> / 12</div>
+
+  <style>section[data-n="4"] .adv{padding:15px 0;border-bottom:1px solid var(--line-soft)}section[data-n="4"] .adv b{display:block;font-family:var(--sans);font-weight:600;font-size:24px;color:var(--ink)}section[data-n="4"] .adv span{display:block;font-family:var(--sans);font-weight:400;font-size:20px;line-height:1.35;color:var(--body);margin-top:4px}
+  </style>
+</section>
+<section class="slide" data-n="5">
+  <div class="eyebrow">04<b>The Show</b></div>
+  <h1 class="title">A series people can&rsquo;t stop <i>watching</i></h1>
+  <div class="title-rule" style="top:300px"></div>
+
+  <p class="intro" style="position:absolute;left:120px;top:352px;width:1010px;font-size:26px">
+    One flagship series that follows the whole arc &mdash; cabins, art, furniture, festival builds &mdash; <b style="color:var(--ink);font-weight:500">design to reveal</b>, with real storytelling and cinematic craft.</p>
+
+  <div style="position:absolute;left:120px;top:520px;width:1010px">
+    <div class="beat"><span class="bn">01</span><div><b>The full arc, start to reveal</b><p>The satisfying journey, not a talking head at a workbench.</p></div></div>
+    <div class="beat"><span class="bn">02</span><div><b>A story, not a tutorial</b><p>Every build has a why. Awe first; the how-to comes along for the ride.</p></div></div>
+    <div class="beat"><span class="bn">03</span><div><b>ASMR cuts of the same footage</b><p>The routers, the chips, the fans &mdash; a second audience, at no extra shoot.</p></div></div>
+    <div class="beat" style="border-bottom:none"><span class="bn">04</span><div><b>Distinctive enough to travel</b><p>The algorithm rewards what nobody else is making.</p></div></div>
+  </div>
+
+  <div class="reel no-nav" style="position:absolute;left:1180px;top:352px;width:620px;height:596px;border-radius:18px;overflow:hidden;background:#0a090c;border:1px solid var(--line)">
+    <video class="rv ra" data-seq muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s"></video>
+    <video class="rv rb" data-seq muted playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s"></video>
+  </div>
+  <script>
+  (function(){
+    var sec=document.currentScript.closest('section'); if(!sec) return;
+    var AB='assets'; try{var l=document.querySelector('link[rel="stylesheet"][href*="brand.css"]'); if(l)AB=l.getAttribute('href').replace(/\/brand\.css.*$/,'');}catch(e){}
+    var LIST=['mushroom_glow','fest_5','show_6582','fest_1','show_2337','show_2242','show_400acres'].map(function(n){return AB+'/video/'+n+'.mp4';});
+    var box=sec.querySelector('.reel'); if(!box) return;
+    var ra=box.querySelector('.ra'), rb=box.querySelector('.rb');
+    var i=-1, act=null, running=false;
+    function fade(el){ [ra,rb].forEach(function(v){v.style.opacity=(v===el)?'1':'0';}); }
+    function play(n){ i=n; var buf=(act===ra)?rb:ra; if(buf.getAttribute('src')!==LIST[i])buf.src=LIST[i]; try{buf.currentTime=0;}catch(e){} var p=buf.play(); if(p&&p.catch)p.catch(function(){}); fade(buf); act=buf; }
+    function nx(){ if(running) play((i+1)%LIST.length); }
+    ra.addEventListener('ended',function(){ if(running&&act===ra)nx(); });
+    rb.addEventListener('ended',function(){ if(running&&act===rb)nx(); });
+    ra.preload='metadata'; ra.src=LIST[0]; fade(ra); act=ra;
+    sec.addEventListener('deck:enter',function(){ if(!running){running=true; play(i<0?0:i);} });
+    sec.addEventListener('deck:leave',function(){ running=false; try{ra.pause();rb.pause();}catch(e){} });
+    sec.addEventListener('deck:preload',function(){ if(ra.preload!=='auto'){ra.preload='auto'; try{ra.load();}catch(e){}} });
+  })();
+  </script>
+
+  <div class="foot"></div>
+  <div class="foot-wm">Mike<b>.</b>Gilliland</div>
+  <div class="foot-pg"><b>04</b> / 12</div>
+
+  <style>section[data-n="5"] .beat{display:flex;gap:22px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line-soft)}section[data-n="5"] .bn{font-family:var(--serif);font-weight:300;font-size:34px;line-height:1;color:var(--amber-dim);flex:none;width:52px}section[data-n="5"] .beat b{font-family:var(--sans);font-weight:600;font-size:25px;color:var(--ink)}section[data-n="5"] .beat p{font-family:var(--sans);font-weight:400;font-size:20px;line-height:1.35;color:var(--body);margin:5px 0 0}
+  </style>
+</section>
+<section class="slide" data-n="12">
+  <div class="eyebrow">05<b>The Craft</b></div>
+  <h1 class="title">Shot like a <i>film</i></h1>
+  <div class="title-rule" style="top:300px"></div>
+
+  <p class="intro" style="position:absolute;left:120px;top:352px;width:1560px;font-size:26px">
+    The machine isn&rsquo;t the story &mdash; <b style="color:var(--ink);font-weight:500">how it&rsquo;s filmed is.</b> Motion-controlled camera moves, macro on the bit and the chips, a real colour grade, sound designed like a scene.</p>
+
+  <div class="vband">
+    <video class="vb" autoplay muted loop playsinline preload="auto" src="/creative-technologist/assets/video/jib_table.mp4"></video>
+    <div class="vcap">The vision &mdash; a CNC studio built for the camera</div>
+  </div>
+
+  <div style="position:absolute;left:120px;top:902px;width:1680px;display:flex;flex-wrap:wrap;gap:11px;align-items:center">
+    <span class="tk">Motion-controlled timelapse (jib)</span>
+    <span class="tk">Macro &amp; detail</span>
+    <span class="tk">Cinematic colour</span>
+    <span class="tk">ASMR sound design</span>
+    <span class="tk">Lighting design</span>
+  </div>
+
+  <div class="foot"></div>
+  <div class="foot-wm">Mike<b>.</b>Gilliland</div>
+  <div class="foot-pg"><b>05</b> / 12</div>
+
+  <style>section[data-n="12"] .vband{position:absolute;left:120px;top:448px;width:1680px;height:424px;
+      border-radius:18px;overflow:hidden;border:1px solid var(--line)}section[data-n="12"] .vband .vb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}section[data-n="12"] .vband::after{content:"";position:absolute;inset:0;
+      background:linear-gradient(0deg,rgba(8,7,10,.72),rgba(8,7,10,0) 40%)}section[data-n="12"] .vband .vcap{position:absolute;left:28px;bottom:22px;z-index:2;
+      font-family:var(--sans);font-size:21px;font-weight:500;color:rgba(255,255,255,.92);text-shadow:0 2px 12px rgba(0,0,0,.7)}section[data-n="12"] .tk{font-family:var(--sans);font-size:20px;font-weight:500;color:var(--ink);
+      background:var(--surface);border:1px solid var(--amber-dim);border-radius:999px;padding:11px 22px}
+  </style>
+</section>
+<section class="slide" data-n="6">
+  <div class="eyebrow">06<b>Ideas, Endless</b></div>
+  <h1 class="title">I already <i>make this stuff</i></h1>
+  <div class="title-rule" style="top:300px"></div>
+
+  <p class="intro" style="position:absolute;left:120px;top:342px;width:1560px;font-size:24px">
+    Every one of these is a content series in itself &mdash; and I have a hundred more. <span style="color:var(--dim)">Hover any panel.</span></p>
+
+  <div class="acc no-nav">
+
+    <div class="pan" data-k="retro">
+      <div class="mstack"><video class="ly mva" data-seq muted playsinline preload="none"></video><video class="ly mvb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">01</span><span class="vlabel">Retrotendo</span>
+      <div class="full"><b>Retrotendo controller</b><p>Fusion 360 &rarr; CNC&rsquo;d box &rarr; 3D-printed buttons + LEDs. Two working controllers, AI-coded games, played at Otherworld.</p></div>
+    </div>
+    <div class="pan" data-k="mush">
+      <div class="mstack"><video class="ly mva" data-seq muted playsinline preload="none"></video><video class="ly mvb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">02</span><span class="vlabel">Mushroom LEDs</span>
+      <div class="full"><b>Parametric mushroom LED sculptures</b><p>Designed parametrically and 3D-printed &mdash; endless variations from one model.</p></div>
+    </div>
+    <div class="pan" data-k="masks">
+      <div class="mstack"><video class="ly mva" data-seq muted playsinline preload="none"></video><video class="ly mvb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">03</span><span class="vlabel">Maker masks</span>
+      <div class="full"><b>CNC maker masks</b><p>Carved, layered, illuminated festival masks &mdash; wildly shareable, endlessly variable.</p></div>
+    </div>
+    <div class="pan" data-k="drone">
+      <div class="mstack"><video class="ly mva" data-seq muted playsinline preload="none"></video><video class="ly mvb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">04</span><span class="vlabel">Drone gates</span>
+      <div class="full"><b>FPV drone racing gates</b><p>CNC-fabricated, LED-embedded gates and portals &mdash; built to race through and film in the forest.</p></div>
+    </div>
+    <div class="pan" data-k="fest">
+      <div class="mstack"><video class="ly mva" data-seq muted playsinline preload="none"></video><video class="ly mvb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">05</span><span class="vlabel">Art &amp; Festival</span>
+      <div class="full"><b>Art &amp; Festival</b><p>A forest art-and-music festival &mdash; giant CNC sculptures, stages and LEDs everywhere. Burning Man in the forest.</p></div>
+    </div>
+    <div class="pan" data-k="treasure">
+      <div class="mstack"><video class="ly mva" data-seq muted playsinline preload="none"></video><video class="ly mvb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">06</span><span class="vlabel">Treasure hunt</span>
+      <div class="full"><b>Educational treasure hunt</b><p>CNC-cut boxes, carved prizes and wooden maps &mdash; ties into the kids&rsquo; maker school.</p></div>
+    </div>
+    <div class="pan" data-k="glamp">
+      <div class="mstack"><video class="ly mva" data-seq muted playsinline preload="none"></video><video class="ly mvb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">07</span><span class="vlabel">Glamping cabins</span>
+      <div class="full"><b>CNC-cut glamping cabins</b><p>WikiHouse flat-pack builds, artfully finished &mdash; the rural build series.</p></div>
+    </div>
+    <div class="pan" data-k="furn">
+      <div class="mstack"><video class="ly mva" data-seq muted playsinline preload="none"></video><video class="ly mvb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">08</span><span class="vlabel">Furniture</span>
+      <div class="full"><b>Furniture</b><p>CNC and hand-built furniture &mdash; desks, tables and one-off pieces, start to finish.</p></div>
+    </div>
+    <div class="pan" data-k="sign">
+      <div class="mstack"><video class="ly mva" data-seq muted playsinline preload="none"></video><video class="ly mvb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">09</span><span class="vlabel">Signage</span>
+      <div class="full"><b>Signage</b><p>CNC-cut and painted signage &mdash; wayfinding and golf-course signs across the resort.</p></div>
+    </div>
+    <div class="pan" data-k="arch">
+      <div class="mstack"><video class="ly mva" data-seq muted playsinline preload="none"></video><video class="ly mvb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">10</span><span class="vlabel">Archetypes</span>
+      <div class="full"><b>Archetypes art</b><p>A generative art series &mdash; from NFT visuals to physical, fabricated prints.</p></div>
+    </div>
+    <div class="pan" data-k="decor">
+      <div class="mstack"><video class="ly mva" data-seq muted playsinline preload="none"></video><video class="ly mvb" data-seq muted playsinline preload="none"></video><img class="ly im" alt=""></div>
+      <span class="num">11</span><span class="vlabel">Cabin d&eacute;cor</span>
+      <div class="full"><b>Cabin art &amp; d&eacute;cor</b><p>Carved wall art, d&eacute;cor and finishing pieces &mdash; the details that make the cabins.</p></div>
+    </div>
+
+    <div class="cap"></div>
+
+  </div>
+
+  <div class="foot"></div>
+  <div class="foot-wm">Mike<b>.</b>Gilliland</div>
+  <div class="foot-pg"><b>06</b> / 12</div>
+
+  <style>section[data-n="6"] .acc{position:absolute;left:120px;top:448px;width:1680px;height:452px}section[data-n="6"] .pan{position:absolute;top:0;bottom:0;width:120px;border-radius:14px;overflow:hidden;background:#0a090c;
+      border:1px solid var(--line);z-index:1;box-shadow:0 0 0 rgba(0,0,0,0);
+      transition:left .5s cubic-bezier(.33,0,.2,1),width .5s cubic-bezier(.33,0,.2,1),box-shadow .5s}section[data-n="6"] .pan.open{z-index:10;box-shadow:0 18px 60px rgba(0,0,0,.6)}section[data-n="6"] .mstack{position:absolute;top:0;left:0;width:100%;height:100%}section[data-n="6"] .ly{position:absolute;top:0;left:50%;transform:translateX(-50%);height:100%;width:auto;max-width:none;opacity:0;transition:opacity .4s}section[data-n="6"] .pan::after{content:"";position:absolute;inset:0;z-index:1;transition:background .4s;pointer-events:none;
+      background:linear-gradient(0deg,rgba(8,7,10,.72),rgba(8,7,10,.10) 55%,rgba(8,7,10,.38))}section[data-n="6"] .pan.open::after{background:transparent}section[data-n="6"] .num{position:absolute;top:13px;left:13px;z-index:3;font-family:var(--serif);font-weight:300;
+      font-size:22px;color:rgba(255,255,255,.72);text-shadow:0 2px 8px rgba(0,0,0,.8);transition:opacity .25s}section[data-n="6"] .vlabel{position:absolute;left:50%;top:50%;z-index:3;transform:translate(-50%,-50%) rotate(180deg);
+      writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap;pointer-events:none;
+      font-family:var(--sans);font-weight:600;font-size:18px;letter-spacing:.02em;color:#fff;
+      text-shadow:0 2px 12px rgba(0,0,0,.9);transition:opacity .25s}section[data-n="6"] .full{display:none}section[data-n="6"] .pan.open .vlabel, section[data-n="6"] .pan.open .num{opacity:0}section[data-n="6"] .cap{position:absolute;top:470px;left:0;width:640px;z-index:5;opacity:0;transform:translateY(6px);
+      pointer-events:none;font-family:var(--sans);font-size:17.5px;line-height:1.42;color:var(--body);
+      transition:opacity .28s,transform .28s,left .5s cubic-bezier(.33,0,.2,1),width .5s cubic-bezier(.33,0,.2,1)}section[data-n="6"] .cap.on{opacity:1;transform:none}section[data-n="6"] .cap b{color:var(--ink);font-weight:600}
+  </style>
+
+  <script>
+  (function(){
+    var sec = document.currentScript.closest('section'); if(!sec) return;
+    var AB='assets';
+    try{ var l=document.querySelector('link[rel="stylesheet"][href*="brand.css"]');
+         if(l){ AB=l.getAttribute('href').replace(/\/brand\.css.*$/,''); } }catch(e){}
+    function url(p){ return AB+'/'+p; }
+    var PL={
+      retro:['v/retro_ctrl','v/retro_1','v/retro_2','v/retro_3','v/retro_4','v/retro_5','v/retro_6','v/retro_7','v/retro_8','v/retro_9'],
+      mush:['v/mush_1','v/mush_2','v/mush_3'],
+      masks:['i/masks_charcoal','i/mask_explorer','i/mask_king','i/mask_sage1','i/mask_sage2','v/mask_v1'],
+      drone:['v/drone_v1','v/drone_v2','i/drone_i1','i/drone_i2','i/drone_i3','i/drone_i4'],
+      fest:['v/fest_1','v/fest_2','v/fest_3','v/fest_4','v/fest_5','v/fest_6'],
+      treasure:['v/treasure_hunt','i/treasure_i1','i/treasure_i2'],
+      glamp:['v/glamp_1','v/glamp_2'],
+      furn:['v/furn_1','v/furn_2','i/furn_i1','i/furn_i2'],
+      sign:['v/sign_1','v/sign_2','i/sign_i1','i/sign_i2'],
+      arch:['v/arch_1','v/arch_2','v/arch_3'],
+      decor:['v/decor_1','v/decor_2','v/decor_3','v/decor_4','v/decor_5']
+    };
+    function toItem(s){ return {t:s[0], src: s[0]==='v' ? ('video/'+s.slice(2)+'.mp4') : ('img/'+s.slice(2)+'.webp')}; }
+
+    function makeCtl(pan, idx, onExpand){
+      var list=(PL[pan.dataset.k]||[]).map(toItem);
+      var va=pan.querySelector('.mva'), vb=pan.querySelector('.mvb'), im=pan.querySelector('.im');
+      var layers=[va,vb,im];
+      var i=-1, activeV=null, activeLayer=null, timer=null, running=false, hovered=false;
+      function fade(el){ activeLayer=el; layers.forEach(function(l){ l.style.opacity=(l===el)?'1':'0'; }); }
+      function clearT(){ if(timer){clearTimeout(timer);timer=null;} }
+      function set(el,u){ if(el.getAttribute('src')!==u) el.src=u; }
+      // pin media to the panel's pixel height (percentage-height won't resolve through
+      // the abs-child chain, so the media would render at intrinsic size).
+      function fitH(){ var h=pan.clientHeight; if(!h) return; var hp=h+'px';
+        layers.forEach(function(l){ if(l.style.height!==hp) l.style.height=hp; }); }
+      function aspect(){ var el=activeLayer; if(!el) return 0;
+        if(el.tagName==='VIDEO') return el.videoWidth ? el.videoWidth/el.videoHeight : 0;
+        return el.naturalWidth ? el.naturalWidth/el.naturalHeight : 0; }
+      // when hovered, (re)expand to fit the current clip's aspect
+      function refit(){ fitH(); if(hovered&&onExpand) onExpand(idx); }
+      function fitWhenReady(){ var el=activeLayer; if(!el) return;
+        if(el.tagName==='VIDEO'){ if(el.videoWidth) refit(); else el.addEventListener('loadedmetadata',refit,{once:true}); }
+        else { if(el.complete&&el.naturalWidth) refit(); else el.addEventListener('load',refit,{once:true}); } }
+      function play(n){
+        clearT(); if(!list.length) return; i=n; var it=list[i];
+        if(it.t==='v'){
+          var buf=(activeV===va)?vb:va; set(buf,url(it.src));
+          try{buf.currentTime=0;}catch(e){}
+          var pr=buf.play(); if(pr&&pr.catch) pr.catch(function(){});
+          fade(buf); activeV=buf;
+        } else {
+          if(activeV){ try{activeV.pause();}catch(e){} }
+          set(im,url(it.src)); fade(im);
+          timer=setTimeout(nx,3000);
+        }
+        fitWhenReady();
+      }
+      function nx(){ if(running) play((i+1)%list.length); }
+      va.addEventListener('ended',function(){ if(running&&activeV===va) nx(); });
+      vb.addEventListener('ended',function(){ if(running&&activeV===vb) nx(); });
+      return {
+        pan:pan, aspect:aspect,
+        setHovered:function(b){ hovered=b; if(b) refit(); },
+        start:function(){ fitH(); if(running||!list.length) return; running=true; play(i<0?0:i); },
+        stop:function(){ running=false; clearT(); try{va.pause();vb.pause();}catch(e){} },
+        poster:function(){ var it=list[0]; if(!it) return;
+          if(it.t==='v'){ va.preload='metadata'; set(va,url(it.src)); fade(va); activeV=va; }
+          else { set(im,url(it.src)); fade(im); } },
+        preload:function(){ var it=list[0]; if(!it||it.t!=='v') return;
+          if(va.preload!=='auto'){ va.preload='auto'; try{va.load();}catch(e){} } }
+      };
+    }
+
+    var acc=sec.querySelector('.acc');
+    var GAP=8, ACCW=1680;
+    var pans=[].slice.call(sec.querySelectorAll('.pan'));
+    var N=pans.length, SLOTW=Math.round((ACCW-GAP*(N-1))/N);
+    var slotL=pans.map(function(_,i){ return i*(SLOTW+GAP); });
+    function placeSlot(i){ var p=pans[i]; p.classList.remove('open'); p.style.left=slotL[i]+'px'; p.style.width=SLOTW+'px'; }
+    // fixed slots that never move; hovered panel expands in place over its neighbours
+    var cap=sec.querySelector('.cap');
+    // caption lives BELOW the strip so it never covers the media
+    function showCap(i){
+      if(!cap) return;
+      var f=pans[i].querySelector('.full'); if(!f) return;
+      var t=f.querySelector('b'), d=f.querySelector('p');
+      cap.innerHTML='';
+      if(t){ var b=document.createElement('b'); b.textContent=t.textContent; cap.appendChild(b); }
+      if(d){ var s=document.createElement('span'); s.textContent=(t?' — ':'')+d.textContent; cap.appendChild(s); }
+      var W=Math.min(ACCW, Math.max(parseFloat(pans[i].style.width)||SLOTW, 660));
+      var L=Math.max(0, Math.min(ACCW-W, parseFloat(pans[i].style.left)||slotL[i]));
+      cap.style.left=L+'px'; cap.style.width=W+'px'; cap.classList.add('on');
+    }
+    function hideCap(){ if(cap) cap.classList.remove('on'); }
+    function doExpand(i){
+      var c=ctls[i], a=c.aspect(); if(!a) return;
+      var h=c.pan.clientHeight||450, W=Math.max(SLOTW, Math.min(ACCW, Math.round(h*a)));
+      var cx=slotL[i]+SLOTW/2, L=Math.max(0, Math.min(ACCW-W, Math.round(cx-W/2)));
+      c.pan.style.left=L+'px'; c.pan.style.width=W+'px';
+      showCap(i);
+    }
+    var ctls=pans.map(function(p,idx){ var c=makeCtl(p, idx, doExpand); placeSlot(idx); c.poster(); return c; });
+    ctls.forEach(function(c,i){
+      c.pan.addEventListener('mouseenter',function(){ c.pan.classList.add('open'); c.setHovered(true); doExpand(i); showCap(i); });
+      c.pan.addEventListener('mouseleave',function(){ c.setHovered(false); placeSlot(i); hideCap(); });
+    });
+    sec.addEventListener('deck:enter',function(){ ctls.forEach(function(c){ c.start(); }); });
+    sec.addEventListener('deck:leave',function(){ ctls.forEach(function(c){ c.stop(); }); });
+    sec.addEventListener('deck:preload',function(){ ctls.forEach(function(c){ c.preload&&c.preload(); }); });
+  })();
+  </script>
+</section>
+<section class="slide" data-n="7">
+  <div class="eyebrow">07<b>Software &amp; AI</b></div>
+  <h1 class="title">I build the <i>software</i>, too</h1>
+  <div class="title-rule" style="top:300px"></div>
+
+  <p class="intro" style="position:absolute;left:120px;top:344px;width:1620px;font-size:25px">
+    I also design and ship real apps &mdash; including AI tools that turn an idea into a <b style="color:var(--ink);font-weight:500">cut-ready file for your machine.</b></p>
+
+  <div class="apps">
+    <div class="acard">
+      <img src="/creative-technologist/assets/img/app_sculptgen.webp" alt="">
+      <b>SculptGen</b>
+      <p>Generative sculptures &rarr; real laser/CNC cut files.</p>
+    </div>
+    <div class="acard">
+      <img src="/creative-technologist/assets/img/app_maskgen.webp" alt="">
+      <b>MaskGen</b>
+      <p>Intricate carved masks, generated for CNC.</p>
+    </div>
+    <div class="acard">
+      <img src="/creative-technologist/assets/img/app_mandalagen.webp" alt="">
+      <b>MandalaGen</b>
+      <p>Layered mandalas &amp; fine CNC artwork.</p>
+    </div>
+    <div class="acard">
+      <img src="/creative-technologist/assets/img/app_wikihouse.webp" alt="">
+      <b>WikiHouse Configurator</b>
+      <p>3D cabins &rarr; costed CNC bill of materials.</p>
+    </div>
+    <div class="acard">
+      <img src="/creative-technologist/assets/img/app_polyhedron.webp" alt="">
+      <b>Polyhedron LED Map</b>
+      <p>Optimal single-string LED routing for solids.</p>
+    </div>
+  </div>
+
+  <div class="aiband">
+    <div class="ai-l">
+      <div class="ai-lbl">Generative AI &rarr; cut-ready</div>
+      <p>They all do one thing: turn an idea into a machine-ready file for your machine. Seed a concept, get real cut paths &mdash; a <b>generative engine for endless machine-made projects</b>, built for any niche or product line.</p>
+    </div>
+    <div class="ai-r">
+      <p>Beyond the machine, I also build <b>business automation</b> and <b>coach teams</b> to get more out of AI.</p>
+    </div>
+  </div>
+
+  <div class="foot"></div>
+  <div class="foot-wm">Mike<b>.</b>Gilliland</div>
+  <div class="foot-pg"><b>07</b> / 12</div>
+
+  <style>section[data-n="7"] .apps{position:absolute;left:120px;top:430px;width:1680px;display:grid;grid-template-columns:repeat(5,1fr);gap:22px}section[data-n="7"] .acard{display:flex;flex-direction:column}section[data-n="7"] .acard img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:center;border-radius:13px;
+      border:1px solid var(--line);background:#0a090c;display:block}section[data-n="7"] .acard b{font-family:var(--sans);font-weight:600;font-size:21px;color:var(--ink);margin-top:15px;line-height:1.12}section[data-n="7"] .acard p{font-family:var(--sans);font-weight:400;font-size:16.5px;line-height:1.34;color:var(--body);margin:7px 0 0}section[data-n="7"] .aiband{position:absolute;left:120px;top:788px;width:1680px;display:flex;align-items:stretch;gap:40px;
+      border:1px solid var(--amber-dim);border-radius:18px;padding:28px 36px;
+      background:linear-gradient(135deg,rgba(234,130,78,.13),rgba(12,11,15,.5))}section[data-n="7"] .ai-l{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center}section[data-n="7"] .ai-lbl{font-family:var(--sans);font-size:17px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:11px}section[data-n="7"] .ai-l p{font-family:var(--sans);font-weight:400;font-size:20px;line-height:1.44;color:var(--body);margin:0}section[data-n="7"] .ai-l p b{color:var(--ink);font-weight:600}section[data-n="7"] .ai-r{flex:0 0 400px;display:flex;align-items:center;padding-left:38px;border-left:1px solid var(--line)}section[data-n="7"] .ai-r p{font-family:var(--sans);font-weight:400;font-size:19px;line-height:1.45;color:var(--body);margin:0}section[data-n="7"] .ai-r p b{color:var(--ink);font-weight:600}
+  </style>
+</section>
+<section class="slide" data-n="8">
+  <div class="eyebrow">08<b>The Role</b></div>
+  <h1 class="title">What I&rsquo;d <i>build</i> for you</h1>
+  <div class="title-rule" style="top:300px"></div>
+
+  <p class="intro" style="position:absolute;left:120px;top:352px;width:1560px;font-size:26px">
+    Not a task on someone&rsquo;s list &mdash; a new function: the creative-CNC lead who owns content, community, and the software around your machines.</p>
+
+  <!-- two columns -->
+  <div style="position:absolute;left:120px;top:492px;width:800px">
+    <div class="lbl">What you get</div>
+    <div class="bl"><b>The creative-CNC content brand</b><span>The niche nobody&rsquo;s claimed &mdash; cinematic, weird, shareable.</span></div>
+    <div class="bl"><b>Content that sells machines</b><span>Aimed straight at your hobbyist&ndash;to&ndash;pro creative market.</span></div>
+    <div class="bl"><b>Generative tools that pull customers in</b><span>Apps like the ones you just saw &mdash; branded to you.</span></div>
+    <div class="bl" style="border-bottom:none"><b>A flagship on a place nobody can copy</b><span>400 acres, a village, a festival &mdash; an uncopyable set.</span></div>
+  </div>
+  <div style="position:absolute;left:1000px;top:492px;width:800px">
+    <div class="lbl">What I bring</div>
+    <div class="bl"><b>End-to-end production</b><span>Design, fabricate, film, edit, sound &mdash; one person, one vision.</span></div>
+    <div class="bl"><b>Working software &amp; AI</b><span>Generative design-to-cut apps and automation, already shipping.</span></div>
+    <div class="bl"><b>The land &amp; the projects</b><span>An infinite pipeline of things worth filming, already in motion.</span></div>
+    <div class="bl" style="border-bottom:none"><b>I&rsquo;m doing it anyway</b><span>You&rsquo;re not funding a maybe &mdash; you&rsquo;re amplifying what&rsquo;s already happening.</span></div>
+  </div>
+
+  <div class="foot"></div>
+  <div class="foot-wm">Mike<b>.</b>Gilliland</div>
+  <div class="foot-pg"><b>08</b> / 12</div>
+
+  <style>section[data-n="8"] .lbl{font-family:var(--sans);font-size:20px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:16px}section[data-n="8"] .bl{padding:15px 0;border-bottom:1px solid var(--line-soft)}section[data-n="8"] .bl b{display:block;font-family:var(--sans);font-weight:600;font-size:24px;color:var(--ink)}section[data-n="8"] .bl span{display:block;font-family:var(--sans);font-weight:400;font-size:20px;line-height:1.35;color:var(--body);margin-top:4px}
+  </style>
+</section>
+<section class="slide" data-n="9">
+  <div class="eyebrow">09<b>How This Could Work</b></div>
+  <h1 class="title">Let&rsquo;s find what&rsquo;s <i>valuable</i> to you</h1>
+  <div class="title-rule" style="top:300px"></div>
+
+  <p class="intro" style="position:absolute;left:120px;top:352px;width:1560px;font-size:26px">
+    I&rsquo;m flexible on structure &mdash; full-time, contract, or project. These can mix, and I can start quickly.</p>
+
+  <div style="position:absolute;left:120px;top:466px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:24px">
+    <div class="opt"><span class="on">A</span><div><b>A full-time role</b><p>Creative Technologist &mdash; I own content, community, and the generative tools around your machines.</p></div></div>
+    <div class="opt"><span class="on">B</span><div><b>Contract / retainer</b><p>A steady stream of content and tools &mdash; negotiable scope and rate, month to month.</p></div></div>
+    <div class="opt"><span class="on">C</span><div><b>Project-based</b><p>One flagship series, or a specific generative app for your customers, as a proof of concept.</p></div></div>
+    <div class="opt"><span class="on">D</span><div><b>Embedded partner</b><p>A machine on my land, featured across every build &mdash; plus content and tools for your brand.</p></div></div>
+  </div>
+
+  <p class="statement" style="position:absolute;left:120px;top:872px;width:1680px;font-family:var(--serif);font-weight:300;font-size:30px;color:var(--ink);margin:0">
+    I&rsquo;d rather build the <i style="color:var(--amber)">right</i> thing with you than pitch a fixed deal. Tell me what a win looks like.</p>
+
+  <div class="foot"></div>
+  <div class="foot-wm">Mike<b>.</b>Gilliland</div>
+  <div class="foot-pg"><b>09</b> / 12</div>
+
+  <style>section[data-n="9"] .opt{display:flex;gap:22px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px 30px}section[data-n="9"] .on{font-family:var(--serif);font-weight:300;font-size:44px;line-height:.9;color:var(--amber);flex:none;width:44px}section[data-n="9"] .opt b{font-family:var(--sans);font-weight:600;font-size:25px;color:var(--ink)}section[data-n="9"] .opt p{font-family:var(--sans);font-weight:400;font-size:20px;line-height:1.4;color:var(--body);margin:6px 0 0}
+  </style>
+</section>
+<section class="slide" data-n="10">
+  <div class="eyebrow">10<b>What I Want to Learn</b></div>
+  <h1 class="title">Questions <i>for you</i></h1>
+  <div class="title-rule" style="top:300px"></div>
+
+  <p class="intro" style="position:absolute;left:120px;top:352px;width:1560px;font-size:26px">
+    I want this to be a real win for your company &mdash; so mostly I want to listen.</p>
+
+  <div style="position:absolute;left:120px;top:472px;width:800px">
+    <div class="q">What would a <b>win</b> look like for your content and community over the next year?</div>
+    <div class="q">Which machines and markets are you most trying to <b>grow</b> right now?</div>
+    <div class="q">How <b>bold</b> are you willing to get? What&rsquo;s your appetite for weird, risky, creative work?</div>
+    <div class="q" style="border-bottom:none">What&rsquo;s <b>worked</b> and not worked in your content so far?</div>
+  </div>
+  <div style="position:absolute;left:1000px;top:472px;width:800px">
+    <div class="q">A role, a retainer, or a project &mdash; what <b>structure</b> actually fits how you work?</div>
+    <div class="q">How do you like to <b>collaborate</b> &mdash; tight sprints, long-term, hands-off?</div>
+    <div class="q">Would <b>generative software</b> for your customers move the needle, or is content the priority?</div>
+    <div class="q" style="border-bottom:none">Where are the <b>gaps</b> in your marketing that I could help fill?</div>
+  </div>
+
+  <div class="foot"></div>
+  <div class="foot-wm">Mike<b>.</b>Gilliland</div>
+  <div class="foot-pg"><b>10</b> / 12</div>
+
+  <style>section[data-n="10"] .q{font-family:var(--sans);font-weight:400;font-size:23px;line-height:1.4;color:var(--body);
+      padding:18px 0;border-bottom:1px solid var(--line-soft)}section[data-n="10"] .q b{color:var(--ink);font-weight:600}
+  </style>
+</section>
+<section class="slide" data-n="11">
+  <img class="bleed" src="/creative-technologist/assets/img/art_lanterns.webp" alt="">
+  <video class="cv ca" data-seq muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s"></video>
+  <video class="cv cb" data-seq muted playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s"></video>
+  <script>
+  (function(){
+    var sec=document.currentScript.closest('section'); if(!sec) return;
+    var AB='assets'; try{var l=document.querySelector('link[rel="stylesheet"][href*="brand.css"]'); if(l)AB=l.getAttribute('href').replace(/\/brand\.css.*$/,'');}catch(e){}
+    var LIST=['mushroom_glow','fest_5','show_6582','fest_1','show_2337','show_2242','show_400acres'].map(function(n){return AB+'/video/'+n+'.mp4';});
+    var ca=sec.querySelector('.ca'), cb=sec.querySelector('.cb'); if(!ca) return;
+    var i=-1, act=null, running=false;
+    function fade(el){ [ca,cb].forEach(function(v){v.style.opacity=(v===el)?'1':'0';}); }
+    function play(n){ i=n; var buf=(act===ca)?cb:ca; if(buf.getAttribute('src')!==LIST[i])buf.src=LIST[i]; try{buf.currentTime=0;}catch(e){} var p=buf.play(); if(p&&p.catch)p.catch(function(){}); fade(buf); act=buf; }
+    function nx(){ if(running) play((i+1)%LIST.length); }
+    ca.addEventListener('ended',function(){ if(running&&act===ca)nx(); });
+    cb.addEventListener('ended',function(){ if(running&&act===cb)nx(); });
+    ca.preload='metadata'; ca.src=LIST[0]; fade(ca); act=ca;
+    sec.addEventListener('deck:enter',function(){ if(!running){running=true; play(i<0?0:i);} });
+    sec.addEventListener('deck:leave',function(){ running=false; try{ca.pause();cb.pause();}catch(e){} });
+    sec.addEventListener('deck:preload',function(){ if(ca.preload!=='auto'){ca.preload='auto'; try{ca.load();}catch(e){}} });
+  })();
+  </script>
+  <div style="position:absolute;inset:0;background:rgba(10,9,13,.56)"></div>
+  <div class="scrim-l"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,11,15,.74),transparent 44%)"></div>
+
+  <div style="position:absolute;left:120px;top:210px;width:1180px">
+    <div style="font-family:var(--sans);font-size:20px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--amber)">Let&rsquo;s talk</div>
+    <h1 style="font-family:var(--serif);font-weight:300;font-size:80px;line-height:1.03;letter-spacing:-.02em;color:var(--ink);margin-top:22px">
+      CNC content people<br>can&rsquo;t stop <i style="font-style:italic;color:var(--amber)">watching</i></h1>
+    <p class="intro" style="margin-top:30px;max-width:840px;font-size:26px">
+      I&rsquo;m going to make this stuff either way. Let&rsquo;s make it <b style="color:var(--ink);font-weight:500">yours</b> &mdash; and own the space nobody&rsquo;s taken.</p>
+  </div>
+
+  <!-- CTA band -->
+  <div style="position:absolute;left:120px;right:120px;bottom:96px;
+       border:1px solid var(--amber);border-radius:20px;
+       background:linear-gradient(135deg,rgba(234,130,78,.16),rgba(12,11,15,.62));
+       padding:32px 46px;display:flex;align-items:center;justify-content:space-between;gap:48px">
+    <div>
+      <div style="font-family:var(--serif);font-weight:400;font-size:36px;line-height:1.05;color:var(--ink)">
+        Mike Gilliland <span style="color:var(--dim);font-size:24px">&middot; Creative Technologist</span></div>
+      <p style="font-family:var(--sans);font-size:23px;color:var(--body);margin-top:10px">
+        <span class="amber">mikegilliland.ca</span> &nbsp;·&nbsp; contact@futurethinkers.org &nbsp;·&nbsp; +1&nbsp;778-586-5613</p>
+    </div>
+    <div style="font-family:var(--sans);font-size:20px;color:var(--body);text-align:right;line-height:1.7">
+      This deck lives at<br><span style="color:var(--amber);font-weight:600">mikegilliland.ca/creative-technologist</span></div>
+  </div>
+</section>
+</div>
+
+<div class="deck-edge l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></div>
+<div class="deck-edge r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></div>
+
+<div id="deck-scrim"></div>
+<div id="deck-handle" title="All slides (O)">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  <span>Slides</span>
+</div>
+<div id="deck-drawer">
+  <div class="dw-head"><b>All slides</b><div class="dw-x" title="Close (Esc)">&times;</div></div>
+  <div class="dw-list"></div>
+</div>
+
+<script>
+const DECK_VERSION="creative-technologist";
+const rmq=matchMedia("(prefers-reduced-motion: reduce)");
+const reduce=()=>rmq.matches;
+const slides=[...document.querySelectorAll("section.slide")];
+const total=slides.length;
+const stage=document.getElementById("stage");
+const prog=document.querySelector("#deck-progress i");
+const params=new URLSearchParams(location.search);
+// viewer/contact id: ?ref= (portal.place convention) or stored pp_ref, so deck
+// engagement lands on the right contact in Mission Control.
+const ref=params.get("ref")||params.get("v")||(function(){try{return (JSON.parse(localStorage.getItem("pp_ref")||"{}").id)||""}catch(e){return""}})();
+const session=Math.random().toString(36).slice(2,10);
+
+// content numbering (dividers excluded)
+let contentTotal=0; const contentNo=[];
+slides.forEach(s=>{ if(s.dataset.divider){contentNo.push(null);} else {contentTotal++; contentNo.push(contentTotal);} });
+
+// tag revealable elements per slide with stagger index
+const REVEAL_SEL=".eyebrow,.title,.title-rule,.lead,.statement,.intro,.closer,.hero-panel,.card,.mcard,.tier,.adv-row,.pill,.chip,.btn,.stat,.callout,table.data,.pgrid,img.framed,.timeline,.layer,.bkt,.va,.ov,.stack-bar,.cbar,.dl,.dv,figure,.deal-panel,.tags,.maker-grid,.maker-row,ul.bullets>li";
+slides.forEach(s=>{
+  if(s.querySelector(".reveal")) { /* dividers pre-tagged */ }
+  const els=[...s.querySelectorAll(REVEAL_SEL)].filter(e=>!e.closest(".foot,.foot-wm,.foot-pg"));
+  els.forEach((e,i)=>{ if(!e.classList.contains("reveal")){e.classList.add("reveal"); e.style.setProperty("--ri",Math.min(i,14));} });
+});
+
+let cur=-1, enterT=0;
+function drawBars(s){ s.querySelectorAll("[data-draw]").forEach(b=>{ b.classList.remove("drawn"); void b.offsetWidth; b.classList.add("drawn"); }); }
+function resetBars(s){ s.querySelectorAll("[data-draw]").forEach(b=>b.classList.remove("drawn")); }
+
+function countUp(s){
+  s.querySelectorAll(".countup").forEach(el=>{
+    const target=parseFloat(el.dataset.count), pre=el.dataset.prefix||"", suf=el.dataset.suffix||"", dec=+(el.dataset.dec||0);
+    const fmt=v=>dec?v.toFixed(dec):Math.round(v).toLocaleString();
+    if(reduce()){ el.textContent=pre+fmt(target)+suf; return; }
+    const dur=1100, t0=performance.now();
+    (function tick(t){ const k=Math.min(1,(t-t0)/dur); const e=1-Math.pow(1-k,3);
+      el.textContent=pre+fmt(target*e)+suf; if(k<1)requestAnimationFrame(tick); })(t0);
+  });
+}
+
+function beacon(type,extra){
+  if(!ref)return;                       // no contact id → nothing to attribute
+  try{ const body=JSON.stringify({ refId:ref, type:"deck_"+type, page:"/deck",
+      title:"Investor Deck v"+DECK_VERSION, sessionId:session,
+      metadata:Object.assign({version:DECK_VERSION,slide:cur+1,contentNo:contentNo[cur]},extra||{}),
+      ts:new Date().toISOString() });
+    navigator.sendBeacon("/api/track", new Blob([body],{type:"application/json"})); }catch(e){}
+}
+
+function show(i,dir){
+  i=Math.max(0,Math.min(total-1,i));
+  if(i===cur)return;
+  const now=performance.now();
+  if(cur>=0){ beacon("slide_leave",{dwellMs:Math.round(now-enterT),to:i+1}); resetBars(slides[cur]); slides[cur].classList.remove("active"); }
+  enterT=now; cur=i;
+  const s=slides[i]; s.classList.add("active");
+  try{ slides.forEach(x=>x.querySelectorAll("video:not([data-seq])").forEach(v=>v.pause()));
+       s.querySelectorAll("video:not([data-seq])").forEach(v=>{ v.play&&v.play().catch(()=>{}); }); }catch(e){}
+  // notify per-slide media sequencers (they own [data-seq] videos themselves)
+  try{ slides.forEach(x=>x.dispatchEvent(new CustomEvent("deck:"+(x===s?"enter":"leave")))); }catch(e){}
+  // warm the neighbours one slide out so their media is buffered before arrival
+  try{ [i-1,i+1].forEach(function(k){ if(k>=0&&k<total&&k!==i) slides[k].dispatchEvent(new CustomEvent("deck:preload")); }); }catch(e){}
+  prog.style.width=((i+1)/total*100)+"%";
+  history.replaceState(null,"","#"+(i+1));
+  try{ if(window.parent&&window.parent!==window) window.parent.postMessage({t:"deckslide",n:i+1},location.origin); }catch(e){}
+  // motion triggers
+  requestAnimationFrame(()=>{ drawBars(s); countUp(s); });
+  markOverview();
+  beacon("slide_enter",{});
+}
+function next(){ show(cur+1,1); }
+function prev(){ show(cur-1,-1); }
+
+// ---- keyboard ----
+addEventListener("keydown",e=>{
+  const t=e.target;
+  if(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)))return; // don't nav while typing
+  if(e.key==="ArrowRight"||e.key==="PageDown"||e.key===" "){e.preventDefault();next();}
+  else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();prev();}
+  else if(e.key==="Home")show(0);
+  else if(e.key==="End")show(total-1);
+  else if(e.key.toLowerCase()==="o"){toggleDrawer();}
+  else if(e.key==="Escape"){ closeDrawer(); }
+});
+// ---- click zones (ignore links/cards/overview) ----
+addEventListener("click",e=>{
+  if(document.body.classList.contains("admin-comment"))return;   // comment mode owns clicks
+  if(e.target.closest("a,button,input,select,textarea,label,form,.no-nav,.deck-edge,#deck-drawer,#deck-handle,#deck-scrim,.thumb,[data-eid],[contenteditable],.cmt-pin,.cmt-pop,#admin-bar,iframe"))return;
+  if(document.body.classList.contains("drawer-open"))return;
+  const x=e.clientX/innerWidth;
+  if(x>0.66)next(); else if(x<0.28)prev();
+});
+// ---- touch swipe ----
+let tx=0,ty=0;
+addEventListener("touchstart",e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)){ dx<0?next():prev(); }},{passive:true});
+// ---- hash nav ----
+addEventListener("hashchange",()=>{const n=(parseInt(location.hash.slice(1))||1)-1; if(n!==cur)show(n);});
+// ---- parent-frame nav (portal.place/deck#N deep links) ----
+addEventListener("message",e=>{ if(e.data&&e.data.t==="deckgoto"&&typeof e.data.n==="number"){const n=e.data.n-1; if(n!==cur)show(n);} });
+
+// ---- edge arrows (always visible; click to navigate) ----
+document.querySelector(".deck-edge.l").addEventListener("click",prev);
+document.querySelector(".deck-edge.r").addEventListener("click",next);
+
+// ---- thumbnail drawer (live-cloned slides, built lazily on first open) ----
+const drawer=document.getElementById("deck-drawer");
+const dwList=drawer.querySelector(".dw-list");
+let drawerBuilt=false;
+function buildDrawer(){
+  if(drawerBuilt)return; drawerBuilt=true;
+  let openSec=false;
+  slides.forEach((s,idx)=>{
+    if(s.dataset.divider){
+      const n=(s.querySelector(".dv-n")?.textContent||"").trim();
+      const t=(s.querySelector(".dv-t")?.textContent||"").trim();
+      const h=document.createElement("div"); h.className="dw-sec"; h.textContent=n+" — "+t; dwList.appendChild(h); openSec=true;
+    }
+    const label = idx===0 ? "Cover"
+      : s.dataset.divider ? (s.querySelector(".dv-t")?.textContent||"").trim()
+      : (s.querySelector(".eyebrow b")?.textContent||"").trim();
+    const cell=document.createElement("div"); cell.className="thumb"; cell.dataset.i=idx;
+    const inner=document.createElement("div"); inner.className="thumb-inner";
+    const clone=s.cloneNode(true); clone.classList.remove("active"); clone.removeAttribute("style");
+    clone.querySelectorAll("style").forEach(x=>x.remove());  // doc-level scoped styles already apply
+    clone.querySelectorAll("iframe").forEach(x=>x.remove());  // no live embeds in thumbnails (poster bg shows)
+    inner.appendChild(clone); cell.appendChild(inner);
+    if(contentNo[idx]) cell.insertAdjacentHTML("beforeend",`<span class="num">${String(contentNo[idx]).padStart(2,"0")}</span>`);
+    cell.insertAdjacentHTML("beforeend",`<span class="lbl">${label}</span>`);
+    cell.addEventListener("click",()=>{ show(idx); });  // jump but keep drawer open
+    dwList.appendChild(cell);
+  });
+}
+function markDrawer(){ dwList.querySelectorAll(".thumb").forEach(c=>c.classList.toggle("cur",+c.dataset.i===cur)); }
+function openDrawer(){ buildDrawer(); document.body.classList.add("drawer-open"); fit(); markDrawer();
+  const c=dwList.querySelector(".thumb.cur"); if(c)c.scrollIntoView({block:"center"}); }
+function closeDrawer(){ document.body.classList.remove("drawer-open"); fit(); }
+function toggleDrawer(){ document.body.classList.contains("drawer-open")?closeDrawer():openDrawer(); }
+function markOverview(){ if(drawerBuilt)markDrawer(); }
+document.getElementById("deck-handle").addEventListener("click",openDrawer);
+document.querySelector("#deck-drawer .dw-x").addEventListener("click",closeDrawer);
+document.getElementById("deck-scrim").addEventListener("click",closeDrawer);
+
+// ---- fit stage to viewport (reserve drawer width when open → push, not overlay) ----
+const DRAWER_W=352;
+function fit(){ const availW=innerWidth-(document.body.classList.contains("drawer-open")?DRAWER_W:0);
+  const sc=Math.min(availW/1920,innerHeight/1080);
+  stage.style.transform="scale("+sc+")"; stage.style.left=((availW-1920*sc)/2)+"px"; stage.style.top=((innerHeight-1080*sc)/2)+"px"; }
+addEventListener("resize",fit); fit();
+
+// ---- build progress ticks at section boundaries ----
+(function ticks(){ const t=document.querySelector("#deck-progress .ticks");
+  slides.forEach((s,i)=>{ if(s.dataset.divider){ const b=document.createElement("b"); b.style.left=(i/total*100)+"%"; t.appendChild(b);} }); })();
+
+// ---- boot: splash off after fonts + first paint ----
+const startAt=(parseInt(location.hash.slice(1))||1)-1;
+Promise.race([document.fonts?document.fonts.ready:Promise.resolve(), new Promise(r=>setTimeout(r,1500))]).then(()=>{
+  show(Math.max(0,startAt));
+  beacon("deck_open",{});
+  setTimeout(()=>document.getElementById("deck-splash").classList.add("hide"),180);
+});
+addEventListener("beforeunload",()=>{ if(cur>=0)beacon("slide_leave",{dwellMs:Math.round(performance.now()-enterT),to:0}); beacon("deck_close",{}); });
+
+// expose a small API for admin/edit mode (assets/admin.js, activates on ?edit)
+window.DECK={slides:slides,contentNo:contentNo,total:total,version:DECK_VERSION,show:show,get cur(){return cur}};
+</script>
+<script src="/creative-technologist/assets/admin.js"></script>
+</body></html>

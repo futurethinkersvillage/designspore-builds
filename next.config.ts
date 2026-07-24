@@ -19,6 +19,8 @@ const nextConfig: NextConfig = {
       { source: "/projects/mask-generator/files/:path*",
         destination: "https://maskgen.designspore.co/files/:path*" },
       { source: "/projects/:name", destination: "/projects/:name/index.html" },
+      // Creative Technologist deck (self-contained bundle in public/).
+      { source: "/creative-technologist", destination: "/creative-technologist/index.html" },
     ];
   },
 };
