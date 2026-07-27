@@ -1,0 +1,601 @@
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { build } from "./geometry.js";
+
+const $ = (id) => document.getElementById(id);
+const viewport = $("viewport");
+const hoverEl = $("hover");
+
+// ---------- state ----------
+
+const state = {
+  type: "dome", // dome | zome | pyramid | hybrid
+  units: "ft", // ft | m
+  // dome / hybrid
+  diameter: 20, // ft — sphere Ø for domes, base ring Ø for zomes
+  frequency: 3,
+  fraction: 0.625,
+  riser: 4, // hybrid wall height ft
+  // zome
+  sides: 10,
+  bands: 5,
+  zheight: 20,
+  // pyramid
+  pbase: 32,
+  pheight: 20,
+  psides: 4,
+  // materials
+  stock: 12, // lumber stock length ft
+  showPanels: true,
+  spin: true,
+};
+
+// Trillium-inspired preset lineup
+const PRESETS = {
+  "dome-10": { type: "dome", diameter: 10, frequency: 2, fraction: 0.5, riser: 0 },
+  "dome-15": { type: "dome", diameter: 15, frequency: 3, fraction: 0.625, riser: 0 },
+  "dome-20": { type: "dome", diameter: 20, frequency: 3, fraction: 0.625, riser: 0 },
+  "dome-26": { type: "dome", diameter: 26, frequency: 4, fraction: 0.5, riser: 0 },
+  "dome-30": { type: "dome", diameter: 30, frequency: 4, fraction: 0.625, riser: 0 },
+  "dome-40": { type: "dome", diameter: 40, frequency: 5, fraction: 0.5, riser: 0 },
+  "zome-acorn": { type: "zome", diameter: 10.5, sides: 8, bands: 4, zheight: 12 },
+  "zome-16": { type: "zome", diameter: 16, sides: 10, bands: 5, zheight: 16 },
+  "zome-20": { type: "zome", diameter: 20, sides: 10, bands: 5, zheight: 20 },
+  "zome-25": { type: "zome", diameter: 25, sides: 12, bands: 6, zheight: 24 },
+  "zome-30": { type: "zome", diameter: 30, sides: 12, bands: 6, zheight: 28 },
+  "zome-trellis": { type: "zome", diameter: 12, sides: 9, bands: 4, zheight: 13 },
+  "hyb-simple": { type: "hybrid", diameter: 20, frequency: 3, fraction: 0.375, riser: 6 },
+  "hyb-34": { type: "hybrid", diameter: 20, frequency: 3, fraction: 0.5, riser: 4 },
+  "hyb-full": { type: "hybrid", diameter: 20, frequency: 3, fraction: 0.625, riser: 3 },
+  "pyr-32": { type: "pyramid", pbase: 32, pheight: 20, psides: 4 },
+};
+
+let result = null; // last geometry build
+
+// ---------- units / formatting ----------
+
+const FT = 0.3048;
+function fmtLen(ft) {
+  if (state.units === "m") {
+    return ft * FT >= 10 ? (ft * FT).toFixed(2) + " m" : (ft * FT * 1000).toFixed(0) + " mm";
+  }
+  const neg = ft < 0 ? "-" : "";
+  ft = Math.abs(ft);
+  let inchesTotal = ft * 12;
+  let sixteenths = Math.round(inchesTotal * 16);
+  let whole = Math.floor(sixteenths / 16);
+  let frac = sixteenths % 16;
+  const f = Math.floor(whole / 12);
+  const i = whole % 12;
+  let fs = "";
+  if (frac) {
+    let n = frac, d = 16;
+    while (n % 2 === 0) { n /= 2; d /= 2; }
+    fs = ` ${n}/${d}`;
+  }
+  return `${neg}${f}′ ${i}${fs}″`;
+}
+function fmtArea(sqft) {
+  return state.units === "m"
+    ? (sqft * FT * FT).toFixed(1) + " m²"
+    : sqft.toFixed(0) + " ft²";
+}
+function fmtBig(ft) {
+  return state.units === "m" ? (ft * FT).toFixed(2) + " m" : ft.toFixed(1) + " ft";
+}
+
+// ---------- build params ----------
+
+function buildParams() {
+  if (state.type === "zome")
+    return {
+      type: "zome", diameterFt: state.diameter, sides: state.sides,
+      bands: state.bands, heightFt: state.zheight, riserFt: 0,
+    };
+  if (state.type === "pyramid")
+    return {
+      type: "pyramid", baseFt: state.pbase, heightFt: state.pheight,
+      sides: state.psides, riserFt: 0,
+    };
+  return {
+    type: "dome", diameterFt: state.diameter, frequency: state.frequency,
+    fraction: state.fraction, riserFt: state.type === "hybrid" ? state.riser : 0,
+  };
+}
+
+// ---------- three.js ----------
+
+let scene, camera, renderer, controls, structGroup;
+let strutMeshes = [];
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2(-2, -2);
+
+const GROUP_COLORS = [
+  0xe8a84c, 0x6ec1e4, 0x9ee493, 0xe4787f, 0xc39be4,
+  0xe4d76e, 0x7fe4c3, 0xe4a4e0, 0xa4b8e4, 0xd9b18a,
+];
+const PANEL_COLORS = [
+  0x3d5a80, 0x5f7470, 0x6d597a, 0x815b5b, 0x4f6d7a, 0x7a6c5d, 0x596869,
+];
+
+function initThree() {
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x14171c);
+  scene.fog = new THREE.Fog(0x14171c, 120, 320);
+
+  camera = new THREE.PerspectiveCamera(45, 1, 0.1, 2000);
+  camera.up.set(0, 0, 1);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  viewport.appendChild(renderer.domElement);
+
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.autoRotate = state.spin;
+  controls.autoRotateSpeed = 1.0;
+
+  scene.add(new THREE.HemisphereLight(0xcfd8e8, 0x2a2018, 1.0));
+  const sun = new THREE.DirectionalLight(0xffe8c0, 1.6);
+  sun.position.set(60, 40, 80);
+  scene.add(sun);
+  const fill = new THREE.DirectionalLight(0x88aaff, 0.5);
+  fill.position.set(-50, -60, 30);
+  scene.add(fill);
+
+  const grid = new THREE.PolarGridHelper(60, 16, 12, 64, 0x2b323d, 0x232830);
+  grid.rotation.x = Math.PI / 2; // z-up
+  scene.add(grid);
+
+  structGroup = new THREE.Group();
+  scene.add(structGroup);
+
+  const resize = () => {
+    const w = viewport.clientWidth, h = viewport.clientHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  };
+  new ResizeObserver(resize).observe(viewport);
+  resize();
+
+  renderer.domElement.addEventListener("pointermove", (e) => {
+    const r = renderer.domElement.getBoundingClientRect();
+    pointer.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+    pointer.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+    hoverEl.style.left = e.clientX - r.left + 14 + "px";
+    hoverEl.style.top = e.clientY - r.top + 8 + "px";
+  });
+  renderer.domElement.addEventListener("pointerleave", () => {
+    pointer.set(-2, -2);
+    hoverEl.style.display = "none";
+  });
+
+  (function loop() {
+    requestAnimationFrame(loop);
+    controls.update();
+    hover();
+    renderer.render(scene, camera);
+  })();
+}
+
+function hover() {
+  if (pointer.x < -1.5) return;
+  raycaster.setFromCamera(pointer, camera);
+  const hits = raycaster.intersectObjects(strutMeshes, false);
+  if (hits.length) {
+    const u = hits[0].object.userData;
+    hoverEl.textContent = `${u.group} — ${fmtLen(u.length)}`;
+    hoverEl.style.display = "block";
+  } else {
+    hoverEl.style.display = "none";
+  }
+}
+
+function groupColor(label) {
+  const i = label.charCodeAt(0) - 65;
+  return GROUP_COLORS[i % GROUP_COLORS.length];
+}
+
+function renderStructure() {
+  structGroup.clear();
+  strutMeshes = [];
+  if (!result) return;
+  const { verts, struts, panels, panelGroups, wall } = result;
+
+  const size = result.stats.baseDiameter || 20;
+  const rad = Math.max(0.06, Math.min(0.16, size * 0.006));
+
+  // struts as cylinders colored by length group
+  const matCache = {};
+  const cylGeo = new THREE.CylinderGeometry(rad, rad, 1, 8);
+  const up = new THREE.Vector3(0, 1, 0);
+  for (const s of struts) {
+    const a = new THREE.Vector3(...verts[s.a]);
+    const b = new THREE.Vector3(...verts[s.b]);
+    const dir = b.clone().sub(a);
+    const L = dir.length();
+    if (!matCache[s.group])
+      matCache[s.group] = new THREE.MeshStandardMaterial({
+        color: groupColor(s.group), roughness: 0.55, metalness: 0.1,
+      });
+    const m = new THREE.Mesh(cylGeo, matCache[s.group]);
+    m.scale.set(1, L, 1);
+    m.position.copy(a).addScaledVector(dir, 0.5);
+    m.quaternion.setFromUnitVectors(up, dir.clone().normalize());
+    m.userData = { group: s.group, length: L };
+    structGroup.add(m);
+    strutMeshes.push(m);
+  }
+
+  // riser wall frame (kept out of strut groups)
+  if (wall) {
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0xa89880, roughness: 0.6 });
+    const drawEdge = (a, b, label, L) => {
+      const va = new THREE.Vector3(...verts[a]);
+      const vb = new THREE.Vector3(...verts[b]);
+      const dir = vb.clone().sub(va);
+      const m = new THREE.Mesh(cylGeo, wallMat);
+      m.scale.set(1, dir.length(), 1);
+      m.position.copy(va).addScaledVector(dir, 0.5);
+      m.quaternion.setFromUnitVectors(up, dir.clone().normalize());
+      m.userData = { group: label, length: L };
+      structGroup.add(m);
+      strutMeshes.push(m);
+    };
+    for (const [a, b] of wall.studEdges) drawEdge(a, b, "Stud", wall.studH);
+    wall.plateEdges.forEach(([a, b], i) => drawEdge(a, b, "Plate", wall.segs[i]));
+  }
+
+  // hubs
+  const hubGeo = new THREE.SphereGeometry(rad * 1.7, 12, 8);
+  const hubMat = new THREE.MeshStandardMaterial({ color: 0xd8d2c4, roughness: 0.4 });
+  const seen = new Set();
+  for (const s of struts)
+    for (const vi of [s.a, s.b]) {
+      if (seen.has(vi)) continue;
+      seen.add(vi);
+      const h = new THREE.Mesh(hubGeo, hubMat);
+      h.position.set(...verts[vi]);
+      structGroup.add(h);
+    }
+
+  // panels
+  if (state.showPanels) {
+    const gi = new Map(panelGroups.map((g, i) => [g.label, i]));
+    const addFace = (f, color) => {
+      const pos = [];
+      for (let i = 1; i < f.length - 1; i++)
+        for (const vi of [f[0], f[i], f[i + 1]])
+          pos.push(...verts[vi]);
+      const g = new THREE.BufferGeometry();
+      g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+      g.computeVertexNormals();
+      const mesh = new THREE.Mesh(
+        g,
+        new THREE.MeshStandardMaterial({
+          color, transparent: true, opacity: 0.42,
+          side: THREE.DoubleSide, roughness: 0.8,
+        })
+      );
+      structGroup.add(mesh);
+    };
+    for (const p of panels)
+      addFace(p.verts, PANEL_COLORS[gi.get(p.group) % PANEL_COLORS.length]);
+    if (wall) for (const f of wall.panels) addFace(f, 0x4a4238);
+  }
+
+  // frame camera
+  const H = result.stats.height;
+  const D = Math.max(result.stats.baseDiameter, H) * 1.15;
+  camera.position.set(D * 1.1, -D * 1.2, H * 0.9 + D * 0.25);
+  controls.target.set(0, 0, H * 0.42);
+}
+
+// ---------- BOM ----------
+
+function computeBOM() {
+  const { strutGroups, panelGroups, dihedrals, wall, stats } = result;
+
+  // lumber packing: first-fit-decreasing into stock boards, 1″ per cut waste
+  const stockFt = state.stock;
+  const cutWaste = 1 / 12;
+  const pieces = [];
+  for (const g of strutGroups)
+    for (let i = 0; i < g.count; i++) pieces.push(g.length + cutWaste);
+  if (wall) {
+    for (let i = 0; i < wall.count; i++) pieces.push(wall.studH + cutWaste);
+    for (const s of wall.segs) pieces.push(s + cutWaste);
+  }
+  pieces.sort((a, b) => b - a);
+  const boards = [];
+  for (const p of pieces) {
+    let placed = false;
+    for (const b of boards)
+      if (b + p <= stockFt) {
+        boards[boards.indexOf(b)] = b + p;
+        placed = true;
+        break;
+      }
+    if (!placed) {
+      if (p > stockFt) boards.push(stockFt); // strut longer than stock: 1 board each (flag below)
+      else boards.push(p);
+    }
+  }
+  const tooLong = pieces.filter((p) => p > stockFt).length;
+
+  const strutCount = strutGroups.reduce((s, g) => s + g.count, 0) + (wall ? wall.count * 2 : 0);
+  const panelArea = stats.surfaceArea + (wall ? wall.segs.reduce((s, x) => s + x, 0) * wall.studH : 0);
+  const sheets = Math.ceil((panelArea * 1.15) / 32);
+  const screws = Math.ceil((strutCount * 6) / 50) * 50;
+
+  return { boards: boards.length, tooLong, strutCount, panelArea, sheets, screws };
+}
+
+function bevelOf(group) {
+  const d = result.dihedrals[group.label];
+  return d ? ((180 - d) / 2).toFixed(1) + "°" : "—";
+}
+
+function renderBOM() {
+  const { strutGroups, panelGroups, wall, stats, bandInfo, pyramid } = result;
+  const bom = computeBOM();
+
+  // stats card
+  $("stats").innerHTML = `
+    <div class="row"><span>Structure</span><b>${stats.type}</b></div>
+    <div class="row"><span>Spec</span><b>${stats.detail}</b></div>
+    <div class="row"><span>Footprint Ø</span><b>${fmtBig(stats.baseDiameter)}</b></div>
+    <div class="row"><span>Height</span><b>${fmtBig(stats.height)}</b></div>
+    <div class="row"><span>Floor area</span><b>${fmtArea(stats.floorArea)}</b></div>
+    <div class="row"><span>Skin area</span><b>${fmtArea(stats.surfaceArea)}</b></div>
+    ${stats.strutLength ? `<div class="row"><span>Strut length (all)</span><b>${fmtLen(stats.strutLength)}</b></div>` : ""}
+    ${stats.hubCount ? `<div class="row"><span>Joints/hubs</span><b>${stats.hubCount}</b></div>` : ""}`;
+
+  // struts table
+  let rows = "";
+  for (const g of strutGroups)
+    rows += `<tr><td><span class="dot" style="background:#${groupColor(g.label).toString(16).padStart(6, "0")}"></span>${g.label}</td>
+      <td>${g.count}</td><td>${fmtLen(g.length)}</td><td>${bevelOf(g)}</td></tr>`;
+  if (wall)
+    rows += `<tr><td>Stud</td><td>${wall.count}</td><td>${fmtLen(wall.studH)}</td><td>—</td></tr>
+      <tr><td>Plate</td><td>${wall.segs.length}</td><td>${fmtLen(wall.segs[0])}</td><td>—</td></tr>`;
+  $("struts").innerHTML = `<table><thead><tr><th>Strut</th><th>Qty</th><th>Length</th><th>Edge bevel</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="hint">Bevel = angle to plane each mating panel edge for tight seams (screw-together, no hubs).</div>`;
+
+  // panels table
+  rows = "";
+  for (const g of panelGroups) {
+    const dims = g.sig.map((s) => fmtLen(s)).join(" · ");
+    rows += `<tr><td>${g.label}</td><td>${g.count}</td><td>${g.shape}</td>
+      <td class="dims">${dims}</td><td>${fmtArea(g.area)}</td></tr>`;
+  }
+  if (wall)
+    rows += `<tr><td>Wall</td><td>${wall.count}</td><td>rect</td>
+      <td class="dims">${fmtLen(wall.segs[0])} × ${fmtLen(wall.studH)}</td>
+      <td>${fmtArea(wall.segs[0] * wall.studH)}</td></tr>`;
+  $("panels").innerHTML = `<table><thead><tr><th>Panel</th><th>Qty</th><th>Shape</th><th>Edge lengths</th><th>Area ea.</th></tr></thead><tbody>${rows}</tbody></table>`;
+
+  // zome band detail
+  if (bandInfo) {
+    rows = "";
+    for (const b of bandInfo)
+      rows += `<tr><td>${b.band}</td><td>${b.count}</td><td>${fmtLen(b.dLong)}</td>
+        <td>${fmtLen(b.dShort)}</td><td>${b.apexAngle.toFixed(1)}°</td></tr>`;
+    $("extra").innerHTML = `<h2>Rhombus bands (top → base)</h2>
+      <table><thead><tr><th>Band</th><th>Qty</th><th>Long diag</th><th>Short diag</th><th>Tip angle</th></tr></thead><tbody>${rows}</tbody></table>
+      <div class="hint">Every frame strut in a zome is the same length — only the panel angles change per band.</div>`;
+    $("extra").style.display = "";
+  } else if (pyramid) {
+    $("extra").innerHTML = `<h2>Pyramid geometry</h2>
+      <div class="row"><span>Hip rafter</span><b>${fmtLen(pyramid.hip)}</b></div>
+      <div class="row"><span>Face slant height</span><b>${fmtLen(pyramid.slant)}</b></div>
+      <div class="row"><span>Face slope</span><b>${pyramid.faceSlope.toFixed(1)}°</b></div>
+      <div class="row"><span>Hip slope</span><b>${pyramid.hipSlope.toFixed(1)}°</b></div>`;
+    $("extra").style.display = "";
+  } else {
+    $("extra").style.display = "none";
+  }
+
+  // materials card
+  $("materials").innerHTML = `
+    <div class="row"><span>Frame pieces</span><b>${bom.strutCount}</b></div>
+    <div class="row"><span>2×4/2×6 boards (${state.stock}′)</span><b>${bom.boards}</b></div>
+    ${bom.tooLong ? `<div class="row warn"><span>⚠ pieces longer than stock</span><b>${bom.tooLong}</b></div>` : ""}
+    <div class="row"><span>Skin area (incl. wall)</span><b>${fmtArea(bom.panelArea)}</b></div>
+    <div class="row"><span>4×8 sheets (+15% waste)</span><b>${bom.sheets}</b></div>
+    <div class="row"><span>Screws (est.)</span><b>~${bom.screws}</b></div>`;
+}
+
+// ---------- exports ----------
+
+function csvEscape(s) {
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function downloadText(name, text, mime = "text/plain") {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type: mime }));
+  a.download = name;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function exportCSV() {
+  const { strutGroups, panelGroups, wall, stats } = result;
+  const mm = (ft) => (ft * 304.8).toFixed(1);
+  const L = [];
+  L.push(`${stats.type} — ${stats.detail}`);
+  L.push(`Footprint,${stats.baseDiameter.toFixed(2)} ft,Height,${stats.height.toFixed(2)} ft,Floor,${stats.floorArea.toFixed(0)} sqft`);
+  L.push("");
+  L.push("CUT LIST — FRAME");
+  L.push("Group,Qty,Length,Length (mm),Edge bevel");
+  for (const g of strutGroups)
+    L.push([g.label, g.count, fmtLen(g.length), mm(g.length), bevelOf(g)].map(String).map(csvEscape).join(","));
+  if (wall) {
+    L.push(["Stud", wall.count, fmtLen(wall.studH), mm(wall.studH), ""].map(String).map(csvEscape).join(","));
+    L.push(["Plate", wall.segs.length, fmtLen(wall.segs[0]), mm(wall.segs[0]), ""].map(String).map(csvEscape).join(","));
+  }
+  L.push("");
+  L.push("PANELS");
+  L.push("Group,Qty,Shape,Edge lengths,Edges (mm),Area sqft");
+  for (const g of panelGroups)
+    L.push([
+      g.label, g.count, g.shape,
+      g.sig.map((s) => fmtLen(s)).join(" | "),
+      g.sig.map((s) => mm(s)).join(" | "),
+      g.area.toFixed(2),
+    ].map(String).map(csvEscape).join(","));
+  if (result.bandInfo) {
+    L.push("");
+    L.push("ZOME RHOMBUS BANDS (top to base)");
+    L.push("Band,Qty,Long diag,Short diag,Tip angle deg");
+    for (const b of result.bandInfo)
+      L.push([b.band, b.count, fmtLen(b.dLong), fmtLen(b.dShort), b.apexAngle.toFixed(1)].map(String).map(csvEscape).join(","));
+  }
+  const bom = computeBOM();
+  L.push("");
+  L.push("MATERIALS");
+  L.push(`Frame pieces,${bom.strutCount}`);
+  L.push(`Boards at ${state.stock} ft,${bom.boards}`);
+  L.push(`4x8 sheets (+15% waste),${bom.sheets}`);
+  L.push(`Screws (est),${bom.screws}`);
+  downloadText(slug() + "-cutlist.csv", L.join("\n"), "text/csv");
+}
+
+function exportOBJ() {
+  const { verts, panels, wall } = result;
+  const L = ["# " + result.stats.type + " — " + result.stats.detail, "o structure"];
+  // y-up for viewers
+  for (const v of verts) L.push(`v ${v[0].toFixed(5)} ${v[2].toFixed(5)} ${(-v[1]).toFixed(5)}`);
+  const face = (f) => L.push("f " + f.map((i) => i + 1).join(" "));
+  for (const p of panels) face(p.verts);
+  if (wall) for (const f of wall.panels) face(f);
+  downloadText(slug() + ".obj", L.join("\n"), "model/obj");
+}
+
+function slug() {
+  return (result.stats.type + "-" + Math.round(result.stats.baseDiameter) + "ft")
+    .toLowerCase().replace(/[^a-z0-9]+/g, "-");
+}
+
+// ---------- UI wiring ----------
+
+function rebuild() {
+  result = build(buildParams());
+  renderStructure();
+  renderBOM();
+  syncLabels();
+}
+
+function syncLabels() {
+  $("v_diameter").textContent = fmtBig(state.diameter);
+  $("v_frequency").textContent = state.frequency + "V";
+  $("v_riser").textContent = fmtBig(state.riser);
+  $("v_sides").textContent = state.sides;
+  $("v_bands").textContent = state.bands;
+  $("v_zheight").textContent = fmtBig(state.zheight);
+  $("v_pbase").textContent = fmtBig(state.pbase);
+  $("v_pheight").textContent = fmtBig(state.pheight);
+  $("v_psides").textContent = state.psides;
+  // bands slider max depends on sides
+  const bmax = state.sides - 2;
+  const el = $("c_bands");
+  el.max = bmax;
+  if (state.bands > bmax) state.bands = bmax;
+}
+
+function showControls() {
+  const t = state.type;
+  document.querySelectorAll("[data-for]").forEach((el) => {
+    el.style.display = el.dataset.for.split(" ").includes(t) ? "" : "none";
+  });
+  document.querySelectorAll(".modes button").forEach((b) =>
+    b.classList.toggle("on", b.dataset.type === t)
+  );
+}
+
+function bindRange(id, key, post) {
+  $(id).addEventListener("input", (e) => {
+    state[key] = parseFloat(e.target.value);
+    if (post) post();
+    rebuild();
+  });
+}
+
+function initUI() {
+  // type buttons
+  document.querySelectorAll(".modes button").forEach((b) =>
+    b.addEventListener("click", () => {
+      state.type = b.dataset.type;
+      showControls();
+      rebuild();
+    })
+  );
+
+  // presets
+  $("c_preset").addEventListener("change", (e) => {
+    const p = PRESETS[e.target.value];
+    if (!p) return;
+    Object.assign(state, p);
+    showControls();
+    pushStateToInputs();
+    rebuild();
+  });
+
+  bindRange("c_diameter", "diameter");
+  bindRange("c_frequency", "frequency");
+  bindRange("c_riser", "riser");
+  bindRange("c_sides", "sides");
+  bindRange("c_bands", "bands");
+  bindRange("c_zheight", "zheight");
+  bindRange("c_pbase", "pbase");
+  bindRange("c_pheight", "pheight");
+  bindRange("c_psides", "psides");
+
+  $("c_fraction").addEventListener("change", (e) => {
+    state.fraction = parseFloat(e.target.value);
+    rebuild();
+  });
+  $("c_stock").addEventListener("change", (e) => {
+    state.stock = parseFloat(e.target.value);
+    renderBOM();
+  });
+  $("c_units").addEventListener("change", (e) => {
+    state.units = e.target.value;
+    renderBOM();
+    syncLabels();
+  });
+  $("c_panels").addEventListener("change", (e) => {
+    state.showPanels = e.target.checked;
+    renderStructure();
+  });
+  $("c_spin").addEventListener("change", (e) => {
+    state.spin = e.target.checked;
+    controls.autoRotate = state.spin;
+  });
+
+  $("b_csv").addEventListener("click", exportCSV);
+  $("b_obj").addEventListener("click", exportOBJ);
+  $("b_print").addEventListener("click", () => window.print());
+
+  pushStateToInputs();
+  showControls();
+}
+
+function pushStateToInputs() {
+  $("c_diameter").value = state.diameter;
+  $("c_frequency").value = state.frequency;
+  $("c_fraction").value = String(state.fraction);
+  $("c_riser").value = state.riser;
+  $("c_sides").value = state.sides;
+  $("c_bands").value = state.bands;
+  $("c_zheight").value = state.zheight;
+  $("c_pbase").value = state.pbase;
+  $("c_pheight").value = state.pheight;
+  $("c_psides").value = state.psides;
+}
+
+initThree();
+initUI();
+rebuild();

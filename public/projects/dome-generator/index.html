@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="/projects/dome-generator/">
+<title>Dome &amp; Zome Generator</title>
+<meta name="description" content="Design geodesic domes, zomes, hybrids, and pyramids in 3D — live material lists, cut lists with bevel angles, CSV and OBJ export.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛺</text></svg>">
+<script type="importmap">
+{ "imports": {
+    "three": "./vendor/three.module.js",
+    "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js"
+} }
+</script>
+<style>
+  :root {
+    --bg: #14171c; --panel: #1c2129; --line: #2b323d;
+    --text: #e8e4da; --dim: #8a93a1; --accent: #e8a84c; --bad: #e05252;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { display: flex; height: 100vh; background: var(--bg); color: var(--text);
+         font: 13px/1.45 "Segoe UI", system-ui, sans-serif; overflow: hidden; }
+  #panel { width: 350px; min-width: 350px; background: var(--panel);
+           border-right: 1px solid var(--line); padding: 14px 16px;
+           display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+  h1 { font-size: 17px; letter-spacing: .04em; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--dim); font-size: 11.5px; }
+  .card { background: #171b22; border: 1px solid var(--line); border-radius: 8px;
+          padding: 10px 12px; }
+  .card h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .09em;
+             color: var(--dim); margin-bottom: 7px; }
+  .row { display: flex; justify-content: space-between; padding: 2px 0; align-items: center; gap: 8px; }
+  .row b { font-weight: 600; text-align: right; }
+  .row.warn { color: #d9b16a; }
+  .ctl { display: grid; grid-template-columns: 1fr 90px; gap: 6px; align-items: center;
+         padding: 3px 0; }
+  .ctl label { color: var(--dim); font-size: 12px; }
+  .ctl .val { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 100%; accent-color: var(--accent); grid-column: 1 / -1; }
+  select { background: #262d38; color: var(--text); border: 1px solid var(--line);
+    border-radius: 6px; padding: 6px 8px; font: inherit; width: 100%; }
+  option, optgroup { background: #1c2129; color: var(--text); }
+  button { background: #262d38; color: var(--text); border: 1px solid var(--line);
+           border-radius: 6px; padding: 7px 10px; cursor: pointer; font: inherit; }
+  button:hover { border-color: var(--accent); }
+  .btnrow { display: flex; gap: 8px; }
+  .btnrow button { flex: 1; }
+  .modes { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .modes button.on { border-color: var(--accent); background: #2a2620; color: var(--accent); }
+  .hint { color: var(--dim); font-size: 11px; margin-top: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; color: var(--dim); font-weight: 500; font-size: 10.5px;
+       text-transform: uppercase; letter-spacing: .06em; padding: 2px 6px 4px 0; }
+  td { padding: 2px 6px 2px 0; border-top: 1px solid #222831;
+       font-variant-numeric: tabular-nums; }
+  td.dims { font-size: 11px; color: var(--dim); }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+         margin-right: 6px; vertical-align: -1px; }
+  #viewport { flex: 1; position: relative; }
+  #viewport canvas { display: block; }
+  #hover { position: absolute; pointer-events: none; background: #000c;
+           border: 1px solid var(--line); border-radius: 6px; padding: 4px 9px;
+           font-size: 12px; display: none; z-index: 5; }
+  #credit { position: absolute; right: 12px; bottom: 10px; color: var(--dim);
+            font-size: 11px; }
+  #credit a { color: var(--dim); }
+  @media print {
+    body { display: block; height: auto; overflow: visible; background: #fff; color: #111; }
+    #viewport, #controls-cards, .btnrow, .modes, #hover { display: none !important; }
+    #panel { width: auto; min-width: 0; border: 0; background: #fff; }
+    .card { border-color: #ccc; background: #fff; break-inside: avoid; }
+    .card h2, .ctl label, .hint, th, td.dims { color: #555; }
+    td { border-top-color: #ddd; }
+    h1 span { color: #b06d10; }
+  }
+</style>
+</head>
+<body>
+<div id="panel">
+  <div>
+    <h1>Dome<span>&amp;Zome</span> Generator</h1>
+    <div class="sub">geodesic domes · zomes · hybrids · pyramids — with live cut lists</div>
+  </div>
+
+  <div id="controls-cards" style="display:contents">
+  <div class="card">
+    <h2>Structure</h2>
+    <div class="modes">
+      <button data-type="dome" class="on">Geodesic dome</button>
+      <button data-type="zome">Zome</button>
+      <button data-type="hybrid">Hybrid (wall)</button>
+      <button data-type="pyramid">Pyramid</button>
+    </div>
+    <div style="margin-top:8px">
+      <select id="c_preset">
+        <option value="">Preset designs…</option>
+        <optgroup label="Geodesic domes">
+          <option value="dome-10">10′ / 3 m — 2V half</option>
+          <option value="dome-15">15′ / 4.5 m — 3V 5/8</option>
+          <option value="dome-20">20′ / 6 m — 3V 5/8</option>
+          <option value="dome-26">26′ / 8 m — 4V half</option>
+          <option value="dome-30">30′ / 9 m — 4V 5/8</option>
+          <option value="dome-40">40′ / 12 m — 5V half</option>
+        </optgroup>
+        <optgroup label="Zomes">
+          <option value="zome-acorn">10′6″ Acorn — 8-sided</option>
+          <option value="zome-trellis">12′ Trellis — 9-sided</option>
+          <option value="zome-16">16′ / 5 m — 10-sided</option>
+          <option value="zome-20">20′ / 6 m — 10-sided</option>
+          <option value="zome-25">25′ / 7.5 m — 12-sided</option>
+          <option value="zome-30">30′ / 9 m — 12-sided</option>
+        </optgroup>
+        <optgroup label="Hybrids (dome on wall)">
+          <option value="hyb-simple">Horizon — simple (3/8 + 6′ wall)</option>
+          <option value="hyb-34">Horizon — 3/4 (1/2 + 4′ wall)</option>
+          <option value="hyb-full">Horizon — full (5/8 + 3′ wall)</option>
+        </optgroup>
+        <optgroup label="Pyramids">
+          <option value="pyr-32">32′ / 10 m pyramid</option>
+        </optgroup>
+      </select>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Dimensions</h2>
+    <div class="ctl" data-for="dome hybrid zome">
+      <label>Diameter</label><span class="val" id="v_diameter"></span>
+      <input type="range" id="c_diameter" min="6" max="50" step="0.5">
+    </div>
+    <div class="ctl" data-for="dome hybrid">
+      <label>Frequency</label><span class="val" id="v_frequency"></span>
+      <input type="range" id="c_frequency" min="1" max="6" step="1">
+    </div>
+    <div class="ctl" data-for="dome hybrid">
+      <label>Sphere fraction</label><span></span>
+      <select id="c_fraction" style="grid-column:1/-1">
+        <option value="0.25">1/4 — shallow cap</option>
+        <option value="0.375">3/8 — low profile</option>
+        <option value="0.5">1/2 — hemisphere</option>
+        <option value="0.625">5/8 — classic tall</option>
+        <option value="0.75">3/4 — bulb</option>
+      </select>
+    </div>
+    <div class="ctl" data-for="hybrid">
+      <label>Wall height</label><span class="val" id="v_riser"></span>
+      <input type="range" id="c_riser" min="1" max="10" step="0.5">
+    </div>
+    <div class="ctl" data-for="zome">
+      <label>Sides</label><span class="val" id="v_sides"></span>
+      <input type="range" id="c_sides" min="5" max="12" step="1">
+    </div>
+    <div class="ctl" data-for="zome">
+      <label>Bands</label><span class="val" id="v_bands"></span>
+      <input type="range" id="c_bands" min="1" max="8" step="1">
+    </div>
+    <div class="ctl" data-for="zome">
+      <label>Height</label><span class="val" id="v_zheight"></span>
+      <input type="range" id="c_zheight" min="6" max="40" step="0.5">
+    </div>
+    <div class="ctl" data-for="pyramid">
+      <label>Base edge</label><span class="val" id="v_pbase"></span>
+      <input type="range" id="c_pbase" min="6" max="50" step="0.5">
+    </div>
+    <div class="ctl" data-for="pyramid">
+      <label>Height</label><span class="val" id="v_pheight"></span>
+      <input type="range" id="c_pheight" min="4" max="40" step="0.5">
+    </div>
+    <div class="ctl" data-for="pyramid">
+      <label>Sides</label><span class="val" id="v_psides"></span>
+      <input type="range" id="c_psides" min="3" max="8" step="1">
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Display &amp; materials</h2>
+    <div class="ctl">
+      <label>Units</label><span></span>
+      <select id="c_units" style="grid-column:1/-1">
+        <option value="ft">Feet &amp; inches</option>
+        <option value="m">Metric</option>
+      </select>
+    </div>
+    <div class="ctl">
+      <label>Lumber stock length</label><span></span>
+      <select id="c_stock" style="grid-column:1/-1">
+        <option value="8">8 ft</option>
+        <option value="10">10 ft</option>
+        <option value="12" selected>12 ft</option>
+        <option value="14">14 ft</option>
+        <option value="16">16 ft</option>
+      </select>
+    </div>
+    <div class="row"><span class="hint">Show panels</span>
+      <input type="checkbox" id="c_panels" checked></div>
+    <div class="row"><span class="hint">Auto-rotate</span>
+      <input type="checkbox" id="c_spin" checked></div>
+  </div>
+  </div>
+
+  <div class="card"><h2>Design</h2><div id="stats"></div></div>
+  <div class="card"><h2>Frame cut list</h2><div id="struts"></div></div>
+  <div class="card"><h2>Panels</h2><div id="panels"></div></div>
+  <div class="card" id="extra" style="display:none"></div>
+  <div class="card"><h2>Materials estimate</h2><div id="materials"></div></div>
+
+  <div class="btnrow">
+    <button id="b_csv">Cut list CSV</button>
+    <button id="b_obj">3D model (OBJ)</button>
+    <button id="b_print">Print</button>
+  </div>
+  <div class="hint">Estimates are geometric — verify before buying lumber. Inspired by
+    screw-together builds like Trillium Domes; no hubs required.</div>
+</div>
+
+<div id="viewport">
+  <div id="hover"></div>
+  <div id="credit"><a href="/projects">← more projects</a></div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

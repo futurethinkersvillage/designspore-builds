@@ -5,6 +5,11 @@
       "description": "A GPS + NFC treasure-hunt app for real land. Play a demo hunt — follow riddles across a moonlit map, home in with the radar, and uncover the property's secrets.",
       "order": 0
     },
+    "dome-generator": {
+      "title": "Dome & Zome Generator",
+      "description": "Design geodesic domes, zomes, hybrids, and pyramids in live 3D — material lists, cut lists with bevel angles, CSV and OBJ export.",
+      "order": 3
+    },
     "wikihouse-configurator": {
       "description": "Interactive 3D configurator for a WikiHouse Skylark 250 cabin — arrange modules, preview the build, and export the block list.",
       "order": 3
