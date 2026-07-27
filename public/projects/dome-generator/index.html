@@ -184,6 +184,14 @@
       </select>
     </div>
     <div class="ctl">
+      <label>Lumber size</label><span></span>
+      <select id="c_lumber" style="grid-column:1/-1">
+        <option value="2x4" selected>2×4 (1½″ × 3½″)</option>
+        <option value="2x6">2×6 (1½″ × 5½″)</option>
+        <option value="2x8">2×8 (1½″ × 7¼″)</option>
+      </select>
+    </div>
+    <div class="ctl">
       <label>Lumber stock length</label><span></span>
       <select id="c_stock" style="grid-column:1/-1">
         <option value="8">8 ft</option>
@@ -195,6 +203,8 @@
     </div>
     <div class="row"><span class="hint">Show panels</span>
       <input type="checkbox" id="c_panels" checked></div>
+    <div class="row"><span class="hint">Color struts by cut group</span>
+      <input type="checkbox" id="c_colors"></div>
     <div class="row"><span class="hint">Auto-rotate</span>
       <input type="checkbox" id="c_spin" checked></div>
   </div>

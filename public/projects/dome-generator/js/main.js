@@ -26,8 +26,17 @@ const state = {
   psides: 4,
   // materials
   stock: 12, // lumber stock length ft
+  lumber: "2x4",
+  groupColors: false,
   showPanels: true,
   spin: true,
+};
+
+// [thickness, depth] in feet — boards run on edge, depth pointing inward
+const LUMBER = {
+  "2x4": [1.5 / 12, 3.5 / 12],
+  "2x6": [1.5 / 12, 5.5 / 12],
+  "2x8": [1.5 / 12, 7.25 / 12],
 };
 
 // Trillium-inspired preset lineup
@@ -126,20 +135,23 @@ function initThree() {
   camera = new THREE.PerspectiveCamera(45, 1, 0.1, 2000);
   camera.up.set(0, 0, 1);
 
-  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   viewport.appendChild(renderer.domElement);
+  window.__dg = { get scene() { return scene; }, get camera() { return camera; },
+    get renderer() { return renderer; }, get controls() { return controls; } };
 
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.autoRotate = state.spin;
   controls.autoRotateSpeed = 1.0;
 
-  scene.add(new THREE.HemisphereLight(0xcfd8e8, 0x2a2018, 1.0));
-  const sun = new THREE.DirectionalLight(0xffe8c0, 1.6);
+  scene.add(new THREE.HemisphereLight(0xdfe4ee, 0x4a3a28, 1.5));
+  scene.add(new THREE.AmbientLight(0xfff2e0, 0.45));
+  const sun = new THREE.DirectionalLight(0xffe8c0, 2.4);
   sun.position.set(60, 40, 80);
   scene.add(sun);
-  const fill = new THREE.DirectionalLight(0x88aaff, 0.5);
+  const fill = new THREE.DirectionalLight(0x9db8ff, 0.9);
   fill.position.set(-50, -60, 30);
   scene.add(fill);
 
@@ -197,92 +209,223 @@ function groupColor(label) {
   return GROUP_COLORS[i % GROUP_COLORS.length];
 }
 
+// ---------- lumber solid construction ----------
+// Boards run on edge (thickness in the shell surface, depth pointing inward),
+// outer face flush with the panel plane (the bevel-rip orientation, s.out).
+// Ends are cut on the bisector planes between angular neighbors at each hub,
+// so all boards converge point-to-point in a hubless "starburst" joint —
+// matching Trillium-style screw-together framing.
+
+const V3 = (a) => new THREE.Vector3(a[0], a[1], a[2]);
+
+function buildFans(verts, struts) {
+  const fans = new Map(); // vi -> [{dir:Vector3 (away), si}]
+  struts.forEach((s, si) => {
+    const a = V3(verts[s.a]), b = V3(verts[s.b]);
+    const d = b.clone().sub(a).normalize();
+    if (!fans.has(s.a)) fans.set(s.a, []);
+    if (!fans.has(s.b)) fans.set(s.b, []);
+    fans.get(s.a).push({ dir: d.clone(), si });
+    fans.get(s.b).push({ dir: d.clone().negate(), si });
+  });
+  return fans;
+}
+
+// bisector-plane normals for strut si's end at vertex vi, oriented toward it
+function endPlanes(fan, si, nV) {
+  if (fan.length < 2) return [];
+  const e1 = new THREE.Vector3(1, 0, 0);
+  if (Math.abs(e1.dot(nV)) > 0.9) e1.set(0, 1, 0);
+  e1.addScaledVector(nV, -e1.dot(nV)).normalize();
+  const e2 = nV.clone().cross(e1);
+  const items = fan.map((f) => {
+    const t = f.dir.clone().addScaledVector(nV, -f.dir.dot(nV));
+    if (t.lengthSq() < 1e-12) t.copy(e1); // degenerate: strut along hub axis
+    t.normalize();
+    return { si: f.si, t, ang: Math.atan2(t.dot(e2), t.dot(e1)) };
+  });
+  items.sort((x, y) => x.ang - y.ang);
+  const k = items.findIndex((it) => it.si === si);
+  const me = items[k];
+  const planes = [];
+  for (const nb of [items[(k + 1) % items.length], items[(k - 1 + items.length) % items.length]]) {
+    if (nb === me) continue;
+    let b = me.t.clone().add(nb.t);
+    if (b.lengthSq() < 1e-6) b = nV.clone().cross(me.t); // opposite neighbor → square cut
+    b.normalize();
+    const m = nV.clone().cross(b);
+    if (m.dot(me.t) < 0) m.negate();
+    planes.push(m);
+  }
+  return planes;
+}
+
+function strutSolid(A, B, out, planesA, planesB, nA, nB, t, d) {
+  const u = B.clone().sub(A);
+  const L = u.length();
+  u.normalize();
+  const w = u.clone().cross(out).normalize();
+  const offs = [
+    w.clone().multiplyScalar(t / 2),                            // TL (outer)
+    w.clone().multiplyScalar(-t / 2),                           // TR (outer)
+    w.clone().multiplyScalar(t / 2).addScaledVector(out, -d),   // BL (inner)
+    w.clone().multiplyScalar(-t / 2).addScaledVector(out, -d),  // BR (inner)
+  ];
+  const endT = (planes, ua) =>
+    offs.map((o) => {
+      let t0 = 0;
+      for (const m of planes) {
+        const den = m.dot(ua);
+        if (Math.abs(den) < 1e-6) continue;
+        t0 = Math.max(t0, -m.dot(o) / den);
+      }
+      return Math.min(t0, 0.45 * L);
+    });
+  const tA = endT(planesA, u);
+  const tB = endT(planesB, u.clone().negate());
+  const tip = (P, nV) => {
+    const c = Math.max(0.35, nV.dot(out));
+    return [P.clone(), P.clone().addScaledVector(nV, -d / c)];
+  };
+  const [tipTA, tipBA] = tip(A, nA);
+  const [tipTB, tipBB] = tip(B, nB);
+  const pA = offs.map((o, i) => A.clone().add(o).addScaledVector(u, tA[i]));
+  const pB = offs.map((o, i) => B.clone().add(o).addScaledVector(u, -tB[i]));
+
+  const pos = [];
+  const tri = (a, b, c) => pos.push(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z);
+  const quad = (a, b, c, dd) => { tri(a, b, c); tri(a, c, dd); };
+  quad(pA[0], pB[0], pB[1], pA[1]); // outer face
+  quad(pA[2], pB[2], pB[3], pA[3]); // inner face
+  quad(pA[0], pB[0], pB[2], pA[2]); // left side
+  quad(pA[1], pB[1], pB[3], pA[3]); // right side
+  // end caps: two planar wedge faces meeting on the hub axis (tip line)
+  quad(pA[0], tipTA, tipBA, pA[2]);
+  quad(pA[1], tipTA, tipBA, pA[3]);
+  quad(pB[0], tipTB, tipBB, pB[2]);
+  quad(pB[1], tipTB, tipBB, pB[3]);
+
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  g.computeVertexNormals();
+  return g;
+}
+
+function woodMaterials(n) {
+  const mats = [];
+  for (let i = 0; i < n; i++) {
+    const c = new THREE.Color(0xc59a66);
+    c.offsetHSL(0.004 * (i % 3) - 0.004, 0.03 * ((i * 7) % 3) - 0.03, 0.035 * ((i * 13) % 5) / 4 - 0.017);
+    mats.push(new THREE.MeshStandardMaterial({
+      color: c, roughness: 0.72, metalness: 0.02,
+      side: THREE.DoubleSide, flatShading: true,
+    }));
+  }
+  return mats;
+}
+
 function renderStructure() {
   structGroup.clear();
   strutMeshes = [];
   if (!result) return;
-  const { verts, struts, panels, panelGroups, wall } = result;
+  const { verts, struts, panels, panelGroups, wall, vertexNormals } = result;
+  const [thk, dep] = LUMBER[state.lumber];
 
-  const size = result.stats.baseDiameter || 20;
-  const rad = Math.max(0.06, Math.min(0.16, size * 0.006));
+  const fans = buildFans(verts, struts);
+  const nrm = (vi) => V3(vertexNormals[vi]);
+  const woods = woodMaterials(7);
+  const groupMats = {};
 
-  // struts as cylinders colored by length group
-  const matCache = {};
-  const cylGeo = new THREE.CylinderGeometry(rad, rad, 1, 8);
-  const up = new THREE.Vector3(0, 1, 0);
-  for (const s of struts) {
-    const a = new THREE.Vector3(...verts[s.a]);
-    const b = new THREE.Vector3(...verts[s.b]);
-    const dir = b.clone().sub(a);
-    const L = dir.length();
-    if (!matCache[s.group])
-      matCache[s.group] = new THREE.MeshStandardMaterial({
-        color: groupColor(s.group), roughness: 0.55, metalness: 0.1,
-      });
-    const m = new THREE.Mesh(cylGeo, matCache[s.group]);
-    m.scale.set(1, L, 1);
-    m.position.copy(a).addScaledVector(dir, 0.5);
-    m.quaternion.setFromUnitVectors(up, dir.clone().normalize());
-    m.userData = { group: s.group, length: L };
+  struts.forEach((s, si) => {
+    const A = V3(verts[s.a]), B = V3(verts[s.b]);
+    const out = V3(s.out);
+    const geo = strutSolid(
+      A, B, out,
+      endPlanes(fans.get(s.a), si, nrm(s.a)),
+      endPlanes(fans.get(s.b), si, nrm(s.b)),
+      nrm(s.a), nrm(s.b), thk, dep
+    );
+    let mat;
+    if (state.groupColors) {
+      if (!groupMats[s.group])
+        groupMats[s.group] = new THREE.MeshStandardMaterial({
+          color: groupColor(s.group), roughness: 0.6,
+          side: THREE.DoubleSide, flatShading: true,
+        });
+      mat = groupMats[s.group];
+    } else {
+      mat = woods[(s.a * 31 + s.b * 17) % woods.length];
+    }
+    const m = new THREE.Mesh(geo, mat);
+    m.userData = { group: s.group, length: A.distanceTo(B) };
     structGroup.add(m);
     strutMeshes.push(m);
-  }
+  });
 
-  // riser wall frame (kept out of strut groups)
+  // riser wall: studs + bottom plate as plain lumber boxes
   if (wall) {
-    const wallMat = new THREE.MeshStandardMaterial({ color: 0xa89880, roughness: 0.6 });
-    const drawEdge = (a, b, label, L) => {
-      const va = new THREE.Vector3(...verts[a]);
-      const vb = new THREE.Vector3(...verts[b]);
-      const dir = vb.clone().sub(va);
-      const m = new THREE.Mesh(cylGeo, wallMat);
-      m.scale.set(1, dir.length(), 1);
-      m.position.copy(va).addScaledVector(dir, 0.5);
-      m.quaternion.setFromUnitVectors(up, dir.clone().normalize());
-      m.userData = { group: label, length: L };
+    const mat = state.groupColors
+      ? new THREE.MeshStandardMaterial({ color: 0xa89880, roughness: 0.6, flatShading: true })
+      : woods[3];
+    const up = new THREE.Vector3(0, 0, 1);
+    for (const [a, b] of wall.studEdges) {
+      const top = V3(verts[a]), bot = V3(verts[b]);
+      const outH = new THREE.Vector3(top.x, top.y, 0).normalize();
+      const tan = up.clone().cross(outH).normalize();
+      const geo = new THREE.BoxGeometry(thk, dep, wall.studH);
+      const m = new THREE.Mesh(geo, mat);
+      m.position.copy(top).add(bot).multiplyScalar(0.5).addScaledVector(outH, -dep / 2);
+      m.setRotationFromMatrix(new THREE.Matrix4().makeBasis(tan, outH, up));
+      m.userData = { group: "Stud", length: wall.studH };
       structGroup.add(m);
       strutMeshes.push(m);
-    };
-    for (const [a, b] of wall.studEdges) drawEdge(a, b, "Stud", wall.studH);
-    wall.plateEdges.forEach(([a, b], i) => drawEdge(a, b, "Plate", wall.segs[i]));
+    }
+    wall.plateEdges.forEach(([a, b], i) => {
+      const pa = V3(verts[a]), pb = V3(verts[b]);
+      const seg = pb.clone().sub(pa);
+      const segDir = seg.clone().normalize();
+      const mid = pa.clone().add(pb).multiplyScalar(0.5);
+      const outH = new THREE.Vector3(mid.x, mid.y, 0).normalize();
+      const y = up.clone().cross(segDir).normalize(); // horizontal, ⊥ segment
+      const geo = new THREE.BoxGeometry(seg.length(), dep, thk);
+      const m = new THREE.Mesh(geo, mat);
+      m.position.copy(mid).addScaledVector(outH, -dep / 2).addScaledVector(up, thk / 2);
+      m.setRotationFromMatrix(new THREE.Matrix4().makeBasis(segDir, y, up));
+      m.userData = { group: "Plate", length: seg.length() };
+      structGroup.add(m);
+      strutMeshes.push(m);
+    });
   }
 
-  // hubs
-  const hubGeo = new THREE.SphereGeometry(rad * 1.7, 12, 8);
-  const hubMat = new THREE.MeshStandardMaterial({ color: 0xd8d2c4, roughness: 0.4 });
-  const seen = new Set();
-  for (const s of struts)
-    for (const vi of [s.a, s.b]) {
-      if (seen.has(vi)) continue;
-      seen.add(vi);
-      const h = new THREE.Mesh(hubGeo, hubMat);
-      h.position.set(...verts[vi]);
-      structGroup.add(h);
-    }
-
-  // panels
+  // panels — pushed slightly outward so they sit on the frame, no z-fighting
   if (state.showPanels) {
     const gi = new Map(panelGroups.map((g, i) => [g.label, i]));
+    const off = (vi) => V3(verts[vi]).addScaledVector(nrm(vi), 0.02);
     const addFace = (f, color) => {
       const pos = [];
       for (let i = 1; i < f.length - 1; i++)
-        for (const vi of [f[0], f[i], f[i + 1]])
-          pos.push(...verts[vi]);
+        for (const vi of [f[0], f[i], f[i + 1]]) {
+          const p = off(vi);
+          pos.push(p.x, p.y, p.z);
+        }
       const g = new THREE.BufferGeometry();
       g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
       g.computeVertexNormals();
       const mesh = new THREE.Mesh(
         g,
         new THREE.MeshStandardMaterial({
-          color, transparent: true, opacity: 0.42,
-          side: THREE.DoubleSide, roughness: 0.8,
+          color, transparent: true, opacity: 0.28,
+          side: THREE.DoubleSide, roughness: 0.4, metalness: 0.05,
         })
       );
       structGroup.add(mesh);
     };
+    const glaze = 0x9fb8c8;
     for (const p of panels)
-      addFace(p.verts, PANEL_COLORS[gi.get(p.group) % PANEL_COLORS.length]);
-    if (wall) for (const f of wall.panels) addFace(f, 0x4a4238);
+      addFace(p.verts, state.groupColors
+        ? PANEL_COLORS[gi.get(p.group) % PANEL_COLORS.length]
+        : glaze);
+    if (wall) for (const f of wall.panels) addFace(f, 0x8a7a60);
   }
 
   // frame camera
@@ -560,6 +703,14 @@ function initUI() {
   $("c_stock").addEventListener("change", (e) => {
     state.stock = parseFloat(e.target.value);
     renderBOM();
+  });
+  $("c_lumber").addEventListener("change", (e) => {
+    state.lumber = e.target.value;
+    renderStructure();
+  });
+  $("c_colors").addEventListener("change", (e) => {
+    state.groupColors = e.target.checked;
+    renderStructure();
   });
   $("c_units").addEventListener("change", (e) => {
     state.units = e.target.value;

@@ -119,6 +119,51 @@ function faceNormal(verts, f) {
   return norm(cross(u, v));
 }
 
+// Per-strut outward direction (avg of adjacent face normals = the bevel-rip
+// orientation of the board) and per-vertex outward normals (hub axes for the
+// compound-miter end cuts). Face normals are re-oriented outward via a radial
+// test against the bounding-box centre, so winding doesn't matter.
+function attachOrientation(verts, faces, struts) {
+  let lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
+  for (const v of verts)
+    for (let k = 0; k < 3; k++) {
+      lo[k] = Math.min(lo[k], v[k]);
+      hi[k] = Math.max(hi[k], v[k]);
+    }
+  const center = [(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, (lo[2] + hi[2]) / 2];
+  const key = (a, b) => (a < b ? a + "_" + b : b + "_" + a);
+  const eAcc = new Map();
+  const vAcc = verts.map(() => [0, 0, 0]);
+  for (const f of faces) {
+    let n = faceNormal(verts, f);
+    const c = f.reduce((s, vi) => add(s, verts[vi]), [0, 0, 0]).map((x) => x / f.length);
+    if (dot(n, sub(c, center)) < 0) n = scale(n, -1);
+    for (let i = 0; i < f.length; i++) {
+      const k = key(f[i], f[(i + 1) % f.length]);
+      if (!eAcc.has(k)) eAcc.set(k, [0, 0, 0]);
+      eAcc.set(k, add(eAcc.get(k), n));
+      vAcc[f[i]] = add(vAcc[f[i]], n);
+    }
+  }
+  const radial = (vi) => {
+    const d = sub(verts[vi], center);
+    return len(d) > 1e-9 ? norm(d) : [0, 0, 1];
+  };
+  for (const s of struts) {
+    const acc = eAcc.get(key(s.a, s.b));
+    s.out =
+      acc && len(acc) > 1e-9
+        ? norm(acc)
+        : norm(add(radial(s.a), radial(s.b)));
+  }
+  // sill/base-ring pieces lie flat on the foundation, not beveled to the shell
+  const zmin = lo[2];
+  for (const s of struts)
+    if (verts[s.a][2] < zmin + 1e-6 && verts[s.b][2] < zmin + 1e-6)
+      s.out = [0, 0, 1];
+  return vAcc.map((n, vi) => (len(n) > 1e-9 ? norm(n) : radial(vi)));
+}
+
 // Ordered loop of boundary vertices (edges used by exactly one face)
 function boundaryLoop(faces) {
   const count = new Map();
@@ -293,6 +338,7 @@ export function buildDome(p) {
   const { struts, strutGroups } = groupStruts(newVerts, edges, tol);
   const { panels, panelGroups } = groupPanels(newVerts, faces, tol);
   const dihedrals = computeDihedrals(newVerts, struts, faces);
+  const vertexNormals = attachOrientation(newVerts, faces, struts);
 
   const deg = new Map();
   for (const e of edges) {
@@ -309,6 +355,7 @@ export function buildDome(p) {
 
   return {
     verts: newVerts, struts, panels, strutGroups, panelGroups, dihedrals, wall,
+    vertexNormals,
     stats: {
       type: p.riserFt > 0 ? "Hybrid dome" : "Geodesic dome",
       detail: `${v}V, ${fracLabel(achieved)} sphere${p.riserFt > 0 ? ` on ${p.riserFt}′ wall` : ""}`,
@@ -383,6 +430,7 @@ export function buildZome(p) {
   const { struts, strutGroups } = groupStruts(verts, edges, tol);
   const { panels, panelGroups } = groupPanels(verts, faces, tol);
   const dihedrals = computeDihedrals(verts, struts, faces);
+  const vertexNormals = attachOrientation(verts, faces, struts);
 
   // per-band rhombus dimensions
   const bandInfo = [];
@@ -400,6 +448,7 @@ export function buildZome(p) {
 
   return {
     verts, struts, panels, strutGroups, panelGroups, dihedrals, wall, bandInfo,
+    vertexNormals,
     stats: {
       type: p.riserFt > 0 ? "Hybrid zome" : "Zome",
       detail: `${n}-sided, ${b} band${b > 1 ? "s" : ""} + base halves`,
@@ -444,6 +493,7 @@ export function buildPyramid(p) {
   const { struts, strutGroups } = groupStruts(verts, edges, tol);
   const { panels, panelGroups } = groupPanels(verts, faces, tol);
   const dihedrals = computeDihedrals(verts, struts, faces);
+  const vertexNormals = attachOrientation(verts, faces, struts);
 
   const apoth = cr * Math.cos(Math.PI / n);
   const slant = Math.hypot(apoth, p.heightFt);
@@ -455,6 +505,7 @@ export function buildPyramid(p) {
 
   return {
     verts, struts, panels, strutGroups, panelGroups, dihedrals, wall,
+    vertexNormals,
     pyramid: { slant, hip, faceSlope, hipSlope, baseEdge: s },
     stats: {
       type: "Pyramid",
