@@ -26,18 +26,19 @@ const state = {
   psides: 4,
   // materials
   stock: 12, // lumber stock length ft
-  lumber: "2x4",
+  depthIn: 3.5, // strut depth in inches (insulation cavity) — boards on edge
   groupColors: false,
   showPanels: true,
   spin: true,
 };
 
-// [thickness, depth] in feet — boards run on edge, depth pointing inward
-const LUMBER = {
-  "2x4": [1.5 / 12, 3.5 / 12],
-  "2x6": [1.5 / 12, 5.5 / 12],
-  "2x8": [1.5 / 12, 7.25 / 12],
-};
+const THICK_FT = 1.5 / 12; // 2x stock thickness
+
+function nominalLumber(depthIn) {
+  const map = [[3.5, "2×4"], [5.5, "2×6"], [7.25, "2×8"], [9.25, "2×10"], [11.25, "2×12"]];
+  for (const [d, n] of map) if (Math.abs(depthIn - d) < 0.13) return n;
+  return `1½″×${depthIn}″ (ripped)`;
+}
 
 // Trillium-inspired preset lineup
 const PRESETS = {
@@ -260,11 +261,15 @@ function endPlanes(fan, si, nV) {
   return planes;
 }
 
-function strutSolid(A, B, out, planesA, planesB, nA, nB, t, d) {
+function strutSolid(A, B, out, planesA, planesB, t, d) {
   const u = B.clone().sub(A);
   const L = u.length();
   u.normalize();
   const w = u.clone().cross(out).normalize();
+  // Ends are truncated short of the vertex (real kits lop the sharp point off,
+  // leaving a small polygonal opening at each hub) — side faces still mate on
+  // the neighbor bisector planes.
+  const tc = Math.min(1.4 * t, 0.2 * L);
   const offs = [
     w.clone().multiplyScalar(t / 2),                            // TL (outer)
     w.clone().multiplyScalar(-t / 2),                           // TR (outer)
@@ -273,7 +278,7 @@ function strutSolid(A, B, out, planesA, planesB, nA, nB, t, d) {
   ];
   const endT = (planes, ua) =>
     offs.map((o) => {
-      let t0 = 0;
+      let t0 = tc;
       for (const m of planes) {
         const den = m.dot(ua);
         if (Math.abs(den) < 1e-6) continue;
@@ -283,12 +288,11 @@ function strutSolid(A, B, out, planesA, planesB, nA, nB, t, d) {
     });
   const tA = endT(planesA, u);
   const tB = endT(planesB, u.clone().negate());
-  const tip = (P, nV) => {
-    const c = Math.max(0.35, nV.dot(out));
-    return [P.clone(), P.clone().addScaledVector(nV, -d / c)];
-  };
-  const [tipTA, tipBA] = tip(A, nA);
-  const [tipTB, tipBB] = tip(B, nB);
+  // blunt nose ridge on the strut centerline at the truncation plane
+  const noseA_o = A.clone().addScaledVector(u, tc);
+  const noseA_i = noseA_o.clone().addScaledVector(out, -d);
+  const noseB_o = B.clone().addScaledVector(u, -tc);
+  const noseB_i = noseB_o.clone().addScaledVector(out, -d);
   const pA = offs.map((o, i) => A.clone().add(o).addScaledVector(u, tA[i]));
   const pB = offs.map((o, i) => B.clone().add(o).addScaledVector(u, -tB[i]));
 
@@ -299,11 +303,11 @@ function strutSolid(A, B, out, planesA, planesB, nA, nB, t, d) {
   quad(pA[2], pB[2], pB[3], pA[3]); // inner face
   quad(pA[0], pB[0], pB[2], pA[2]); // left side
   quad(pA[1], pB[1], pB[3], pA[3]); // right side
-  // end caps: two planar wedge faces meeting on the hub axis (tip line)
-  quad(pA[0], tipTA, tipBA, pA[2]);
-  quad(pA[1], tipTA, tipBA, pA[3]);
-  quad(pB[0], tipTB, tipBB, pB[2]);
-  quad(pB[1], tipTB, tipBB, pB[3]);
+  // end caps: bisector-mitred cheeks + blunt nose face
+  quad(pA[0], noseA_o, noseA_i, pA[2]);
+  quad(pA[1], noseA_o, noseA_i, pA[3]);
+  quad(pB[0], noseB_o, noseB_i, pB[2]);
+  quad(pB[1], noseB_o, noseB_i, pB[3]);
 
   const g = new THREE.BufferGeometry();
   g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
@@ -329,7 +333,7 @@ function renderStructure() {
   strutMeshes = [];
   if (!result) return;
   const { verts, struts, panels, panelGroups, wall, vertexNormals } = result;
-  const [thk, dep] = LUMBER[state.lumber];
+  const thk = THICK_FT, dep = state.depthIn / 12;
 
   const fans = buildFans(verts, struts);
   const nrm = (vi) => V3(vertexNormals[vi]);
@@ -343,7 +347,7 @@ function renderStructure() {
       A, B, out,
       endPlanes(fans.get(s.a), si, nrm(s.a)),
       endPlanes(fans.get(s.b), si, nrm(s.b)),
-      nrm(s.a), nrm(s.b), thk, dep
+      thk, dep
     );
     let mat;
     if (state.groupColors) {
@@ -543,7 +547,8 @@ function renderBOM() {
   // materials card
   $("materials").innerHTML = `
     <div class="row"><span>Frame pieces</span><b>${bom.strutCount}</b></div>
-    <div class="row"><span>2×4/2×6 boards (${state.stock}′)</span><b>${bom.boards}</b></div>
+    <div class="row"><span>Frame lumber</span><b>${nominalLumber(state.depthIn)} on edge</b></div>
+    <div class="row"><span>Boards needed (${state.stock}′)</span><b>${bom.boards}</b></div>
     ${bom.tooLong ? `<div class="row warn"><span>⚠ pieces longer than stock</span><b>${bom.tooLong}</b></div>` : ""}
     <div class="row"><span>Skin area (incl. wall)</span><b>${fmtArea(bom.panelArea)}</b></div>
     <div class="row"><span>4×8 sheets (+15% waste)</span><b>${bom.sheets}</b></div>
@@ -599,6 +604,7 @@ function exportCSV() {
   const bom = computeBOM();
   L.push("");
   L.push("MATERIALS");
+  L.push(`Frame lumber,${nominalLumber(state.depthIn)} on edge (1.5 x ${state.depthIn} in)`);
   L.push(`Frame pieces,${bom.strutCount}`);
   L.push(`Boards at ${state.stock} ft,${bom.boards}`);
   L.push(`4x8 sheets (+15% waste),${bom.sheets}`);
@@ -632,6 +638,7 @@ function rebuild() {
 }
 
 function syncLabels() {
+  $("v_depth").textContent = `${state.depthIn}″ · ${nominalLumber(state.depthIn)}`;
   $("v_diameter").textContent = fmtBig(state.diameter);
   $("v_frequency").textContent = state.frequency + "V";
   $("v_riser").textContent = fmtBig(state.riser);
@@ -704,9 +711,11 @@ function initUI() {
     state.stock = parseFloat(e.target.value);
     renderBOM();
   });
-  $("c_lumber").addEventListener("change", (e) => {
-    state.lumber = e.target.value;
+  $("c_depth").addEventListener("input", (e) => {
+    state.depthIn = parseFloat(e.target.value);
     renderStructure();
+    renderBOM();
+    syncLabels();
   });
   $("c_colors").addEventListener("change", (e) => {
     state.groupColors = e.target.checked;
@@ -735,6 +744,7 @@ function initUI() {
 }
 
 function pushStateToInputs() {
+  $("c_depth").value = state.depthIn;
   $("c_diameter").value = state.diameter;
   $("c_frequency").value = state.frequency;
   $("c_fraction").value = String(state.fraction);
