@@ -86,47 +86,41 @@
 
   <div id="controls-cards" style="display:contents">
   <div class="card">
-    <h2>Structure</h2>
+    <h2>Trillium plans bundle</h2>
+    <select id="c_trillium">
+      <option value="">Pick a purchased plan model…</option>
+      <optgroup label="Domes" id="og_tdomes"></optgroup>
+      <optgroup label="Zomes" id="og_tzomes"></optgroup>
+    </select>
+    <div class="hint">Exact models from the ALL PLANS bundle — geometry matched to the printed
+      panel schedules. Doors &amp; windows aren’t modeled yet.</div>
+  </div>
+
+  <div class="card">
+    <h2>Freeform structure</h2>
     <div class="modes">
       <button data-type="dome" class="on">Geodesic dome</button>
       <button data-type="zome">Zome</button>
+      <button data-type="pentakis">Do-Deca dome</button>
+      <button data-type="bucky">Bucky (hex/pent)</button>
       <button data-type="hybrid">Hybrid (wall)</button>
       <button data-type="pyramid">Pyramid</button>
     </div>
     <div style="margin-top:8px">
       <select id="c_preset">
-        <option value="">Preset designs…</option>
-        <optgroup label="Geodesic domes">
-          <option value="dome-10">10′ / 3 m — 2V half</option>
-          <option value="dome-15">15′ / 4.5 m — 3V 5/8</option>
-          <option value="dome-20">20′ / 6 m — 3V 5/8</option>
-          <option value="dome-26">26′ / 8 m — 4V half</option>
-          <option value="dome-30">30′ / 9 m — 4V 5/8</option>
-          <option value="dome-40">40′ / 12 m — 5V half</option>
-        </optgroup>
-        <optgroup label="Zomes">
-          <option value="zome-acorn">10′6″ Acorn — 8-sided</option>
-          <option value="zome-trellis">12′ Trellis — 9-sided</option>
-          <option value="zome-16">16′ / 5 m — 10-sided</option>
-          <option value="zome-20">20′ / 6 m — 10-sided</option>
-          <option value="zome-25">25′ / 7.5 m — 12-sided</option>
-          <option value="zome-30">30′ / 9 m — 12-sided</option>
-        </optgroup>
-        <optgroup label="Hybrids (dome on wall)">
-          <option value="hyb-simple">Horizon — simple (3/8 + 6′ wall)</option>
-          <option value="hyb-34">Horizon — 3/4 (1/2 + 4′ wall)</option>
-          <option value="hyb-full">Horizon — full (5/8 + 3′ wall)</option>
-        </optgroup>
-        <optgroup label="Pyramids">
-          <option value="pyr-32">32′ / 10 m pyramid</option>
-        </optgroup>
+        <option value="">Quick presets…</option>
+        <option value="dome-20">20′ dome — 3V 5/8</option>
+        <option value="dome-30">30′ dome — 4V 5/8</option>
+        <option value="zome-20">20′ zome — 10-sided</option>
+        <option value="hyb-34">Hybrid — 1/2 dome + 4′ wall</option>
+        <option value="pyr-32">32′ pyramid</option>
       </select>
     </div>
   </div>
 
   <div class="card">
     <h2>Dimensions</h2>
-    <div class="ctl" data-for="dome hybrid zome">
+    <div class="ctl" data-for="dome hybrid zome pentakis bucky">
       <label>Diameter</label><span class="val" id="v_diameter"></span>
       <input type="range" id="c_diameter" min="6" max="50" step="0.5">
     </div>
@@ -134,19 +128,19 @@
       <label>Frequency</label><span class="val" id="v_frequency"></span>
       <input type="range" id="c_frequency" min="1" max="6" step="1">
     </div>
-    <div class="ctl" data-for="dome hybrid">
+    <div class="ctl" data-for="dome hybrid pentakis bucky">
       <label>Sphere fraction</label><span></span>
       <select id="c_fraction" style="grid-column:1/-1">
         <option value="0.25">1/4 — shallow cap</option>
         <option value="0.375">3/8 — low profile</option>
         <option value="0.5">1/2 — hemisphere</option>
         <option value="0.625">5/8 — classic tall</option>
-        <option value="0.75">3/4 — bulb</option>
+        <option value="0.72">~3/4 — acorn</option>
       </select>
     </div>
-    <div class="ctl" data-for="hybrid">
+    <div class="ctl" data-for="hybrid pentakis bucky">
       <label>Wall height</label><span class="val" id="v_riser"></span>
-      <input type="range" id="c_riser" min="1" max="10" step="0.5">
+      <input type="range" id="c_riser" min="0" max="10" step="0.25">
     </div>
     <div class="ctl" data-for="zome">
       <label>Sides</label><span class="val" id="v_sides"></span>
@@ -184,8 +178,8 @@
       </select>
     </div>
     <div class="ctl">
-      <label>Strut depth (insulation cavity)</label><span class="val" id="v_depth"></span>
-      <input type="range" id="c_depth" min="3.5" max="11.5" step="0.25">
+      <label>Board depth (1½″ = per plans; deeper = insulation)</label><span class="val" id="v_depth"></span>
+      <input type="range" id="c_depth" min="1.5" max="11.5" step="0.25">
     </div>
     <div class="ctl">
       <label>Lumber stock length</label><span></span>
