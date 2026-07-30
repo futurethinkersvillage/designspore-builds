@@ -2,13 +2,20 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import RevealInit from '@/components/RevealInit'
-import SearchBar from '@/components/booking/SearchBar'
 import { Crosshair, Flame, Waves, TreePine } from 'lucide-react'
 
+// ---------------------------------------------------------------------------
+// VERSION 2 — the pre-booking home page, kept for side-by-side comparison.
+// Hero leads with "Reserve Your Site" / "See What's Here" buttons rather than
+// an embedded date search. The live home page at `/` is the current design.
+// Do not edit this to keep the two comparable; iterate on `/` instead.
+// ---------------------------------------------------------------------------
+
 export const metadata: Metadata = {
-  title: 'Wells Gray Golf & RV Resort — Clearwater, BC',
+  title: 'Wells Gray Resort — Home (Version 2)',
   description:
-    'Glamping domes, creekside RV sites, 9-hole golf, wood-fired sauna, and a private lake inside Wells Gray Provincial Park. 2 hours north of Kamloops.',
+    'Previous home page design, preserved for comparison against the current version.',
+  robots: 'noindex',
 }
 
 const accommodations = [
@@ -61,7 +68,7 @@ const features = [
   },
 ]
 
-export default function Home() {
+export default function HomeV2() {
   return (
     <>
       <RevealInit />
@@ -104,34 +111,17 @@ export default function Home() {
               Where the Forest<br />
               <em className="not-italic text-parchment/80">Becomes</em> Home
             </h1>
-            <p className="body-lead text-parchment/70 max-w-[520px] mb-8">
+            <p className="body-lead text-parchment/70 max-w-[520px] mb-10">
               Creekside camping, glamping domes, 9-hole golf, wood-fired sauna, and a private lake — all inside one of BC's wildest provincial parks.
             </p>
-          </div>
-
-          {/* The primary action lives inside the hero: the land sells the place,
-              the search takes the booking, neither feels bolted on. */}
-          <SearchBar />
-
-          <div className="flex flex-wrap gap-x-6 gap-y-2 mt-5">
-            <Link
-              href="/stay"
-              className="font-body text-sm text-parchment/60 hover:text-parchment transition-colors underline underline-offset-4 decoration-parchment/25"
-            >
-              See what's here
-            </Link>
-            <Link
-              href="/venue"
-              className="font-body text-sm text-parchment/60 hover:text-parchment transition-colors underline underline-offset-4 decoration-parchment/25"
-            >
-              Weddings &amp; events
-            </Link>
-            <Link
-              href="/seasonal-village"
-              className="font-body text-sm text-parchment/60 hover:text-parchment transition-colors underline underline-offset-4 decoration-parchment/25"
-            >
-              The Seasonal Village
-            </Link>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/stay#book" className="btn-ember">
+                Reserve Your Site
+              </Link>
+              <Link href="/stay" className="btn-outline-parchment">
+                See What's Here
+              </Link>
+            </div>
           </div>
         </div>
 

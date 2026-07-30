@@ -1,0 +1,333 @@
+{
+ "generated_from": "20260730T055142Z",
+ "note": "Category-first booking catalogue. Prices are medians of real 2025-26 bookings, for display only — the engine is the pricing authority.",
+ "categories": [
+  {
+   "slug": "creekside-rv",
+   "name": "Creekside RV Sites",
+   "kind": "rv",
+   "blurb": "Power, water and sanidump hookups right on the creek. Fall asleep to the sound of moving water.",
+   "checkfront_category_id": 62,
+   "amenities": [
+    "Creekside",
+    "Power",
+    "Sanidump",
+    "Water"
+   ],
+   "from_price": 65,
+   "site_count": 31,
+   "picks_specific_site": true,
+   "max_length_ft": 48,
+   "min_length_ft": 29,
+   "sites": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121
+   ],
+   "missing_geometry": [],
+   "pooled_items": [
+    {
+     "item_id": 64,
+     "name": "Weekly Serviced RV Camping - Summer Season",
+     "stock": 20
+    }
+   ]
+  },
+  {
+   "slug": "full-service-rv",
+   "name": "Full Service RV Sites",
+   "kind": "rv",
+   "blurb": "Our largest sites — power, water and sewer at the pad. Room for big rigs and slide-outs.",
+   "checkfront_category_id": 6,
+   "amenities": [
+    "Full Hookup",
+    "Power",
+    "Sewer",
+    "Water"
+   ],
+   "from_price": 65,
+   "site_count": 7,
+   "picks_specific_site": true,
+   "max_length_ft": 55,
+   "min_length_ft": 46,
+   "sites": [
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129
+   ],
+   "missing_geometry": [
+    122
+   ],
+   "pooled_items": [
+    {
+     "item_id": 21,
+     "name": "Monthly Serviced RV Parking - Summer",
+     "stock": 6
+    }
+   ]
+  },
+  {
+   "slug": "rv-camping",
+   "name": "Non-Serviced RV & Field Sites",
+   "kind": "rv",
+   "blurb": "Open field camping for self-contained rigs. Quiet, simple, and the best value on the property.",
+   "checkfront_category_id": 4,
+   "amenities": [],
+   "from_price": 50,
+   "site_count": 79,
+   "picks_specific_site": false,
+   "max_length_ft": null,
+   "min_length_ft": null,
+   "sites": [],
+   "missing_geometry": [],
+   "pooled_items": [
+    {
+     "item_id": 1,
+     "name": "Creekside Serviced RV Site - Power, Water, and Sanidump",
+     "stock": 32
+    },
+    {
+     "item_id": 13,
+     "name": "Non Serviced RV Site - Field",
+     "stock": 30
+    },
+    {
+     "item_id": 140,
+     "name": "Basic Serviced RV Site - Power, Water, and Sanidump",
+     "stock": 4
+    },
+    {
+     "item_id": 2,
+     "name": "Full Service RV Site - Power, Water, and Sewer - Non Creekside",
+     "stock": 6
+    },
+    {
+     "item_id": 69,
+     "name": "Additional Serviced RV Sites - Power, Water, and Sanidump",
+     "stock": 7
+    }
+   ]
+  },
+  {
+   "slug": "tenting",
+   "name": "Tenting",
+   "kind": "tent",
+   "blurb": "Pitch in the tenting field or take a covered site. Fire pit, picnic table, and the creek a short walk away.",
+   "checkfront_category_id": 8,
+   "amenities": [],
+   "from_price": 45,
+   "site_count": 5,
+   "picks_specific_site": false,
+   "max_length_ft": null,
+   "min_length_ft": null,
+   "sites": [],
+   "missing_geometry": [],
+   "pooled_items": [
+    {
+     "item_id": 131,
+     "name": "Creekside Tent Site with Power and Water",
+     "stock": 2
+    },
+    {
+     "item_id": 3,
+     "name": "Covered Tent Site",
+     "stock": 3
+    },
+    {
+     "item_id": 60,
+     "name": "Regular Tent Site",
+     "stock": 0
+    },
+    {
+     "item_id": 62,
+     "name": "Extra tent",
+     "stock": 0
+    }
+   ]
+  },
+  {
+   "slug": "glamping-dome",
+   "name": "Glamping Dome",
+   "kind": "lodging",
+   "blurb": "A geodesic dome with a queen bed and air conditioning, tucked beside the creek. Walls that let the forest in.",
+   "checkfront_category_id": 64,
+   "amenities": [],
+   "from_price": 149,
+   "site_count": 1,
+   "picks_specific_site": false,
+   "max_length_ft": null,
+   "min_length_ft": null,
+   "sites": [],
+   "missing_geometry": [],
+   "pooled_items": [
+    {
+     "item_id": 132,
+     "name": "Glamping Dome",
+     "stock": 1
+    }
+   ]
+  },
+  {
+   "slug": "sleeping-cabins",
+   "name": "Sleeping Cabins",
+   "kind": "lodging",
+   "blurb": "Simple wooden cabins under the trees. Power, a bed, and nothing between you and the forest.",
+   "checkfront_category_id": 19,
+   "amenities": [],
+   "from_price": 70,
+   "site_count": 3,
+   "picks_specific_site": false,
+   "max_length_ft": null,
+   "min_length_ft": null,
+   "sites": [],
+   "missing_geometry": [],
+   "pooled_items": [
+    {
+     "item_id": 12,
+     "name": "Sleeping Cabin (Camping Pod)",
+     "stock": 3
+    }
+   ]
+  },
+  {
+   "slug": "horse-corrals",
+   "name": "Horse Corrals",
+   "kind": "other",
+   "blurb": "Bring your horses. Corral plus a camping spot for you.",
+   "checkfront_category_id": 57,
+   "amenities": [],
+   "from_price": 62,
+   "site_count": 20,
+   "picks_specific_site": false,
+   "max_length_ft": null,
+   "min_length_ft": null,
+   "sites": [],
+   "missing_geometry": [],
+   "pooled_items": [
+    {
+     "item_id": 54,
+     "name": "Horse Corral with Camping",
+     "stock": 20
+    }
+   ]
+  }
+ ],
+ "addons": [
+  {
+   "item_id": 20,
+   "name": "Firewood bundle",
+   "group": "Camp Store",
+   "checkfront_category_id": 59
+  },
+  {
+   "item_id": 66,
+   "name": "Ice",
+   "group": "Camp Store",
+   "checkfront_category_id": 59
+  },
+  {
+   "item_id": 130,
+   "name": "Laundry - wash and dry",
+   "group": "Camp Store",
+   "checkfront_category_id": 59
+  },
+  {
+   "item_id": 65,
+   "name": "Misc",
+   "group": "Camp Store",
+   "checkfront_category_id": 59
+  },
+  {
+   "item_id": 58,
+   "name": "Sani dump for non guests",
+   "group": "Camp Store",
+   "checkfront_category_id": 59
+  },
+  {
+   "item_id": 126,
+   "name": "Disc Golf Game",
+   "group": "Golf",
+   "checkfront_category_id": 22
+  },
+  {
+   "item_id": 19,
+   "name": "Golf 18 holes",
+   "group": "Golf",
+   "checkfront_category_id": 22
+  },
+  {
+   "item_id": 18,
+   "name": "Golf 9 holes",
+   "group": "Golf",
+   "checkfront_category_id": 22
+  },
+  {
+   "item_id": 57,
+   "name": "Golf Cart - 18 Holes",
+   "group": "Golf",
+   "checkfront_category_id": 22
+  },
+  {
+   "item_id": 17,
+   "name": "Golf Cart - 9 holes",
+   "group": "Golf",
+   "checkfront_category_id": 22
+  },
+  {
+   "item_id": 16,
+   "name": "Golf Cart - All Day",
+   "group": "Golf",
+   "checkfront_category_id": 22
+  },
+  {
+   "item_id": 59,
+   "name": "Golfing Misc",
+   "group": "Golf",
+   "checkfront_category_id": 22
+  },
+  {
+   "item_id": 153,
+   "name": "Community Sauna Special",
+   "group": "Sauna",
+   "checkfront_category_id": 68
+  },
+  {
+   "item_id": 139,
+   "name": "Sauna",
+   "group": "Sauna",
+   "checkfront_category_id": 68
+  }
+ ]
+}

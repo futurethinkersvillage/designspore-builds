@@ -1,0 +1,359 @@
+{
+ "date": "2026-07-30",
+ "source": "checkfront export 20260730T055142Z",
+ "note": "Snapshot derived from the export — not live availability.",
+ "occupied": [
+  1,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  101,
+  102,
+  103,
+  104,
+  105,
+  106,
+  107,
+  108,
+  109,
+  110,
+  111,
+  112,
+  113,
+  114,
+  115,
+  116,
+  117,
+  118,
+  119,
+  120,
+  121,
+  122,
+  123,
+  124,
+  125,
+  127
+ ],
+ "detail": {
+  "1": [
+   {
+    "booking_id": 12989,
+    "guest": "Ran Mizrachi",
+    "status": "PAID"
+   }
+  ],
+  "3": [
+   {
+    "booking_id": 11077,
+    "guest": "Jaime Swerhun",
+    "status": "PAID"
+   },
+   {
+    "booking_id": 11226,
+    "guest": "Navot Eliraz",
+    "status": "PART"
+   }
+  ],
+  "4": [
+   {
+    "booking_id": 11183,
+    "guest": "Thomas van Haren",
+    "status": "PAID"
+   }
+  ],
+  "5": [
+   {
+    "booking_id": 11280,
+    "guest": "Jennifer Paille",
+    "status": "PAID"
+   }
+  ],
+  "6": [
+   {
+    "booking_id": 11365,
+    "guest": "Tracey Firstbrook",
+    "status": "PAID"
+   },
+   {
+    "booking_id": 11875,
+    "guest": "Anja Frommholz",
+    "status": "PAID"
+   }
+  ],
+  "7": [
+   {
+    "booking_id": 11686,
+    "guest": "Marek Klucovska",
+    "status": "PAID"
+   }
+  ],
+  "8": [
+   {
+    "booking_id": 11085,
+    "guest": "Johannes Bloks",
+    "status": "PAID"
+   }
+  ],
+  "9": [
+   {
+    "booking_id": 11100,
+    "guest": "Amie LaCharite",
+    "status": "PAID"
+   },
+   {
+    "booking_id": 11748,
+    "guest": "Geslin",
+    "status": "PAID"
+   }
+  ],
+  "10": [
+   {
+    "booking_id": 11066,
+    "guest": "Kalynda hampshire",
+    "status": "PAID"
+   },
+   {
+    "booking_id": 11101,
+    "guest": "Denis",
+    "status": "PAID"
+   }
+  ],
+  "101": [
+   {
+    "booking_id": 11250,
+    "guest": "Inge vereijken",
+    "status": "PAID"
+   },
+   {
+    "booking_id": 12955,
+    "guest": "Luis Wittmer",
+    "status": "PAID"
+   }
+  ],
+  "102": [
+   {
+    "booking_id": 11480,
+    "guest": "Marijn de Bruin",
+    "status": "PAID"
+   },
+   {
+    "booking_id": 11815,
+    "guest": "Ferdi Spronk",
+    "status": "PAID"
+   }
+  ],
+  "103": [
+   {
+    "booking_id": 11207,
+    "guest": "Susanne Andersen",
+    "status": "PAID"
+   }
+  ],
+  "104": [
+   {
+    "booking_id": 11540,
+    "guest": "Farina Nagels",
+    "status": "PAID"
+   }
+  ],
+  "105": [
+   {
+    "booking_id": 11230,
+    "guest": "Amy Hardiman",
+    "status": "PAID"
+   },
+   {
+    "booking_id": 11540,
+    "guest": "Farina Nagels",
+    "status": "PAID"
+   }
+  ],
+  "106": [
+   {
+    "booking_id": 11099,
+    "guest": "Dinah Abram",
+    "status": "PAID"
+   }
+  ],
+  "107": [
+   {
+    "booking_id": 11096,
+    "guest": "Linda Towe",
+    "status": "PART"
+   }
+  ],
+  "108": [
+   {
+    "booking_id": 11425,
+    "guest": "Jan Joergenshaus",
+    "status": "PAID"
+   },
+   {
+    "booking_id": 11638,
+    "guest": "Mike Halliwushka",
+    "status": "PAID"
+   }
+  ],
+  "109": [
+   {
+    "booking_id": 11655,
+    "guest": "Desmond de Haan",
+    "status": "PAID"
+   }
+  ],
+  "110": [
+   {
+    "booking_id": 11650,
+    "guest": "Phillip Gregorash",
+    "status": "PAID"
+   }
+  ],
+  "111": [
+   {
+    "booking_id": 11374,
+    "guest": "Rob Ormiston",
+    "status": "PAID"
+   }
+  ],
+  "112": [
+   {
+    "booking_id": 11610,
+    "guest": "Mary Jane Sorensen",
+    "status": "PAID"
+   },
+   {
+    "booking_id": 12602,
+    "guest": "Nathan MacDonald",
+    "status": "PART"
+   }
+  ],
+  "113": [
+   {
+    "booking_id": 11814,
+    "guest": "Wouter Reijers",
+    "status": "PAID"
+   }
+  ],
+  "114": [
+   {
+    "booking_id": 11422,
+    "guest": "Alita Lawrence",
+    "status": "PART"
+   }
+  ],
+  "115": [
+   {
+    "booking_id": 11423,
+    "guest": "KIM FROST",
+    "status": "PART"
+   }
+  ],
+  "116": [
+   {
+    "booking_id": 11427,
+    "guest": "Tracey Martin",
+    "status": "PART"
+   }
+  ],
+  "117": [
+   {
+    "booking_id": 11292,
+    "guest": "Heather Mangan",
+    "status": "PAID"
+   }
+  ],
+  "118": [
+   {
+    "booking_id": 11683,
+    "guest": "Landon Hagen",
+    "status": "PART"
+   },
+   {
+    "booking_id": 11815,
+    "guest": "Ferdi Spronk",
+    "status": "PAID"
+   }
+  ],
+  "119": [
+   {
+    "booking_id": 11421,
+    "guest": "Dr. Christoph Grams - En Route Travel",
+    "status": "PAID"
+   }
+  ],
+  "120": [
+   {
+    "booking_id": 11314,
+    "guest": "Alberto Arnolfo",
+    "status": "PAID"
+   },
+   {
+    "booking_id": 11706,
+    "guest": "Adriana Vromans",
+    "status": "PAID"
+   }
+  ],
+  "121": [
+   {
+    "booking_id": 12972,
+    "guest": "Joel Lentz",
+    "status": "PAID"
+   }
+  ],
+  "122": [
+   {
+    "booking_id": 10989,
+    "guest": "Helen",
+    "status": "WAIT"
+   },
+   {
+    "booking_id": 12689,
+    "guest": "Lynette Hewitt",
+    "status": "PART"
+   },
+   {
+    "booking_id": 12971,
+    "guest": "Annick Stokkel",
+    "status": "PAID"
+   }
+  ],
+  "123": [
+   {
+    "booking_id": 10990,
+    "guest": "Teri Currie",
+    "status": "WAIT"
+   },
+   {
+    "booking_id": 11175,
+    "guest": "Nigel Rogers",
+    "status": "PAID"
+   }
+  ],
+  "124": [
+   {
+    "booking_id": 11371,
+    "guest": "Richie Wells",
+    "status": "PAID"
+   }
+  ],
+  "125": [
+   {
+    "booking_id": 11369,
+    "guest": "Steve Cameron",
+    "status": "PAID"
+   }
+  ],
+  "127": [
+   {
+    "booking_id": 11372,
+    "guest": "Jon Bruggeman",
+    "status": "PAID"
+   }
+  ]
+ }
+}
