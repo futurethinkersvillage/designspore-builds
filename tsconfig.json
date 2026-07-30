@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    // Next transpiles with SWC; this mainly governs typechecking. ES2017 is
+    // what current create-next-app emits and it allows iterating Map/Set
+    // directly instead of Array.from gymnastics.
+    "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
