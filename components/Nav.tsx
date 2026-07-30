@@ -64,7 +64,7 @@ export default function Nav() {
 
           {/* CTA */}
           <div className="flex items-center gap-4">
-            <Link href="/stay#book" className="btn-ember text-xs md:text-sm py-2 md:py-3 hidden sm:inline-flex">
+            <Link href="/book" className="btn-ember text-xs md:text-sm py-2 md:py-3 hidden sm:inline-flex">
               Book Now
             </Link>
             {/* Mobile hamburger */}
@@ -99,7 +99,7 @@ export default function Nav() {
             </Link>
           ))}
           <Link
-            href="/stay#book"
+            href="/book"
             onClick={() => setOpen(false)}
             className="btn-ember self-start mt-4"
           >
