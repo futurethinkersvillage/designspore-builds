@@ -1,0 +1,1872 @@
+{
+  "models": [
+    {
+      "key": "t-dodeca10",
+      "label": "Do-Deca-Dome 10′ / 3 m",
+      "family": "dome",
+      "approx": false,
+      "findings": [],
+      "panels": [
+        {
+          "name": "Full panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Half panel (right hand)",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Half panel (left hand, mirrored)",
+          "shape": "triangle",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Full panel",
+          "edge": "Base",
+          "printed": "3'-11 1/4\"",
+          "generated": "3'-11 1/4\"",
+          "deviationIn": -0.021,
+          "ok": true
+        },
+        {
+          "panel": "Full panel",
+          "edge": "Side (x2)",
+          "printed": "3'-6 7/16\"",
+          "generated": "3'-6 7/16\"",
+          "deviationIn": -0.026,
+          "ok": true
+        }
+      ],
+      "stats": {
+        "generatedPanels": 40,
+        "generatedBoards": 120,
+        "generatedShapes": 1,
+        "planPanels": 43
+      },
+      "summary": {
+        "lengthsChecked": 2,
+        "lengthsMatching": 2
+      },
+      "status": "clean"
+    },
+    {
+      "key": "t-bucky",
+      "label": "Beginner Bucky Ball 12′ / 3.6 m",
+      "family": "dome",
+      "approx": false,
+      "findings": [],
+      "panels": [
+        {
+          "name": "Hexagon panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Pentagon panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Partial hexagon panel (mirrored pair)",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Partial pentagon panel",
+          "shape": "triangle",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Hexagon panel",
+          "edge": "All six sides",
+          "printed": "2' 5 11/16\"",
+          "generated": "2'-5 11/16\"",
+          "deviationIn": 0.021,
+          "ok": true
+        },
+        {
+          "panel": "Pentagon panel",
+          "edge": "All five sides",
+          "printed": "2' 5 11/16\"",
+          "generated": "2'-5 11/16\"",
+          "deviationIn": 0.021,
+          "ok": true
+        }
+      ],
+      "stats": {
+        "generatedPanels": 21,
+        "generatedBoards": 120,
+        "generatedShapes": 2,
+        "planPanels": 25
+      },
+      "summary": {
+        "lengthsChecked": 2,
+        "lengthsMatching": 2
+      },
+      "status": "clean"
+    },
+    {
+      "key": "t-3v12",
+      "label": "3V Dome on pony wall 12′8″ / 4 m",
+      "family": "dome",
+      "approx": false,
+      "findings": [],
+      "panels": [
+        {
+          "name": "Hex panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Pent panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Door half-hex panel (drawn on the left of the mirrored pair)",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Door half-hex panel (drawn on the right of the mirrored pair)",
+          "shape": "triangle",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Hex panel",
+          "edge": "Base",
+          "printed": "2'-7 5/16\"",
+          "generated": "2'-7 5/16\"",
+          "deviationIn": -0.006,
+          "ok": true
+        },
+        {
+          "panel": "Hex panel",
+          "edge": "Side (x2)",
+          "printed": "2'-8\"",
+          "generated": "2'-8\"",
+          "deviationIn": -0.005,
+          "ok": true
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Base",
+          "printed": "2'-7 5/16\"",
+          "generated": "2'-7 5/16\"",
+          "deviationIn": -0.006,
+          "ok": true
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Side (x2)",
+          "printed": "2' 3 1/16\"",
+          "generated": "2'-3 1/16\"",
+          "deviationIn": -0.017,
+          "ok": true
+        }
+      ],
+      "stats": {
+        "generatedPanels": 105,
+        "generatedBoards": 315,
+        "generatedShapes": 2,
+        "planPanels": 107
+      },
+      "summary": {
+        "lengthsChecked": 4,
+        "lengthsMatching": 4
+      },
+      "status": "clean"
+    },
+    {
+      "key": "t-3v15",
+      "label": "3V Bucky Ball Dome 15′ / 4.5 m",
+      "family": "dome",
+      "approx": false,
+      "findings": [],
+      "panels": [
+        {
+          "name": "Hex panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Pent panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Door half-hex panel (right hand)",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Door half-hex panel (left hand, mirrored)",
+          "shape": "triangle",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Hex panel",
+          "edge": "Base",
+          "printed": "3'-2 1/16\"",
+          "generated": "3'-2 1/16\"",
+          "deviationIn": 0.025,
+          "ok": true
+        },
+        {
+          "panel": "Hex panel",
+          "edge": "Side (x2)",
+          "printed": "3'-2 15/16\"",
+          "generated": "3'-2 15/16\"",
+          "deviationIn": -0.014,
+          "ok": true
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Base",
+          "printed": "3'-2 1/16\"",
+          "generated": "3'-2 1/16\"",
+          "deviationIn": 0.025,
+          "ok": true
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Side (x2)",
+          "printed": "2'-8 7/8\"",
+          "generated": "2'-8 7/8\"",
+          "deviationIn": 0.027,
+          "ok": true
+        }
+      ],
+      "stats": {
+        "generatedPanels": 105,
+        "generatedBoards": 315,
+        "generatedShapes": 2,
+        "planPanels": 107
+      },
+      "summary": {
+        "lengthsChecked": 4,
+        "lengthsMatching": 4
+      },
+      "status": "clean"
+    },
+    {
+      "key": "t-3v18",
+      "label": "3V Dome on pony wall 18′ / 5.5 m",
+      "family": "dome",
+      "approx": false,
+      "findings": [],
+      "panels": [
+        {
+          "name": "Hex panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Pent panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Door half-hex panel (drawn on the left of the mirrored pair)",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Door half-hex panel (drawn on the right of the mirrored pair)",
+          "shape": "triangle",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Hex panel",
+          "edge": "Base",
+          "printed": "3'-8 1/2\"",
+          "generated": "3'-8 7/16\"",
+          "deviationIn": -0.045,
+          "ok": true
+        },
+        {
+          "panel": "Hex panel",
+          "edge": "Side (x2)",
+          "printed": "3'-9 7/16\"",
+          "generated": "3'-9 7/16\"",
+          "deviationIn": -0.007,
+          "ok": true
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Base",
+          "printed": "3'-8 1/2\"",
+          "generated": "3'-8 7/16\"",
+          "deviationIn": -0.045,
+          "ok": true
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Side (x2)",
+          "printed": "3'-2 7/16\"",
+          "generated": "3'-2 3/8\"",
+          "deviationIn": -0.035,
+          "ok": true
+        }
+      ],
+      "stats": {
+        "generatedPanels": 105,
+        "generatedBoards": 315,
+        "generatedShapes": 2,
+        "planPanels": 107
+      },
+      "summary": {
+        "lengthsChecked": 4,
+        "lengthsMatching": 4
+      },
+      "status": "clean"
+    },
+    {
+      "key": "t-3v20",
+      "label": "3V Bucky Ball Dome 20′ / 6 m",
+      "family": "dome",
+      "approx": false,
+      "findings": [
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "printed": 33.4,
+          "correct": 35.4,
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 19.3° / 33.4° / 33.4°. Edge lengths 4'-0 3/16\" / 3'-5 5/8\" would require 35.4° / 35.4° / 19.3°. The metric edition prints 35.4° at Base right, which matches the edge lengths — so the 33.4° is the error.",
+          "panel": "Pent panel"
+        }
+      ],
+      "panels": [
+        {
+          "name": "Hex panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Pent panel",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "printed": 33.4,
+              "correct": 35.4,
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 19.3° / 33.4° / 33.4°. Edge lengths 4'-0 3/16\" / 3'-5 5/8\" would require 35.4° / 35.4° / 19.3°. The metric edition prints 35.4° at Base right, which matches the edge lengths — so the 33.4° is the error."
+            }
+          ]
+        },
+        {
+          "name": "Door half-hex panel (right hand)",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Door half-hex panel (left hand, mirrored)",
+          "shape": "triangle",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Hex panel",
+          "edge": "Base",
+          "printed": "4'-0 3/16\"",
+          "generated": "4'-0 3/16\"",
+          "deviationIn": -0.004,
+          "ok": true
+        },
+        {
+          "panel": "Hex panel",
+          "edge": "Side (x2)",
+          "printed": "4'-1 1/4\"",
+          "generated": "4'-1 1/4\"",
+          "deviationIn": -0.008,
+          "ok": true
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Base",
+          "printed": "4'-0 3/16\"",
+          "generated": "4'-0 3/16\"",
+          "deviationIn": -0.004,
+          "ok": true
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Side (x2)",
+          "printed": "3'-5 5/8\"",
+          "generated": "3'-5 5/8\"",
+          "deviationIn": 0,
+          "ok": true
+        }
+      ],
+      "stats": {
+        "generatedPanels": 105,
+        "generatedBoards": 315,
+        "generatedShapes": 2,
+        "planPanels": 107
+      },
+      "summary": {
+        "lengthsChecked": 4,
+        "lengthsMatching": 4
+      },
+      "status": "errors"
+    },
+    {
+      "key": "t-barn23",
+      "label": "Barn Dome 23′ / 7 m",
+      "family": "dome",
+      "approx": true,
+      "findings": [
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 16.1° / 26.8° / 46.4°. Edge lengths 3'-3 13/16\" / 2'-4 11/16\" / 3'-1 3/16\" would require 46.4° / 26.7° / 16.9°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Upper Partial Triangle 1 (door), mirrored pair"
+        },
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 1.6° / 41.9° / 64.8°. Edge lengths 3'-3 13/16\" / 1'-4 15/16\" / 2'-11 9/16\" would require 64.8° / 26.8° / 1.6° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Lower Partial Triangle 1 (door), mirrored pair"
+        }
+      ],
+      "panels": [
+        {
+          "name": "Hex panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Pent panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Triangle 1 panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Triangle 2 panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Upper Partial Triangle 1 (door), mirrored pair",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 16.1° / 26.8° / 46.4°. Edge lengths 3'-3 13/16\" / 2'-4 11/16\" / 3'-1 3/16\" would require 46.4° / 26.7° / 16.9°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        },
+        {
+          "name": "Lower Partial Triangle 1 (door), mirrored pair",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 1.6° / 41.9° / 64.8°. Edge lengths 3'-3 13/16\" / 1'-4 15/16\" / 2'-11 9/16\" would require 64.8° / 26.8° / 1.6° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Hex panel",
+          "edge": "Base",
+          "printed": "3'-8 3/16\"",
+          "generated": "3'-8 11/16\"",
+          "deviationIn": 0.49,
+          "ok": false
+        },
+        {
+          "panel": "Hex panel",
+          "edge": "Side (x2)",
+          "printed": "3'-8 3/4\"",
+          "generated": "3'-8 11/16\"",
+          "deviationIn": -0.072,
+          "ok": false
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Base",
+          "printed": "3'-3 13/16\"",
+          "generated": "3'-6 1/16\"",
+          "deviationIn": 2.246,
+          "ok": false
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Side (x2)",
+          "printed": "2'-10 1/8\"",
+          "generated": "3'-0 1/8\"",
+          "deviationIn": 2.03,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Base",
+          "printed": "3'-3 13/16\"",
+          "generated": "3'-6 1/16\"",
+          "deviationIn": 2.246,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Side (x2)",
+          "printed": "3'-8 3/16\"",
+          "generated": "3'-8 11/16\"",
+          "deviationIn": 0.49,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 2 panel",
+          "edge": "Base",
+          "printed": "3'-8 3/16\"",
+          "generated": "3'-8 11/16\"",
+          "deviationIn": 0.49,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 2 panel",
+          "edge": "Side (x2)",
+          "printed": "3'-8 3/16\"",
+          "generated": "3'-8 11/16\"",
+          "deviationIn": 0.49,
+          "ok": false
+        }
+      ],
+      "stats": {
+        "generatedPanels": 120,
+        "generatedBoards": 360,
+        "generatedShapes": 5,
+        "planPanels": 114
+      },
+      "summary": {
+        "lengthsChecked": 8,
+        "lengthsMatching": 0
+      },
+      "status": "errors"
+    },
+    {
+      "key": "t-4v26",
+      "label": "4V Dome 26′ / 8 m",
+      "family": "dome",
+      "approx": true,
+      "findings": [
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 71.9° / 2.6° / 20.1°. Edge lengths 3'-7 7/8\" / 3'-5 1/8\" / 1'-1 5/8\" would require 71.9° / 20.5° / 2.5° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Mid Man Door — Partial Pent, mirrored pair"
+        },
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 57.1° / 2.5° / 30.8°. Edge lengths 4'-1 5/16\" / 2'-3 1/16\" / 3'-6 3/8\" would require 56.7° / 30.8° / 2.4°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Lower Man Door — Partial of Hex, mirrored pair"
+        }
+      ],
+      "panels": [
+        {
+          "name": "Hex panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Pent panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Triangle 1 panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Triangle 2 panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Upper Man Door — Partial pent, mirrored pair",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Mid Man Door — Partial Pent, mirrored pair",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 71.9° / 2.6° / 20.1°. Edge lengths 3'-7 7/8\" / 3'-5 1/8\" / 1'-1 5/8\" would require 71.9° / 20.5° / 2.5° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        },
+        {
+          "name": "Lower Man Door — Partial of Hex, mirrored pair",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 57.1° / 2.5° / 30.8°. Edge lengths 4'-1 5/16\" / 2'-3 1/16\" / 3'-6 3/8\" would require 56.7° / 30.8° / 2.4°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Hex panel",
+          "edge": "Base",
+          "printed": "4'-0 11/16\"",
+          "generated": "4'-0 13/16\"",
+          "deviationIn": 0.12,
+          "ok": false
+        },
+        {
+          "panel": "Hex panel",
+          "edge": "Side (x2)",
+          "printed": "4'-1 5/16\"",
+          "generated": "4'-0 13/16\"",
+          "deviationIn": -0.505,
+          "ok": false
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Base",
+          "printed": "3'-7 7/8\"",
+          "generated": "3'-9 15/16\"",
+          "deviationIn": 2.072,
+          "ok": false
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Side (x2)",
+          "printed": "3'-1 5/8\"",
+          "generated": "3'-3 1/2\"",
+          "deviationIn": 1.872,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Base",
+          "printed": "3'-7 7/8\"",
+          "generated": "3'-9 15/16\"",
+          "deviationIn": 2.072,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Side (x2)",
+          "printed": "4'-0 11/16\"",
+          "generated": "4'-0 13/16\"",
+          "deviationIn": 0.12,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 2 panel",
+          "edge": "Base",
+          "printed": "4'-0 11/16\"",
+          "generated": "4'-0 13/16\"",
+          "deviationIn": 0.12,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 2 panel",
+          "edge": "Side (x2)",
+          "printed": "4'-0 11/16\"",
+          "generated": "4'-0 13/16\"",
+          "deviationIn": 0.12,
+          "ok": false
+        }
+      ],
+      "stats": {
+        "generatedPanels": 160,
+        "generatedBoards": 480,
+        "generatedShapes": 5,
+        "planPanels": 159
+      },
+      "summary": {
+        "lengthsChecked": 8,
+        "lengthsMatching": 0
+      },
+      "status": "errors"
+    },
+    {
+      "key": "t-4v30",
+      "label": "4V Dome 30′ / 9 m",
+      "family": "dome",
+      "approx": true,
+      "findings": [
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 6.3° / 58.4° / 26.8°. Edge lengths 4'-1 3/16\" / 3'-8 1/16\" / 2'-1 7/8\" would require 58.4° / 26.8° / 4.8°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Upper Big Door panel (partial Triangle 1)"
+        },
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 2.6° / 71.9° / 20.1°. Edge lengths 4'-1 1/8\" / 3'-10 1/16\" / 1'-3 1/4\" would require 71.9° / 20.5° / 2.4° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Mid Man Door panel (partial Pent)"
+        },
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 2.5° / 30.8° / 57.1°. Edge lengths 4'-7 3/16\" / 2'-6 5/16\" / 3'-11 1/2\" would require 56.7° / 30.7° / 2.6°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Lower Man Door panel (partial Hex)"
+        }
+      ],
+      "panels": [
+        {
+          "name": "Hex panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Pent panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Triangle 1 panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Triangle 2 panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Upper Big Door panel (partial Triangle 1)",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 6.3° / 58.4° / 26.8°. Edge lengths 4'-1 3/16\" / 3'-8 1/16\" / 2'-1 7/8\" would require 58.4° / 26.8° / 4.8°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        },
+        {
+          "name": "Lower Big Door panel (partial Hex)",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Upper Man Door panel (partial Pent)",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Mid Man Door panel (partial Pent)",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 2.6° / 71.9° / 20.1°. Edge lengths 4'-1 1/8\" / 3'-10 1/16\" / 1'-3 1/4\" would require 71.9° / 20.5° / 2.4° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        },
+        {
+          "name": "Lower Man Door panel (partial Hex)",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 2.5° / 30.8° / 57.1°. Edge lengths 4'-7 3/16\" / 2'-6 5/16\" / 3'-11 1/2\" would require 56.7° / 30.7° / 2.6°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Hex panel",
+          "edge": "Base",
+          "printed": "4'-6 9/16\"",
+          "generated": "4'-7 3/16\"",
+          "deviationIn": 0.627,
+          "ok": false
+        },
+        {
+          "panel": "Hex panel",
+          "edge": "Side (x2)",
+          "printed": "4'-7 3/16\"",
+          "generated": "4'-7 3/16\"",
+          "deviationIn": 0.002,
+          "ok": true
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Base",
+          "printed": "4'-1 3/16\"",
+          "generated": "4'-3 15/16\"",
+          "deviationIn": 2.767,
+          "ok": false
+        },
+        {
+          "panel": "Pent panel",
+          "edge": "Side (x2)",
+          "printed": "3'-6 1/16\"",
+          "generated": "3'-8 11/16\"",
+          "deviationIn": 2.599,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Base",
+          "printed": "4'-1 3/16\"",
+          "generated": "4'-3 15/16\"",
+          "deviationIn": 2.767,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Side (x2)",
+          "printed": "4'-6 9/16\"",
+          "generated": "4'-7 3/16\"",
+          "deviationIn": 0.627,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 2 panel",
+          "edge": "All three sides",
+          "printed": "4'-6 9/16\"",
+          "generated": "4'-7 3/16\"",
+          "deviationIn": 0.627,
+          "ok": false
+        }
+      ],
+      "stats": {
+        "generatedPanels": 160,
+        "generatedBoards": 480,
+        "generatedShapes": 5,
+        "planPanels": 153
+      },
+      "summary": {
+        "lengthsChecked": 7,
+        "lengthsMatching": 1
+      },
+      "status": "errors"
+    },
+    {
+      "key": "t-4v40a",
+      "label": "4V Dome — Config One 40′ / 12 m",
+      "family": "dome",
+      "approx": true,
+      "findings": [
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 54° / 54° / 18°. Edge lengths 8'-9 5/8\" / 5'-5 1/4\" / 5'-4 5/16\" would require 54.9° / 54.3° / 19.2° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Door Header Panel"
+        }
+      ],
+      "panels": [
+        {
+          "name": "Hexagon panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Pentagon panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Triangle 1 panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Triangle 2 panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Special Door Triangle (partial Triangle 1)",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Door Header Panel",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 54° / 54° / 18°. Edge lengths 8'-9 5/8\" / 5'-5 1/4\" / 5'-4 5/16\" would require 54.9° / 54.3° / 19.2° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Hexagon panel",
+          "edge": "Base (strut A)",
+          "printed": "6'-0 7/16\"",
+          "generated": "5'-11 7/8\"",
+          "deviationIn": -0.54,
+          "ok": false
+        },
+        {
+          "panel": "Hexagon panel",
+          "edge": "Side (strut B)",
+          "printed": "6'-1 3/8\"",
+          "generated": "6'-2 11/16\"",
+          "deviationIn": 1.292,
+          "ok": false
+        },
+        {
+          "panel": "Hexagon panel",
+          "edge": "Side (strut C)",
+          "printed": "6'-1 3/8\"",
+          "generated": "6'-2 11/16\"",
+          "deviationIn": 1.292,
+          "ok": false
+        },
+        {
+          "panel": "Pentagon panel",
+          "edge": "Base (strut A)",
+          "printed": "5'-5\"",
+          "generated": "5'-7 11/16\"",
+          "deviationIn": 2.683,
+          "ok": false
+        },
+        {
+          "panel": "Pentagon panel",
+          "edge": "Side (strut B)",
+          "printed": "4'-7 11/16\"",
+          "generated": "4'-10 3/16\"",
+          "deviationIn": 2.495,
+          "ok": false
+        },
+        {
+          "panel": "Pentagon panel",
+          "edge": "Side (strut C)",
+          "printed": "4'-7 7/16\"",
+          "generated": "4'-10 3/16\"",
+          "deviationIn": 2.745,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Base (strut A)",
+          "printed": "5'-5 3/16\"",
+          "generated": "5'-7 11/16\"",
+          "deviationIn": 2.496,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Side (strut B)",
+          "printed": "6'-0 5/16\"",
+          "generated": "5'-11 7/8\"",
+          "deviationIn": -0.415,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Side (strut C)",
+          "printed": "6'-0 1/2\"",
+          "generated": "5'-11 7/8\"",
+          "deviationIn": -0.603,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 2 panel",
+          "edge": "All three sides",
+          "printed": "6'-0 1/2\"",
+          "generated": "5'-11 7/8\"",
+          "deviationIn": -0.603,
+          "ok": false
+        }
+      ],
+      "stats": {
+        "generatedPanels": 120,
+        "generatedBoards": 360,
+        "generatedShapes": 5,
+        "planPanels": 116
+      },
+      "summary": {
+        "lengthsChecked": 10,
+        "lengthsMatching": 0
+      },
+      "status": "errors"
+    },
+    {
+      "key": "t-4v40b",
+      "label": "4V Dome — Config Two 40′ / 12 m",
+      "family": "dome",
+      "approx": true,
+      "findings": [],
+      "panels": [
+        {
+          "name": "Hexagon panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Pentagon panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Triangle 1 panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Triangle 2 panel",
+          "shape": "triangle",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Hexagon panel",
+          "edge": "Base (strut A)",
+          "printed": "6'-0 7/16\"",
+          "generated": "5'-11 7/8\"",
+          "deviationIn": -0.54,
+          "ok": false
+        },
+        {
+          "panel": "Hexagon panel",
+          "edge": "Side (strut B)",
+          "printed": "6'-1 3/8\"",
+          "generated": "6'-2 11/16\"",
+          "deviationIn": 1.292,
+          "ok": false
+        },
+        {
+          "panel": "Hexagon panel",
+          "edge": "Side (strut C)",
+          "printed": "6'-1 3/8\"",
+          "generated": "6'-2 11/16\"",
+          "deviationIn": 1.292,
+          "ok": false
+        },
+        {
+          "panel": "Pentagon panel",
+          "edge": "Base (strut A)",
+          "printed": "5'-5\"",
+          "generated": "5'-7 11/16\"",
+          "deviationIn": 2.683,
+          "ok": false
+        },
+        {
+          "panel": "Pentagon panel",
+          "edge": "Side (strut B)",
+          "printed": "4'-7 11/16\"",
+          "generated": "4'-10 3/16\"",
+          "deviationIn": 2.495,
+          "ok": false
+        },
+        {
+          "panel": "Pentagon panel",
+          "edge": "Side (strut C)",
+          "printed": "4'-7 7/16\"",
+          "generated": "4'-10 3/16\"",
+          "deviationIn": 2.745,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Base (strut A)",
+          "printed": "5'-5 3/16\"",
+          "generated": "5'-7 11/16\"",
+          "deviationIn": 2.496,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Side (strut B)",
+          "printed": "6'-0 5/16\"",
+          "generated": "5'-11 7/8\"",
+          "deviationIn": -0.415,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 1 panel",
+          "edge": "Side (strut C)",
+          "printed": "6'-0 1/2\"",
+          "generated": "5'-11 7/8\"",
+          "deviationIn": -0.603,
+          "ok": false
+        },
+        {
+          "panel": "Triangle 2 panel",
+          "edge": "All three sides",
+          "printed": "6'-0 1/2\"",
+          "generated": "5'-11 7/8\"",
+          "deviationIn": -0.603,
+          "ok": false
+        }
+      ],
+      "stats": {
+        "generatedPanels": 200,
+        "generatedBoards": 600,
+        "generatedShapes": 5,
+        "planPanels": 192
+      },
+      "summary": {
+        "lengthsChecked": 10,
+        "lengthsMatching": 0
+      },
+      "status": "clean"
+    },
+    {
+      "key": "t-acorn",
+      "label": "Acorn Zome (sauna) 10′6″ / 3.2 m",
+      "family": "zome",
+      "approx": false,
+      "findings": [
+        {
+          "severity": "error",
+          "kind": "miter-vs-edges",
+          "printed": 15,
+          "correct": 15.8,
+          "message": "Printed miter 15° — side 2'-0 1/4\" with mid-width 3'-2 11/16\" gives 15.8°.",
+          "panel": "Band 5 - the widest band, at the bulge"
+        },
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 34.1° / 29.5° / 29.5°. Edge lengths 2'-0 1/4\" / 1'-10 3/4\" would require 34.1° / 28.0° / 28.0°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Over the doorway"
+        },
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 38.4° / 9.7° / 61°. Edge lengths 1'-3\" / 2'-0 1/4\" / 2'-6 1/2\" would require 61.0° / 38.3° / 9.3° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Doorway sides - mirrored pair"
+        },
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 37° / 15° / 37°. Edge lengths 2'-0 1/4\" / 2'-5 3/16\" would require 37.0° / 37.0° / 16.0°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Doorway sides - mirrored pair"
+        },
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 61° / 34.8° / 11.3°. Edge lengths 2'-0 1/4\" / 1'-6 7/8\" / 11 15/16\" would require 61.2° / 40.3° / 11.4° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Doorway sides - mirrored pair"
+        }
+      ],
+      "panels": [
+        {
+          "name": "Band 1 - apex ring",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 2",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 3 (and, per the plan's component list, the sixth/lowest band as well - see overview.bandNote and pdfIssues)",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 4",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 5 - the widest band, at the bulge",
+          "shape": "rhombus",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "miter-vs-edges",
+              "printed": 15,
+              "correct": 15.8,
+              "message": "Printed miter 15° — side 2'-0 1/4\" with mid-width 3'-2 11/16\" gives 15.8°."
+            }
+          ]
+        },
+        {
+          "name": "Over the doorway",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 34.1° / 29.5° / 29.5°. Edge lengths 2'-0 1/4\" / 1'-10 3/4\" would require 34.1° / 28.0° / 28.0°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        },
+        {
+          "name": "Doorway sides - mirrored pair",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 38.4° / 9.7° / 61°. Edge lengths 1'-3\" / 2'-0 1/4\" / 2'-6 1/2\" would require 61.0° / 38.3° / 9.3° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        },
+        {
+          "name": "Doorway sides - mirrored pair",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 37° / 15° / 37°. Edge lengths 2'-0 1/4\" / 2'-5 3/16\" would require 37.0° / 37.0° / 16.0°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        },
+        {
+          "name": "Doorway sides - mirrored pair",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 61° / 34.8° / 11.3°. Edge lengths 2'-0 1/4\" / 1'-6 7/8\" / 11 15/16\" would require 61.2° / 40.3° / 11.4° obtuse. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        },
+        {
+          "name": "Base course - the upward triangles that fill the notches between the lowest band of rhombi and the base sections",
+          "shape": "triangle",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Band 1 - apex ring",
+          "edge": "All four sides",
+          "printed": "2'-0 1/4\"",
+          "generated": "2'-0 1/4\"",
+          "deviationIn": -0.005,
+          "ok": true
+        },
+        {
+          "panel": "Band 2",
+          "edge": "All four sides",
+          "printed": "2'-0 1/4\"",
+          "generated": "2'-0 1/4\"",
+          "deviationIn": -0.005,
+          "ok": true
+        },
+        {
+          "panel": "Band 3 (and, per the plan's component list, the sixth/lowest band as well - see overview.bandNote and pdfIssues)",
+          "edge": "All four sides",
+          "printed": "2'-0 1/4\"",
+          "generated": "2'-0 1/4\"",
+          "deviationIn": -0.005,
+          "ok": true
+        },
+        {
+          "panel": "Band 4",
+          "edge": "All four sides",
+          "printed": "2'-0 1/4\"",
+          "generated": "2'-0 1/4\"",
+          "deviationIn": -0.005,
+          "ok": true
+        },
+        {
+          "panel": "Band 5 - the widest band, at the bulge",
+          "edge": "All four sides",
+          "printed": "2'-0 1/4\"",
+          "generated": "2'-0 1/4\"",
+          "deviationIn": -0.005,
+          "ok": true
+        },
+        {
+          "panel": "Doorway sides - mirrored pair",
+          "edge": "Full strut edge (long)",
+          "printed": "2'-0 1/4\"",
+          "generated": "2'-0 1/4\"",
+          "deviationIn": -0.005,
+          "ok": true
+        }
+      ],
+      "stats": {
+        "generatedPanels": 70,
+        "generatedBoards": 270,
+        "generatedShapes": 2,
+        "planPanels": 68
+      },
+      "summary": {
+        "lengthsChecked": 6,
+        "lengthsMatching": 6
+      },
+      "status": "errors"
+    },
+    {
+      "key": "t-z16",
+      "label": "Zome 16′ / 5 m",
+      "family": "zome",
+      "approx": false,
+      "findings": [
+        {
+          "severity": "error",
+          "kind": "miter-vs-edges",
+          "printed": 15,
+          "correct": 15.7,
+          "message": "Printed miter 15° — side 3'-3 1/8\" with mid-width 5'-2 3/8\" gives 15.7°.",
+          "panel": "Band 5 - widest band, at the base"
+        },
+        {
+          "severity": "info",
+          "kind": "obtuse-corner",
+          "message": "Outer point: the 9.7° saw setting is an OBTUSE corner — the real angle is 99.7°, not 80.3°. The plan doesn't say so; cut it the obvious way and you are 19.4° out.",
+          "panel": "Doorway sides - mirrored pair"
+        },
+        {
+          "severity": "info",
+          "kind": "obtuse-corner",
+          "message": "Apex: the 8.6° saw setting is an OBTUSE corner — the real angle is 98.6°, not 81.4°. The plan doesn't say so; cut it the obvious way and you are 17.2° out.",
+          "panel": "Base course - the upward triangles that fill the notches between the z5 band and the base sections"
+        }
+      ],
+      "panels": [
+        {
+          "name": "Band 1 - apex ring",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 2",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 3",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 4",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 5 - widest band, at the base",
+          "shape": "rhombus",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "miter-vs-edges",
+              "printed": 15,
+              "correct": 15.7,
+              "message": "Printed miter 15° — side 3'-3 1/8\" with mid-width 5'-2 3/8\" gives 15.7°."
+            }
+          ]
+        },
+        {
+          "name": "Directly over the doorway, above the header panel",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Doorway sides - mirrored pair",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "info",
+              "kind": "obtuse-corner",
+              "message": "Outer point: the 9.7° saw setting is an OBTUSE corner — the real angle is 99.7°, not 80.3°. The plan doesn't say so; cut it the obvious way and you are 19.4° out."
+            }
+          ]
+        },
+        {
+          "name": "Doorway sides - mirrored pair",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Base course - the upward triangles that fill the notches between the z5 band and the base sections",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "info",
+              "kind": "obtuse-corner",
+              "message": "Apex: the 8.6° saw setting is an OBTUSE corner — the real angle is 98.6°, not 81.4°. The plan doesn't say so; cut it the obvious way and you are 17.2° out."
+            }
+          ]
+        },
+        {
+          "name": "Over the doorway",
+          "shape": "rhombus",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Band 1 - apex ring",
+          "edge": "All four sides",
+          "printed": "3'-3 1/8\"",
+          "generated": "3'-3 1/8\"",
+          "deviationIn": 0.001,
+          "ok": true
+        },
+        {
+          "panel": "Band 2",
+          "edge": "All four sides",
+          "printed": "3'-3 1/8\"",
+          "generated": "3'-3 1/8\"",
+          "deviationIn": 0.001,
+          "ok": true
+        },
+        {
+          "panel": "Band 3",
+          "edge": "All four sides",
+          "printed": "3'-3 1/8\"",
+          "generated": "3'-3 1/8\"",
+          "deviationIn": 0.001,
+          "ok": true
+        },
+        {
+          "panel": "Band 4",
+          "edge": "All four sides",
+          "printed": "3'-3 1/8\"",
+          "generated": "3'-3 1/8\"",
+          "deviationIn": 0.001,
+          "ok": true
+        },
+        {
+          "panel": "Band 5 - widest band, at the base",
+          "edge": "All four sides",
+          "printed": "3'-3 1/8\"",
+          "generated": "3'-3 1/8\"",
+          "deviationIn": 0.001,
+          "ok": true
+        }
+      ],
+      "stats": {
+        "generatedPanels": 60,
+        "generatedBoards": 230,
+        "generatedShapes": 2,
+        "planPanels": 59
+      },
+      "summary": {
+        "lengthsChecked": 5,
+        "lengthsMatching": 5
+      },
+      "status": "errors"
+    },
+    {
+      "key": "t-z20",
+      "label": "Zome 20′ / 6 m",
+      "family": "zome",
+      "approx": false,
+      "findings": [
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 47.3° / 4.7° / 47.3°. Edge lengths 3'-9 3/4\" / 5'-7 5/16\" would require 50.3° / 19.9° / 19.9°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Doorway sides"
+        },
+        {
+          "severity": "info",
+          "kind": "obtuse-corner",
+          "message": "Apex: the 15.6° saw setting is an OBTUSE corner — the real angle is 105.6°, not 74.4°. The plan doesn't say so; cut it the obvious way and you are 31.2° out.",
+          "panel": "Base course - sits on the base sections"
+        },
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 33.1° / 23.8° / 33.1°. Edge lengths 3'-9 3/4\" / 4'-2\" would require 35.5° / 27.2° / 27.2°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "Base / doorway transition"
+        }
+      ],
+      "panels": [
+        {
+          "name": "Band 1 - centre / apex",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 2",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 3",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 4",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 5 - widest band, at/near the base",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Doorway area",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "Doorway sides",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 47.3° / 4.7° / 47.3°. Edge lengths 3'-9 3/4\" / 5'-7 5/16\" would require 50.3° / 19.9° / 19.9°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        },
+        {
+          "name": "Base course - sits on the base sections",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "info",
+              "kind": "obtuse-corner",
+              "message": "Apex: the 15.6° saw setting is an OBTUSE corner — the real angle is 105.6°, not 74.4°. The plan doesn't say so; cut it the obvious way and you are 31.2° out."
+            }
+          ]
+        },
+        {
+          "name": "Base / doorway transition",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 33.1° / 23.8° / 33.1°. Edge lengths 3'-9 3/4\" / 4'-2\" would require 35.5° / 27.2° / 27.2°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        },
+        {
+          "name": "Over the doorway",
+          "shape": "rhombus",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Band 1 - centre / apex",
+          "edge": "All four sides",
+          "printed": "3'-9 3/4\"",
+          "generated": "3'-9 3/4\"",
+          "deviationIn": 0.005,
+          "ok": true
+        },
+        {
+          "panel": "Band 2",
+          "edge": "All four sides",
+          "printed": "3'-9 3/4\"",
+          "generated": "3'-9 3/4\"",
+          "deviationIn": 0.005,
+          "ok": true
+        },
+        {
+          "panel": "Band 3",
+          "edge": "All four sides",
+          "printed": "3'-9 3/4\"",
+          "generated": "3'-9 3/4\"",
+          "deviationIn": 0.005,
+          "ok": true
+        },
+        {
+          "panel": "Band 4",
+          "edge": "All four sides",
+          "printed": "3'-9 3/4\"",
+          "generated": "3'-9 3/4\"",
+          "deviationIn": 0.005,
+          "ok": true
+        },
+        {
+          "panel": "Band 5 - widest band, at/near the base",
+          "edge": "All four sides",
+          "printed": "3'-9 3/4\"",
+          "generated": "3'-9 3/4\"",
+          "deviationIn": 0.005,
+          "ok": true
+        }
+      ],
+      "stats": {
+        "generatedPanels": 60,
+        "generatedBoards": 230,
+        "generatedShapes": 2,
+        "planPanels": 59
+      },
+      "summary": {
+        "lengthsChecked": 5,
+        "lengthsMatching": 5
+      },
+      "status": "errors"
+    },
+    {
+      "key": "t-z25",
+      "label": "Zome 25′ / 7.5 m",
+      "family": "zome",
+      "approx": false,
+      "findings": [
+        {
+          "severity": "error",
+          "kind": "panel-inconsistent",
+          "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 15.6° / 52.8° / 52.8°. Edge lengths 5'-6 3/8\" / 7'-5 1/4\" would require 42.2° / 42.2° / 5.5°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting.",
+          "panel": "z4 half (base) - listed as 'z4 half horiz' in the component list"
+        }
+      ],
+      "panels": [
+        {
+          "name": "Band 1 - centre / apex",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 2",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 3",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 4",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 5 - widest band, at/near the base",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "z4 half (base) - listed as 'z4 half horiz' in the component list",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "error",
+              "kind": "panel-inconsistent",
+              "message": "The printed miters and the printed edge lengths describe different triangles. Miters as printed: 15.6° / 52.8° / 52.8°. Edge lengths 5'-6 3/8\" / 7'-5 1/4\" would require 42.2° / 42.2° / 5.5°. One of the two is wrong and the drawing alone doesn't say which — check the transcription notes below before cutting."
+            }
+          ]
+        },
+        {
+          "name": "z5 half - listed as 'z5.5' in the component list",
+          "shape": "triangle",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Band 1 - centre / apex",
+          "edge": "All four sides",
+          "printed": "4' 8\"",
+          "generated": "4'-8\"",
+          "deviationIn": 0.004,
+          "ok": true
+        },
+        {
+          "panel": "Band 2",
+          "edge": "All four sides",
+          "printed": "4' 8\"",
+          "generated": "4'-8\"",
+          "deviationIn": 0.004,
+          "ok": true
+        },
+        {
+          "panel": "Band 3",
+          "edge": "All four sides",
+          "printed": "4' 8\"",
+          "generated": "4'-8\"",
+          "deviationIn": 0.004,
+          "ok": true
+        },
+        {
+          "panel": "Band 4",
+          "edge": "All four sides",
+          "printed": "4' 8\"",
+          "generated": "4'-8\"",
+          "deviationIn": 0.004,
+          "ok": true
+        },
+        {
+          "panel": "Band 5 - widest band, at/near the base",
+          "edge": "All four sides",
+          "printed": "4' 8\"",
+          "generated": "4'-8\"",
+          "deviationIn": 0.004,
+          "ok": true
+        }
+      ],
+      "stats": {
+        "generatedPanels": 60,
+        "generatedBoards": 230,
+        "generatedShapes": 2,
+        "planPanels": 54
+      },
+      "summary": {
+        "lengthsChecked": 5,
+        "lengthsMatching": 5
+      },
+      "status": "errors"
+    },
+    {
+      "key": "t-z30",
+      "label": "Zome 30′ / 9 m",
+      "family": "zome",
+      "approx": false,
+      "findings": [
+        {
+          "severity": "info",
+          "kind": "obtuse-corner",
+          "message": "Apex: the 15.6° saw setting is an OBTUSE corner — the real angle is 105.6°, not 74.4°. The plan doesn't say so; cut it the obvious way and you are 31.2° out.",
+          "panel": "z4 half (base) - listed as 'z4 half horiz' in both component lists"
+        }
+      ],
+      "panels": [
+        {
+          "name": "Band 1 - centre / apex",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 2",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 3",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 4",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "Band 5 - widest band, at/near the base",
+          "shape": "rhombus",
+          "findings": []
+        },
+        {
+          "name": "z3 half - listed as 'z3 half horiz' in the Basic component list",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "z4 half vert",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "z4 half (base) - listed as 'z4 half horiz' in both component lists",
+          "shape": "triangle",
+          "findings": [
+            {
+              "severity": "info",
+              "kind": "obtuse-corner",
+              "message": "Apex: the 15.6° saw setting is an OBTUSE corner — the real angle is 105.6°, not 74.4°. The plan doesn't say so; cut it the obvious way and you are 31.2° out."
+            }
+          ]
+        },
+        {
+          "name": "z4.25",
+          "shape": "triangle",
+          "findings": []
+        },
+        {
+          "name": "z5 half - listed as 'z5.5' in the Fancy component list",
+          "shape": "triangle",
+          "findings": []
+        }
+      ],
+      "lengths": [
+        {
+          "panel": "Band 1 - centre / apex",
+          "edge": "All four sides",
+          "printed": "5'-6 3/8\"",
+          "generated": "5'-6 3/8\"",
+          "deviationIn": 0.015,
+          "ok": true
+        },
+        {
+          "panel": "Band 2",
+          "edge": "All four sides",
+          "printed": "5'-6 3/8\"",
+          "generated": "5'-6 3/8\"",
+          "deviationIn": 0.015,
+          "ok": true
+        },
+        {
+          "panel": "Band 3",
+          "edge": "All four sides",
+          "printed": "5'-6 3/8\"",
+          "generated": "5'-6 3/8\"",
+          "deviationIn": 0.015,
+          "ok": true
+        },
+        {
+          "panel": "Band 4",
+          "edge": "All four sides",
+          "printed": "5'-6 3/8\"",
+          "generated": "5'-6 3/8\"",
+          "deviationIn": 0.015,
+          "ok": true
+        },
+        {
+          "panel": "Band 5 - widest band, at/near the base",
+          "edge": "All four sides",
+          "printed": "5'-6 3/8\"",
+          "generated": "5'-6 3/8\"",
+          "deviationIn": 0.015,
+          "ok": true
+        },
+        {
+          "panel": "z4.25",
+          "edge": "Hypotenuse (sloped edge)",
+          "printed": "5'-6 3/8\"",
+          "generated": "5'-6 3/8\"",
+          "deviationIn": 0.015,
+          "ok": true
+        }
+      ],
+      "stats": {
+        "generatedPanels": 60,
+        "generatedBoards": 230,
+        "generatedShapes": 2,
+        "planPanels": 52
+      },
+      "summary": {
+        "lengthsChecked": 6,
+        "lengthsMatching": 6
+      },
+      "status": "notes"
+    }
+  ]
+}

@@ -1,0 +1,591 @@
+{
+  "id": "t-acorn",
+  "key": "t-acorn",
+  "label": "Acorn Zome (sauna) - 10'6\" / 3.2 m",
+  "family": "zome",
+  "source": {
+    "publisher": "Trillium Domes (Golden Trillium Geodesics LLC)",
+    "copyright": "(c) Copyright Golden Trillium Geodesics LLC 2023",
+    "title": "The Acorn Sauna - Full wood-working plans",
+    "license": "Personal use only. Not for copy, redistribution or resale. One license (plan) required per commercial use.",
+    "contact": "Support@trilliumdomes.com",
+    "website": "TrilliumDomes.com",
+    "author": null,
+    "authorNote": "No author is named anywhere on these sheets. The companion builders-method PDF in the same folder is the same guide Trillium ships with the other zome plans.",
+    "videos": {
+      "stepByStep": "https://youtu.be/Sl9fEp-27EM"
+    },
+    "files": [
+      {
+        "path": "C:\\Users\\miken\\Downloads\\ALLPLANSBUNDLE-TrilliumDomes+3D\\AllZomesBundle-TrilliumDomes+3D\\ZomePlans_10ft6_3m_TrilliumDomes+3D\\ZomePlans_10ft6_3m_TrilliumDomes+3D\\Imperial\\Zome_AcornSauna-min.pdf",
+        "unit": "imperial",
+        "pages": 22
+      },
+      {
+        "path": "C:\\Users\\miken\\Downloads\\ALLPLANSBUNDLE-TrilliumDomes+3D\\AllZomesBundle-TrilliumDomes+3D\\ZomePlans_10ft6_3m_TrilliumDomes+3D\\ZomePlans_10ft6_3m_TrilliumDomes+3D\\Metric\\Zome_AcornSauna_metric-min.pdf",
+        "unit": "metric",
+        "pages": 22
+      },
+      {
+        "path": "C:\\Users\\miken\\Downloads\\ALLPLANSBUNDLE-TrilliumDomes+3D\\AllZomesBundle-TrilliumDomes+3D\\ZomePlans_10ft6_3m_TrilliumDomes+3D\\ZomePlans_10ft6_3m_TrilliumDomes+3D\\BuildersMethod_Dome-Zome.pdf",
+        "unit": "n/a",
+        "note": "Method guide shipped with the plan set; not parsed here."
+      },
+      {
+        "path": "C:\\Users\\miken\\Downloads\\ALLPLANSBUNDLE-TrilliumDomes+3D\\AllZomesBundle-TrilliumDomes+3D\\ZomePlans_10ft6_3m_TrilliumDomes+3D\\ZomePlans_10ft6_3m_TrilliumDomes+3D\\Zome_AcornSauna.skp",
+        "unit": "n/a",
+        "note": "SketchUp CAD model shipped with the plan set; not parsed."
+      }
+    ],
+    "sheetIndex": "PDF page 1 is the unnumbered cover. Printed sheet numbers run 1-21 on PDF pages 2-22, so printed sheet N is PDF page N+1."
+  },
+  "params": {
+    "type": "zome",
+    "diameterFt": 8.56,
+    "sides": 10,
+    "bands": 6,
+    "heightFt": 8.31,
+    "riserFt": 0.6
+  },
+  "paramsNote": "Engine parameters supplied by the coordinator. They do NOT necessarily equal the printed plan dimensions below - see overview for the values actually printed on the plan sheets.",
+  "overview": {
+    "widestDiameter": {
+      "imperial": "10'-7\"",
+      "metric": "3226 mm",
+      "source": "cover sheet",
+      "note": "The bulge, roughly mid-height. The base footprint is considerably smaller - this is the acorn shape."
+    },
+    "height": {
+      "imperial": "9'-6\"",
+      "metric": "2896 mm",
+      "source": "cover sheet",
+      "note": "The cover figure. It does not reconcile exactly with the frame geometry plus the base sections - see pdfIssues."
+    },
+    "surfaceArea": {
+      "imperial": "~275 sq ft",
+      "metric": "~25.5 sq m"
+    },
+    "floorArea": {
+      "imperial": "~55 sq ft",
+      "metric": "~5 sq m"
+    },
+    "widthAtBase": {
+      "imperial": "8'-8 1/2\"",
+      "metric": "2654 mm",
+      "note": "Base layout outside-to-outside, non-beveled method (sheet 11). Beveled method is 8'-5 5/16\" / 2574 mm (sheet 10)."
+    },
+    "acrossFlatsAtBase": {
+      "nonBeveled": { "imperial": "8'-2 1/8\"", "metric": "2492 mm" },
+      "beveled": { "imperial": "7'-11 5/16\"", "metric": "2421 mm" },
+      "note": "The overall dimension drawn down the left side of each base layout sheet, measured across the plan including the two door-flanking sections."
+    },
+    "doorOpening": {
+      "height": { "imperial": "6'-5 1/8\"", "metric": "1959 mm" },
+      "width": { "imperial": "2'-8 5/16\"", "metric": "821 mm" },
+      "source": "intro sheet (sheet 1)"
+    },
+    "geometryNote": "Zome on a 10-sided plan. Six horizontal bands of rhombic panels labelled z1 (apex) through z5, plus a base course of triangular half panels and a set of mirrored special panels around the doorway. Unlike the 16' and 20' zomes this one carries past the widest point, so the walls tuck back in at the base - hence the acorn silhouette and the two short 'special base sections' either side of the door. All struts are the same length; only the miter and bevel angles change from band to band.",
+    "bandNote": "The plan names only five panel shapes but draws six rings of rhombi. The sixth (lowest) ring must reuse one of the five shapes. Its top bevel has to be 14.2 to meet z5's bottom bevel of 14.2, which points at z4 turned upside down - yet the component list gives the doubled quantity to z3 (17) and only 9 to z4. See pdfIssues; verify against the SketchUp model before cutting."
+  },
+  "strut": {
+    "count": 251,
+    "countNote": "251 is printed on the Exploded View sheet, but the identical figure is printed on Trillium's 16' and 20' zome plans too, which have different panel counts. Treat it as boilerplate and count off the panel schedule instead.",
+    "length": {
+      "imperial": "2'-0 1/4\"",
+      "metric": "615 mm",
+      "note": "Identical for every regular panel edge and for every special-panel edge that lies on the zome surface. Printed as 2'-0 1/4\" on the Regular Panel sheet and as 2'-1/4\" on the special panel sheets - same number."
+    },
+    "crossSection": {
+      "width": null,
+      "height": null,
+      "note": "The plans publish no strut cross-section. Materials call for (16) 2x6x8' / 38x140x2.44 kiln-dried for the frame, and the builders method has you rip the strut stock in half on the table saw at the bevel angle. Finished section is builder-chosen; the jig is set to suit."
+    },
+    "bevelDeg": null,
+    "bevelNote": "There is no single bevel. Each band has a top bevel (the two struts pointing toward the apex) and a bottom bevel (the two pointing down/out). Where two bands meet the bevels match, so the numbers chain: 11.1 / 6.3 / 8 / 11.1 / 14.2 / 14.2. See panels[].bevels.",
+    "miterNote": "Every miter angle in these plans is stated OFF 90 degrees - the number is what you dial into the miter saw. Within one rhombus panel all four struts share the same miter."
+  },
+  "panels": [
+    {
+      "id": "z1",
+      "type": "rhombus",
+      "qty": 10,
+      "position": "Band 1 - apex ring",
+      "edges": [
+        { "name": "All four sides", "imperial": "2'-0 1/4\"", "metric": "615 mm" }
+      ],
+      "midLength": { "imperial": "11 15/16\"", "metric": "303 mm", "note": "Width across the panel at mid height; use it to set up the jig." },
+      "miterAngles": [
+        { "corner": "All corners (saw setting off 90 deg)", "deg": 61.5 }
+      ],
+      "bevels": [
+        { "edge": "Top two struts", "deg": 11.1 },
+        { "edge": "Bottom two struts", "deg": 6.3 }
+      ]
+    },
+    {
+      "id": "z2",
+      "type": "rhombus",
+      "qty": 9,
+      "position": "Band 2",
+      "edges": [
+        { "name": "All four sides", "imperial": "2'-0 1/4\"", "metric": "615 mm" }
+      ],
+      "midLength": { "imperial": "1'-10 3/4\"", "metric": "578 mm" },
+      "miterAngles": [
+        { "corner": "All corners (saw setting off 90 deg)", "deg": 34.1 }
+      ],
+      "bevels": [
+        { "edge": "Top two struts", "deg": 6.3 },
+        { "edge": "Bottom two struts", "deg": 8 }
+      ]
+    },
+    {
+      "id": "z3",
+      "type": "rhombus",
+      "qty": 17,
+      "position": "Band 3 (and, per the plan's component list, the sixth/lowest band as well - see overview.bandNote and pdfIssues)",
+      "edges": [
+        { "name": "All four sides", "imperial": "2'-0 1/4\"", "metric": "615 mm" }
+      ],
+      "midLength": { "imperial": "2'-7 5/16\"", "metric": "795 mm", "note": "Printed on sheet 4 as 2'-7 5/16 with no closing inch mark." },
+      "miterAngles": [
+        { "corner": "All corners (saw setting off 90 deg)", "deg": 9.7 }
+      ],
+      "bevels": [
+        { "edge": "Top two struts", "deg": 8 },
+        { "edge": "Bottom two struts", "deg": 11.1 }
+      ]
+    },
+    {
+      "id": "z4",
+      "type": "rhombus",
+      "qty": 9,
+      "position": "Band 4",
+      "edges": [
+        { "name": "All four sides", "imperial": "2'-0 1/4\"", "metric": "615 mm" }
+      ],
+      "midLength": { "imperial": "3'-0 13/16\"", "metric": "935 mm", "note": "Plans warn that z4 and z5 are wider than they are tall - this is the wide axis." },
+      "miterAngles": [
+        { "corner": "All corners (saw setting off 90 deg)", "deg": 8.6 }
+      ],
+      "bevels": [
+        { "edge": "Top two struts", "deg": 11.1 },
+        { "edge": "Bottom two struts", "deg": 14.2 }
+      ]
+    },
+    {
+      "id": "z5",
+      "type": "rhombus",
+      "qty": 8,
+      "position": "Band 5 - the widest band, at the bulge",
+      "edges": [
+        { "name": "All four sides", "imperial": "2'-0 1/4\"", "metric": "615 mm" }
+      ],
+      "midLength": { "imperial": "3'-2 11/16\"", "metric": "983 mm", "note": "Wide axis; z5 is wider than tall." },
+      "miterAngles": [
+        { "corner": "All corners (saw setting off 90 deg)", "deg": 15, "note": "Printed value. It does not agree with the printed mid length, which gives about 16.0 deg - see pdfIssues." }
+      ],
+      "bevels": [
+        { "edge": "Top two struts", "deg": 14.2 },
+        { "edge": "Bottom two struts", "deg": 14.2 }
+      ]
+    },
+    {
+      "id": "z2-half",
+      "label": "z2.5",
+      "type": "special / triangle (half of a z2)",
+      "qty": 1,
+      "position": "Over the doorway",
+      "edges": [
+        { "name": "Two equal sides", "imperial": "2'-0 1/4\"", "metric": "615 mm" },
+        { "name": "Base", "imperial": "1'-10 3/4\"", "metric": "578 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Apex", "deg": 34.1 },
+        { "corner": "Base left", "deg": 29.5, "note": "Printed value; the printed side lengths give about 28.0 deg - see pdfIssues." },
+        { "corner": "Base right", "deg": 29.5, "note": "Printed value; the printed side lengths give about 28.0 deg - see pdfIssues." }
+      ],
+      "bevels": [
+        { "edge": "Left side", "deg": 6.3 },
+        { "edge": "Right side", "deg": 6.3 },
+        { "edge": "Base (cut edge)", "deg": 90 }
+      ]
+    },
+    {
+      "id": "z3-half-vert",
+      "label": "z3.5 V",
+      "type": "special / scalene triangle (vertical cut through a z3)",
+      "qty": 2,
+      "position": "Doorway sides - mirrored pair",
+      "edges": [
+        { "name": "Short upper edge", "imperial": "1'-3\"", "metric": "380 mm" },
+        { "name": "Full strut edge", "imperial": "2'-0 1/4\"", "metric": "615 mm" },
+        { "name": "Long cut edge", "imperial": "2'-6 1/2\"", "metric": "775 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Between the short upper edge and the long cut edge", "deg": 38.4 },
+        { "corner": "Between the short upper edge and the full strut edge", "deg": 9.7 },
+        { "corner": "Between the full strut edge and the long cut edge", "deg": 61 }
+      ],
+      "bevels": [
+        { "edge": "Short upper edge", "deg": 8 },
+        { "edge": "Full strut edge", "deg": 11.1 },
+        { "edge": "Long cut edge", "deg": 14.1 }
+      ]
+    },
+    {
+      "id": "z5-half",
+      "label": "z5.5",
+      "type": "special / triangle (half of a z5, split on the vertical diagonal)",
+      "qty": 2,
+      "position": "Doorway sides - mirrored pair",
+      "edges": [
+        { "name": "Two equal sides", "imperial": "2'-0 1/4\"", "metric": "615 mm" },
+        { "name": "Vertical cut edge", "imperial": "2'-5 3/16\"", "metric": "741 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top", "deg": 37 },
+        { "corner": "Outer point", "deg": 15, "note": "Printed value; the two 37 deg corners on the same drawing imply 16.0 deg here - see pdfIssues." },
+        { "corner": "Bottom", "deg": 37 }
+      ],
+      "bevels": [
+        { "edge": "Upper sloped edge", "deg": 14.2 },
+        { "edge": "Lower sloped edge", "deg": 14.2 },
+        { "edge": "Vertical cut edge", "deg": 36 }
+      ]
+    },
+    {
+      "id": "z3-quarter",
+      "label": "z3.25",
+      "type": "special / scalene triangle (quarter of a z3)",
+      "qty": 2,
+      "position": "Doorway sides - mirrored pair",
+      "edges": [
+        { "name": "Full strut edge (long)", "imperial": "2'-0 1/4\"", "metric": "615 mm" },
+        { "name": "Second edge", "imperial": "1'-6 7/8\"", "metric": "479 mm" },
+        { "name": "Short bottom edge (flat cut)", "imperial": "11 15/16\"", "metric": "304 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Between the full strut edge and the second edge", "deg": 61 },
+        { "corner": "Between the full strut edge and the short bottom edge", "deg": 34.8, "note": "Printed value; the three printed side lengths give about 40.2 deg - see pdfIssues." },
+        { "corner": "Between the second edge and the short bottom edge", "deg": 11.3 }
+      ],
+      "bevels": [
+        { "edge": "Full strut edge", "deg": 11.1 },
+        { "edge": "Second edge", "deg": 14.2 },
+        { "edge": "Short bottom edge (cut edge)", "deg": 90 }
+      ]
+    },
+    {
+      "id": "z3-half-base",
+      "label": "z3.5 base",
+      "type": "special / triangle (half of a z3, flat cut across the middle)",
+      "qty": 8,
+      "position": "Base course - the upward triangles that fill the notches between the lowest band of rhombi and the base sections",
+      "edges": [
+        { "name": "Two equal sides", "imperial": "2'-0 1/4\"", "metric": "615 mm" },
+        { "name": "Base", "imperial": "2'-7 5/16\"", "metric": "795 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Apex", "deg": 9.7 },
+        { "corner": "Base left", "deg": 40.3 },
+        { "corner": "Base right", "deg": 40.3 }
+      ],
+      "bevels": [
+        { "edge": "Left side", "deg": 11.1 },
+        { "edge": "Right side", "deg": 11.1 },
+        { "edge": "Base (cut edge)", "deg": 90 }
+      ]
+    }
+  ],
+  "panelCounts": {
+    "statedOnPlan": { "regularPanels": 53, "specialPanels": 13 },
+    "sumOfListedQuantities": { "regularPanels": 53, "specialPanels": 15 },
+    "note": "The regular-panel total checks out (10 + 9 + 17 + 9 + 8 = 53). The special-panel total does not: the plan says 13 but the itemised list adds to 15. Recorded as printed; see pdfIssues."
+  },
+  "baseSections": [
+    {
+      "variant": "Beveled method",
+      "qty": 8,
+      "length": { "imperial": "2'-7 5/16\"", "metric": "795 mm", "note": "long point to long point" },
+      "miterAngles": [
+        { "corner": "Each end", "deg": 18 }
+      ],
+      "bevelDeg": 38,
+      "heightToLongPoint": { "imperial": "5 3/8\"", "metric": "137 mm" },
+      "bottomPlate": { "imperial": "1 1/2\"", "metric": "38 mm", "note": "Pressure treated if it sits on earth / gravel / concrete" },
+      "specialSections": {
+        "qty": 2,
+        "length": { "imperial": "11 15/16\"", "metric": "304 mm", "note": "long point to long point" },
+        "miterAngles": [ { "corner": "Each end", "deg": 18 } ],
+        "note": "The two short sections that flank the doorway."
+      }
+    },
+    {
+      "variant": "Non-beveled method",
+      "qty": 8,
+      "length": { "imperial": "2'-8 1/4\"", "metric": "819 mm", "note": "long point to long point" },
+      "miterAngles": [
+        { "corner": "Each end", "deg": 18 }
+      ],
+      "bevelDeg": 38,
+      "heightToLongPoint": { "imperial": "4 9/16\"", "metric": "116 mm" },
+      "bottomPlate": { "imperial": "1 1/2\"", "metric": "9 mm", "note": "The metric sheet prints 9 mm here, which is wrong - the imperial sheet and the beveled metric sheet both give 1 1/2\" / 38 mm. See pdfIssues." },
+      "specialSections": {
+        "qty": 2,
+        "length": { "imperial": "1'-0 5/16\"", "metric": "313 mm", "note": "long point to long point" },
+        "miterAngles": [ { "corner": "Each end", "deg": 18 } ],
+        "note": "The two short sections that flank the doorway."
+      }
+    }
+  ],
+  "baseLayout": {
+    "sides": 10,
+    "note": "Decagon footprint. Ten pieces in all: eight full base sections plus two short specials either side of the doorway, with one bay left open for the door. Two variants are drawn depending on whether the frame struts are beveled.",
+    "inToIn": null,
+    "inToInNote": "The plans give no inside-to-inside dimension; they give outside-to-outside across the corners plus an overall dimension across the plan.",
+    "variants": [
+      {
+        "variant": "Beveled method",
+        "outsideToOutside": { "imperial": "8'-5 5/16\"", "metric": "2574 mm" },
+        "acrossFlats": { "imperial": "7'-11 5/16\"", "metric": "2421 mm" },
+        "sectionLength": { "imperial": "2'-7 5/16\"", "metric": "795 mm" },
+        "doorOpeningInBase": { "imperial": "3'-13/16\"", "metric": "935 mm", "note": "Gap between the two short special base sections." }
+      },
+      {
+        "variant": "Non-beveled method",
+        "outsideToOutside": { "imperial": "8'-8 1/2\"", "metric": "2654 mm" },
+        "acrossFlats": { "imperial": "8'-2 1/8\"", "metric": "2492 mm" },
+        "sectionLength": { "imperial": "2'-8 1/4\"", "metric": "819 mm" },
+        "doorOpeningInBase": { "imperial": "3'-1 5/16\"", "metric": "948 mm", "note": "Gap between the two short special base sections. Printed 3'-1 5/16 with no closing inch mark." }
+      }
+    ]
+  },
+  "door": {
+    "outerWidth": { "imperial": "2'-8 5/16\"", "metric": "821 mm", "note": "Clear opening width from the intro sheet." },
+    "outerHeight": { "imperial": "6'-5 1/8\"", "metric": "1959 mm", "note": "Clear opening height, given on both the intro sheet and the Doorway sheet." },
+    "framedWidth": {
+      "beveled": { "imperial": "2'-11 1/4\"", "metric": "895 mm" },
+      "nonBeveled": { "imperial": "3'-1 5/16\"", "metric": "948 mm" },
+      "note": "Width across the doorway framing on the Doorway sheet, one value per build method."
+    },
+    "cutList": [],
+    "cutListNote": "This plan does not publish a doorway cut list. The component list calls for 2 door posts, 1 door head, 2 door cards and 1 awning roof section, but only the door card and awning sheet metal shapes are dimensioned.",
+    "doorCards": {
+      "qty": 2,
+      "material": "3/4\" ACX plywood / 19 mm ACX (from the (2) 4x8 / 1.22 x 2.44 sheets)",
+      "dimensions": [
+        { "name": "Height, short side", "imperial": "6'-2 3/16\"", "metric": "1885 mm" },
+        { "name": "Height, tall side", "imperial": "6'-6 15/16\"", "metric": "2005 mm" },
+        { "name": "Width", "imperial": "2'-5 15/16\"", "metric": "761 mm" },
+        { "name": "Height to frame intersection line", "imperial": "4'-3 1/4\"", "metric": "1302 mm" },
+        { "name": "Top corner clip - horizontal", "imperial": "6 5/16\"", "metric": "160 mm" },
+        { "name": "Top corner clip - vertical", "imperial": "4 1/2\"", "metric": "115 mm" },
+        { "name": "Upper frame-line offset from the edge", "imperial": "2'-1 5/16\"", "metric": "643 mm" },
+        { "name": "Lower frame-line offset from the edge", "imperial": "2'-1 5/16\"", "metric": "643 mm" },
+        { "name": "Lower step - vertical", "imperial": "6 1/16\"", "metric": "155 mm" },
+        { "name": "Lower step - height to knuckle", "imperial": "1'-8 11/16\"", "metric": "525 mm" },
+        { "name": "Bottom offset - horizontal", "imperial": "1'-1 3/8\"", "metric": "339 mm" },
+        { "name": "Bottom offset - vertical", "imperial": "7 1/16\"", "metric": "180 mm" }
+      ],
+      "note": "The plans suggest assembling the frame, rough-cutting the card, then tracing the actual lines and curves. The frame-intersection line is drawn straight; curving it is optional."
+    },
+    "awningRoofSection": {
+      "qty": 1,
+      "shape": "trapezoid",
+      "dimensions": [
+        { "name": "Height", "imperial": "2'-6 3/16\"", "metric": "767 mm" },
+        { "name": "Width (bottom)", "imperial": "3'-4 13/16\"", "metric": "1037 mm" },
+        { "name": "Top corner clip - vertical", "imperial": "6 13/16\"", "metric": "174 mm" },
+        { "name": "Top corner clip - horizontal", "imperial": "8 15/16\"", "metric": "227 mm" }
+      ],
+      "note": "Second shape on the Door Cards sheet (sheet 14). Attribution to the awning comes from the component list; the sheet itself does not label it."
+    }
+  },
+  "deck": {
+    "sections": 10,
+    "note": "Optional deck / floor platform, drawn as ten pie sections. Two variants matching the base layout variants. Cut lists assume standard 2x / 38 mm material. Foundation hardware is left to the builder.",
+    "variants": [
+      {
+        "variant": "Beveled method",
+        "triangleBase": { "imperial": "2'-7 5/16\"", "metric": "795 mm" },
+        "triangleSide": { "imperial": "4'-2 11/16\"", "metric": "1287 mm" },
+        "apexDeg": null,
+        "miterDeg": 18,
+        "cutList": [
+          { "qty": 10, "imperial": "2'-7 5/16\"", "metric": "795 mm", "cut": "long to long, 18 deg" },
+          { "qty": 10, "imperial": "3'-10 9/16\"", "metric": "1183 mm", "cut": "L to L, 18 deg, 54 deg", "note": "Printed 3-10 9/16\" with no foot mark." },
+          { "qty": 10, "imperial": "4'-1 1/16\"", "metric": "1246 mm", "cut": "L to L, 18 deg, 54 deg" },
+          { "qty": 10, "imperial": "1'-3 9/16\"", "metric": "395 mm", "cut": "L to L, 18 deg" }
+        ]
+      },
+      {
+        "variant": "Non-beveled method",
+        "triangleBase": { "imperial": "2'-8 1/4\"", "metric": "819 mm", "metricNote": "The metric drawing labels this dimension 820 mm while its own cut list says 819 mm." },
+        "triangleSide": { "imperial": "4'-4 1/4\"", "metric": "1327 mm" },
+        "apexDeg": null,
+        "miterDeg": 18,
+        "cutList": [
+          { "qty": 10, "imperial": "2'-8 1/4\"", "metric": "819 mm", "cut": "long to long, 18 deg" },
+          { "qty": 10, "imperial": "4'-0 1/8\"", "metric": "1222 mm", "cut": "L to L, 18 deg, 54 deg" },
+          { "qty": 10, "imperial": "4'-2 5/8\"", "metric": "1286 mm", "cut": "L to L, 18 deg, 54 deg" },
+          { "qty": 10, "imperial": "1'-3 9/16\"", "metric": "395 mm", "cut": "L to L, 18 deg" }
+        ]
+      }
+    ]
+  },
+  "benches": {
+    "note": "Sauna benches, drawn as a curved run of sections that screw into the zome frame, wrapping around a stove. Sheets 18-20. The plan does not say how many sections to build; the materials list allows (10) 2x4x8' / 38x89x2.44 plus 42 sq ft / 4 sq m of cladding.",
+    "dimensions": [
+      { "name": "Frame - top width", "imperial": "1'-1 5/8\"", "metric": "346 mm" },
+      { "name": "Frame - inner width", "imperial": "1'-15/16\"", "metric": "329 mm" },
+      { "name": "Frame - outer height", "imperial": "2'-9 1/16\"", "metric": "840 mm" },
+      { "name": "Frame - inner height", "imperial": "2'-11/16\"", "metric": "627 mm" },
+      { "name": "Leg height overall", "imperial": "1'-8 1/2\"", "metric": "521 mm", "note": "Printed 1-8 1/2\" with no foot mark." },
+      { "name": "Seat height", "imperial": "1'-7 1/2\"", "metric": "495 mm" },
+      { "name": "Seating area - short side", "imperial": "2'-11/16\"", "metric": "627 mm" },
+      { "name": "Seating area - long side", "imperial": "2'-11\"", "metric": "889 mm" },
+      { "name": "Seating area - depth", "imperial": "1'-4 11/16\"", "metric": "424 mm" }
+    ],
+    "cutListPerSection": [
+      { "qty": 1, "imperial": "2'-1 5/8\"", "metric": "651 mm", "cut": "long to long, 18 deg" },
+      { "qty": 1, "imperial": "2'-9 1/16\"", "metric": "840 mm", "cut": "long to long, 18 deg", "note": "Printed 2-9 1/16\" with no foot mark." },
+      { "qty": 2, "imperial": "10 7/16\"", "metric": "265 mm", "cut": "long to short, 18 deg" },
+      { "qty": 2, "imperial": "1'-7 1/2\"", "metric": "495 mm", "cut": "90 deg cuts" }
+    ],
+    "materialNote": "Cut list assumes standard 2x / 38 mm material."
+  },
+  "materials": {
+    "frame": [
+      { "item": "Kiln dried frame stock", "qty": 16, "imperial": "2x6x8'", "metric": "38x140x2.44" },
+      { "item": "Kiln dried base stock", "qty": 4, "imperial": "2x6x8'", "metric": "38x140x2.44" },
+      { "item": "Treated base stock", "qty": 4, "imperial": "2x4x8'", "metric": "38x89x2.44" },
+      { "item": "Kiln dried doorway stock", "qty": 3, "imperial": "2x4x8'", "metric": "38x89x2.44" },
+      { "item": "3/4\" / 19 mm ACX sheets for door cards and awning", "qty": 2, "imperial": "4x8 sheets", "metric": "1.22 x 2.44 sheets" }
+    ],
+    "deck": [
+      { "item": "Deck stock", "qty": 15, "imperial": "2x4x8'", "metric": "38x89x2.44" },
+      { "item": "Subfloor or decking sheets", "qty": 2, "imperial": "4x8 sheets", "metric": "sheets" }
+    ],
+    "benches": [
+      { "item": "Bench stock", "qty": 10, "imperial": "2x4x8'", "metric": "38x89x2.44" },
+      { "item": "Cladding for benches", "imperial": "42 sq ft", "metric": "4 sq m" }
+    ],
+    "envelope": {
+      "imperial": "275 sq ft (9 sheets) roofing / sheathing / insulation / interior cladding",
+      "metric": "25.5 sq m (9 sheets) roofing / sheathing / insulation / interior cladding"
+    },
+    "fasteners": [
+      { "item": "Screws", "qty": 500, "imperial": "3\"", "metric": "75 mm" },
+      { "item": "Screws", "qty": 500, "imperial": "2\"", "metric": "50 mm" }
+    ]
+  },
+  "tools": [
+    "Tape measure",
+    "4' straight edge or chalk line",
+    "Drill (impact driver also very nice)",
+    "Circular saw or jigsaw",
+    "Miter saw (preferably with bevel; dual bevel better)",
+    "Counter sink drill bit",
+    "2-6 quick clamps (more the merrier)",
+    "Table saw",
+    "Stapler (preferably pneumatic / electric)",
+    "Utility knife",
+    "Hand saw (for wood)",
+    "Digital angle finder"
+  ],
+  "componentList": {
+    "struts": 251,
+    "regularPanels": 53,
+    "specialPanels": 13,
+    "byType": { "z1": 10, "z2": 9, "z3": 17, "z4": 9, "z5": 8 },
+    "specials": {
+      "z2 half": 1,
+      "z3 half vertical": 2,
+      "z3 half base": 8,
+      "z3 quarter": 2,
+      "z5 half": 2
+    },
+    "baseSections": 8,
+    "specialBaseSections": 2,
+    "doorPosts": 2,
+    "doorHead": 1,
+    "doorCards": 2,
+    "awningRoofSection": 1,
+    "note": "Transcribed exactly as printed on the Exploded View sheet, including the special-panel total that does not match its own itemised list. Special door panels are mirrored pairs."
+  },
+  "sheetLayout": {
+    "note": "Sheet 15 nests the panel skins on (9) 4x8 / 1.22 x 2.44 sheets. It is a rough nesting study rather than a complete take-off - the pieces drawn add up to 8 z1, 3 z2, 11 z3, 9 z4, 8 z5 and 4 z3.5 base, well short of the 53 + 15 in the component list.",
+    "skylight": null
+  },
+  "pdfIssues": [
+    {
+      "sheet": "Regular Panel Dimensions (sheet 4) and Special Panels (sheet 6), both units",
+      "issue": "The z5 miter is printed as 15 deg. It disagrees with the plan's own dimensions. The printed z5 mid length (3'-2 11/16\" / 983 mm) against the 2'-0 1/4\" / 615 mm strut gives a corner angle of about 106 deg, so the saw setting should be about 16.0 deg (15.9 deg from the metric numbers). The z5 half drawing on sheet 6 makes the same error: its other two corners are printed 37 and 37, which forces the third to be 16.0, not 15. For comparison, Trillium's 16' zome uses the identical angle set and prints 15.7 deg for this corner on its own special panel sheet.",
+      "correctedValueDeg": 16.0,
+      "severity": "moderate - a 1 deg miter error accumulates around a ten-panel band"
+    },
+    {
+      "sheet": "Special Panels (sheet 5) - z2 half, both units",
+      "issue": "The two base miters are printed 29.5 deg. With a 2'-0 1/4\" / 615 mm side and a 1'-10 3/4\" / 578 mm base, the base corners are 62.0 deg, so the saw setting should be about 28.0 deg. As printed the three miters imply interior angles summing to 176.9 deg, which cannot be a triangle. 29.5 deg is the correct value for the same panel on Trillium's 20' zome plan, so this looks like a copy-paste.",
+      "correctedValueDeg": 28.0,
+      "severity": "moderate - the panel will not close on the frame"
+    },
+    {
+      "sheet": "Special Panels (sheet 6) - z3 quarter, both units",
+      "issue": "The miter at the corner between the 2'-0 1/4\" / 615 mm strut edge and the 11 15/16\" / 304 mm bottom edge is printed 34.8 deg. The three printed side lengths (615, 479, 304 mm) give 49.8 deg at that corner, i.e. a saw setting of about 40.2 deg. The other two printed miters (61 and 11.3) both match the lengths, so 34.8 is the odd one out; no combination of the three printed miters sums to 180 deg.",
+      "correctedValueDeg": 40.2,
+      "severity": "moderate - verify before cutting"
+    },
+    {
+      "sheet": "Exploded View (sheet 3), both units",
+      "issue": "Stated '13 special panels' but the itemised list adds to 15 (z2 half 1 + z3 half vertical 2 + z3 half base 8 + z3 quarter 2 + z5 half 2). The regular-panel total of 53 does check out.",
+      "severity": "moderate - affects material take-off"
+    },
+    {
+      "sheet": "Exploded View (sheet 3) vs Regular Panel Dimensions (sheet 4), both units",
+      "issue": "Which rhombus the sixth (lowest) band uses is ambiguous. The exploded plan view draws six rings of rhombi, and the component list gives z3 a doubled quantity (17) with z4 only 9, implying the sixth ring is z3. But the bevel table requires the band below z5 to present a 14.2 deg top bevel to match z5's 14.2 deg bottom bevel, and only z4 turned upside down does that - z3's bevels are 8 and 11.1. On that reading z4 should be the doubled type (about 17) and z3 the single band (about 9). Both readings give the same 53 total, and the z3 and z4 rhombi have nearly identical areas, so the material take-off is unaffected either way - but the cut counts per shape are not. Check against the supplied SketchUp model before cutting.",
+      "severity": "high - could put you 8 panels short of one shape and 8 long of another"
+    },
+    {
+      "sheet": "Exploded View (sheet 3), both units",
+      "issue": "'251 struts' is printed here and also on Trillium's 16' and 20' zome plans, which have different panel counts. It cannot be right for all three.",
+      "severity": "moderate - do not order stock off this number"
+    },
+    {
+      "sheet": "Base Sections - non-Beveled Method (sheet 9), METRIC edition",
+      "issue": "The bottom plate thickness is printed 9 mm. The imperial sheet gives 1 1/2\" and the metric beveled sheet gives 38 mm. 9 mm is a typo for 38 mm.",
+      "severity": "moderate - metric-only builders would size the plate wrong"
+    },
+    {
+      "sheet": "Deck - non-Beveled Method (sheet 17), METRIC edition",
+      "issue": "The triangle base is labelled 820 mm on the drawing but 819 mm in the cut list on the same sheet. The imperial edition says 2'-8 1/4\" in both places.",
+      "severity": "minor - 1 mm rounding"
+    },
+    {
+      "sheet": "Sheet Layout (sheet 15), both units",
+      "issue": "The nesting diagram draws far fewer panels than the component list requires (8 z1, 3 z2, 11 z3, 9 z4, 8 z5, 4 z3.5 base against 53 regular plus 15 special). It is a partial layout, not a take-off.",
+      "severity": "minor - informational"
+    },
+    {
+      "sheet": "Cover sheet",
+      "issue": "The stated height of 9'-6\" / 2896 mm does not reconcile with the geometry. Seven strut-rises of frame plus the beveled base sections and plate come to roughly 9'-1\" / 2764 mm. The stated widest diameter of 10'-7\" / 3226 mm is likewise about 45 mm more than the frame centreline geometry. Both cover figures look rounded up or measured over the finished roofing.",
+      "severity": "informational"
+    },
+    {
+      "sheet": "Whole plan set",
+      "issue": "No strut cross-section is published anywhere. Builders have to infer it from the materials list (2x6 stock) plus the builders-method instruction to rip strut stock in half at the bevel angle. The method says other strut dimensions are fine as long as they are consistent and the bevel angle is accurate.",
+      "severity": "informational"
+    },
+    {
+      "sheet": "Various, IMPERIAL edition",
+      "issue": "Typographic sloppiness throughout: the z3 mid length prints as 2'-7 5/16 with no inch mark (sheet 4); the strut is 2'-0 1/4\" on sheet 4 but 2'-1/4\" on the special panel sheets; the deck cut list prints 3-10 9/16\" and the bench list 2-9 1/16\" with no foot mark; the bench elevation prints 1-8 1/2\"; the non-beveled base layout prints 3'-1 5/16 with no inch mark. Compressed forms like 2'-11/16\" and 3'-13/16\" mean 2'-0 11/16\" and 3'-0 13/16\".",
+      "severity": "minor - typographic"
+    },
+    {
+      "sheet": "Base Layout - non-Beveled Method (sheet 11), METRIC edition",
+      "issue": "The three dimensions (2492, 2654, 948) are printed without units, unlike the beveled sheet which labels them mm.",
+      "severity": "minor - typographic"
+    }
+  ]
+}

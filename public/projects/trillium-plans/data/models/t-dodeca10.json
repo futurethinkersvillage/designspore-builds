@@ -1,0 +1,282 @@
+{
+  "key": "t-dodeca10",
+  "label": "Do-Deca-Dome — 10' / 3 m",
+  "family": "dome",
+  "params": {
+    "type": "pentakis",
+    "diameterFt": 11.03,
+    "fraction": 0.6,
+    "riserFt": 0.15
+  },
+  "overview": {
+    "nominalSize": "10' / 3 m",
+    "widthOverall": "10'-1 7/8\"",
+    "height": "8'-1 3/16\"",
+    "doorWidth": "3'-6 5/16\"",
+    "doorHeight": "6'-10\"",
+    "metric": {
+      "widthOverall": "3096 mm",
+      "height": "2468 mm",
+      "doorWidth": "1074 mm",
+      "doorHeight": "2082 mm"
+    },
+    "summary": "A small dome the plans call the \"Do-Deca-Dome\" — a pentakis-dodecahedron shell (each pentagonal face of a dodecahedron raised into five triangles) built entirely from flat triangular panel frames. There are only two panel shapes in the whole building: 35 full triangles and 8 half triangles (4 right hand, 4 left hand) that stop against the door opening. The shell sits on a nine-sided timber base ring; eight of those nine sides are base sections (4 mirrored pairs), and the ninth is left open for the door and closed by two door posts, a door head and two plywood door cards. Finished shell is 10'-1 7/8\" (3096 mm) across at its widest point and 8'-1 3/16\" (2468 mm) tall, with a 3'-6 5/16\" x 6'-10\" (1074 x 2082 mm) door opening. All frame stock is cut from 2x6s ripped in half, then ripped again to the 1 1/4\" x 1 1/2\" panel strut, which carries an 11.1 degree edge bevel so neighbouring panels close up tight."
+  },
+  "tools": [
+    "Tape measure",
+    "4' straight edge or chalk line",
+    "Drill (an impact driver is also very nice)",
+    "Circular saw or jigsaw",
+    "Miter saw (preferably with bevel; dual bevel better)",
+    "Countersink drill bit",
+    "2-6 quick clamps (more the merrier)",
+    "Table saw",
+    "Stapler (preferably pneumatic or electric)",
+    "Utility knife",
+    "Hand saw (for wood)",
+    "Digital angle finder"
+  ],
+  "materials": [
+    { "qty": "1.5 sheets", "item": "3/4\" AC plywood", "metricItem": "19 mm AC plywood" },
+    { "qty": "20", "item": "2x6x8 KD (ripped in half)", "metricItem": "2x6x2.4 m kiln dried timber (ripped in half)" },
+    { "qty": "3", "item": "2x4x10 Pressure Treated", "metricItem": "2x4x3 m Pressure Treated" },
+    { "qty": "~400 sq ft", "item": "greenhouse plastic", "metricItem": "~38 sq m greenhouse plastic" },
+    { "qty": "~75'", "item": "greenhouse repair tape", "metricItem": "~7 m greenhouse repair tape (does not convert; 75' is ~23 m)" },
+    { "qty": "5 lb", "item": "1-5/8\" screws", "metricItem": "2.25 kg 41 mm screws" },
+    { "qty": "10 lb", "item": "2-1/2\" screws", "metricItem": "4.5 kg 63 mm screws" },
+    { "qty": "1 box", "item": "staples" },
+    { "qty": "2 gallons", "item": "paint/stain", "metricItem": "7.5 liters paint/stain" },
+    { "qty": "1", "item": "Paint brush / roller / sprayer" },
+    { "qty": "2", "item": "door handles" },
+    { "qty": "as needed", "item": "door hinges" },
+    { "qty": "2 pair", "item": "window hinges" },
+    { "qty": "1", "item": "2-way gate latch" },
+    { "qty": "2", "item": "gas pistons for windows (cabinet type)" }
+  ],
+  "components": [
+    { "qty": 35, "item": "Full panels", "note": "including 2 windows" },
+    { "qty": 4, "item": "Right hand half panels" },
+    { "qty": 4, "item": "Left hand half panels" },
+    { "qty": 8, "item": "Base sections", "note": "mirrored, 4 of each hand" },
+    { "qty": 2, "item": "Door posts" },
+    { "qty": 1, "item": "Door head" },
+    { "qty": 2, "item": "Door cards" }
+  ],
+  "panels": [
+    {
+      "id": "full",
+      "name": "Full panel",
+      "qty": 35,
+      "edges": [
+        { "label": "Base", "length": "3'-11 1/4\"", "mm": "1201 mm" },
+        { "label": "Side (x2)", "length": "3'-6 7/16\"", "mm": "1078 mm" }
+      ],
+      "height": "2'-11 1/4\"",
+      "heightMm": "895 mm",
+      "miterAngles": [
+        { "corner": "Top (apex)", "deg": 22.3 },
+        { "corner": "Base left", "deg": 33.8 },
+        { "corner": "Base right", "deg": 33.8 }
+      ],
+      "note": "Isosceles triangle, and the only full panel shape in the dome. Five of them make one of the twelve raised pentagons of the shell. Angles are the amount OFF 90 degrees, i.e. the number you dial into the miter saw, so the real corner angles are 67.7 / 56.2 / 56.2 degrees. Two of the 35 are built as opening windows. The 2'-11 1/4\" figure is the triangle's height, not an edge."
+    },
+    {
+      "id": "half-rh",
+      "name": "Half panel (right hand)",
+      "qty": 4,
+      "edges": [
+        { "label": "Base", "length": "1'-8 3/16\"", "mm": "513 mm" },
+        { "label": "Center strut (vertical)", "length": "2'-11 7/16\"", "mm": "900 mm" },
+        { "label": "Long side", "length": "3'-6 7/16\"", "mm": "1078 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (head of center strut)", "deg": 61.8 },
+        { "corner": "Base at center strut", "deg": 5.6, "obtuse": true },
+        { "corner": "Outer base corner", "deg": 33.8 }
+      ],
+      "note": "Scalene triangle that stops the shell against the door line. It is NOT a bisected full panel: its base is 1'-8 3/16\" (513 mm), not half of the full panel's 3'-11 1/4\", and its center strut is 2'-11 7/16\" (900 mm), slightly longer than the full panel's 2'-11 1/4\" height. It does share the 3'-6 7/16\" long side with the full panel. IMPORTANT: the 5.6 degree corner is OBTUSE — the real angle is 95.6 degrees, not 84.4. Real corner angles are 28.2 / 95.6 / 56.2 degrees. The center strut on this panel is NOT beveled."
+    },
+    {
+      "id": "half-lh",
+      "name": "Half panel (left hand, mirrored)",
+      "qty": 4,
+      "edges": [
+        { "label": "Base", "length": "1'-8 3/16\"", "mm": "513 mm" },
+        { "label": "Center strut (vertical)", "length": "2'-11 7/16\"", "mm": "900 mm" },
+        { "label": "Long side", "length": "3'-6 7/16\"", "mm": "1078 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (head of center strut)", "deg": 61.8 },
+        { "corner": "Base at center strut", "deg": 5.6, "obtuse": true },
+        { "corner": "Outer base corner", "deg": 33.8 }
+      ],
+      "note": "Exact mirror image of the right hand half panel. Same three lengths and same three angles, laid out the other way round. Center strut not beveled."
+    }
+  ],
+  "crossSections": [
+    {
+      "member": "Panel strut",
+      "width": "1 1/4\"",
+      "height": "1 1/2\"",
+      "bevelDeg": 11.1,
+      "mm": { "width": "32 mm", "height": "38 mm" },
+      "note": "Standard strut for every full panel. The 11.1 deg bevel is ripped on one edge so adjoining panels close up tight."
+    },
+    {
+      "member": "Half panel center strut",
+      "width": "1 3/16\"",
+      "height": "1 1/2\"",
+      "bevelDeg": 0,
+      "mm": { "width": "30 mm", "height": "38 mm" },
+      "widthMmMetricPdf": "35 mm",
+      "note": "Only used on the cut edge of the eight half panels. Explicitly NOT beveled — plain rectangular section. CAUTION: the Imperial sheet gives 1 3/16\" (= 30 mm) but the Metric sheet prints 35 mm; they disagree."
+    },
+    {
+      "member": "Door post",
+      "width": "2 3/8\"",
+      "height": "1 1/2\"",
+      "mm": { "width": "60 mm", "height": "38 mm" },
+      "profile": {
+        "bottomFlat": "1 3/8\"",
+        "bottomFlatMm": "35 mm",
+        "angleDeg": 35
+      },
+      "note": "Rectangular blank 2 3/8\" x 1 1/2\" with one corner cut off: the face against the door drops from the full 2 3/8\" top to a 1 3/8\" bottom on a 35 deg chamfer."
+    },
+    {
+      "member": "Door head",
+      "width": "2 1/2\"",
+      "height": "1 1/2\"",
+      "mm": { "width": "63 mm", "height": "38 mm" },
+      "profile": {
+        "topFlat": "1 3/4\"",
+        "topFlatMm": "44 mm",
+        "shortEnd": "5/16\"",
+        "shortEndMm": "8 mm",
+        "angleDeg": 32
+      },
+      "note": "Rectangular blank with one corner cut off at 32 deg: 1 3/4\" of flat across the top, 2 1/2\" across the bottom, and the chamfer runs down to a 5/16\" face on the outer edge."
+    },
+    {
+      "member": "Base section",
+      "width": "1 1/2\"",
+      "heightInside": "2\"",
+      "heightOutside": "1 5/16\"",
+      "bevelPrinted": "29",
+      "mm": { "width": "38 mm", "heightInside": "51 mm", "heightOutside": "33 mm" },
+      "note": "Timber ring member. Seen in cross-section it is 1 1/2\" wide, 2\" tall on the inside face (the drawing labels that side \"Inside\") and 1 5/16\" tall on the outside, so the top face slopes down and outward to seat the leaning base panels. The slope is labelled just \"29\" with no degree symbol, and 29 deg does not agree with the dimensions given — 11/16\" of fall over 1 1/2\" of run is 24.6 deg. See pdfIssues."
+    }
+  ],
+  "baseSections": [
+    {
+      "desc": "Base section (mirrored, 4 of each hand — 8 total)",
+      "lengths": ["2'-11 7/16\""],
+      "mm": ["900 mm"],
+      "miterDegEnds": [10.6, 25.4],
+      "note": "Long point to long point. Each section has a 10.6 deg miter on one end and a 25.4 deg miter on the other, so the ring closes with alternating 21.2 deg and 50.8 deg exterior corners. Cut 4 one way and 4 mirrored."
+    }
+  ],
+  "memberLengths": {
+    "doorPost": "6'-9 7/8\"",
+    "doorPostMm": "2080 mm",
+    "doorHead": "4'",
+    "doorHeadMm": "1219 mm",
+    "doorHeadMiterDeg": 36.3,
+    "note": "Two door posts, one door head. The door head is 4' long point to long point with 36.3 deg miters on both ends. Imperial and Metric sheets agree on all three figures."
+  },
+  "doorCards": {
+    "desc": "Two mirrored plywood cards cut from a single sheet of 3/4\" AC plywood — they close the wedge-shaped gap between the door frame and the curved shell on each side of the opening. Cut one, use the offcut as the pattern for the mirror.",
+    "dims": [
+      { "label": "Tip thickness (tall end)", "value": "1 5/16\"", "mm": "33 mm" },
+      { "label": "Height at the tall end", "value": "1'-7 15/16\"", "mm": "506 mm" },
+      { "label": "Height at the peak", "value": "2'-1 3/4\"", "mm": "654 mm" },
+      { "label": "Run to the peak", "value": "3'-7 3/8\"", "mm": "1102 mm" },
+      { "label": "Overall run", "value": "6'-11 9/16\"", "mm": "2122 mm" },
+      { "label": "Tip height at the thin end", "value": "7/8\"", "mm": "22 mm" },
+      { "label": "Tip setback at the thin end", "value": "1 3/16\"", "mm": "30 mm" }
+    ],
+    "note": "Cut (2) from 1 sheet of plywood, mirrored. Every Imperial figure converts cleanly to the Metric figure on this page."
+  },
+  "door": {
+    "outerWidth": "3'-5 11/16\"",
+    "outerHeight": "6'-9 5/16\"",
+    "insertWidth": "3'-2 11/16\"",
+    "insertHeight": "3'-2 7/16\"",
+    "gap": "3/8\" gap between door and opening, with 1/4\" for hinges",
+    "metric": {
+      "outerWidth": "1058 mm",
+      "outerHeight": "2065 mm",
+      "insertWidth": "982 mm",
+      "insertHeight": "976 mm"
+    },
+    "construction": "Door frame made of 2x3, door inserts made of 2x2. Cover the two inserts with your cover material first, then drop them into the frame and fasten them.",
+    "note": "One tall outer frame holding two square inserts stacked one above the other, each insert braced with a diagonal.",
+    "cutList": [
+      {
+        "stock": "2x3",
+        "pieces": [
+          { "qty": 2, "length": "3'-5 11/16\"", "mm": "1059 mm" },
+          { "qty": 1, "length": "3'-2 11/16\"", "mm": "982 mm" },
+          { "qty": 2, "length": "6'-6 5/16\"", "mm": "1989 mm" }
+        ]
+      },
+      {
+        "stock": "2x2",
+        "pieces": [
+          { "qty": 4, "length": "3'-2 7/16\"", "mm": "976 mm" },
+          { "qty": 4, "length": "2'-11 11/16\"", "mm": "906 mm" },
+          { "qty": 2, "length": "4'-0 3/4\"", "mm": "1238 mm", "cut": "Long to Short", "miterDeg": 43.4, "note": "Diagonal brace, one in each insert. Both editions print 43.4 deg." }
+        ]
+      }
+    ]
+  },
+  "baseLayout": {
+    "inToIn": "8'-5 3/16\"",
+    "doorOpening": "3'-6 5/16\"",
+    "doorCornerToCorner": "5'-8 1/2\"",
+    "metric": { "inToIn": "2570 mm", "doorOpening": "1074 mm", "doorCornerToCorner": "1740 mm" },
+    "sides": 9,
+    "timberSides": 8,
+    "cornerMiterDeg": [10.6, 25.4],
+    "note": "The base ring is a nine-sided figure. Eight of the nine sides are 2'-11 7/16\" (900 mm) base sections — four right hand and four left hand; the ninth side is left open for the door and is closed by the two door posts and the door head. Corners alternate between a 21.2 deg exterior angle (10.6 deg miter on each meeting end) and a 50.8 deg exterior angle (25.4 deg miter on each end); the plan draws both corner details. 8'-5 3/16\" is measured inside face to inside face across the ring from one corner to the opposite corner. 3'-6 5/16\" is the clear door opening between the posts and 5'-8 1/2\" is the spread between the two base-ring corners either side of the door. The two door corners themselves are not dimensioned on the sheet."
+  },
+  "notes": [
+    "All panel miter angles on these plans are stated as degrees OFF 90 — that is the number you dial into the saw, not the interior angle of the triangle.",
+    "The half panel's 5.6 deg corner is the one place that convention bites: that corner is obtuse (95.6 deg), so you have to swing the saw the other way. The sheet gives no sign or direction.",
+    "Panel struts carry an 11.1 deg edge bevel so neighbouring panels close up tight. The center strut of every half panel is explicitly NOT beveled and is a slightly narrower section.",
+    "Base sections are dimensioned long point to long point, with a 10.6 deg miter on one end and a 25.4 deg miter on the other; cut them in mirrored pairs, 4 of each hand.",
+    "Build the strut stock from 2x6s ripped in half rather than buying 2x3 — the materials list is written that way ((20) 2x6x8 KD, ripped in half).",
+    "The folder also ships a separate 'Builders Method' PDF (shared across all Trillium plans) covering the jig, bevel ripping, initial and final compound miters, covering, and assembly. It is not part of either plan set transcribed here."
+  ],
+  "sourcePdf": "DomePlans_10ft_3m_2v_TrilliumDomes+3D/Imperial/2v-10ft-plans-min.pdf",
+  "sourcePdfMetric": "DomePlans_10ft_3m_2v_TrilliumDomes+3D/Metric/2v-3m-plans-min.pdf",
+  "angleChecks": [
+    "Full panel: printed miters 22.3 / 33.8 / 33.8 give real angles 67.7 + 56.2 + 56.2 = 180.1 (rounding). Solving the printed edges (47 1/4\" base, 42 7/16\" sides = 1201 / 1078 mm) gives 67.66 / 56.17 / 56.17, i.e. miters 22.34 / 33.83 / 33.83. PASS.",
+    "Half panel: printed miters 61.8 / 5.6 / 33.8 only sum correctly if the 5.6 corner is read as obtuse: 28.2 + 95.6 + 56.2 = 180.0. Solving the printed edges (20 3/16\" / 35 7/16\" / 42 7/16\" = 513 / 900 / 1078 mm) gives 28.27 / 95.52 / 56.21, i.e. miters 61.73 / 5.52 / 33.79. PASS within the 1/16\" rounding of the printed lengths.",
+    "Base section cross-section: FAILS. The printed slope label '29' does not match the printed dimensions — 2\" minus 1 5/16\" is 11/16\" of fall over a 1 1/2\" run, which is 24.6 deg (metric 51 - 33 = 18 mm over 38 mm = 25.3 deg). The drawing itself is plotted at 24.6 deg.",
+    "Door post cross-section: minor. 2 3/8\" top to 1 3/8\" bottom over 1 1/2\" height is a 33.7 deg chamfer off vertical (metric 60 to 35 over 38 = 33.3 deg); the sheet prints 35 deg.",
+    "Door head cross-section: 2 1/2\" bottom to 1 3/4\" top with a 5/16\" outer face is a 32.3 deg chamfer off vertical; printed 32 deg. PASS.",
+    "Door insert diagonal: the insert's inner opening works out to 35 11/16\" x 35 7/16\", whose diagonal runs at 44.8 deg and measures 48 3/4\" long point to short point. The 4'-0 3/4\" length checks out exactly; the printed 43.4 deg miter is about 1.4 deg off."
+  ],
+  "pdfIssues": [
+    "p.1 (both) 'copywritten' -> 'copyrighted'.",
+    "p.2 (both) 'Tape Measurer' -> 'Tape measure'; 'Counter Sink drill bit' -> 'Countersink'.",
+    "p.2 Metric tools: \"1.2m' straight edge or chalk line\" has a stray foot mark after the metre value.",
+    "p.2 Metric materials: '~7m greenhouse repair tape' does not convert from the Imperial '~75'' (75 feet is about 23 m). One of the two is wrong.",
+    "p.4 Panel Dimensions (both): the half panel's 5.6 deg corner is obtuse (real angle 95.6 deg) but the sheet states all miters simply as 'off 90 deg' with no sign, so a builder dialling 5.6 deg the obvious way will cut the corner 11.2 deg wrong.",
+    "p.4 (both) '2'-11 1/4\"' / '895mm' on the full panel is the triangle's height, not an edge length, but it is drawn in the same style as the two edge dimensions.",
+    "p.4 (both) The panels are called 'Full panels' and 'half panels' with no name for the pentagon groups they form, unlike the 20' plan which names hex and pent panels.",
+    "p.5 Member Cross Sections (both): the Base Section slope is annotated '29' with NO degree symbol, while every other angle on the same page carries '°' or 'deg'.",
+    "p.5 Member Cross Sections (both): that '29' also contradicts the drawing and its own dimensions. Inside 2\" less outside 1 5/16\" over a 1 1/2\" width is 24.6 deg (Metric 51 mm less 33 mm over 38 mm is 25.3 deg), and the shape is plotted at 24.6 deg. Corrected value: about 24.6 deg.",
+    "p.5 Half panel center strut: Imperial prints 1 3/16\" (= 30 mm) but the Metric sheet prints 35 mm. They cannot both be right; 30 mm is the Imperial conversion.",
+    "p.5 Door Posts: the 35 deg chamfer does not match its own dimensions — 2 3/8\" to 1 3/8\" over 1 1/2\" is 33.7 deg (Metric 60 to 35 over 38 is 33.3 deg).",
+    "p.6 Base Sections: the Metric sheet labels three angles (10.6 / 25.4 / 10.6) on the mirrored pair while the Imperial sheet labels only two (10.6 / 25.4), so the Imperial reader has to infer that the second piece is the mirror.",
+    "p.7 Door (both): 'Built to leave 3/8\" gap between door and opening with 1/4\" for hinges' is left in inches on the Metric sheet.",
+    "p.7 Door (both): the diagonal brace miter is printed as 43.4 deg, but the insert opening it fits (35 11/16\" x 35 7/16\") has a 44.8 deg diagonal. The 4'-0 3/4\" / 1238 mm length is right; the angle is about 1.4 deg out.",
+    "p.7 Door cut list (both): the (1) 3'-2 11/16\" 2x3 middle rail is listed without saying it is the mid-rail, and the (2) 6'-6 5/16\" stiles are not called out on the drawing at all.",
+    "p.8 Base Layout (both): the two corners either side of the door opening are the only corners in the ring with no miter called out; every base section is dimensioned 10.6 deg / 25.4 deg, which leaves the door ends undefined.",
+    "The Imperial PDF has 9 pages and the Metric PDF has 10 — the Imperial edition drops the closing 'Additional Resources' page entirely.",
+    "Branding is inconsistent across the bundle: these sheets say 'Golden Trillium Geodesics LLC' / 'Goldentrillium.Net' / 'www.GoldenTrillium.net', while the Builders Method PDF in the same folder says 'Trillium Domes' / 'TrilliumDomes.com'.",
+    "p.8 Metric Base Layout: the two 900 mm side labels are rotated onto their sides and partially collide with the leader lines, making them hard to read."
+  ]
+}

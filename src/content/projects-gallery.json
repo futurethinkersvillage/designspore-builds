@@ -10,6 +10,11 @@
       "description": "Design geodesic domes, zomes, hybrids, and pyramids in live 3D — material lists, cut lists with bevel angles, CSV and OBJ export.",
       "order": 3
     },
+    "trillium-plans": {
+      "title": "Trillium Plans Studio",
+      "description": "Sixteen dome and zome plans as one interactive studio — explode the 3D model panel by panel, read the cut schedules, and see the audit that cross-checks every printed dimension.",
+      "order": 3
+    },
     "wikihouse-configurator": {
       "description": "Interactive 3D configurator for a WikiHouse Skylark 250 cabin — arrange modules, preview the build, and export the block list.",
       "order": 3

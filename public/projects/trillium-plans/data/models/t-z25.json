@@ -1,0 +1,641 @@
+{
+  "id": "t-z25",
+  "key": "t-z25",
+  "label": "Zome — 25' / 7.5 m",
+  "family": "zome",
+  "source": {
+    "publisher": "Trillium Domes (Golden Trillium Geodesics LLC)",
+    "copyright": "(c) Copyright Golden Trillium Geodesics LLC 2024",
+    "title": "25' Zome / 7.5m Zome - Full wood-working plans",
+    "license": "Personal use only. Not for copy, redistribution or resale. See the Trillium Domes Builders Collective for commercial use.",
+    "contact": "Support@trilliumdomes.com",
+    "website": "TrilliumDomes.com",
+    "author": null,
+    "authorNote": "No author name is printed anywhere in this plan set (the 20' set credits Johnny Bayles).",
+    "videos": {
+      "nonBeveledMethod1": "https://youtu.be/iXYl2_MD5Sw?si=3YzJCn54qFLBHner",
+      "nonBeveledMethod2": "https://youtu.be/NLaZ82jdJ_c?si=ffyL2yDwwrHDHmaA",
+      "infoAndStepByStep": "https://TrilliumDomes.com/build-your-own-dome",
+      "faq": "https://Trilliumdomes.com/faq",
+      "buildersGroup": "https://www.facebook.com/groups/5429292500519898/"
+    },
+    "files": [
+      {
+        "path": "C:\\Users\\miken\\Downloads\\ALLPLANSBUNDLE-TrilliumDomes+3D\\AllZomesBundle-TrilliumDomes+3D\\ZomePlans_25ft_7.5m_TrilliumDomes+3D\\ZomePlans_25ft_7.5m_TrilliumDomes+3D\\Imperial\\Zome 25ft-min.pdf",
+        "unit": "imperial",
+        "pages": 24,
+        "note": "Cover page is unnumbered; printed sheet numbers run 1-23. Page references below are PDF page numbers."
+      },
+      {
+        "path": "C:\\Users\\miken\\Downloads\\ALLPLANSBUNDLE-TrilliumDomes+3D\\AllZomesBundle-TrilliumDomes+3D\\ZomePlans_25ft_7.5m_TrilliumDomes+3D\\ZomePlans_25ft_7.5m_TrilliumDomes+3D\\Metric\\Zome 7.5m-min.pdf",
+        "unit": "metric",
+        "pages": 24
+      },
+      {
+        "path": "C:\\Users\\miken\\Downloads\\ALLPLANSBUNDLE-TrilliumDomes+3D\\AllZomesBundle-TrilliumDomes+3D\\ZomePlans_25ft_7.5m_TrilliumDomes+3D\\ZomePlans_25ft_7.5m_TrilliumDomes+3D\\Builders Method Zome.pdf",
+        "unit": "n/a",
+        "note": "Method guide, identical file to the one shipped with the 20' set - captured separately in data/method-zome-raw.json"
+      },
+      {
+        "path": "C:\\Users\\miken\\Downloads\\ALLPLANSBUNDLE-TrilliumDomes+3D\\AllZomesBundle-TrilliumDomes+3D\\ZomePlans_25ft_7.5m_TrilliumDomes+3D\\ZomePlans_25ft_7.5m_TrilliumDomes+3D\\Zome_25ft_7.5m_CAD_TrilliumDomes.skp",
+        "unit": "n/a",
+        "note": "SketchUp CAD model shipped with the plan set; not parsed."
+      }
+    ]
+  },
+  "params": {
+    "type": "zome",
+    "diameterFt": 24.14,
+    "sides": 10,
+    "bands": 5,
+    "heightFt": 15.18,
+    "riserFt": 0.55
+  },
+  "paramsNote": "Engine parameters supplied by the coordinator. They do NOT necessarily equal the printed plan dimensions below - see overview for the values actually printed on the plan sheets.",
+  "overview": {
+    "widestDiameter": {
+      "imperial": "25' 10\"",
+      "metric": "7.874 m",
+      "source": "cover sheet"
+    },
+    "height": {
+      "imperial": "16' 6\"",
+      "metric": "5.029 m",
+      "note": "including deck",
+      "source": "cover sheet"
+    },
+    "surfaceArea": {
+      "imperial": "~1200 sq ft",
+      "metric": "~111 sq m"
+    },
+    "floorArea": {
+      "imperial": "~440 sq ft",
+      "metric": "~40 sq m"
+    },
+    "widthAtBase": {
+      "imperial": "24'-4 7/8\"",
+      "metric": "7439 mm",
+      "note": "Base layout outside-to-outside (p8). Only the non-beveled method is drawn for this model."
+    },
+    "baseSideLength": {
+      "imperial": "7'-6 1/2\"",
+      "metric": "2299 mm",
+      "note": "One base bay, measured on the base layout sheet (p8)."
+    },
+    "doorOpening": null,
+    "doorOpeningNote": "This plan set never states a finished door rough opening. The doorway is a framed gable dormer; the only related numbers are the double 2x6 / 38x140 header at 6'-3\" / 1905 mm and the (2) trimmer studs at 6'-8\" / 2032 mm (p14).",
+    "buildMethod": "Non-beveled method only. The Model Specific Notes sheet (p3) says: minimum 2x4 / 38x89 lumber, and 'This zome should be constructed in the non beveled method, as the frames are too deep to run through the table saw.' The bevel-angle column is still printed but is not used for this build method.",
+    "geometryNote": "Zome, 10-sided plan, 5 concentric bands of rhombic panels labelled z1 (top/centre) through z5 (widest), plus two special half panels. All struts are the same length; only the corner (miter) angles and the dihedral-derived bevel angles change band to band."
+  },
+  "strut": {
+    "count": 206,
+    "length": {
+      "imperial": "4' 8\"",
+      "metric": "1423 mm",
+      "note": "Overall panel length - identical for every regular panel edge and for the sloped edges of the special panels."
+    },
+    "crossSection": {
+      "nominalImperial": "2x4",
+      "nominalMetric": "38x89",
+      "note": "The Model Specific Notes sheet calls for a minimum of 2x4 / 38x89 lumber. The materials list buys (115) 2x4x10 / 38x89x3m for the frame panels. Deeper members may be substituted if the plan is scaled."
+    },
+    "bevelDeg": null,
+    "bevelNote": "Bevel is not a single value. Each panel band has a top bevel (the two struts pointing toward the centre/top) and a bottom bevel (the two struts pointing outward/down). Where two bands meet the bevels match. Not used in the non-beveled method, which is the method specified for this model. See panels[].bevels.",
+    "miterNote": "All miter angles in the plans are stated as OFF 90 degrees - i.e. the number is what you set the miter saw to. Within one regular panel every strut shares the same miter angle."
+  },
+  "panels": [
+    {
+      "id": "z1",
+      "type": "rhombus",
+      "qty": 10,
+      "position": "Band 1 - centre / apex",
+      "edges": [
+        { "name": "All four sides", "imperial": "4' 8\"", "metric": "1423 mm" }
+      ],
+      "midLength": { "imperial": "2'-5\"", "metric": "737 mm", "note": "Width across the panel at mid height, outside framing; use for jig layout." },
+      "miterAngles": [
+        { "corner": "All corners (saw setting off 90 deg)", "deg": 60 }
+      ],
+      "bevels": [
+        { "edge": "Top two struts", "deg": 10 },
+        { "edge": "Bottom two struts", "deg": 5.8 }
+      ]
+    },
+    {
+      "id": "z2",
+      "type": "rhombus",
+      "qty": 10,
+      "position": "Band 2",
+      "edges": [
+        { "name": "All four sides", "imperial": "4' 8\"", "metric": "1423 mm" }
+      ],
+      "midLength": { "imperial": "4'-7 3/16\"", "metric": "1402 mm" },
+      "miterAngles": [
+        { "corner": "All corners (saw setting off 90 deg)", "deg": 31 }
+      ],
+      "bevels": [
+        { "edge": "Top two struts", "deg": 5.8 },
+        { "edge": "Bottom two struts", "deg": 7.6 }
+      ]
+    },
+    {
+      "id": "z3",
+      "type": "rhombus",
+      "qty": 9,
+      "position": "Band 3",
+      "edges": [
+        { "name": "All four sides", "imperial": "4' 8\"", "metric": "1423 mm" }
+      ],
+      "midLength": { "imperial": "6'-3 15/16\"", "metric": "1929 mm" },
+      "miterAngles": [
+        { "corner": "All corners (saw setting off 90 deg)", "deg": 4.7 }
+      ],
+      "bevels": [
+        { "edge": "Top two struts", "deg": 7.6 },
+        { "edge": "Bottom two struts", "deg": 11.1 }
+      ]
+    },
+    {
+      "id": "z4",
+      "type": "rhombus",
+      "qty": 8,
+      "position": "Band 4",
+      "edges": [
+        { "name": "All four sides", "imperial": "4' 8\"", "metric": "1423 mm" }
+      ],
+      "midLength": { "imperial": "7'-5 1/4\"", "metric": "2267 mm", "note": "Plans warn that z4 and z5 are wider than they are tall - this dimension is the wide axis." },
+      "miterAngles": [
+        { "corner": "All corners (saw setting off 90 deg)", "deg": 15.6 }
+      ],
+      "bevels": [
+        { "edge": "Top two struts", "deg": 11.1 },
+        { "edge": "Bottom two struts", "deg": 15.4 }
+      ]
+    },
+    {
+      "id": "z5",
+      "type": "rhombus",
+      "qty": 7,
+      "position": "Band 5 - widest band, at/near the base",
+      "edges": [
+        { "name": "All four sides", "imperial": "4' 8\"", "metric": "1423 mm" }
+      ],
+      "midLength": { "imperial": "7'-9 7/8\"", "metric": "2384 mm", "note": "Wide axis; z5 is wider than tall." },
+      "miterAngles": [
+        { "corner": "All corners (saw setting off 90 deg)", "deg": 23.8 }
+      ],
+      "bevels": [
+        { "edge": "Top two struts", "deg": 15.4 },
+        { "edge": "Bottom two struts", "deg": 15.4 }
+      ]
+    },
+    {
+      "id": "z4-half-base",
+      "planLabel": "z4 half (base) - listed as 'z4 half horiz' in the component list",
+      "type": "special / triangle (base half of a z4, cut on the wide diagonal)",
+      "qty": 8,
+      "position": "Base course - sits on the base sections",
+      "edges": [
+        {
+          "name": "Two equal sloped sides",
+          "imperial": "5'-6 3/8\"",
+          "metric": "1686 mm",
+          "printedAsIs": true,
+          "note": "PRINTED VALUE, BELIEVED WRONG. The triangle's own base and miters require 4' 8\" / 1423 mm (the strut length). 5'-6 3/8\" / 1686 mm is exactly the 30' / 9m zome strut length. See pdfIssues."
+        },
+        { "name": "Base (cut edge)", "imperial": "7'-5 1/4\"", "metric": "2267 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Apex", "deg": 15.6 },
+        { "corner": "Base left", "deg": 52.8 },
+        { "corner": "Base right", "deg": 52.8 }
+      ],
+      "bevels": [
+        { "edge": "Left sloped side", "deg": 15.4 },
+        { "edge": "Right sloped side", "deg": 15.4 },
+        { "edge": "Base (cut edge)", "deg": 0 }
+      ]
+    },
+    {
+      "id": "z5-half",
+      "planLabel": "z5 half - listed as 'z5.5' in the component list",
+      "type": "special / triangle (vertical half of a z5)",
+      "qty": 2,
+      "position": "Base / doorway transition",
+      "edges": [
+        { "name": "Two equal sloped sides", "imperial": "4'-8\"", "metric": "1423 mm" },
+        { "name": "Vertical cut edge (height)", "imperial": "5'- 1 3/16\"", "metric": "1554 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top", "deg": 33.1 },
+        { "corner": "Outer point", "deg": 23.8 },
+        { "corner": "Bottom", "deg": 33.1 }
+      ],
+      "bevels": [
+        { "edge": "Upper sloped edge", "deg": 15.4 },
+        { "edge": "Lower sloped edge", "deg": 15.4 },
+        { "edge": "Vertical cut edge", "deg": 0 }
+      ]
+    }
+  ],
+  "geometryChecks": {
+    "method": "For a rhombus of side s with printed mid-width (short diagonal) d, the spanned corner angle is 2*asin((d/2)/s); the saw miter (off 90 deg) must equal |90 - that angle| or |90 - (180 - that angle)|. Computed from the imperial figures with s = 56 in.",
+    "toleranceDeg": 0.3,
+    "bands": [
+      { "band": "z1", "printedMiterDeg": 60, "computedMiterDeg": 59.99, "deltaDeg": 0.01, "pass": true },
+      { "band": "z2", "printedMiterDeg": 31, "computedMiterDeg": 30.97, "deltaDeg": 0.03, "pass": true },
+      { "band": "z3", "printedMiterDeg": 4.7, "computedMiterDeg": 4.63, "deltaDeg": 0.07, "pass": true },
+      { "band": "z4", "printedMiterDeg": 15.6, "computedMiterDeg": 15.66, "deltaDeg": 0.06, "pass": true },
+      { "band": "z5", "printedMiterDeg": 23.8, "computedMiterDeg": 23.91, "deltaDeg": 0.11, "pass": true }
+    ],
+    "specialPanels": [
+      { "panel": "z5-half", "check": "Miters 33.1 / 23.8 / 33.1 give interior angles 56.9 / 66.2 / 56.9 (sum 180). Third side computed 1554 mm - matches the printed 5'-1 3/16\" / 1554 mm.", "pass": true },
+      { "panel": "z4-half-base", "check": "Miters 15.6 / 52.8 / 52.8 give interior angles 105.6 / 37.2 / 37.2 (sum 180). With base 7'-5 1/4\" / 2267 mm the equal sides must be 4' 8\" / 1423 mm, not the printed 5'-6 3/8\" / 1686 mm.", "pass": false }
+    ],
+    "metricCrossCheck": "Every metric mid-length and side length re-checks to within 1 mm of the imperial value, and the metric miter computation reproduces the same results.",
+    "conclusion": "All five rhombus bands are internally consistent. The only dimensional error found is the z4 half (base) side length."
+  },
+  "panelCounts": {
+    "statedOnPlan": { "struts": 206, "regularPanels": 44, "specialPanels": 10 },
+    "sumOfListedQuantities": { "regularPanels": 44, "specialPanels": 10 },
+    "note": "Totals agree with the itemised list on this model (unlike the 20' set)."
+  },
+  "baseSections": [
+    {
+      "variant": "Non-beveled method (only variant drawn)",
+      "qty": 8,
+      "bottomPlate": [
+        { "measure": "Long to long, 18 deg miter", "imperial": "7'-7 3/16\"", "metric": "2316 mm" },
+        { "measure": "Short to short, 18 deg miter", "imperial": "7'-4 15/16\"", "metric": "2259 mm" }
+      ],
+      "topPlate": [
+        { "measure": "Long to long, 18 deg miter, 8 deg bevel", "imperial": "7'-7 3/16\"", "metric": "2316 mm" },
+        { "measure": "Short to short, 18 deg miter, 8 deg bevel", "imperial": "7'-4 3/4\"", "metric": "2254 mm" }
+      ],
+      "studs": {
+        "stock": "2x6 / 38x89",
+        "qtyPerSection": 5,
+        "lengths": [
+          { "imperial": "2 1/8\"", "metric": "54 mm", "cut": "long to square, 25.4 deg miter" },
+          { "imperial": "1 1/4\"", "metric": "32 mm", "cut": "long to square, 25.4 deg miter" }
+        ],
+        "note": "The imperial sheet says (2x6) while the metric sheet says (38x89) - the two are not the same section. Ripped material may also be used for the studs."
+      },
+      "sheathing": { "length": { "imperial": "7'-7 3/16\"", "metric": "2316 mm" }, "height": { "imperial": "3 1/4\"", "metric": "83 mm" } },
+      "miterAngles": [ { "corner": "Each end", "deg": 18 } ],
+      "topPlateBevelDeg": 8,
+      "scalingNote": "If you scale the plans or use deeper material, use the short-to-short measurement."
+    }
+  ],
+  "baseLayout": {
+    "sides": 10,
+    "sectionsBuilt": 8,
+    "note": "Decagon footprint. Only 8 base sections are listed because the gabled doorway assembly occupies two of the ten bays (the base-sections sheet marks the gap '(Door)'). The 10-sided geometry is confirmed by the printed dimensions: 7'-6 1/2\" / sin(18 deg) = 24'-4 7/8\".",
+    "inToIn": null,
+    "inToInNote": "The plans give only an outside-to-outside dimension and the single bay length.",
+    "variants": [
+      {
+        "variant": "Non-beveled method",
+        "outsideToOutside": { "imperial": "24'-4 7/8\"", "metric": "7439 mm" },
+        "sectionLength": { "imperial": "7'-6 1/2\"", "metric": "2299 mm" }
+      }
+    ]
+  },
+  "door": {
+    "style": "Framed gable dormer with two roof planes each side, built from five panel types (A-E) plus a header",
+    "header": { "part": "Header (double 2x6 / double 38x140)", "qty": 1, "imperial": "6'-3\"", "metric": "1905 mm" },
+    "trimmerStuds": { "qty": 2, "imperial": "6'-8\"", "metric": "2032 mm" },
+    "panels": [
+      {
+        "id": "A",
+        "name": "Roof Panel A",
+        "type": "roof panel",
+        "cutList": [
+          { "part": "Plates", "qty": 2, "imperial": "1'-8 1/8\"", "metric": "511 mm" },
+          { "part": "Studs / joists", "qty": 2, "imperial": "5'-2 5/8\"", "metric": "1591 mm", "cut": "Long to Sq 28.5 deg" }
+        ],
+        "sheathing": {
+          "height": { "imperial": "5'-5 7/8\"", "metric": "1673 mm" },
+          "width": { "imperial": "1'-9 1/8\"", "metric": "537 mm" },
+          "area": { "imperial": "11 sq ft", "metric": "1.1 sq m", "note": "soffit and roof sheathing / roof" }
+        },
+        "angles": [ { "name": "End cut", "deg": 28.5 } ],
+        "fasciaOverhang": { "imperial": "1\"", "metric": "25 mm" }
+      },
+      {
+        "id": "B",
+        "name": "Roof Panel B",
+        "type": "roof panel",
+        "cutList": [
+          { "part": "Plates", "qty": 2, "imperial": "1'-8 1/8\"", "metric": "511 mm" },
+          { "part": "Studs / joists", "qty": 2, "imperial": "4'-4 5/8\"", "metric": "1337 mm", "cut": "Long to Sq 28.5 deg" }
+        ],
+        "sheathing": {
+          "height": { "imperial": "4'-7 13/16\"", "metric": "1418 mm" },
+          "width": { "imperial": "1'-9 1/8\"", "metric": "537 mm" },
+          "area": { "imperial": "10 sq ft", "metric": "1 sq m", "note": "soffit and roof sheathing / roof" }
+        },
+        "angles": [ { "name": "End cut", "deg": 28.5 } ],
+        "fasciaOverhang": { "imperial": "1\"", "metric": "25 mm" }
+      },
+      {
+        "id": "C",
+        "name": "Roof Panel C",
+        "type": "roof panel",
+        "cutList": [
+          { "part": "Plate", "qty": 1, "imperial": "1'-8 15/16\"", "metric": null, "cut": "L to Sq, 30 deg bevel", "metricNote": "The metric sheet reprints this whole cut list in imperial - see pdfIssues. 1'-8 15/16\" is approximately 532 mm." },
+          { "part": "Plate", "qty": 1, "imperial": "3'-11 3/16\"", "metric": null, "cut": "L to Sq, 20 deg miter, 22.5 bevel", "metricNote": "approximately 1199 mm" },
+          { "part": "Studs / joists", "qty": 2, "imperial": "3'-9 1/8\"", "metric": null, "cut": "Long to Sq 39 deg", "metricNote": "approximately 1146 mm" },
+          { "part": "Stud / joist", "qty": 1, "imperial": "4'-3 7/8\"", "metric": null, "cut": "Long to Short, 0 deg miter 30 deg bevel to 39 miter 30 bevel", "metricNote": "approximately 1318 mm" }
+        ],
+        "frameDimensions": [
+          { "name": "Top edge", "imperial": "3'-11 3/16\"", "metric": "1199 mm" },
+          { "name": "Outer edge", "imperial": "3'-11 13/16\"", "metric": "1214 mm" },
+          { "name": "Long sloped edge", "imperial": "4'-4 11/16\"", "metric": "1338 mm" },
+          { "name": "Width", "imperial": "1'-8 1/8\"", "metric": "511 mm" }
+        ],
+        "sheathing": {
+          "top": { "imperial": "4'- 1/2\"", "metric": "1232 mm" },
+          "height": { "imperial": "4'- 9/16\"", "metric": "1233 mm", "note": "Imperial sheet prints this as '4- 9/16\"' with no foot mark; the metric 1233 confirms it means 4'-9/16\"." },
+          "slantEdge": { "imperial": "4'-7 13/16\"", "metric": "1418 mm" },
+          "bottom": { "imperial": "1'-9 1/8\"", "metric": "594 mm", "note": "MISMATCH: 1'-9 1/8\" is 537 mm, not 594 mm. Reconstructing the quadrilateral from the other three printed sides gives about 532 mm, so the imperial value looks right and the metric 594 looks wrong. See pdfIssues." },
+          "area": { "imperial": "14 sq ft", "metric": null, "metricNote": "The metric sheet also leaves this as '14 sq ft'." }
+        },
+        "angles": [ { "name": "Rafter end", "deg": 39 }, { "name": "Sheathing corner", "deg": 30 } ],
+        "fasciaOverhang": { "imperial": "1\"", "metric": "25 mm" }
+      },
+      {
+        "id": "D",
+        "name": "Wall Panel D",
+        "type": "wall panel",
+        "qtyNote": "Drawn once; the exploded doorway view (p14) shows a mirrored pair.",
+        "cutList": [
+          { "part": "Plate", "qty": 1, "imperial": "3'-7 5/8\"", "metric": "1108 mm" },
+          { "part": "Plate", "qty": 1, "imperial": "4'-6 1/16\"", "metric": "1373 mm", "cut": "L to Short 33 deg" },
+          { "part": "Stud / joist", "qty": 1, "imperial": "5'-1 11/16\"", "metric": "1567 mm", "cut": "Long to Sq 33 deg" },
+          { "part": "Stud / joist", "qty": 1, "imperial": "6'-4 13/16\"", "metric": "1951 mm", "cut": "Long to Sq 33 deg" },
+          { "part": "Stud / joist", "qty": 1, "imperial": "7-5 1/8\"", "metric": "2264 mm", "cut": "Long to Sq 33 deg", "note": "Imperial printed without the foot mark; metric 2264 confirms 7'-5 1/8\"." },
+          { "part": "Stud / joist", "qty": 1, "imperial": "6 1/8\"", "metric": "156 mm", "cut": "Long to Sq 33 deg" }
+        ],
+        "frameDimensions": [
+          { "name": "Bottom plate", "imperial": "3'-7 5/8\"", "metric": "1108 mm" },
+          { "name": "Overall width including sloped top", "imperial": "3'-9 15/16\"", "metric": "1167 mm" },
+          { "name": "Stud position from left", "imperial": "1'-11 1/4\"", "metric": "591 mm" },
+          { "name": "Short sloped run", "imperial": "2'-3 3/4\"", "metric": "705 mm" },
+          { "name": "Long sloped run", "imperial": "4'-2 1/4\"", "metric": "1277 mm" },
+          { "name": "Overall height", "imperial": null, "metric": "2376 mm", "note": "The imperial sheet does not label this height; only the metric sheet does." }
+        ],
+        "reliefCut": [
+          { "name": "Horizontal", "imperial": "11/16\"", "metric": "17 mm" },
+          { "name": "Vertical", "imperial": "3/4\"", "metric": "19 mm" }
+        ],
+        "sheathingArea": { "imperial": "32 sq ft", "metric": "3.5 sq m" },
+        "note": "Plans suggest leaving the sheathing long to catch the header and trimmer."
+      },
+      {
+        "id": "E",
+        "name": "Wall Panel E",
+        "type": "wall panel (gable triangle over the door)",
+        "qty": 1,
+        "cutList": [
+          { "part": "Plate", "qty": 1, "imperial": "5'-11 7/16\"", "metric": "1815 mm" },
+          { "part": "Plates", "qty": 2, "imperial": "3'-9 7/8\"", "metric": "1165 mm", "cut": "L to Short 39 deg" },
+          { "part": "Studs / joists", "qty": 2, "imperial": "5 13/16\"", "metric": "147 mm", "cut": "Long to Sq 39 deg" },
+          { "part": "Studs / joists", "qty": 2, "imperial": "1'-2 11/16\"", "metric": "373 mm", "cut": "Long to Sq 39 deg" },
+          { "part": "Studs / joists", "qty": 2, "imperial": "2'-9 7/16\"", "metric": "849 mm", "cut": "Long to Sq 39 deg" }
+        ],
+        "frameDimensions": [
+          { "name": "Bottom plate", "imperial": "5'-11 7/16\"", "metric": "1815 mm" },
+          { "name": "Sloped top plate", "imperial": "3'-9 7/16\"", "metric": "1155 mm" },
+          { "name": "Sloped run to first stud", "imperial": "1'-2 1/8\"", "metric": "358 mm" },
+          { "name": "End stud height", "imperial": "5 13/16\"", "metric": "147 mm" },
+          { "name": "Second stud height", "imperial": "1'-2 11/16\"", "metric": "373 mm" },
+          { "name": "Third stud height", "imperial": "2'-9 7/16\"", "metric": "850 mm" },
+          { "name": "Apex height", "imperial": "3'- 5/8\"", "metric": "930 mm" },
+          { "name": "End height", "imperial": "8\"", "metric": "204 mm" },
+          { "name": "First bay width", "imperial": "11\"", "metric": "279 mm" }
+        ],
+        "reliefCut": [
+          { "name": "Left", "imperial": "7/16\"", "metric": "11 mm" },
+          { "name": "Right", "imperial": "1/4\"", "metric": "6 mm" }
+        ],
+        "sheathingArea": { "imperial": "10 sq ft", "metric": "1 sq m" }
+      }
+    ]
+  },
+  "deck": {
+    "sections": 10,
+    "note": "Optional deck / floor platform, one variant only (non-beveled method). Blocking joists are 2' / 610 mm on centre. Member lengths assume standard 1 1/2\" / 38 mm material. Foundation hardware details depend on site conditions.",
+    "cutListMetricNote": "The metric edition reprints this cut list unconverted, so every metric value below is null. metricConverted is arithmetic done here for convenience, NOT a printed plan value.",
+    "cutList": [
+      { "qty": 10, "imperial": "7'-6 1/2\"", "metric": null, "metricConverted": "2299 mm", "cut": "long to long, 18 deg" },
+      { "qty": 10, "imperial": "11'-10 5/16\"", "metric": null, "metricConverted": "3616 mm", "cut": "L to L, 18 deg to 54 deg" },
+      { "qty": 10, "imperial": "12'- 7/8\"", "metric": null, "metricConverted": "3679 mm", "cut": "L to L, 18 deg to 54 deg" },
+      { "qty": 10, "imperial": "6'- 1/4\"", "metric": null, "metricConverted": "1835 mm", "cut": "L to L, 18 deg" },
+      { "qty": 10, "imperial": "4'-8 5/8\"", "metric": null, "metricConverted": "1438 mm", "cut": "L to L, 18 deg" },
+      { "qty": 10, "imperial": "3'-5 1/16\"", "metric": null, "metricConverted": "1043 mm", "cut": "L to L, 18 deg" },
+      { "qty": 10, "imperial": "2'-1 7/16\"", "metric": null, "metricConverted": "646 mm", "cut": "L to L, 18 deg" },
+      { "qty": 10, "imperial": "9 13/16\"", "metric": null, "metricConverted": "249 mm", "cut": "L to L, 18 deg" }
+    ],
+    "sectionDimensions": [
+      { "name": "Outer edge (base of the pie section)", "imperial": "7'-6 1/2\"", "metric": "2299 mm" },
+      { "name": "Long side to outer corner", "imperial": "12'-2 7/16\"", "metric": "3720 mm" },
+      { "name": "Blocking joist run 4", "imperial": "8'- 3/4\"", "metric": "2458 mm" },
+      { "name": "Blocking joist run 3", "imperial": "3'-10 5/16\"", "metric": "1176 mm" },
+      { "name": "Blocking joist run 1", "imperial": "1'-9 1/16\"", "metric": "535 mm" },
+      { "name": "Blocking joist run 2 (opposite side)", "imperial": "5'-11 1/2\"", "metric": "1817 mm" },
+      { "name": "Blocking joist run 5 (opposite side)", "imperial": "10'-2\"", "metric": "3099 mm" }
+    ],
+    "sheeting": "Each pie section takes one full sheet centred plus a half sheet; the off-cuts fill the tip."
+  },
+  "entryDeck": {
+    "qty": 1,
+    "shape": "Shallow V in plan, framed to the two door-side base bays",
+    "cutList": [
+      { "qty": 1, "imperial": "14'-1 3/16\"", "metric": "4297 mm" },
+      { "qty": 2, "imperial": "6'-11 1/16\"", "metric": "2110 mm" },
+      { "qty": 2, "imperial": "3'-8 1/4\"", "metric": "1124 mm", "cut": "L to Sq 18 deg" },
+      { "qty": 2, "imperial": "7'-4 15/16\"", "metric": "2259 mm", "cut": "L to Short 18 deg" },
+      { "qty": 2, "imperial": "1'-3 3/4\"", "metric": "400 mm", "cut": "L to Sq 18 deg" },
+      { "qty": 2, "imperial": "1'-7 5/8\"", "metric": "498 mm", "cut": "L to Sq 18 deg" },
+      { "qty": 2, "imperial": "2'-3 3/8\"", "metric": "695 mm", "cut": "L to Sq 18 deg" },
+      { "qty": 2, "imperial": "2'-11 3/16\"", "metric": "894 mm", "cut": "L to Sq 18 deg" }
+    ],
+    "dimensions": [
+      { "name": "Overall length", "imperial": "14'-1 3/16\"", "metric": "4297 mm" },
+      { "name": "Depth at the outer ends", "imperial": "3'-11 5/16\"", "metric": "1203 mm" },
+      { "name": "Depth at the centre notch", "imperial": "1'-7 7/8\"", "metric": "504 mm" },
+      { "name": "Sloped edge each half", "imperial": "7'-4 15/16\"", "metric": "2259 mm" },
+      { "name": "Joist spacing", "imperial": "2' OC", "metric": "610 mm OC" }
+    ]
+  },
+  "windows": {
+    "present": false,
+    "note": "Unlike the 20' set, the 25' plans contain no window / skylight curb sheet. The sheet-layout sheets show every panel as solid or polycarbonate; glazing is left to the builder."
+  },
+  "materials": {
+    "frame": [
+      { "item": "Frame panels", "qty": 115, "imperial": "2x4x10", "metric": "38x89x3m" },
+      { "item": "Base", "qty": 20, "imperial": "2x4x8", "metric": "38x89x2.44m" },
+      { "item": "Base", "qty": 3, "imperial": "2x6x8", "metric": "38x140x2.44m" }
+    ],
+    "envelope": {
+      "imperial": "1200 sq ft roofing / sheathing / insulation / interior cladding / polycarbonate",
+      "metric": "111 sq m roofing / sheathing / insulation / interior cladding / polycarbonate"
+    },
+    "frameFasteners": [
+      { "item": "Structural screws (struts to panel)", "qty": 750, "imperial": "3 1/2\"", "metric": "89 mm" },
+      { "item": "Structural screws (panel to panel)", "qty": 750, "imperial": "3\"", "metric": "75 mm" },
+      { "item": "Sheathing screws / nails", "qty": 1500, "note": "sized for sheathing" }
+    ],
+    "deck": [
+      { "item": "Joists and rim", "qty": 20, "imperial": "2x6x16'", "metric": "38x140x4.88m" },
+      { "item": "Blocking joists", "qty": 30, "imperial": "2x6x8'", "metric": "38x140x2.44m" },
+      { "item": "Subfloor sheets or T&G", "qty": 16, "imperial": "~450 sq ft t&G", "metric": "~42 sq m t&G" },
+      { "item": "Post / pier assemblies", "qty": 21 },
+      { "item": "Subfloor screws", "qty": 700, "imperial": "2 1/2\"", "metric": "64 mm" },
+      { "item": "Framing screws / nails", "qty": 750, "imperial": "3 1/2\"", "metric": "89 mm" }
+    ],
+    "door": [
+      { "item": "Sheets cdx (siding / interior cladding / soffit)", "qty": 6, "imperial": "1/2\" cdx, or 170 sq ft", "metric": "13mm cdx, or 16 sq m" },
+      { "item": "Door roof covering", "imperial": "60 sq ft", "metric": "5.5 sq m" },
+      { "item": "Door framing", "qty": 20, "imperial": "2x4x10", "metric": "38x89x3m" }
+    ],
+    "entryDeck": [
+      { "item": "Joists and rim", "qty": 5, "imperial": "2x6x12'", "metric": "38x140x3.66m" },
+      { "item": "Decking", "imperial": "20 sq ft", "metric": "2 sq m" },
+      { "item": "Post / pier assemblies", "qty": 2 }
+    ]
+  },
+  "tools": [
+    "Tape measurer",
+    "6' straight edge or chalk line (metric sheet: 2 m)",
+    "Drill (impact driver also very nice)",
+    "Circular saw or jigsaw",
+    "Miter saw (bevel; dual bevel better)",
+    "Counter sink drill bit",
+    "2-6 quick clamps (more the merrier)",
+    "Table saw (not needed if using unripped lumber)",
+    "Stapler for film (preferably pneumatic / electric)",
+    "Utility knife",
+    "Hand saw (for wood)",
+    "Digital angle finder"
+  ],
+  "componentList": {
+    "struts": 206,
+    "regularPanels": 44,
+    "specialPanels": 10,
+    "byType": { "z1": 10, "z2": 10, "z3": 9, "z4": 8, "z5": 7 },
+    "specials": { "z4 half horiz": 8, "z5.5": 2 },
+    "baseSections": 8
+  },
+  "sheetLayout": {
+    "note": "Covering this zome with conventional sheet material will result in seams mid panel - not an issue if roofing goes over it. For greenhouse sheet material the plans recommend extra wide and long reel stock polycarbonate; Trillium offer help sourcing oversized material.",
+    "options": [
+      { "material": "Plywood", "qty": 38, "imperial": "4x8 sheets", "metric": "1.22m x 2.44m sheets" },
+      { "material": "Polycarbonate, panels split in half", "qty": 17, "imperial": "76\" x 150\"", "metric": "1.93m x 3.810m" },
+      { "material": "Polycarbonate", "qty": 28, "imperial": "48\" x 144\"", "metric": "1.22m x 3.66m" }
+    ]
+  },
+  "materialsCosts": {
+    "source": "Zome_Materials_Costs.xlsx, tab '7.5m Zome', shipped in the same download folder (AllZomesBundle-TrilliumDomes+3D).",
+    "sourceNote": "This spreadsheet is a companion/estimating file, not part of the PDF plan set. It self-describes its prices as 'editable CAD estimates (BC big-box, 2026)'. There is no invoice date or supplier attached, so treat all prices as undated placeholders and re-quote locally.",
+    "currency": "CAD",
+    "basis": "Quantities taken from the Tools & Materials page of the metric plan. Excludes labor, tools, glazing hardware, finishes, foundation concrete and delivery. Envelope lines are per-square-metre allowances.",
+    "headline": {
+      "keyDimensions": "7.87 m dia x 5.03 m tall (incl deck + door)",
+      "floorAreaSqM": 40,
+      "surfaceAreaSqM": 111,
+      "estimatedMaterialsTotal": 9924.5,
+      "costPerSqMFloor": 248.11
+    },
+    "lineItems": [
+      { "group": "Frame & Structure", "item": "38x89 x 3m KD lumber (2x4x10')", "spec": "Frame panels", "qty": 115, "unit": "pc", "unitPrice": 8, "lineTotal": 920 },
+      { "group": "Frame & Structure", "item": "38x89 x 2.44m KD lumber (2x4x8')", "spec": "Base", "qty": 20, "unit": "pc", "unitPrice": 6, "lineTotal": 120 },
+      { "group": "Frame & Structure", "item": "38x140 x 2.44m KD lumber (2x6x8')", "spec": "Base", "qty": 3, "unit": "pc", "unitPrice": 9.5, "lineTotal": 28.5 },
+      { "group": "Envelope", "item": "Roofing / sheathing / insulation / interior cladding / polycarbonate", "spec": "Allowance per m2 (plan: 111 m2)", "qty": 111, "unit": "m2", "unitPrice": 45, "lineTotal": 4995 },
+      { "group": "Frame Fasteners", "item": "89mm structural screws", "spec": "Struts-to-panel; per plan: 750", "qty": 750, "unit": "ea", "unitPrice": 0.18, "lineTotal": 135 },
+      { "group": "Frame Fasteners", "item": "75mm structural screws", "spec": "Panel-to-panel; per plan: 750", "qty": 750, "unit": "ea", "unitPrice": 0.12, "lineTotal": 90 },
+      { "group": "Frame Fasteners", "item": "Sheathing screws / nails", "spec": "Sized for sheathing; per plan: 1500", "qty": 1500, "unit": "ea", "unitPrice": 0.05, "lineTotal": 75 },
+      { "group": "Deck", "item": "38x140 x 4.88m KD lumber (2x6x16')", "spec": "Joists and rim", "qty": 20, "unit": "pc", "unitPrice": 21, "lineTotal": 420 },
+      { "group": "Deck", "item": "38x140 x 2.44m KD lumber (2x6x8')", "spec": "Blocking joists", "qty": 30, "unit": "pc", "unitPrice": 9.5, "lineTotal": 285 },
+      { "group": "Deck", "item": "Subfloor sheet, 1.22 x 2.44 m", "spec": "Plan: 16 sheets or ~42 m2 T&G", "qty": 16, "unit": "sheet", "unitPrice": 60, "lineTotal": 960 },
+      { "group": "Deck", "item": "Post / pier assembly", "spec": "Pier block + post + hardware", "qty": 21, "unit": "ea", "unitPrice": 35, "lineTotal": 735 },
+      { "group": "Deck", "item": "64mm subfloor screws", "spec": "Per plan: 700", "qty": 700, "unit": "ea", "unitPrice": 0.08, "lineTotal": 56 },
+      { "group": "Deck", "item": "89mm framing screws / nails", "spec": "Per plan: 750", "qty": 750, "unit": "ea", "unitPrice": 0.18, "lineTotal": 135 },
+      { "group": "Door", "item": "CDX plywood 13mm (1/2\"), 1.22 x 2.44 m sheet", "spec": "Plan: 6 sheets or 16 m2 siding / cladding / soffit", "qty": 6, "unit": "sheet", "unitPrice": 55, "lineTotal": 330 },
+      { "group": "Door", "item": "Door roof covering", "spec": "Allowance per m2 (plan: 5.5 m2)", "qty": 5.5, "unit": "m2", "unitPrice": 45, "lineTotal": 247.5 },
+      { "group": "Door", "item": "38x89 x 3m KD lumber (2x4x10')", "spec": "Door framing", "qty": 20, "unit": "pc", "unitPrice": 8, "lineTotal": 160 },
+      { "group": "Entry Deck", "item": "38x140 x 3.66m KD lumber (2x6x12')", "spec": "Joists and rim", "qty": 5, "unit": "pc", "unitPrice": 14.5, "lineTotal": 72.5 },
+      { "group": "Entry Deck", "item": "Decking", "spec": "Allowance per m2 (plan: 2 m2)", "qty": 2, "unit": "m2", "unitPrice": 45, "lineTotal": 90 },
+      { "group": "Entry Deck", "item": "Post / pier assembly", "spec": null, "qty": 2, "unit": "ea", "unitPrice": 35, "lineTotal": 70 }
+    ],
+    "subtotals": {
+      "frameAndStructure": 1068.5,
+      "envelope": 4995,
+      "frameFasteners": 300,
+      "deck": 2591,
+      "door": 737.5,
+      "entryDeck": 232.5
+    },
+    "total": 9924.5
+  },
+  "pdfIssues": [
+    {
+      "sheet": "Special Panels (p7), BOTH units",
+      "issue": "The z4 half (base) triangle has its two equal sloped sides dimensioned 5'-6 3/8\" / 1686 mm. That is impossible for this panel: with the printed base of 7'-5 1/4\" / 2267 mm and the printed miters (15.6 apex, 52.8 base), the equal sides must be 4' 8\" / 1423 mm - the strut length, exactly as on the 20' and 30' sheets. 5'-6 3/8\" / 1686 mm is precisely the 30' / 9m zome's strut length, so this is a copy-paste from the 30' plan set.",
+      "correctedValue": { "imperial": "4' 8\"", "metric": "1423 mm" },
+      "severity": "major - would produce 8 unusable base panels if cut as printed"
+    },
+    {
+      "sheet": "Deck (p9), METRIC edition",
+      "issue": "The entire deck cut list is still in imperial (7'-6 1/2\", 11'-10 5/16\", 12'- 7/8\", 6'- 1/4\", 4'-8 5/8\", 3'-5 1/16\", 2'-1 7/16\", 9 13/16\") and the note reads 'Blocking Joists are 2' on center'. The deck drawing on the next sheet IS metric, so the two sheets disagree in units.",
+      "severity": "moderate - metric-only builders have no converted deck cut list"
+    },
+    {
+      "sheet": "Doorway Roof Panel C (p17), METRIC edition",
+      "issue": "The Roof Panel C cut list is still in imperial (1'-8 15/16\", 3'-11 3/16\", 3'-9 1/8\", 4'-3 7/8\") and the area is still '14 sq ft', even though the drawing beside it is fully metric.",
+      "severity": "moderate - metric-only builders have no converted values for this panel"
+    },
+    {
+      "sheet": "Doorway Roof Panel C (p17), imperial vs metric",
+      "issue": "The bottom edge of the roof sheathing is 1'-9 1/8\" (537 mm) on the imperial sheet but 594 mm on the metric sheet. Rebuilding the quadrilateral from the other three printed edges (top 1232, height 1233, slant 1418) gives about 532 mm, so the imperial figure is the plausible one and 594 mm appears to be the error.",
+      "severity": "moderate - verify before cutting sheathing"
+    },
+    {
+      "sheet": "Doorway Wall Panel D (p18), IMPERIAL edition",
+      "issue": "A stud is printed '7-5 1/8\"' with no foot mark. The metric 2264 mm confirms it means 7'-5 1/8\".",
+      "severity": "minor - typographic"
+    },
+    {
+      "sheet": "Doorway Roof Panel C (p17), IMPERIAL edition",
+      "issue": "The sheathing height is printed '4- 9/16\"' with no foot mark. The metric 1233 mm confirms it means 4'- 9/16\".",
+      "severity": "minor - typographic"
+    },
+    {
+      "sheet": "Doorway Wall Panel D (p18)",
+      "issue": "The overall panel height (2376 mm) is dimensioned only on the metric sheet; the imperial sheet leaves that dimension off.",
+      "severity": "minor - missing dimension in one edition"
+    },
+    {
+      "sheet": "Base Sections (p7)",
+      "issue": "The stud stock is described as '(2x6)' on the imperial sheet and '(38x89)' on the metric sheet. 2x6 is 38x140, so the two editions call for different material for the same part. The stud lengths themselves (2 1/8\" / 54 and 1 1/4\" / 32) do match.",
+      "severity": "moderate - conflicting material call-out"
+    },
+    {
+      "sheet": "Whole plan set",
+      "issue": "No finished door rough-opening size is published anywhere. The only door numbers are the 6'-3\" / 1905 mm double header and the 6'-8\" / 2032 mm trimmer studs.",
+      "severity": "informational"
+    },
+    {
+      "sheet": "Base Sections (p7) / Base Layout (p8)",
+      "issue": "The component list calls for 8 base sections but the base layout is a 10-sided decagon. The two missing bays are taken up by the doorway assembly (the base-sections drawing labels the gap '(Door)'), but the plans never say this explicitly.",
+      "severity": "informational"
+    },
+    {
+      "sheet": "Model Specific Notes (p3) / Regular Panel Dimensions (p6)",
+      "issue": "The bevel-angle rows are still printed in the panel table even though this model is explicitly to be built by the non-beveled method, and the drawing note says '(Bevel angle not used for non beveled method)'. Recorded here for completeness in case a builder scales down and uses the beveled method.",
+      "severity": "informational"
+    }
+  ]
+}

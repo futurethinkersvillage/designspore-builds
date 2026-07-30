@@ -1,0 +1,345 @@
+{
+  "key": "t-4v40a",
+  "label": "40' / 12 m — 4V Configuration One",
+  "family": "dome",
+  "params": {
+    "type": "dome",
+    "diameterFt": 38.3,
+    "frequency": 4,
+    "fraction": 0.375,
+    "riserFt": 3.55
+  },
+  "planNote": "The 40' / 12 m sheet documents TWO configurations from one panel set. This file is Configuration One — the low-profile shell on a 3'6\" pony wall. Both configurations use the Deep Frame Method: the struts are FULL 2x6 on edge (1 1/2\" x 5 1/2\" / 38 x 140 mm), not the ripped 1 5/16\" x 1 1/2\" stock the smaller 4V plans use, so every end cut is a compound miter-and-bevel. Build from these printed dimensions — the app's generated 3D model uses a standard Class I 4V breakdown and its computed dimensions differ.",
+  "overview": {
+    "diameterFt": "40'",
+    "widthAtBase": "38'-1 1/4\"",
+    "height": "18'-6 1/8\"",
+    "bigDoorWidth": "6'-0\"",
+    "bigDoorHeight": "6'-8\"",
+    "metric": {
+      "widthAtBase": "11614 mm",
+      "height": "5642 mm",
+      "bigDoorWidth": "1829 mm",
+      "bigDoorHeight": "2032 mm"
+    },
+    "summary": "Configuration One of the 40-foot (12 m) 4V dome: a low-profile shell — 38'-1 1/4\" (11614 mm) wide and 18'-6 1/8\" (5642 mm) tall overall — sitting on a framed pony wall dimensioned 3'-5 7/8\" (1064 mm) on the front elevation. The shell is 113 regular panels in the same four shapes as the other 4V plans (60 Hexagon, 25 Pentagon, 23 Triangle 1, 5 Triangle 2) plus 3 special panels for the doorway: a mirrored pair of Partial Triangle 1 panels and one Door Header Panel. Every member is a full 2x6 stood on edge — the Deep Frame Method — so each strut end carries both a miter (the flat setting) and a bevel (the tilt setting), and the plan gives both for every end. The doorway is a framed porch that projects from the pony wall: two mirrored side walls, a doorway wall carrying a 6'-0\" x 6'-8\" opening under a triple 6'-3\" header, and a 2x6 awning roof. The sheet also gives two alternative floor systems (radial and conventional), a doorway deck, and an optional five-sided cupola at the crown. Printed areas: dome surface 700 sq ft (65 sq m), wall surface 440 sq ft (41 sq m), floor surface 1150 sq ft (107 sq m)."
+  },
+  "materials": [
+    { "qty": "700 sq ft", "item": "cover material / roofing / insulation / cladding — dome frame", "metricItem": "65 sq m cover material / roofing / insulation / cladding" },
+    { "qty": "175", "item": "2x6x12' — dome frame", "metricItem": "175 of 38 mm x 140 mm x 3.6 m" },
+    { "qty": "750", "item": "3 1/2\" GRK R4 (or equivalent) screw", "metricItem": "750 of 90 mm GRK R4 (or equivalent) screw" },
+    { "qty": "1000", "item": "3\" #14 structural lag screw (or 175 through bolt/nut)", "metricItem": "1000 of 70 mm #14 structural lag screw (or 175 through bolt/nut)" },
+    { "qty": "440 sq ft", "item": "sheathing / siding — pony wall", "metricItem": "41 sq m sheathing / siding" },
+    { "qty": "80", "item": "2x6x10 — pony wall", "metricItem": "80 of 38 mm x 140 mm x 3 m" },
+    { "qty": "20", "item": "2x10x16' regular joists — floor, radial system", "metricItem": "20 of 38 mm x 235 mm x 4.8 m" },
+    { "qty": "20", "item": "2x10x12' mid span joists — floor, radial system", "metricItem": "20 of 38 mm x 235 mm x 3.6 m" },
+    { "qty": "10", "item": "2x10x12' rim — floor, radial system", "metricItem": "10 of 38 mm x 235 mm x 3.6 m" },
+    { "qty": "22", "item": "2x10x10' blocking — floor, radial system", "metricItem": "22 of 38 mm x 235 mm x 3.2 m" },
+    { "qty": "10", "item": "4x6x12' outer girder — floor, radial system", "metricItem": "10 of 89 mm x 140 mm x 3.6 m", "note": "p18 calls these 4x10 girders — see pdfIssues" },
+    { "qty": "3", "item": "4x6x14' inner girders — floor, radial system", "metricItem": "3 of 89 mm x 140 mm x 4 m", "note": "p18 calls these 4x10 girders — see pdfIssues" },
+    { "qty": "40", "item": "4x8 sheets subfloor — floor, radial system", "metricItem": "40 of 1.2 m x 2.4 m sheets subfloor" },
+    { "qty": "1500", "item": "screws subfloor — floor, radial system" },
+    { "qty": "13", "item": "post and base assemblies — floor, radial system", "note": "p18 says 16 post / pier assemblies — see pdfIssues" },
+    { "qty": "55", "item": "2x10x12' — floor, conventional frame", "metricItem": "55 of 38 mm x 235 mm x 3.6 m" },
+    { "qty": "28", "item": "2x10x16' — floor, conventional frame", "metricItem": "28 of 38 mm x 235 mm x 4.8 m" },
+    { "qty": "40", "item": "4x8 sheets subfloor — floor, conventional frame", "metricItem": "40 of 1.2 m x 2.4 m sheets subfloor" },
+    { "qty": "1500", "item": "screws subfloor — floor, conventional frame" },
+    { "qty": "28", "item": "post and base assemblies — floor, conventional frame" },
+    { "qty": "126 sq ft", "item": "sheathing / siding / cladding — doorway", "metricItem": "107 sq m sheathing / siding / cladding", "note": "the metric figure is wrong — 126 sq ft is about 11.7 sq m; see pdfIssues" },
+    { "qty": "15", "item": "2x6x8 — doorway", "metricItem": "15 of 38 mm x 140 mm x 2.4 m" },
+    { "qty": "8", "item": "2x6x10 — doorway", "metricItem": "8 of 38 mm x 140 mm x 3 m" }
+  ],
+  "components": [
+    { "qty": 113, "item": "Regular panels (total)" },
+    { "qty": 60, "item": "Hexagon panels (red)" },
+    { "qty": 25, "item": "Pentagon panels (blue)" },
+    { "qty": 23, "item": "Triangle 1 panels (green)" },
+    { "qty": 5, "item": "Triangle 2 panels (pink)" },
+    { "qty": 3, "item": "Special panels (total)" },
+    { "qty": 2, "item": "Partial Triangle 1 panels", "note": "the Special Door Triangle — 1 mirrored pair" },
+    { "qty": 1, "item": "Door Header panel" },
+    { "qty": 5, "item": "Pony wall A panels" },
+    { "qty": 4, "item": "Pony wall B panels (right hand)" },
+    { "qty": 4, "item": "Pony wall B panels (left hand)" },
+    { "qty": 4, "item": "Pony wall C panels" },
+    { "qty": 2, "item": "Pony wall Special panels, mirrored" },
+    { "qty": 2, "item": "Doorway side walls, mirrored" },
+    { "qty": 1, "item": "Doorway wall" },
+    { "qty": 1, "item": "Doorway awning roof" }
+  ],
+  "panels": [
+    {
+      "id": "hex",
+      "name": "Hexagon panel",
+      "qty": 60,
+      "edges": [
+        { "label": "Base (strut A)", "length": "6'-0 7/16\"", "mm": "1841 mm" },
+        { "label": "Side (strut B)", "length": "6'-1 3/8\"", "mm": "1863 mm" },
+        { "label": "Side (strut C)", "length": "6'-1 3/8\"", "mm": "1864 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (apex)", "deg": 30.8 },
+        { "corner": "Base left", "deg": 29.6 },
+        { "corner": "Base right", "deg": 29.6 }
+      ],
+      "note": "Six of these make one hexagon of the shell; ten hexagons in Configuration One. Isosceles as printed — the metric sheet splits the two sides 1863 / 1864 mm, which the imperial sheet cannot express at 1/16\". Angles check: 59.2 + 60.4 + 60.4 = 180, and the printed edge lengths solve to the printed miters. STRUT CUT LIST (full 2x6 on edge): A 6'-0 7/16\" (1841 mm), 8.9 miter and 28.8 bevel at both ends; B 6'-1 3/8\" (1863 mm), 8.9 miter both ends, 28.8 bevel one end / 30 bevel the other; C 6'-1 3/8\" (1864 mm), 8.9 miter both ends, 30 bevel one end / 28.8 bevel the other. The isometric gives the assembled panel long-point-to-long-point as 6'-3 1/8\" (1908 mm) on the B side, 6'-2 3/16\" (1885 mm) on the A side and 6'-3 1/8\" (1908 mm) on the C side, with a 5.1 deg average bevel and an 84.9 deg face callout."
+    },
+    {
+      "id": "pent",
+      "name": "Pentagon panel",
+      "qty": 25,
+      "edges": [
+        { "label": "Base (strut A)", "length": "5'-5\"", "mm": "1651 mm" },
+        { "label": "Side (strut B)", "length": "4'-7 11/16\"", "mm": "1415 mm" },
+        { "label": "Side (strut C)", "length": "4'-7 7/16\"", "mm": "1408 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (apex)", "deg": 18.6 },
+        { "corner": "Base left", "deg": 35.7 },
+        { "corner": "Base right", "deg": 35.7 }
+      ],
+      "note": "Five of these make one pentagon of the shell; five pentagons in Configuration One. Not quite isosceles as printed — the two sides differ by 1/4\" (7 mm) in both editions. Angles check: 71.4 + 54.3 + 54.3 = 180, and the printed edge lengths solve to within 0.25 deg of the printed miters. STRUT CUT LIST: A 5'-5\" (1651 mm), 8 miter and 35.2 bevel at both ends; B 4'-7 11/16\" (1415 mm), 6.8 miter both ends, 28.8 bevel one end / 18 bevel the other; C 4'-7 7/16\" (1408 mm), 6.8 miter both ends, 18 bevel one end / 35.2 bevel the other. Isometric long-point dimensions: 4'-9 5/16\" (1455 mm) on the B side, 5'-6 7/8\" (1698 mm) on the A side, 4'-9 5/16\" (1455 mm) on the C side; 5.1 deg average bevel, 84.9 deg face callout."
+    },
+    {
+      "id": "tri1",
+      "name": "Triangle 1 panel",
+      "qty": 23,
+      "edges": [
+        { "label": "Base (strut A)", "length": "5'-5 3/16\"", "mm": "1656 mm" },
+        { "label": "Side (strut B)", "length": "6'-0 5/16\"", "mm": "1838 mm" },
+        { "label": "Side (strut C)", "length": "6'-0 1/2\"", "mm": "1842 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (apex)", "deg": 36.4 },
+        { "corner": "Base left", "deg": 26.8 },
+        { "corner": "Base right", "deg": 26.8 }
+      ],
+      "note": "A free-standing triangle in the shell — not part of a hexagon or pentagon. Angles check: 53.6 + 63.2 + 63.2 = 180, and the printed edge lengths solve to within 0.3 deg. STRUT CUT LIST: A 5'-5 3/16\" (1656 mm), 8 miter and 26 bevel at both ends; B 6'-0 5/16\" (1837 mm on the strut list, 1838 mm on the triangle), 8.9 miter both ends, 26 bevel one end / 35.7 bevel the other; C 6'-0 1/2\" (1842 mm), 8.9 miter both ends, 35.7 bevel one end / 26 bevel the other. Isometric long-point dimensions: 6'-2 3/16\" (1885 mm) on the B side, 5'-6 7/8\" (1698 mm) on the A side, 6'-2 3/16\" (1885 mm) on the C side; 5.1 deg average bevel, 84.9 deg face callout."
+    },
+    {
+      "id": "tri2",
+      "name": "Triangle 2 panel",
+      "qty": 5,
+      "edges": [
+        { "label": "All three sides", "length": "6'-0 1/2\"", "mm": "1840 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (apex)", "deg": 30 },
+        { "corner": "Base left", "deg": 30 },
+        { "corner": "Base right", "deg": 30 }
+      ],
+      "note": "Equilateral — every corner is 30 deg off 90 (a true 60 deg corner). STRUT CUT LIST: three identical struts, each 6'-0 7/16\" (1840 mm) with 8.9 miter and 29.2 bevel at both ends. Note the imperial sheet dimensions the triangle itself 6'-0 1/2\" but the struts 6'-0 7/16\"; the metric sheet prints 1840 mm for both. Isometric long-point dimension 6'-2 3/16\" (1885 mm) on all three sides; 5.1 deg average bevel, 84.9 deg face callout. The sheet's caption reads 'THREE IDENTENTICAL STRUTS'."
+    },
+    {
+      "id": "special-door-triangle",
+      "name": "Special Door Triangle (partial Triangle 1)",
+      "qty": 2,
+      "mirroredPair": true,
+      "parentPanel": "tri1",
+      "edges": [
+        { "label": "Short side (strut A)", "length": "4'-4 3/8\"", "mm": "1331 mm" },
+        { "label": "Long side (strut B)", "length": "6'-2 1/16\"", "mm": "1881 mm" },
+        { "label": "Third side (strut C)", "length": "5'-0 1/8\"", "mm": "1527 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Bottom left (between A and B)", "deg": 36.6 },
+        { "corner": "Bottom right (between A and C)", "deg": 8 },
+        { "corner": "Apex (between B and C)", "deg": 45.4 }
+      ],
+      "note": "A Triangle 1 panel cut down so the doorway can pass through; a mirrored pair, and the sheet shouts 'DO NOT FORGET TO MIRROR THE PANELS'. Fully self-consistent: 53.4 + 82 + 44.6 = 180, and the printed edge lengths independently solve to 36.5 / 8.0 / 45.6. The edge lengths above are the panel dimensions from the isometric (long point to long point); the struts are cut shorter. STRUT CUT LIST: A 4'-1\" (1245 mm), 8.9 miter with 35.4 bevel at one end, 17 miter with 6.7 bevel at the other; B 5'-11 15/16\" (1828 mm), 9.3 miter with 35.8 bevel at one end, 26 miter with 41.3 bevel at the other; C 5'-0 1/8\" (1527 mm), 21.5 miter with 41.3 bevel at one end, 6.6 miter with 6.4 bevel at the other."
+    },
+    {
+      "id": "door-header",
+      "name": "Door Header Panel",
+      "qty": 1,
+      "edges": [
+        { "label": "Long side (strut A)", "length": "8'-9 5/8\"", "mm": "2683 mm" },
+        { "label": "Upper side (strut B)", "length": "5'-5 1/4\"", "mm": "1658 mm" },
+        { "label": "Lower side (strut C)", "length": "5'-4 5/16\"", "mm": "1633 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (between A and B)", "deg": 54 },
+        { "corner": "Bottom (between A and C)", "deg": 54 },
+        { "corner": "Point (between B and C)", "deg": 18, "obtuse": true }
+      ],
+      "note": "The single wide panel that spans over the doorway. The 18 deg corner is OBTUSE — read as 108 deg the three printed settings close exactly (108 + 36 + 36 = 180), but they do NOT agree with the printed edge lengths, which solve to 109.2 / 35.7 / 35.1 (i.e. 19.2 obtuse / 54.3 / 54.9). The 18 is about 1.2 deg out; see pdfIssues. Printed values kept. STRUT CUT LIST: A 8'-9 9/16\" (2682 mm), 13 miter and 53.7 bevel at both ends; B 5'-5 3/4\" (1670 mm), 8 miter both ends, 53.7 bevel one end / 18.8 bevel the other, and the 18.8 end is marked 'Inverted Miter'; C 5'-4 13/16\" (1647 mm), 8 miter both ends, 19.6 bevel one end / 53.4 bevel the other, and the 19.6 end is marked 'Inverted Miter'. Isometric long-point dimensions: 9'-0 3/16\" (2747 mm), 5'-6 13/16\" (1697 mm), 5'-6 7/8\" (1698 mm)."
+    }
+  ],
+  "crossSections": [
+    {
+      "member": "Panel strut — every regular panel",
+      "width": "1 1/2\"",
+      "height": "5 1/2\"",
+      "bevelDeg": 5.1,
+      "mm": { "width": "38 mm", "height": "140 mm" },
+      "note": "Deep Frame Method: a full 2x6 stood on edge, nothing ripped. 2x6 framing timbers at a minimum (1.5 x 5.5\" / 38 x 140 mm actual). The 5.1 deg is the average lean of the frame face (the isometrics also call out the complementary 84.9 deg) — it is NOT the saw setting. Every end cut is compound: dial the printed miter on the flat and the printed bevel on the tilt."
+    },
+    { "member": "Hexagon panel — end bevels", "bevelDeg": 28.8, "note": "A 28.8 / 28.8, B 28.8 / 30, C 30 / 28.8. Miter 8.9 at every end." },
+    { "member": "Pentagon panel — end bevels", "bevelDeg": 35.2, "note": "A 35.2 / 35.2 with 8 miter, B 28.8 / 18 with 6.8 miter, C 18 / 35.2 with 6.8 miter." },
+    { "member": "Triangle 1 panel — end bevels", "bevelDeg": 26, "note": "A 26 / 26 with 8 miter, B 26 / 35.7 with 8.9 miter, C 35.7 / 26 with 8.9 miter." },
+    { "member": "Triangle 2 panel — end bevels", "bevelDeg": 29.2, "note": "29.2 bevel and 8.9 miter at every end — three identical struts." },
+    { "member": "Special Door Triangle — end bevels", "note": "A 35.4 (8.9 miter) / 6.7 (17 miter); B 35.8 (9.3 miter) / 41.3 (26 miter); C 41.3 (21.5 miter) / 6.4 (6.6 miter)." },
+    { "member": "Door Header Panel — end bevels", "note": "A 53.7 / 53.7 with 13 miter; B 53.7 / 18.8 with 8 miter, inverted miter at the 18.8 end; C 19.6 / 53.4 with 8 miter, inverted miter at the 19.6 end." },
+    {
+      "member": "Pony wall bevel block",
+      "width": "1 1/2\"",
+      "height": "1 1/2\"",
+      "bevelDeg": 15,
+      "mm": { "width": "38 mm", "height": "38 mm" },
+      "note": "A tapered block ripped at 15 deg that sits on the pony wall top plate and gives the dome frame a flat, correctly-angled seat. One per wall panel, cut to the same length and end miters as the plates. The metric sheet prints this detail as 38 mm in one place and 39 mm in another; the imperial C panel prints 1 7/16\" where the others print 1 1/2\"."
+    }
+  ],
+  "baseLayout": {
+    "sides": 20,
+    "sideLength": "6'-2 3/16\"",
+    "cornerMiterDeg": 9,
+    "doorEndCutDeg": 18,
+    "doorEndCutLabel": "9 deg to 18 deg on the two Special panels",
+    "metric": {
+      "sideLength": "1884 mm"
+    },
+    "note": "The dome sits on a framed pony wall, not a timber base ring. Nineteen wall panels (5 A, 4 B right-hand, 4 B left-hand, 4 C, 2 Special mirrored) close the ring around a single opening where the doorway projects. Every plate is cut long-to-long at 9 deg each end — half of the 18 deg exterior angle of a twenty-sided polygon — which is what fixes the side count at 20 (19 panels plus the doorway position). The two Special panels transition from 9 deg at one end to 18 deg at the other where they meet the doorway walls. The front elevation on p6 dimensions the wall 3'-5 7/8\" (1064 mm), which is the C-panel height; the A and B panels stand up to 3'-8 1/8\" (1121 mm) at their high corners because the wall follows the zig-zag bottom edge of the shell."
+  },
+  "baseSections": [
+    {
+      "desc": "Pony wall A panel — 5 required. 23 sq ft (2.3 sq m). Level panel.",
+      "lengths": ["6'-2 3/16\""],
+      "mm": ["1884 mm"],
+      "miterDeg": 9,
+      "miterNote": "Plates (2) and bevel block (1) all 6'-2 3/16\" (1884 mm) long to long, 9 deg each end",
+      "heightStart": "3'-8 1/8\"",
+      "heightEnd": "3'-8 1/8\"",
+      "heightStartMm": "1121 mm",
+      "heightEndMm": "1121 mm",
+      "note": "Studs (4) 3'-3 5/8\" (1006 mm). Heights: 3'-8 1/8\" (1121 mm) over the bevel block, 3'-6 5/8\" (1082 mm) to the top plate, 3'-3 5/8\" (1006 mm) stud. Panel width on the drawing 6'-2 3/16\" (1885 mm). Stud layout 2'-0 1/2\" (623 mm) and 4'-0 3/16\" (1224 mm) from the right-hand end."
+    },
+    {
+      "desc": "Pony wall B panel — 8 required (4 right hand, 4 left hand), mirrored. 23 sq ft (2.3 sq m). Tapered panel.",
+      "lengths": ["6'-2 3/16\""],
+      "mm": ["1884 mm"],
+      "miterDeg": 9,
+      "miterNote": "Plates (2) and bevel block (1) all 6'-2 3/16\" (1884 mm) long to long, 9 deg each end",
+      "heightStart": "3'-8 3/16\"",
+      "heightEnd": "3'-5 15/16\"",
+      "heightStartMm": "1122 mm",
+      "heightEndMm": "1065 mm",
+      "note": "Studs, one of each: 3'-1 7/16\" (951 mm), 3'-2 3/16\" (970 mm), 3'-2 7/8\" (987 mm on the cut list, 988 mm on the drawing), 3'-3 5/8\" (1006 mm). Heights: high end 3'-8 3/16\" (1122 mm) over the bevel block and 3'-6 5/8\" (1083 mm) to the top plate; low end 3'-5 15/16\" (1065 mm) and 3'-4 7/16\" (1027 mm). The sloped top plate measures 6'-2 1/8\" (1883 mm) on its long face."
+    },
+    {
+      "desc": "Pony wall C panel — 4 required. 23 sq ft (2.3 sq m). Level panel.",
+      "lengths": ["5'-6 7/8\""],
+      "mm": ["1699 mm"],
+      "miterDeg": 9,
+      "miterNote": "Plates (2) and bevel block (1) all 5'-6 7/8\" (1699 mm) long to long, 9 deg each end",
+      "heightStart": "3'-5 7/8\"",
+      "heightEnd": "3'-5 7/8\"",
+      "heightStartMm": "1064 mm",
+      "heightEndMm": "1064 mm",
+      "note": "Studs (4) 3'-1 7/16\" (951 mm). Heights: 3'-5 7/8\" (1064 mm) over the bevel block, 3'-4 7/16\" (1027 mm) to the top plate, 3'-1 7/16\" (951 mm) stud. Panel width on the drawing 5'-6 7/8\" (1698 mm)."
+    },
+    {
+      "desc": "Pony wall Special panel — 2 required, mirrored. 23 sq ft (2.3 sq m). Sits either side of the doorway.",
+      "lengths": ["4'-4 3/8\""],
+      "mm": ["1330 mm"],
+      "miterDeg": 9,
+      "miterNote": "Plates (2) and bevel block (1) all 4'-4 3/8\" (1330 mm) long to long, 9 deg at one end to 18 deg at the other",
+      "heightStart": "3'-8 1/8\"",
+      "heightEnd": "3'-3 1/2\"",
+      "heightStartMm": "1121 mm",
+      "heightEndMm": "1004 mm",
+      "note": "Studs, one of each: 3'-2 1/16\" (967 mm), 3'-2 13/16\" (986 mm), 3'-3 1/2\" (1003 mm). Heights called out: 3'-8 1/8\" (1121 mm), 3'-6 9/16\" (1082 mm), 3'-6 1/2\" (1080 mm), 3'-5\" (1041 mm), 3'-3 1/2\" (1004 mm). The top plate is drawn with 18 deg at the doorway end and 9 deg at the other."
+    }
+  ],
+  "doorCards": [
+    {
+      "id": "config-one-doorway-side-wall",
+      "desc": "Doorway side wall — cut 2, mirrored. 25 sq ft (2.5 sq m) each. Framed 2x6.",
+      "dims": [
+        { "label": "Stud", "value": "7'-3\"", "mm": "2210 mm", "note": "long point 5 deg; drawing calls it 7'-3\" / 2209 mm" },
+        { "label": "Stud", "value": "7'-4 3/8\"", "mm": "2245 mm", "note": "long point 5 deg" },
+        { "label": "Stud", "value": "7'-5 13/16\"", "mm": "2281 mm", "note": "long point 5 deg" },
+        { "label": "Bottom plate", "value": "2'-9 1/2\"", "mm": "851 mm" },
+        { "label": "Top plate", "value": "2'-9 5/8\"", "mm": "854 mm", "note": "long to long 5 deg" },
+        { "label": "Top width", "value": "2'-9 3/4\"", "mm": "857 mm" },
+        { "label": "Plate thickness at the top", "value": "5 1/2\"", "mm": "140 mm" },
+        { "label": "Short overall height", "value": "7'-5 7/8\"", "mm": "2283 mm" },
+        { "label": "Tall overall height", "value": "7'-8 13/16\"", "mm": "2357 mm" },
+        { "label": "Stud spacing from the left", "value": "1'-4\"", "mm": "406 mm" },
+        { "label": "Overall width", "value": "3'-3\"", "mm": "991 mm" }
+      ]
+    },
+    {
+      "id": "config-one-doorway-wall",
+      "desc": "Doorway wall — cut 1. 30 sq ft (3 sq m). Framed 2x6, carries the door opening.",
+      "openingWidth": "6'-0\"",
+      "openingHeight": "6'-8\"",
+      "openingWidthMm": "1829 mm",
+      "openingHeightMm": "2032 mm",
+      "dims": [
+        { "label": "Studs (6)", "value": "7'-5 13/16\"", "mm": "2282 mm" },
+        { "label": "Trimmers (2)", "value": "6'-6 1/2\"", "mm": "1994 mm" },
+        { "label": "Jack studs (5)", "value": "2 13/16\"", "mm": "72 mm" },
+        { "label": "Top plate (1)", "value": "8'-11 15/16\"", "mm": "2742 mm" },
+        { "label": "Bottom plate (2)", "value": "1'-6\"", "mm": "456 mm" },
+        { "label": "Header (3)", "value": "6'-3\"", "mm": "1905 mm" },
+        { "label": "Overall height", "value": "7'-5 13/16\"", "mm": "2282 mm" },
+        { "label": "Header span", "value": "6'-3\"", "mm": "1905 mm" },
+        { "label": "Rough opening width", "value": "6'-0\"", "mm": "1829 mm" },
+        { "label": "Rough opening height", "value": "6'-8\"", "mm": "2032 mm" },
+        { "label": "Left leg", "value": "7\"", "mm": "178 mm" },
+        { "label": "Right leg", "value": "1'-6\"", "mm": "456 mm" }
+      ],
+      "awning": [
+        { "label": "Joists (7)", "value": "4'-5 1/2\"", "mm": "1359 mm" },
+        { "label": "Rim (2)", "value": "8'-11 15/16\"", "mm": "2742 mm" },
+        { "label": "Overall width", "value": "8'-11 15/16\"", "mm": "2742 mm" },
+        { "label": "Depth to the rim", "value": "4'-5 1/2\"", "mm": "1359 mm" },
+        { "label": "Depth with the optional overhang", "value": "4'-8 1/2\"", "mm": "1435 mm" },
+        { "label": "Joist layout 1", "value": "1'-5 3/4\"", "mm": "451 mm" },
+        { "label": "Joist layout 2", "value": "2'-11 1/2\"", "mm": "901 mm" },
+        { "label": "Joist layout 3", "value": "4'-5 1/4\"", "mm": "1352 mm" },
+        { "label": "Joist layout 4", "value": "5'-10 15/16\"", "mm": "1802 mm" },
+        { "label": "Joist layout 5", "value": "7'-4 11/16\"", "mm": "2253 mm" }
+      ]
+    }
+  ],
+  "notes": [
+    "This dome is meant to be built with the Deep Frame Method using 2x6 framing timbers at a minimum (1.5 x 5.5\" / 38 mm x 140 mm actual). Fasteners rated for structural use are required.",
+    "This is a very large and tall structure. It will require very tall scaffolding, timbers to help hold up the structure as it gets built, and potentially heavy equipment.",
+    "All panel miter angles on these plans are stated as degrees OFF 90 — that is the number you dial into the saw, not the interior angle of the triangle. In the Deep Frame Method each end also carries a bevel: the vertical angle on the jig becomes the miter (flat) setting on the saw, and the horizontal angle on the jig becomes the bevel (vertical) setting.",
+    "DEEP FRAME METHOD — MAKING A JIG (pp.55-59). Exact strut measurements are given for convenience, but you can also find them yourself, and check your accuracy, by building a jig for each panel. Cut the struts as prescribed, assemble a panel and check its overall length; within 1/16\" on each side is good, and a smidge small is better than a smidge big. To make a jig, find a solid flat piece of material just bigger than the panel. Mark a straight line and two points on it the distance apart of the panel's bottom edge. Using a straight piece of wood, hammer two nails through it the panel's side length apart; using the two bottom marks as pivots, scratch an arc with the second nail. Where the two arcs meet is the third mark. Connect the dots, and if you want, carefully cut the material away. Then make template rails: cut blocks with the bevel angle on the end (5.1 degrees in this case) and attach them to a flat surface so you have something to clamp your material to, arranged so they do not interfere with the struts or each other. Clamp the framing material to the rails, take the angles with a digital angle finder, cut the initial miters, repeat for the final miters, and cut the excess off flush with the intersecting panel. You can set stop blocks and cut all your struts ahead of time, then assemble with structural rated screws or nails.",
+    "PANEL ORIENTATION (p60). When you assemble the panels in groups, make sure they are oriented correctly: the 'Bottom' measurements given in the plans are always arrayed to the OUTSIDE of the group. This reciprocal framing creates an extremely stable structure.",
+    "FLOOR — RADIAL FRAME (pp.17-19). The radial deck design can be much easier to produce and lay out for a beginner builder. It is a good idea to run blocking underneath subfloor seams and use tongue and groove material. Girders: (5) girders @ 22'-5 11/16\" (6850 mm) long to long 18 degrees — can be split in the middle; (3) girders @ 12'-1 7/16\" (3694 mm) long to long 30 degrees; (16) post / pier assembly. The imperial sheet calls both sizes '4x10 girders'. Girder layout dimensions: outer pentagon sides 11'-2 7/8\" (3425 mm) and 22'-5 11/16\" (6851 mm), across 34'-9 15/16\" (10615 mm) and 22'-7 9/16\" (6898 mm), point to point 36'-7 7/16\" (11161 mm), centre height 19'-3\" (5868 mm), 15'-6 15/16\" (4748 mm), 11'-11 3/8\" (3641 mm); inner triangle 12'-1 7/16\" (3695 mm) and 12'-7 13/16\" (3856 mm) with a 7'-3 5/8\" (2226 mm) offset.",
+    "FLOOR — RADIAL FRAME JOISTS (p19). All framing members 2x10 (38 x 235 mm). (20) joists @ 16' (4877 mm); (20) rim @ 6'-0 1/4\" (1835 mm) long to long, 9 deg; (20) outer block @ 4'-9\" (1448 mm) long to long, 9 deg; (20) inner block @ 2'-6 13/16\" (783 mm) long to long, 9 deg; (20) inner rim @ 11 11/16\" (297 mm) long to long, 9 deg; (40) mid span joists @ 3'-6 1/8\" (1070 mm); (20) mid span joists @ 6'-9 1/16\" (2059 mm); (2) centre joists @ 4'-5 13/16\" (1367 mm) long to long, 36 deg; (1) centre joist @ 5'-10 7/8\" (1800 mm). Overall diameter 38'-0 5/16\" (11590 mm).",
+    "FLOOR — CONVENTIONAL FRAME (pp.20-22). The conventional deck design allows for efficient use of standard size materials, built at standard, consistent spans. 28 post / piers. All framing members 2x10 (38 x 235 mm). Regular joists: (27) @ 11'-9\" (3581 mm); (10) @ 12'-9 3/16\" (3891 mm). Special joists: (4) 12'-5 1/2\" (3797 mm) LP 18 deg; (4) 12'-0 5/16\" (3666 mm) LP 18 deg; (4) 11'-7 1/16\" (3523 mm printed metric) LP 18 deg; (4) 11'-1 7/8\" (3400 mm) LP 18 deg; (4) 10'-5 7/8\" (3197 mm) LP 36 deg; (4) 9'-6 1/4\" (2902 mm) LP 36 deg; (4) 8'-6 5/8\" (2607 mm) LP 36 deg; (4) 7'-7\" (2311 mm) LP 36 deg; (4) 5'-10 15/16\" (1802 mm) LP 54 deg; (4) 4'-0 15/16\" (1243 mm) LP 54 deg; (4) 1'-10 3/16\" (564 mm) LP 72 deg; (2) 7'-8 15/16\" (2361 mm) long to long 72 deg. Girder: (2) 13'-10 15/16\" (4240 mm) LP 18 deg; (2) 5'-11 7/16\" (1815 mm) LP 18 deg; (2) 5'-10 15/16\" (1802 mm) LP 18 deg; (2) 13'-11 7/16\" (4253 mm) LP 18 deg; (4) 16' (4877 mm). Frame dimensions: 38'-0 5/16\" (11590 mm) across, 35'-10 7/8\" (10945 mm) long to long 18 deg, bay widths 11'-9\" (3581 mm) and 12'-9 3/16\" (3891 mm), perimeter facet 6'-0 1/4\" (1836 mm) long to long 18 deg.",
+    "FLOOR — CONVENTIONAL FRAME FOOTER LAYOUT (p21). 28 post / piers on a square grid 38'-0 5/16\" (11590 mm) on a side, diagonal 26'-10 11/16\" (8196 mm). Grid offsets from the centre line, both directions: 3'-0 3/16\" (919 mm), 4'-0\" (1219 mm) [6'-0\" (1829 mm) on the vertical], 8'-8 7/8\" (2664 mm), 12'-0\" (3658 mm), 13'-7 3/8\" (4149 mm), 17'-1 13/16\" (5228 mm), 19'-0 3/16\" (5795 mm).",
+    "FLOOR — DOORWAY DECK (pp.23-24). All framing members 2x10 (38 x 235 mm). (5) 3'-1 1/8\" (943 mm); (2) 3'-5 1/4\" (1048 mm) LP 18 deg; (2) 3'-10 7/16\" (1180 mm) LP 18 deg; (2) 4'-3 5/8\" (1311 mm) LP 18 deg; (2) 4'-8 13/16\" (1443 mm) LP 18 deg; (2) 4'-11 7/16\" (1510 mm) LP 18 deg. Drawing dimensions: 17'-5 3/4\" (5327 mm) overall, 8'-8 1/8\" (2645 mm) and 1'-4\" (406 mm) along the front, joist lengths 5'-0 15/16\" (1548 mm), 4'-11 7/16\" (1510 mm), 4'-8 13/16\" (1443 mm), 4'-3 5/8\" (1311 mm), 3'-10 7/16\" (1179 mm), 3'-5 1/4\" (1047 mm), 3'-1 1/8\" (943 mm), 3'-2 5/8\" (981 mm).",
+    "CUPOLA (pp.49-54) — optional, five sided, sits over the crown pentagon. Wall, cuts per wall (2x6): studs (2) 1'-3 1/8\" (385 mm) long to short 8 deg; plates (2) 4'-9 3/8\" (1458 mm) long to long 36 deg; (3) connecting blocks. Connecting blocks: 1'-4 5/8\" (422 mm) tall x 4 3/16\" (106 mm) wide, laid out on a 3 5/16\" (85 mm) square with a 6 15/16\" (176 mm) diagonal and 4 3/8\" (111 mm) / 2 9/16\" (64 mm) offsets; the angled block is 1'-3 1/8\" (385 mm) at 8 deg. Window frame: 4'-9 3/8\" (1458 mm) wide with 36 deg ends, 1'-6\" (457 mm) tall overall, 1'-3\" (381 mm) glazed opening. Partial pentagon (to create the cupola opening): cut and replace the centre strut in a regular panel with 4'-3 5/8\" (1312 mm) long to long 35.7 deg; the resulting opening is 4'-1 3/8\" (1254 mm) across the top, 5'-6 5/8\" (1692 mm) across the bottom, 1'-0\" (305 mm) high, 1'-2 3/4\" (375 mm) on the slope. Full pentagon (you can just as well use full pentagon frames): place a centre strut in the regular panel at 3'-11 15/16\" (1217 mm) long to long 35.7 deg, 1'-0\" (305 mm) up from the base, with 2'-10 5/8\" (880 mm) above it. Fascia: (5) 5'-7 11/16\" (1719 mm) long to long, 8 deg miter, 20 deg bevel. The cupola also carries elongated cover material, operable windows and a fascia over the top pentagon frames.",
+    "Step by step video: https://youtu.be/flPNRKWOFG8?si=NOt8rfaQCU0J1dRr"
+  ],
+  "sourcePdf": "DomePlans_40ft_12m_4v_TrilliumDomes+3D/4v-40ft-min.pdf",
+  "sourcePdfMetric": "DomePlans_40ft_12m_4v_TrilliumDomes+3D/4v-12m-min.pdf",
+  "pdfIssues": [
+    "p16 (both) Door Header Panel: the printed corner settings 54 / 54 / 18 only close if the 18 is read as an OBTUSE corner (108 + 36 + 36 = 180), and the sheet does not say so. Worse, they do not agree with the panel's own printed edge lengths — 8'-9 5/8\" / 5'-5 1/4\" / 5'-4 5/16\" solve to 109.2 deg (19.2 obtuse) / 35.7 deg (54.3) / 35.1 deg (54.9). The 18 is about 1.2 deg out. Printed values kept.",
+    "p16 (both) the Door Header Panel is given three sets of lengths that do not reconcile: flat view 8'-9 5/8\" / 5'-5 1/4\" / 5'-4 5/16\" (2683 / 1658 / 1633 mm), strut cut list 8'-9 9/16\" / 5'-5 3/4\" / 5'-4 13/16\" (2682 / 1670 / 1647 mm), isometric 9'-0 3/16\" / 5'-6 13/16\" / 5'-6 7/8\" (2747 / 1697 / 1698 mm). The isometric set is long-point-to-long-point, but the other two should be closer to each other than they are.",
+    "p14 (imperial) Triangle 2 is dimensioned 6'-0 1/2\" on the triangle itself but 6'-0 7/16\" on the strut cut list beneath it — the same member, 1/16\" apart. The metric sheet prints 1840 mm in both places.",
+    "p13 (metric) Triangle 1 side B is dimensioned 1838 mm on the triangle and 1837 mm on the strut cut list. The imperial sheet prints 6'-0 5/16\" in both places.",
+    "p11 (metric) the Hexagon panel's two sides are printed 1863 mm and 1864 mm, a 1 mm split; the imperial sheet prints 6'-1 3/8\" for both because 1/16\" cannot express it.",
+    "p14 (both) 'THREE IDENTENTICAL STRUTS' -> 'three identical struts'.",
+    "p15 (both) the Special Door Triangle's strut C left-hand end is labelled '21.5 Mite' -> '21.5 Miter'.",
+    "p5 (metric) Configuration One's doorway line reads '107 sq m sheathing / siding / cladding' against the imperial sheet's 126 sq ft. 126 sq ft is about 11.7 sq m — the 107 has been copied from the floor surface area line.",
+    "p5 vs p18 (both) the radial floor materials list calls for (10) 4x6x12' outer girders and (3) 4x6x14' inner girders (89 x 140 mm on the metric sheet), but the girder sheet on p18 specifies '4x10 girders'. The metric p18 drops the section size altogether and just says 'girders'.",
+    "p5 vs p18 (both) p5 lists '(13) Post and Base assemblies' for the radial floor; p18 lists '(16) Post / Pier Assembly'.",
+    "p22 (both) conventional-frame special joist '(4) 11' 7 1/16\" LP 18 deg' is 3532 mm, but the metric edition prints 3523 mm — a 9 mm (3/8\") disagreement. Every other figure in that list agrees to within 1 mm.",
+    "p24 (both) the doorway deck cut list's longest member is 4'-11 7/16\" (1510 mm), but the drawing dimensions the outermost joist 5'-0 15/16\" (1548 mm) and also shows a 3'-2 5/8\" (981 mm) member that is not in the cut list.",
+    "p26/p27/p28 (metric) the pony wall bevel-block detail — one dimension, the thickness of the block — is printed 38 mm on p26 top, 39 mm on p26 left and 38 mm on p27. The imperial sheet prints 1 1/2\" in all three places.",
+    "p28 the pony wall C bevel-block detail is dimensioned 1 7/16\" on the imperial sheet (36.5 mm) but 38 mm on the metric sheet.",
+    "p11-p14 (both) each panel isometric carries a '5.1 deg avg bevel' note and an 84.9 deg face callout (84.9 = 90 - 5.1), while the strut cut lists give end bevels of 18 to 35.7 deg. The 5.1 is the average lean of the frame face, not a saw setting — dial the cut-list bevels.",
+    "p5 (imperial) '4x6x12' (Outter Girder)' -> 'Outer'; the same misspelling appears on p17 and p18.",
+    "p5 (metric) '(10) 38mm x 235mm x3.6m ' (Rim)' carries a stray apostrophe, and '(80) 38 mm x 140 mm x 3.m' should read 3 m.",
+    "p3 (both) 'Forward' in the index and page heading -> 'Foreword'. p4 (both) 'Comissioned' -> 'Commissioned'.",
+    "p55 (both) 'very cafefully' -> 'very carefully'.",
+    "p6 dimensions the pony wall 3'-5 7/8\" (1064 mm) on the front elevation, which is the C-panel height; the A and B panels stand 3'-8 1/8\" / 3'-8 3/16\" (1121 / 1122 mm) at their high corners. Not an error, but the single 'wall height' figure does not describe the whole ring.",
+    "p11-p16 (both) the sheets omit the zero-inch in feet-and-inches dimensions, printing '6' 7/16\"' where this file records 6'-0 7/16\". No value is changed."
+  ]
+}

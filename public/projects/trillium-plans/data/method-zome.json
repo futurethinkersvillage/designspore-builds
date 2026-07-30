@@ -1,0 +1,217 @@
+{
+  "title": "Zome Builders Method",
+  "subtitle": "A zome is built the same way as a dome — every face becomes a framed panel made in the shop, covered there, then carried to site — but the geometry is friendlier in one way and fussier in another.",
+  "source": "Rewritten from the Trillium Domes \"Builders Method Zome\" (© Golden Trillium Geodesics LLC). Reorganised for clarity; all dimensions and angles come from your model's plan page.",
+  "video": "https://youtu.be/Sl9fEp-27EM",
+  "bigIdea": [
+    "A zome is a dome whose faces are <b>rhombi</b> — each one effectively two mirrored triangles. The payoff is that <b>every strut in the whole structure is the same length</b>. You cut one length, hundreds of times.",
+    "What changes band to band is the angles. Within a single panel the <b>miter is the same on all four struts</b> — if band z3 is 4.7°, every strut on every z3 panel is 4.7°. That is a real simplification over a geodesic dome, where the miters differ corner to corner.",
+    "The <b>bevel</b> is where zomes get fussier. On each panel the two struts pointing toward the top carry one bevel and the two pointing toward the base carry another — and the bevels match across the joint where two bands meet. More unique bevels than a dome means more jig setups, so staying organised matters more here than anywhere else.",
+    "Panels are named from the top outward: z1 at the crown, then z2, z3 and so on. Past the halfway band the sequence reverses, because the zome starts folding back in on itself — which is usually about where the base lands anyway."
+  ],
+  "phases": [
+    {
+      "name": "Choose your frame method",
+      "steps": [
+        {
+          "n": 1,
+          "title": "Decide: beveled or non-beveled",
+          "goal": "Make this choice first — it changes the cut list, the footprint and the base sections.",
+          "body": [
+            "<b>Non-beveled.</b> Build the panels with no bevel at all, then assemble them by touching their inside faces together and fastening. Angled strips can be slipped into the gap between panels. It is much faster — you skip every compound cut and every bevel rip — and from the inside the frame still looks clean and gap-free. The trade-off is a V-shaped gap on the outer surface that grows with strut thickness; fill it with spray foam and roof over it. <b>The zome grows</b> by the thickness of your frame relative to the printed plan dimensions.",
+            "<b>Beveled.</b> Bevel every strut, then join them into panels. Slower, but every member meets its neighbour tightly, which is what you want when the frame is exposed on all sides — a greenhouse, say. <b>The zome shrinks</b> the interior by the thickness of your frame relative to the printed dimensions.",
+            "Your plan sheets publish separate base-section and deck dimensions for each method. Pick one before you cut anything, and read the matching column throughout."
+          ],
+          "callouts": [
+            { "type": "warn", "text": "If you choose the non-beveled method you do <b>not</b> rip bevels on the struts at all — skip step 3." },
+            { "type": "check", "text": "The footprint differs between the two methods by roughly the frame thickness. If your site or deck is tight, check that before choosing." },
+            { "type": "tip", "text": "Johnny's own sequence for the beveled method: cut every strut's bevel first, then work the miters one panel at a time. It keeps the piles from getting mixed up." }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Shop prep",
+      "steps": [
+        {
+          "n": 2,
+          "title": "Finish the material first",
+          "goal": "Stain or paint before you cut.",
+          "body": [
+            "You will rip each board in half lengthwise, and the fresh cut edge ends up hidden inside the assembled frame — so finish first and cut second.",
+            "If you are reducing wider stock before splitting it, do that first, then apply finish. Straight stock matters more than anything else about the material."
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Rip the bevel angles",
+          "goal": "Beveled method only. Two settings per band.",
+          "usesValue": "ripBevel",
+          "body": [
+            "Unlike a dome, a zome needs more than one bevel setting. Each band has a bevel for its two upper struts and another for its two lower struts, and the bevel on a band's lower struts matches the bevel on the next band's upper struts — that shared value is what makes the joint close.",
+            "Set the saw once per value and run every strut that needs it before changing the setting. Label the bundles as they come off the saw."
+          ],
+          "callouts": [
+            { "type": "warn", "text": "The bevel angle must match the plan. A digital angle finder, not the printed scale on the saw." },
+            { "type": "tip", "text": "The other strut dimensions can drift from the plan as long as they are <i>consistent</i> — the jig is set to your actual material, so it absorbs the difference. The bevel is the one number that cannot move." }
+          ]
+        },
+        {
+          "n": 4,
+          "title": "Build the jig",
+          "goal": "One jig per panel shape. This is the core of the whole process.",
+          "body": [
+            "Take ¾″ plywood or thicker, a little larger than the panel. Draw a straight baseline and mark the panel's width across it. Using a thin scrap with a nail at each end as a compass, set to the strut length, swing an arc from each mark; where they cross is the next corner. Repeat for the fourth corner.",
+            "Check every measurement, then connect the points. That rhombus is the <b>outside</b> dimension of the finished panel — nothing may sit inside or outside those lines.",
+            "Lay a strut on each line in turn, wide face down and bevel facing out, clamp it, and screw a straight scrap rail hard against it. A strut pushed to the rail should split the line."
+          ],
+          "callouts": [
+            { "type": "check", "text": "The drawn line is your reality check. If a strut isn't splitting it, fix the jig before cutting a hundred parts." },
+            { "type": "tip", "text": "Your plan gives a mid-width for each band. That diagonal is the fastest way to confirm a jig is laid out correctly before you trust it." }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cutting and panels",
+      "steps": [
+        {
+          "n": 5,
+          "title": "Cut the initial miters",
+          "goal": "One miter setting per band — set it once, cut the whole band.",
+          "usesValue": "miters",
+          "body": [
+            "This is where a zome is easier than a dome: every strut on a given panel takes the same miter, given as degrees <b>off 90°</b> — the number you dial into the saw.",
+            "Cut as little off the end as possible and watch the direction. The far end overhangs the jig until the next step."
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Cut the final compound miters",
+          "goal": "The second end — a miter and a bevel together.",
+          "body": [
+            "Beveled method only. Clamp the struts to the jig without fastening, pencil a line on the side the intersecting strut butts into (the bevel) and a mark across the top (the miter), then cut both at once splitting the marks.",
+            "Clamp a stop block at the far end and the rest become repeat cuts. Check the fit every fifth strut or so.",
+            "A hand saw works too: fasten the struts together on the jig and saw the excess off following the intersecting strut's bevel and miter."
+          ],
+          "callouts": [
+            { "type": "check", "text": "Test-fit on the jig before committing to repeat cuts." }
+          ]
+        },
+        {
+          "n": 7,
+          "title": "Half panels",
+          "goal": "Doorway and base positions.",
+          "body": [
+            "Mark the dividing line on the jig you already have for the full panel and cut a space for the dividing strut. Partial panels have fiddlier angles and there are few of them, so a hand saw is often fastest for their final cuts."
+          ],
+          "callouts": [
+            { "type": "warn", "text": "The centre strut of a partial panel usually carries a different bevel, or none. Check the plan before ripping it." }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Covering",
+      "steps": [
+        {
+          "n": 8,
+          "title": "Brace the panel before you cover it",
+          "goal": "A rhombus racks. A triangle doesn't.",
+          "body": [
+            "This is the one genuinely zome-specific trap. A single rhombus panel can skew out of shape before its neighbours are there to hold it — and if you cover it while it is racked, it is locked that way.",
+            "Leave the panel on its jig, or add a temporary brace across the back, or tack a piece of framing corner to corner, before any cover material goes on."
+          ],
+          "callouts": [
+            { "type": "warn", "text": "Check the panel is square to its jig immediately before stapling, not five panels ago." }
+          ]
+        },
+        {
+          "n": 9,
+          "title": "Cover with film",
+          "goal": "Stretch, staple, hide the seam.",
+          "body": [
+            "Staple one side, pull the film tight and staple the opposite side, then the remaining two. Staple onto the <b>beveled edge</b> so the seam disappears when panels come together — let the material overhang by a few inches before stretching.",
+            "Woven poly behaves like a tarpaulin: less elastic, far tougher, and it will stretch in the cold. Single-layer poly stretches better when warm but tears easily."
+          ],
+          "callouts": [
+            { "type": "tip", "text": "Starting out, use only a handful of staples per side. You will pull some to tighten up, and sparse staples make that painless." }
+          ]
+        },
+        {
+          "n": 10,
+          "title": "Cover with rigid material",
+          "goal": "Two approaches, depending on whether the cover will be seen.",
+          "body": [
+            "If roofing goes over the top and the cover will never be seen, cut it to exact size and use it to brace the panel true as you fasten it.",
+            "Otherwise brace the panel as in step 8, cover with an oversized piece, and run the whole panel through a flush-cut jig on the table saw.",
+            "Leaving a little overhang along the bottom edge of each panel lets the cover lap over the panel beneath it — the same trick, and it sheds water."
+          ]
+        },
+        {
+          "n": 11,
+          "title": "Interior cladding and insulation",
+          "goal": "Prefab it now, fit it after assembly.",
+          "body": [
+            "Use the panels themselves as templates to cut interior cladding and insulation in the shop, then set the pieces aside and apply them once the zome is standing.",
+            "Setting the cladding <i>inside</i> the frames instead of over them leaves the framework exposed on the interior, which is worth doing if you went to the trouble of the beveled method."
+          ]
+        },
+        {
+          "n": 12,
+          "title": "Windows",
+          "goal": "Frame an opening into a panel you already have.",
+          "body": [
+            "The simplest approach is to frame a rectangle or a triangle into an existing panel frame, then build a matching window panel to fit that opening and cover it separately.",
+            "Add flashing above the window that tucks <i>underneath</i> the cover material above it. Gaskets between the wood keep out wind-driven moisture; beveling the window edge gives clearance for the gasket, and the cover material should overhang."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "On site",
+      "steps": [
+        {
+          "n": 13,
+          "title": "Set out the base sections",
+          "goal": "Easier than a dome's — usually a single bevel.",
+          "body": [
+            "Zome base sections are simple: typically one bevel to stand the frame vertical to the ground, with a couple of shorter sections near the doorway. Exact dimensions are on your plan page — and remember they differ between the beveled and non-beveled methods.",
+            "On gravel, ground or concrete, use a pressure-treated bottom plate. On a deck, regular kiln-dried is fine. Pony-wall sections achieve the same thing if you want more headroom."
+          ],
+          "callouts": [
+            { "type": "check", "text": "Lay the base out and check it against the plan's base layout before any panels go up." }
+          ]
+        },
+        {
+          "n": 14,
+          "title": "Raise the zome",
+          "goal": "Bottom band first, working up.",
+          "body": [
+            "Work from the ground up with a helper or two. Put in the minimum number of screws until the whole shell is standing — it stays flexible until it closes, and that flex is useful.",
+            "Run silicone caulk or gasket material between frames as you go. It is a cheap extra layer of water tightness and impossible to add later."
+          ],
+          "callouts": [
+            { "type": "warn", "text": "Don't assemble in wind." }
+          ]
+        },
+        {
+          "n": 15,
+          "title": "Hang the door, tape the seams, anchor it",
+          "goal": "Close it in and tie it down.",
+          "body": [
+            "Stake the door posts the correct distance apart before hanging the door, shim it to height, then fasten the hinges.",
+            "Tape the open seams where panel sections meet — clean, dry surfaces, starting at the bottom and lapping upper seams over lower ones.",
+            "Anchor on gravel or earth with 3′ rebar stakes driven at 20–30° and strapped to the base section; on slab or deck, 90° brackets and appropriate fasteners."
+          ]
+        }
+      ]
+    }
+  ],
+  "credits": {
+    "author": "Johnny Bayles — Trillium Domes / Golden Trillium Geodesics LLC",
+    "site": "https://TrilliumDomes.com",
+    "contact": "Support@TrilliumDomes.com",
+    "note": "Designing and building domes since 2015."
+  }
+}

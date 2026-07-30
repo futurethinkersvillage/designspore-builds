@@ -1,0 +1,538 @@
+{
+  "key": "t-bucky",
+  "label": "Beginner Bucky Ball — 12' / 3.6 m",
+  "family": "dome",
+  "params": {
+    "type": "bucky",
+    "diameterFt": 12.27,
+    "fraction": 0.62,
+    "riserFt": 0.45
+  },
+  "overview": {
+    "nominalSize": "12' / 3.6 m Diameter",
+    "widthFrontElevation": "12' 15/16\"",
+    "widthAtBase": "10' 5 7/16\"",
+    "widthSideElevation": "11' 7 11/16\"",
+    "height": "10' 1 1/16\"",
+    "domeSurfaceArea": "310 sq ft",
+    "floorSurfaceArea": "80 sq ft",
+    "metric": {
+      "widthFrontElevation": "3681.3 mm",
+      "widthAtBase": "3185.5 mm",
+      "widthSideElevation": "3548.3 mm",
+      "height": "3074.9 mm",
+      "domeSurfaceArea": "31 sq m",
+      "floorSurfaceArea": "8 sq m"
+    },
+    "summary": "A 12-foot (3.6 m) truncated-icosahedron dome — a literal soccer ball — sold as the beginner model, with optional sauna fit-out. Unlike the other Trillium plans, the panels here are NOT triangles: each face is framed as a whole polygon out of individual struts, and every strut in the building is the same length, 2' 5 11/16\" (753.5 mm). There are 12 full hexagons, 6 full pentagons, 2 mirrored partial hexagons and 5 partial pentagons — 132 struts in total. All stock is 2x4 ripped in half on a 19.8 degree bevel, so one board makes two struts. The shell sits on a nine-piece base ring that forms nine sides of a ten-sided (decagon-geometry) plan, the tenth side being the doorway. Under that is a purpose-built deck, drawn two ways: a radial deck of 5 large plus 5 small triangles, or a conventional joisted deck. Overall the finished building is 12' 15/16\" (3681 mm) wide across the front, 10' 1 1/16\" (3075 mm) tall, on a base ring 10' 5 7/16\" (3186 mm) wide. Optional extras drawn in the plan: corner blocks, a pitched cap over the top pentagon, an interior partition wall, an interior door and sauna benches."
+  },
+  "materials": [
+    { "group": "Dome Frame", "qty": "310 sq ft", "item": "cover material / roofing / insulation / cladding", "metricItem": "29 sq m cover material / roofing / insulation / cladding" },
+    { "group": "Dome Frame", "qty": "20", "item": "2x4x10'", "metricItem": "38mm x 89mm x 3.05m" },
+    { "group": "Dome Frame", "qty": "400", "item": "3 1/2\" GRK R4 (or equivalent) screw", "metricItem": "89mm GRK R4 (or equivalent) screw" },
+    { "group": "Dome Frame", "qty": "100", "item": "3\" #14 Structural Lag Screw (Or 175 through bolt/nut)", "metricItem": "75mm #14 Structural Lag Screw (Or 175 through bolt/nut)" },
+    { "group": "Floor System - Radial", "qty": "10", "item": "1x4x12' (joists)", "metricItem": "19mm x 89mm x 3.6m (joists)" },
+    { "group": "Floor System - Radial", "qty": "6", "item": "2x4x8' (rim)", "metricItem": "38mm x 89mm x 2.5m (rim)" },
+    { "group": "Floor System - Radial", "qty": "3", "item": "4x8 sheets subfloor", "metricItem": "1.2 x 2.4m sheets subfloor" },
+    { "group": "Floor System - Radial", "qty": "150", "item": "screws subfloor" },
+    { "group": "Floor System - Radial", "qty": "11", "item": "Post and base assemblies" },
+    { "group": "Floor System - Conventional Frame", "qty": "5", "item": "2x4x10' (joists)", "metricItem": "38mm x 89mm x 3.05 (joists)" },
+    { "group": "Floor System - Conventional Frame", "qty": "6", "item": "2x4x8' (rim)", "metricItem": "38mm x 89mm x 2.5m (rim)" },
+    { "group": "Floor System - Conventional Frame", "qty": "3", "item": "4x8 sheets subfloor", "metricItem": "1.2 x 2.4m sheets subfloor" },
+    { "group": "Floor System - Conventional Frame", "qty": "150", "item": "screws subfloor" },
+    { "group": "Floor System - Conventional Frame", "qty": "10", "item": "Post and base assemblies" },
+    { "group": "Doorway", "qty": "23 sq ft", "item": "sheathing / siding / cladding", "metricItem": "2.2 sq m sheathing / siding / cladding" },
+    { "group": "Doorway", "qty": "10", "item": "2x4x8", "metricItem": "38mm x 89mm x 2.5m" },
+    { "group": "Doorway", "qty": "1", "item": "4x8 sheet roof deck", "metricItem": "1.2 x 2.4m sheet roof deck" },
+    { "group": "Doorway", "qty": "1", "item": "4x8 sheet for door and doorway skin", "metricItem": "1.2 x 2.4m sheet for door and doorway skin" },
+    { "group": "Interior Wall", "qty": "180 sq ft", "item": "insulation / cladding", "metricItem": "18 sq m insulation / cladding" },
+    { "group": "Interior Wall", "qty": "12", "item": "2x4x10'", "metricItem": "38mm x 89mm x 3.05" },
+    { "group": "Sauna - Benches", "qty": "90 sq ft", "item": "bench cladding", "metricItem": "9 sq m bench cladding" },
+    { "group": "Sauna - Benches", "qty": "35", "item": "2x4x8", "metricItem": "38mm x 89mm x 2.5m" }
+  ],
+  "components": [
+    { "qty": 12, "item": "Hexagon panels" },
+    { "qty": 6, "item": "Pentagon panels" },
+    { "qty": 2, "item": "Partial hexagon panels", "note": "mirrored pair" },
+    { "qty": 5, "item": "Partial pentagon panels" },
+    { "qty": 132, "item": "Struts total", "note": "12x6 + 6x5 + 2x5 + 5x4 = 132; every strut is the same 2' 5 11/16\" panel edge except the two partial-hexagon cut struts" },
+    { "qty": 4, "item": "Long base sections", "note": "partial pent" },
+    { "qty": 3, "item": "Short base sections", "note": "hex" },
+    { "qty": 2, "item": "Special short base sections", "note": "mirrored" }
+  ],
+  "strut": {
+    "bevelDeg": 19.8,
+    "stock": "2x4 ripped in half at the bevel angle — two struts per board",
+    "initialMiterDeg": { "pentagon": 18, "hexagon": 30 },
+    "note": "The plan gives only the bevel angle (19.8 deg) and never dimensions the finished strut section. Struts butt into each other reciprocally rather than mitering corner to corner, so the initial miter equals the polygon's interior angle stated off 90: 30 deg for hexagons (120 deg interior) and 18 deg for pentagons (108 deg interior). The second cut at the other end is a compound miter and bevel cut to the marked line."
+  },
+  "panels": [
+    {
+      "id": "hex",
+      "name": "Hexagon panel",
+      "qty": 12,
+      "struts": 6,
+      "edges": [
+        { "label": "All six sides", "length": "2' 5 11/16\"", "mm": "753.5 mm" }
+      ],
+      "acrossVertices": "4' 11 5/16\"",
+      "acrossVerticesMm": "1507.0 mm",
+      "acrossFlats": "4' 3 3/8\"",
+      "acrossFlatsMm": "1305.1 mm",
+      "area": "15.88 sq f",
+      "areaMm": "1.47 sq m",
+      "miterAngles": [
+        { "corner": "Every corner", "deg": 30 }
+      ],
+      "note": "A regular hexagon of six equal struts. The single 30 deg call-out is both the slope of the angled edges off vertical and the miter you set (the hexagon's 120 deg interior angle stated off 90). The area box is printed '15.88 sq f' — the 't' is missing."
+    },
+    {
+      "id": "pent",
+      "name": "Pentagon panel",
+      "qty": 6,
+      "struts": 5,
+      "edges": [
+        { "label": "All five sides", "length": "2' 5 11/16\"", "mm": "753.5 mm" }
+      ],
+      "width": "4' 0\"",
+      "widthMm": "1219.2 mm",
+      "height": "3' 9 5/8\"",
+      "heightMm": "1159.5 mm",
+      "area": "10.51 sq ft",
+      "areaMm": ".97 sq m",
+      "miterAngles": [
+        { "corner": "Every corner", "deg": 18 }
+      ],
+      "note": "A regular pentagon of five equal struts, drawn apex up on a flat base. 18 deg is the pentagon's 108 deg interior angle stated off 90, and it is also the slope of the lower edges off vertical."
+    },
+    {
+      "id": "partial-hex",
+      "name": "Partial hexagon panel (mirrored pair)",
+      "qty": 2,
+      "struts": 5,
+      "edges": [
+        { "label": "Top", "length": "2' 5 11/16\"", "mm": "753.5 mm" },
+        { "label": "Cut edge (vertical)", "length": "4' 3 3/8\"", "mm": "1305.1 mm" },
+        { "label": "Bottom, and both slants", "length": "2' 5 11/16\"", "mm": "753.5 mm" }
+      ],
+      "overallRun": "3' 8 1/2\"",
+      "overallRunMm": "1130.3 mm",
+      "cutOffset": "1' 2 13/16\"",
+      "cutOffsetMm": "376.8 mm",
+      "area": "13.23 sq ft",
+      "areaMm": "1.22 sq m",
+      "miterAngles": [
+        { "corner": "Slanted edges", "deg": 30 }
+      ],
+      "note": "A full hexagon with one vertex sliced off on a straight cut through the two neighbouring vertices, giving a five-sided panel: four normal 2' 5 11/16\" struts plus one long 4' 3 3/8\" cut strut. 3' 8 1/2\" is the overall run from the remaining point to the cut face (1.5 x the strut length); 1' 2 13/16\" is the setback from that point to the near corner (half a strut length). The two corners on the cut edge are square (90 deg) and are not dimensioned on the sheet. Make one, then mirror it."
+    },
+    {
+      "id": "partial-pent",
+      "name": "Partial pentagon panel",
+      "qty": 5,
+      "struts": 4,
+      "edges": [
+        { "label": "Top (cut edge)", "length": "4' 0\"", "mm": "1219.2 mm" },
+        { "label": "Both slants and the bottom", "length": "2' 5 11/16\"", "mm": "753.5 mm" }
+      ],
+      "height": "2' 4 3/16\"",
+      "heightMm": "716.6 mm",
+      "sideSetback": "9 3/16\"",
+      "sideSetbackMm": "232.8 mm",
+      "area": "7.61 sq ft",
+      "areaMm": ".70 sq m",
+      "miterAngles": [
+        { "corner": "Every corner", "deg": 18 }
+      ],
+      "note": "A full pentagon with the apex sliced off horizontally through the two side vertices, leaving a trapezoid: a 4' 0\" cut strut across the top and three normal 2' 5 11/16\" struts. Height from the cut down to the base is 2' 4 3/16\", and each bottom corner sits 9 3/16\" in from the corner above it. Real corner angles are 72 / 72 / 108 / 108 degrees, all of which read as 18 deg off 90."
+    }
+  ],
+  "cornerBlocks": {
+    "desc": "Optional solid blocks that drop into the inside corner of each panel for extra stiffness. Cut from 2x4 on the flat, 3 1/2\" deep. Because the angles are acute you may need an auxiliary angled fence on the miter saw — the sheet's example is 15 deg of fence plus 39 deg of saw to make the 54 deg cut.",
+    "blocks": [
+      {
+        "name": "Pentagon Block",
+        "side": "5 15/16\"",
+        "sideMm": "151.2 mm",
+        "base": "9 5/8\"",
+        "baseMm": "244.7 mm",
+        "depth": "3 1/2\"",
+        "depthMm": "88.9 mm",
+        "halfAngleDeg": 54
+      },
+      {
+        "name": "Hexagon Block",
+        "side": "7\"",
+        "sideMm": "177.8 mm",
+        "base": "1' 1/8\"",
+        "baseMm": "308.0 mm",
+        "depth": "3 1/2\"",
+        "depthMm": "88.9 mm",
+        "halfAngleDeg": 60
+      }
+    ]
+  },
+  "sheetGoods": {
+    "note": "Sheet Layout page. Both editions show the same nesting diagram: hexagons nest two per sheet, pentagons two per sheet, and the partial panels share sheets with offcuts.",
+    "text": "12 4x8 sheets can cover the dome panels if you use the offcuts piece the roof deck together. For continuous materials, extra wide sheets will need to be used.",
+    "metricText": "12 12m x 2.4m sheets can cover the dome panels if you use the offcuts piece the roof deck together. For continuous materials, extra wide sheets will need to be used.",
+    "sheets": [{ "size": "4'x8'", "metricSize": "1.2m x 2.4m", "total": 12 }]
+  },
+  "baseSections": [
+    {
+      "desc": "Long base section (partial pent)",
+      "qty": 4,
+      "lengths": ["4' 0\""],
+      "mm": ["1219.2 mm"],
+      "miterDegEnds": [18, 18]
+    },
+    {
+      "desc": "Short base section (hex)",
+      "qty": 3,
+      "lengths": ["2' 5 11/16\""],
+      "mm": ["753.5 mm"],
+      "miterDegEnds": [18, 18]
+    },
+    {
+      "desc": "Special short base section (mirrored pair)",
+      "qty": 2,
+      "lengths": ["2' 6 7/16\""],
+      "mm": ["773.2 mm"],
+      "miterDegEnds": [18, 36],
+      "note": "The 36 deg end faces the doorway. Because nothing meets it on the far side, that one piece absorbs the whole 36 deg turn instead of splitting it 18/18 with a neighbour."
+    }
+  ],
+  "baseSectionProfile": {
+    "height": "5 7/16\"",
+    "heightMm": "137.8 mm",
+    "plateThickness": "1 1/2\"",
+    "plateThicknessMm": "38.1 mm",
+    "topBevelDeg": 32,
+    "note": "Each base section is a vertical board 5 7/16\" tall standing on a flat plate 1 1/2\" thick, with the top of the vertical board beveled at 32 deg so the dome panels seat against it. The width/thickness of the vertical board itself is never dimensioned."
+  },
+  "baseLayout": {
+    "acrossWidth": "10' 5 11/16\"",
+    "acrossHeight": "9' 11 1/2\"",
+    "doorOpening": "3' 10 3/4\"",
+    "ringWidth": "10' 5 11/16\"",
+    "ringHeight": "10' 2 1/4\"",
+    "interiorAngleDeg": 144,
+    "metric": {
+      "acrossWidth": "3191.9 mm",
+      "acrossHeight": "3035.7 mm",
+      "doorOpening": "1187.3 mm",
+      "ringWidth": "3191.9 mm",
+      "ringHeight": "3104.6 mm"
+    },
+    "sides": 10,
+    "timberSides": 9,
+    "note": "The base ring is a ten-sided plan with the geometry of a decagon — every corner turns 36 degrees (144 deg interior, as called out on the Foundation Footprint page) — but with three different side lengths: four Long at 4' 0\", three Short at 2' 5 11/16\", two Special Short at 2' 6 7/16\", and the tenth side left open as the 3' 10 3/4\" doorway. Every joint between two sections is an 18 + 18 deg pair; the two ends that face the doorway are cut 36 deg.",
+    "footprintDims": [
+      { "label": "Overall width", "value": "10' 5 11/16\"", "mm": "3191.9 mm" },
+      { "label": "Overall depth", "value": "9' 11 1/2\"", "mm": "3035.7 mm" },
+      { "label": "Short side", "value": "2' 5 11/16\"", "mm": "753.5 mm" },
+      { "label": "Long side", "value": "4' 0\"", "mm": "1219.2 mm" },
+      { "label": "Setting-out", "value": "5' 1 1/4\"", "mm": "1555.7 mm" },
+      { "label": "Setting-out", "value": "2' 9 1/16\"", "mm": "839.0 mm" },
+      { "label": "Setting-out", "value": "4 13/16\"", "mm": "122.4 mm" },
+      { "label": "Setting-out", "value": "3' 4 13/16\"", "mm": "1037.1 mm" },
+      { "label": "Setting-out", "value": "4' 10 1/4\"", "mm": "1480.0 mm" },
+      { "label": "Setting-out", "value": "1' 2 13/16\"", "mm": "376.8 mm" },
+      { "label": "Setting-out", "value": "4' 5 11/16\"", "mm": "1363.1 mm" },
+      { "label": "Setting-out", "value": "5' 2 13/16\"", "mm": "1596.0 mm" },
+      { "label": "Setting-out", "value": "4' 0\"", "mm": "1219.2 mm" },
+      { "label": "Setting-out", "value": "2' 0\"", "mm": "609.6 mm" }
+    ]
+  },
+  "radialDeck": {
+    "desc": "Option 1 for the floor: 5 large triangles and 5 small triangles built as separate frames and set out radially from the deck centre.",
+    "cutList": [
+      { "part": "Rim", "qty": 5, "stock": "2x4", "length": "3'-10 3/8\"", "mm": "1178.0 mm", "cut": "Long to Long", "miterDeg": 22.4 },
+      { "part": "Rim", "qty": 5, "stock": "2x4", "length": "2'-4 1/8\"", "mm": "714.3 mm", "cut": "L to L", "miterDeg": 13.6 },
+      { "part": "Joist", "qty": 5, "stock": "1x4", "length": "5'-3\"", "mm": "1600.6 mm", "cut": "L to L", "miterDeg": [45.2, 22.4] },
+      { "part": "Joist", "qty": 5, "stock": "1x4", "length": "5'-1 15/16\"", "mm": "1573.6 mm", "cut": "L to L", "miterDeg": [45.2, 22.4] },
+      { "part": "Joist", "qty": 5, "stock": "1x4", "length": "5'-3\"", "mm": "1600.6 mm", "cut": "L to L", "miterDeg": [62.8, 13.6] },
+      { "part": "Joist", "qty": 5, "stock": "1x4", "length": "5'-1 3/8\"", "mm": "1559.6 mm", "cut": "L to L", "miterDeg": [62.8, 13.6] }
+    ],
+    "triangles": [
+      {
+        "name": "Large Triangle",
+        "qty": 5,
+        "base": "3' 10 3/8\"",
+        "baseMm": "1178.0 mm",
+        "sides": ["5' 1 15/16\"", "5' 3\""],
+        "sidesMm": ["1573.6 mm", "1600.6 mm"],
+        "height": "4' 10 1/4\"",
+        "heightMm": "1480.0 mm",
+        "miterAngles": [
+          { "corner": "Apex (deck centre)", "deg": 45.2 },
+          { "corner": "Both base corners", "deg": 22.4 }
+        ]
+      },
+      {
+        "name": "Small Triangle",
+        "qty": 5,
+        "base": "2' 4 1/8\"",
+        "baseMm": "714.3 mm",
+        "sides": ["5' 1 3/8\"", "5' 3\""],
+        "sidesMm": ["1559.6 mm", "1600.6 mm"],
+        "height": "5' 1 1/4\"",
+        "heightMm": "1555.7 mm",
+        "miterAngles": [
+          { "corner": "Apex (deck centre)", "deg": 62.8 },
+          { "corner": "Both base corners", "deg": 13.6 }
+        ]
+      }
+    ],
+    "note": "Also dimensioned on the plan view: 4' 0\" and 2' 5 11/16\" rim faces and 5' 3\" / 5' 1 1/4\" / 4' 10 1/4\" radial lines. The two joists in each triangle differ in length because one runs to the apex point while the other butts into its side."
+  },
+  "conventionalDeck": {
+    "desc": "Option 2 for the floor: the same ten-sided rim with straight parallel joists.",
+    "cutList": [
+      { "part": "Rim", "qty": 5, "stock": "2x4", "length": "4'", "mm": "1219 mm", "cut": "Long to Long", "miterDeg": 18 },
+      { "part": "Rim", "qty": 5, "stock": "2x4", "length": "2'-5 11/16\"", "mm": "753 mm", "cut": "L to L", "miterDeg": 18 },
+      { "part": "Joist", "qty": 2, "stock": "2x4", "length": "6'-2 1/8\"", "mm": "1882 mm", "cut": "L to L", "miterDeg": [36, 72] },
+      { "part": "Joist", "qty": 2, "stock": "2x4", "length": "9'-2 1/16\"", "mm": "2795 mm", "cut": "L to L", "miterDeg": [36, 36] },
+      { "part": "Joist", "qty": 1, "stock": "2x4", "length": "9'-8 1/2\"", "mm": "2959 mm" }
+    ],
+    "planDims": [
+      { "label": "Long rim face", "value": "4' 0\"", "mm": "1219.2 mm" },
+      { "label": "Short rim face", "value": "2' 5 11/16\"", "mm": "753.5 mm" },
+      { "label": "Centre joist", "value": "9' 8 1/2\"", "mm": "2959.5 mm" },
+      { "label": "Second joist", "value": "9' 2 1/16\"", "mm": "2795.2 mm" },
+      { "label": "Third joist", "value": "6' 2 1/8\"", "mm": "1882.8 mm" },
+      { "label": "Joist spacing", "value": "2' 0\"", "mm": "609.6 mm" }
+    ],
+    "note": "The sheet calls out 18 deg miters on all rim boards, with 36 deg and 72 deg miters where the joists die into the angled rim."
+  },
+  "deckSheathing": {
+    "sheets": "3 full 4x8 sheets",
+    "metricSheets": "3 full 1.2m x 2.4m sheets",
+    "note": "3 Full Sheets of subfloor material will cover the deck. Start in the center with 2 full sheets and fill in the small sections on the sides with the last sheet."
+  },
+  "entrywayDeck": {
+    "width": "4' 0\"",
+    "widthMm": "1219.2 mm",
+    "depth": "2' 0\"",
+    "depthMm": "609.6 mm",
+    "innerDepth": "1' 9\"",
+    "innerDepthMm": "533.4 mm",
+    "note": "A small slatted landing in front of the door, four boards wide."
+  },
+  "doorway": {
+    "desc": "A framed hexagonal-profile porch tunnel that plugs into the base ring where the tenth side is left open, plus the door itself. Members are labelled A (long side), B (upper side) and C (head) on the sheet, and the frame is noted as 2x4 with 1/2\" minimum sheathing.",
+    "frameElevation": [
+      { "label": "Head width", "value": "2' 4\"", "mm": "710.8 mm" },
+      { "label": "Upper slant (B)", "value": "2' 3 3/4\"", "mm": "704.8 mm" },
+      { "label": "Side (A)", "value": "4' 9 1/2\"", "mm": "1460.6 mm" },
+      { "label": "Left height to the shoulder", "value": "2' 3 3/4\"", "mm": "704.8 mm" },
+      { "label": "Left height below the shoulder", "value": "4' 8 13/16\"", "mm": "1443.3 mm" },
+      { "label": "Overall height", "value": "6' 4 11/16\"", "mm": "1947.3 mm" },
+      { "label": "Clear width at the sill", "value": "3' 5/16\"", "mm": "922.9 mm" },
+      { "label": "Outside width at the sill", "value": "3' 7 7/16\"", "mm": "1102.5 mm" }
+    ],
+    "members": [
+      { "id": "A", "faceWidth": "1' 0\"", "faceWidthMm": "304.8 mm", "faceLength": "4' 8 13/16\"", "faceLengthMm": "1443.8 mm", "edgeLength": "4' 8 5/16\"", "edgeLengthMm": "1430.6 mm", "miterDeg": [18, 8] },
+      { "id": "B", "faceWidth": "1' 0\"", "faceWidthMm": "304.8 mm", "faceLength": "2' 3 3/4\"", "faceLengthMm": "704.8 mm", "miterDeg": [18, 30] },
+      { "id": "C", "faceWidth": "1' 0\"", "faceWidthMm": "304.8 mm", "faceLength": "2' 3 7/8\"", "faceLengthMm": "708.6 mm", "innerWidth": "9\"", "innerWidthMm": "228.6 mm", "miterDeg": [30, 30] }
+    ],
+    "assemblyDims": [
+      { "label": "Overall height (side view)", "value": "6' 4 1/2\"", "mm": "1942.5 mm" },
+      { "label": "Side view lower height", "value": "4' 7 9/16\"", "mm": "1411.1 mm" },
+      { "label": "Side view inner height", "value": "5' 8\"", "mm": "1726.4 mm" },
+      { "label": "Side view inner run", "value": "2' 6 5/16\"", "mm": "769.7 mm" },
+      { "label": "Side view outer run", "value": "3' 9/16\"", "mm": "928.9 mm" },
+      { "label": "Head width (front view)", "value": "1' 11 7/8\"", "mm": "607.1 mm" },
+      { "label": "Upper slant (front view)", "value": "2' 9/16\"", "mm": "624.1 mm" },
+      { "label": "Side (front view)", "value": "4' 7 9/16\"", "mm": "1411.0 mm" },
+      { "label": "Section top offset", "value": "9 3/16\"", "mm": "233.8 mm" },
+      { "label": "Section top height", "value": "1' 3 3/4\"", "mm": "399.7 mm" },
+      { "label": "Section overall height", "value": "5' 10 15/16\"", "mm": "1801.9 mm" },
+      { "label": "Section lower height", "value": "4' 7 3/16\"", "mm": "1402.2 mm" },
+      { "label": "Section base", "value": "3\"", "mm": "76.4 mm" }
+    ],
+    "assemblyAngles": [30, 18, 8],
+    "door": {
+      "width": "2' 5 15/16\"",
+      "widthMm": "760.2 mm",
+      "height": "6' 2 9/16\"",
+      "heightMm": "1893.2 mm",
+      "heightToShoulder": "5' 7 3/4\"",
+      "heightToShoulderMm": "1720.4 mm",
+      "cornerCut": "7 7/8\"",
+      "cornerCutMm": "200.3 mm",
+      "cornerAngleDeg": 30,
+      "note": "One corner of the door head is cut off at 30 degrees, 7 7/8\" back from the corner, to follow the dome face above. The drawing shows a decorative bucky-ball cut-out in the door."
+    },
+    "doorFrame": {
+      "topWidth": "1' 9 15/16\"",
+      "topWidthMm": "557.9 mm",
+      "cornerCut": "7 7/8\"",
+      "cornerCutMm": "200.3 mm",
+      "height": "5' 6 1/4\"",
+      "heightMm": "1682.3 mm",
+      "railHeight": "2' 2 15/16\"",
+      "railHeightMm": "684.0 mm",
+      "bottomWidth": "2' 5 15/16\"",
+      "bottomWidthMm": "760.2 mm"
+    }
+  },
+  "pitchedTopPentagon": {
+    "desc": "Optional pitched cap over the top pentagon so water and snow do not sit on the flat face, and a place to put a vent. Five tapered members are laid over the pentagon panel and five triangular roof-deck pieces are centred on them.",
+    "qty": "5 each",
+    "roofTriangle": {
+      "base": "2' 10 1/8\"",
+      "baseMm": "866.9 mm",
+      "sides": "2' 5 1/16\"",
+      "sidesMm": "738.0 mm",
+      "height": "1' 11 1/2\"",
+      "heightMm": "597.3 mm",
+      "miterAngles": [
+        { "corner": "Apex", "deg": 18.4 },
+        { "corner": "Both base corners", "deg": 35.8 }
+      ]
+    },
+    "taperedMember": {
+      "topLength": "1' 11 1/2\"",
+      "topLengthMm": "596.5 mm",
+      "bottomLength": "1' 11 3/8\"",
+      "bottomLengthMm": "594.3 mm",
+      "tallEnd": "2 9/16\"",
+      "tallEndMm": "65.6 mm",
+      "shortEndHeight": "5/8\"",
+      "shortEndHeightMm": "15.5 mm",
+      "thickness": "1 1/2\"",
+      "thicknessMm": "38.1 mm"
+    },
+    "note": "An optional vent hole is shown through the pentagon panel under the cap."
+  },
+  "interiorWall": {
+    "desc": "Optional partition that divides the dome (used to close off the sauna). The outline follows the inside of the shell.",
+    "area": "90 sq ft",
+    "areaMetricPdf": ".9 sq m",
+    "outlineDims": [
+      { "label": "Top edge", "value": "2' 10 3/4\"", "mm": "882.5 mm" },
+      { "label": "Upper-left edge run", "value": "4' 2 5/16\"", "mm": "1277.8 mm" },
+      { "label": "Upper-left edge rise", "value": "4' 2 5/16\"", "mm": "1277.8 mm" },
+      { "label": "Upper-right run", "value": "3' 10\"", "mm": "1168.6 mm" },
+      { "label": "Overall height", "value": "9' 11 5/16\"", "mm": "3031.0 mm" },
+      { "label": "Right shoulder height", "value": "7' 3 3/8\"", "mm": "2218.7 mm" },
+      { "label": "Right lower height", "value": "4' 9 1/2\"", "mm": "1459.8 mm" },
+      { "label": "Left overall height", "value": "6' 9 3/16\"", "mm": "2061.5 mm" },
+      { "label": "Left lower height", "value": "2' 11 1/4\"", "mm": "895.2 mm" },
+      { "label": "Left lower run", "value": "2' 11 1/4\"", "mm": "895.2 mm" },
+      { "label": "Bottom edge", "value": "9' 3\"", "mm": "2819.2 mm" },
+      { "label": "Bottom-right run", "value": "4' 9 1/2\"", "mm": "1459.8 mm" }
+    ],
+    "cornerAnglesDeg": [18.7, 15.9, 15.9, 19.3, 12, 26.7, 18.7, 20.9],
+    "framingDims": [
+      { "label": "Top plate", "value": "2' 10 1/8\"", "mm": "866.7 mm" },
+      { "label": "Upper-left plate", "value": "4' 1 9/16\"", "mm": "1259.4 mm" },
+      { "label": "Upper-right plate", "value": "3' 9 7/16\"", "mm": "1153.4 mm" },
+      { "label": "Right upper plate", "value": "2' 10 5/16\"", "mm": "870.9 mm" },
+      { "label": "Left plate", "value": "4' 1 9/16\"", "mm": "1259.4 mm" },
+      { "label": "Right lower plate", "value": "4' 7 13/16\"", "mm": "1417.3 mm" },
+      { "label": "Lower-left plate", "value": "2' 9 3/4\"", "mm": "856.7 mm" },
+      { "label": "Door header height", "value": "2' 3\"", "mm": "685.8 mm" },
+      { "label": "Stud", "value": "8' 11 1/2\"", "mm": "2730.7 mm" },
+      { "label": "Stud", "value": "8' 6 7/16\"", "mm": "2601.8 mm" },
+      { "label": "Stud", "value": "7' 9 15/16\"", "mm": "2386.2 mm" },
+      { "label": "Stud", "value": "7' 8 9/16\"", "mm": "2350.7 mm" },
+      { "label": "Stud", "value": "6' 11 13/16\"", "mm": "2129.6 mm" },
+      { "label": "Stud", "value": "6' 8 9/16\"", "mm": "2046.8 mm" },
+      { "label": "Stud", "value": "6' 6 1/2\"", "mm": "1993.9 mm" },
+      { "label": "Bottom run", "value": "2' 0\"", "mm": "609.6 mm" },
+      { "label": "Bottom run", "value": "5' 7 3/4\"", "mm": "1720.1 mm" },
+      { "label": "Bottom run", "value": "1' 5 1/8\"", "mm": "435.1 mm" }
+    ]
+  },
+  "interiorDoor": {
+    "casingWidth": "1' 10 1/8\"",
+    "casingWidthMm": "562.0 mm",
+    "casingHeight": "6' 6 7/8\"",
+    "casingHeightMm": "2003.4 mm",
+    "frameWidth": "1' 8 5/8\"",
+    "frameWidthMm": "523.9 mm",
+    "frameHeight": "6' 5 3/8\"",
+    "frameHeightMm": "1965.3 mm",
+    "leafWidth": "1' 5 5/8\"",
+    "leafWidthMm": "447.7 mm",
+    "leafHeight": "6' 2 3/8\"",
+    "leafHeightMm": "1889.1 mm",
+    "note": "1x casing around a 2x2 frame."
+  },
+  "saunaBenches": {
+    "cladding": "90 sq ft",
+    "claddingMetricPdf": ".9 sq m",
+    "dims": [
+      { "label": "Upper bench width", "value": "2' 9/16\"", "mm": "623.2 mm" },
+      { "label": "Upper bench return", "value": "1' 9 9/16\"", "mm": "547.5 mm" },
+      { "label": "Long run", "value": "6' 6 1/4\"", "mm": "1986.9 mm" },
+      { "label": "Riser / bench depth", "value": "1' 6\"", "mm": "457.2 mm" },
+      { "label": "Middle bench run", "value": "3' 11 3/4\"", "mm": "1213.6 mm" },
+      { "label": "Overall depth", "value": "4' 11\"", "mm": "1498.6 mm" },
+      { "label": "Step", "value": "7 5/8\"", "mm": "193.7 mm" },
+      { "label": "Plan width", "value": "3' 6\"", "mm": "1066.2 mm" },
+      { "label": "Plan offset", "value": "1' 5\"", "mm": "431.8 mm" },
+      { "label": "Plan corner", "value": "1' 11 1/8\"", "mm": "587.3 mm" },
+      { "label": "Plan height", "value": "3' 5\"", "mm": "1041.6 mm" },
+      { "label": "Plan lower height", "value": "1' 11\"", "mm": "584.4 mm" }
+    ],
+    "note": "The sheet states these benches were mostly figured out in place; start with the floor plates and ledgers, and use flat framing so bench cladding can be screwed from behind. Sheet 31 is a rendered view only, with no dimensions."
+  },
+  "notes": [
+    "This is a truncated icosahedron built as whole polygonal panels, not as triangles. Every strut in the shell is the same length — 2' 5 11/16\" (753.5 mm) — apart from the two long cut struts in the partial hexagons (4' 3 3/8\" / 1305.1 mm) and the five cut struts in the partial pentagons (4' 0\" / 1219.2 mm).",
+    "Panel miter angles are stated OFF 90. Because the struts butt into each other reciprocally instead of mitering corner to corner, the initial miter equals the polygon's interior angle less 90: 30 deg for hexagons and 18 deg for pentagons. The second end of each strut is a compound miter-and-bevel cut to a marked line.",
+    "A single 19.8 degree bevel is used on every panel strut. A true truncated icosahedron has two different dihedral angles (hex-to-hex and hex-to-pentagon), which would want about 20.9 deg and 18.7 deg of bevel; 19.8 deg is the average, so the plan trades a little joint tightness for one saw setting. The plan does not say this — it simply prints 19.8 deg everywhere.",
+    "Rip the 19.8 deg bevel by cutting one side slightly proud of half, then sending the offcut back through, so both halves of the board end up identical.",
+    "The plan is written for structural fasteners: 3 1/2\" GRK R4 (89 mm) screws and 3\" #14 structural lag screws or through bolts. Two screws per panel connection until the dome is assembled, then back-fasten at about 6\" on centre.",
+    "The base ring plan is decagon geometry (36 deg per corner) even though the sides are three different lengths, so 18 deg miters work everywhere except the two ends that face the doorway, which take the whole 36 deg.",
+    "Sauna details, corner blocks, the pitched top pentagon, the interior wall and the interior door are all explicitly optional.",
+    "The plan carries no tool list and no finished strut cross-section — it assumes you have already read the Trillium Builders Method material."
+  ],
+  "sourcePdf": "BeginnerBuckyBallPlansV2_TrilliumDomes+3D/BeginnerBuckyBallPlansV2_TrilliumDomes_Imperial.pdf",
+  "sourcePdfMetric": "BeginnerBuckyBallPlansV2_TrilliumDomes+3D/BeginnerBuckyBallPlansV2_TrilliumDomes_Metric.pdf",
+  "angleChecks": [
+    "Hexagon panel: 30 deg off 90 = a 120 deg interior angle. Six of them sum to 720 deg, the correct interior-angle sum for a hexagon. The printed 4' 11 5/16\" across the vertices and 4' 3 3/8\" across the flats both fall out of a 2' 5 11/16\" side (2s and s x root 3), and the printed 15.88 sq ft matches (3 root 3 / 2) x s squared. PASS.",
+    "Pentagon panel: 18 deg off 90 = a 108 deg interior angle. Five sum to 540 deg. Printed 4' 0\" width is 1.618 x side, printed 3' 9 5/8\" height is 1.5388 x side, and 10.51 sq ft matches the regular-pentagon area formula. PASS.",
+    "Partial hexagon: the real corner angles are 120 / 120 / 120 / 90 / 90 = 540 deg, correct for a five-sided figure. Printed 3' 8 1/2\" equals 1.5 x the strut length and printed 1' 2 13/16\" equals half the strut length, both exactly. Printed 13.23 sq ft equals the full hexagon's 15.88 minus the 2.65 sq ft corner triangle. PASS.",
+    "Partial pentagon: the real corner angles are 72 / 72 / 108 / 108 = 360 deg, correct for a quadrilateral, and all four read as 18 deg off 90. Printed 2' 4 3/16\" height equals 0.951 x side, printed 9 3/16\" setback equals 0.309 x side, and 7.61 sq ft equals the full pentagon's 10.51 minus the 2.91 sq ft cut-off apex. PASS.",
+    "Base ring: nine sections with 18 deg miters give eight 36 deg corners, plus the two 36 deg cuts at the doorway ends — 10 x 36 = 360 deg. The Foundation Footprint page's 144 deg interior angle is the same statement. PASS.",
+    "Corner blocks: the Pentagon Block's 54 deg is exactly half the pentagon's 108 deg interior angle, and 9 5/8\" base over 3 1/2\" depth gives 53.97 deg with a 5 15/16\" side — exact. The Hexagon Block's 60 deg is half of 120, and 1' 1/8\" base over 3 1/2\" depth gives 60.0 deg with a 7\" side — exact. PASS.",
+    "Pitched-top roof triangle: printed miters 18.4 / 35.8 / 35.8 convert to real angles 71.6 + 54.2 + 54.2 = 180.0. Solving the printed edges (34 1/8\" base, 29 1/16\" sides) gives 71.88 / 54.06 / 54.06, i.e. miters 18.12 / 35.94 / 35.94. PASS, though the printed apex is about 0.3 deg off what its own edge lengths imply.",
+    "Radial deck triangles: printed miters are also off 90. Large apex 45.2 -> 44.8 real, small apex 62.8 -> 27.2 real, and 5 x (44.8 + 27.2) = 360 deg for the ten sectors. Each triangle closes: 44.8 + 67.6 + 67.6 = 180.0 and 27.2 + 76.4 + 76.4 = 180.0. PASS. Caveat: solving the printed side lengths gives apex angles of about 43.6 and 26.1 deg, roughly 1.2 deg tighter — the lengths are given long-point-to-long-point, which accounts for most of the gap, so treat the angles as authoritative and check the fit on the first triangle.",
+    "No triangular shell panels exist in this plan, so the usual three-corner miter check does not apply to the dome itself — only to the optional pitched-top roof triangles and the deck triangles above."
+  ],
+  "pdfIssues": [
+    "Every page footer (both editions, all 50 pages) reads 'Beginer Bucky Ball Plans' — 'Beginner' is misspelled throughout.",
+    "p.1 cover (both) 'Trilium Domes Presents' — 'Trillium' is misspelled on the title page.",
+    "p.4 (both) heading reads 'Model Specifc Notes' — should be 'Specific'.",
+    "p.4 (both) 'Request a Comissioned Build' — should be 'Commissioned'.",
+    "p.4 Metric: the sauna heater size is left as '14 x 14 x 36 in' — not converted.",
+    "p.5 Metric: the header says 'Dome surface area - 31 sq m' but the material line for the same area says '29 sq m cover material'. 310 sq ft is 28.8 sq m, so the 31 is wrong.",
+    "p.5 Metric: '(5) 38mm x 89mm x 3.05 (joists)' and '(12) 38mm x 89mm x 3.05' are missing the 'm' unit.",
+    "p.5 (both) '(100) 3\" #14 Structural Lag Screw (Or 175 through bolt/nut)' — the parenthetical 175 has no unit or context; it appears to be an alternative quantity but reads as a dimension.",
+    "p.9 (both) The hexagon area box reads '15.88 sq f' — missing the 't'.",
+    "p.9 / p.10 Metric: pentagon areas are printed '.97 sq m' and '.70 sq m' with no leading zero, while the hexagon areas print '1.47' and '1.22'.",
+    "p.10 (both) Partial Panels: the two square (90 deg) corners on the partial hexagon's cut edge are never dimensioned, so the only angle on the page is the 30 deg slope.",
+    "p.12 (both) 'if you use the offcuts piece the roof deck together' is missing a word or punctuation and does not parse.",
+    "p.12 Metric: '12 12m x 2.4m sheets' should read '1.2m x 2.4m' — a sheet ten times too wide.",
+    "p.14 (both) Base Sections: the vertical base board is dimensioned 5 7/16\" tall with a 32 deg top bevel on a 1 1/2\" plate, but its thickness/width is never given.",
+    "p.16 / p.17 (both) Radial Deck: the large triangle's two sides are printed as different lengths (5' 1 15/16\" and 5' 3\") while a single 22.4 deg base angle is shown spanning both base corners, which would require them to be equal. Same on the small triangle (5' 1 3/8\" vs 5' 3\" with one 13.6 deg call-out). The difference is the reciprocal butt joint at the apex, but the drawing does not say so.",
+    "p.16 / p.17 (both) The printed joist lengths imply apex angles of about 43.6 deg (large) and 26.1 deg (small), roughly 1.2 deg off the 44.8 / 27.2 deg the printed miters give. The miters are the ones that close the circle (5 x 72 = 360), so they are the reliable figures.",
+    "p.21-p.23 (both) Doorway: members are labelled only A, B and C with no legend saying which is the head, the shoulder and the leg, and several dimensions on the section views have no leader text.",
+    "p.21 Metric: the same 4' 8 13/16\" dimension is printed as 1443.3 mm in one place and 1443.8 mm in another.",
+    "p.22 Metric: the same 4' 7 9/16\" dimension is printed as 1411.1 mm and 1411.0 mm on the same sheet.",
+    "p.25 (both) Pitched Top Pentagon: the 18.4 deg and 35.8 deg call-outs are printed over the shingle texture in low-contrast grey and are close to unreadable at normal zoom.",
+    "p.25 Metric: the tapered member's short end is given as 15.5 mm where the Imperial sheet says 5/8\" (15.9 mm).",
+    "p.25 (both) The apex miter is printed 18.4 deg but the triangle's own edge lengths (34 1/8\" base, 29 1/16\" sides) give 18.1 deg.",
+    "p.26 Metric: the wall area box reads '.9 sq m' where the Imperial sheet reads '90 sq ft' (= 8.4 sq m) — the metric figure is out by roughly a factor of nine.",
+    "p.29 Metric: the bench cladding box likewise reads '.9 sq m' against the Imperial '90 sq ft'.",
+    "p.26 (both) Interior Wall: eight corner angles are boxed on the outline with no statement of whether they are miters, off-90 values or true interior angles.",
+    "p.30 (both) 'avoid exposed fasters' — should be 'fasteners'.",
+    "p.43 (both) 'ask a local builderwhat is commonly used' — missing space; and 'Once you have installed you piers' — should be 'your piers'.",
+    "Neither edition carries a tool list, and neither dimensions the finished strut cross-section — only the 19.8 deg bevel angle and the instruction to rip a 2x4 in half.",
+    "p.31 (both) 'Sauna Benches' is a rendered image with no dimensions and no text at all.",
+    "Both editions are 50 pages and the two are page-for-page identical in layout, which is a genuine improvement over the older Trillium plan sets where the Metric edition dropped pages."
+  ]
+}

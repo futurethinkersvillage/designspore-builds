@@ -1,0 +1,454 @@
+{
+  "key": "t-barn23",
+  "label": "Barn Dome — 23' / 7 m, 3/8 4V",
+  "family": "dome",
+  "params": {
+    "type": "dome",
+    "diameterFt": 23.8,
+    "frequency": 4,
+    "fraction": 0.375,
+    "riserFt": 2.56
+  },
+  "planNote": "Trillium's 4V plans use a four-strut-length breakdown. Build from these printed dimensions — the app's generated 3D model uses a standard Class I 4V breakdown and its computed dimensions differ slightly.",
+  "overview": {
+    "diameterFt": "23'",
+    "widthAtBase": "23' 0 9/16\"",
+    "height": "11' 4 1/2\"",
+    "doorWidth": "6'-0\"",
+    "doorHeight": "6' 8\"",
+    "metric": {
+      "widthAtBase": "7025 mm",
+      "height": "3467 mm",
+      "doorWidth": "1829 mm",
+      "doorHeight": "2032 mm"
+    },
+    "summary": "A 23-foot (7 m) diameter 3/8 4V geodesic dome with a barn-style front: instead of a small man door, one whole face of the base ring is opened up into an 8-foot bay carrying a pair of glazed barn doors, a curved beam, a glazed panel above the door and a projecting awning. The shell is built from flat pre-assembled triangular panel frames of four different shapes — 54 Hex triangles, 30 Pent triangles, 21 Triangle 1 and 5 Triangle 2 — plus two mirrored pairs of cut-down Triangle 1 panels that frame the doorway. The whole shell sits on a 20-sided pony wall (a stud wall about 32\" tall, sheathed with siding) rather than on a low timber sill, which is what gives this model its usable headroom around the perimeter. Finished frame is 23' 0 9/16\" wide and 11' 4 1/2\" tall, with a 6'-0\" x 6' 8\" door. All stock is 2x6 ripped in half to 1 1/2\" x 2 3/4\", then ripped again to the 1 5/16\" x 1 1/2\" panel strut with a 5.1-degree edge bevel."
+  },
+  "tools": [
+    "Tape measure",
+    "4' straight edge or chalk line",
+    "Drill (an impact driver is also very nice)",
+    "Circular saw or jigsaw",
+    "Miter saw (preferably with bevel; dual bevel better)",
+    "Countersink drill bit",
+    "2-6 quick clamps (more the merrier)",
+    "Table saw",
+    "Stapler (preferably pneumatic or electric)",
+    "Utility knife",
+    "Hand saw (for wood)",
+    "Digital angle finder"
+  ],
+  "materials": [
+    { "qty": "2 sheets", "item": "3/4\"X8' AC plywood", "metricItem": "19mm x 2440mm x 1220mm AC plywood" },
+    { "qty": "30", "item": "2x6x12 Kiln Dried", "metricItem": "38 mm x 140 mm x 4m Kiln Dried" },
+    { "qty": "1", "item": "2x12x8 KD", "metricItem": "38 x 286 mm x 2440mm" },
+    { "qty": "~700 sq ft", "item": "greenhouse plastic", "metricItem": "~65 sq m greenhouse plastic" },
+    { "qty": "~700'", "item": "greenhouse seam tape", "metricItem": "~215m greenhouse seam tape" },
+    { "qty": "700", "item": "2\" screws", "metricItem": "700 50mm screws" },
+    { "qty": "500", "item": "3\" screws", "metricItem": "500 75mm screws" },
+    { "qty": "3 gallons", "item": "paint/stain", "metricItem": "12 liters paint/stain" },
+    { "qty": "1", "item": "Paint brush / roller / sprayer" },
+    { "qty": "288 sq ft", "item": "siding for pony walls (or 9 4x8 sheets)", "metricItem": "27 sq m (or 9 1220 x 2440 mm sheets) siding for pony walls" },
+    { "qty": "7", "item": "2x4x12 Pressure Treated (btm plate pony wall)", "metricItem": "39mm x 89mm x 4m Pressure Treated (btm plate pony wall)" },
+    { "qty": "25", "item": "2x4x12 KD (pony wall framing)", "metricItem": "39mm x 89mm x 4m KD (pony wall framing)" }
+  ],
+  "components": [
+    { "qty": 342, "item": "Struts" },
+    { "qty": 54, "item": "Hexagon panels", "note": "not including windows" },
+    { "qty": 30, "item": "Pentagon Panels" },
+    { "qty": 21, "item": "Tri 1" },
+    { "qty": 5, "item": "Tri 2" },
+    { "qty": 2, "item": "Upper special door panels", "note": "1 mirrored pair" },
+    { "qty": 2, "item": "Lower special door panels", "note": "1 mirrored pair" },
+    { "qty": 5, "item": "A base sections" },
+    { "qty": 4, "item": "B Sections" },
+    { "qty": 4, "item": "C Sections" },
+    { "qty": 4, "item": "D sections" },
+    { "qty": 1, "item": "S section" },
+    { "qty": 1, "item": "S2 section" }
+  ],
+  "panels": [
+    {
+      "id": "hex",
+      "name": "Hex panel",
+      "qty": 54,
+      "edges": [
+        { "label": "Base", "length": "3'-8 3/16\"", "mm": "1122 mm" },
+        { "label": "Side (x2)", "length": "3'-8 3/4\"", "mm": "1136 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (apex)", "deg": 30.8 },
+        { "corner": "Base left", "deg": 29.6 },
+        { "corner": "Base right", "deg": 29.6 }
+      ],
+      "angleCheck": "Passes. Corner angles (90 - miter) are 59.2 + 60.4 + 60.4 = 180.0. Law of cosines on 44.1875\" base / 44.75\" sides gives 59.15 / 60.42 / 60.42, i.e. miters 30.85 / 29.58 / 29.58.",
+      "note": "Isosceles triangle; six of these make one hexagon of the shell. Angles are the amount OFF 90 degrees — the number you dial into the miter saw. The p.3 count of 54 excludes any panels you convert into windows."
+    },
+    {
+      "id": "pent",
+      "name": "Pent panel",
+      "qty": 30,
+      "edges": [
+        { "label": "Base", "length": "3'-3 13/16\"", "mm": "1011 mm" },
+        { "label": "Side (x2)", "length": "2'-10 1/8\"", "mm": "866 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (apex)", "deg": 18.6 },
+        { "corner": "Base left", "deg": 35.7 },
+        { "corner": "Base right", "deg": 35.7 }
+      ],
+      "angleCheck": "Passes. 71.4 + 54.3 + 54.3 = 180.0. Law of cosines on 39.8125\" base / 34.125\" sides gives 71.37 / 54.32 / 54.32, i.e. miters 18.63 / 35.68 / 35.68.",
+      "note": "Isosceles triangle; five make one pentagon of the shell. Shares its base length with the Tri 1 panel and with the A base sections."
+    },
+    {
+      "id": "tri1",
+      "name": "Triangle 1 panel",
+      "qty": 21,
+      "edges": [
+        { "label": "Base", "length": "3'-3 13/16\"", "mm": "1011 mm" },
+        { "label": "Side (x2)", "length": "3'-8 3/16\"", "mm": "1122 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (apex)", "deg": 36.4 },
+        { "corner": "Base left", "deg": 26.8 },
+        { "corner": "Base right", "deg": 26.8 }
+      ],
+      "angleCheck": "Passes. 53.6 + 63.2 + 63.2 = 180.0. Law of cosines on 39.8125\" base / 44.1875\" sides gives 53.57 / 63.21 / 63.21, i.e. miters 36.43 / 26.79 / 26.79.",
+      "note": "Tall isosceles triangle. Its base matches the Pent base and its sides match the Hex base, so it bridges between the pentagon and hexagon groups. Both special door panels are cut from this shape."
+    },
+    {
+      "id": "tri2",
+      "name": "Triangle 2 panel",
+      "qty": 5,
+      "edges": [
+        { "label": "Base", "length": "3'-8 3/16\"", "mm": "1122 mm" },
+        { "label": "Side (x2)", "length": "3'-8 3/16\"", "mm": "1122 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (apex)", "deg": 30 },
+        { "corner": "Base left", "deg": 30 },
+        { "corner": "Base right", "deg": 30 }
+      ],
+      "angleCheck": "Passes. Equilateral: 60 + 60 + 60 = 180.0, and all three printed edges are equal, so all three miters must be 30.",
+      "note": "Equilateral triangle — the only panel on this dome with three identical edges and three identical miters."
+    },
+    {
+      "id": "door-upper-partial-tri1",
+      "name": "Upper Partial Triangle 1 (door), mirrored pair",
+      "qty": 2,
+      "derivedFrom": "tri1",
+      "edges": [
+        { "label": "Base", "length": "3'-3 13/16\"", "mm": "1012 mm" },
+        { "label": "Left side", "length": "2'-4 11/16\"", "mm": "729 mm" },
+        { "label": "Long (cut) side", "length": "3'-1 3/16\"", "mm": "944 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top", "deg": 16.1, "degCorrected": 16.9 },
+        { "corner": "Base left", "deg": 26.8 },
+        { "corner": "Base right", "deg": 46.4 }
+      ],
+      "angleCheck": "FAILS. Corner angles (90 - miter) are 73.9 + 63.2 + 43.6 = 180.7 — 0.7 degrees too much. Law of cosines on 28.6875\" / 37.1875\" / 39.8125\" gives 73.08 / 63.33 / 43.58, i.e. miters 16.92 / 26.67 / 46.42. The top miter is the culprit: 16.1 as printed should be about 16.9.",
+      "note": "A Triangle 1 panel with the top right corner cut away: the base and the left side are untouched (the base-left miter is still Triangle 1's 26.8), the left side is stopped short at 2'-4 11/16\" and a straight cut runs from there down to the right-hand base corner. That cut edge takes the mirrored partner's matching angle. Built as a mirrored pair, one left-hand and one right-hand."
+    },
+    {
+      "id": "door-lower-partial-tri1",
+      "name": "Lower Partial Triangle 1 (door), mirrored pair",
+      "qty": 2,
+      "derivedFrom": "tri1",
+      "edges": [
+        { "label": "Base", "length": "3'-3 13/16\"", "mm": "1012 mm" },
+        { "label": "Left side", "length": "1'-4 15/16\"", "mm": "431 mm" },
+        { "label": "Long (cut) side", "length": "2'-11 9/16\"", "mm": "904 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top", "deg": 1.6, "obtuse": true, "note": "This corner is 91.6 degrees, i.e. 1.6 PAST 90, not 1.6 short of it." },
+        { "corner": "Base left", "deg": 41.9, "degCorrected": 26.8 },
+        { "corner": "Base right", "deg": 64.8 }
+      ],
+      "angleCheck": "FAILS badly. Read literally the corner angles are 88.4 + 48.1 + 25.2 = 161.7 — 18.3 degrees short. Two separate problems. (1) The top corner is obtuse: solving the printed edges (16.9375\" / 35.5625\" / 39.8125\") gives 91.59 degrees there, so the printed 1.6 is the right magnitude but on the far side of 90. (2) The base-left miter is simply wrong: the base and the left side are both uncut Triangle 1 edges, so that corner must still be Triangle 1's 63.2 degrees (miter 26.8); the law of cosines confirms 63.24. Corrected set: 91.6 / 63.2 / 25.2 = 180.0, i.e. miters 1.6-past-90 / 26.8 / 64.8.",
+      "note": "The same idea as the upper panel but a much shallower slice of Triangle 1: base untouched, the left side stopped at 1'-4 15/16\", then a straight cut down to the right-hand base corner. Mirrored pair. Do NOT set 41.9 on the saw for the base-left corner — see angleCheck."
+    }
+  ],
+  "crossSections": [
+    {
+      "member": "Panel strut",
+      "width": "1 5/16\"",
+      "height": "1 1/2\"",
+      "bevelDeg": 5.1,
+      "mm": { "width": "33 mm", "height": "38 mm" },
+      "note": "Standard strut for every panel on this dome. The 5.1 degree bevel is ripped on one edge so neighbouring panels close up tight."
+    },
+    {
+      "member": "Base bevel piece",
+      "width": "1 1/2\"",
+      "bevelDeg": 15,
+      "mm": { "width": "38 mm" },
+      "profile": {
+        "thickEnd": "1/2\"",
+        "thickEndMm": "12 mm",
+        "thinEnd": "1/16\"",
+        "thinEndMm": "1.5 mm"
+      },
+      "note": "A long thin 15-degree wedge, 1 1/2\" wide, 1/2\" thick at one edge dying to 1/16\" at the other. Ripped in long lengths then cut to match each pony wall section; it sits on top of the pony wall and tilts the dome frame outward. Flashing can be attached to it."
+    }
+  ],
+  "baseSections": [
+    {
+      "id": "A",
+      "desc": "A section (non-tapered)",
+      "qty": 5,
+      "length": "3'-3 13/16\"",
+      "lengthMm": "1012 mm",
+      "height": "2'-6 11/16\"",
+      "heightMm": "779 mm",
+      "miterDeg": 9,
+      "note": "Constant height. Its length matches the Pent / Tri 1 base."
+    },
+    {
+      "id": "B",
+      "desc": "B section (tapered)",
+      "qty": 4,
+      "length": "3'-8 3/16\"",
+      "lengthMm": "1122 mm",
+      "heightLeft": "2'-8\"",
+      "heightLeftMm": "813 mm",
+      "heightRight": "2'-6 11/16\"",
+      "heightRightMm": "779 mm",
+      "miterDeg": 9,
+      "note": "Steps down from 2'-8\" to 2'-6 11/16\" across its length. Mirror of D."
+    },
+    {
+      "id": "C",
+      "desc": "C section (non-tapered)",
+      "qty": 4,
+      "length": "3'-8 3/16\"",
+      "lengthMm": "1123 mm",
+      "height": "2'-8\"",
+      "heightMm": "813 mm",
+      "miterDeg": 9,
+      "note": "Constant height, the tall one. Its length matches the Hex / Tri 2 base."
+    },
+    {
+      "id": "D",
+      "desc": "D section (tapered)",
+      "qty": 4,
+      "length": "3'-8 3/16\"",
+      "lengthMm": "1122 mm",
+      "heightLeft": "2'-6 11/16\"",
+      "heightLeftMm": "779 mm",
+      "heightRight": "2'-8\"",
+      "heightRightMm": "813 mm",
+      "miterDeg": 9,
+      "note": "Steps up from 2'-6 11/16\" to 2'-8\". Mirror of B."
+    },
+    {
+      "id": "S",
+      "desc": "S section (short filler beside the door bay)",
+      "qty": 1,
+      "length": "1'-4 15/16\"",
+      "lengthMm": "430 mm",
+      "heightLeft": "2'-6 11/16\"",
+      "heightLeftMm": "779 mm",
+      "heightRight": "2'-7 3/16\"",
+      "heightRightMm": "792 mm",
+      "miterDeg": 9,
+      "note": "Short wall panel on one side of the 8' door bay."
+    },
+    {
+      "id": "S2",
+      "desc": "S2 section (short filler beside the door bay, mirrored)",
+      "qty": 1,
+      "length": "1'-4 15/16\"",
+      "lengthMm": "430 mm",
+      "heightLeft": "2'-7 3/16\"",
+      "heightLeftMm": "792 mm",
+      "heightRight": "2'-6 11/16\"",
+      "heightRightMm": "779 mm",
+      "miterDeg": 9,
+      "note": "Mirror of S, on the other side of the door bay."
+    }
+  ],
+  "baseLayout": {
+    "sides": 20,
+    "acrossFlats": "22' 0 3/8\"",
+    "acrossCorners": "22' 8 5/16\"",
+    "doorBay": "8'",
+    "miterDeg": 9,
+    "metric": { "acrossFlats": "6715 mm", "acrossCorners": "6916 mm", "doorBay": "8'" },
+    "measuredTo": "All dimensions outside to outside of dome frame. The outside of the dome frame is the outside of the pony wall framing; any cladding on the frame or the pony wall sits outside this dimension.",
+    "note": "Nineteen timber wall sections (5 A, 4 B, 4 C, 4 D, 1 S, 1 S2) plus one 8' door bay make twenty sides. Every joint is mitred 9 degrees each side, i.e. an 18-degree turn, and 20 x 18 = 360, which confirms the twenty-sided ring. The side lengths are NOT all equal — the ring is equiangular but not regular, and the door bay is a single long flat face."
+  },
+  "ponyWall": {
+    "maxHeight": "32\"",
+    "maxHeightMm": "812 mm",
+    "construction": "Framed stud wall: top and bottom plate with studs run perpendicular to the plates, sheathed with siding.",
+    "notes": [
+      "The overall slope of the tapered walls is less than 2 degrees, so the top and bottom plates can be cut the same length with a plain miter — no compound bevel — and the studs can be cut with a plain 90-degree cut.",
+      "Stud length is left to the builder because it depends on your material. If you are using plywood, cut the plywood to size first and use it as a gauge while building the wall so the studs do not go askew.",
+      "32\" (812 mm) is the height that uses sheet material efficiently, but the wall can be built to any height.",
+      "The beveled base piece transitions the pony wall to the dome frame. Rip the beveled pieces in long lengths, then cut to length to match their corresponding wall sections."
+    ]
+  },
+  "door": {
+    "openingWidth": "6'-0\"",
+    "openingHeight": "6' 8\"",
+    "bayWidth": "8'",
+    "metric": { "openingWidth": "1829 mm", "openingHeight": "2032 mm" },
+    "construction": "For the most accurate result, door components should be made to exact measurements taken off the opening of the completed door frame. The curvature on the beam, ledger and cards is optional.",
+    "components": [
+      {
+        "name": "Door post",
+        "qty": 2,
+        "desc": "2 mirrored assemblies",
+        "dims": [
+          { "label": "Length", "value": "6'-6 1/2\"", "mm": "1994 mm" },
+          { "label": "Width at head", "value": "3 1/2\"", "mm": "89 mm" },
+          { "label": "Cap width", "value": "3 1/2\"", "mm": "89 mm" },
+          { "label": "Width at foot", "value": "5\"", "mm": "not given on the Metric sheet (= 127 mm)" }
+        ],
+        "note": "Tapered post, wider at the bottom than at the top, with a sloped cap."
+      },
+      {
+        "name": "Door plates",
+        "qty": 2,
+        "desc": "1 Kiln Dried for top, 1 Pressure Treated for bottom",
+        "dims": [
+          { "label": "Length", "value": "6'-10\"", "mm": "2083 mm" }
+        ],
+        "endAngleDeg": 18,
+        "note": "Cut the plate out from between the posts after nailing them. The 18 degree callout is on the Imperial sheet only."
+      },
+      {
+        "name": "Awning 'ledger'",
+        "qty": 1,
+        "dims": [
+          { "label": "End run (each end)", "value": "1'-2 3/4\"", "mm": "375 mm" },
+          { "label": "Middle run", "value": "6'-1 11/16\"", "mm": "1871 mm" },
+          { "label": "Height at left end", "value": "9 5/16\"", "mm": "236 mm" },
+          { "label": "Height at right end", "value": "4 13/16\"", "mm": "left in inches on the Metric sheet (= 122 mm)" },
+          { "label": "Tip", "value": "13/16\"", "mm": "left in inches on the Metric sheet (= 21 mm)" }
+        ]
+      },
+      {
+        "name": "Above door pane",
+        "qty": 1,
+        "dims": [
+          { "label": "Top edge", "value": "6'-1 5/16\"", "mm": "1862 mm" },
+          { "label": "Bottom edge", "value": "6'-10\"", "mm": "2083 mm" },
+          { "label": "Height", "value": "1'-3 15/16\"", "mm": "405 mm" },
+          { "label": "End setback", "value": "7 7/16\"", "mm": "left in inches on the Metric sheet (= 189 mm)" }
+        ],
+        "note": "A shallow trapezoid — the glazed panel that sits above the doors."
+      },
+      {
+        "name": "Doorway 'beam'",
+        "qty": 1,
+        "dims": [
+          { "label": "Length", "value": "7'-11 3/16\"", "mm": "2418 mm" },
+          { "label": "Depth at ends", "value": "11 3/8\"", "mm": "288 mm" },
+          { "label": "Depth at end (upper face)", "value": "6 1/4\"", "mm": "159 mm" },
+          { "label": "Depth at centre", "value": "4 7/8\"", "mm": "123 mm" },
+          { "label": "Half length", "value": "3'-11 5/8\"", "mm": "1210 mm" }
+        ],
+        "note": "The curved beam over the door bay — deepest at the ends, shallowest at mid span."
+      },
+      {
+        "name": "Door 'cards'",
+        "qty": 2,
+        "desc": "2 mirrored",
+        "dims": [
+          { "label": "Top width", "value": "3'-3/16\"", "mm": "919 mm" },
+          { "label": "Bottom width", "value": "3'-10 1/8\"", "mm": "1172 mm" },
+          { "label": "Tall side height", "value": "7'-9 1/16\"", "mm": "2364 mm" },
+          { "label": "Short side height", "value": "7'-6 5/8\"", "mm": "2303 mm" }
+        ],
+        "note": "The two curved plywood panels that close the wedge between the door frame and the curved shell on each side of the bay."
+      },
+      {
+        "name": "Awning — Middle",
+        "qty": 1,
+        "dims": [
+          { "label": "Top edge", "value": "3'-8 3/16\"", "mm": "1123 mm" },
+          { "label": "Top overhang each side", "value": "9\"", "mm": "228 mm" },
+          { "label": "Bottom edge", "value": "5'-2 1/8\"", "mm": "1578 mm" },
+          { "label": "Height", "value": "2'-11 5/16\"", "mm": "897 mm" }
+        ]
+      },
+      {
+        "name": "Awning — Left and Right",
+        "qty": 2,
+        "dims": [
+          { "label": "Top edge", "value": "1'-5 3/16\"", "mm": "437 mm" },
+          { "label": "Bottom edge", "value": "2'-5 7/8\"", "mm": "758 mm" },
+          { "label": "Height", "value": "2'-11 13/16\"", "mm": "909 mm" }
+        ],
+        "note": "Mirrored pair flanking the middle awning panel."
+      }
+    ]
+  },
+  "sheetGoods": {
+    "note": "Two blocks are drawn: 33 sheets of 4'x8' (including +2 for the awning) OR 22 sheets of 4'x12' (including +1 for the awning). The plan does not print a colour key, but the totals identify them: yellow = Hex, red = Pent, green = Triangle 1, blue = Triangle 2. The 4'x8' block comes to exactly 54 / 30 / 21 / 5, matching the component list, which is why the two blocks read as alternatives rather than as two things you buy together.",
+    "sheets": [
+      {
+        "size": "4'x8'",
+        "total": 33,
+        "totalNote": "31 layouts drawn, +2 for awning",
+        "layouts": [
+          { "qty": 18, "colours": ["yellow"], "perSheet": "3 yellow triangles" },
+          { "qty": 6, "colours": ["red"], "perSheet": "5 red triangles" },
+          { "qty": 5, "colours": ["green"], "perSheet": "4 green triangles" },
+          { "qty": 1, "colours": ["blue"], "perSheet": "3 blue triangles" },
+          { "qty": 1, "colours": ["blue", "green"], "perSheet": "2 blue + 1 green" }
+        ]
+      },
+      {
+        "size": "4'x12'",
+        "total": 22,
+        "totalNote": "21 layouts drawn, including +1 for awning",
+        "layouts": [
+          { "qty": 4, "colours": ["green"], "perSheet": "5 green triangles" },
+          { "qty": 1, "colours": ["green", "blue"], "perSheet": "3 green + 3 blue" },
+          { "qty": 1, "colours": ["blue"], "perSheet": "2 blue triangles" },
+          { "qty": 11, "colours": ["yellow", "red"], "perSheet": "5 yellow + 1 red" },
+          { "qty": 3, "colours": ["red"], "perSheet": "6 red triangles" },
+          { "qty": 1, "colours": ["red", "green"], "perSheet": "3 red + 3 green" }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Build the stock from 2x6s ripped in half. That gives timbers 1 1/2\" x 2 3/4\", which is straighter and cheaper than trying to buy straight 2x3.",
+    "Every special door panel is a partial of another panel, cut away to make room for the doorway, and each is one of a mirrored pair — they must be built to mirror each other.",
+    "All panel miter angles on these plans are stated as degrees OFF 90 — that is the number you dial into the saw, not the interior angle of the triangle.",
+    "Base sections are dimensioned long point to long point with a 9 degree miter on each end.",
+    "This model sits on a framed pony wall rather than a timber sill ring, so the base sections here are wall panels (up to 32\" / 812 mm tall), not solid timbers.",
+    "Door components should ideally be measured off the completed door frame rather than cut blind from the printed dimensions.",
+    "See the 'Sheet Goods Layout' page for the awning and sheet-good call-outs."
+  ],
+  "sourcePdf": "BarnDomePlans_23ft_7m_4v_TrilliumDomes+3D/4v-Barndome-23ft-plans-min.pdf",
+  "sourcePdfMetric": "BarnDomePlans_23ft_7m_4v_TrilliumDomes+3D/4v-BarnDome-7m-plans-min.pdf",
+  "pageCount": { "imperial": 19, "metric": 19 },
+  "pdfIssues": [
+    "p.1 (both) 'copywritten' -> 'copyrighted'.",
+    "p.2 (both) 'Tape Measurer' -> 'Tape measure'.",
+    "p.3 (both) '54 Hexagon panels (not icluding windows)' -> 'including'.",
+    "p.3 (both) The list calls them 'Hexagon panels' and 'Pentagon Panels', but p.5 shows they are TRIANGLES cut on the hex jig and the pent jig (six triangles make a hexagon, five make a pentagon). Capitalisation is also inconsistent within the list.",
+    "p.7 (both) Upper Partial Triangle 1: the three printed miters (16.1 / 26.8 / 46.4) give corner angles summing to 180.7 degrees. Solving the printed edge lengths (2'-4 11/16\" / 3'-1 3/16\" / 3'-3 13/16\") gives 73.08 / 63.33 / 43.58, i.e. miters 16.92 / 26.67 / 46.42. The apex should read about 16.9, not 16.1.",
+    "p.7 (both) Lower Partial Triangle 1: the printed miters (1.6 / 41.9 / 64.8) give corner angles summing to only 161.7 degrees. Two faults. First, the apex is obtuse — solving the printed edges (1'-4 15/16\" / 2'-11 9/16\" / 3'-3 13/16\") gives 91.59 degrees, so the printed 1.6 is 1.6 PAST 90 and the sheet gives no sign. Second, the base-left corner cannot be 41.9: the base and the left side are both uncut Triangle 1 edges, so that corner is still Triangle 1's 63.2 degrees, i.e. a miter of 26.8 (the law of cosines gives 63.24). With 26.8 substituted the panel closes at 180.0.",
+    "p.5 / p.6 / p.10 / p.11 Metric rounding is inconsistent for the same imperial figure: 3'-8 3/16\" is printed 1122 mm on p.5, p.6, p.10 (B and D) but 1123 mm for base section C on p.10 and for the awning on p.17; 3'-3 13/16\" is 1011 mm on p.5 and p.6 but 1012 mm on p.7 and for base section A on p.10.",
+    "p.7 / p.11 Metric gives the lower door panel's short side as 431 mm, while the identical 1'-4 15/16\" S and S2 base sections on p.11 are given as 430 mm.",
+    "p.9 Metric leaves the door bay dimensioned as 8' — it is not converted (should be about 2438 mm).",
+    "p.15 Metric leaves three ledger/pane figures in inches: 4 13/16\", 13/16\" and 7 7/16\" (about 122, 21 and 189 mm).",
+    "p.16 Metric drops two call-outs the Imperial sheet carries: the 18 Deg angle on the door plate and the 5\" (127 mm) width at the foot of the door post.",
+    "p.4 (both) The Metric edition still tells you to rip 2x6's in half 'to create timbers 1 1/2\" x 2 3/4\"' and refers to 2x3 material — the note was never converted.",
+    "p.2 Metric materials: '(7) 39mm x 89mm x 4m Pressure Treated' and '(25) 39mm x 89mm x 4m KD' use 39 mm where every other page uses 38 mm; '(1) 38 x 286 mm x 2440mm' and '(30) 38 mm x 140 mm x 4m' mix separators and units.",
+    "p.1 Metric cover reads '7m' Diameter' — a stray foot mark after the metric value.",
+    "p.14 Metric gives the door card's short side as 2303 mm; 7'-6 5/8\" converts to 2302 mm.",
+    "p.13 Metric gives the door card's lower height as 1127 mm where the Imperial sheet prints '3 1/16\"' (78 mm). The Imperial figure is missing a foot mark and a digit — 1127 mm is 3'-8 3/8\".",
+    "p.18 (both) The sheet-goods page prints no colour key. The counts only reconcile once you work out that yellow = Hex, red = Pent, green = Triangle 1, blue = Triangle 2.",
+    "p.18 (both) The 4'x8' block totals exactly 54 / 30 / 21 / 5, matching the component list, but the 4'x12' block totals roughly 55 yellow / 32 red / 26 green / 5 blue — noticeably more material than the panel list needs, especially for Triangle 1.",
+    "p.18 (both) The page does not say whether the 4'x8' and 4'x12' blocks are alternatives or both required. Each block covers the whole panel list on its own, so they read as alternatives.",
+    "p.2 vs p.18 (both) The materials list calls for only (2) sheets of 3/4\" AC plywood, while the Sheet Goods Layout calls for 33 sheets of 4'x8' (or 22 of 4'x12'). The two pages do not reconcile.",
+    "p.19 / p.1 (both) 'www.TrilliumDomes.com' on the last page versus 'TrilliumDomes.com' in the sidebar and 'GoldenTrilliumGeo@gmail.com' — capitalisation and the www prefix are used inconsistently."
+  ]
+}

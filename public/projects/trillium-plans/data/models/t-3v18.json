@@ -1,0 +1,367 @@
+{
+  "key": "t-3v18",
+  "label": "18' / 5.5 m — 5/8 3V on pony wall",
+  "family": "dome",
+  "params": {
+    "type": "dome",
+    "diameterFt": 18.36,
+    "frequency": 3,
+    "fraction": 0.625,
+    "riserFt": 1.85
+  },
+  "overview": {
+    "diameterFt": "18'",
+    "widthAtBase": "18'",
+    "height": "12'-9 3/16\"",
+    "doorWidth": "3'-4\"",
+    "doorHeight": "6'-9\"",
+    "metric": {
+      "widthAtBase": "5486 mm",
+      "height": "3890 mm",
+      "doorWidth": "1016 mm",
+      "doorHeight": "2057 mm"
+    },
+    "summary": "An 18' (nominally 5.5 m) diameter 5/8 3V geodesic dome that sits on a short stud-framed PONY WALL rather than directly on a sill. The shell uses the standard Trillium panel system — 73 triangles cut on the hexagon jig and 30 cut on the pentagon jig, grouped into hexagons and pentagons, plus four half-hex panels that open the doorway. Under it is a 15-sided pony wall of 14 framed sections (5 right-hand tapered, 5 left-hand tapered, 4 non-tapered) with plates mitered 12 deg at both ends; the fifteenth bay is the door. A ripped wedge, the 'base bevel piece', caps the top plate and transitions the vertical wall into the leaning dome frame. This plan gives TWO complete door treatments — an awning-style door and an inset door — each with its own jack post, door card and vent dimensions. Finished shell is 18' wide and 12'-9 3/16\" tall overall, with a 3'-4\" x 6'-9\" doorway. Dome stock is 2x6 ripped in half to 1 1/2\" x 2 3/4\" and ripped again to the 1 5/16\" x 1 1/2\" panel strut with a 6.5 degree edge bevel; the pony wall is framed in the same ripped 2x3."
+  },
+  "tools": [
+    "Tape measure",
+    "4' straight edge or chalk line",
+    "Drill (an impact driver is also very nice)",
+    "Circular saw or jigsaw",
+    "Miter saw (preferably with bevel; dual bevel better)",
+    "Countersink drill bit",
+    "2-6 quick clamps (more the merrier)",
+    "Table saw",
+    "Stapler (preferably pneumatic or electric)",
+    "Utility knife",
+    "Hand saw (for wood)",
+    "Digital angle finder"
+  ],
+  "materials": [
+    { "qty": "1", "item": "4'x10'x3/4\" AC plywood", "metricItem": "1 sheet 19 mm x 1220 mm x 3 m AC plywood" },
+    { "qty": "32", "item": "2x6x12 KD (dome frame)", "metricItem": "38 mm x 140 mm x 4 m Kiln Dried (dome frame)" },
+    { "qty": "8", "item": "2x6x12 KD (pony wall)", "metricItem": "38 mm x 140 mm x 4 m Kiln Dried (pony wall)" },
+    { "qty": "3", "item": "2x6x12 PT (pony wall)", "metricItem": "38 mm x 140 mm x 4 m pressure treated (pony wall)" },
+    { "qty": "105 sq ft", "item": "siding (pony wall)", "metricItem": "10 sq m siding (pony wall)" },
+    { "qty": "~1000 sq ft", "item": "greenhouse plastic", "metricItem": "~93 sq m greenhouse plastic" },
+    { "qty": "~200'", "item": "greenhouse repair tape", "metricItem": "~61 m greenhouse seam tape" },
+    { "qty": "15 lb", "item": "2\" screws", "metricItem": "700 50 mm screws" },
+    { "qty": "10 lb", "item": "3\" screws", "metricItem": "500 75 mm screws" },
+    { "qty": "2 boxes", "item": "staples", "metricItem": "(omitted from the Metric sheet)" },
+    { "qty": "2 gallons", "item": "paint/stain", "metricItem": "12 liters paint/stain" },
+    { "qty": "1", "item": "Paint brush / roller / sprayer" },
+    { "qty": "2", "item": "door handles", "metricItem": "(omitted from the Metric sheet)" },
+    { "qty": "as needed", "item": "Door hinges", "metricItem": "(omitted from the Metric sheet)" },
+    { "qty": "4 pair", "item": "window hinges", "metricItem": "(omitted from the Metric sheet)" },
+    { "qty": "1", "item": "2-way gate latch", "metricItem": "(omitted from the Metric sheet)" },
+    { "qty": "4", "item": "gas pistons for windows (used for cabinets)", "metricItem": "(omitted from the Metric sheet)" }
+  ],
+  "materialsNote": "Both editions add: \"See 'Sheet Goods Layout' for awning and sheet good related call outs.\"",
+  "components": [
+    { "qty": 315, "item": "Struts" },
+    { "qty": 73, "item": "Hexagon panels", "note": "including 4 windows" },
+    { "qty": 30, "item": "Pentagon Panels" },
+    { "qty": 2, "item": "Right hand half hexagons (door)" },
+    { "qty": 2, "item": "Left hand half hexagons (door)" },
+    { "qty": 5, "item": "Right hand tapered base sections" },
+    { "qty": 5, "item": "Left hand tapered base sections" },
+    { "qty": 4, "item": "Non-tapered base sections" },
+    { "qty": 2, "item": "Door cards" },
+    { "qty": 2, "item": "Door posts" },
+    { "qty": 1, "item": "Door head" }
+  ],
+  "panels": [
+    {
+      "id": "hex",
+      "name": "Hex panel",
+      "qty": 73,
+      "edges": [
+        { "label": "Base", "length": "3'-8 1/2\"", "mm": "1130 mm", "mmMetricPdf": "1155 mm" },
+        { "label": "Side (x2)", "length": "3'-9 7/16\"", "mm": "1155 mm", "mmMetricPdf": "1130 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (apex)", "deg": 31.4 },
+        { "corner": "Base left", "deg": 29.3 },
+        { "corner": "Base right", "deg": 29.3 }
+      ],
+      "note": "Isosceles triangle. Six of these make one hexagon of the shell. Angles are the amount OFF 90 degrees, i.e. the number you dial into the miter saw. Four of the 73 are built as opening windows. CAUTION: the Metric sheet has the two labels SWAPPED — it prints 1155 on the base and 1130 on the slant side. The Imperial sheet (base 3'-8 1/2\" = 1130 mm, side 3'-9 7/16\" = 1154 mm) is right, and it is confirmed by the pent panel and the half-hex panels, which share the same 1130 mm base. Angle check passes on the Imperial values: interior angles 58.6 + 60.7 + 60.7 = 180.0, and solving the triangle (base 44.5\", sides 45.4375\") gives apex 58.64 deg and base 60.68 deg."
+    },
+    {
+      "id": "pent",
+      "name": "Pent panel",
+      "qty": 30,
+      "edges": [
+        { "label": "Base", "length": "3'-8 1/2\"", "mm": "1130 mm" },
+        { "label": "Side (x2)", "length": "3'-2 7/16\"", "mm": "976 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Top (apex)", "deg": 19.3 },
+        { "corner": "Base left", "deg": 35.4 },
+        { "corner": "Base right", "deg": 35.4 }
+      ],
+      "note": "Isosceles triangle; five make one pentagon of the shell. Shares the same 3'-8 1/2\" base as the hex panel. Angle check passes: interior angles 70.7 + 54.6 + 54.6 = 179.9, and solving from the printed edges (base 1130, sides 976) gives apex 70.75 deg and base 54.63 deg. Both editions print 35.4 deg here, so this model does NOT carry the 33.4 deg base-miter typo found on the 20' plan."
+    },
+    {
+      "id": "half-hex-door-a",
+      "name": "Door half-hex panel (drawn on the left of the mirrored pair)",
+      "qty": 2,
+      "edges": [
+        { "label": "Base", "length": "3'-8 1/2\"", "mm": "1130 mm" },
+        { "label": "Long side", "length": "3'-2 13/16\"", "mm": "986 mm" },
+        { "label": "Short side", "length": "1'-10 3/4\"", "mm": "577 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Base left", "deg": 59.3 },
+        { "corner": "Top", "deg": 1.4 },
+        { "corner": "Base right", "deg": 29.3 }
+      ],
+      "note": "Made on the hex jig, then cut down: a hex triangle sliced from one base corner to the mid-point of the opposite side. The long side runs up from the bottom-left corner and the short side drops back to the bottom-right. Angle check passes: interior angles 30.7 + 88.6 + 60.7 = 180.0; law of cosines on the printed edges (44.5\" / 3'-2 13/16\" / 1'-10 3/4\") gives 30.74, 88.58 and 60.68 deg. The drawing does not say whether this one is the right hand or the left hand version."
+    },
+    {
+      "id": "half-hex-door-b",
+      "name": "Door half-hex panel (drawn on the right of the mirrored pair)",
+      "qty": 2,
+      "edges": [
+        { "label": "Base", "length": "3'-8 1/2\"", "mm": "1130 mm" },
+        { "label": "Long side", "length": "3'-2 13/16\"", "mm": "986 mm" },
+        { "label": "Short side", "length": "1'-10 3/4\"", "mm": "577 mm" }
+      ],
+      "miterAngles": [
+        { "corner": "Base left", "deg": 29.3 },
+        { "corner": "Top", "deg": 1.4 },
+        { "corner": "Base right", "deg": 59.3 }
+      ],
+      "note": "Exact mirror image of the other half-hex. Same three lengths and same three angles, laid out the other way round. Same angle check applies and passes."
+    }
+  ],
+  "crossSections": [
+    {
+      "member": "Panel strut",
+      "width": "1 5/16\"",
+      "height": "1 1/2\"",
+      "bevelDeg": 6.5,
+      "mm": { "width": "33 mm", "height": "38 mm" },
+      "note": "Standard strut for every hex, pent and half-hex panel. The 6.5 deg bevel is on one face so that adjoining panels close up tight. Comes from a 2x6 ripped in half to 1 1/2\" x 2 3/4\", then ripped again."
+    },
+    {
+      "member": "Base bevel piece",
+      "width": "1 1/2\"",
+      "thickEnd": "1/2\"",
+      "thinEnd": "1/4\"",
+      "bevelDeg": 10,
+      "mm": { "width": "38 mm", "thickEnd": "12 mm", "thinEnd": "6 mm" },
+      "note": "A ripped wedge that caps the pony wall top plate and transitions the vertical wall into the leaning dome frame; flashing can be attached to it. Rip it long, then cut to length to match its wall section. Not counted in the component list."
+    },
+    {
+      "member": "Awning ledger",
+      "width": "2 11/16\"",
+      "height": "1 1/2\"",
+      "mm": { "width": "68 mm", "height": "38 mm" },
+      "profile": {
+        "topFlat": "1 1/8\"",
+        "topFlatMm": "28 mm",
+        "shortEnd": "1/2\"",
+        "shortEndMm": "12 mm",
+        "angleDeg": 31.7
+      },
+      "note": "Rectangular blank with one corner cut off at 31.7 deg: 1 1/8\" of flat across the top, then the chamfer runs down to a 1/2\" face on the outer edge. The same profile is used on both the awning door and the inset door."
+    }
+  ],
+  "doorVariants": [
+    {
+      "id": "awning",
+      "name": "Awning style door",
+      "doorwayWidth": "3'-4\"",
+      "doorwayHeight": "6'-9\"",
+      "doorwayMm": { "width": "1016 mm", "height": "2057 mm" },
+      "memberLengths": {
+        "doorPosts": "6'-9\"",
+        "doorPostsMm": "2057 mm",
+        "jackPosts": "1'-3 11/16\"",
+        "jackPostsMm": "398 mm",
+        "doorHead": "3'-7\"",
+        "doorHeadMm": "1092 mm",
+        "awningLedgerLength": "3'-7\"",
+        "awningLedgerLengthMm": "1092 mm"
+      },
+      "doorCards": {
+        "dims": [
+          { "label": "Overall height (outer edge)", "value": "8'-3 11/16\"", "mm": "2533 mm" },
+          { "label": "Inner height", "value": "8'-1 3/4\"", "mm": "2482 mm" },
+          { "label": "Width", "value": "2'-0\"", "mm": "610 mm" },
+          { "label": "Detail: flat across the top", "value": "3/4\"", "mm": "19 mm" },
+          { "label": "Detail: setback at the notch", "value": "1 1/4\"", "mm": "31 mm" }
+        ],
+        "note": "These door cards are taller than 8' so you will either need to use a 10' sheet of material or combine two pieces."
+      },
+      "awning": {
+        "dims": [
+          { "label": "Long edge", "value": "4'-4 1/2\"", "mm": "1333 mm" },
+          { "label": "Short edge", "value": "4'-1/2\"", "mm": "1232 mm" }
+        ]
+      },
+      "doorVent": {
+        "height": "1'-3 7/16\"",
+        "heightMm": "393 mm",
+        "width": "3'-3 3/4\"",
+        "widthMm": "1010 mm"
+      },
+      "note": "Components called out on the drawing: Awning, Awning ledger, Door Vent, Door Head, Jack Posts, Door Cards, Door Posts. Curvature of the door cards is optional."
+    },
+    {
+      "id": "inset",
+      "name": "Inset door",
+      "doorwayWidth": "3'-4\"",
+      "doorwayHeight": "6'-9\"",
+      "doorwayMm": { "width": "1016 mm", "height": "2057 mm" },
+      "memberLengths": {
+        "doorPosts": "6'-9\"",
+        "doorPostsMm": "2057 mm",
+        "jackPosts": "1'-2 7/8\"",
+        "jackPostsMm": "377 mm",
+        "doorHead": "3'-7\"",
+        "doorHeadMm": "1092 mm",
+        "awningLedgerLength": "3'-7\"",
+        "awningLedgerLengthMm": "1092 mm",
+        "awningLedgerFlashing": "3'-11 5/8\"",
+        "awningLedgerFlashingMm": "1209 mm"
+      },
+      "doorCards": {
+        "dims": [
+          { "label": "Overall height (outer edge)", "value": "8'-3 11/16\"", "mm": "2533 mm" },
+          { "label": "Width at the top step", "value": "1'-3 13/16\"", "mm": "402 mm" },
+          { "label": "Height at the lower step", "value": "5'-2 11/16\"", "mm": "1592 mm" },
+          { "label": "Width at the lower step", "value": "2'", "mm": "609 mm" },
+          { "label": "Width at the bottom", "value": "1'-6 7/16\"", "mm": "468 mm" },
+          { "label": "Detail: flat across the top", "value": "3/4\"", "mm": "19 mm" },
+          { "label": "Detail: setback at the notch", "value": "1 1/4\"", "mm": "31 mm" },
+          { "label": "Detail: face below the notch", "value": "2 11/16\"", "mm": "68 mm" }
+        ],
+        "note": "These door cards are taller than 8' so you will either need to use a 10' sheet of material or combine two pieces."
+      },
+      "doorVent": {
+        "height": "1'-2 11/16\"",
+        "heightMm": "373 mm",
+        "width": "3'-3 3/4\"",
+        "widthMm": "1010 mm"
+      },
+      "note": "Same door posts, head and ledger as the awning version; the jack posts are shorter (1'-2 7/8\" instead of 1'-3 11/16\"), the door cards are a different profile, and a drip edge flashing runs over the ledger. Components called out: Drip edge flashing, Awning ledger, Door Vent, Door Head, Jack Posts, Door Cards, Door Posts. Curvature is optional."
+    }
+  ],
+  "baseLayout": {
+    "acrossCorners": "18'",
+    "acrossFlats": "17'-10 9/16\"",
+    "metric": { "acrossCorners": "5486 mm", "acrossFlats": "5450 mm" },
+    "sides": 15,
+    "endMiterDeg": 12,
+    "doorwayEndCutDeg": 24,
+    "note": "The base ring is a 15-sided polygon. Fourteen of the fifteen sides are framed pony wall sections (5 right-hand tapered, 5 left-hand tapered, 4 non-tapered); the fifteenth is left open for the door. Every plate is mitered 12 deg at each end, which is half the 24 deg exterior angle of a 15-gon, and the two plates that run into the doorway are cut at the full 24 deg. The ring is not perfectly regular — tapered bays are 3'-9 7/16\" long and non-tapered bays 3'-8 1/2\", matching the dome's alternating base edges — but one 12 deg miter is used throughout. The sheet states all dimensions are outside to outside of the dome frame, that the outside of the dome frame is the outside of the pony wall framing, and that any cladding on either sits outside this dimension. Both figures are labelled 'outside to outside': 18' corner to corner across the ring, 17'-10 9/16\" from the top vertex down to the doorway."
+  },
+  "ponyWall": {
+    "desc": "Short stud wall under the dome — the key difference from the 20' plan, which lands the shell on a tapered timber base ring instead. 14 framed sections plus the door bay.",
+    "framingStock": "2x3 (2x6 ripped in half), replaceable with any 2x material",
+    "sections": [
+      {
+        "label": "C",
+        "type": "Non tapered",
+        "qty": 4,
+        "width": "3'-8 1/2\"",
+        "widthMm": "1130 mm",
+        "heightLeft": "1'-11 3/4\"",
+        "heightRight": "1'-11 3/4\"",
+        "heightMm": "603 mm",
+        "note": "Full height for the whole length — no taper. The height is printed as '1'-11 3/4' with the inch mark missing."
+      },
+      {
+        "label": "B",
+        "type": "Tapered",
+        "qty": 5,
+        "width": "3'-9 7/16\"",
+        "widthMm": "1154 mm",
+        "heightLeft": "1'-11 3/4\"",
+        "heightLeftMm": "603 mm",
+        "heightRight": "1'-10\"",
+        "heightRightMm": "558 mm",
+        "note": "Tapers down from left to right as drawn."
+      },
+      {
+        "label": "A",
+        "type": "Tapered",
+        "qty": 5,
+        "width": "3'-9 7/16\"",
+        "widthMm": "1154 mm",
+        "heightLeft": "1'-10\"",
+        "heightLeftMm": "558 mm",
+        "heightRight": "1'-11 3/4\"",
+        "heightRightMm": "603 mm",
+        "note": "Mirror of B — tapers up from left to right as drawn. The right-hand height is printed as '1'-11 3/4' with the inch mark missing."
+      }
+    ],
+    "sectionHeightsNote": "Vertical measurements are before the beveled base piece is added.",
+    "studs": [
+      { "length": "1'-7 1/16\"", "mm": "483 mm", "qty": 10 },
+      { "length": "1'-7 9/16\"", "mm": "497 mm", "qty": 10 },
+      { "length": "1'-8 1/8\"", "mm": "511 mm", "qty": 10 },
+      { "length": "1'-8 11/16\"", "mm": "525 mm", "qty": 30 }
+    ],
+    "studTotal": 60,
+    "plates": [
+      { "length": "3'-9 7/16\"", "mm": "1154 mm", "qty": 20, "note": "Two per tapered section (10 sections)." },
+      { "length": "3'-8 1/2\"", "mm": "1130 mm", "qty": 8, "note": "Two per non-tapered section (4 sections)." }
+    ],
+    "platesNote": "Plate lengths are long point to long point of a 12 deg miter.",
+    "notes": [
+      "Make bottom plates out of pressure treated stock if coming into direct contact with ground.",
+      "All pony wall framing is assumed 2x3 (2x6 ripped in half) to preserve lumber, but can be replaced by any 2x material.",
+      "The plates that lead into the doorway are cut at 24 degrees to allow the doorway to align properly.",
+      "The overall slope of the tapered walls is less than 2 deg, so there is no need to cut the top and bottom plates a different length or with a compound bevel — a plain miter is fine, and the studs can be cut square at 90 degrees.",
+      "Studs are set perpendicular to the plate.",
+      "If you use material other than US standard 2x, the stud lengths will change. Make a plywood template and build and side the wall against it so the wall does not go askew.",
+      "Rip the beveled base pieces, then cut them to length to match their corresponding wall sections.",
+      "The stud schedule reconciles as 4 studs per tapered section (one of each of the four lengths, 10 of each) plus 5 of the tallest stud in each of the 4 non-tapered sections: 40 + 20 = 60."
+    ]
+  },
+  "sheetGoods": {
+    "note": "Blue triangles are the hex-panel size and red are the pent-panel size. The number leadering into each layout is how many sheets are cut that way. The 4'x12' stack is labelled 'for dome frame'.",
+    "sheets": [
+      { "size": "4'x8'", "total": 30, "breakdown": [{ "qty": 15, "layout": "blue with red" }, { "qty": 15, "layout": "blue only" }] },
+      { "size": "4'x12'", "total": 16, "label": "for dome frame", "breakdown": [{ "qty": 13, "layout": "blue with red" }, { "qty": 2, "layout": "red" }, { "qty": 1, "layout": "red" }] }
+    ]
+  },
+  "notes": [
+    "Build the dome stock from 2x6s ripped in half. That gives timbers 1 1/2\" x 2 3/4\", which is straighter and cheaper than trying to buy straight 2x3.",
+    "Each special door panel is a partial of another panel, cut away to make space for the doorway. Each one is half of a mirrored pair and the pair must be made to mirror each other.",
+    "All panel miter angles on these plans are stated as degrees OFF 90 — that is the number you dial into the saw, not the interior angle of the triangle.",
+    "Panel struts carry a 6.5 deg edge bevel so neighbouring panels close up tight against each other.",
+    "This model sits on a pony wall. Build the 14 wall sections first, cap them with the beveled base pieces, and land the dome frame on that.",
+    "Two door treatments are supplied — awning style and inset. Pick one before cutting the jack posts and door cards; those are the parts that differ.",
+    "Door components should be made to exact measurements taken off the opening of the completed door frame rather than off the printed numbers.",
+    "Do not trust the Metric hex panel drawing on p.5 — its base and side labels are transposed. Use 1130 mm for the base and 1154 mm for the sides."
+  ],
+  "sourcePdf": "DomePlans_18ft_5.5m_3v_TrilliumDomes+3D/Imperial/3v-PonyWall-18ft-plans-min.pdf",
+  "sourcePdfMetric": "DomePlans_18ft_5.5m_3v_TrilliumDomes+3D/Metric/3v-PonyWall-5_5m-plans-min.pdf",
+  "pageCount": { "imperial": 18, "metric": 18, "note": "Both editions are 18 PDF pages: an unnumbered cover plus printed pages 1-17." },
+  "pdfIssues": [
+    "p.5 METRIC, most serious error: the hex panel's base and side labels are SWAPPED. The sheet prints 1155 on the base and 1130 on the slant side, but the Imperial sheet gives base 3'-8 1/2\" (1130 mm) and side 3'-9 7/16\" (1154 mm), and the pent panel and both half-hex panels on the same and following pages all share a 1130 mm base. Anyone building from the Metric sheet alone would cut every hex panel wrong.",
+    "Metric rounds the same 3'-9 7/16\" (1154.1 mm) two different ways: 1155 mm on p.5 and 1154 mm on p.9 and p.10.",
+    "p.4 METRIC leaves the Model Specific Note in inches — 'timbers 1 1/2\" x 2 3/4\"' — instead of converting to 38 x 70 mm.",
+    "Cover (Metric) says '5.5m Diameter' but the drawings give 5486 mm (5.486 m), so 5.5 m is nominal only.",
+    "p.1 (both) 'copywritten' -> 'copyrighted'.",
+    "p.2 (both) 'Tape Measurer' -> 'Tape measure'; 'Counter Sink drill bit' -> 'Countersink drill bit'.",
+    "p.2 METRIC materials list drops six lines the Imperial list carries: (2) box of staples, (2) door handles, door hinges, (4) pair window hinges, 2-way gate latch and (4) gas pistons for windows.",
+    "p.2 Screws are quantified on completely different bases: Imperial '15lb 2\" screws / 10 lb 3\" screws' vs Metric '700 50mm screws / 500 75mm screws'. The two sheets cannot be reconciled.",
+    "p.2 Paint: Imperial '(2) gallons' is about 7.6 litres, but the Metric sheet asks for '(12) liters'.",
+    "p.2 Imperial writes '15lb' without a space where the next line writes '10 lb'.",
+    "p.2 Tape is called 'greenhouse repair tape' on the Imperial sheet and 'greenhouse seam tape' on the Metric one (the quantities do agree: ~200' = ~61 m).",
+    "p.3 (both) Component list calls them '73 Hexagon panels' and '30 Pentagon Panels', but the drawings on p.5 show these are TRIANGLES cut on the hex jig and the pent jig (six triangles make a hexagon, five make a pentagon). The naming is confusing.",
+    "p.3 (both) '315 struts' does not obviously reconcile with the panel counts: 73 + 30 = 103 panel frames at 3 struts each is 309, and the 4 half-hex panels add more.",
+    "p.6 The two special door panels are drawn as a mirrored pair but neither is labelled right hand or left hand, so there is nothing tying the drawings to the 'right hand' / 'left hand' entries in the component list.",
+    "p.7 Base bevel piece is called 10 deg, but the printed section (1/2\" down to 1/4\" over a 1 1/2\" run) works out to 9.5 deg; the Metric section (12 mm down to 6 mm over 38 mm) works out to 9.0 deg.",
+    "p.9 (both) 'Vertical measurments' -> 'measurements'.",
+    "p.9 (Imperial) The non-tapered C height and the A section's right-hand height are printed as '1'-11 3/4' with the closing inch mark missing; every other dimension on the sheet has it.",
+    "p.9 (Metric) 1'-7 1/16\" is given as 483 mm; the exact conversion is 484.2 mm.",
+    "p.11 (both) Doubled words: 'the the tapered walls' and 'the the stud length'.",
+    "p.15 (both) The page is titled 'Inset Door Dimensions' but the sub-heading under it still reads 'Awning Style Door', carried over from p.13.",
+    "p.12 / p.14 (both) 'Awning ledger' on the component callouts vs 'Awning Ledger' on the dimension drawings — inconsistent capitalisation of the same part."
+  ]
+}

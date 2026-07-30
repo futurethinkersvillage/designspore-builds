@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trillium Plans Studio</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="css/app.css">
+<script type="importmap">
+{ "imports": {
+    "three": "./vendor/three.module.js",
+    "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js"
+} }
+</script>
+</head>
+<body>
+
+<div id="gate">
+  <form id="gateForm" autocomplete="off">
+    <div class="gate-mark">TRILLIUM</div>
+    <h1>Plans Studio</h1>
+    <p>An interactive working copy of the Trillium Domes plan bundle. Private prototype — not for distribution.</p>
+    <input id="gatePass" type="password" placeholder="Passphrase" aria-label="Passphrase" autocomplete="off">
+    <button type="submit">Enter</button>
+    <div id="gateErr" class="gate-err" hidden>Not quite — try again.</div>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header id="topbar">
+    <div class="brand">
+      <span class="brand-mark">◈</span>
+      <span class="brand-name">Trillium <b>Plans Studio</b></span>
+    </div>
+    <div class="topbar-model" id="topModel"></div>
+    <div class="topbar-actions">
+      <div class="seg" role="group" aria-label="Units">
+        <button data-unit="ft" class="on">ft · in</button>
+        <button data-unit="m">metric</button>
+      </div>
+      <button id="btnCsv" class="btn">Cut list CSV</button>
+      <button id="btnPrint" class="btn">Print</button>
+    </div>
+  </header>
+
+  <aside id="sidebar">
+    <div class="side-head">Models</div>
+    <div id="modelList"></div>
+    <div class="side-foot">
+      <div class="side-note">
+        Plans © Golden Trillium Geodesics LLC. Licensed to Mike Gilliland for personal use.
+        This tool is a private prototype built for collaboration with Trillium Domes.
+      </div>
+    </div>
+  </aside>
+
+  <main id="main">
+    <nav class="tabs" id="tabs">
+      <button data-tab="overview" class="on">Overview</button>
+      <button data-tab="method">Build Method</button>
+      <button data-tab="panels">Panels</button>
+      <button data-tab="cutsheets">Cut Sheets</button>
+      <button data-tab="materials">Materials</button>
+      <button data-tab="check">Plan Check <span id="checkBadge" class="tab-badge" hidden></span></button>
+    </nav>
+    <div id="panes">
+      <section class="pane on" data-pane="overview"></section>
+      <section class="pane" data-pane="method"></section>
+      <section class="pane" data-pane="panels"></section>
+      <section class="pane" data-pane="cutsheets"></section>
+      <section class="pane" data-pane="materials"></section>
+      <section class="pane" data-pane="check"></section>
+    </div>
+  </main>
+
+  <!-- single persistent WebGL host, moved into whichever pane needs it -->
+  <div id="stage"><div id="stageCanvas"></div></div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

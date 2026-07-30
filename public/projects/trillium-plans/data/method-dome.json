@@ -1,0 +1,206 @@
+{
+  "title": "Dome Builders Method",
+  "subtitle": "Every face of the dome is built as a separate framed panel in the shop, covered there, then carried to site and screwed together. You do about 90% of the finish work before anything leaves the bench.",
+  "source": "Rewritten from the Trillium Domes \"Dome Builders Method\" (© Golden Trillium Geodesics LLC). Reorganised for clarity; all dimensions and angles come from your model's plan page.",
+  "video": "https://youtu.be/Sl9fEp-27EM",
+  "bigIdea": [
+    "A geodesic dome looks like a puzzle of hundreds of unique parts. It isn't. It is a small number of panel shapes, repeated. Build one jig per shape, and every panel of that shape comes off it identical.",
+    "Two numbers do the real work. The <b>rip bevel</b> is a single angle you set on the table saw once — it tilts the outer edge of every strut so neighbouring panels meet flush instead of gapping. The <b>miters</b> are the corner angles, given as degrees <i>off 90°</i>, which is exactly what you dial into a miter saw.",
+    "Everything else is jigs, repetition and staying organised."
+  ],
+  "phases": [
+    {
+      "name": "Shop prep",
+      "steps": [
+        {
+          "n": 1,
+          "title": "Finish the material first",
+          "goal": "Stain or paint before you cut anything.",
+          "body": [
+            "You are going to rip every board in half lengthwise. The freshly cut edge ends up hidden inside the assembled dome, so there is no reason to finish it — which means the efficient order is <b>finish first, cut second</b>.",
+            "If you are reducing wider stock before splitting it (ripping a 2×6 down to a 2×3, for example), do that first, then apply finish."
+          ],
+          "callouts": [
+            { "type": "tip", "text": "Straight stock matters more than species or grade. Ripping wider boards down is usually the only reliable way to get straight 2×3 — buying 2×3 off the rack rarely is." }
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Rip the bevel angle",
+          "goal": "One saw setting, every strut in the dome.",
+          "usesValue": "ripBevel",
+          "body": [
+            "Set the table saw blade to the rip bevel for your model and split each board down the middle. Both halves run through the saw so the two pieces come out at matching dimensions.",
+            "The bevel is what makes the dome close up. If it drifts, the panels stop meeting flush and the errors accumulate all the way around the shell."
+          ],
+          "callouts": [
+            { "type": "warn", "text": "The bevel angle must match the plan. Use a digital angle finder, not the printed scale on the saw." },
+            { "type": "tip", "text": "The <i>other</i> strut dimensions do not have to match the plan. If your finished struts come out slightly narrower or thinner than printed, that is fine — as long as every strut is the same. You adjust the jig to your material, not the other way around." },
+            { "type": "tip", "text": "Set the fence, make a cut, flip the offcut 180° and send it back through taking off a hair more. This gets you two exactly matching pieces and wastes the least material." }
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Build a jig for each panel shape",
+          "goal": "The single most important step. Everything downstream is repetition.",
+          "body": [
+            "Take a piece of ¾″ plywood (thicker is better — it resists warping), a little larger than the panel you are making.",
+            "Snap or draw a straight line along the bottom of the sheet. Mark two points on that line, the length of the panel's <b>base</b> apart. Make a compass from a thin scrap with a nail at each end, set to the panel's <b>side</b> length. Swing an arc from each of the two base marks; where the arcs cross is the third corner.",
+            "Check every measurement, then connect the points. That triangle is the <b>outside</b> dimension of the finished panel — nothing may sit inside or outside those lines.",
+            "Now lay a strut on the line, wide face down, bevel facing out. Clamp it, then screw a rail of straight scrap (¾″ × 1½″ plywood works well) hard against it. Unclamp, repeat on the other two sides. A strut pushed against the rail should split the line — never straying in or out.",
+            "Trim the excess plywood, leaving an inch or two outside the lines."
+          ],
+          "callouts": [
+            { "type": "check", "text": "The drawn line is your reality check for the whole build. If a strut isn't splitting it, stop and fix the jig before cutting a hundred parts." },
+            { "type": "tip", "text": "Because the rails are set to your actual strut width, this jig works with whatever material you ended up with." }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cutting",
+      "steps": [
+        {
+          "n": 4,
+          "title": "Cut the initial miters",
+          "goal": "The first cut on each strut — the end that butts into its neighbour.",
+          "usesValue": "miters",
+          "body": [
+            "Each strut gets a miter on the end that butts into the adjoining strut. The angles are on your model's panel page, given as degrees <b>off 90°</b> — that is the number you set the saw to.",
+            "Cut as little off the end as you can, and watch the direction of the cut. The far end of the strut simply overhangs the jig for now; it gets its final cut in the next step."
+          ],
+          "callouts": [
+            { "type": "tip", "text": "There are usually two different angles per panel. Multiply your panel count by 3 to get total struts, cut two-thirds at the base angle and one-third at the top angle. Label them if it helps." }
+          ]
+        },
+        {
+          "n": 5,
+          "title": "Cut the final compound miters",
+          "goal": "The second end — a miter and a bevel at once.",
+          "body": [
+            "The other end of each strut dies into the <i>end</i> of the intersecting strut, so it needs a miter and a bevel together: a compound cut. It sounds harder than it is.",
+            "<b>Miter saw method (preferred).</b> Clamp all three struts to the jig without fastening them. Pencil a line on the side the intersecting strut butts into (that gives you the bevel) and a mark across the top (that gives you the miter). Set the saw to the plan's miter and bevel, orient the strut correctly, and cut splitting both marks. Then clamp a stop block at the far end so every following strut is a repeat cut — slide to the block, cut, done.",
+            "<b>Hand saw method.</b> Butt the struts together on the jig, countersink and fasten them, then saw the excess off each one, following both the bevel of the intersecting strut and the angle of the miter. Slower, but it needs no special saw and it is genuinely pleasant work once you find the rhythm."
+          ],
+          "callouts": [
+            { "type": "tip", "text": "A dual-bevel miter saw is easiest, but a single-bevel saw will do it." },
+            { "type": "check", "text": "Test-fit on the jig before committing to repeat cuts, then re-check every fifth strut or so in case the stop block has crept." }
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Half and partial panels",
+          "goal": "Doorway and base panels — a variation on the same jig.",
+          "body": [
+            "Doorways and some base positions need half or partial panels. Mark the dividing line on the jig you already have for the full panel, and cut a space for the dividing strut to sit in.",
+            "Partial panels have fiddlier angles and there are usually only a handful of them, so the hand saw is often the fastest route for their final cuts."
+          ],
+          "callouts": [
+            { "type": "warn", "text": "The centre strut of a partial panel usually has a different bevel — or none at all. Check your model's cross-section page before ripping it." },
+            { "type": "check", "text": "As you build panels, flip a finished one sideways and set it back on the jig. Significant gaps mean the jig needs adjusting." }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Panels",
+      "steps": [
+        {
+          "n": 7,
+          "title": "Pre-assemble panels into sections",
+          "goal": "Group panels into hexes and pents so they can be covered in one piece.",
+          "body": [
+            "Rather than covering each triangle separately, panels are screwed together into hexagon and pentagon sections first. A section can then be covered with a single piece of film — no wrinkles, no folds — and later repaired section by section instead of re-skinning the whole dome.",
+            "Lay the panels out with the <b>bottoms</b> (the longest side of each triangle) on the outside of the group. Clamp them tight, check they are dead on, then screw them together close to the corners."
+          ],
+          "callouts": [
+            { "type": "tip", "text": "Hexagon panels are so close to equilateral that it is easy to lose track of which side is the bottom. Mark it during assembly." }
+          ]
+        },
+        {
+          "n": 8,
+          "title": "Cover the sections",
+          "goal": "Stretch and staple the skin.",
+          "body": [
+            "Staple the film to the <b>beveled edge</b>, so that when panels come together the stapled seam is hidden. Let the covering material overhang the section by a few inches before you stretch.",
+            "Work in a sequence, pulling tight toward each successive point rather than stapling one edge fully and then fighting the next one.",
+            "Woven poly film behaves more like a tarpaulin than single-layer greenhouse poly: less elastic, far less fragile, and it will stretch over a frame in the cold. Single-layer poly stretches better when warm but tears easily."
+          ],
+          "callouts": [
+            { "type": "tip", "text": "When you're learning, put only a handful of staples per side. You will pull some out to tighten things up, and sparse staples make that painless." }
+          ]
+        },
+        {
+          "n": 9,
+          "title": "Windows",
+          "goal": "An opening window is just one extra panel.",
+          "body": [
+            "For each window, build one extra panel of that shape — your plan's component count usually already includes them. Leave the cover material off the panel in the wall, cover the extra panel, and hinge the covered frame to it with two small hinges.",
+            "A lateral framing member added across the window gives a gas piston something to push against so the window holds itself open."
+          ],
+          "callouts": [
+            { "type": "tip", "text": "Wrap and staple the cover to the underside of the window frame, and run weather-stripping on that face so rain can't track under the window." },
+            { "type": "check", "text": "After the dome is assembled, flash the seam above each window with tape." }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "On site",
+      "steps": [
+        {
+          "n": 10,
+          "title": "Set out the base sections",
+          "goal": "Get the footprint right and everything above it follows.",
+          "body": [
+            "A sphere cut by a level plane leaves a wavy bottom edge. The base sections are the tapered pieces that make up the difference and give you a flat, level ring to build on.",
+            "Assemble the base panels together with their base sections, lay them out on site, check the measurements against the base layout drawing, and stake them down — even temporarily. Then build the rest of the panels up from there.",
+            "On larger domes or more complicated base layouts it can pay to lay out the base sections alone first, without the panels attached, to get an accurate first run to build on."
+          ],
+          "callouts": [
+            { "type": "warn", "text": "The pressure-treated portion of a base section lies flat and is not beveled. The vertical portion above it is tapered and beveled. Check which is which on your cross-section page." },
+            { "type": "check", "text": "Time spent getting the base level and accurate is repaid many times over during assembly." }
+          ]
+        },
+        {
+          "n": 11,
+          "title": "Raise the dome",
+          "goal": "The fun part.",
+          "body": [
+            "Get a helper or two and work from the ground up — or, equivalently, from the outside inward on the exploded view. Clamps are handy. It is largely self-explanatory once the base is right.",
+            "Put in the minimum number of screws until the whole shell is standing, in case you need to adjust. These structures stay flexible right up until they're complete, and that flex is a tool, not a problem."
+          ],
+          "callouts": [
+            { "type": "tip", "text": "Run silicone caulk or gasket material between frames as you go — a cheap extra layer of water tightness that is impossible to add later." },
+            { "type": "warn", "text": "Don't assemble in wind. Large light panels behave like sails." }
+          ]
+        },
+        {
+          "n": 12,
+          "title": "Hang the door and tape the seams",
+          "goal": "Close it in.",
+          "body": [
+            "Stake the door cards and door posts the correct distance apart before hanging the door, so the fit is right the first time. Shim the door up to the right height and fasten the hinges to the card or post.",
+            "Tape the open seams where panel sections meet. Surfaces must be clean and dry. Start at the bottom and work up, lapping upper seams over lower ones so water sheds."
+          ]
+        },
+        {
+          "n": 13,
+          "title": "Anchor it",
+          "goal": "The last step — and not an optional one.",
+          "body": [
+            "On gravel or earth: 3′ lengths of rebar driven in at 20–30° and strapped to the base section with metal strapping.",
+            "On a concrete slab or wooden deck: 90° brackets with appropriate fasteners.",
+            "Once it's anchored, you're done. You just built a geodesic dome."
+          ]
+        }
+      ]
+    }
+  ],
+  "credits": {
+    "author": "Johnny Bayles — Trillium Domes / Golden Trillium Geodesics LLC",
+    "site": "https://TrilliumDomes.com",
+    "contact": "Support@TrilliumDomes.com",
+    "note": "Designing and building domes since 2015."
+  }
+}

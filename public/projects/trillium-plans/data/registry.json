@@ -1,0 +1,150 @@
+{
+  "_comment": "Authoritative geometry-engine parameters for every model in the bundle. `engine` is passed straight to build() in js/geometry.js. Per-model plan data (printed schedules, materials, notes) lives in data/models/<key>.json and is optional — the 3D model renders from `engine` alone.",
+  "groups": [
+    {
+      "name": "Domes",
+      "models": [
+        {
+          "key": "t-dodeca10",
+          "label": "Do-Deca-Dome",
+          "size": "10′ / 3 m",
+          "family": "dome",
+          "blurb": "35 identical panels — the simplest build in the bundle.",
+          "engine": { "type": "pentakis", "diameterFt": 11.03, "fraction": 0.6, "riserFt": 0.15, "flatten": false }
+        },
+        {
+          "key": "t-bucky",
+          "label": "Beginner Bucky Ball",
+          "size": "12′ / 3.6 m",
+          "family": "dome",
+          "blurb": "Truncated icosahedron — every edge the same length, one bevel angle.",
+          "engine": { "type": "bucky", "diameterFt": 12.27, "fraction": 0.62, "riserFt": 0.45, "flatten": false }
+        },
+        {
+          "key": "t-3v12",
+          "label": "3V Dome on pony wall",
+          "size": "12′8″ / 4 m",
+          "family": "dome",
+          "blurb": "5/8 sphere raised on a short stud wall for headroom.",
+          "engine": { "type": "dome", "diameterFt": 12.93, "frequency": 3, "fraction": 0.625, "riserFt": 2.2, "flatten": false }
+        },
+        {
+          "key": "t-3v15",
+          "label": "3V Bucky Ball Dome",
+          "size": "15′ / 4.5 m",
+          "family": "dome",
+          "blurb": "Two panel shapes, two miter settings. The classic starter dome.",
+          "engine": { "type": "dome", "diameterFt": 15.73, "frequency": 3, "fraction": 0.625, "riserFt": 0.75, "flatten": false }
+        },
+        {
+          "key": "t-3v18",
+          "label": "3V Dome on pony wall",
+          "size": "18′ / 5.5 m",
+          "family": "dome",
+          "blurb": "5/8 sphere on a taller pony wall — usable floor right to the edge.",
+          "engine": { "type": "dome", "diameterFt": 18.36, "frequency": 3, "fraction": 0.625, "riserFt": 1.85, "flatten": false }
+        },
+        {
+          "key": "t-3v20",
+          "label": "3V Bucky Ball Dome",
+          "size": "20′ / 6 m",
+          "family": "dome",
+          "blurb": "The flagship 3V. 73 hex panels, 30 pent panels, 4 opening windows.",
+          "engine": { "type": "dome", "diameterFt": 19.9, "frequency": 3, "fraction": 0.625, "riserFt": 0.2, "flatten": false }
+        },
+        {
+          "key": "t-barn23",
+          "label": "Barn Dome",
+          "size": "23′ / 7 m",
+          "family": "dome",
+          "blurb": "3/8 sphere on a tall wall with an 8′ door bay — workshop proportions.",
+          "approx": true,
+          "engine": { "type": "dome", "diameterFt": 23.8, "frequency": 4, "fraction": 0.375, "riserFt": 2.56, "flatten": false }
+        },
+        {
+          "key": "t-4v26",
+          "label": "4V Dome",
+          "size": "26′ / 8 m",
+          "family": "dome",
+          "blurb": "Half sphere, 4V breakdown — four panel shapes.",
+          "approx": true,
+          "engine": { "type": "dome", "diameterFt": 26.0, "frequency": 4, "fraction": 0.5, "riserFt": 0.12, "flatten": false }
+        },
+        {
+          "key": "t-4v30",
+          "label": "4V Dome",
+          "size": "30′ / 9 m",
+          "family": "dome",
+          "blurb": "Half sphere at 30 feet — the largest single-storey plan.",
+          "approx": true,
+          "engine": { "type": "dome", "diameterFt": 29.4, "frequency": 4, "fraction": 0.5, "riserFt": 0.14, "flatten": false }
+        },
+        {
+          "key": "t-4v40a",
+          "label": "4V Dome — Config One",
+          "size": "40′ / 12 m",
+          "family": "dome",
+          "blurb": "Deep Frame Method: full 2×6 on edge, low profile plus a 3′6″ wall.",
+          "approx": true,
+          "depthIn": 5.5,
+          "engine": { "type": "dome", "diameterFt": 38.3, "frequency": 4, "fraction": 0.375, "riserFt": 3.55, "flatten": false }
+        },
+        {
+          "key": "t-4v40b",
+          "label": "4V Dome — Config Two",
+          "size": "40′ / 12 m",
+          "family": "dome",
+          "blurb": "Deep Frame Method: 5/8 sphere on a short wall — two full storeys.",
+          "approx": true,
+          "depthIn": 5.5,
+          "engine": { "type": "dome", "diameterFt": 38.3, "frequency": 4, "fraction": 0.625, "riserFt": 1.0, "flatten": false }
+        }
+      ]
+    },
+    {
+      "name": "Zomes",
+      "models": [
+        {
+          "key": "t-acorn",
+          "label": "Acorn Zome (sauna)",
+          "size": "10′6″ / 3.2 m",
+          "family": "zome",
+          "blurb": "Six bands, carried past the equator — the acorn silhouette.",
+          "engine": { "type": "zome", "diameterFt": 8.56, "sides": 10, "bands": 6, "heightFt": 8.31, "riserFt": 0.6 }
+        },
+        {
+          "key": "t-z16",
+          "label": "Zome",
+          "size": "16′ / 5 m",
+          "family": "zome",
+          "blurb": "Every frame strut one length. Five bands of rhombus panels.",
+          "engine": { "type": "zome", "diameterFt": 16.0, "sides": 10, "bands": 5, "heightFt": 11.81, "riserFt": 0.46 }
+        },
+        {
+          "key": "t-z20",
+          "label": "Zome",
+          "size": "20′ / 6 m",
+          "family": "zome",
+          "blurb": "The mid-size zome. One strut length, five miter settings.",
+          "engine": { "type": "zome", "diameterFt": 19.65, "sides": 10, "bands": 5, "heightFt": 12.51, "riserFt": 0.5 }
+        },
+        {
+          "key": "t-z25",
+          "label": "Zome",
+          "size": "25′ / 7.5 m",
+          "family": "zome",
+          "blurb": "Non-beveled build — square-edged frame, simpler shop work.",
+          "engine": { "type": "zome", "diameterFt": 24.14, "sides": 10, "bands": 5, "heightFt": 15.18, "riserFt": 0.55 }
+        },
+        {
+          "key": "t-z30",
+          "label": "Zome",
+          "size": "30′ / 9 m",
+          "family": "zome",
+          "blurb": "The largest zome in the bundle — nearly 20 feet tall.",
+          "engine": { "type": "zome", "diameterFt": 28.58, "sides": 10, "bands": 5, "heightFt": 18.05, "riserFt": 0.55 }
+        }
+      ]
+    }
+  ]
+}
