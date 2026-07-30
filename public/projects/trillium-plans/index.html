@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The site serves this page without a trailing slash, so relative asset
+     paths would resolve against /projects/. Same fix as the dome generator. -->
+<base href="/projects/trillium-plans/">
 <title>Trillium Plans Studio</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="css/app.css">
