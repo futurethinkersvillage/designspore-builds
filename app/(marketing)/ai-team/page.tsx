@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   ArrowRightIcon,
   CheckIcon,
@@ -8,14 +9,9 @@ import {
   ReceiptIcon,
   PaperPlaneTiltIcon,
   FileTextIcon,
-  BriefcaseIcon,
-  PenNibIcon,
-  MagnifyingGlassIcon,
-  ChartBarIcon,
-  PaletteIcon,
-  CodeIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import AgentDemo from "@/components/marketing/AgentDemo";
 
 export const metadata: Metadata = {
   title: "Your Own Team of AI Agents — Design Spore",
@@ -58,48 +54,56 @@ const scenes = [
   },
 ];
 
+// Each agent is named after a thinker whose actual work matches the job.
+// Colours match how they appear in Discord.
 const team = [
   {
-    initial: "M",
+    slug: "seneca",
+    name: "Seneca",
+    role: "Your right hand",
+    color: "#4FD1D9",
+    named: "Named after the Roman Stoic who wrote about time as the only real currency.",
+    body: "Runs your day. Sorts what matters from what's just loud, keeps the follow-ups from slipping, and tells you the three things that actually need you.",
+  },
+  {
+    slug: "posi",
+    name: "Posi",
+    role: "Inbox & correspondence",
+    color: "#A78BFA",
+    named: "Named after Posidonius, the Greek polymath who connected everything to everything.",
+    body: "Lives in your email. Triages what comes in, drafts the replies, chases the invoices, and books things into your calendar without asking you twice.",
+  },
+  {
+    slug: "marcus",
     name: "Marcus",
-    role: "Your operations person",
-    Icon: BriefcaseIcon,
-    body: "Watches your inbox, chases what needs chasing, sends the reminders, keeps the weekly stuff from slipping.",
+    role: "Operations",
+    color: "#F87171",
+    named: "Named after Confucius, who was mostly writing about how to run things properly.",
+    body: "Takes customer requests, dispatches jobs, tracks whether they got done. The one who keeps the week from quietly falling apart.",
   },
   {
-    initial: "I",
-    name: "Iris",
-    role: "Your writer",
-    Icon: PenNibIcon,
-    body: "Emails, proposals, newsletters, website copy — written the way you'd write it, not the way a robot would.",
+    slug: "ari",
+    name: "Ari",
+    role: "Revenue & opportunities",
+    color: "#E5B94A",
+    named: "Named after Aristotle, who catalogued basically everything.",
+    body: "Watches for money you're leaving on the table — customers who drifted off, quotes that never got followed up, services people would buy if you offered them.",
   },
   {
-    initial: "N",
-    name: "Nora",
-    role: "Your researcher",
-    Icon: MagnifyingGlassIcon,
-    body: "Finds things out. Who this client is, what competitors charge, what you should know before that meeting.",
+    slug: "rufus",
+    name: "Rufus",
+    role: "Content & media",
+    color: "#FB923C",
+    named: "Named after Musonius Rufus, the Stoic teacher who believed practice beat theory.",
+    body: "Writes the things you keep not getting to. Newsletters, posts, website copy — in your voice, ready for you to change a line and send.",
   },
   {
-    initial: "A",
-    name: "Ada",
-    role: "Your numbers person",
-    Icon: ChartBarIcon,
-    body: "Pulls your numbers together into something you'd actually read. Weekly, monthly, or whenever you ask.",
-  },
-  {
-    initial: "L",
-    name: "Leo",
-    role: "Your designer",
-    Icon: PaletteIcon,
-    body: "Makes things look right. Landing pages, sales sheets, anything a customer is going to lay eyes on.",
-  },
-  {
-    initial: "C",
+    slug: "cris",
     name: "Cris",
-    role: "Your developer",
-    Icon: CodeIcon,
-    body: "Builds the actual tools. A booking system, a calculator for your site, something custom that didn't exist before.",
+    role: "Builds your tools",
+    color: "#60A5FA",
+    named: "Named after Chrysippus, the logician who systematised Stoic thought.",
+    body: "Builds the actual software. A booking form, a pricing calculator, a dashboard — custom things that didn't exist before you asked for them.",
   },
 ];
 
@@ -112,7 +116,7 @@ const steps = [
   {
     n: "02",
     title: "You start asking them for things",
-    body: "In plain sentences, the way you'd ask a person. There are no commands to memorize. If you can write a text message, you can run your team.",
+    body: "You message them in Discord — a free group chat app, on your phone and your computer. Plain sentences, no commands to memorize. If you can send a text message, you can run your team.",
   },
   {
     n: "03",
@@ -125,6 +129,14 @@ const faqs = [
   {
     q: "Do I need to be technical?",
     a: "No. That's what the setup day is for — I do the technical part while you watch. After that, you're talking to your team in plain English. If you can write an email, you can do this.",
+  },
+  {
+    q: "Are these real people?",
+    a: "No — every one of them is software. The names, faces and personalities exist so you can keep six different jobs straight in your head and know who to ask for what. They're named after philosophers whose actual work matches the job, which is either charming or ridiculous depending on your mood. Nobody is being paid offshore to answer as Marcus.",
+  },
+  {
+    q: "Why Discord?",
+    a: "Because it's free, it's on your phone and your computer, and it already works like a workplace group chat — separate channels for separate topics, and you can bring your actual staff in alongside the agents. You don't need to learn new software. If you've ever used a group chat, you're already trained.",
   },
   {
     q: "Where does all this actually run?",
@@ -167,9 +179,9 @@ export default function AiTeamPage() {
                 A team of AI agents that actually does your work.
               </h1>
               <p className="hero-in hero-in-3 text-xl md:text-2xl text-white/50 leading-relaxed max-w-2xl mb-8">
-                Six of them. Each with a name and a job — writing, chasing invoices,
-                researching, reporting. Running on your own computer, doing the work
-                you&apos;d otherwise hire someone for.
+                Six of them, each with a name and a job — chasing invoices, writing,
+                answering customers, watching for missed money. You message them in
+                Discord like a group chat, and they get on with it.
               </p>
               <div className="hero-in hero-in-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/35 mb-10">
                 <span className="num">
@@ -195,42 +207,9 @@ export default function AiTeamPage() {
               </div>
             </div>
 
-            {/* Chat card */}
+            {/* Live demo — agents working in Discord */}
             <div className="lg:col-span-5 hero-in hero-in-4">
-              <div className="rounded-2xl border border-white/[0.08] bg-dark overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
-                <div className="flex items-center gap-3 px-5 py-4 border-b border-white/[0.06] bg-raised">
-                  <span className="w-8 h-8 rounded-full bg-gold/12 border border-gold/30 flex items-center justify-center text-sm font-bold text-gold">
-                    M
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-white leading-tight">Marcus</p>
-                    <p className="text-[11px] text-white/30">Your operations person</p>
-                  </div>
-                </div>
-                <div className="p-5 space-y-3">
-                  <div className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-gold/12 border border-gold/20 px-4 py-2.5">
-                    <p className="text-[14px] text-white/80 leading-relaxed">
-                      Who hasn&apos;t paid me yet?
-                    </p>
-                  </div>
-                  <div className="max-w-[92%] rounded-2xl rounded-bl-sm bg-raised border border-white/[0.07] px-4 py-2.5">
-                    <p className="text-[14px] text-white/60 leading-relaxed">
-                      Three invoices are overdue. Hendricks is $2,400 at 18 days, Braun is
-                      $890 at 11, and Silva is $1,150 at 9. Want me to send reminders?
-                    </p>
-                  </div>
-                  <div className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-gold/12 border border-gold/20 px-4 py-2.5">
-                    <p className="text-[14px] text-white/80 leading-relaxed">
-                      yes, keep them friendly
-                    </p>
-                  </div>
-                  <div className="max-w-[92%] rounded-2xl rounded-bl-sm bg-raised border border-white/[0.07] px-4 py-2.5">
-                    <p className="text-[14px] text-white/60 leading-relaxed">
-                      Sent. I&apos;ll follow up again Friday if nothing comes in.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <AgentDemo />
             </div>
           </div>
         </div>
@@ -288,44 +267,85 @@ export default function AiTeamPage() {
               Six agents. Each one has a name and a job.
             </h2>
             <p className="mt-5 text-white/45 text-lg leading-relaxed">
-              You don&apos;t operate software. You ask someone to do something, the way you
-              would with staff.
+              They&apos;re software, not people — the faces and names are so you can tell them
+              apart and know who to ask. But you work with them the way you&apos;d work with
+              staff: you say what you need, in a normal sentence, and it gets done.
             </p>
           </ScrollReveal>
 
           <ScrollReveal variant="stagger" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {team.map(({ initial, name, role, Icon, body }) => (
+            {team.map(({ slug, name, role, color, named, body }) => (
               <div key={name} className="card-premium p-7 group">
                 <div className="flex items-center gap-4 mb-5">
-                  <div className="relative w-12 h-12 shrink-0 rounded-full bg-gold/12 border border-gold/30 flex items-center justify-center">
-                    <span
-                      className="text-lg font-bold text-gold"
-                      style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
-                    >
-                      {initial}
-                    </span>
-                    <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-raised border border-white/10 flex items-center justify-center">
-                      <Icon size={11} className="text-gold" weight="fill" />
-                    </span>
-                  </div>
-                  <div>
-                    <h3
-                      className="text-xl font-bold text-white leading-tight group-hover:text-gold transition-colors"
-                      style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
-                    >
-                      {name}
-                    </h3>
-                    <p className="text-xs uppercase tracking-widest text-white/35 mt-1">{role}</p>
+                  <span
+                    className="w-14 h-14 shrink-0 rounded-full overflow-hidden ring-2 ring-offset-2 ring-offset-[#1B2126]"
+                    style={{ boxShadow: `0 0 0 2px ${color}` }}
+                  >
+                    <Image
+                      src={`/agents/${slug}.webp`}
+                      alt=""
+                      width={96}
+                      height={96}
+                      className="w-full h-full object-cover"
+                    />
+                  </span>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3
+                        className="text-xl font-bold leading-tight"
+                        style={{
+                          color,
+                          fontFamily: "var(--font-display-active, var(--font-outfit))",
+                        }}
+                      >
+                        {name}
+                      </h3>
+                      <span className="text-[9px] font-bold uppercase tracking-wide bg-[#5865F2] text-white px-1.5 py-[2px] rounded">
+                        AI Agent
+                      </span>
+                    </div>
+                    <p className="text-xs uppercase tracking-widest text-white/35 mt-1.5">
+                      {role}
+                    </p>
                   </div>
                 </div>
-                <p className="text-white/50 text-[15px] leading-relaxed">{body}</p>
+                <p className="text-white/50 text-[15px] leading-relaxed mb-4">{body}</p>
+                <p className="text-white/25 text-[13px] leading-relaxed pt-4 border-t border-white/[0.06]">
+                  {named}
+                </p>
               </div>
             ))}
           </ScrollReveal>
 
+          <ScrollReveal className="mt-10">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-6 rounded-2xl border border-white/[0.07] bg-dark p-7 max-w-3xl">
+              <div className="flex -space-x-3 shrink-0">
+                {["leo", "cato", "cleo", "pax", "plato"].map((s) => (
+                  <span
+                    key={s}
+                    className="w-12 h-12 rounded-full overflow-hidden border-2 border-dark"
+                  >
+                    <Image
+                      src={`/agents/${s}.webp`}
+                      alt=""
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                    />
+                  </span>
+                ))}
+              </div>
+              <p className="text-white/45 leading-relaxed">
+                And there are more where those came from — Leo does design, Cato watches
+                security, Plato thinks about the long game. We add them to your team as
+                you need them, at no extra cost.
+              </p>
+            </div>
+          </ScrollReveal>
+
           <ScrollReveal className="mt-8">
             <p className="text-white/35 text-lg max-w-3xl leading-relaxed">
-              Everyone I set up gets the same six. So when someone in the group says
+              Everyone I set up gets the same team, so when someone in the group says
               &ldquo;that&apos;s a job for Marcus,&rdquo; you know exactly who they mean — and when I
               make one of them better, yours gets better too.
             </p>
