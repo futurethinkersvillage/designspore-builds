@@ -63,15 +63,15 @@ const team = [
     role: "Your right hand",
     color: "#4FD1D9",
     named: "Named after the Roman Stoic who wrote about time as the only real currency.",
-    body: "Runs your day. Sorts what matters from what's just loud, keeps the follow-ups from slipping, and tells you the three things that actually need you.",
+    body: "Runs the rest of them. Collects what every other agent got done, boils it into one morning briefing, and tells you the one or two things that genuinely need you today.",
   },
   {
     slug: "posi",
     name: "Posi",
-    role: "Inbox & correspondence",
+    role: "Email & social media",
     color: "#A78BFA",
     named: "Named after Posidonius, the Greek polymath who connected everything to everything.",
-    body: "Lives in your email. Triages what comes in, drafts the replies, chases the invoices, and books things into your calendar without asking you twice.",
+    body: "Handles everything that goes out. Triages your inbox and drafts the replies, then writes and schedules your social posts so the accounts stop going quiet for months.",
   },
   {
     slug: "marcus",
@@ -84,18 +84,18 @@ const team = [
   {
     slug: "ari",
     name: "Ari",
-    role: "Revenue & opportunities",
+    role: "Money & revenue",
     color: "#E5B94A",
     named: "Named after Aristotle, who catalogued basically everything.",
-    body: "Watches for money you're leaving on the table — customers who drifted off, quotes that never got followed up, services people would buy if you offered them.",
+    body: "Knows who owes you what and chases it. Also watches for money you're leaving on the table — customers who drifted off, quotes nobody followed up, services people would buy if you offered them.",
   },
   {
-    slug: "rufus",
-    name: "Rufus",
-    role: "Content & media",
-    color: "#FB923C",
-    named: "Named after Musonius Rufus, the Stoic teacher who believed practice beat theory.",
-    body: "Writes the things you keep not getting to. Newsletters, posts, website copy — in your voice, ready for you to change a line and send.",
+    slug: "leo",
+    name: "Leo",
+    role: "Design",
+    color: "#F472B6",
+    named: "The one agent here not named after a philosopher. Nobody's sure why it stuck.",
+    body: "Makes things look right. Send him a screenshot with a scribble on it and he'll change your website — landing pages, sales sheets, anything a customer lays eyes on.",
   },
   {
     slug: "cris",
@@ -320,7 +320,7 @@ export default function AiTeamPage() {
           <ScrollReveal className="mt-10">
             <div className="flex flex-col sm:flex-row sm:items-center gap-6 rounded-2xl border border-white/[0.07] bg-dark p-7 max-w-3xl">
               <div className="flex -space-x-3 shrink-0">
-                {["leo", "cato", "cleo", "pax", "plato"].map((s) => (
+                {["rufus", "cato", "cleo", "pax", "plato"].map((s) => (
                   <span
                     key={s}
                     className="w-12 h-12 rounded-full overflow-hidden border-2 border-dark"
@@ -336,9 +336,9 @@ export default function AiTeamPage() {
                 ))}
               </div>
               <p className="text-white/45 leading-relaxed">
-                And there are more where those came from — Leo does design, Cato watches
-                security, Plato thinks about the long game. We add them to your team as
-                you need them, at no extra cost.
+                And there are more where those came from — Rufus runs long-form content,
+                Cato watches security, Plato thinks about the long game. We add them to
+                your team as you need them, at no extra cost.
               </p>
             </div>
           </ScrollReveal>
