@@ -94,7 +94,7 @@ const team = [
     name: "Leo",
     role: "Design",
     color: "#F472B6",
-    named: "The one agent here not named after a philosopher. Nobody's sure why it stuck.",
+    named: "Named after Leonardo da Vinci, whose notebooks were half paintings and half machines.",
     body: "Makes things look right. Send him a screenshot with a scribble on it and he'll change your website — landing pages, sales sheets, anything a customer lays eyes on.",
   },
   {
