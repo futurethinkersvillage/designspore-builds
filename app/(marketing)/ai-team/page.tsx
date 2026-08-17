@@ -16,7 +16,7 @@ import AgentDemo from "@/components/marketing/AgentDemo";
 export const metadata: Metadata = {
   title: "Your Own Team of AI Agents — Design Spore",
   description:
-    "Six AI agents with names and jobs, set up on your own computer, doing real work for your business. $1,000 to set up, $400/month to keep growing it.",
+    "A team of AI agents with names and jobs, set up on your own computer, doing real work for your business. $1,000 to set up, $400/month to keep growing it.",
 };
 
 /* ── DATA ─────────────────────────────────────────────────────── */
@@ -105,6 +105,22 @@ const team = [
     named: "Named after Chrysippus, the logician who systematised Stoic thought.",
     body: "Builds the actual software. A booking form, a pricing calculator, a dashboard — custom things that didn't exist before you asked for them.",
   },
+  {
+    slug: "rufus",
+    name: "Rufus",
+    role: "Long-form content",
+    color: "#FB923C",
+    named: "Named after Musonius Rufus, the Stoic teacher who insisted practice beat theory.",
+    body: "Writes the longer things you never get to. Newsletters, articles, the case study from that job you were proud of — drafted and waiting for your read.",
+  },
+  {
+    slug: "cato",
+    name: "Cato",
+    role: "Security & risk",
+    color: "#94A3B8",
+    named: "Named after Cato the Younger, the Roman senator who was incorruptible to a fault.",
+    body: "Watches for the things that could hurt you — weak logins, exposed forms, suspicious traffic, anyone poking at your systems. Fixes what he can and tells you the rest.",
+  },
 ];
 
 const steps = [
@@ -132,7 +148,7 @@ const faqs = [
   },
   {
     q: "Are these real people?",
-    a: "No — every one of them is software. The names, faces and personalities exist so you can keep six different jobs straight in your head and know who to ask for what. They're named after philosophers whose actual work matches the job, which is either charming or ridiculous depending on your mood. Nobody is being paid offshore to answer as Marcus.",
+    a: "No — every one of them is software. The names, faces and personalities exist so you can keep a lot of different jobs straight in your head and know who to ask for what. They're named after philosophers whose actual work matches the job, which is either charming or ridiculous depending on your mood. Nobody is being paid offshore to answer as Marcus.",
   },
   {
     q: "Why Discord?",
@@ -179,9 +195,9 @@ export default function AiTeamPage() {
                 A team of AI agents that actually does your work.
               </h1>
               <p className="hero-in hero-in-3 text-xl md:text-2xl text-white/50 leading-relaxed max-w-2xl mb-8">
-                Six of them, each with a name and a job — chasing invoices, writing,
-                answering customers, watching for missed money. You message them in
-                Discord like a group chat, and they get on with it.
+                Each one has a name and a job — chasing invoices, writing, answering
+                customers, watching for missed money. You message them in Discord like a
+                group chat, and they get on with it.
               </p>
               <div className="hero-in hero-in-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/35 mb-10">
                 <span className="num">
@@ -264,7 +280,7 @@ export default function AiTeamPage() {
               className="text-4xl md:text-5xl font-bold tracking-tight text-white"
               style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
             >
-              Six agents. Each one has a name and a job.
+              Everyone on your team has a name and a job.
             </h2>
             <p className="mt-5 text-white/45 text-lg leading-relaxed">
               They&apos;re software, not people — the faces and names are so you can tell them
@@ -273,7 +289,7 @@ export default function AiTeamPage() {
             </p>
           </ScrollReveal>
 
-          <ScrollReveal variant="stagger" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <ScrollReveal variant="stagger" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {team.map(({ slug, name, role, color, named, body }) => (
               <div key={name} className="card-premium p-7 group">
                 <div className="flex items-center gap-4 mb-5">
@@ -320,7 +336,7 @@ export default function AiTeamPage() {
           <ScrollReveal className="mt-10">
             <div className="flex flex-col sm:flex-row sm:items-center gap-6 rounded-2xl border border-white/[0.07] bg-dark p-7 max-w-3xl">
               <div className="flex -space-x-3 shrink-0">
-                {["rufus", "cato", "cleo", "pax", "plato"].map((s) => (
+                {["cleo", "pax", "plato"].map((s) => (
                   <span
                     key={s}
                     className="w-12 h-12 rounded-full overflow-hidden border-2 border-dark"
@@ -336,9 +352,10 @@ export default function AiTeamPage() {
                 ))}
               </div>
               <p className="text-white/45 leading-relaxed">
-                And there are more where those came from — Rufus runs long-form content,
-                Cato watches security, Plato thinks about the long game. We add them to
-                your team as you need them, at no extra cost.
+                There are more of them than you&apos;ll need on day one — Cleo looks after
+                how customers are treated, Pax handles deals and partnerships, Plato
+                thinks about the long game. We add them as the need shows up, at no extra
+                cost.
               </p>
             </div>
           </ScrollReveal>
@@ -424,7 +441,7 @@ export default function AiTeamPage() {
               <ul className="space-y-3 text-[15px] text-white/55 flex-1 mb-7">
                 {[
                   "Half a day together, over a screen share",
-                  "All six agents installed and working",
+                  "Your whole team installed and working",
                   "Connected to your email, calendar and files",
                   "Two real jobs from your business, set up live",
                   "A recording of your own setup to rewatch",

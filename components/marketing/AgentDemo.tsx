@@ -6,19 +6,19 @@ import { HashIcon } from "@phosphor-icons/react";
 
 /* ── AGENTS ───────────────────────────────────────────────────── */
 
-type AgentSlug = "seneca" | "posi" | "marcus" | "ari" | "leo" | "cris";
+type AgentSlug = "seneca" | "posi" | "ari" | "leo" | "cris";
 
 const AGENTS: Record<AgentSlug, { name: string; role: string; color: string }> = {
   seneca: { name: "Seneca", role: "Your right hand", color: "#4FD1D9" },
   posi: { name: "Posi", role: "Email & social", color: "#A78BFA" },
-  marcus: { name: "Marcus", role: "Operations", color: "#F87171" },
   ari: { name: "Ari", role: "Money & revenue", color: "#E5B94A" },
   leo: { name: "Leo", role: "Design", color: "#F472B6" },
   cris: { name: "Cris", role: "Builds your tools", color: "#60A5FA" },
 };
 
 /* ── SCENES ───────────────────────────────────────────────────────
-   `history` renders instantly — it's what you scroll back into.
+   A sample of the team, not all of it — four short exchanges.
+   `history` renders instantly; it's what you scroll back into.
    `messages` animate in one at a time.
 ─────────────────────────────────────────────────────────────────── */
 
@@ -44,53 +44,72 @@ const SCENES: Scene[] = [
     caption: "Seneca runs the others, then reports up to you.",
     history: [
       { from: "you", text: "how did last week go?" },
-      {
-        from: "seneca",
-        text: "Good week. $18,400 invoiced, up 12% on the week before. Nothing on fire.",
-      },
+      { from: "seneca", text: "$18,400 invoiced, up 12%. Nothing on fire." },
+      { from: "you", text: "good. keep an eye on the Braun job" },
     ],
     messages: [
-      { from: "seneca", text: "Monday, 7:00am. Everyone's reported in.", think: 1300 },
+      { from: "seneca", text: "Monday, 7:00am. Everyone's reported in.", think: 1200 },
       {
         from: "seneca",
-        text: "Ari found $8,000 in customers who didn't rebook this spring and has the outreach queued. Posi cleared 34 emails over the weekend and flagged three for you. Marcus took a job enquiry at 11:42pm and put it on your calendar. Leo's halfway through the homepage change.",
-        think: 1900,
+        text: "Ari found $8,000 in customers who never rebooked. Posi cleared 34 emails. Marcus booked a job that came in at 11:42pm.",
+        think: 1700,
       },
       {
         from: "seneca",
-        text: "The only thing that actually needs you today is the Braun quote. They've asked twice.",
+        text: "Only thing that needs you today is the Braun quote. They've asked twice.",
         think: 1500,
       },
-      { from: "you", text: "draft it and I'll look after lunch" },
-      { from: "seneca", text: "On it.", think: 900 },
+      { from: "you", text: "draft it, I'll look after lunch" },
     ],
   },
   {
     lead: "ari",
     channel: "money",
-    caption: "What's owed, and what's being left on the table.",
+    caption: "What you're owed, and what you're leaving behind.",
     history: [
-      { from: "ari", text: "Heads up — Hendricks paid this morning. $2,400 in." },
+      { from: "ari", text: "Hendricks paid this morning. $2,400 in." },
+      { from: "you", text: "finally" },
     ],
     messages: [
-      { from: "you", text: "who else hasn't paid me yet?" },
+      { from: "you", text: "who else hasn't paid?" },
       {
         from: "ari",
-        text: "Two left. Braun — $890, 11 days. Silva — $1,150, 9 days. Posi sent both a friendly reminder Friday; I'll chase again if nothing lands by Wednesday.",
-        think: 1600,
+        text: "Braun — $890, 11 days. Silva — $1,150, 9 days. Posi sent both a reminder Friday.",
+        think: 1500,
       },
       {
         from: "ari",
-        text: "Separately — eleven customers from last spring haven't rebooked this year. Same season, same service. That's about $8,000 sitting there.",
+        text: "Also: eleven customers from last spring never rebooked. About $8,000 sitting there. Want me to reach out?",
         think: 1700,
       },
-      { from: "you", text: "huh. can you reach out?" },
+      { from: "you", text: "yes please" },
+    ],
+  },
+  {
+    lead: "leo",
+    channel: "website",
+    caption: "Leo makes the change. Cris checks it's safe.",
+    history: [
+      { from: "leo", text: "Staging link's still up from last week if you want to compare." },
+    ],
+    messages: [
+      { from: "you", text: "can you fix this", attachment: "annotated-screenshot" },
       {
-        from: "ari",
-        text: "Written and queued — one each, referencing what they booked last time. Want to read them before they go?",
-        think: 1400,
+        from: "leo",
+        text: "On mobile that button falls below the fold, and the contrast fails accessibility. Moving it up, darkening it.",
+        think: 1800,
       },
-      { from: "you", text: "send me the first three" },
+      { from: "leo", text: "Done — it's on staging.", think: 1200 },
+      {
+        from: "cris",
+        text: "Security pass before this goes live: your contact form had no rate limiting, and an old plugin had a known vulnerability. Both patched.",
+        think: 1900,
+      },
+      {
+        from: "cris",
+        text: "Admin login still has no two-factor. That one needs you.",
+        think: 1300,
+      },
     ],
   },
   {
@@ -98,149 +117,159 @@ const SCENES: Scene[] = [
     channel: "comms",
     caption: "Email and social, handled and queued for your yes.",
     history: [
-      {
-        from: "posi",
-        text: "Weekend inbox: 34 emails. 31 handled, 3 need you — they're at the top.",
-      },
+      { from: "posi", text: "Weekend inbox: 34 emails. 31 handled, 3 need you." },
+      { from: "you", text: "thanks" },
     ],
     messages: [
       { from: "you", text: "anything urgent?" },
       {
         from: "posi",
-        text: "The Tourism Association wants you on a panel October 3rd. A supplier is raising prices 8% in November. And someone's asking if you're hiring.",
-        think: 1700,
+        text: "Tourism Association wants you on a panel Oct 3rd. And a supplier's raising prices 8% in November.",
+        think: 1600,
       },
-      { from: "you", text: "yes to the panel. and post something about the new machine" },
+      { from: "you", text: "yes to the panel. and post about the new machine" },
       {
         from: "posi",
-        text: "Panel accepted and in your calendar. For the machine — I've drafted a post using Thursday's photos, queued for Instagram and Facebook at 11am tomorrow.",
+        text: "Accepted, it's in your calendar. Post drafted with Thursday's photos — queued for Instagram and Facebook, 11am tomorrow.",
         think: 1800,
       },
-      { from: "posi", text: "Want to see it before it goes out?", think: 900 },
-      { from: "you", text: "yeah send it" },
-    ],
-  },
-  {
-    lead: "leo",
-    channel: "website",
-    caption: "Two agents, one job — Leo builds it, Cris checks it.",
-    history: [
-      { from: "leo", text: "Staging link's still live from last week if you want to compare." },
-    ],
-    messages: [
-      {
-        from: "you",
-        text: "can you fix this",
-        attachment: "annotated-screenshot",
-      },
-      {
-        from: "leo",
-        text: "Got it. On mobile that button sits below the fold, and the contrast is too low to pass accessibility. Moving it up under the headline and darkening it two steps.",
-        think: 1900,
-      },
-      {
-        from: "leo",
-        text: "Done — it's on the staging link. I fixed the same button on your contact page while I was in there.",
-        think: 1500,
-      },
-      { from: "cris", text: "I'll do a security pass before this goes live.", think: 1100 },
-      {
-        from: "cris",
-        text: "Three things. Your contact form had no rate limiting — someone was submitting 40 an hour. An old plugin with a known vulnerability was still installed. And your admin login has no two-factor. First two are patched; the last one needs you to scan a QR code.",
-        think: 2000,
-      },
-      { from: "you", text: "send it over" },
-    ],
-  },
-  {
-    lead: "marcus",
-    channel: "operations",
-    caption: "Nights and weekends included.",
-    history: [
-      {
-        from: "marcus",
-        text: "Firewood order from the Kellers — 2 cords, Saturday delivery. Added to their invoice.",
-      },
-    ],
-    messages: [
-      {
-        from: "marcus",
-        text: "11:42pm — someone asked through the website whether you can do a job the week of the 14th. I told them yes, you're open that week, and asked for their address and photos.",
-        think: 1900,
-      },
-      {
-        from: "marcus",
-        text: "They sent both. It's on your calendar as a hold and the photos are in the folder.",
-        think: 1500,
-      },
-      { from: "you", text: "nice" },
-      { from: "marcus", text: "I'll confirm with them once you've had a look.", think: 900 },
     ],
   },
 ];
 
 /* ── ATTACHMENT ───────────────────────────────────────────────────
-   A mock screenshot with the customer's markup on it. Drawn rather
-   than shipped as a raster so it stays sharp and weighs nothing.
+   The customer's marked-up screenshot. Drawn rather than shipped as a
+   raster so it stays sharp at any size and weighs nothing.
 ─────────────────────────────────────────────────────────────────── */
+
+const TREES = [6, 22, 38, 56, 74, 92, 112, 132, 154, 176, 198, 220, 244, 268, 292, 310];
 
 function AnnotatedScreenshot() {
   return (
-    <div className="mt-2 max-w-[300px] rounded-lg overflow-hidden border border-black/40 bg-[#0F1214]">
-      <svg viewBox="0 0 300 190" className="w-full block" role="img" aria-label="Screenshot of a website with a hand-drawn circle around the call-to-action button">
-        <rect width="300" height="190" fill="#15191D" />
+    <div className="mt-2 max-w-[300px] rounded-lg overflow-hidden border border-black/40">
+      <svg
+        viewBox="0 0 320 200"
+        className="w-full block"
+        role="img"
+        aria-label="Screenshot of a landscaping company homepage with a hand-drawn red circle around the Get a Free Quote button, labelled: bigger and higher up"
+      >
+        <defs>
+          <linearGradient id="ss-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#7FB4DC" />
+            <stop offset="100%" stopColor="#D9E9F3" />
+          </linearGradient>
+          <linearGradient id="ss-grass" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#6EA34F" />
+            <stop offset="100%" stopColor="#4C7C39" />
+          </linearGradient>
+          <linearGradient id="ss-scrim" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#0B1A12" stopOpacity="0" />
+            <stop offset="100%" stopColor="#0B1A12" stopOpacity="0.7" />
+          </linearGradient>
+        </defs>
+
+        <rect width="320" height="200" fill="#FFFFFF" />
+
         {/* browser chrome */}
-        <rect width="300" height="18" fill="#22282E" />
-        <circle cx="10" cy="9" r="3" fill="#3C444C" />
-        <circle cx="20" cy="9" r="3" fill="#3C444C" />
-        <circle cx="30" cy="9" r="3" fill="#3C444C" />
-        <rect x="42" y="4.5" width="120" height="9" rx="4.5" fill="#181D22" />
-        {/* nav */}
-        <rect x="14" y="30" width="42" height="7" rx="3.5" fill="#4A5560" />
-        <rect x="200" y="30" width="24" height="6" rx="3" fill="#333B43" />
-        <rect x="232" y="30" width="24" height="6" rx="3" fill="#333B43" />
-        <rect x="264" y="30" width="22" height="6" rx="3" fill="#333B43" />
-        {/* hero copy */}
-        <rect x="14" y="60" width="180" height="13" rx="4" fill="#5A6672" />
-        <rect x="14" y="80" width="140" height="13" rx="4" fill="#5A6672" />
-        <rect x="14" y="104" width="210" height="6" rx="3" fill="#2F373E" />
-        <rect x="14" y="116" width="185" height="6" rx="3" fill="#2F373E" />
-        {/* the low-contrast button, sitting too low */}
-        <rect x="14" y="150" width="86" height="24" rx="5" fill="#3A4149" />
-        <rect x="30" y="159" width="54" height="6" rx="3" fill="#5C666F" />
-        {/* markup */}
-        <ellipse
-          cx="57"
-          cy="162"
-          rx="60"
-          ry="22"
-          fill="none"
-          stroke="#FF4D4D"
-          strokeWidth="2.5"
-          transform="rotate(-3 57 162)"
-        />
-        <path
-          d="M150 120 C 175 132, 178 150, 130 158"
-          fill="none"
-          stroke="#FF4D4D"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M130 158 l 11 -6 M130 158 l 7 8"
-          fill="none"
-          stroke="#FF4D4D"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-        <text x="158" y="108" fill="#FF4D4D" fontSize="12" fontWeight="700" fontFamily="system-ui, sans-serif">
-          bigger + higher
+        <rect width="320" height="15" fill="#E4E7EB" />
+        <circle cx="9" cy="7.5" r="2.6" fill="#C3C8CF" />
+        <circle cx="18" cy="7.5" r="2.6" fill="#C3C8CF" />
+        <circle cx="27" cy="7.5" r="2.6" fill="#C3C8CF" />
+        <rect x="38" y="3.4" width="152" height="8.2" rx="4.1" fill="#FFFFFF" />
+        <text x="44" y="9.9" fill="#8A9099" fontSize="5.4" fontFamily="system-ui, sans-serif">
+          riverstonelandscaping.ca
         </text>
-        <text x="158" y="122" fill="#FF4D4D" fontSize="12" fontWeight="700" fontFamily="system-ui, sans-serif">
-          up
+
+        {/* site header */}
+        <rect y="15" width="320" height="23" fill="#FFFFFF" />
+        <path d="M15 28 c0-4.5 3.4-8 7.6-8 c-0.6 4.6-3.4 8-7.6 8 z" fill="#4C7C39" />
+        <text
+          x="26"
+          y="30"
+          fill="#1F2A24"
+          fontSize="9.5"
+          fontWeight="700"
+          fontFamily="Georgia, serif"
+        >
+          Riverstone
+        </text>
+        <text x="196" y="29.5" fill="#6B7280" fontSize="5.8" fontFamily="system-ui, sans-serif">
+          Services
+        </text>
+        <text x="230" y="29.5" fill="#6B7280" fontSize="5.8" fontFamily="system-ui, sans-serif">
+          Gallery
+        </text>
+        <text x="259" y="29.5" fill="#6B7280" fontSize="5.8" fontFamily="system-ui, sans-serif">
+          About
+        </text>
+        <text x="286" y="29.5" fill="#6B7280" fontSize="5.8" fontFamily="system-ui, sans-serif">
+          Contact
+        </text>
+        <rect y="37.6" width="320" height="0.8" fill="#E6E8EB" />
+
+        {/* hero photo */}
+        <rect y="38" width="320" height="98" fill="url(#ss-sky)" />
+        <path d="M0 98 L52 63 L96 98 Z" fill="#9DB0AE" />
+        <path d="M74 98 L128 57 L184 98 Z" fill="#8699A0" />
+        <path d="M160 98 L214 68 L266 98 Z" fill="#9DB0AE" />
+        <path d="M238 98 L286 72 L320 98 Z" fill="#8699A0" />
+        <path d="M52 63 L63 71 L41 71 Z" fill="#EDF3F5" />
+        <path d="M128 57 L141 67 L115 67 Z" fill="#EDF3F5" />
+        {TREES.map((x, i) => (
+          <path
+            key={x}
+            d={`M${x} 105 L${x + (i % 3 === 0 ? 5.5 : 4.5)} 91 L${x + (i % 3 === 0 ? 11 : 9)} 105 Z`}
+            fill={i % 2 === 0 ? "#2E5B3F" : "#264C35"}
+          />
+        ))}
+        <rect y="103" width="320" height="33" fill="url(#ss-grass)" />
+        <path
+          d="M0 109 q80 -6 160 2 q80 8 160 0 l0 25 l-320 0 z"
+          fill="#5B9146"
+          opacity="0.5"
+        />
+        <rect y="38" width="320" height="98" fill="url(#ss-scrim)" />
+
+        {/* hero copy */}
+        <text x="15" y="109" fill="#FFFFFF" fontSize="13" fontWeight="700" fontFamily="Georgia, serif">
+          Yards that look better
+        </text>
+        <text x="15" y="124" fill="#FFFFFF" fontSize="13" fontWeight="700" fontFamily="Georgia, serif">
+          every single year.
+        </text>
+
+        {/* below the fold */}
+        <rect y="140.4" width="320" height="0.7" fill="#ECEEF0" />
+        <text x="15" y="154" fill="#5A6470" fontSize="6.4" fontFamily="system-ui, sans-serif">
+          Design, planting and maintenance since 2009.
+        </text>
+        {/* the washed-out button, sitting too low */}
+        <rect x="15" y="163" width="92" height="21" rx="4" fill="#D8DCE0" />
+        <text
+          x="29"
+          y="176.5"
+          fill="#FFFFFF"
+          fontSize="7"
+          fontWeight="600"
+          fontFamily="system-ui, sans-serif"
+        >
+          Get a Free Quote
+        </text>
+
+        {/* the customer's markup */}
+        <g stroke="#FF3B30" strokeWidth="2.4" fill="none" strokeLinecap="round">
+          <ellipse cx="63" cy="173" rx="57" ry="18" transform="rotate(-2.5 63 173)" />
+          <path d="M204 158 C 222 166, 200 178, 126 176" />
+          <path d="M126 176 l 12 -6 M126 176 l 10 7" />
+        </g>
+        <text x="209" y="148" fill="#FF3B30" fontSize="11" fontWeight="700" fontFamily="system-ui, sans-serif">
+          bigger +
+        </text>
+        <text x="209" y="159" fill="#FF3B30" fontSize="11" fontWeight="700" fontFamily="system-ui, sans-serif">
+          higher up
         </text>
       </svg>
-      <p className="px-3 py-2 text-[11px] text-[#80848E]">homepage-mobile.png</p>
+      <p className="px-3 py-2 text-[11px] text-[#80848E] bg-[#0F1214]">homepage-mobile.png</p>
     </div>
   );
 }
@@ -289,16 +318,16 @@ export default function AgentDemo() {
             setStep(i + 1);
           }, t)
         );
-        t += 600;
+        t += 900;
       } else {
         t += 900;
         timers.push(setTimeout(() => setStep(i + 1), t));
-        t += 300;
+        t += 400;
       }
     });
 
-    // Hold on the finished scene, then advance — unless the reader is hovering
-    // or has scrolled up into the history, in which case wait for them.
+    // Sit on the finished conversation long enough to actually read it, then
+    // advance — unless the reader is hovering or has scrolled up into history.
     const advance = () => {
       const el = scrollRef.current;
       const readingHistory =
@@ -309,7 +338,7 @@ export default function AgentDemo() {
       }
       setSceneIdx((i) => (i + 1) % SCENES.length);
     };
-    timers.push(setTimeout(advance, t + 4500));
+    timers.push(setTimeout(advance, t + 9000));
 
     return () => timers.forEach(clearTimeout);
   }, [sceneIdx, scene.messages]);
@@ -404,7 +433,7 @@ export default function AgentDemo() {
               return (
                 <div
                   key={`${sceneIdx}-${i}`}
-                  className={`flex gap-3 ${grouped ? "mt-0" : ""} animate-[fade-up_0.4s_ease-out_both]`}
+                  className="flex gap-3 animate-[fade-up_0.4s_ease-out_both]"
                 >
                   <div className="w-10 shrink-0">
                     {!grouped &&
