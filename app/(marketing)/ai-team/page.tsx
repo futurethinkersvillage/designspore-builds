@@ -3,12 +3,12 @@ import Image from "next/image";
 import {
   ArrowRightIcon,
   CheckIcon,
-  EnvelopeSimpleIcon,
-  SunHorizonIcon,
-  CalendarCheckIcon,
-  ReceiptIcon,
-  PaperPlaneTiltIcon,
+  PhoneIcon,
   FileTextIcon,
+  SunHorizonIcon,
+  StarIcon,
+  ReceiptIcon,
+  MoonStarsIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import AgentDemo from "@/components/marketing/AgentDemo";
@@ -23,19 +23,24 @@ export const metadata: Metadata = {
 
 const scenes = [
   {
-    Icon: EnvelopeSimpleIcon,
-    when: "A customer emails at 11pm.",
-    then: "They get a real, helpful reply before you wake up — not an auto-responder. You read the thread over coffee and step in if you want to.",
+    Icon: PhoneIcon,
+    when: "You miss a call on a job.",
+    then: "They get a text back within a minute asking what they need. By the time you're down off the ladder, it's a booked estimate instead of a lost one.",
+  },
+  {
+    Icon: FileTextIcon,
+    when: "You send a quote and hear nothing.",
+    then: "It gets followed up on day three and again on day ten, politely, without you being the one who has to nag.",
   },
   {
     Icon: SunHorizonIcon,
     when: "It's Monday morning.",
-    then: "A one-page summary of your business is already in your inbox. What came in, what went out, what needs you today.",
+    then: "One short summary is waiting: what's owed you, what's booked, and the one thing that actually needs you today.",
   },
   {
-    Icon: CalendarCheckIcon,
-    when: "Someone books a call with you.",
-    then: "By the time you join, you've been handed a short brief on who they are, what they do, and what they probably want.",
+    Icon: StarIcon,
+    when: "A job wraps up happy.",
+    then: "The customer gets asked for a review while they're still pleased with you — not three months later when you finally remember.",
   },
   {
     Icon: ReceiptIcon,
@@ -43,14 +48,9 @@ const scenes = [
     then: "It's already been chased. Politely, twice. You never had to be the person who sends that email.",
   },
   {
-    Icon: PaperPlaneTiltIcon,
-    when: "You've been meaning to send a newsletter for months.",
-    then: "It's written, in your voice, sitting in your drafts. You read it, change a line, hit send.",
-  },
-  {
-    Icon: FileTextIcon,
-    when: "A quote request comes in.",
-    then: "The quote is drafted with your pricing already in it. You check the number and send it the same hour, not next week.",
+    Icon: MoonStarsIcon,
+    when: "Someone asks a question at 10pm.",
+    then: "They get a real answer about what you do and what it costs, and get put on your calendar if it's actually work worth having.",
   },
 ];
 
@@ -195,9 +195,9 @@ export default function AiTeamPage() {
                 A team of AI agents that actually does your work.
               </h1>
               <p className="hero-in hero-in-3 text-xl md:text-2xl text-white/50 leading-relaxed max-w-2xl mb-8">
-                Each one has a name and a job — chasing invoices, writing, answering
-                customers, watching for missed money. You message them in Discord like a
-                group chat, and they get on with it.
+                Each one has a name and a job — answering the calls you miss, chasing
+                the quotes nobody replied to, going after the invoices that are late. You
+                message them in Discord like a group chat, and they get on with it.
               </p>
               <div className="hero-in hero-in-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/35 mb-10">
                 <span className="num">
@@ -240,7 +240,7 @@ export default function AiTeamPage() {
               className="text-4xl md:text-5xl font-bold tracking-tight text-white"
               style={{ fontFamily: "var(--font-display-active, var(--font-outfit))" }}
             >
-              Ordinary things that stop being your problem.
+              The money that leaks out of a week, plugged.
             </h2>
           </ScrollReveal>
 
@@ -263,8 +263,9 @@ export default function AiTeamPage() {
 
           <ScrollReveal className="mt-10">
             <p className="text-white/35 text-lg max-w-2xl">
-              None of that is a demo. That&apos;s just an ordinary week for someone who has
-              a team.
+              None of that is a demo. That&apos;s an ordinary week for someone who runs a
+              busy trade, an agency, or a book of clients — and has a team covering the
+              gaps.
             </p>
           </ScrollReveal>
         </div>

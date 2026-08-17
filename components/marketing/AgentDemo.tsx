@@ -6,12 +6,13 @@ import { HashIcon } from "@phosphor-icons/react";
 
 /* ── AGENTS ───────────────────────────────────────────────────── */
 
-type AgentSlug = "seneca" | "posi" | "ari" | "leo" | "cris";
+type AgentSlug = "seneca" | "marcus" | "ari" | "posi" | "leo" | "cris";
 
 const AGENTS: Record<AgentSlug, { name: string; role: string; color: string }> = {
   seneca: { name: "Seneca", role: "Your right hand", color: "#4FD1D9" },
-  posi: { name: "Posi", role: "Email & social", color: "#A78BFA" },
+  marcus: { name: "Marcus", role: "Operations", color: "#F87171" },
   ari: { name: "Ari", role: "Money & revenue", color: "#E5B94A" },
+  posi: { name: "Posi", role: "Email & social", color: "#A78BFA" },
   leo: { name: "Leo", role: "Design", color: "#F472B6" },
   cris: { name: "Cris", role: "Builds your tools", color: "#60A5FA" },
 };
@@ -41,48 +42,70 @@ const SCENES: Scene[] = [
   {
     lead: "seneca",
     channel: "strategy-room",
-    caption: "Seneca runs the others, then reports up to you.",
+    caption: "Seneca runs the others, then tells you the short version.",
     history: [
-      { from: "you", text: "how did last week go?" },
-      { from: "seneca", text: "$18,400 invoiced, up 12%. Nothing on fire." },
-      { from: "you", text: "good. keep an eye on the Braun job" },
+      { from: "you", text: "how'd last week go?" },
+      { from: "seneca", text: "$18,400 invoiced. Best week since June." },
+      { from: "you", text: "nice" },
     ],
     messages: [
-      { from: "seneca", text: "Monday, 7:00am. Everyone's reported in.", think: 1200 },
+      { from: "seneca", text: "Monday, 7am. Here's your week.", think: 1200 },
       {
         from: "seneca",
-        text: "Ari found $8,000 in customers who never rebooked. Posi cleared 34 emails. Marcus booked a job that came in at 11:42pm.",
+        text: "Three quotes still unanswered — $11,600 between them. Both crews finish Thursday, and next week is empty.",
         think: 1700,
       },
       {
         from: "seneca",
-        text: "Only thing that needs you today is the Braun quote. They've asked twice.",
+        text: "I'd chase the Braun quote first. It's the biggest and the oldest.",
         think: 1500,
       },
-      { from: "you", text: "draft it, I'll look after lunch" },
+      { from: "you", text: "do it" },
+    ],
+  },
+  {
+    lead: "marcus",
+    channel: "enquiries",
+    caption: "The call you couldn't take, answered anyway.",
+    history: [
+      { from: "marcus", text: "Missed call at 2:14pm while you were up on the Dawson roof." },
+    ],
+    messages: [
+      {
+        from: "marcus",
+        text: "I texted them back within the minute. They want a price on a metal roof out in Barriere.",
+        think: 1500,
+      },
+      {
+        from: "marcus",
+        text: "Asked for photos and the address — both came in. You're booked to look at it Thursday 9am.",
+        think: 1700,
+      },
+      { from: "you", text: "did they say a budget?" },
+      { from: "marcus", text: "Not yet. I'll ask before Thursday so you're not guessing.", think: 1300 },
     ],
   },
   {
     lead: "ari",
     channel: "money",
-    caption: "What you're owed, and what you're leaving behind.",
+    caption: "The money already sitting there, unchased.",
     history: [
-      { from: "ari", text: "Hendricks paid this morning. $2,400 in." },
-      { from: "you", text: "finally" },
+      { from: "ari", text: "Hendricks finally paid. $2,400 in." },
+      { from: "you", text: "about time" },
     ],
     messages: [
-      { from: "you", text: "who else hasn't paid?" },
+      { from: "you", text: "who else owes me?" },
       {
         from: "ari",
-        text: "Braun — $890, 11 days. Silva — $1,150, 9 days. Posi sent both a reminder Friday.",
+        text: "Braun, $890 — 11 days. Silva, $1,150 — 9 days. I've sent both a polite nudge.",
         think: 1500,
       },
       {
         from: "ari",
-        text: "Also: eleven customers from last spring never rebooked. About $8,000 sitting there. Want me to reach out?",
-        think: 1700,
+        text: "Bigger one: you sent nine quotes last month and four never got a reply. That's $16,000 nobody chased.",
+        think: 1800,
       },
-      { from: "you", text: "yes please" },
+      { from: "you", text: "chase all four" },
     ],
   },
   {
@@ -90,49 +113,46 @@ const SCENES: Scene[] = [
     channel: "website",
     caption: "Leo makes the change. Cris checks it's safe.",
     history: [
-      { from: "leo", text: "Staging link's still up from last week if you want to compare." },
+      { from: "you", text: "the quote button on the site is useless on my phone" },
+      { from: "leo", text: "Send me a screenshot and mark up what you mean." },
     ],
     messages: [
-      { from: "you", text: "can you fix this", attachment: "annotated-screenshot" },
+      { from: "you", text: "like this", attachment: "annotated-screenshot" },
       {
         from: "leo",
-        text: "On mobile that button falls below the fold, and the contrast fails accessibility. Moving it up, darkening it.",
+        text: "Got it. On a phone that button's off the bottom of the screen, and the grey's too light to read. Moving it up, making it darker.",
         think: 1800,
       },
-      { from: "leo", text: "Done — it's on staging.", think: 1200 },
+      { from: "leo", text: "Done. Have a look and tell me if it's right.", think: 1300 },
       {
         from: "cris",
-        text: "Security pass before this goes live: your contact form had no rate limiting, and an old plugin had a known vulnerability. Both patched.",
+        text: "Checked it before it goes live — your contact form had no spam protection, and one of your plugins was three years out of date. Both fixed.",
         think: 1900,
       },
-      {
-        from: "cris",
-        text: "Admin login still has no two-factor. That one needs you.",
-        think: 1300,
-      },
+      { from: "you", text: "didn't know that was a problem" },
     ],
   },
   {
     lead: "posi",
-    channel: "comms",
-    caption: "Email and social, handled and queued for your yes.",
+    channel: "reviews",
+    caption: "Asked while they're still happy with you.",
     history: [
-      { from: "posi", text: "Weekend inbox: 34 emails. 31 handled, 3 need you." },
-      { from: "you", text: "thanks" },
+      { from: "posi", text: "Dawson job's marked finished." },
+      { from: "you", text: "yep, went well" },
     ],
     messages: [
-      { from: "you", text: "anything urgent?" },
       {
         from: "posi",
-        text: "Tourism Association wants you on a panel Oct 3rd. And a supplier's raising prices 8% in November.",
+        text: "I asked them for a review this morning while it was fresh. Five stars, and they named your crew in it.",
         think: 1600,
       },
-      { from: "you", text: "yes to the panel. and post about the new machine" },
+      { from: "you", text: "oh good" },
       {
         from: "posi",
-        text: "Accepted, it's in your calendar. Post drafted with Thursday's photos — queued for Instagram and Facebook, 11am tomorrow.",
+        text: "Put the before-and-after photos on Facebook with their words underneath. Two people have already asked what it cost.",
         think: 1800,
       },
+      { from: "you", text: "pass them to Marcus" },
     ],
   },
 ];
