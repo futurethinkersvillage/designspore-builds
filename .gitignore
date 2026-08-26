@@ -5,3 +5,7 @@ node_modules/
 *.log
 node_modules/
 .next/
+
+# Never ship per-guest data. occupancy.json contained real guest names
+# and was briefly public; availability.json (dates only) is what the app uses.
+public/booking/map/occupancy.json
