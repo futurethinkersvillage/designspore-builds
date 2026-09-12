@@ -63,6 +63,7 @@ export function middleware(request: NextRequest) {
     pathname === "/map-editor" || pathname.startsWith("/map-editor/") ||
     pathname === "/cabin-fund" || pathname.startsWith("/cabin-fund/") ||
     pathname === "/cabin-fund2" || pathname.startsWith("/cabin-fund2/") ||
+    pathname === "/experience-park" || pathname.startsWith("/experience-park/") ||
     pathname === "/sienci" || pathname.startsWith("/sienci/") ||
     pathname === "/sienci2" || pathname.startsWith("/sienci2/") ||
     pathname === "/future-school" || pathname.startsWith("/future-school/") ||

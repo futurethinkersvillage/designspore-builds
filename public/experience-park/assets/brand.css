@@ -1,0 +1,136 @@
+/* ============================================================
+   PORTAL.PLACE — Deck Brand System  (from live portal.place)
+   Warm cinematic: Cormorant serif display + Inter body,
+   terracotta amber on near-black, warm off-whites.
+   ============================================================ */
+@import url('fonts/fonts.css');   /* self-hosted Cormorant + Inter (no external call) */
+
+:root{
+  --bg:#0F0E12;         /* page near-black */
+  --bg2:#141218;        /* slightly lifted */
+  --surface:#17151B;    /* card fill */
+  --surface2:#1E1B22;   /* raised card */
+  --line:rgba(234,130,78,.15);   /* amber hairline */
+  --line-soft:rgba(255,255,255,.07);
+  --amber:#ea824e;      /* primary accent */
+  --amber-lt:#f2a878;   /* light accent */
+  --amber-dim:rgba(234,130,78,.55);
+  --ink:#faf8f4;        /* warm off-white — headings */
+  --body:#b3a8aa;       /* warm grey — body */
+  --dim:#8a7f86;        /* muted — captions, footer */
+  --serif:'Cormorant', Georgia, serif;
+  --sans:'Inter', system-ui, sans-serif;
+  /* 8px spacing scale */
+  --s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:48px;--s6:64px;--s7:96px;--s8:120px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#000;font-family:var(--sans)}
+
+/* ---- Stage: fixed 1920x1080, scaled to viewport ---- */
+#stage{position:absolute;top:0;left:0;width:1920px;height:1080px;transform-origin:top left;background:var(--bg)}
+section.slide{position:absolute;inset:0;display:none;overflow:hidden;
+  background:
+    radial-gradient(120% 90% at 88% 6%, rgba(234,130,78,.06), transparent 42%),
+    var(--bg);}
+section.slide.active{display:block}
+
+/* ---- Slide chrome ---- */
+.eyebrow{position:absolute;left:120px;top:96px;font-family:var(--sans);font-size:20px;font-weight:500;
+  letter-spacing:.30em;text-transform:uppercase;color:var(--amber)}
+.eyebrow b{color:var(--dim);font-weight:400;margin-left:14px;letter-spacing:.30em}
+h1.title{position:absolute;left:118px;top:132px;font-family:var(--serif);font-weight:300;
+  font-size:92px;line-height:.96;letter-spacing:-.015em;color:var(--ink);max-width:1400px}
+h1.title i{font-style:italic;color:var(--amber);font-weight:400}
+.title-rule{position:absolute;left:122px;width:64px;height:2px;background:var(--amber);opacity:.9}
+
+/* content region helpers (below title) */
+.body-area{position:absolute;left:120px;right:120px;top:300px;bottom:96px}
+
+/* ---- Footer (minimal, no white bar) ---- */
+.foot{position:absolute;left:120px;right:120px;bottom:46px;height:1px;background:var(--line-soft)}
+.foot-wm{position:absolute;left:120px;bottom:21px;font-size:16px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--dim);font-weight:500}
+.foot-wm b{color:var(--amber);font-weight:500}
+.foot-pg{position:absolute;right:120px;bottom:19px;font-family:var(--serif);font-size:22px;color:var(--dim)}
+.foot-pg b{color:var(--ink);font-style:italic}
+
+/* ---- Typography primitives ---- */
+.lead{font-family:var(--serif);font-weight:300;font-size:38px;line-height:1.28;color:var(--ink);letter-spacing:-.01em}
+.lead i{font-style:italic;color:var(--amber)}
+.intro{font-family:var(--sans);font-weight:300;font-size:27px;line-height:1.55;color:var(--body)}
+.statement{font-family:var(--sans);font-weight:300;font-size:28px;line-height:1.5;color:var(--body);margin-bottom:30px}
+.statement b{color:var(--ink);font-weight:500}
+.amber{color:var(--amber)}
+.serif{font-family:var(--serif)}
+
+ul.bullets{list-style:none}
+ul.bullets li{position:relative;padding-left:34px;margin-bottom:20px;font-family:var(--sans);
+  font-weight:400;font-size:25px;line-height:1.4;color:var(--body)}
+ul.bullets li::before{content:'';position:absolute;left:0;top:12px;width:9px;height:9px;
+  border-radius:50%;background:var(--amber)}
+ul.bullets li b{color:var(--ink);font-weight:600}
+
+/* ---- Cards ---- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:34px 38px}
+.card h4{font-family:var(--sans);font-weight:600;font-size:24px;letter-spacing:.02em;color:var(--ink);
+  margin-bottom:18px;text-transform:uppercase}
+.card h4 em{font-style:normal;color:var(--dim);font-weight:400;text-transform:none}
+.card p{font-family:var(--sans);font-weight:400;font-size:24px;line-height:1.45;color:var(--body)}
+.card p b{color:var(--ink);font-weight:600}
+
+/* ---- Pills / chips ---- */
+.pill{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--amber-dim);
+  background:rgba(22,22,22,.6);border-radius:999px;padding:12px 26px;font-family:var(--sans);
+  font-size:21px;font-weight:500;letter-spacing:.06em;color:var(--ink)}
+
+/* ---- Stat (Cormorant number) ---- */
+.stat b{display:block;font-family:var(--serif);font-weight:300;font-size:88px;line-height:1;color:var(--amber)}
+.stat span{display:block;font-family:var(--sans);font-size:22px;color:var(--dim);margin-top:8px;font-weight:400}
+
+/* ---- Hero panel (key claim) ---- */
+.hero-panel{border:1px solid var(--line);background:
+   linear-gradient(135deg, rgba(234,130,78,.12), rgba(234,130,78,.02));
+   border-radius:20px;padding:46px 44px}
+.hero-panel b{display:block;font-family:var(--serif);font-weight:400;font-size:52px;line-height:1.02;color:var(--ink)}
+.hero-panel b i{font-style:italic;color:var(--amber)}
+.hero-panel span{display:block;font-family:var(--sans);font-size:25px;color:var(--body);margin-top:14px;font-weight:300}
+
+/* ---- Photo grid (uniform, disciplined) ---- */
+.pgrid{display:grid;gap:18px}
+.pgrid img{width:100%;height:100%;min-width:0;min-height:0;object-fit:cover;border-radius:14px;
+  border:1px solid var(--line-soft);display:block;filter:saturate(.94) contrast(1.03) brightness(.97)}
+img.framed{border-radius:14px;border:1px solid var(--line-soft);object-fit:cover;display:block;
+  filter:saturate(.94) contrast(1.03) brightness(.97)}
+
+/* ---- Data table ---- */
+table.data{width:100%;border-collapse:collapse}
+table.data th,table.data td{border:1px solid var(--line);padding:18px 26px;text-align:left;
+  font-family:var(--sans);font-size:25px;font-weight:400;color:var(--body)}
+table.data th{color:var(--ink);font-weight:600;font-size:24px}
+table.data td:first-child{color:var(--ink);font-weight:500}
+table.data b{color:var(--amber);font-weight:600}
+table.data tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+
+/* ---- Button ---- */
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--amber);color:#1a1008;
+  font-family:var(--sans);font-weight:600;font-size:23px;letter-spacing:.03em;
+  padding:18px 40px;border-radius:999px;text-decoration:none}
+.btn.ghost{background:transparent;border:1px solid var(--amber-dim);color:var(--amber)}
+
+/* ---- Full-bleed image helpers ---- */
+.bleed{position:absolute;inset:0;width:1920px;height:1080px;object-fit:cover}
+.scrim-l{position:absolute;inset:0;background:linear-gradient(90deg,
+   rgba(15,14,18,.94) 0%, rgba(15,14,18,.72) 34%, rgba(15,14,18,.05) 66%)}
+.scrim-b{position:absolute;inset:0;background:linear-gradient(0deg,
+   rgba(15,14,18,.92) 0%, rgba(15,14,18,.15) 46%, transparent 70%)}
+
+/* ---- Nav counter (screen only) ---- */
+#counter{position:fixed;right:16px;bottom:12px;font-family:var(--sans);font-size:13px;color:#555;z-index:20}
+
+@media print{
+  html,body{overflow:visible;background:#fff}
+  #stage{position:static;transform:none!important}
+  section.slide{display:block!important;position:relative;width:1920px;height:1080px;page-break-after:always}
+  #counter{display:none}
+}
