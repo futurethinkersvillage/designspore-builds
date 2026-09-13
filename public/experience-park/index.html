@@ -123,18 +123,23 @@
   <h1 class="title">Pick your <i>adventure</i></h1>
   <div class="title-rule" style="top:300px"></div>
 
-  <!-- marquee hero: the drone park as the signature image (swap to any hero scene) -->
-  <div class="hero" style="position:absolute;left:120px;top:388px;width:752px;height:600px;background-image:url('assets/img/exp/drone-park.webp')">
+  <!-- marquee hero: default = drone park; updates to whatever rail item is hovered -->
+  <div class="hero no-nav" style="position:absolute;left:120px;top:388px;width:752px;height:600px">
+    <div class="hmedia" style="background-image:url('assets/img/exp/drone-park.webp')"></div>
     <div class="hero-in">
       <div class="hero-ey">Fly &middot; Build &middot; Automate &middot; Test</div>
       <div class="hero-t">Freestyle drone park</div>
       <p>An FPV course with gates and freestyle lines &mdash; and a build-and-fly lab to assemble, automate, and test drones on 400 private acres.</p>
       <div class="hero-chips"><b>FPV &amp; gates</b><b>Build &amp; repair</b><b>Flight &amp; mapping</b><b>Testing ground</b></div>
     </div>
+    <div class="hero-cap" aria-hidden="true">
+      <div class="hero-cap-ey"></div>
+      <div class="hero-cap-t"></div>
+    </div>
   </div>
 
-  <!-- itemized rail: 2x2 category blocks with small thumbnails -->
-  <div class="rail" style="position:absolute;left:920px;top:388px;width:880px;height:600px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:26px 30px">
+  <!-- itemized rail: 2x2 category blocks with small thumbnails; hover previews in the hero -->
+  <div class="rail no-nav" style="position:absolute;left:920px;top:388px;width:880px;height:600px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:26px 30px">
     <div class="rb">
       <div class="rh">Play</div>
       <ul>
@@ -185,14 +190,39 @@
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>04</b> / 10</div>
 
-  <style>section[data-n="4"] .hero{border-radius:20px;overflow:hidden;background-size:cover;background-position:center;
-      border:1px solid var(--line);display:flex;align-items:flex-end}section[data-n="4"] .hero::after{content:"";position:absolute;inset:0;
-      background:linear-gradient(to top,rgba(8,7,10,.92) 6%,rgba(8,7,10,.45) 46%,rgba(8,7,10,.05) 78%)}section[data-n="4"] .hero-in{position:relative;z-index:1;padding:34px 36px}section[data-n="4"] .hero-ey{font-family:var(--sans);font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}section[data-n="4"] .hero-t{font-family:var(--serif);font-size:44px;color:var(--ink);line-height:1.02;margin:8px 0 0}section[data-n="4"] .hero-in p{font-family:var(--sans);font-size:20px;line-height:1.42;color:var(--body);margin:12px 0 0;max-width:600px}section[data-n="4"] .hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}section[data-n="4"] .hero-chips b{font-family:var(--sans);font-size:16px;font-weight:500;color:var(--amber-lt);
+  <style>section[data-n="4"] .hero{border-radius:20px;overflow:hidden;border:1px solid var(--line);display:flex;align-items:flex-end}section[data-n="4"] .hmedia{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;
+      transition:opacity .18s ease}section[data-n="4"] .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+      background:linear-gradient(to top,rgba(8,7,10,.92) 6%,rgba(8,7,10,.45) 46%,rgba(8,7,10,.05) 78%)}section[data-n="4"] .hero-in{position:relative;z-index:2;padding:34px 36px;transition:opacity .2s ease}section[data-n="4"] .hero.preview .hero-in{opacity:0}section[data-n="4"] .hero-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:34px 36px;opacity:0;transition:opacity .2s ease}section[data-n="4"] .hero.preview .hero-cap{opacity:1}section[data-n="4"] .hero-cap-ey{font-family:var(--sans);font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}section[data-n="4"] .hero-cap-t{font-family:var(--serif);font-size:44px;color:var(--ink);line-height:1.04;margin:8px 0 0}section[data-n="4"] .hero-ey{font-family:var(--sans);font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}section[data-n="4"] .hero-t{font-family:var(--serif);font-size:44px;color:var(--ink);line-height:1.02;margin:8px 0 0}section[data-n="4"] .hero-in p{font-family:var(--sans);font-size:20px;line-height:1.42;color:var(--body);margin:12px 0 0;max-width:600px}section[data-n="4"] .hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}section[data-n="4"] .hero-chips b{font-family:var(--sans);font-size:16px;font-weight:500;color:var(--amber-lt);
       background:rgba(234,130,78,.12);border:1px solid var(--amber-dim);border-radius:999px;padding:5px 14px}section[data-n="4"] .rb{min-width:0}section[data-n="4"] .rh{font-family:var(--sans);font-size:17px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);
-      padding-bottom:8px;margin-bottom:4px;border-bottom:1px solid var(--amber-dim)}section[data-n="4"] .rb ul{list-style:none;margin:0;padding:0}section[data-n="4"] .rb li{display:flex;align-items:center;gap:11px;padding:5px 0;
-      font-family:var(--sans);font-size:17px;color:var(--ink);line-height:1.08}section[data-n="4"] .rb li i{width:34px;height:34px;flex:none;border-radius:8px;background-size:cover;background-position:center;
-      border:1px solid var(--line);background-color:var(--surface)}
+      padding-bottom:8px;margin-bottom:4px;border-bottom:1px solid var(--amber-dim)}section[data-n="4"] .rb ul{list-style:none;margin:0;padding:0}section[data-n="4"] .rb li{display:flex;align-items:center;gap:11px;padding:5px 0;cursor:pointer;
+      font-family:var(--sans);font-size:17px;color:var(--ink);line-height:1.08;transition:color .15s ease}section[data-n="4"] .rb li:hover{color:var(--amber-lt)}section[data-n="4"] .rb li i{width:34px;height:34px;flex:none;border-radius:8px;background-size:cover;background-position:center;
+      border:1px solid var(--line);background-color:var(--surface);transition:border-color .15s ease,transform .15s ease}section[data-n="4"] .rb li:hover i{border-color:var(--amber);transform:scale(1.07)}
   </style>
+
+  <script>
+  (function(){
+    var slide=document.currentScript.closest('section[data-n="4"]');
+    if(!slide||slide.dataset.hv) return; slide.dataset.hv="1";
+    var hero=slide.querySelector('.hero'), media=slide.querySelector('.hmedia');
+    var capEy=slide.querySelector('.hero-cap-ey'), capT=slide.querySelector('.hero-cap-t');
+    if(!hero||!media) return;
+    var def=media.style.backgroundImage;                 // drone-park default
+    slide.querySelectorAll('.rb li').forEach(function(li){
+      var ic=li.querySelector('i'); if(!ic) return;
+      li.addEventListener('mouseenter',function(){
+        media.style.backgroundImage=ic.style.backgroundImage||getComputedStyle(ic).backgroundImage;
+        capT.textContent=li.textContent.trim();
+        var rb=li.closest('.rb'), rh=rb&&rb.querySelector('.rh');
+        capEy.textContent=rh?rh.textContent.trim():'';
+        hero.classList.add('preview');
+      });
+    });
+    var rail=slide.querySelector('.rail');
+    if(rail) rail.addEventListener('mouseleave',function(){
+      media.style.backgroundImage=def; hero.classList.remove('preview');
+    });
+  })();
+  </script>
 </section>
 <section class="slide" data-n="5">
   <div class="eyebrow">05<b>Festivals &amp; Art</b></div>
