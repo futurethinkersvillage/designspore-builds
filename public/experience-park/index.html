@@ -123,9 +123,10 @@
   <h1 class="title">Pick your <i>adventure</i></h1>
   <div class="title-rule" style="top:300px"></div>
 
-  <!-- marquee hero: default = drone park; updates to whatever rail item is hovered -->
-  <div class="hero no-nav" style="position:absolute;left:120px;top:388px;width:752px;height:600px">
-    <div class="hmedia" style="background-image:url('assets/img/exp/drone-park.webp')"></div>
+  <!-- marquee hero: default = drone park; crossfades to whatever rail item is hovered -->
+  <div class="hero no-nav reveal" style="--ri:0;position:absolute;left:120px;top:388px;width:752px;height:600px">
+    <div class="hmedia a" style="background-image:url('assets/img/exp/drone-park.webp')"></div>
+    <div class="hmedia b"></div>
     <div class="hero-in">
       <div class="hero-ey">Fly &middot; Build &middot; Automate &middot; Test</div>
       <div class="hero-t">Freestyle drone park</div>
@@ -135,53 +136,54 @@
     <div class="hero-cap" aria-hidden="true">
       <div class="hero-cap-ey"></div>
       <div class="hero-cap-t"></div>
+      <div class="hero-cap-d"></div>
     </div>
   </div>
 
   <!-- itemized rail: 2x2 category blocks with small thumbnails; hover previews in the hero -->
   <div class="rail no-nav" style="position:absolute;left:920px;top:388px;width:880px;height:600px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:26px 30px">
-    <div class="rb">
+    <div class="rb reveal" style="--ri:1">
       <div class="rh">Play</div>
       <ul>
-        <li><i style="background-image:url('assets/img/exp/wizard-chess.webp')"></i>Wizard chess</li>
-        <li><i style="background-image:url('assets/img/exp/giant-connect-4.webp')"></i>Giant Connect&nbsp;4</li>
-        <li><i style="background-image:url('assets/img/exp/soccer-golf.webp')"></i>Soccer golf</li>
-        <li><i style="background-image:url('assets/img/exp/gel-blaster.webp')"></i>Gel-blaster battles</li>
-        <li><i style="background-image:url('assets/img/exp/mini-golf.webp')"></i>Mini golf</li>
-        <li><i style="background-image:url('assets/img/exp/splash-park.webp')"></i>Splash park</li>
+        <li data-desc="Life-size chess on the lawn &mdash; bring a strategy."><i style="background-image:url('assets/img/exp/wizard-chess.webp')"></i>Wizard chess</li>
+        <li data-desc="Oversized four-in-a-row, best of three."><i style="background-image:url('assets/img/exp/giant-connect-4.webp')"></i>Giant Connect&nbsp;4</li>
+        <li data-desc="Kick your way around the course, hole by hole."><i style="background-image:url('assets/img/exp/soccer-golf.webp')"></i>Soccer golf</li>
+        <li data-desc="Team battles with soft gel blasters and bunkers."><i style="background-image:url('assets/img/exp/gel-blaster.webp')"></i>Gel-blaster battles</li>
+        <li data-desc="Eighteen holes of handmade, themed putting."><i style="background-image:url('assets/img/exp/mini-golf.webp')"></i>Mini golf</li>
+        <li data-desc="Water jets and a natural playground for little ones."><i style="background-image:url('assets/img/exp/splash-park.webp')"></i>Splash park</li>
       </ul>
     </div>
-    <div class="rb">
+    <div class="rb reveal" style="--ri:2">
       <div class="rh">Explore</div>
       <ul>
-        <li><i style="background-image:url('assets/img/exp/ar-treasure-hunt.webp')"></i>AR treasure hunt</li>
-        <li><i style="background-image:url('assets/img/exp/escape-rooms.webp')"></i>Escape rooms</li>
-        <li><i style="background-image:url('assets/img/exp/labyrinth.webp')"></i>Outdoor labyrinth</li>
-        <li><i style="background-image:url('assets/img/exp/tree-nets.webp')"></i>Tree nets</li>
-        <li><i style="background-image:url('assets/img/exp/geocaching.webp')"></i>Geocaching</li>
-        <li><i style="background-image:url('assets/img/exp/stargazing.webp')"></i>Stargazing</li>
+        <li data-desc="Follow AR clues across the land in our own app."><i style="background-image:url('assets/img/exp/ar-treasure-hunt.webp')"></i>AR treasure hunt</li>
+        <li data-desc="Crack the puzzles and beat the clock."><i style="background-image:url('assets/img/exp/escape-rooms.webp')"></i>Escape rooms</li>
+        <li data-desc="Walk the winding path and clear your head."><i style="background-image:url('assets/img/exp/labyrinth.webp')"></i>Outdoor labyrinth</li>
+        <li data-desc="Climb and bounce through nets in the canopy."><i style="background-image:url('assets/img/exp/tree-nets.webp')"></i>Tree nets</li>
+        <li data-desc="Hunt hidden caches along the forest trails."><i style="background-image:url('assets/img/exp/geocaching.webp')"></i>Geocaching</li>
+        <li data-desc="Dark-sky nights under a blazing Milky Way."><i style="background-image:url('assets/img/exp/stargazing.webp')"></i>Stargazing</li>
       </ul>
     </div>
-    <div class="rb">
+    <div class="rb reveal" style="--ri:3">
       <div class="rh">Ride &amp; roam</div>
       <ul>
-        <li><i style="background-image:url('assets/img/exp/mountain-biking.webp')"></i>Mountain &amp; dirt biking</li>
-        <li><i style="background-image:url('assets/img/exp/snowmobiling.webp')"></i>Snowmobiling</li>
-        <li><i style="background-image:url('assets/img/exp/xc-skiing.webp')"></i>Cross-country skiing</li>
-        <li><i style="background-image:url('assets/img/exp/land-tours.webp')"></i>Guided land tours</li>
-        <li><i style="background-image:url('assets/img/exp/driving-range.webp')"></i>Driving range</li>
-        <li><i style="background-image:url('assets/img/exp/horseback.webp')"></i>Horseback riding</li>
+        <li data-desc="Flowy singletrack and dirt jumps through the trees."><i style="background-image:url('assets/img/exp/mountain-biking.webp')"></i>Mountain &amp; dirt biking</li>
+        <li data-desc="Open the throttle on groomed winter trails."><i style="background-image:url('assets/img/exp/snowmobiling.webp')"></i>Snowmobiling</li>
+        <li data-desc="Glide kilometres of quiet, groomed track."><i style="background-image:url('assets/img/exp/xc-skiing.webp')"></i>Cross-country skiing</li>
+        <li data-desc="Guided rides to the best corners of 400 acres."><i style="background-image:url('assets/img/exp/land-tours.webp')"></i>Guided land tours</li>
+        <li data-desc="Warm up your swing as the sun drops."><i style="background-image:url('assets/img/exp/driving-range.webp')"></i>Driving range</li>
+        <li data-desc="Easy trail rides through the forest."><i style="background-image:url('assets/img/exp/horseback.webp')"></i>Horseback riding</li>
       </ul>
     </div>
-    <div class="rb">
+    <div class="rb reveal" style="--ri:4">
       <div class="rh">Gather &amp; unwind</div>
       <ul>
-        <li><i style="background-image:url('assets/img/exp/drive-in-cinema.webp')"></i>Drive-in cinema</li>
-        <li><i style="background-image:url('assets/img/exp/amphitheatre.webp')"></i>Amphitheatre concerts</li>
-        <li><i style="background-image:url('assets/img/exp/sauna-plunge.webp')"></i>Sauna &amp; cold plunge</li>
-        <li><i style="background-image:url('assets/img/exp/food-forest.webp')"></i>Garden &amp; food forest</li>
-        <li><i style="background-image:url('assets/img/exp/wellness.webp')"></i>Wellness retreats</li>
-        <li><i style="background-image:url('assets/img/exp/bonfires.webp')"></i>Bonfires &amp; night walks</li>
+        <li data-desc="Films under the stars from your camp chair."><i style="background-image:url('assets/img/exp/drive-in-cinema.webp')"></i>Drive-in cinema</li>
+        <li data-desc="Live music in the natural outdoor bowl."><i style="background-image:url('assets/img/exp/amphitheatre.webp')"></i>Amphitheatre concerts</li>
+        <li data-desc="Hot cedar sauna, then a bracing cold plunge."><i style="background-image:url('assets/img/exp/sauna-plunge.webp')"></i>Sauna &amp; cold plunge</li>
+        <li data-desc="Wander the gardens and greenhouses we grow from."><i style="background-image:url('assets/img/exp/food-forest.webp')"></i>Garden &amp; food forest</li>
+        <li data-desc="Yoga and quiet resets in a forest clearing."><i style="background-image:url('assets/img/exp/wellness.webp')"></i>Wellness retreats</li>
+        <li data-desc="Gather by the fire as night falls."><i style="background-image:url('assets/img/exp/bonfires.webp')"></i>Bonfires &amp; night walks</li>
       </ul>
     </div>
   </div>
@@ -190,28 +192,42 @@
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>04</b> / 10</div>
 
-  <style>section[data-n="4"] .hero{border-radius:20px;overflow:hidden;border:1px solid var(--line);display:flex;align-items:flex-end}section[data-n="4"] .hmedia{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;
-      transition:opacity .18s ease}section[data-n="4"] .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-      background:linear-gradient(to top,rgba(8,7,10,.92) 6%,rgba(8,7,10,.45) 46%,rgba(8,7,10,.05) 78%)}section[data-n="4"] .hero-in{position:relative;z-index:2;padding:34px 36px;transition:opacity .2s ease}section[data-n="4"] .hero.preview .hero-in{opacity:0}section[data-n="4"] .hero-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:34px 36px;opacity:0;transition:opacity .2s ease}section[data-n="4"] .hero.preview .hero-cap{opacity:1}section[data-n="4"] .hero-cap-ey{font-family:var(--sans);font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}section[data-n="4"] .hero-cap-t{font-family:var(--serif);font-size:44px;color:var(--ink);line-height:1.04;margin:8px 0 0}section[data-n="4"] .hero-ey{font-family:var(--sans);font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}section[data-n="4"] .hero-t{font-family:var(--serif);font-size:44px;color:var(--ink);line-height:1.02;margin:8px 0 0}section[data-n="4"] .hero-in p{font-family:var(--sans);font-size:20px;line-height:1.42;color:var(--body);margin:12px 0 0;max-width:600px}section[data-n="4"] .hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}section[data-n="4"] .hero-chips b{font-family:var(--sans);font-size:16px;font-weight:500;color:var(--amber-lt);
+  <style>section[data-n="4"] .hero{border-radius:20px;overflow:hidden;border:1px solid var(--line);display:flex;align-items:flex-end}section[data-n="4"] .hmedia{position:absolute;inset:0;z-index:0;opacity:0;background-size:cover;background-position:center;
+      transition:opacity .45s cubic-bezier(.4,0,.2,1)}section[data-n="4"] .hmedia.a{opacity:1}section[data-n="4"] .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+      background:linear-gradient(to top,rgba(8,7,10,.92) 6%,rgba(8,7,10,.45) 46%,rgba(8,7,10,.05) 78%)}section[data-n="4"] .hero-in{position:relative;z-index:2;padding:34px 36px;transition:opacity .25s ease}section[data-n="4"] .hero.preview .hero-in{opacity:0}section[data-n="4"] .hero-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:34px 36px;
+      opacity:0;transform:translateY(12px);transition:opacity .28s ease,transform .28s cubic-bezier(.4,0,.2,1)}section[data-n="4"] .hero.preview .hero-cap{opacity:1;transform:none}section[data-n="4"] .hero-cap-ey{font-family:var(--sans);font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}section[data-n="4"] .hero-cap-t{font-family:var(--serif);font-size:44px;color:var(--ink);line-height:1.04;margin:8px 0 0}section[data-n="4"] .hero-cap-d{font-family:var(--sans);font-size:21px;line-height:1.4;color:var(--body);margin:12px 0 0;max-width:600px}section[data-n="4"] .hero-ey{font-family:var(--sans);font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}section[data-n="4"] .hero-t{font-family:var(--serif);font-size:44px;color:var(--ink);line-height:1.02;margin:8px 0 0}section[data-n="4"] .hero-in p{font-family:var(--sans);font-size:20px;line-height:1.42;color:var(--body);margin:12px 0 0;max-width:600px}section[data-n="4"] .hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}section[data-n="4"] .hero-chips b{font-family:var(--sans);font-size:16px;font-weight:500;color:var(--amber-lt);
       background:rgba(234,130,78,.12);border:1px solid var(--amber-dim);border-radius:999px;padding:5px 14px}section[data-n="4"] .rb{min-width:0}section[data-n="4"] .rh{font-family:var(--sans);font-size:17px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);
-      padding-bottom:8px;margin-bottom:4px;border-bottom:1px solid var(--amber-dim)}section[data-n="4"] .rb ul{list-style:none;margin:0;padding:0}section[data-n="4"] .rb li{display:flex;align-items:center;gap:11px;padding:5px 0;cursor:pointer;
-      font-family:var(--sans);font-size:17px;color:var(--ink);line-height:1.08;transition:color .15s ease}section[data-n="4"] .rb li:hover{color:var(--amber-lt)}section[data-n="4"] .rb li i{width:34px;height:34px;flex:none;border-radius:8px;background-size:cover;background-position:center;
-      border:1px solid var(--line);background-color:var(--surface);transition:border-color .15s ease,transform .15s ease}section[data-n="4"] .rb li:hover i{border-color:var(--amber);transform:scale(1.07)}
+      padding-bottom:8px;margin-bottom:4px;border-bottom:1px solid var(--amber-dim)}section[data-n="4"] .rb ul{list-style:none;margin:0;padding:0}section[data-n="4"] .rb li{display:flex;align-items:center;gap:11px;padding:5px 8px;margin:0 -8px;border-radius:9px;cursor:pointer;
+      font-family:var(--sans);font-size:17px;color:var(--ink);line-height:1.08;
+      transition:color .16s ease,background-color .16s ease,transform .16s cubic-bezier(.4,0,.2,1)}section[data-n="4"] .rb li:hover{color:var(--amber-lt);background:rgba(234,130,78,.08);transform:translateX(4px)}section[data-n="4"] .rb li i{width:34px;height:34px;flex:none;border-radius:8px;background-size:cover;background-position:center;
+      border:1px solid var(--line);background-color:var(--surface);
+      transition:border-color .16s ease,transform .16s cubic-bezier(.4,0,.2,1),box-shadow .16s ease}section[data-n="4"] .rb li:hover i{border-color:var(--amber);transform:scale(1.08);box-shadow:0 4px 14px rgba(0,0,0,.35)}
   </style>
 
   <script>
   (function(){
     var slide=document.currentScript.closest('section[data-n="4"]');
     if(!slide||slide.dataset.hv) return; slide.dataset.hv="1";
-    var hero=slide.querySelector('.hero'), media=slide.querySelector('.hmedia');
-    var capEy=slide.querySelector('.hero-cap-ey'), capT=slide.querySelector('.hero-cap-t');
-    if(!hero||!media) return;
-    var def=media.style.backgroundImage;                 // drone-park default
+    var hero=slide.querySelector('.hero');
+    var layers=[slide.querySelector('.hmedia.a'), slide.querySelector('.hmedia.b')];
+    var capEy=slide.querySelector('.hero-cap-ey'), capT=slide.querySelector('.hero-cap-t'), capD=slide.querySelector('.hero-cap-d');
+    if(!hero||!layers[0]||!layers[1]) return;
+    var def=layers[0].style.backgroundImage;              // drone-park default (on layer a)
+    var active=0;                                         // layer a starts visible
+    function crossfade(url){
+      if(!url) return;
+      var nx=1-active;
+      layers[nx].style.backgroundImage=url;
+      layers[nx].style.opacity='1';
+      layers[active].style.opacity='0';
+      active=nx;
+    }
     slide.querySelectorAll('.rb li').forEach(function(li){
       var ic=li.querySelector('i'); if(!ic) return;
       li.addEventListener('mouseenter',function(){
-        media.style.backgroundImage=ic.style.backgroundImage||getComputedStyle(ic).backgroundImage;
+        crossfade(ic.style.backgroundImage||getComputedStyle(ic).backgroundImage);
         capT.textContent=li.textContent.trim();
+        capD.textContent=li.getAttribute('data-desc')||'';
         var rb=li.closest('.rb'), rh=rb&&rb.querySelector('.rh');
         capEy.textContent=rh?rh.textContent.trim():'';
         hero.classList.add('preview');
@@ -219,7 +235,7 @@
     });
     var rail=slide.querySelector('.rail');
     if(rail) rail.addEventListener('mouseleave',function(){
-      media.style.backgroundImage=def; hero.classList.remove('preview');
+      crossfade(def); hero.classList.remove('preview');
     });
   })();
   </script>
