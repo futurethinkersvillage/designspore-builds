@@ -68,7 +68,8 @@ export function middleware(request: NextRequest) {
     pathname === "/sienci2" || pathname.startsWith("/sienci2/") ||
     pathname === "/future-school" || pathname.startsWith("/future-school/") ||
     pathname === "/future-school4" || pathname.startsWith("/future-school4/") ||
-    pathname === "/membership" || pathname.startsWith("/membership/")
+    pathname === "/membership" || pathname.startsWith("/membership/") ||
+    /^\/ns\d*(\/|$)/.test(pathname)   // /ns (latest NS deck) + frozen /ns1, /ns2, …
   ) {
     const res = NextResponse.next();
     res.headers.set("x-is-dashboard", "1");
