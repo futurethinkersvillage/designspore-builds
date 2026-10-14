@@ -56,6 +56,15 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
+  // Clean URL for the NS pitch brief: /ns/brief (and frozen /nsN/brief) serve
+  // the static brief.html bundled with the deck. Old .html links still work.
+  const brief = pathname.match(/^\/(ns\d*)\/brief\/?$/);
+  if (brief) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${brief[1]}/brief.html`;
+    return NextResponse.rewrite(url);
+  }
+
   // Full-screen routes (no Nav/Footer/Chat) — reuse the dashboard chrome flag.
   if (
     pathname === "/mind-map" || pathname.startsWith("/mind-map/") ||
