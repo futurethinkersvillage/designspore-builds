@@ -183,7 +183,7 @@
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>06</b> / 11</div>
 
-  <style>section[data-n="6"] .bc{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;height:500px}section[data-n="6"] .ph{height:250px;display:flex;gap:4px}section[data-n="6"] .ph img{flex:1;min-width:0;height:100%;object-fit:cover;display:block}section[data-n="6"] .bb{padding:24px 28px}section[data-n="6"] .bb h4{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.05;color:var(--ink);margin:0 0 12px}section[data-n="6"] .bb p{font-family:var(--sans);font-size:20px;line-height:1.45;color:var(--body);margin:0}
+  <style>section[data-n="6"] .bc{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;height:500px}section[data-n="6"] .ph{height:250px;display:flex;gap:4px}section[data-n="6"] .ph img{flex:1;min-width:0;height:100%;object-fit:cover;display:block}section[data-n="6"] .bb{padding:24px 28px}section[data-n="6"] .bb h4{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.05;color:var(--ink);margin:0 0 12px}section[data-n="6"] .bb p{font-family:var(--sans);font-size:20px;line-height:1.45;color:var(--body);margin:0}html.m section[data-n="6"] .bc{height:auto}html.m section[data-n="6"] .bb{padding-bottom:30px}
   </style>
 </section>
 <section class="slide" data-n="7">
@@ -280,7 +280,7 @@
   <div class="foot-wm">Portal<b>.</b>Place</div>
   <div class="foot-pg"><b>09</b> / 11</div>
 
-  <style>section[data-n="9"] .tr{background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;padding:32px 40px;height:350px}section[data-n="9"] .tr.on{border-color:var(--amber);background:linear-gradient(160deg,rgba(234,130,78,.16),var(--surface) 70%)}section[data-n="9"] .tk{font-family:var(--sans);font-size:17px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}section[data-n="9"] .ta{font-family:var(--serif);font-weight:300;font-size:84px;line-height:1;color:var(--ink);margin:10px 0 20px}section[data-n="9"] ul.bullets li{font-size:23px;margin-bottom:12px}
+  <style>section[data-n="9"] .tr{background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;padding:32px 40px;height:350px}section[data-n="9"] .tr.on{border-color:var(--amber);background:linear-gradient(160deg,rgba(234,130,78,.16),var(--surface) 70%)}section[data-n="9"] .tk{font-family:var(--sans);font-size:17px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}section[data-n="9"] .ta{font-family:var(--serif);font-weight:300;font-size:84px;line-height:1;color:var(--ink);margin:10px 0 20px}section[data-n="9"] ul.bullets li{font-size:23px;margin-bottom:12px}html.m section[data-n="9"] .tr{height:auto}html.m section[data-n="9"] .tk{font-size:19px}
   </style>
 </section>
 <section class="slide" data-n="10">
@@ -368,7 +368,7 @@ const REVEAL_SEL=".eyebrow,.title,.title-rule,.lead,.statement,.intro,.closer,.h
 slides.forEach(s=>{
   if(s.querySelector(".reveal")) { /* dividers pre-tagged */ }
   const els=[...s.querySelectorAll(REVEAL_SEL)].filter(e=>!e.closest(".foot,.foot-wm,.foot-pg"));
-  els.forEach((e,i)=>{ if(!e.classList.contains("reveal")){e.classList.add("reveal"); e.style.setProperty("--ri",Math.min(i,14));} });
+  els.forEach((e,i)=>{ if(!e.classList.contains("reveal")){e.classList.add("reveal","ri-"+Math.min(i,14));} });
 });
 
 let cur=-1, enterT=0;
@@ -412,8 +412,53 @@ function show(i,dir){
   markOverview();
   beacon("slide_enter",{});
 }
-function next(){ show(cur+1,1); }
-function prev(){ show(cur-1,-1); }
+function next(){ if(mobile)return mGo(cur+1); show(cur+1,1); }
+function prev(){ if(mobile)return mGo(cur-1); show(cur-1,-1); }
+function go(i){ if(mobile)return mGo(i); show(i); }
+
+// ---- phone layout: on narrow/portrait screens the deck becomes one scrolling,
+// reflowed column (html.m). Slides are laid out at a MOBILE_W-px virtual width and
+// zoomed to the screen, so their px type sizes stay readable. Reveals fire on scroll.
+const MOBILE_W=560;
+// media queries track the CSS layout viewport (device-width), not innerWidth — a phone
+// zoomed out to fit the 1920px canvas reports a huge innerWidth.
+const mq=matchMedia("(max-width:699px), (max-width:900px) and (orientation:portrait)");
+const isMobile=()=>mq.matches;
+const vw=()=>document.documentElement.clientWidth||innerWidth, vh=()=>document.documentElement.clientHeight||innerHeight;
+let mobile=false, mObs=[];
+function mGo(i){ i=Math.max(0,Math.min(total-1,i)); slides[i].scrollIntoView({behavior:reduce()?"auto":"smooth",block:"start"}); }
+function mActivate(s){ if(s.classList.contains("active"))return; s.classList.add("active");
+  requestAnimationFrame(()=>{ drawBars(s); countUp(s); });
+  try{ s.querySelectorAll("video").forEach(v=>{ v.play&&v.play().catch(()=>{}); }); }catch(e){} }
+function mCurrent(i){ if(i===cur)return; const now=performance.now();
+  if(cur>=0)beacon("slide_leave",{dwellMs:Math.round(now-enterT),to:i+1});
+  enterT=now; cur=i; prog.style.width=((i+1)/total*100)+"%";
+  history.replaceState(null,"","#"+(i+1));
+  try{ if(window.parent&&window.parent!==window) window.parent.postMessage({t:"deckslide",n:i+1},location.origin); }catch(e){}
+  beacon("slide_enter",{}); }
+function setMode(){
+  const m=isMobile();
+  if(m){ const z=Math.min(1.25,vw()/MOBILE_W);
+    stage.style.transform=""; stage.style.left=""; stage.style.top=""; stage.style.zoom=z;
+    document.documentElement.style.setProperty("--mvh",(vh()/z)+"px"); }
+  else stage.style.zoom="";
+  if(m===mobile)return m;
+  mobile=m; document.documentElement.classList.toggle("m",m);
+  mObs.forEach(o=>o.disconnect()); mObs=[];
+  const keep=Math.max(0,cur);
+  if(m){
+    document.body.classList.remove("drawer-open");
+    slides.forEach(x=>x.classList.remove("active"));
+    if(!("IntersectionObserver" in window)){ slides.forEach(mActivate); return m; }
+    const rv=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting)mActivate(e.target); }),{rootMargin:"0px 0px -12% 0px"});
+    const cu=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting)mCurrent(slides.indexOf(e.target)); }),{rootMargin:"-45% 0px -54% 0px"});
+    slides.forEach(x=>{ rv.observe(x); cu.observe(x); }); mObs=[rv,cu];
+    if(cur>0) requestAnimationFrame(()=>slides[keep].scrollIntoView({block:"start"}));
+  } else {
+    scrollTo(0,0); slides.forEach(x=>x.classList.remove("active")); cur=-1; show(keep);
+  }
+  return m;
+}
 
 // ---- keyboard ----
 addEventListener("keydown",e=>{
@@ -428,6 +473,7 @@ addEventListener("keydown",e=>{
 });
 // ---- click zones (ignore links/cards/overview) ----
 addEventListener("click",e=>{
+  if(mobile)return;                                               // phones scroll, no tap zones
   if(document.body.classList.contains("admin-comment"))return;   // comment mode owns clicks
   if(e.target.closest("a,button,input,select,textarea,label,form,.no-nav,.deck-edge,#deck-drawer,#deck-handle,#deck-scrim,.thumb,[data-eid],[contenteditable],.cmt-pin,.cmt-pop,#admin-bar,iframe"))return;
   if(document.body.classList.contains("drawer-open"))return;
@@ -437,12 +483,12 @@ addEventListener("click",e=>{
 // ---- touch swipe ----
 let tx=0,ty=0;
 addEventListener("touchstart",e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
-addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+addEventListener("touchend",e=>{if(mobile)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
   if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)){ dx<0?next():prev(); }},{passive:true});
 // ---- hash nav ----
-addEventListener("hashchange",()=>{const n=(parseInt(location.hash.slice(1))||1)-1; if(n!==cur)show(n);});
+addEventListener("hashchange",()=>{const n=(parseInt(location.hash.slice(1))||1)-1; if(n!==cur)go(n);});
 // ---- parent-frame nav (portal.place/deck#N deep links) ----
-addEventListener("message",e=>{ if(e.data&&e.data.t==="deckgoto"&&typeof e.data.n==="number"){const n=e.data.n-1; if(n!==cur)show(n);} });
+addEventListener("message",e=>{ if(e.data&&e.data.t==="deckgoto"&&typeof e.data.n==="number"){const n=e.data.n-1; if(n!==cur)go(n);} });
 
 // ---- edge arrows (always visible; click to navigate) ----
 document.querySelector(".deck-edge.l").addEventListener("click",prev);
@@ -488,10 +534,10 @@ document.getElementById("deck-scrim").addEventListener("click",closeDrawer);
 
 // ---- fit stage to viewport (reserve drawer width when open → push, not overlay) ----
 const DRAWER_W=352;
-function fit(){ const availW=innerWidth-(document.body.classList.contains("drawer-open")?DRAWER_W:0);
+function fit(){ if(setMode())return; const availW=innerWidth-(document.body.classList.contains("drawer-open")?DRAWER_W:0);
   const sc=Math.min(availW/1920,innerHeight/1080);
   stage.style.transform="scale("+sc+")"; stage.style.left=((availW-1920*sc)/2)+"px"; stage.style.top=((innerHeight-1080*sc)/2)+"px"; }
-addEventListener("resize",fit); fit();
+addEventListener("resize",fit); mq.addEventListener&&mq.addEventListener("change",fit); fit();
 
 // ---- build progress ticks at section boundaries ----
 (function ticks(){ const t=document.querySelector("#deck-progress .ticks");
@@ -500,7 +546,8 @@ addEventListener("resize",fit); fit();
 // ---- boot: splash off after fonts + first paint ----
 const startAt=(parseInt(location.hash.slice(1))||1)-1;
 Promise.race([document.fonts?document.fonts.ready:Promise.resolve(), new Promise(r=>setTimeout(r,1500))]).then(()=>{
-  show(Math.max(0,startAt));
+  if(mobile){ if(startAt>0)slides[Math.min(total-1,startAt)].scrollIntoView({block:"start"}); }
+  else show(Math.max(0,startAt));
   beacon("deck_open",{});
   setTimeout(()=>document.getElementById("deck-splash").classList.add("hide"),180);
 });
