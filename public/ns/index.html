@@ -439,7 +439,7 @@ function show(i,dir){
   const now=performance.now();
   if(cur>=0){ beacon("slide_leave",{dwellMs:Math.round(now-enterT),to:i+1}); resetBars(slides[cur]); slides[cur].classList.remove("active"); }
   enterT=now; cur=i;
-  const s=slides[i]; s.classList.add("active");
+  const s=slides[i]; s.classList.add("active"); loadImgs(s); loadImgs(slides[i+1]);
   try{ slides.forEach(x=>x.querySelectorAll("video").forEach(v=>v.pause()));
        s.querySelectorAll("video").forEach(v=>{ v.play&&v.play().catch(()=>{}); }); }catch(e){}
   prog.style.width=((i+1)/total*100)+"%";
@@ -460,10 +460,16 @@ function go(i){ if(mobile)return mGo(i); show(i); }
 const MOBILE_W=560;
 // media queries track the CSS layout viewport (device-width), not innerWidth — a phone
 // zoomed out to fit the 1920px canvas reports a huge innerWidth.
-const mq=matchMedia("(max-width:699px), (max-width:900px) and (orientation:portrait)");
+// phones in BOTH orientations (a landscape phone is short: <=500px tall) get the phone
+// layout; tablets and laptops keep the 16:9 slideshow.
+const mq=matchMedia("(max-width:699px), (max-width:900px) and (orientation:portrait), (max-height:500px) and (orientation:landscape)");
 const isMobile=()=>mq.matches;
 const vw=()=>document.documentElement.clientWidth||innerWidth, vh=()=>document.documentElement.clientHeight||innerHeight;
 let mobile=false, mObs=[];
+// photos are loading="lazy"; the browser's own lazy heuristic misfires inside the zoomed
+// phone layout, so load each slide's images ourselves just before it's needed.
+function loadImgs(s){ if(!s||s.dataset.imgs)return; s.dataset.imgs="1";
+  s.querySelectorAll('img[loading="lazy"]').forEach(im=>{ im.loading="eager"; }); }
 function mGo(i){ i=Math.max(0,Math.min(total-1,i)); slides[i].scrollIntoView({behavior:reduce()?"auto":"smooth",block:"start"}); }
 function mActivate(s){ if(s.classList.contains("active"))return; s.classList.add("active");
   requestAnimationFrame(()=>{ drawBars(s); countUp(s); });
@@ -488,9 +494,10 @@ function setMode(){
     document.body.classList.remove("drawer-open");
     slides.forEach(x=>x.classList.remove("active"));
     if(!("IntersectionObserver" in window)){ slides.forEach(mActivate); return m; }
+    const pl=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting)loadImgs(e.target); }),{rootMargin:"0px 0px 150% 0px"});
     const rv=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting)mActivate(e.target); }),{rootMargin:"0px 0px -12% 0px"});
     const cu=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting)mCurrent(slides.indexOf(e.target)); }),{rootMargin:"-45% 0px -54% 0px"});
-    slides.forEach(x=>{ rv.observe(x); cu.observe(x); }); mObs=[rv,cu];
+    slides.forEach(x=>{ pl.observe(x); rv.observe(x); cu.observe(x); }); mObs=[pl,rv,cu];
     if(cur>0) requestAnimationFrame(()=>slides[keep].scrollIntoView({block:"start"}));
   } else {
     scrollTo(0,0); slides.forEach(x=>x.classList.remove("active")); cur=-1; show(keep);
