@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}</style>
+<title>NS North Pitch Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single memo column (~68ch) with a compact contents strip; tables scroll inside their own frame. */
+:root{
+  --bg:#F2F4F1; --surface:#FAFBF9; --fg:#17221E; --muted:#56665F; --line:#D3DCD6; --accent:#2B6B59; --accent-soft:#DCEAE3;
+  --display:"Newsreader", Georgia, "Times New Roman", serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0F1613; --surface:#151E1A; --fg:#E2EAE5; --muted:#92A39B; --line:#26342E; --accent:#74C3A8; --accent-soft:#1C2F28; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0F1613; --surface:#151E1A; --fg:#E2EAE5; --muted:#92A39B; --line:#26342E; --accent:#74C3A8; --accent-soft:#1C2F28; color-scheme:dark }
+
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:780px;margin:0 auto;padding-inline:20px;padding-block:48px 80px}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(34px,6vw,50px);line-height:1.05}
+h2{font-size:28px;line-height:1.15;margin-top:56px;padding-top:22px;border-top:1px solid var(--line)}
+h3{font-size:20px;margin-top:30px}
+p{margin:12px 0}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+b,strong{font-weight:600}
+.kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:16px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.lede{font-family:var(--display);font-size:21px;line-height:1.45;margin-top:22px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.toc a{font-family:var(--mono);font-size:12.5px;text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:var(--surface)}
+.toc a:hover{border-color:var(--accent)}
+.short{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:18px 22px}
+.short p{margin:8px 0}
+ol.facts{counter-reset:f;list-style:none;padding:0;margin:18px 0 0;display:grid;gap:14px}
+ol.facts>li{counter-increment:f;display:grid;grid-template-columns:34px 1fr;gap:4px;min-width:0}
+ol.facts>li:before{content:counter(f,decimal-leading-zero);font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:3px}
+ol.facts p{margin:0}
+ul{padding-left:20px;margin:10px 0}
+li{margin:5px 0}
+q,.quote{font-family:var(--display);font-style:italic;font-size:1.06em}
+.note{font-size:14.5px;color:var(--muted)}
+.tbl{overflow-x:auto;margin-top:18px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+th{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:none}
+td.n{font-family:var(--mono);color:var(--muted);width:28px}
+tr.lead td{background:var(--accent-soft)}
+.fit{display:inline-flex;gap:3px;vertical-align:middle}
+.fit i{width:8px;height:8px;border-radius:50%;border:1px solid var(--accent)}
+.fit i.on{background:var(--accent)}
+.pull{margin:24px 0;padding:6px 0 6px 22px;border-left:2px solid var(--accent);font-family:var(--display);font-size:22px;line-height:1.42}
+.weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:16px}
+.wk{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;min-width:0}
+.wk .kicker{color:var(--accent)}
+.wk p{margin:6px 0 0;font-size:15px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:8px}
+.two>div{min-width:0}
+.tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:1px 6px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.src{font-size:14px;color:var(--muted)}
+.src li{margin:3px 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head><body>
+<div class="wrap">
+  <div class="kicker">Portal.Place · pitch strategy · prepared Oct 12, 2026</div>
+  <h1>NS North: how we pitch Balaji and Network School</h1>
+  <div class="meta"><span>For Mike &amp; Euvie</span><span>Deck: <a href="https://portal.place/ns">portal.place/ns</a></span><span>v1 frozen at <a href="https://portal.place/ns1">/ns1</a></span></div>
+  <p class="lede">The research behind the deck: what Balaji cares about right now, what happened in Malaysia, the angles we could lead with, and the questions we still need to answer before it goes to him.</p>
+
+  <nav class="toc" aria-label="Contents">
+    <a href="#learned">What we learned</a><a href="#ecosystem">The ecosystem</a><a href="#canada">The Canada question</a><a href="#angles">Angles</a><a href="#festival">Festival questions</a><a href="#deck">Deck rules</a><a href="#open">Open questions</a><a href="#sources">Sources</a>
+  </nav>
+
+  <div class="short">
+    <div class="kicker">The short version</div>
+    <p><b>Lead with a small, concrete ask in his own language:</b> a three-week Network School popup on our land in summer 2027. It's a build sprint that ends in an art festival, housed in zomes we fabricate on site, with local artists funded from day one. If it works, it graduates to a permanent node.</p>
+    <p>That fits his popup-to-permanent sequence and the gaps he has right now: North America, summer, local support and culture. It also avoids his red flags: partying, degrowth, back-to-the-land and sovereignty grabs.</p>
+  </div>
+
+  <h2 id="learned">What we learned</h2>
+  <ol class="facts">
+    <li><p><b>Network School lost Malaysia in July 2026.</b> Johor revoked its business licence effective July 22. The trigger was an activist claim that Israelis were on campus; immigration checked 266 members and found valid papers. The formal grounds were licensing and use of premises (classrooms in an office-licensed unit). It became unrecoverable because of three things: promos that described the site as "an island near Singapore" without naming Malaysia, no local constituency to defend it, and Balaji publicly freezing a planned RM500M expansion.</p></li>
+    <li><p><b>This corrects our starting assumption.</b> The cause wasn't simply that locals felt left out. The trigger was political, but having no local stakeholders is why nobody spoke up for it. The art and local-grant angle still holds; it's about building that support before you need it.</p></li>
+    <li><p><b>Network School is now in Kazakhstan.</b> A 5-year agreement with the government; the Astana campus opened Sept 2. Balaji is also exploring a "Network City" in Burabay, a lakes-and-forest resort region, built from "modular infrastructure integrated into the natural landscape." That's the closest thing to our land in his portfolio.</p></li>
+    <li><p><b>His sequence is popup, then permanent.</b> From "Popups are the new startups" (Oct 2025): a popup is "a physical prototype" and a permanent site is "a production deployment." His rule for land: <q>cloud first, land last — but not land never.</q></p></li>
+    <li><p><b>His funding runs through Network School.</b> Step 5 of his roadmap: <q>Start your own society… We intend to fund the best.</q> Ask small and evidence-based (a popup, a pilot, a listing), not "fund our land."</p></li>
+    <li><p><b>His own book backs art and a Burning Man equivalent.</b> <q>we create art and literature that reflects our values.</q> And thanks to Starlink, a community can build <q>their own Burning Man equivalent in the middle of nowhere</q> for permanent habitation. Network School and Kazakhstan also just ran a $2M AI film festival with about 8,000 entries.</p></li>
+    <li><p><b>He dislikes partying, degrowth and back-to-the-land.</b> He wrote that <q>no one was coming to Network School for the 'nightlife.'</q> His book sets "back-to-the-land" anarcho-primitivism against his own transhumanism. Never pitch "regenerative", "reconnect with nature", "food sovereignty" or festival vibes.</p></li>
+    <li><p><b>Learn, burn, earn.</b> Fitness is a pillar: proof-of-workout and Blueprint-style food. Our sauna, cold plunge, trails, mountain biking and cross-country skiing fit "burn" directly.</p></li>
+    <li><p><b>Open-source prefab nodes are on his roadmap.</b> Version 4 of Network School is <q>a portable template that we can open source and recreate anywhere.</q> With the CNC, the zome plans, the Dome &amp; Zome Generator and the WikiHouse configurator, we can be the workshop that prototypes his nodes.</p></li>
+    <li><p><b>Education and measurement.</b> He praises land-grant colleges, which <q>were built to teach frontiersmen how to run farms, dig mines, and erect buildings,</q> and Network School now offers childcare and tutoring. He also measures everything: applications vs. places (4,000 for 128), members, cohorts, countries. Bring numbers, not vibes.</p></li>
+  </ol>
+
+  <h2 id="ecosystem">The ecosystem around him</h2>
+  <ul>
+    <li><b>Edge City</b> runs monthlong popup villages (12,500+ participants so far) and is listed on Network School's dashboard. Its 2026 calendar was Esmeralda (May–June), then India and Bhutan (Oct–Nov). There is no Canadian village and nothing in July–September. The biggest complaint at Esmeralda is that a $3K ticket doesn't include housing.</li>
+    <li><b>Esmeralda</b> is our best comparable: 266 acres in Sonoma County with a planned hotel, event centre, preschool and amphitheatre. They ran popups first, then two years of town halls. The council vote was set for the week of Oct 7, 2026.</li>
+    <li><b>"Ark" is ambiguous.</b> Ârc is Network School's first permanent spin-off, a charter-city project with popups in Lisbon and Austin. It is not an eco-village. The ARK in Costa Rica is a regenerative village, but we found no link to Balaji. Worth checking which one you heard about at the conference.</li>
+    <li><b>Where his money has gone:</b> Pronomos Capital (Próspera), the Praxis seed round, the Afropolitan pre-seed, the Balaji Fund (a rolling fund launched in 2025) and the Network School Fellowship ($100K for up to 100 founders).</li>
+    <li><b>Otherworld</b> is BC's official Burning Man regional, run by Kindle Arts. It's capped at 3,200 people with roughly three times that demand, and dropped general admission in 2026. It currently runs at Laketown Ranch on Vancouver Island.</li>
+  </ul>
+
+  <h2 id="canada">The Canada question</h2>
+  <p>He will think about this, so we answer it before he asks. In 2022 he pointed to Canada's trucker-convoy account freezes as the reason Bitcoin matters. After Malaysia he says he only wants to work with "a willing counterparty."</p>
+  <ul>
+    <li>Private titled land and an operating, licensed resort. We are not asking for a special zone.</li>
+    <li>A small town that wants this. The District of Clearwater signed an agreement with Simpcw First Nation in April 2025. Mike getting more involved with the Clearwater Chamber of Commerce would strengthen this further.</li>
+    <li>In Vitalik's terms (which Balaji promoted), our site is a <b>monastery</b>: the retreat node that complements his city <b>embassies</b>. Kamloops airport is 1.5 hours away, with Starlink across the property.</li>
+  </ul>
+
+  <h2 id="angles">The angles, ranked</h2>
+  <p class="note">Fit is how well each angle matches Balaji's stated priorities. The shaded rows make up the recommended lead.</p>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>#</th><th>Angle</th><th>The pitch in a line</th><th>Fit</th><th>Watch out for</th></tr></thead>
+      <tbody>
+        <tr class="lead"><td class="n">1</td><td><b>Popup to permanent, North America</b></td><td>Run Network School's first North American summer popup on 400 acres that already operate. If it works, it graduates.</td><td><span class="fit" aria-label="5 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td><td>Remoteness. Answer with the airport, Starlink and the monastery framing.</td></tr>
+        <tr class="lead"><td class="n">2</td><td><b>Art is the moat</b></td><td>A node that funds local artists has local support before it needs it.</td><td><span class="fit" aria-label="5 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td><td>Must not read as a lecture about Malaysia. Never name it.</td></tr>
+        <tr class="lead"><td class="n">3</td><td><b>Festival as the culture layer</b></td><td>Conferences share ideas; festivals make a people. Burning Man rebuilds a city of 80,000 every year with ritual but no economy. Network School has the economy.</td><td><span class="fit" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td><td>Frame it as a build sprint with a finale, never as nightlife.</td></tr>
+        <tr class="lead"><td class="n">4</td><td><b>We build the nodes</b></td><td>CNC-fabricated zome villages: the open-source prefab template he's planning, prototyped in our shop. Ready for Burabay.</td><td><span class="fit" aria-label="5 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td><td>Needs a concrete artifact: a kit, the files, cost per bed.</td></tr>
+        <tr><td class="n">5</td><td><b>Land-grant school for the AI era</b></td><td>Future School: frontier skills plus AI tools for Network School families' kids, with proof-of-build credentials.</td><td><span class="fit" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td><td>Our "screens are rewiring kids" framing reads anti-tech. Present it as AI-native and hands-on.</td></tr>
+        <tr><td class="n">6</td><td><b>An outdoor fitness campus</b></td><td>Proof-of-workout on mountain trails, plus sauna, cold plunge, mountain biking and cross-country skiing.</td><td><span class="fit" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td><td>Supporting point, not the lead.</td></tr>
+        <tr><td class="n">7</td><td><b>The people they're missing</b></td><td>Festivals and art bring artists, women, families and Americans, all of whom are scarce at Network School today.</td><td><span class="fit" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></td><td>Sensitive. Imply it rather than state it.</td></tr>
+        <tr><td class="n">8</td><td><b>Media engine</b></td><td>Future Thinkers (10M+ downloads) and Design Spore film the popup, so Network School gets cinematic content instead of legacy press.</td><td><span class="fit" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td><td>Supporting point.</td></tr>
+        <tr><td class="n">9</td><td><b>Edge City's empty summer slot</b></td><td>A parallel pitch to Edge City: Edge North, BC, July 2027, housing included.</td><td><span class="note">Edge, not Balaji</span></td><td>Run it in parallel. An Edge village is social proof for Balaji.</td></tr>
+        <tr><td class="n">10</td><td><b>AI Film Festival, North America</b></td><td>A North American screening and build-week stop for the Astana AI Film Festival, on the drive-in screen and amphitheatre.</td><td><span class="fit" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td><td>Small on its own. A good add-on.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>The recommended lead</h3>
+  <p>Angles 1 to 4, told as one story:</p>
+  <div class="pull">You wrote that a community could build its own Burning Man equivalent in the middle of nowhere, for permanent habitation. We have the middle of nowhere, and it's already running. Bring a Network School popup to it in summer 2027. If it works, it graduates.</div>
+
+  <h3>Our "one commandment"</h3>
+  <p>He'll ask what single moral premise we stand for. The deck uses the first option.</p>
+  <ul>
+    <li><b>Build the world you want to live in, with your hands.</b> <span class="tag">IN THE DECK</span></li>
+    <li>Beauty is infrastructure.</li>
+    <li>Every kid should be able to build their own shelter and their own software.</li>
+  </ul>
+
+  <h2 id="festival">Your festival questions, answered</h2>
+  <h3>What if Network School were affiliated with a Burning Man–style festival?</h3>
+  <p>It would get the culture layer its own definition asks for: "a sense of national consciousness" and "a capacity for collective action." Burning Man shows a temporary city of 80,000 can govern itself, build its own infrastructure and grow a shared culture every year. It has no economy and no permanence, and Network School has both. The affiliation joins the ritual to the economy.</p>
+
+  <h3>Why would members choose a festival over another conference?</h3>
+  <div class="two">
+    <div><ul>
+      <li><b>Co-creation bonds people.</b> You don't bond in an audience; you bond building a camp together at 2 a.m.</li>
+      <li><b>It's a rehearsal for a network state.</b> Infrastructure, logistics, rules and a census, in miniature, every year.</li>
+      <li><b>Output, not talk.</b> Art, structures, prototypes, films and ventures get shipped.</li>
+    </ul></div>
+    <div><ul>
+      <li><b>It reaches the people Network School is missing:</b> artists, women, families and North Americans.</li>
+      <li><b>Burn.</b> Trails, the lake, sauna, cold plunge and mountain air.</li>
+      <li><b>Lore.</b> The stories and images people retell for years, which a society runs on.</li>
+    </ul></div>
+  </div>
+
+  <h3>What a Network School festival on our land would look like</h3>
+  <p>Working name: NS North. Housing is included (zomes, glamping and RV sites), which fixes Esmeralda's biggest complaint.</p>
+  <div class="weeks">
+    <div class="wk"><div class="kicker">Weeks 1–2 · Build</div><p>Members, local artists and our makerspace build the art and the village: CNC, LED, zome raising. Funded by art grants.</p></div>
+    <div class="wk"><div class="kicker">Weeks 2–3 · Learn &amp; burn</div><p>Talks, a hackathon, proctored maker credentials. Morning trail runs, sauna and cold plunge.</p></div>
+    <div class="wk"><div class="kicker">Week 3 · Ship</div><p>Demo day at the amphitheatre and an AI-film night on the drive-in screen.</p></div>
+    <div class="wk"><div class="kicker">Finale · Light</div><p>A three- to four-day art and music festival, open to the region with free local days. BC fire bans make LED art the signature.</p></div>
+  </div>
+
+  <h2 id="deck">What the deck must include and avoid</h2>
+  <div class="two">
+    <div>
+      <h3 style="margin-top:6px">Include</h3>
+      <ul>
+        <li>His own words, quoted exactly</li>
+        <li>The popup-to-permanent ladder</li>
+        <li>Hard numbers: 400 acres, 5 years operating, ~3,000 guests a year, 45 RV sites, a 120-person gazebo, a 10,000-person list, 10M+ downloads</li>
+        <li>Access: Kamloops airport 1.5 h, Starlink, hydro power, our own wells</li>
+        <li>Local roots: 5 years operating, local hiring, the Clearwater–Simpcw agreement as the model</li>
+        <li>A metrics slide, and a small first ask with a larger ladder behind it</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="margin-top:6px">Avoid</h3>
+      <ul>
+        <li>Naming Malaysia</li>
+        <li>"Regenerative", food "sovereignty", "back to nature", anti-screen language</li>
+        <li>Festival-as-party imagery: crowds, DJs</li>
+        <li>Any sovereignty claim</li>
+        <li>A big equity ask up front</li>
+        <li>Claiming a Chamber of Commerce role</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 id="open">Open questions for Mike and Euvie</h2>
+  <ol>
+    <li>Is Otherworld 2027 on our land confirmed, and can we share it? The deck mentions it twice.</li>
+    <li>Is "Euvie runs Future School" how Euvie wants to be described?</li>
+    <li>Is "a village for ~200 residents" a realistic capacity for summer 2027?</li>
+    <li>Do we keep the ~30-zome build fund as step 3 of the ask, or limit this deck to the popup and the art fund?</li>
+    <li>Which "Ark" did you hear about at the conference: Ârc or The ARK?</li>
+    <li>Who is the warmest intro: Balaji directly, or through Edge City or a Network School community lead?</li>
+    <li>What dates work for a summer 2027 popup?</li>
+  </ol>
+
+  <h2 id="sources">Sources</h2>
+  <p class="note">Quotes from balajis.com and the book were checked word for word against the source text. X itself was blocked during research, so anything from his tweets is second-hand.</p>
+  <ul class="src">
+    <li><a href="https://balajis.com/p/popups-are-the-new-startups">Popups are the new startups</a> · <a href="https://balajis.com/p/network-school-2025">Network School 2025</a> · <a href="https://balajis.com/p/network-school">Network School</a> · <a href="https://balajis.com/p/why-did-wsj-stu-woo-follow-me-to-singapore">Why did Stu Woo of the WSJ follow me to Singapore?</a></li>
+    <li><a href="https://thenetworkstate.com/book/tns.pdf">The Network State (book PDF)</a> · <a href="https://thenetworkstate.com/the-network-state-in-one-thousand-words">The Network State in One Thousand Words</a></li>
+    <li><a href="https://www.theblock.co/news/regulation/2026-07-21-malaysia-shuts-down-balaji-srinivasans-network-school-forest-city-409076">The Block</a> · <a href="https://www.abc.net.au/news/2026-07-29/why-malaysia-shut-down-network-school-digital-nomad-hub/106953874">ABC</a> · <a href="https://fortune.com/2026/07/26/network-school-balaji-srinivasan-malaysia-johor-israel-kazakhstan/">Fortune</a> · <a href="https://www.freemalaysiatoday.com/category/nation/2026/07/16/network-school-shelves-investment-plans-for-country-after-israeli-controversy">FMT</a> · <a href="https://techcrunch.com/2026/08/02/malaysia-is-reportedly-shutting-down-balaji-srinivasans-network-school/">TechCrunch</a></li>
+    <li><a href="https://el.kz/en/network-city-where-kazakhstan-plans-to-establish-a-new-it-hub_400050597/">Network City, Burabay (el.kz)</a> · <a href="https://ns.com/dashboard">ns.com dashboard</a> · <a href="https://luma.com/ns2026">Network State Conference 2026</a></li>
+    <li><a href="https://www.edgecity.live/">Edge City</a> · <a href="https://www.kqed.org/news/12103065/as-new-north-bay-neighborhood-nears-approval-environmental-concerns-weigh-heavy">KQED on Esmeralda</a> · <a href="https://otherworld.ca/">Otherworld</a> · <a href="https://www.districtofclearwater.com/simpcw-and-district-of-clearwater-sign-memorandum-of-understanding">Clearwater–Simpcw agreement</a></li>
+  </ul>
+</div>
+
+</body></html>
