@@ -101,7 +101,7 @@ export function middleware(request: NextRequest) {
   // Authed. The /deck and /deckN routes are full-screen iframe decks — render
   // without site chrome (Nav/Footer/Chat), reusing the dashboard flag.
   const res = NextResponse.next();
-  if (pathname === "/deck" || /^\/deck\d+$/.test(pathname)) {
+  if (pathname === "/deck" || /^\/deck\d+$/.test(pathname) || pathname === "/deck-long") {
     res.headers.set("x-is-dashboard", "1");
   }
   return res;
