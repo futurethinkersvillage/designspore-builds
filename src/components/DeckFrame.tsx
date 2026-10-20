@@ -57,6 +57,8 @@ export default function DeckFrame({ src }: { src: string }) {
         border: 0,
         background: "#0F0E12",
       }}
+      allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+      allowFullScreen
     />
   );
 }

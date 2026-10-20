@@ -1085,7 +1085,7 @@ fetch('data/tour.json').then(r=>r.json()).then(M=>{
   const introIsOverlay=TOUR.length&&TOUR[0].kind==='overlay';
   if(EMBED_MODE){ /* embed: no intro/tour, just the map */ }
   else if(startIdx>=0){ goStop(startIdx); }
-  else if(introIsOverlay){ goStop(0); }   // open the Our Story overlay on load
+  else if(introIsOverlay && !/[?&]nointro/.test(location.search)){ goStop(0); }   // open the Our Story overlay on load (?nointro skips it, e.g. deck expand view)
 }).catch(e=>{console.warn('tour load',e); renderBar();});
 </script>
 </body>
