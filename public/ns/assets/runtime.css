@@ -279,11 +279,11 @@ html.m section.slide > [style*="inset:0"]{pointer-events:none}
 /* ---- Hover-to-expand photo grids (.hx): desktop pointer only ---- */
 @media (hover:hover) and (pointer:fine){
   html:not(.m) .hx > *{position:relative;z-index:1;cursor:zoom-in;
-    transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s ease,filter .45s ease,z-index 0s .55s}
+    transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s ease,filter .45s ease}
   html:not(.m) .hx:hover > *{filter:brightness(.55) saturate(.8)}
-  html:not(.m) .hx > *:hover{transform:scale(var(--hs,2))!important;z-index:30;filter:none;
+  html:not(.m) .hx > *:hover{transform:scale(var(--hs,2))!important;filter:none;
     box-shadow:0 28px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.08);
-    transition:transform .55s cubic-bezier(.2,.8,.2,1) .06s,box-shadow .55s ease,filter .35s ease,z-index 0s}
+    transition:transform .55s cubic-bezier(.2,.8,.2,1) .06s,box-shadow .55s ease,filter .35s ease}
 }
 .hx .o-lt{transform-origin:0 0}.hx .o-ct{transform-origin:50% 0}.hx .o-rt{transform-origin:100% 0}
 .hx .o-lm{transform-origin:0 50%}.hx .o-cm{transform-origin:50% 50%}.hx .o-rm{transform-origin:100% 50%}
