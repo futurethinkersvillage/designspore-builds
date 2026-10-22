@@ -5,5 +5,5 @@ import DeckFrame from "@/components/DeckFrame";
 // Public (ungated) so it can be shared. Source: Projects/ns-deck.
 export default function NsDeckPage() {
   // ?v bumped on each deck redeploy to bust the browser cache on the iframe HTML.
-  return <DeckFrame src="/ns/index.html?v=20261022c" />;
+  return <DeckFrame src="/ns/index.html?v=20261022d" />;
 }
