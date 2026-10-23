@@ -58,8 +58,10 @@ export async function POST(req: NextRequest) {
       ? (await resend(`/emails/receiving/${emailId}/attachments`, apiKey)).data
       : [];
 
-    // "Jane Doe <jane@x.com>" -> show "Jane Doe via Portal.Place" in Gmail.
-    const senderName = (email.from.match(/^\s*"?([^"<]+?)"?\s*</)?.[1] || email.from).trim();
+    // "Jane Doe <jane@x.com>" -> show "Jane Doe via Portal.Place" in Gmail. `email.from` is the
+    // bare address, so the display name comes from the raw From header.
+    const fromHeader: string = email.headers?.from || email.headers?.From || email.from;
+    const senderName = (fromHeader.match(/^\s*"?([^"<]+?)"?\s*</)?.[1] || email.from).trim();
     const receivedFor: string[] = email.received_for?.length ? email.received_for : email.to;
 
     await resend("/emails", apiKey, {
