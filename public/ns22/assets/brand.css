@@ -49,9 +49,12 @@ h1.title i{font-style:italic;color:var(--amber);font-weight:400}
 
 /* ---- Footer (minimal, no white bar) ---- */
 .foot{position:absolute;left:120px;right:120px;bottom:46px;height:1px;background:var(--line-soft)}
-.foot-wm{position:absolute;left:120px;bottom:21px;font-size:16px;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--dim);font-weight:500}
+.foot-wm{position:absolute;left:120px;bottom:19px;font-family:var(--sans);font-size:16px;letter-spacing:.04em;
+  color:var(--dim);font-weight:500;display:flex;gap:12px;align-items:baseline}
 .foot-wm b{color:var(--amber);font-weight:500}
+a.lk{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;cursor:pointer}
+a.lk:hover{color:var(--amber);border-bottom-color:currentColor}
+a.lk.am{color:var(--amber)}
 .foot-pg{position:absolute;right:120px;bottom:19px;font-family:var(--serif);font-size:22px;color:var(--dim)}
 .foot-pg b{color:var(--ink);font-style:italic}
 
