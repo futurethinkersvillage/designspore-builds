@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>White Rock Equity — Money that stays where it lands</title>
+<meta name="description" content="White Rock Equity puts patient capital into rural land projects that grow their own food, make their own power and give people a reason to stay. A concept from Clearwater, British Columbia.">
+<meta property="og:title" content="White Rock Equity">
+<meta property="og:description" content="Money that stays where it lands. Patient capital for land that feeds, powers and gathers its people.">
+<meta property="og:image" content="assets/img/valley-aerial.jpg">
+<meta name="theme-color" content="#F4EEE4">
+<link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans+SC:wght@500;700&family=Gloock&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4EEE4; --paper-2:#EBE2D2; --paper-3:#E2D6C2;
+  --ink:#1B1F1C; --ink-soft:#4A4840; --ink-mute:#6B675C;
+  --coral:#EE6A43; --coral-ink:#B3431F; --coral-pale:#F7C2AD;
+  --fjord:#1E3634; --fjord-2:#284542; --bone:#F4EEE4; --bone-soft:#C9C6B9;
+  --rule:rgba(27,31,28,.16); --rule-strong:rgba(27,31,28,.55);
+  --display:"Gloock",Georgia,serif;
+  --serif:"Alegreya",Georgia,serif;
+  --caps:"Alegreya Sans SC","Alegreya",sans-serif;
+  --gut:clamp(16px,4vw,56px);
+  --max:1320px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.6;font-feature-settings:"onum" 1,"kern" 1;text-rendering:optimizeLegibility}
+/* paper grain */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.38;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--coral-ink);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:200}
+.skip:focus{left:8px}
+
+/* type */
+.caps{font-family:var(--caps);font-weight:500;letter-spacing:.09em;text-transform:lowercase;font-size:15px}
+.eyebrow{font-family:var(--caps);font-weight:700;letter-spacing:.12em;text-transform:lowercase;font-size:15px;color:var(--coral-ink);display:flex;gap:14px;align-items:baseline}
+.eyebrow i{font-style:normal;font-family:var(--display);font-size:22px;letter-spacing:0;color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.02;letter-spacing:-.01em}
+h2{font-size:clamp(36px,5.2vw,72px)}
+h3{font-size:clamp(28px,3vw,40px)}
+p{margin:0 0 1em}
+.lede{font-size:clamp(20px,1.7vw,24px);line-height:1.5;color:var(--ink-soft);max-width:34em}
+em,.it{font-style:italic}
+
+/* header */
+.top{position:sticky;top:0;z-index:50;background:rgba(244,238,228,.94);backdrop-filter:saturate(1.2);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;text-decoration:none}
+.brand img{height:42px;width:auto}
+.nav{display:flex;gap:30px;align-items:center}
+.nav a{font-family:var(--caps);font-weight:500;letter-spacing:.08em;text-transform:lowercase;font-size:16px;text-decoration:none;padding:10px 0;position:relative}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:2px;background:var(--coral);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease)}
+.nav a:hover::after{transform:scaleX(1)}
+.nav .write{border:1.5px solid var(--ink);padding:9px 16px 10px;border-radius:2px;transition:background .2s,color .2s}
+.nav .write::after{display:none}
+.nav .write:hover{background:var(--ink);color:var(--paper)}
+.menu-btn{display:none;font:inherit;font-family:var(--caps);font-weight:700;letter-spacing:.1em;font-size:15px;background:none;border:1.5px solid var(--ink);padding:10px 16px;min-height:44px;cursor:pointer;color:var(--ink)}
+
+/* hero */
+.hero{padding:clamp(48px,7vw,104px) 0 0}
+.hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(32px,6vw,96px);align-items:end}
+.hero h1{font-size:clamp(52px,8.4vw,128px);line-height:.94;letter-spacing:-.02em;margin:22px 0 34px}
+.hero h1 .ul{position:relative;white-space:nowrap;display:inline-block}
+.hero h1 .ul svg{position:absolute;left:-2%;width:104%;bottom:-.08em;height:.24em;overflow:visible}
+.hero .lede{margin-bottom:34px}
+.links{display:flex;flex-wrap:wrap;gap:12px 34px}
+.arrow-link{font-family:var(--caps);font-weight:700;letter-spacing:.09em;text-transform:lowercase;font-size:17px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;padding:8px 0;min-height:44px;border-bottom:2px solid var(--coral)}
+.arrow-link svg{width:28px;height:14px;transition:transform .25s var(--ease)}
+.arrow-link:hover svg{transform:translateX(4px)}
+.arrow-link.down:hover svg{transform:translateY(3px)}
+.marg{border-left:1px solid var(--rule-strong);padding-left:26px;display:grid;gap:26px;margin-bottom:8px}
+.marg div{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline}
+.marg b{font-family:var(--display);font-weight:400;font-size:52px;line-height:.9;color:var(--coral-ink);font-feature-settings:"lnum" 1}
+.marg span{font-size:17px;line-height:1.35;color:var(--ink-soft)}
+
+.plate{margin:0}
+.plate img{width:100%;height:auto;background:var(--paper-3)}
+.plate figcaption{display:flex;gap:14px;align-items:baseline;padding-top:12px;font-size:16px;line-height:1.4;color:var(--ink-mute)}
+.plate figcaption b{font-family:var(--caps);font-weight:700;letter-spacing:.1em;text-transform:lowercase;font-size:14px;color:var(--ink);white-space:nowrap}
+.plate figcaption i{font-style:italic}
+.hero-plate{margin-top:clamp(56px,7vw,96px);position:relative}
+.hero-plate img{aspect-ratio:16/8;object-fit:cover;object-position:50% 55%}
+
+/* section frame */
+section{position:relative}
+.sec{padding:clamp(88px,11vw,160px) 0}
+.sec-head{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,8fr);gap:clamp(24px,4vw,64px);margin-bottom:clamp(48px,6vw,80px)}
+.sec-head .eyebrow{padding-top:14px;border-top:2px solid var(--ink);align-self:start}
+
+/* inversion ledger */
+.inv-body{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,8fr);gap:clamp(24px,4vw,64px)}
+.inv-body p{max-width:36em}
+.ledger{width:100%;border-collapse:collapse;margin-top:48px;font-size:clamp(18px,1.5vw,21px)}
+.ledger caption{text-align:left;font-family:var(--caps);font-weight:500;letter-spacing:.09em;font-size:14px;color:var(--ink-mute);padding-bottom:10px;text-transform:lowercase}
+.ledger th{font-family:var(--caps);font-weight:700;letter-spacing:.1em;text-transform:lowercase;font-size:15px;text-align:left;padding:0 18px 12px 0;border-bottom:2px solid var(--ink)}
+.ledger th:last-child{color:var(--coral-ink)}
+.ledger td{padding:16px 22px 16px 0;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.4}
+.ledger td:first-child{color:var(--ink-mute);width:46%}
+.ledger td:last-child{font-weight:500}
+.strike{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M1 7.5 C30 4 52 9 80 6.2 S140 3.5 199 6.8' stroke='%23EE6A43' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") 0 58%/100% .55em no-repeat;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* plait divider */
+.plait{display:block;width:100%;height:16px}
+
+/* sovereignties */
+.sov{background:var(--paper-2)}
+.sov-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:start}
+.sov-list{list-style:none;margin:0;padding:0;counter-reset:s}
+.sov-list li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:22px;padding:34px 0;border-top:1px solid var(--rule-strong)}
+.sov-list li:last-child{border-bottom:1px solid var(--rule-strong)}
+.sov-list svg{width:76px;height:76px;color:var(--coral-ink)}
+.sov-list h3{display:flex;gap:14px;align-items:baseline;margin-bottom:12px}
+.sov-list h3 small{font-family:var(--caps);font-size:14px;font-weight:700;letter-spacing:.12em;color:var(--coral-ink)}
+.sov-list p{margin:0;color:var(--ink-soft)}
+.sov-grid>div:first-child{position:sticky;top:120px}
+.sov-plate{margin-top:48px}
+.sov-plate img{aspect-ratio:3/2;object-fit:cover;object-position:50% 60%}
+.sov-intro{font-size:clamp(22px,2vw,28px);line-height:1.4;margin:22px 0 40px;max-width:24em}
+
+/* manifesto band */
+.band{background:var(--coral);color:var(--ink);padding:clamp(80px,10vw,140px) 0;overflow:hidden}
+.band blockquote{margin:0;font-family:var(--display);font-size:clamp(32px,4.6vw,66px);line-height:1.08;letter-spacing:-.01em;max-width:21em}
+.band blockquote em{font-style:normal;color:var(--bone)}
+.band .sig{margin-top:36px;display:flex;align-items:center;gap:16px;font-family:var(--caps);font-weight:700;letter-spacing:.1em;font-size:15px}
+.band .sig img{width:30px}
+.band-mark{position:absolute;right:-90px;bottom:-110px;width:min(42vw,500px);opacity:.1;pointer-events:none}
+
+/* holdings */
+.valley{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:center;margin-bottom:clamp(80px,9vw,128px)}
+.map{width:100%;height:auto;color:var(--ink)}
+.valley p{color:var(--ink-soft);max-width:30em}
+.holding{padding-top:clamp(56px,6vw,80px);border-top:2px solid var(--ink);margin-top:clamp(72px,8vw,112px)}
+.holding:first-of-type{margin-top:0}
+.h-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(18px,3vw,40px);align-items:end;margin-bottom:40px}
+.h-no{font-family:var(--display);font-size:clamp(84px,11vw,168px);line-height:.72;color:var(--coral)}
+.h-head h3{font-size:clamp(36px,4.4vw,62px)}
+.h-head .where{margin-top:10px;color:var(--ink-mute);font-size:17px}
+.stamp{font-family:var(--caps);font-weight:700;letter-spacing:.12em;font-size:14px;text-transform:lowercase;border:2px solid currentColor;padding:6px 12px 7px;transform:rotate(-3deg);white-space:nowrap;color:var(--coral-ink);align-self:center;box-shadow:inset 0 0 0 2px var(--paper),inset 0 0 0 3px currentColor}
+.stamp.pending{color:var(--ink-mute)}
+.mosaic{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto;gap:14px;margin-bottom:48px}
+.mosaic figure{margin:0;position:relative;overflow:hidden;background:var(--paper-3)}
+.mosaic img{width:100%;height:100%;object-fit:cover}
+.mosaic .big{grid-row:1/3}
+.mosaic figcaption{position:absolute;left:0;bottom:0;background:var(--paper);padding:5px 12px 6px;font-family:var(--caps);font-weight:500;letter-spacing:.08em;text-transform:lowercase;font-size:14px}
+.mosaic .r1{aspect-ratio:4/3}
+.h-body{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,3fr) minmax(0,4fr);gap:clamp(28px,4vw,56px)}
+.h-body h4{font-family:var(--caps);font-weight:700;letter-spacing:.11em;text-transform:lowercase;font-size:15px;margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--rule-strong)}
+.h-body .story p{font-size:20px}
+.inv{margin:0;font-size:17px}
+.inv div{display:flex;align-items:baseline;gap:8px;padding:7px 0}
+.inv dt{order:1}
+.inv dd{order:3;margin:0;font-family:var(--display);font-feature-settings:"lnum" 1,"tnum" 1}
+.inv div::after{content:"";order:2;flex:1;border-bottom:1.5px dotted var(--rule-strong);transform:translateY(-4px)}
+.plan{list-style:none;margin:0;padding:0;font-size:18px}
+.plan li{padding:9px 0 9px 30px;position:relative;line-height:1.45}
+.plan li::before{content:"";position:absolute;left:2px;top:.9em;width:16px;height:2px;background:var(--coral)}
+.plan li small{display:block;font-size:15px;color:var(--ink-mute);font-style:italic}
+
+/* model */
+.model{background:var(--paper-2)}
+.model-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:center}
+.strata{width:100%;height:auto}
+.layers{list-style:none;margin:0;padding:0}
+.layers li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:20px;padding:28px 0;border-top:1px solid var(--rule-strong)}
+.layers li:last-child{border-bottom:1px solid var(--rule-strong)}
+.layers .sw{width:28px;height:28px;margin-top:8px;border:1.5px solid var(--ink)}
+.layers h3{font-size:clamp(26px,2.4vw,34px);margin-bottom:8px}
+.layers h3 small{font-family:var(--caps);font-size:14px;font-weight:700;letter-spacing:.12em;color:var(--coral-ink);margin-left:10px}
+.layers p{margin:0;color:var(--ink-soft)}
+.look{margin-top:clamp(72px,8vw,112px);display:grid;grid-template-columns:minmax(0,3fr) minmax(0,8fr);gap:clamp(24px,4vw,64px)}
+.look ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px;counter-reset:l}
+.look li{counter-increment:l;padding:18px 0 18px 46px;border-top:1px solid var(--rule);position:relative;font-size:19px;line-height:1.45}
+.look li::before{content:counter(l,lower-roman)".";position:absolute;left:0;top:16px;font-family:var(--display);color:var(--coral-ink);font-size:22px}
+.fine{font-size:15px;color:var(--ink-mute);font-style:italic;margin-top:28px;max-width:44em}
+
+/* principles */
+.oath{background:var(--fjord);color:var(--bone)}
+.oath .eyebrow{color:var(--coral);border-top-color:var(--bone)}
+.oath .eyebrow i{color:var(--bone)}
+.oath h2{color:var(--bone)}
+.oath-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(28px,4vw,56px)}
+.oath-list li{border-top:1px solid rgba(244,238,228,.25);padding:26px 0 34px}
+.oath-list b{display:block;font-family:var(--display);font-weight:400;color:var(--coral);font-size:30px;line-height:1;margin-bottom:14px}
+.oath-list span{display:block;font-family:var(--display);font-size:clamp(23px,1.9vw,27px);line-height:1.18;margin-bottom:10px}
+.oath-list p{margin:0;font-size:17px;color:var(--bone-soft);line-height:1.5}
+.oath .plate{margin-top:clamp(72px,8vw,112px)}
+.oath .plate img{aspect-ratio:21/8;object-fit:cover;object-position:50% 60%}
+.oath .plate figcaption{color:var(--bone-soft)}
+.oath .plate figcaption b{color:var(--bone)}
+
+/* contact */
+.write-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,6vw,96px);align-items:start}
+.write-grid h2{font-size:clamp(44px,6.4vw,92px);margin:22px 0 30px}
+.who{list-style:none;margin:0 0 40px;padding:0}
+.who li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;padding:18px 0;border-top:1px solid var(--rule)}
+.who li:last-child{border-bottom:1px solid var(--rule)}
+.who b{font-family:var(--caps);font-weight:700;letter-spacing:.1em;text-transform:lowercase;font-size:15px;padding-top:3px}
+.who span{color:var(--ink-soft)}
+.letter{background:var(--bone);border:1px solid var(--rule-strong);padding:clamp(24px,3vw,40px);position:relative;box-shadow:6px 6px 0 var(--paper-3)}
+.letter .addr{font-family:var(--display);font-size:clamp(24px,2.4vw,32px);line-height:1.15;margin:8px 0 22px;word-break:break-word}
+.letter .addr a{text-decoration:none;border-bottom:2px solid var(--coral)}
+.letter .addr a:hover{color:var(--coral-ink)}
+.letter p{color:var(--ink-soft);font-size:17px}
+.letter .mark{position:absolute;right:22px;top:-26px;width:44px}
+.write-plate{margin-top:40px}
+.write-plate img{aspect-ratio:4/3;object-fit:cover}
+.write-grid{align-items:end}
+
+/* footer */
+footer{background:var(--ink);color:var(--bone);padding:0 0 48px}
+footer .plait{margin-bottom:64px}
+.foot{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,3fr) minmax(0,4fr);gap:40px;align-items:start}
+.foot img{width:min(340px,100%)}
+.foot h5{font-family:var(--caps);font-weight:700;letter-spacing:.11em;text-transform:lowercase;font-size:14px;margin:0 0 12px;color:var(--coral)}
+.foot p,.foot li{font-size:16px;color:var(--bone-soft);line-height:1.55}
+.foot ul{list-style:none;margin:0;padding:0}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--bone);text-decoration:underline;text-decoration-color:var(--coral)}
+.legal{margin-top:56px;padding-top:22px;border-top:1px solid rgba(244,238,228,.18);font-size:14px;color:#9C998C;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.legal p{margin:0;max-width:62em}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv{opacity:1;transform:none;transition:none}
+  *{transition:none!important}
+}
+
+/* responsive */
+@media (max-width:1080px){
+  .h-body{grid-template-columns:1fr 1fr}
+  .h-body .story{grid-column:1/3}
+  .oath-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .nav{display:none;position:absolute;top:76px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--rule-strong);flex-direction:column;align-items:stretch;gap:0;padding:8px var(--gut) 20px}
+  .nav.open{display:flex}
+  .nav a{padding:14px 0;border-bottom:1px solid var(--rule);font-size:18px}
+  .nav .write{margin-top:14px;text-align:center;border-bottom:1.5px solid var(--ink)}
+  .menu-btn{display:block}
+  .hero-grid,.sec-head,.inv-body,.sov-grid,.valley,.model-grid,.look,.write-grid,.foot{grid-template-columns:1fr}
+  .sec-head .eyebrow{justify-self:start}
+  .marg{border-left:0;padding-left:0;border-top:1px solid var(--rule-strong);padding-top:26px;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+  .marg div{grid-template-columns:1fr;gap:6px}
+  .marg b{font-size:40px}
+  .marg span{font-size:15px}
+  .sov-grid>div:first-child{position:static}
+  .look ol{grid-template-columns:1fr}
+  .h-head{grid-template-columns:auto minmax(0,1fr)}
+  .h-head .stamp{grid-column:1/3;justify-self:start}
+}
+@media (max-width:640px){
+  body{font-size:18px}
+  .top .wrap{height:64px}
+  .nav{top:64px}
+  .brand img{height:34px}
+  .hero h1 .ul{white-space:normal}
+  .hero-plate img{aspect-ratio:4/3}
+  .marg{grid-template-columns:1fr}
+  .marg div{grid-template-columns:auto 1fr;gap:14px}
+  .ledger,.ledger tbody,.ledger tr,.ledger td{display:block;width:100%}
+  .ledger thead{display:none}
+  .ledger caption{display:block;width:100%}
+  .ledger tr{padding:16px 0;border-bottom:1px solid var(--rule)}
+  .ledger td{border:0;padding:2px 0;width:auto!important}
+  .ledger td:first-child::before{content:"Theirs — ";font-family:var(--caps);font-size:13px;letter-spacing:.1em;color:var(--ink-mute)}
+  .ledger td:last-child::before{content:"Ours — ";font-family:var(--caps);font-size:13px;letter-spacing:.1em;color:var(--coral-ink);font-weight:700}
+  .sov-list li{grid-template-columns:52px minmax(0,1fr);gap:16px}
+  .sov-list svg{width:52px;height:52px}
+  .mosaic{grid-template-columns:1fr 1fr}
+  .mosaic .big{grid-row:auto;grid-column:1/3;aspect-ratio:4/3}
+  .h-body{grid-template-columns:1fr}
+  .h-body .story{grid-column:auto}
+  .oath-list{grid-template-columns:1fr}
+  .oath .plate img{aspect-ratio:4/3}
+  .who li{grid-template-columns:1fr;gap:4px}
+  .band-mark{width:70vw;right:-80px;bottom:-60px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- shared drawing defs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="plait-paper" width="40" height="16" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke-linecap="butt" transform="translate(0 0)">
+        <path d="M-10 2 C-4 2 4 14 10 14 M30 2 C36 2 44 14 50 14" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M10 2 C16 2 24 14 30 14" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M-10 14 C-4 14 4 2 10 2 M30 14 C36 14 44 2 50 2" stroke="#F4EEE4" stroke-width="6"/>
+        <path d="M-10 14 C-4 14 4 2 10 2 M30 14 C36 14 44 2 50 2" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M10 14 C16 14 24 2 30 2" stroke="#F4EEE4" stroke-width="6"/>
+        <path d="M10 14 C16 14 24 2 30 2" stroke="#EE6A43" stroke-width="2.2"/>
+      </g>
+    </pattern>
+    <pattern id="plait-ink" width="40" height="16" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke-linecap="butt">
+        <path d="M-10 2 C-4 2 4 14 10 14 M30 2 C36 2 44 14 50 14" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M10 2 C16 2 24 14 30 14" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M-10 14 C-4 14 4 2 10 2 M30 14 C36 14 44 2 50 2" stroke="#1B1F1C" stroke-width="6"/>
+        <path d="M-10 14 C-4 14 4 2 10 2 M30 14 C36 14 44 2 50 2" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M10 14 C16 14 24 2 30 2" stroke="#1B1F1C" stroke-width="6"/>
+        <path d="M10 14 C16 14 24 2 30 2" stroke="#EE6A43" stroke-width="2.2"/>
+      </g>
+    </pattern>
+    <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <path d="M0 0 V7" stroke="#1B1F1C" stroke-width="1" opacity=".28"/>
+    </pattern>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="White Rock Equity, home"><img src="assets/logo/lockup.svg" alt="White Rock Equity" width="465" height="132"></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="#inversion">Thesis</a>
+      <a href="#sovereignty">Sovereignty</a>
+      <a href="#holdings">Holdings</a>
+      <a href="#model">The model</a>
+      <a href="#principles">Principles</a>
+      <a class="write" href="#write">Write to us</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Land equity &middot; Clearwater, British Columbia</div>
+        <h1>Money that stays where it <span class="ul">lands.<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 20 C60 9 120 24 178 14 S262 8 296 15" fill="none" stroke="#EE6A43" stroke-width="7" stroke-linecap="round"/></svg></span></h1>
+        <p class="lede">White Rock Equity puts patient capital into rural land projects that grow their own food, make their own power and give people a reason to stay. We buy in for generations, not quarters &mdash; and we will never buy a house to rent it back to you.</p>
+        <div class="links">
+          <a class="arrow-link down" href="#inversion">Read the thesis <svg viewBox="0 0 28 14" aria-hidden="true"><path d="M14 1 V12 M8 7 L14 13 L20 7" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+          <a class="arrow-link" href="#holdings">See the holdings <svg viewBox="0 0 28 14" aria-hidden="true"><path d="M1 7 H26 M20 1 L26 7 L20 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+        </div>
+      </div>
+      <aside class="marg" aria-label="At a glance">
+        <div><b>400</b><span>acres in the anchor holding, surrounded on all sides by provincial park</span></div>
+        <div><b>2</b><span>neighbouring properties in one valley, to begin</span></div>
+        <div><b>0</b><span>homes bought to be rented back to the town they&rsquo;re in</span></div>
+      </aside>
+    </div>
+    <figure class="plate hero-plate rv">
+      <img src="assets/img/valley-aerial.jpg" alt="Aerial view of a green valley floor with a winding river and forested mountains, Wells Gray Resort below" width="1474" height="1050" fetchpriority="high">
+      <figcaption><b>Plate I</b><i>The Clearwater valley from the air, looking north. Wells Gray Resort &mdash; Holding No. 1.</i></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- INVERSION -->
+<section class="sec" id="inversion">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><i>I</i> The inversion</div>
+      <h2 class="rv">The biggest money managers own a sliver of everything. We&rsquo;d rather own all of something small, and do it properly.</h2>
+    </div>
+    <div class="inv-body">
+      <div></div>
+      <div>
+        <p class="lede rv">Somewhere along the way, investing came to mean holding a thin slice of the whole economy and caring about none of it. Rents go up, the town empties out, the dividend arrives on schedule.</p>
+        <p class="rv">White Rock runs the arithmetic the other way round. We take large, long positions in a handful of rural places and judge them by what they produce: food on the table, power in the line, and families who decide to stay another winter. The returns are real &mdash; they just come from the harvest instead of the rent roll.</p>
+        <table class="ledger rv">
+          <caption>Two ways to keep the books</caption>
+          <thead><tr><th scope="col">Their ledger</th><th scope="col">Ours</th></tr></thead>
+          <tbody>
+            <tr><td><span class="strike">Buys homes, raises the rent</span></td><td>Builds homes people can buy their way into</td></tr>
+            <tr><td><span class="strike">Thinks in quarters</span></td><td>Thinks in harvests and generations</td></tr>
+            <tr><td><span class="strike">Plans the exit before the entrance</span></td><td>Builds holdings that never need an exit</td></tr>
+            <tr><td><span class="strike">Ships the profit out of town</span></td><td>Spends the profit in the valley first</td></tr>
+            <tr><td><span class="strike">Imports the food, the fuel and the power</span></td><td>Grows the food and makes the power</td></tr>
+            <tr><td><span class="strike">Spreads thin so no one place matters</span></td><td>Commits to a few places completely</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<svg class="plait" aria-hidden="true"><rect width="100%" height="16" fill="url(#plait-paper)"/></svg>
+
+<!-- SOVEREIGNTY -->
+<section class="sec sov" id="sovereignty">
+  <div class="wrap sov-grid">
+    <div>
+      <div class="eyebrow"><i>II</i> Three kinds of sovereignty</div>
+      <h2 style="margin-top:22px" class="rv">A place that can get itself through a bad year.</h2>
+      <p class="sov-intro rv">That&rsquo;s the whole test. When the highway closes, the grid goes down or the price of everything doubles, can the valley still eat, keep warm and keep working? We fund the things that make the answer yes.</p>
+    </div>
+    <div>
+    <ol class="sov-list">
+      <li class="rv">
+        <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M40 76 V22 M40 76 C38 58 33 40 24 22 M40 76 C42 58 47 40 56 22"/>
+          <path d="M40 22 c-3-4-3-9 0-14 c3 5 3 10 0 14z M24 22 c-4-3-5-8-3-13 c4 4 5 9 3 13z M56 22 c4-3 5-8 3-13 c-4 4-5 9-3 13z"/>
+          <path d="M40 34 l-5-5 M40 34 l5-5 M40 44 l-5-5 M40 44 l5-5 M29 38 l-6-3 M51 38 l6-3 M31 47 l-6-2 M49 47 l6-2"/>
+          <path d="M31 60 C36 63 44 63 49 60"/>
+        </svg>
+        <div>
+          <h3>Food <small>the pantry</small></h3>
+          <p>Fields, greenhouses, cold storage and a kitchen that buys from them. We fund the unglamorous infrastructure &mdash; the cold room, the processing kitchen, the irrigation line &mdash; that turns a short northern season into a year of meals.</p>
+        </div>
+      </li>
+      <li class="rv">
+        <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 48 A22 22 0 0 1 62 48"/>
+          <path d="M40 18 V10 M22 30 l-6-5 M58 30 l6-5 M13 44 H5 M67 44 h8 M29 22 l-3-7 M51 22 l3-7"/>
+          <path d="M6 56 c6-4 11-4 17 0 s11 4 17 0 s11-4 17 0 s11 4 17 0"/>
+          <path d="M6 66 c6-4 11-4 17 0 s11 4 17 0 s11-4 17 0 s11 4 17 0"/>
+        </svg>
+        <div>
+          <h3>Energy <small>the hearth</small></h3>
+          <p>Sun on the roofs, water in the creeks, wood in the stove and batteries to carry it all through the night. Every holding gets a power plan that keeps the lights on when the line comes down in January.</p>
+        </div>
+      </li>
+      <li class="rv">
+        <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 40 C24 26 56 26 74 40"/>
+          <path d="M6 40 L2 30 M74 40 L78 30 M10 37 L4 29 M70 37 L76 29"/>
+          <path d="M12 38 L14 68 H66 L68 38"/>
+          <path d="M34 68 V52 H46 V68"/>
+          <path d="M20 50 h7 M53 50 h7"/>
+          <path d="M3 68 H77"/>
+        </svg>
+        <div>
+          <h3>Gathering <small>the hall</small></h3>
+          <p>Housing, workshops, kitchens and halls that let people earn a living where they live. Fibre internet and a CNC machine belong in the same plan as the root cellar &mdash; trades, remote work, families and makers under one roofline.</p>
+        </div>
+      </li>
+    </ol>
+    <figure class="plate sov-plate rv">
+      <img src="assets/img/shared-table.jpg" alt="Families and friends around a long outdoor table loaded with food" width="1800" height="1352" loading="lazy">
+      <figcaption><b>Plate II</b><i>Dinner at Wells Gray. The point of food sovereignty is the table, not the spreadsheet.</i></figcaption>
+    </figure>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="band" aria-label="Our position">
+  <div class="wrap">
+    <blockquote class="rv">A valley that can feed itself, power itself and keep its young people is worth more than any index can say. <em>We intend to put a number on it anyway</em> &mdash; in harvests, kilowatt-hours and winters stayed.</blockquote>
+    <div class="sig rv"><img src="assets/logo/mark-ink.svg" alt="" width="30" height="40">White Rock Equity</div>
+  </div>
+  <img class="band-mark" src="assets/logo/mark-bone.svg" alt="" aria-hidden="true">
+</section>
+
+<!-- HOLDINGS -->
+<section class="sec" id="holdings">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><i>III</i> Holdings</div>
+      <h2 class="rv">Two properties in one valley, to start.</h2>
+    </div>
+
+    <div class="valley">
+      <svg class="map rv" viewBox="0 0 520 560" role="img" aria-labelledby="mapt">
+        <title id="mapt">Sketch map, not to scale: the Clearwater River runs south from Wells Gray Park to the town of Clearwater. Clearwater Valley Resort sits near town; Wells Gray Resort sits upriver, surrounded by the park.</title>
+        <!-- park -->
+        <path d="M18 24 C120 10 260 30 380 14 C450 6 500 22 504 40 L500 262 C430 276 380 250 318 268 C250 288 190 262 120 278 C70 290 30 270 16 262 Z" fill="url(#hatch)" stroke="#1B1F1C" stroke-width="1.4" stroke-dasharray="5 5"/>
+        <text x="40" y="56" font-family="Alegreya Sans SC" font-weight="700" font-size="15" letter-spacing="2" fill="#1B1F1C">wells gray provincial park</text>
+        <!-- river -->
+        <path d="M300 4 C292 60 330 92 306 140 C286 182 240 196 252 246 C262 290 300 312 286 362 C272 410 214 418 222 470 C228 506 252 524 246 556" fill="none" stroke="#1B1F1C" stroke-width="3"/>
+        <text transform="translate(318 214) rotate(70)" font-family="Alegreya" font-style="italic" font-size="16" fill="#4A4840">Clearwater River</text>
+        <!-- road -->
+        <path d="M198 556 C204 510 184 470 196 430 C210 384 246 360 246 316 C246 274 214 252 216 214 C218 176 262 160 268 120" fill="none" stroke="#B3431F" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/>
+        <text transform="translate(150 404) rotate(-62)" font-family="Alegreya Sans SC" font-weight="500" font-size="13" letter-spacing="1.5" fill="#B3431F">clearwater valley road</text>
+        <!-- highway + town -->
+        <path d="M20 520 C140 500 300 540 506 506" fill="none" stroke="#1B1F1C" stroke-width="5" stroke-linecap="round"/>
+        <path d="M20 520 C140 500 300 540 506 506" fill="none" stroke="#F4EEE4" stroke-width="1.6" stroke-dasharray="8 8"/>
+        <text x="380" y="544" font-family="Alegreya Sans SC" font-weight="500" font-size="13" letter-spacing="1.5" fill="#1B1F1C">highway 5</text>
+        <rect x="196" y="504" width="16" height="16" fill="#1B1F1C" transform="rotate(45 204 512)"/>
+        <text x="40" y="486" font-family="Gloock" font-size="22" fill="#1B1F1C">Clearwater</text>
+        <!-- holding 2 -->
+        <g>
+          <path d="M218 446 l9-18 l12 6 l3 22 z" fill="#EE6A43" stroke="#1B1F1C" stroke-width="1.4"/>
+          <path d="M244 444 H300" stroke="#1B1F1C" stroke-width="1"/>
+          <text x="306" y="440" font-family="Gloock" font-size="19" fill="#1B1F1C">No. 2</text>
+          <text x="306" y="459" font-family="Alegreya" font-style="italic" font-size="15" fill="#4A4840">Clearwater Valley Resort</text>
+        </g>
+        <!-- holding 1 -->
+        <g>
+          <path d="M260 132 l11-24 l15 8 l4 28 z" fill="#EE6A43" stroke="#1B1F1C" stroke-width="1.4"/>
+          <path d="M256 128 H170" stroke="#1B1F1C" stroke-width="1"/>
+          <text x="92" y="124" font-family="Gloock" font-size="19" fill="#1B1F1C">No. 1</text>
+          <text x="40" y="144" font-family="Alegreya" font-style="italic" font-size="15" fill="#4A4840">Wells Gray Resort</text>
+        </g>
+        <!-- north -->
+        <g transform="translate(460 320)">
+          <path d="M0 -26 L8 6 L0 0 L-8 6 Z" fill="#1B1F1C"/>
+          <text x="-6" y="26" font-family="Gloock" font-size="16" fill="#1B1F1C">N</text>
+        </g>
+        <text x="380" y="380" font-family="Alegreya" font-style="italic" font-size="14" fill="#6B675C">not to scale</text>
+      </svg>
+      <div class="rv">
+        <p class="lede" style="color:var(--ink)">We start where we live: the Clearwater valley in British Columbia, Canada, at the doorstep of Wells Gray Provincial Park.</p>
+        <p>Two neighbouring properties, two different starting points. One already houses and entertains thousands of guests a season on 400 acres of open ground. The other already runs a restaurant, a hotel and a cattle ranch. Put together, they have most of what a valley needs to feed, power and house itself &mdash; they just haven&rsquo;t had capital that was willing to sit still long enough to finish the job.</p>
+      </div>
+    </div>
+
+    <!-- HOLDING 1 -->
+    <article class="holding" aria-labelledby="h1-name">
+      <div class="h-head">
+        <div class="h-no" aria-hidden="true">1</div>
+        <div>
+          <h3 id="h1-name">Wells Gray Resort</h3>
+          <div class="where">Clearwater, BC, Canada &middot; a golf &amp; RV resort on 400 acres</div>
+        </div>
+        <div class="stamp">anchor holding</div>
+      </div>
+      <div class="mosaic">
+        <figure class="big rv"><img src="assets/img/dome-sunset.jpg" alt="A geodesic dome on a timber deck under a pink and violet evening sky" width="1600" height="1205" loading="lazy" style="object-position:40% 60%"><figcaption>the dome at dusk</figcaption></figure>
+        <figure class="r1 rv"><img src="assets/img/sauna-snow.jpg" alt="A barrel sauna dusted with fresh snow" width="1600" height="1205" loading="lazy"><figcaption>sauna, first snow</figcaption></figure>
+        <figure class="r1 rv"><img src="assets/img/private-lake.jpg" alt="A still lake reflecting forest and cloud" width="1600" height="1205" loading="lazy"><figcaption>the private lake</figcaption></figure>
+        <figure class="r1 rv"><img src="assets/img/makerspace.jpg" alt="Two people working at a CNC machine and benches in a bright workshop" width="1600" height="893" loading="lazy"><figcaption>the makerspace</figcaption></figure>
+        <figure class="r1 rv"><img src="assets/img/gazebo-rainbow.jpg" alt="A double rainbow over the valley seen from beside a large timber gazebo" width="1600" height="1205" loading="lazy"><figcaption>the 120-person gazebo</figcaption></figure>
+      </div>
+      <div class="h-body">
+        <div class="story rv">
+          <h4>The place</h4>
+          <p>A golf and RV resort on 400 acres, surrounded on every side by Wells Gray Provincial Park. Six seasons of operating, roughly three thousand guests a year, and a core team that already lives on site through the winter.</p>
+          <p>The bones are here: water, septic and power with room for several more dwellings, a hall that seats a hundred and twenty, a sauna by the river and a workshop that has been building things for years. What it needs is the next layer.</p>
+        </div>
+        <div class="rv">
+          <h4>Inventory</h4>
+          <dl class="inv">
+            <div><dt>Acres</dt><dd>400</dd></div>
+            <div><dt>RV sites</dt><dd>45</dd></div>
+            <div><dt>Golf</dt><dd>9 holes</dd></div>
+            <div><dt>Disc golf</dt><dd>18 holes</dd></div>
+            <div><dt>Gazebo, seated</dt><dd>120</dd></div>
+            <div><dt>Bunk cabins</dt><dd>3</dd></div>
+            <div><dt>Geodesic dome</dt><dd>1</dd></div>
+            <div><dt>Guests a year</dt><dd>~3,000</dd></div>
+            <div><dt>Seasons run</dt><dd>6</dd></div>
+          </dl>
+        </div>
+        <div class="rv">
+          <h4>What White Rock capital would build</h4>
+          <ul class="plan">
+            <li>New cabins and dwellings on the existing water, septic and power<small>subject to permits</small></li>
+            <li>A solar and battery microgrid, sized for the winter crew first</li>
+            <li>The gazebo turned into a café and co-working hall</li>
+            <li>A larger makerspace with an open-source robotics lab</li>
+            <li>A kitchen supplied by the ranch down the road<small>see Holding No. 2</small></li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- HOLDING 2 -->
+    <article class="holding" aria-labelledby="h2-name">
+      <div class="h-head">
+        <div class="h-no" aria-hidden="true">2</div>
+        <div>
+          <h3 id="h2-name">Clearwater Valley Resort</h3>
+          <div class="where">Clearwater, BC, Canada &middot; a hotel, RV resort &amp; working ranch</div>
+        </div>
+        <div class="stamp pending">in discussion</div>
+      </div>
+      <div class="mosaic">
+        <figure class="big rv"><img src="assets/img/cvr-pond-lodging.jpg" alt="A pond with a fountain in front of lodging buildings among tall trees" width="1400" height="788" loading="lazy" style="object-position:45% 50%"><figcaption>the pond &amp; lodging</figcaption></figure>
+        <figure class="r1 rv"><img src="assets/img/cvr-pub.jpg" alt="A warmly lit restaurant bar with stools and a chalkboard menu" width="1400" height="1008" loading="lazy"><figcaption>52 ridge restaurant &amp; pub</figcaption></figure>
+        <figure class="r1 rv"><img src="assets/img/cvr-pond-dock.jpg" alt="A wooden dock leading across a pond to an overwater building" width="1400" height="1050" loading="lazy"><figcaption>the overwater building</figcaption></figure>
+        <figure class="r1 rv"><img src="assets/img/cvr-pool.jpg" alt="An outdoor heated pool with red and yellow lounge chairs" width="1400" height="1008" loading="lazy"><figcaption>the heated pool</figcaption></figure>
+        <figure class="r1 rv"><img src="assets/img/cvr-cabin.jpg" alt="A small log glamping cabin with a porch" width="853" height="1400" loading="lazy" style="object-position:50% 40%"><figcaption>glamping cabins</figcaption></figure>
+      </div>
+      <div class="h-body">
+        <div class="story rv">
+          <h4>The place</h4>
+          <p>A working hotel and RV resort a few minutes from town, with a restaurant, a heated pool and a cattle ranch next door under the same family. It already feeds and houses people every single day.</p>
+          <p>That makes it the valley&rsquo;s natural kitchen. With a ranch on one side and a dining room on the other, the shortest supply chain in the province is a walk across the field.</p>
+        </div>
+        <div class="rv">
+          <h4>Inventory</h4>
+          <dl class="inv">
+            <div><dt>Hotel rooms &amp; bungalows</dt><dd>&#10003;</dd></div>
+            <div><dt>Glamping cabins</dt><dd>&#10003;</dd></div>
+            <div><dt>Full-service RV &amp; tent sites</dt><dd>&#10003;</dd></div>
+            <div><dt>Restaurant &amp; pub</dt><dd>&#10003;</dd></div>
+            <div><dt>Heated pool</dt><dd>&#10003;</dd></div>
+            <div><dt>Mini-golf</dt><dd>&#10003;</dd></div>
+            <div><dt>Cattle ranch next door</dt><dd>&#10003;</dd></div>
+          </dl>
+        </div>
+        <div class="rv">
+          <h4>What White Rock capital would build</h4>
+          <ul class="plan">
+            <li>Ranch-to-table: beef and produce from next door on the pub&rsquo;s menu</li>
+            <li>Greenhouses and a cold store to stretch the growing season</li>
+            <li>Solar on the roofs that are already there</li>
+            <li>One back office for both properties: bookings, purchasing, staff housing</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- MODEL -->
+<section class="sec model" id="model">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><i>IV</i> The model</div>
+      <h2 class="rv">Slow money, laid down in three layers.</h2>
+    </div>
+    <div class="model-grid">
+      <svg class="strata rv" viewBox="0 0 480 520" role="img" aria-labelledby="strt">
+        <title id="strt">A cross-section of the ground: a longhouse and sprouts on top, a coral layer of topsoil, and a dark layer of bedrock with stones beneath.</title>
+        <!-- sky things -->
+        <circle cx="390" cy="58" r="26" fill="none" stroke="#B3431F" stroke-width="2"/>
+        <path d="M390 18 v-10 M422 30 l7-7 M430 58 h10 M358 30 l-7-7" stroke="#B3431F" stroke-width="2" stroke-linecap="round"/>
+        <!-- longhouse -->
+        <path d="M96 150 C130 128 196 128 230 150" fill="none" stroke="#1B1F1C" stroke-width="2.2"/>
+        <path d="M96 150 l-8 -14 M230 150 l8 -14" stroke="#1B1F1C" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M104 148 L106 186 H220 L222 148" fill="#F4EEE4" stroke="#1B1F1C" stroke-width="2.2"/>
+        <path d="M154 186 V166 H172 V186" fill="none" stroke="#1B1F1C" stroke-width="2"/>
+        <!-- sprouts -->
+        <g stroke="#1B1F1C" stroke-width="1.8" fill="none" stroke-linecap="round">
+          <path d="M290 186 v-16 c-8 0 -12 -6 -12 -10 c6 0 12 4 12 10 c0 -8 6 -12 12 -12 c0 6 -4 12 -12 12"/>
+          <path d="M340 186 v-20 c-9 0 -13 -7 -13 -11 c7 0 13 4 13 11 c0 -9 7 -13 13 -13 c0 7 -4 13 -13 13"/>
+          <path d="M392 186 v-14 c-7 0 -10 -5 -10 -9 c5 0 10 3 10 9 c0 -7 5 -10 10 -10 c0 5 -3 10 -10 10"/>
+          <path d="M432 186 v-18 c-8 0 -11 -6 -11 -10 c6 0 11 4 11 10 c0 -8 6 -11 11 -11 c0 6 -4 11 -11 11"/>
+          <path d="M40 186 v-12 c-6 0 -9 -4 -9 -8 c5 0 9 3 9 8 c0 -6 5 -9 9 -9 c0 5 -3 9 -9 9"/>
+        </g>
+        <!-- harvest layer -->
+        <path d="M0 186 C80 180 160 192 240 186 S400 180 480 188 V250 C400 244 320 256 240 250 S80 244 0 252 Z" fill="#F7C2AD" stroke="#1B1F1C" stroke-width="1.6"/>
+        <!-- topsoil -->
+        <path d="M0 252 C80 244 160 256 240 250 S400 244 480 250 V350 C400 342 320 356 240 348 S80 342 0 354 Z" fill="#EE6A43" stroke="#1B1F1C" stroke-width="1.6"/>
+        <g fill="#1B1F1C" opacity=".35"><circle cx="40" cy="290" r="2"/><circle cx="96" cy="312" r="1.6"/><circle cx="150" cy="280" r="2.2"/><circle cx="214" cy="322" r="1.6"/><circle cx="270" cy="286" r="2"/><circle cx="330" cy="318" r="1.8"/><circle cx="392" cy="282" r="2"/><circle cx="446" cy="310" r="1.6"/><circle cx="120" cy="334" r="1.4"/><circle cx="360" cy="338" r="1.4"/></g>
+        <!-- roots -->
+        <path d="M340 252 c-2 22 4 40 -4 62 M340 270 c10 10 16 14 24 30 M290 252 c0 18 -6 30 -2 46" fill="none" stroke="#1B1F1C" stroke-width="1.2" opacity=".55"/>
+        <!-- bedrock -->
+        <path d="M0 354 C80 342 160 356 240 348 S400 342 480 350 V520 H0 Z" fill="#1E3634" stroke="#1B1F1C" stroke-width="1.6"/>
+        <g fill="none" stroke="#F4EEE4" stroke-width="1.4" opacity=".55" stroke-linejoin="round">
+          <path d="M30 400 l24 -12 l30 8 l6 22 l-28 12 l-28 -10 z"/>
+          <path d="M130 380 l40 -6 l18 20 l-14 24 l-38 -4 z"/>
+          <path d="M236 420 l30 -18 l36 6 l10 30 l-40 14 l-32 -10 z"/>
+          <path d="M350 384 l34 -8 l26 18 l-8 26 l-42 2 z"/>
+          <path d="M70 470 l36 -10 l24 18 l-20 22 l-34 -6 z"/>
+          <path d="M190 476 l26 -14 l34 10 l-2 26 l-46 4 z"/>
+          <path d="M330 470 l44 -12 l30 22 l-26 22 l-44 -8 z"/>
+          <path d="M430 450 l30 -6 l14 24 l-24 14 z"/>
+        </g>
+        <!-- carved bindrune in bedrock -->
+        <path d="M258 506 V448 M258 449 L272 461 L258 471 M259 470 L273 506" fill="none" stroke="#EE6A43" stroke-width="5"/>
+      </svg>
+      <ol class="layers">
+        <li class="rv"><span class="sw" style="background:#F7C2AD"></span><div><h3>The harvest <small>returns</small></h3><p>Investors are paid from what the place produces &mdash; meals served, kilowatt-hours sold, nights stayed &mdash; not from rent hikes or resale. Upside is shared with the people who live and work there.</p></div></li>
+        <li class="rv"><span class="sw" style="background:#EE6A43"></span><div><h3>The topsoil <small>operations</small></h3><p>Farms, kitchens, lodging and power, run by local operators who own a real share of what they run. We back operators; we don&rsquo;t replace them with managers from head office.</p></div></li>
+        <li class="rv"><span class="sw" style="background:#1E3634"></span><div><h3>The bedrock <small>the ground</small></h3><p>Land goes into a long-term holding and stays there. It isn&rsquo;t flipped, leveraged to the hilt or sold out from under the people building on it. Everything else stands on this.</p></div></li>
+      </ol>
+    </div>
+
+    <div class="look">
+      <div class="eyebrow" style="padding-top:14px;border-top:2px solid var(--ink);align-self:start">What we look for</div>
+      <div>
+        <ol>
+          <li class="rv">Ground that can grow food and make power</li>
+          <li class="rv">An operator who already lives on it</li>
+          <li class="rv">A nearby town that wants it to work</li>
+          <li class="rv">Room to house people, and the services to do it</li>
+          <li class="rv">A reason for visitors to come &mdash; hospitality carries the early years</li>
+          <li class="rv">A founder willing to measure success in decades</li>
+        </ol>
+        <p class="fine">Terms are illustrative. White Rock Equity is a concept in development; nothing on this site is an offer to sell or a solicitation to buy any security.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="sec oath" id="principles">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><i>V</i> Principles</div>
+      <h2 class="rv">Nine lines, cut in stone so we can&rsquo;t quietly edit them later.</h2>
+    </div>
+    <ol class="oath-list">
+      <li class="rv"><b>I</b><span>The ground is never flipped.</span><p>We hold land the way a family farm does: to hand it on.</p></li>
+      <li class="rv"><b>II</b><span>The pantry before the clubhouse.</span><p>Food and power get funded before anything decorative.</p></li>
+      <li class="rv"><b>III</b><span>The lights stay on in January.</span><p>Every holding is designed around its worst week, not its best.</p></li>
+      <li class="rv"><b>IV</b><span>Operators own part of what they run.</span><p>The people who do the work share in what it earns.</p></li>
+      <li class="rv"><b>V</b><span>Profit is spent in the valley first.</span><p>Local trades, local suppliers, local wages, then dividends.</p></li>
+      <li class="rv"><b>VI</b><span>No home is bought to be rented back to its town.</span><p>We build housing. We don&rsquo;t corner it.</p></li>
+      <li class="rv"><b>VII</b><span>All of a few places, not a sliver of every place.</span><p>Concentration is how you end up caring.</p></li>
+      <li class="rv"><b>VIII</b><span>Technology is a tool for the place.</span><p>Fibre, solar, software and robots &mdash; all welcome, all in service of living well here.</p></li>
+      <li class="rv"><b>IX</b><span>Measure in winters stayed.</span><p>The best sign a place is working: people choose to stay through the dark months.</p></li>
+    </ol>
+    <figure class="plate rv">
+      <img src="assets/img/winter-pano.jpg" alt="Snow-covered meadow and spruce trees under an orange and blue winter dusk" width="1800" height="747" loading="lazy">
+      <figcaption><b>Plate III</b><i>Winter dusk at Wells Gray. The season every plan is built around.</i></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- WRITE -->
+<section class="sec" id="write">
+  <div class="wrap write-grid">
+    <div>
+      <div class="eyebrow"><i>VI</i> Write to us</div>
+      <h2 class="rv">Hold land? Hold capital? Let&rsquo;s talk slowly.</h2>
+      <ul class="who">
+        <li class="rv"><b>Landholders</b><span>You own ground that could feed and power a community, and you&rsquo;d rather see it become that than a subdivision.</span></li>
+        <li class="rv"><b>Operators</b><span>You run a farm, a lodge or a kitchen in a rural place and want a partner who&rsquo;ll still be there in twenty years.</span></li>
+        <li class="rv"><b>Investors</b><span>Your capital is willing to sit still for a while, in exchange for returns you can drive out and look at.</span></li>
+      </ul>
+    </div>
+    <div>
+    <div class="letter rv">
+      <img class="mark" src="assets/logo/mark-coral.svg" alt="" width="44" height="58">
+      <div class="caps" style="color:var(--ink-mute)">correspondence</div>
+      <div class="addr"><a href="mailto:mike@portal.place?subject=White%20Rock%20Equity">mike@portal.place</a></div>
+      <p>Tell us about the place, the people on it and what you&rsquo;d like it to become. We read everything and reply to everyone, though not always quickly &mdash; it&rsquo;s that kind of firm.</p>
+      <p style="margin:0">Clearwater, British Columbia, Canada</p>
+    </div>
+    <figure class="plate write-plate rv">
+      <img src="assets/img/river-dusk.jpg" alt="A shallow river over stones, lit pink and gold at dusk below a forested ridge" width="1600" height="1204" loading="lazy">
+      <figcaption><b>Plate IV</b><i>The river at dusk, a short walk from the gazebo.</i></figcaption>
+    </figure>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <svg class="plait" aria-hidden="true"><rect width="100%" height="16" fill="url(#plait-ink)"/></svg>
+  <div class="wrap">
+    <div class="foot">
+      <div><img src="assets/logo/lockup-reverse.svg" alt="White Rock Equity" width="465" height="132" loading="lazy"></div>
+      <div>
+        <h5>The site</h5>
+        <ul>
+          <li><a href="#inversion">The inversion</a></li>
+          <li><a href="#sovereignty">Sovereignty</a></li>
+          <li><a href="#holdings">Holdings</a></li>
+          <li><a href="#model">The model</a></li>
+          <li><a href="#principles">Principles</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>The mark</h5>
+        <p>A standing stone, hewn rather than polished, carrying a bindrune: Raidho, the road, drawn over Wunjo, fellowship. Cut the R-rune and the W-rune is already inside it &mdash; the long road with the company you keep.</p>
+      </div>
+    </div>
+    <div class="legal">
+      <p>White Rock Equity is a concept. This site describes an investment approach in development and is not an offer to sell, or a solicitation of an offer to buy, any security. Properties are shown as examples; no completed transaction is implied. Photographs: Wells Gray Resort and Clearwater Valley Resort.</p>
+      <p>&copy; 2026 &middot; Clearwater, BC</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var btn=document.querySelector('.menu-btn'),nav=document.getElementById('nav');
+  btn.addEventListener('click',function(){
+    var open=nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);btn.textContent=open?'close':'menu';
+  });
+  nav.addEventListener('click',function(e){
+    if(e.target.tagName==='A'&&nav.classList.contains('open')){nav.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.textContent='menu';}
+  });
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+  },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
