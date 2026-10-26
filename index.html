@@ -17,7 +17,7 @@
 :root{
   --paper:#F4EEE4; --paper-2:#EBE2D2; --paper-3:#E2D6C2;
   --ink:#1B1F1C; --ink-soft:#4A4840; --ink-mute:#6B675C;
-  --coral:#EE6A43; --coral-ink:#B3431F; --coral-pale:#F7C2AD;
+  --coral:#EE4953; --coral-ink:#B42B35; --coral-pale:#F2AFAD; --coral-light:#F37A82;
   --fjord:#1E3634; --fjord-2:#284542; --bone:#F4EEE4; --bone-soft:#C9C6B9;
   --rule:rgba(27,31,28,.16); --rule-strong:rgba(27,31,28,.55);
   --display:"Gloock",Georgia,serif;
@@ -106,7 +106,7 @@ section{position:relative}
 .ledger td{padding:16px 22px 16px 0;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.4}
 .ledger td:first-child{color:var(--ink-mute);width:46%}
 .ledger td:last-child{font-weight:500}
-.strike{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M1 7.5 C30 4 52 9 80 6.2 S140 3.5 199 6.8' stroke='%23EE6A43' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") 0 58%/100% .55em no-repeat;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.strike{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M1 7.5 C30 4 52 9 80 6.2 S140 3.5 199 6.8' stroke='%23EE4953' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") 0 58%/100% .55em no-repeat;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 
 /* plait divider */
 .plait{display:block;width:100%;height:16px}
@@ -184,7 +184,7 @@ section{position:relative}
 
 /* principles */
 .oath{background:var(--fjord);color:var(--bone)}
-.oath .eyebrow{color:var(--coral);border-top-color:var(--bone)}
+.oath .eyebrow{color:var(--coral-light);border-top-color:var(--bone)}
 .oath .eyebrow i{color:var(--bone)}
 .oath h2{color:var(--bone)}
 .oath-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(28px,4vw,56px)}
@@ -297,22 +297,22 @@ footer .plait{margin-bottom:64px}
   <defs>
     <pattern id="plait-paper" width="40" height="16" patternUnits="userSpaceOnUse">
       <g fill="none" stroke-linecap="butt" transform="translate(0 0)">
-        <path d="M-10 2 C-4 2 4 14 10 14 M30 2 C36 2 44 14 50 14" stroke="#EE6A43" stroke-width="2.2"/>
-        <path d="M10 2 C16 2 24 14 30 14" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M-10 2 C-4 2 4 14 10 14 M30 2 C36 2 44 14 50 14" stroke="#EE4953" stroke-width="2.2"/>
+        <path d="M10 2 C16 2 24 14 30 14" stroke="#EE4953" stroke-width="2.2"/>
         <path d="M-10 14 C-4 14 4 2 10 2 M30 14 C36 14 44 2 50 2" stroke="#F4EEE4" stroke-width="6"/>
-        <path d="M-10 14 C-4 14 4 2 10 2 M30 14 C36 14 44 2 50 2" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M-10 14 C-4 14 4 2 10 2 M30 14 C36 14 44 2 50 2" stroke="#EE4953" stroke-width="2.2"/>
         <path d="M10 14 C16 14 24 2 30 2" stroke="#F4EEE4" stroke-width="6"/>
-        <path d="M10 14 C16 14 24 2 30 2" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M10 14 C16 14 24 2 30 2" stroke="#EE4953" stroke-width="2.2"/>
       </g>
     </pattern>
     <pattern id="plait-ink" width="40" height="16" patternUnits="userSpaceOnUse">
       <g fill="none" stroke-linecap="butt">
-        <path d="M-10 2 C-4 2 4 14 10 14 M30 2 C36 2 44 14 50 14" stroke="#EE6A43" stroke-width="2.2"/>
-        <path d="M10 2 C16 2 24 14 30 14" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M-10 2 C-4 2 4 14 10 14 M30 2 C36 2 44 14 50 14" stroke="#EE4953" stroke-width="2.2"/>
+        <path d="M10 2 C16 2 24 14 30 14" stroke="#EE4953" stroke-width="2.2"/>
         <path d="M-10 14 C-4 14 4 2 10 2 M30 14 C36 14 44 2 50 2" stroke="#1B1F1C" stroke-width="6"/>
-        <path d="M-10 14 C-4 14 4 2 10 2 M30 14 C36 14 44 2 50 2" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M-10 14 C-4 14 4 2 10 2 M30 14 C36 14 44 2 50 2" stroke="#EE4953" stroke-width="2.2"/>
         <path d="M10 14 C16 14 24 2 30 2" stroke="#1B1F1C" stroke-width="6"/>
-        <path d="M10 14 C16 14 24 2 30 2" stroke="#EE6A43" stroke-width="2.2"/>
+        <path d="M10 14 C16 14 24 2 30 2" stroke="#EE4953" stroke-width="2.2"/>
       </g>
     </pattern>
     <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
@@ -344,7 +344,7 @@ footer .plait{margin-bottom:64px}
     <div class="hero-grid">
       <div>
         <div class="eyebrow">Land equity &middot; Clearwater, British Columbia</div>
-        <h1>Money that stays where it <span class="ul">lands.<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 20 C60 9 120 24 178 14 S262 8 296 15" fill="none" stroke="#EE6A43" stroke-width="7" stroke-linecap="round"/></svg></span></h1>
+        <h1>Money that stays where it <span class="ul">lands.<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 20 C60 9 120 24 178 14 S262 8 296 15" fill="none" stroke="#EE4953" stroke-width="7" stroke-linecap="round"/></svg></span></h1>
         <p class="lede">White Rock Equity puts patient capital into rural land projects that grow their own food, make their own power and give people a reason to stay. We buy in for generations, not quarters &mdash; and we will never buy a house to rent it back to you.</p>
         <div class="links">
           <a class="arrow-link down" href="#inversion">Read the thesis <svg viewBox="0 0 28 14" aria-hidden="true"><path d="M14 1 V12 M8 7 L14 13 L20 7" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
@@ -479,8 +479,8 @@ footer .plait{margin-bottom:64px}
         <path d="M300 4 C292 60 330 92 306 140 C286 182 240 196 252 246 C262 290 300 312 286 362 C272 410 214 418 222 470 C228 506 252 524 246 556" fill="none" stroke="#1B1F1C" stroke-width="3"/>
         <text transform="translate(318 214) rotate(70)" font-family="Alegreya" font-style="italic" font-size="16" fill="#4A4840">Clearwater River</text>
         <!-- road -->
-        <path d="M198 556 C204 510 184 470 196 430 C210 384 246 360 246 316 C246 274 214 252 216 214 C218 176 262 160 268 120" fill="none" stroke="#B3431F" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/>
-        <text transform="translate(150 404) rotate(-62)" font-family="Alegreya Sans SC" font-weight="500" font-size="13" letter-spacing="1.5" fill="#B3431F">clearwater valley road</text>
+        <path d="M198 556 C204 510 184 470 196 430 C210 384 246 360 246 316 C246 274 214 252 216 214 C218 176 262 160 268 120" fill="none" stroke="#B42B35" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/>
+        <text transform="translate(150 404) rotate(-62)" font-family="Alegreya Sans SC" font-weight="500" font-size="13" letter-spacing="1.5" fill="#B42B35">clearwater valley road</text>
         <!-- highway + town -->
         <path d="M20 520 C140 500 300 540 506 506" fill="none" stroke="#1B1F1C" stroke-width="5" stroke-linecap="round"/>
         <path d="M20 520 C140 500 300 540 506 506" fill="none" stroke="#F4EEE4" stroke-width="1.6" stroke-dasharray="8 8"/>
@@ -489,14 +489,14 @@ footer .plait{margin-bottom:64px}
         <text x="40" y="486" font-family="Gloock" font-size="22" fill="#1B1F1C">Clearwater</text>
         <!-- holding 2 -->
         <g>
-          <path d="M218 446 l9-18 l12 6 l3 22 z" fill="#EE6A43" stroke="#1B1F1C" stroke-width="1.4"/>
+          <path d="M218 446 l9-18 l12 6 l3 22 z" fill="#EE4953" stroke="#1B1F1C" stroke-width="1.4"/>
           <path d="M244 444 H300" stroke="#1B1F1C" stroke-width="1"/>
           <text x="306" y="440" font-family="Gloock" font-size="19" fill="#1B1F1C">No. 2</text>
           <text x="306" y="459" font-family="Alegreya" font-style="italic" font-size="15" fill="#4A4840">Clearwater Valley Resort</text>
         </g>
         <!-- holding 1 -->
         <g>
-          <path d="M260 132 l11-24 l15 8 l4 28 z" fill="#EE6A43" stroke="#1B1F1C" stroke-width="1.4"/>
+          <path d="M260 132 l11-24 l15 8 l4 28 z" fill="#EE4953" stroke="#1B1F1C" stroke-width="1.4"/>
           <path d="M256 128 H170" stroke="#1B1F1C" stroke-width="1"/>
           <text x="92" y="124" font-family="Gloock" font-size="19" fill="#1B1F1C">No. 1</text>
           <text x="40" y="144" font-family="Alegreya" font-style="italic" font-size="15" fill="#4A4840">Wells Gray Resort</text>
@@ -624,8 +624,8 @@ footer .plait{margin-bottom:64px}
       <svg class="strata rv" viewBox="0 0 480 520" role="img" aria-labelledby="strt">
         <title id="strt">A cross-section of the ground: a longhouse and sprouts on top, a coral layer of topsoil, and a dark layer of bedrock with stones beneath.</title>
         <!-- sky things -->
-        <circle cx="390" cy="58" r="26" fill="none" stroke="#B3431F" stroke-width="2"/>
-        <path d="M390 18 v-10 M422 30 l7-7 M430 58 h10 M358 30 l-7-7" stroke="#B3431F" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="390" cy="58" r="26" fill="none" stroke="#B42B35" stroke-width="2"/>
+        <path d="M390 18 v-10 M422 30 l7-7 M430 58 h10 M358 30 l-7-7" stroke="#B42B35" stroke-width="2" stroke-linecap="round"/>
         <!-- longhouse -->
         <path d="M96 150 C130 128 196 128 230 150" fill="none" stroke="#1B1F1C" stroke-width="2.2"/>
         <path d="M96 150 l-8 -14 M230 150 l8 -14" stroke="#1B1F1C" stroke-width="2.2" stroke-linecap="round"/>
@@ -640,9 +640,9 @@ footer .plait{margin-bottom:64px}
           <path d="M40 186 v-12 c-6 0 -9 -4 -9 -8 c5 0 9 3 9 8 c0 -6 5 -9 9 -9 c0 5 -3 9 -9 9"/>
         </g>
         <!-- harvest layer -->
-        <path d="M0 186 C80 180 160 192 240 186 S400 180 480 188 V250 C400 244 320 256 240 250 S80 244 0 252 Z" fill="#F7C2AD" stroke="#1B1F1C" stroke-width="1.6"/>
+        <path d="M0 186 C80 180 160 192 240 186 S400 180 480 188 V250 C400 244 320 256 240 250 S80 244 0 252 Z" fill="#F2AFAD" stroke="#1B1F1C" stroke-width="1.6"/>
         <!-- topsoil -->
-        <path d="M0 252 C80 244 160 256 240 250 S400 244 480 250 V350 C400 342 320 356 240 348 S80 342 0 354 Z" fill="#EE6A43" stroke="#1B1F1C" stroke-width="1.6"/>
+        <path d="M0 252 C80 244 160 256 240 250 S400 244 480 250 V350 C400 342 320 356 240 348 S80 342 0 354 Z" fill="#EE4953" stroke="#1B1F1C" stroke-width="1.6"/>
         <g fill="#1B1F1C" opacity=".35"><circle cx="40" cy="290" r="2"/><circle cx="96" cy="312" r="1.6"/><circle cx="150" cy="280" r="2.2"/><circle cx="214" cy="322" r="1.6"/><circle cx="270" cy="286" r="2"/><circle cx="330" cy="318" r="1.8"/><circle cx="392" cy="282" r="2"/><circle cx="446" cy="310" r="1.6"/><circle cx="120" cy="334" r="1.4"/><circle cx="360" cy="338" r="1.4"/></g>
         <!-- roots -->
         <path d="M340 252 c-2 22 4 40 -4 62 M340 270 c10 10 16 14 24 30 M290 252 c0 18 -6 30 -2 46" fill="none" stroke="#1B1F1C" stroke-width="1.2" opacity=".55"/>
@@ -659,11 +659,11 @@ footer .plait{margin-bottom:64px}
           <path d="M430 450 l30 -6 l14 24 l-24 14 z"/>
         </g>
         <!-- carved bindrune in bedrock -->
-        <path d="M258 506 V448 M258 449 L272 461 L258 471 M259 470 L273 506" fill="none" stroke="#EE6A43" stroke-width="5"/>
+        <path d="M258 506 V448 M258 449 L272 461 L258 471 M259 470 L273 506" fill="none" stroke="#EE4953" stroke-width="5"/>
       </svg>
       <ol class="layers">
-        <li class="rv"><span class="sw" style="background:#F7C2AD"></span><div><h3>The harvest <small>returns</small></h3><p>Investors are paid from what the place produces &mdash; meals served, kilowatt-hours sold, nights stayed &mdash; not from rent hikes or resale. Upside is shared with the people who live and work there.</p></div></li>
-        <li class="rv"><span class="sw" style="background:#EE6A43"></span><div><h3>The topsoil <small>operations</small></h3><p>Farms, kitchens, lodging and power, run by local operators who own a real share of what they run. We back operators; we don&rsquo;t replace them with managers from head office.</p></div></li>
+        <li class="rv"><span class="sw" style="background:#F2AFAD"></span><div><h3>The harvest <small>returns</small></h3><p>Investors are paid from what the place produces &mdash; meals served, kilowatt-hours sold, nights stayed &mdash; not from rent hikes or resale. Upside is shared with the people who live and work there.</p></div></li>
+        <li class="rv"><span class="sw" style="background:#EE4953"></span><div><h3>The topsoil <small>operations</small></h3><p>Farms, kitchens, lodging and power, run by local operators who own a real share of what they run. We back operators; we don&rsquo;t replace them with managers from head office.</p></div></li>
         <li class="rv"><span class="sw" style="background:#1E3634"></span><div><h3>The bedrock <small>the ground</small></h3><p>Land goes into a long-term holding and stays there. It isn&rsquo;t flipped, leveraged to the hilt or sold out from under the people building on it. Everything else stands on this.</p></div></li>
       </ol>
     </div>
