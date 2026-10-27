@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logo Directions — White Rock Equity</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600&family=Gloock&family=Libre+Caslon+Display&family=Libre+Caslon+Text&family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,500&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F4EEE4;--ink:#1B1F1C;--soft:#57554C;--red:#EE4953;--red-ink:#B42B35;--fjord:#1E3634;--rule:rgba(27,31,28,.16)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Schibsted Grotesk",system-ui,sans-serif;font-size:17px;line-height:1.55}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,56px)}
+header{padding:64px 0 36px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:end;border-bottom:1px solid var(--ink);margin-bottom:56px}
+header .ey{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--red-ink)}
+header h1{font-family:"Libre Caslon Display",serif;font-weight:400;font-size:clamp(40px,5.4vw,72px);line-height:1.02;margin:14px 0 0}
+header p{margin:0;color:var(--soft);font-size:16px}
+header a{color:var(--ink)}
+.list{display:grid;gap:64px;padding-bottom:120px}
+.opt{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:32px}
+.stage{background:#FBF8F2;border:1px solid var(--rule);min-height:380px;display:flex;align-items:center;justify-content:center;padding:48px 32px;overflow:hidden}
+.side{display:grid;gap:8px;align-content:start}
+.apps{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ap{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ap.red{background:var(--red)} .ap.dark{background:var(--fjord)}
+.ap>*{transform:scale(.42);transform-origin:center;flex:none}
+.icons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.icons>svg{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.fav{background:#fff;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;gap:10px}
+.fav .f32{width:32px;height:32px} .fav .f16{width:16px;height:16px}
+.cap{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline;padding-top:20px;margin-top:12px;border-top:1px solid var(--ink)}
+.cap b{font-family:"Libre Caslon Display",serif;font-weight:400;font-size:28px;color:var(--red-ink);line-height:1}
+.cap h2{font-family:"Libre Caslon Display",serif;font-weight:400;font-size:32px;line-height:1.05;margin:0 0 8px}
+.cap p{margin:0;color:var(--soft);font-size:16px}
+
+/* lockups */
+.wm b{display:block;font-weight:400;line-height:1;white-space:nowrap}
+.wm span{display:block;white-space:nowrap}
+.row-lock{display:flex;align-items:center;gap:30px}
+.row-lock .mk{width:120px;height:120px;flex:none}
+
+.hewn{text-align:left}
+.hewn b{font-family:"Schibsted Grotesk";font-weight:600;font-size:60px;letter-spacing:.12em;display:flex;align-items:center}
+.hewn .o{width:.74em;height:.74em;margin:0 .12em 0 .02em;transform:translateY(-.01em)}
+.hewn span{font-family:"Schibsted Grotesk";font-weight:500;font-size:15px;letter-spacing:.84em;margin-top:16px}
+
+.block-lock{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.block{font-family:"Schibsted Grotesk";font-weight:800;font-size:64px;line-height:.9;letter-spacing:-.01em;padding:22px 34px 24px 22px;clip-path:polygon(0 0,calc(100% - 26px) 0,100% 26px,100% 100%,0 100%)}
+.block-lock span{font-family:"Schibsted Grotesk";font-weight:600;font-size:15px;letter-spacing:.7em}
+
+.corner-lock{display:flex;align-items:center;gap:30px}
+.corner-lock .cs{width:160px;height:112px;flex:none}
+.caslon b{font-family:"Libre Caslon Display",serif;font-size:54px}
+.caslon span{font-family:"Libre Caslon Text",serif;font-size:14px;letter-spacing:.56em;text-transform:uppercase;margin-top:12px}
+
+.weight-lock{display:inline-flex;flex-direction:column;gap:8px}
+.w-top{display:flex;justify-content:space-between;align-items:baseline}
+.w-top b{font-family:"Schibsted Grotesk";font-weight:400;font-size:46px;letter-spacing:.34em;line-height:1}
+.w-top span{font-family:"Schibsted Grotesk";font-weight:600;font-size:12px;letter-spacing:.4em}
+.w-rock{font-family:"Schibsted Grotesk";font-weight:800;font-size:96px;line-height:.82;letter-spacing:.02em;padding:14px 18px 10px}
+
+.familjen b{font-family:"Familjen Grotesk";font-weight:600;font-size:52px;letter-spacing:-.025em;display:inline}
+.familjen span{font-family:"Familjen Grotesk";font-weight:500;font-size:52px;letter-spacing:-.025em;display:inline;margin-left:.22em}
+
+.newsreader b{font-family:"Newsreader",serif;font-weight:500;font-size:56px;letter-spacing:-.02em}
+.newsreader span{font-family:"Newsreader",serif;font-style:italic;font-weight:500;font-size:24px;margin-top:2px}
+
+.inscr{text-align:center}
+.inscr b{font-family:"Libre Caslon Display",serif;font-size:62px;letter-spacing:.14em;display:flex;align-items:center;justify-content:center}
+.rsep{display:inline-flex;flex-direction:column;gap:.17em;margin:0 .32em 0 .2em}
+.rsep::before,.rsep::after{content:"";width:.11em;height:.11em;background:var(--c);transform:rotate(45deg)}
+.inscr span{font-family:"Libre Caslon Text",serif;font-size:14px;letter-spacing:.6em;margin-top:18px;display:flex;align-items:center;justify-content:center;gap:18px;padding-left:.6em}
+.inscr span em{display:block;width:64px;height:1px;background:currentColor;opacity:.6}
+
+.schib b{font-family:"Schibsted Grotesk";font-weight:500;font-size:40px;letter-spacing:.3em}
+.schib span{font-family:"Schibsted Grotesk";font-weight:400;font-size:13px;letter-spacing:.74em;margin-top:14px}
+.gloock b{font-family:"Gloock",serif;font-size:56px;letter-spacing:-.01em}
+.gloock span{font-family:"Schibsted Grotesk";font-weight:500;font-size:13px;letter-spacing:.56em;text-transform:uppercase;margin-top:12px}
+.schib-bold b{font-family:"Schibsted Grotesk";font-weight:800;font-size:56px;letter-spacing:-.03em}
+.schib-bold span{font-family:"Schibsted Grotesk";font-weight:400;font-size:24px;letter-spacing:-.01em;margin-top:2px}
+
+
+.stele{display:inline-grid;gap:10px;width:330px;border-top:7px solid var(--r);border-bottom:1.5px solid var(--r);padding:20px 0 18px}
+.sl{display:flex;justify-content:space-between;font-family:"Libre Caslon Display",serif;line-height:.9}
+.sl i{font-style:normal}
+.sl.l1,.sl.l2{font-size:64px}
+.sl.l3{font-family:"Libre Caslon Text",serif;font-size:15px;margin-top:8px;padding:0 54px}
+.stop b{font-family:"Gloock",serif;font-size:72px;letter-spacing:-.015em;display:flex;align-items:baseline}
+.stop .dot{width:.2em;height:.2em;margin-left:.06em}
+.stop span{font-family:"Schibsted Grotesk";font-weight:500;font-size:14px;letter-spacing:.6em;text-transform:uppercase;margin-top:14px}
+.row-lock .mk.seal{width:150px;height:150px}
+@media (max-width:980px){
+  header,.opt{grid-template-columns:1fr}
+  .stage{min-height:0;padding:44px 16px}
+  .stage>*{transform:scale(.62);transform-origin:center}
+  .stage{height:240px}
+}
+@media (max-width:520px){
+  .stage>*{transform:scale(.46)}
+  .stage{height:190px}
+  .ap>*{transform:scale(.3)}
+  .icons{grid-template-columns:repeat(4,1fr);gap:6px}
+  .fav{flex-direction:column;gap:4px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="ey">White Rock Equity &middot; logo directions, round two</div>
+      <h1>Ten marks, set in stone.</h1>
+    </div>
+    <p>No illustrations this time. Most of these are type-led, as serious investment firms' logos are, with the rock carried by one deliberate detail. Beside each: on the brand red, on dark, and the icon at app and favicon size (32px, 16px). <a href="logos-v1.html">Round one</a> is still here for reference.</p>
+  </header>
+  <main class="list">
+  <article class="opt" id="r01">
+    <div class="stage"><div class="wm hewn" style="color:#1B1F1C"><b>WHITE R<svg class="o" viewBox="0 0 100 100" aria-hidden="true"><polygon points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#EE4953"/></svg>CK</b><span>EQUITY</span></div></div>
+    <div class="side">
+      <div class="apps">
+        <div class="ap red"><div class="sm wm hewn" style="color:#1B1F1C"><b>WHITE R<svg class="o" viewBox="0 0 100 100" aria-hidden="true"><polygon points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg>CK</b><span>EQUITY</span></div></div>
+        <div class="ap dark"><div class="sm wm hewn" style="color:#F4EEE4"><b>WHITE R<svg class="o" viewBox="0 0 100 100" aria-hidden="true"><polygon points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#EE4953"/></svg>CK</b><span>EQUITY</span></div></div>
+      </div>
+      <div class="icons">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#EE4953"/><polygon transform="translate(14 14) scale(.92)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#1E3634"/><polygon transform="translate(14 14) scale(.92)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#EE4953"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#fff"/><polygon transform="translate(14 14) scale(.92)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#1B1F1C"/></svg>
+        <div class="fav"><svg class="f32" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><polygon transform="translate(14 14) scale(.92)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg><svg class="f16" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><polygon transform="translate(14 14) scale(.92)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg></div>
+      </div>
+      <div class="cap"><b>01</b><div><h2>The Hewn O</h2><p>A plain, well-spaced Scandinavian grotesk with one change: the O in ROCK is a solid hewn stone. The rock sits inside the name, and nobody has to explain it.</p></div></div>
+    </div>
+  </article>
+  <article class="opt" id="r02">
+    <div class="stage"><div class="block-lock"><div class="block" style="background:#EE4953;color:#F4EEE4">WHITE<br>ROCK</div><span style="color:#1B1F1C">EQUITY</span></div></div>
+    <div class="side">
+      <div class="apps">
+        <div class="ap red"><div class="sm block-lock"><div class="block" style="background:#FFFFFF;color:#EE4953">WHITE<br>ROCK</div><span style="color:#1B1F1C">EQUITY</span></div></div>
+        <div class="ap dark"><div class="sm block-lock"><div class="block" style="background:#EE4953;color:#1E3634">WHITE<br>ROCK</div><span style="color:#F4EEE4">EQUITY</span></div></div>
+      </div>
+      <div class="icons">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#EE4953"/><path d="M8 8 H96 L112 24 V112 H8 Z" fill="#FFFFFF"/><text x="60" y="78" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="50" letter-spacing="-2" fill="#EE4953">WR</text></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#1E3634"/><path d="M8 8 H96 L112 24 V112 H8 Z" fill="#EE4953"/><text x="60" y="78" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="50" letter-spacing="-2" fill="#1E3634">WR</text></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#fff"/><path d="M8 8 H96 L112 24 V112 H8 Z" fill="#1B1F1C"/><text x="60" y="78" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="50" letter-spacing="-2" fill="#fff">WR</text></svg>
+        <div class="fav"><svg class="f32" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><path d="M8 8 H96 L112 24 V112 H8 Z" fill="#FFFFFF"/><text x="60" y="78" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="50" letter-spacing="-2" fill="#EE4953">WR</text></svg><svg class="f16" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><path d="M8 8 H96 L112 24 V112 H8 Z" fill="#FFFFFF"/><text x="60" y="78" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="50" letter-spacing="-2" fill="#EE4953">WR</text></svg></div>
+      </div>
+      <div class="cap"><b>02</b><div><h2>The Block</h2><p>The inversion, made literal. BlackRock is a black wordmark. Here the name is cut out of a solid slab with one corner knocked off, so the white letters are the white rock.</p></div></div>
+    </div>
+  </article>
+  <article class="opt" id="r03">
+    <div class="stage"><div class="corner-lock"><svg class="cs" viewBox="0 0 160 112" aria-hidden="true"><rect width="160" height="112" fill="#EE4953"/><rect x="8" y="8" width="144" height="96" fill="none" stroke="#F4EEE4" stroke-width="1.2"/><text x="80" y="66" text-anchor="middle" font-family="Libre Caslon Display" font-size="46" letter-spacing="4" fill="#F4EEE4">WR</text><text x="80" y="88" text-anchor="middle" font-family="Libre Caslon Text" font-size="9" letter-spacing="4.5" fill="#F4EEE4">MMXXVI</text></svg><div class="wm caslon" style="color:#1B1F1C"><b>White Rock</b><span>Equity</span></div></div></div>
+    <div class="side">
+      <div class="apps">
+        <div class="ap red"><div class="sm corner-lock"><svg class="cs" viewBox="0 0 160 112" aria-hidden="true"><rect width="160" height="112" fill="#FFFFFF"/><rect x="8" y="8" width="144" height="96" fill="none" stroke="#EE4953" stroke-width="1.2"/><text x="80" y="66" text-anchor="middle" font-family="Libre Caslon Display" font-size="46" letter-spacing="4" fill="#EE4953">WR</text><text x="80" y="88" text-anchor="middle" font-family="Libre Caslon Text" font-size="9" letter-spacing="4.5" fill="#EE4953">MMXXVI</text></svg><div class="wm caslon" style="color:#1B1F1C"><b>White Rock</b><span>Equity</span></div></div></div>
+        <div class="ap dark"><div class="sm corner-lock"><svg class="cs" viewBox="0 0 160 112" aria-hidden="true"><rect width="160" height="112" fill="#EE4953"/><rect x="8" y="8" width="144" height="96" fill="none" stroke="#1E3634" stroke-width="1.2"/><text x="80" y="66" text-anchor="middle" font-family="Libre Caslon Display" font-size="46" letter-spacing="4" fill="#1E3634">WR</text><text x="80" y="88" text-anchor="middle" font-family="Libre Caslon Text" font-size="9" letter-spacing="4.5" fill="#1E3634">MMXXVI</text></svg><div class="wm caslon" style="color:#F4EEE4"><b>White Rock</b><span>Equity</span></div></div></div>
+      </div>
+      <div class="icons">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#EE4953"/><rect x="6" y="22" width="108" height="76" fill="#FFFFFF"/><rect x="12" y="28" width="96" height="64" fill="none" stroke="#EE4953" stroke-width="1.4"/><text x="60" y="74" text-anchor="middle" font-family="Libre Caslon Display" font-size="38" letter-spacing="2" fill="#EE4953">WR</text></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#1E3634"/><rect x="6" y="22" width="108" height="76" fill="#EE4953"/><rect x="12" y="28" width="96" height="64" fill="none" stroke="#1E3634" stroke-width="1.4"/><text x="60" y="74" text-anchor="middle" font-family="Libre Caslon Display" font-size="38" letter-spacing="2" fill="#1E3634">WR</text></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#fff"/><rect x="6" y="22" width="108" height="76" fill="#1B1F1C"/><rect x="12" y="28" width="96" height="64" fill="none" stroke="#fff" stroke-width="1.4"/><text x="60" y="74" text-anchor="middle" font-family="Libre Caslon Display" font-size="38" letter-spacing="2" fill="#fff">WR</text></svg>
+        <div class="fav"><svg class="f32" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><rect x="6" y="22" width="108" height="76" fill="#FFFFFF"/><rect x="12" y="28" width="96" height="64" fill="none" stroke="#EE4953" stroke-width="1.4"/><text x="60" y="74" text-anchor="middle" font-family="Libre Caslon Display" font-size="38" letter-spacing="2" fill="#EE4953">WR</text></svg><svg class="f16" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><rect x="6" y="22" width="108" height="76" fill="#FFFFFF"/><rect x="12" y="28" width="96" height="64" fill="none" stroke="#EE4953" stroke-width="1.4"/><text x="60" y="74" text-anchor="middle" font-family="Libre Caslon Display" font-size="38" letter-spacing="2" fill="#EE4953">WR</text></svg></div>
+      </div>
+      <div class="cap"><b>03</b><div><h2>Cornerstone</h2><p>The founding stone of a building, cut with its initials and year. It's what patient capital is meant to be: the first stone laid, the one everything else is built on.</p></div></div>
+    </div>
+  </article>
+  <article class="opt" id="r04">
+    <div class="stage"><div class="weight-lock" style="color:#1B1F1C"><div class="w-top"><b>WHITE</b><span>EQUITY</span></div><div class="w-rock" style="background:#EE4953;color:#F4EEE4">ROCK</div></div></div>
+    <div class="side">
+      <div class="apps">
+        <div class="ap red"><div class="sm weight-lock" style="color:#1B1F1C"><div class="w-top"><b>WHITE</b><span>EQUITY</span></div><div class="w-rock" style="background:#FFFFFF;color:#EE4953">ROCK</div></div></div>
+        <div class="ap dark"><div class="sm weight-lock" style="color:#F4EEE4"><div class="w-top"><b>WHITE</b><span>EQUITY</span></div><div class="w-rock" style="background:#EE4953;color:#1E3634">ROCK</div></div></div>
+      </div>
+      <div class="icons">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#EE4953"/><text x="60" y="52" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="400" font-size="34" letter-spacing="3" fill="#FFFFFF">W</text><path d="M14 60 H106 V108 H14 Z" fill="#FFFFFF"/><text x="60" y="99" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="40" fill="#EE4953">R</text></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#1E3634"/><text x="60" y="52" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="400" font-size="34" letter-spacing="3" fill="#EE4953">W</text><path d="M14 60 H106 V108 H14 Z" fill="#EE4953"/><text x="60" y="99" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="40" fill="#1E3634">R</text></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#fff"/><text x="60" y="52" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="400" font-size="34" letter-spacing="3" fill="#1B1F1C">W</text><path d="M14 60 H106 V108 H14 Z" fill="#1B1F1C"/><text x="60" y="99" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="40" fill="#fff">R</text></svg>
+        <div class="fav"><svg class="f32" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><text x="60" y="52" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="400" font-size="34" letter-spacing="3" fill="#FFFFFF">W</text><path d="M14 60 H106 V108 H14 Z" fill="#FFFFFF"/><text x="60" y="99" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="40" fill="#EE4953">R</text></svg><svg class="f16" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><text x="60" y="52" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="400" font-size="34" letter-spacing="3" fill="#FFFFFF">W</text><path d="M14 60 H106 V108 H14 Z" fill="#FFFFFF"/><text x="60" y="99" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="40" fill="#EE4953">R</text></svg></div>
+      </div>
+      <div class="cap"><b>04</b><div><h2>White / Rock</h2><p>The name read as two materials. WHITE is set light and airy; ROCK is heavy and solid, knocked out of a slab. It's simple, and it works at any size.</p></div></div>
+    </div>
+  </article>
+  <article class="opt" id="r05">
+    <div class="stage"><div class="row-lock"><svg class="mk" viewBox="0 0 120 120" aria-hidden="true"><path d="M6 96 L14 60 L38 38 L74 31 L101 45 L114 96 Z" fill="#EE4953"/><path d="M40.5 41 L73.5 34.5 L96 46.5 L66 53.5 Z" fill="#F4EEE4"/><path d="M66 56 L71 96" stroke="#F4EEE4" stroke-width="2.2"/></svg><div class="wm familjen" style="color:#1B1F1C"><b>White Rock</b><span style="color:#B42B35">Equity</span></div></div></div>
+    <div class="side">
+      <div class="apps">
+        <div class="ap red"><div class="sm row-lock"><svg class="mk" viewBox="0 0 120 120" aria-hidden="true"><path d="M6 96 L14 60 L38 38 L74 31 L101 45 L114 96 Z" fill="#FFFFFF"/><path d="M40.5 41 L73.5 34.5 L96 46.5 L66 53.5 Z" fill="#EE4953"/><path d="M66 56 L71 96" stroke="#EE4953" stroke-width="2.2"/></svg><div class="wm familjen" style="color:#1B1F1C"><b>White Rock</b><span style="color:#FFFFFF">Equity</span></div></div></div>
+        <div class="ap dark"><div class="sm row-lock"><svg class="mk" viewBox="0 0 120 120" aria-hidden="true"><path d="M6 96 L14 60 L38 38 L74 31 L101 45 L114 96 Z" fill="#EE4953"/><path d="M40.5 41 L73.5 34.5 L96 46.5 L66 53.5 Z" fill="#1E3634"/><path d="M66 56 L71 96" stroke="#1E3634" stroke-width="2.2"/></svg><div class="wm familjen" style="color:#F4EEE4"><b>White Rock</b><span style="color:#EE4953">Equity</span></div></div></div>
+      </div>
+      <div class="icons">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#EE4953"/><path d="M6 96 L14 60 L38 38 L74 31 L101 45 L114 96 Z" fill="#FFFFFF"/><path d="M40.5 41 L73.5 34.5 L96 46.5 L66 53.5 Z" fill="#EE4953"/><path d="M66 56 L71 96" stroke="#EE4953" stroke-width="2.2"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#1E3634"/><path d="M6 96 L14 60 L38 38 L74 31 L101 45 L114 96 Z" fill="#EE4953"/><path d="M40.5 41 L73.5 34.5 L96 46.5 L66 53.5 Z" fill="#1E3634"/><path d="M66 56 L71 96" stroke="#1E3634" stroke-width="2.2"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#fff"/><path d="M6 96 L14 60 L38 38 L74 31 L101 45 L114 96 Z" fill="#1B1F1C"/><path d="M40.5 41 L73.5 34.5 L96 46.5 L66 53.5 Z" fill="#fff"/><path d="M66 56 L71 96" stroke="#fff" stroke-width="2.2"/></svg>
+        <div class="fav"><svg class="f32" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><path d="M6 96 L14 60 L38 38 L74 31 L101 45 L114 96 Z" fill="#FFFFFF"/><path d="M40.5 41 L73.5 34.5 L96 46.5 L66 53.5 Z" fill="#EE4953"/><path d="M66 56 L71 96" stroke="#EE4953" stroke-width="2.2"/></svg><svg class="f16" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><path d="M6 96 L14 60 L38 38 L74 31 L101 45 L114 96 Z" fill="#FFFFFF"/><path d="M40.5 41 L73.5 34.5 L96 46.5 L66 53.5 Z" fill="#EE4953"/><path d="M66 56 L71 96" stroke="#EE4953" stroke-width="2.2"/></svg></div>
+      </div>
+      <div class="cap"><b>05</b><div><h2>Facet</h2><p>A boulder in three planes, with the top face lit white. It's the one fully pictorial mark here, kept to as few lines as a stone mason would need.</p></div></div>
+    </div>
+  </article>
+  <article class="opt" id="r06">
+    <div class="stage"><div class="stele" style="color:#1B1F1C;--r:#EE4953"><div class="sl l1"><i>W</i><i>H</i><i>I</i><i>T</i><i>E</i></div><div class="sl l2"><i>R</i><i>O</i><i>C</i><i>K</i></div><div class="sl l3"><i>E</i><i>Q</i><i>U</i><i>I</i><i>T</i><i>Y</i></div></div></div>
+    <div class="side">
+      <div class="apps">
+        <div class="ap red"><div class="sm stele" style="color:#1B1F1C;--r:#FFFFFF"><div class="sl l1"><i>W</i><i>H</i><i>I</i><i>T</i><i>E</i></div><div class="sl l2"><i>R</i><i>O</i><i>C</i><i>K</i></div><div class="sl l3"><i>E</i><i>Q</i><i>U</i><i>I</i><i>T</i><i>Y</i></div></div></div>
+        <div class="ap dark"><div class="sm stele" style="color:#F4EEE4;--r:#EE4953"><div class="sl l1"><i>W</i><i>H</i><i>I</i><i>T</i><i>E</i></div><div class="sl l2"><i>R</i><i>O</i><i>C</i><i>K</i></div><div class="sl l3"><i>E</i><i>Q</i><i>U</i><i>I</i><i>T</i><i>Y</i></div></div></div>
+      </div>
+      <div class="icons">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#EE4953"/><path d="M14 14 H106" stroke="#FFFFFF" stroke-width="5"/><text x="62" y="82" text-anchor="middle" font-family="Libre Caslon Display" font-size="54" letter-spacing="6" fill="#FFFFFF">WR</text><path d="M14 110 H106" stroke="#FFFFFF" stroke-width="1.5"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#1E3634"/><path d="M14 14 H106" stroke="#EE4953" stroke-width="5"/><text x="62" y="82" text-anchor="middle" font-family="Libre Caslon Display" font-size="54" letter-spacing="6" fill="#EE4953">WR</text><path d="M14 110 H106" stroke="#EE4953" stroke-width="1.5"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#fff"/><path d="M14 14 H106" stroke="#1B1F1C" stroke-width="5"/><text x="62" y="82" text-anchor="middle" font-family="Libre Caslon Display" font-size="54" letter-spacing="6" fill="#1B1F1C">WR</text><path d="M14 110 H106" stroke="#1B1F1C" stroke-width="1.5"/></svg>
+        <div class="fav"><svg class="f32" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><path d="M14 14 H106" stroke="#FFFFFF" stroke-width="5"/><text x="62" y="82" text-anchor="middle" font-family="Libre Caslon Display" font-size="54" letter-spacing="6" fill="#FFFFFF">WR</text><path d="M14 110 H106" stroke="#FFFFFF" stroke-width="1.5"/></svg><svg class="f16" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><path d="M14 14 H106" stroke="#FFFFFF" stroke-width="5"/><text x="62" y="82" text-anchor="middle" font-family="Libre Caslon Display" font-size="54" letter-spacing="6" fill="#FFFFFF">WR</text><path d="M14 110 H106" stroke="#FFFFFF" stroke-width="1.5"/></svg></div>
+      </div>
+      <div class="cap"><b>06</b><div><h2>Stele</h2><p>The name set as a carved tablet: three lines of inscriptional capitals, each spaced to the same width, between a heavy rule and a hairline. Pure typography, built like masonry.</p></div></div>
+    </div>
+  </article>
+  <article class="opt" id="r07">
+    <div class="stage"><div class="wm inscr" style="color:#1B1F1C"><b>WHITE<i class="rsep" style="--c:#EE4953"></i>ROCK</b><span><em></em>EQUITY<em></em></span></div></div>
+    <div class="side">
+      <div class="apps">
+        <div class="ap red"><div class="sm wm inscr" style="color:#1B1F1C"><b>WHITE<i class="rsep" style="--c:#FFFFFF"></i>ROCK</b><span><em></em>EQUITY<em></em></span></div></div>
+        <div class="ap dark"><div class="sm wm inscr" style="color:#F4EEE4"><b>WHITE<i class="rsep" style="--c:#EE4953"></i>ROCK</b><span><em></em>EQUITY<em></em></span></div></div>
+      </div>
+      <div class="icons">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#EE4953"/><text x="31" y="76" text-anchor="middle" font-family="Libre Caslon Display" font-size="50" fill="#FFFFFF">W</text><circle cx="62" cy="50" r="4.2" fill="#FFFFFF"/><circle cx="62" cy="68" r="4.2" fill="#FFFFFF"/><text x="92" y="76" text-anchor="middle" font-family="Libre Caslon Display" font-size="50" fill="#FFFFFF">R</text></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#1E3634"/><text x="31" y="76" text-anchor="middle" font-family="Libre Caslon Display" font-size="50" fill="#EE4953">W</text><circle cx="62" cy="50" r="4.2" fill="#EE4953"/><circle cx="62" cy="68" r="4.2" fill="#EE4953"/><text x="92" y="76" text-anchor="middle" font-family="Libre Caslon Display" font-size="50" fill="#EE4953">R</text></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#fff"/><text x="31" y="76" text-anchor="middle" font-family="Libre Caslon Display" font-size="50" fill="#1B1F1C">W</text><circle cx="62" cy="50" r="4.2" fill="#1B1F1C"/><circle cx="62" cy="68" r="4.2" fill="#1B1F1C"/><text x="92" y="76" text-anchor="middle" font-family="Libre Caslon Display" font-size="50" fill="#1B1F1C">R</text></svg>
+        <div class="fav"><svg class="f32" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><text x="31" y="76" text-anchor="middle" font-family="Libre Caslon Display" font-size="50" fill="#FFFFFF">W</text><circle cx="62" cy="50" r="4.2" fill="#FFFFFF"/><circle cx="62" cy="68" r="4.2" fill="#FFFFFF"/><text x="92" y="76" text-anchor="middle" font-family="Libre Caslon Display" font-size="50" fill="#FFFFFF">R</text></svg><svg class="f16" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><text x="31" y="76" text-anchor="middle" font-family="Libre Caslon Display" font-size="50" fill="#FFFFFF">W</text><circle cx="62" cy="50" r="4.2" fill="#FFFFFF"/><circle cx="62" cy="68" r="4.2" fill="#FFFFFF"/><text x="92" y="76" text-anchor="middle" font-family="Libre Caslon Display" font-size="50" fill="#FFFFFF">R</text></svg></div>
+      </div>
+      <div class="cap"><b>07</b><div><h2>Inscription</h2><p>Wordmark only. The words are split by the two stacked points that runestone carvers used between words. It's the most quietly Nordic option here, and the most formal.</p></div></div>
+    </div>
+  </article>
+  <article class="opt" id="r08">
+    <div class="stage"><div class="row-lock"><svg class="mk" viewBox="0 0 120 120" aria-hidden="true"><path d="M20 110 L25 54 L47 50 L51 110 Z M76 110 L77 60 L95 57 L101 110 Z" fill="#EE4953"/><path d="M8 49 L17 32 L80 19 L110 33 L106 50 L57 52 Z" fill="#EE4953"/></svg><div class="wm caslon" style="color:#1B1F1C"><b>White Rock</b><span>Equity</span></div></div></div>
+    <div class="side">
+      <div class="apps">
+        <div class="ap red"><div class="sm row-lock"><svg class="mk" viewBox="0 0 120 120" aria-hidden="true"><path d="M20 110 L25 54 L47 50 L51 110 Z M76 110 L77 60 L95 57 L101 110 Z" fill="#FFFFFF"/><path d="M8 49 L17 32 L80 19 L110 33 L106 50 L57 52 Z" fill="#FFFFFF"/></svg><div class="wm caslon" style="color:#1B1F1C"><b>White Rock</b><span>Equity</span></div></div></div>
+        <div class="ap dark"><div class="sm row-lock"><svg class="mk" viewBox="0 0 120 120" aria-hidden="true"><path d="M20 110 L25 54 L47 50 L51 110 Z M76 110 L77 60 L95 57 L101 110 Z" fill="#EE4953"/><path d="M8 49 L17 32 L80 19 L110 33 L106 50 L57 52 Z" fill="#EE4953"/></svg><div class="wm caslon" style="color:#F4EEE4"><b>White Rock</b><span>Equity</span></div></div></div>
+      </div>
+      <div class="icons">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#EE4953"/><path d="M20 110 L25 54 L47 50 L51 110 Z M76 110 L77 60 L95 57 L101 110 Z" fill="#FFFFFF"/><path d="M8 49 L17 32 L80 19 L110 33 L106 50 L57 52 Z" fill="#FFFFFF"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#1E3634"/><path d="M20 110 L25 54 L47 50 L51 110 Z M76 110 L77 60 L95 57 L101 110 Z" fill="#EE4953"/><path d="M8 49 L17 32 L80 19 L110 33 L106 50 L57 52 Z" fill="#EE4953"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#fff"/><path d="M20 110 L25 54 L47 50 L51 110 Z M76 110 L77 60 L95 57 L101 110 Z" fill="#1B1F1C"/><path d="M8 49 L17 32 L80 19 L110 33 L106 50 L57 52 Z" fill="#1B1F1C"/></svg>
+        <div class="fav"><svg class="f32" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><path d="M20 110 L25 54 L47 50 L51 110 Z M76 110 L77 60 L95 57 L101 110 Z" fill="#FFFFFF"/><path d="M8 49 L17 32 L80 19 L110 33 L106 50 L57 52 Z" fill="#FFFFFF"/></svg><svg class="f16" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><path d="M20 110 L25 54 L47 50 L51 110 Z M76 110 L77 60 L95 57 L101 110 Z" fill="#FFFFFF"/><path d="M8 49 L17 32 L80 19 L110 33 L106 50 L57 52 Z" fill="#FFFFFF"/></svg></div>
+      </div>
+      <div class="cap"><b>08</b><div><h2>Dolmen</h2><p>Two standing stones and a capstone, the oldest building people ever made: a doorway of rock. Shelter, and a portal to what comes next.</p></div></div>
+    </div>
+  </article>
+  <article class="opt" id="r09">
+    <div class="stage"><div class="wm stop" style="color:#1B1F1C"><b>White Rock<svg class="dot" viewBox="0 0 100 100" aria-hidden="true"><polygon points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#EE4953"/></svg></b><span>Equity</span></div></div>
+    <div class="side">
+      <div class="apps">
+        <div class="ap red"><div class="sm wm stop" style="color:#1B1F1C"><b>White Rock<svg class="dot" viewBox="0 0 100 100" aria-hidden="true"><polygon points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg></b><span>Equity</span></div></div>
+        <div class="ap dark"><div class="sm wm stop" style="color:#F4EEE4"><b>White Rock<svg class="dot" viewBox="0 0 100 100" aria-hidden="true"><polygon points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#EE4953"/></svg></b><span>Equity</span></div></div>
+      </div>
+      <div class="icons">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#EE4953"/><text x="50" y="84" text-anchor="middle" font-family="Gloock" font-size="76" fill="#FFFFFF">W</text><polygon transform="translate(88 66) scale(.18)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#1E3634"/><text x="50" y="84" text-anchor="middle" font-family="Gloock" font-size="76" fill="#EE4953">W</text><polygon transform="translate(88 66) scale(.18)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#EE4953"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#fff"/><text x="50" y="84" text-anchor="middle" font-family="Gloock" font-size="76" fill="#1B1F1C">W</text><polygon transform="translate(88 66) scale(.18)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#1B1F1C"/></svg>
+        <div class="fav"><svg class="f32" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><text x="50" y="84" text-anchor="middle" font-family="Gloock" font-size="76" fill="#FFFFFF">W</text><polygon transform="translate(88 66) scale(.18)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg><svg class="f16" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><text x="50" y="84" text-anchor="middle" font-family="Gloock" font-size="76" fill="#FFFFFF">W</text><polygon transform="translate(88 66) scale(.18)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg></div>
+      </div>
+      <div class="cap"><b>09</b><div><h2>Full Stop</h2><p>The name in the site's headline serif, ending on a hewn stone instead of a full stop. Said once, and it stays said.</p></div></div>
+    </div>
+  </article>
+  <article class="opt" id="r10">
+    <div class="stage"><div class="row-lock"><svg class="mk seal" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="sealarc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><circle cx="60" cy="60" r="57" fill="none" stroke="#EE4953" stroke-width="2.4"/><circle cx="60" cy="60" r="39" fill="none" stroke="#EE4953" stroke-width="1"/><text font-family="Libre Caslon Text" font-size="9.6" fill="#EE4953"><textPath href="#sealarc" textLength="287" lengthAdjust="spacing">WHITE ROCK EQUITY · CLEARWATER · BRITISH COLUMBIA · </textPath></text><polygon transform="translate(43 43) scale(.34)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#EE4953"/></svg><div class="wm caslon" style="color:#1B1F1C"><b>White Rock</b><span>Equity</span></div></div></div>
+    <div class="side">
+      <div class="apps">
+        <div class="ap red"><div class="sm row-lock"><svg class="mk seal" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="sealarc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><circle cx="60" cy="60" r="57" fill="none" stroke="#FFFFFF" stroke-width="2.4"/><circle cx="60" cy="60" r="39" fill="none" stroke="#FFFFFF" stroke-width="1"/><text font-family="Libre Caslon Text" font-size="9.6" fill="#FFFFFF"><textPath href="#sealarc" textLength="287" lengthAdjust="spacing">WHITE ROCK EQUITY · CLEARWATER · BRITISH COLUMBIA · </textPath></text><polygon transform="translate(43 43) scale(.34)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg><div class="wm caslon" style="color:#1B1F1C"><b>White Rock</b><span>Equity</span></div></div></div>
+        <div class="ap dark"><div class="sm row-lock"><svg class="mk seal" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="sealarc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><circle cx="60" cy="60" r="57" fill="none" stroke="#EE4953" stroke-width="2.4"/><circle cx="60" cy="60" r="39" fill="none" stroke="#EE4953" stroke-width="1"/><text font-family="Libre Caslon Text" font-size="9.6" fill="#EE4953"><textPath href="#sealarc" textLength="287" lengthAdjust="spacing">WHITE ROCK EQUITY · CLEARWATER · BRITISH COLUMBIA · </textPath></text><polygon transform="translate(43 43) scale(.34)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#EE4953"/></svg><div class="wm caslon" style="color:#F4EEE4"><b>White Rock</b><span>Equity</span></div></div></div>
+      </div>
+      <div class="icons">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#EE4953"/><defs><path id="sealarc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><circle cx="60" cy="60" r="57" fill="none" stroke="#FFFFFF" stroke-width="2.4"/><circle cx="60" cy="60" r="39" fill="none" stroke="#FFFFFF" stroke-width="1"/><text font-family="Libre Caslon Text" font-size="9.6" fill="#FFFFFF"><textPath href="#sealarc" textLength="287" lengthAdjust="spacing">WHITE ROCK EQUITY · CLEARWATER · BRITISH COLUMBIA · </textPath></text><polygon transform="translate(43 43) scale(.34)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#1E3634"/><defs><path id="sealarc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><circle cx="60" cy="60" r="57" fill="none" stroke="#EE4953" stroke-width="2.4"/><circle cx="60" cy="60" r="39" fill="none" stroke="#EE4953" stroke-width="1"/><text font-family="Libre Caslon Text" font-size="9.6" fill="#EE4953"><textPath href="#sealarc" textLength="287" lengthAdjust="spacing">WHITE ROCK EQUITY · CLEARWATER · BRITISH COLUMBIA · </textPath></text><polygon transform="translate(43 43) scale(.34)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#EE4953"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#fff"/><defs><path id="sealarc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><circle cx="60" cy="60" r="57" fill="none" stroke="#1B1F1C" stroke-width="2.4"/><circle cx="60" cy="60" r="39" fill="none" stroke="#1B1F1C" stroke-width="1"/><text font-family="Libre Caslon Text" font-size="9.6" fill="#1B1F1C"><textPath href="#sealarc" textLength="287" lengthAdjust="spacing">WHITE ROCK EQUITY · CLEARWATER · BRITISH COLUMBIA · </textPath></text><polygon transform="translate(43 43) scale(.34)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#1B1F1C"/></svg>
+        <div class="fav"><svg class="f32" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><defs><path id="sealarc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><circle cx="60" cy="60" r="57" fill="none" stroke="#FFFFFF" stroke-width="2.4"/><circle cx="60" cy="60" r="39" fill="none" stroke="#FFFFFF" stroke-width="1"/><text font-family="Libre Caslon Text" font-size="9.6" fill="#FFFFFF"><textPath href="#sealarc" textLength="287" lengthAdjust="spacing">WHITE ROCK EQUITY · CLEARWATER · BRITISH COLUMBIA · </textPath></text><polygon transform="translate(43 43) scale(.34)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg><svg class="f16" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="16" fill="#EE4953"/><defs><path id="sealarc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><circle cx="60" cy="60" r="57" fill="none" stroke="#FFFFFF" stroke-width="2.4"/><circle cx="60" cy="60" r="39" fill="none" stroke="#FFFFFF" stroke-width="1"/><text font-family="Libre Caslon Text" font-size="9.6" fill="#FFFFFF"><textPath href="#sealarc" textLength="287" lengthAdjust="spacing">WHITE ROCK EQUITY · CLEARWATER · BRITISH COLUMBIA · </textPath></text><polygon transform="translate(43 43) scale(.34)" points="14,8 62,0 92,22 100,70 70,100 20,94 0,52" fill="#FFFFFF"/></svg></div>
+      </div>
+      <div class="cap"><b>10</b><div><h2>The Seal</h2><p>A round seal like the ones old land companies pressed into their deeds, with the name and place set around a single hewn stone. Formal and trustworthy, it suits documents and signage.</p></div></div>
+    </div>
+  </article>
+  </main>
+</div>
+</body>
+</html>
