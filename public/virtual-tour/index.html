@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="/virtual-tour/">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portal.Place — Virtual tour</title>
+<meta name="description" content="Scroll from the master plan into the land: Portal.Place, Clearwater, BC, Canada.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "./vendor/three/three.module.js",
+  "three/addons/": "./vendor/three/addons/"
+} }
+</script>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div id="vignette"></div>
+
+<div id="loader"><div class="ld-logo"></div><div class="ld-mark">Portal.Place</div><div class="ld-bar"><i></i></div><div class="ld-note">Drawing the land…</div></div>
+
+<div class="hud">
+  <div id="sheet-title"><div class="st-name"><span class="st-logo"></span>Portal.Place</div><div class="st-sub">Campus master plan · Clearwater, BC, Canada</div></div>
+  <div class="cap" id="cap-place">
+    <div class="eyebrow">Clearwater, BC, Canada</div>
+    <h1>400 acres with an RV&nbsp;&amp;&nbsp;golf resort</h1>
+  </div>
+  <div class="cap" id="cap-park">
+    <div class="eyebrow">Real 360° photo · the property from above</div>
+    <h1>Surrounded by Wells&nbsp;Gray&nbsp;Park.</h1>
+  </div>
+  <div id="hint">Scroll<span></span></div>
+  <div id="credit">Imagery © Esri, Maxar · Drone survey © Portal.Place · Elevation: NRCan MRDEM</div>
+</div>
+
+<div id="scroller"></div>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script type="module" src="js/film.js?v=202610280830"></script>
+</body>
+</html>

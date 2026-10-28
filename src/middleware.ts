@@ -56,6 +56,14 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
+  // /virtual-tour — the scroll-driven 3D fly-through (static bundle, source Projects/portal-flythrough,
+  // tools/make_bundle.sh). Public. Served as-is: its index.html carries <base href="/virtual-tour/">.
+  if (pathname === "/virtual-tour" || pathname === "/virtual-tour/") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/virtual-tour/index.html";
+    return NextResponse.rewrite(url);
+  }
+
   // Clean URL for the NS pitch brief: /ns/brief (and frozen /nsN/brief) serve
   // the static brief.html bundled with the deck. Old .html links still work.
   const brief = pathname.match(/^\/(ns\d*)\/brief\/?$/);
