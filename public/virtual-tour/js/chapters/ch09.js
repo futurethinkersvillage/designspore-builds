@@ -47,14 +47,16 @@ export async function setup(ctx) {
   vign = document.getElementById('vignette');
 
   const gh = (x, y, d = 2) => ground(x, y) + d;
+  const F = (t, x, y, fh, hd, pt) => { const [fx, fy] = ctx.farmFix(x, y); return [t, fx, fy, gh(fx, fy), fh, hd, pt, 48]; };
   rig = R.makeRig([
     // the real permaculture garden is held just after the film's blend (t < 0.3), then on to the planned farm
     [0.00, -612, -215, gh(-612, -215), 90, 36, -26, 48],
     [0.32, -612, -215, gh(-612, -215), 80, 32, -26, 48],
-    [0.52, -528, -128, gh(-528, -128), 100, 26, -24, 48],
-    [0.68, -490, -76, gh(-490, -76), 74, 12, -24, 48],
-    [0.84, -479, -8, gh(-479, -8), 74, 6, -24, 48],
-    [1.00, -471, 60, gh(-471, 60), 110, 10, -28, 48],   // wider at the end: beds, mandala and pond together
+    // (the farm sits on the real fairway now: engine farmFix moves the plan coordinates)
+    F(0.52, -528, -128, 100, 26, -24),
+    F(0.68, -490, -76, 74, 9, -24),
+    F(0.84, -479, -8, 74, 3, -24),
+    F(1.00, -471, 60, 110, 7, -28),   // wider at the end: beds, mandala and pond together
   ]);
   // callouts: [anchor, text, sub, real?, offset east/north, lift, t in, t out]
   const real = '#F2EDE8', plan = '#EA824E';
@@ -66,6 +68,7 @@ export async function setup(ctx) {
     [[-466, 20], 'Market garden', 'Planned', plan, [8, 0], 3, 0.76, 0.96],
     [[-472, 81], 'Pond', 'Planned', plan, [8, 4], 3, 0.86, 1.01],
   ].map(([at, text, sub, col, off, lift, a, b]) => {
+    if (text !== 'Permaculture garden') at = ctx.farmFix(at[0], at[1]);   // planned farm pieces moved onto the real fairway
     const m = card(text, sub, col), gy = ground(at[0], at[1]);
     m.position.set(at[0] + off[0], gy + lift, -(at[1] + off[1]));
     const pin = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(at[0], gy + 0.5, -at[1]), m.position.clone()]),

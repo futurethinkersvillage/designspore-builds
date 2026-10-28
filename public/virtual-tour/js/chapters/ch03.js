@@ -140,16 +140,16 @@ export async function setup(ctx) {
   pano = await panoStop(ctx, 'shower');
   rig = R.makeRig([
     [0.00, -45, 110, gA(-45, 110), 280, 338, -38, 45],
-    [0.42, -66, 84, gA(-66, 84) + 1, 80, 318, -24, 48],
-    pano.key(0.60, 292, -5),
-    pano.key(0.66, 294, -5),
-    pano.key(0.86, 12, -3),
+    [0.42, -79, 103, gA(-79, 103) + 1, 70, 238, -26, 48],   // toward the shower house from the NE, in line with the photo
+    pano.key(0.60, 232, -5),    // facing the shower house
+    pano.key(0.66, 234, -5),
+    pano.key(0.86, 336, -3),    // round to the office, golf carts and playground
     // the photo fades while the camera climbs (it sits at infinity, so the climb doesn't shift it): no eye-level 3D
-    [1.00, -64, 96, gA(-64, 96) + 1, 70, 20, -26, 48],
+    [1.00, -82, 118, gA(-82, 118) + 1, 70, 344, -26, 48],   // climbing out over the playground and office
   ]);
   cards = [
-    makeStatCard(ctx, { at: [-36, 104], big: '45', small: 'RV sites', heading: 334, lift: 3 }),   // headings = the camera's, so the text reads straight
-    makeStatCard(ctx, { at: [-58, 92], big: '~3,000', small: 'Guests a year', heading: 322, lift: 2.5 }),
+    makeStatCard(ctx, { at: [-36, 104], big: '45', small: 'RV sites', heading: 300, lift: 3 }),   // headings ≈ the camera's, so the text reads straight
+    makeStatCard(ctx, { at: [-58, 92], big: '~3,000', small: 'Guests a year', heading: 250, lift: 2.5 }),
   ];
 
   cap = document.createElement('div'); cap.className = 'cap';

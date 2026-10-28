@@ -298,10 +298,13 @@ export function build({ lod = 'high' } = {}) {
     box(1.0, 0.1, 0.22, black, ux, DECK_H + 0.05, uz, g); box(0.22, 0.1, 1.0, black, ux, DECK_H + 0.05, uz, g);
     box(0.07, 2.5, 0.07, pole, ux, DECK_H + 1.25, uz, g);
     const arm = box(1.05, 0.05, 0.05, pole, ux - 0.45, DECK_H + 2.62, uz, g); arm.rotation.z = -0.25;
-    const can = new THREE.Mesh(new THREE.ConeGeometry(0.2, 1.7, 8, 1, true), canvasM);
-    can.rotation.x = Math.PI; can.position.set(ux - 0.95, DECK_H + 1.85, uz); g.add(can);
-    const tip = new THREE.Mesh(new THREE.ConeGeometry(0.21, 0.25, 8), canvasM);
-    tip.position.set(ux - 0.95, DECK_H + 2.78, uz); g.add(tip);
+    // open, as in the photos (Dome1.jpeg): a wide white canopy hanging from the arm
+    const can = new THREE.Mesh(new THREE.ConeGeometry(1.45, 0.55, 8, 1, true), new THREE.MeshStandardMaterial({ color: 0xf2efe8, roughness: 0.85, side: THREE.DoubleSide }));
+    can.position.set(ux - 0.95, DECK_H + 2.45, uz); g.add(can);
+    box(0.06, 0.4, 0.06, pole, ux - 0.95, DECK_H + 2.5, uz, g);
+    // a small round table under it
+    const tbl = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.04, 14), black); tbl.position.set(ux - 0.95, DECK_H + 0.72, uz); g.add(tbl);
+    box(0.05, 0.7, 0.05, pole, ux - 0.95, DECK_H + 0.36, uz, g);
   }
   return g;
 }

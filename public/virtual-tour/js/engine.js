@@ -62,6 +62,24 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   const FAST = Q.has('fast'); // ?fast=1: quicker previews while developing (no z17 imagery, fewer trees)
   const D = await load({ style, MOBILE, progress, FAST });
   const heightAt = heightSampler(D.meta, D.near, D.far);
+  // The site plan's hole 4 (and the farm drawn on it) sits ~20 m east of the real mown fairway and turned ~3°
+  // (Mike, 10-28; measured on the drone photo: build/topdown/hole4_fits.jpg). Move the core farm onto the real
+  // fairway: rotate -3.3° (bearing) about the hole's middle, then 20 m west. The 2D sheet keeps the plan as drawn.
+  const farmFix = (x, y) => {
+    const t = -3.3 * Math.PI / 180, s = Math.sin(t), c = Math.cos(t), px = -481.8, py = -25.6, dx = x - px, dy = y - py;
+    return [px + dx * c + dy * s - 20, py - dx * s + dy * c];
+  };
+  {
+    const ring = r => r.map(p => farmFix(p[0], p[1]));
+    const core = r => r.reduce((a, p) => a + p[0], 0) / r.length < -440;   // the strip on hole 4; the north strip + food forest stay
+    for (const n of ['farm_market_garden', 'farm_greenhouses', 'farm_buildings', 'farm_mandala_garden', 'farm_herb_spiral', 'farm_pond']) {
+      for (const f of D.L[n] || []) {
+        if (f.t === 'Polygon' && core(f.c[0])) f.c = f.c.map(ring);
+        else if (f.t === 'MultiPolygon') f.c = f.c.map(poly => core(poly[0]) ? poly.map(ring) : poly);
+      }
+    }
+    for (const f of D.L.farm_labels || []) if (f.t === 'Point' && f.c[0] < -440) f.c = farmFix(f.c[0], f.c[1]);
+  }
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: REC });
   renderer.setPixelRatio(REC ? 1 : Math.min(devicePixelRatio, MOBILE ? 1.5 : 2));
@@ -103,16 +121,24 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     gazebo: [{ x: -597, y: -226, rotY: 0.6615 }],
     top_house: [{ x: -636, y: -242, rotY: 0.5404 }],
     bottom_house: [{ x: -240, y: 44, rotY: 0.9146 }],
-    office: [{ x: -79, y: 103, rotY: 0.639 }],
+    office: [{ x: -99.5, y: 111.5, rotY: 0.639 }],   // beside the forest-school playground (Mike, 10-28; it had the shower house's spot)
     dome: [{ x: -145, y: -146, rotY: 2.314 }],
     // bunk cabins turned 90° counter-clockwise from the agent's guess (Mike, 2026-10-27: that's the way they face)
     bunk_cabin: [{ x: -107, y: -86, rotY: 0.713 + Math.PI / 2, variant: 'a' }, { x: -119, y: -100, rotY: 0.736 + Math.PI / 2, variant: 'b' }, { x: -131, y: -115, rotY: 0.712 + Math.PI / 2, variant: 'c' }],
     // sauna: exactly where Mike's QGIS project has it ('For Rent' layer, Type = Sauna; the drone survey predates it),
     // door toward the creek (NW)
     sauna: [{ x: -94.3, y: -61.3, rotY: -2.356 }],
-    shower_house: [{ x: -80.5, y: 66, rotY: 0.618, variant: 'main' }, { x: -94, y: -132, rotY: 2.173, variant: 'field' }],
+    // ---- real things picked on the drone photo (10-28; Mike: model what's up close, verified with photos) ----
+    rv: [{ x: -20, y: 212.5, rotY: -2.269, variant: 'fifth', size: 11 }, { x: -38, y: 192.5, rotY: -2.304, variant: 'fifth', size: 10.5 }, { x: -50, y: 179, rotY: -1.047, variant: 'trailer', size: 7 }, { x: -18, y: 160.6, rotY: -2.094, variant: 'trailer', size: 8.5 }, { x: 10, y: 191, rotY: -2.618, variant: 'trailer', size: 7.5 }, { x: -58.3, y: 145.5, rotY: -2.897, variant: 'trailer', size: 6 }, { x: -79.7, y: -110.9, rotY: -0.803, variant: 'trailer', size: 9 }],   // parked RVs on their real spots in the campground (tools/find_rvs.py + picks; none by the shop — Mike: no junk there)
+    shed: [{ x: -42.5, y: -11.5, rotY: -0.436, variant: 'workshop' }, { x: -48, y: -48, rotY: -0.628, variant: 'shop' },
+      { x: -36, y: -113.5, rotY: -1.571, variant: 'storage' }, { x: -88, y: -63, rotY: 0, variant: 'darkshed' }],   // the plan's building layer is ~20 m off: these sit on the real roofs
+    footbridge: [{ x: -103, y: -42, rotY: -2.443, size: 13 }],   // over Hemp Creek, N of the sauna (sauna 360)
+    props: [{ x: -80.1, y: 134.5, rotY: 0, variant: 'trampoline' }, { x: -83.7, y: 130.6, rotY: 0, variant: 'tetherball' }, { x: -85, y: 123.4, rotY: 0.5, variant: 'fort' }, { x: -71.4, y: 133.6, rotY: -0.744, variant: 'logs', size: 20 }, { x: -89.4, y: 115.6, rotY: 0.471, variant: 'golfcart' }, { x: -87, y: 116.5, rotY: 0.471, variant: 'golfcart' }, { x: -84.9, y: 117.4, rotY: 0.471, variant: 'golfcart' }, { x: -83.1, y: 118.3, rotY: 0.471, variant: 'golfcart' }, { x: -19.3, y: 225.2, rotY: 0.0, variant: 'picnic' }, { x: -11.2, y: 225.2, rotY: 0.7, variant: 'picnic' }, { x: -15.2, y: 220, rotY: 1.4, variant: 'picnic' }, { x: -31.9, y: 196.9, rotY: 2.1, variant: 'picnic' }, { x: -8.3, y: 203.9, rotY: 2.8, variant: 'picnic' }, { x: -4.8, y: 183.1, rotY: 0.36, variant: 'picnic' }, { x: 20, y: 209, rotY: 1.06, variant: 'picnic' }, { x: 25.2, y: 228.7, rotY: 1.76, variant: 'picnic' }, { x: 17.1, y: 203.3, rotY: 2.46, variant: 'picnic' }, { x: -7.9, y: 169.3, rotY: 0.02, variant: 'picnic' }, { x: -15.2, y: 175, rotY: 0.72, variant: 'picnic' }],   // playground, golf carts by the office, logs, picnic tables on the loop pads
+    sauna_setting: [{ x: -97, y: -57, rotY: 0.6, variant: 'deck' }, { x: -106, y: -52, rotY: 1.92, variant: 'boulders', size: 15 }],
+    shower_house: [{ x: -79, y: 103, rotY: 0.639, variant: 'main' }, { x: -94, y: -132, rotY: 2.173, variant: 'field' }],   // main = the long building with decks + ramps on the drone photo (Mike, 10-28; was on empty gravel)
   };
-  const EXISTING = ['gazebo', 'top_house', 'bottom_house', 'office', 'dome', 'bunk_cabin', 'shower_house', 'sauna', 'horse_corrals'];
+  const EXISTING = ['gazebo', 'top_house', 'bottom_house', 'office', 'dome', 'bunk_cabin', 'shower_house', 'sauna', 'horse_corrals',
+    'rv', 'shed', 'footbridge', 'sauna_setting', 'props'];
   const siteC = n => (D.L[n] || []).flatMap(f => polysOf(f).map(p => { const r = p[0]; return [r.reduce((a, q) => a + q[0], 0) / r.length, r.reduce((a, q) => a + q[1], 0) / r.length]; }));
   const clear = [...Object.entries(PLACE).flatMap(([k, ps]) => ps.map(p => [p.x, p.y, k === 'gazebo' ? 11 : 8])),
     ...siteC('cabins').map(c => [...c, 7]), ...siteC('lake_cabins').map(c => [...c, 7]), ...siteC('maker_space').map(c => [...c, 16]), ...siteC('event_gazebo').map(c => [...c, 12]),
@@ -306,7 +332,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   }
 
   return {
-    cameras: D.cameras, clearTreesNear, groundAt, resetPersistent, conceptLook, zomeGlass: glass,
+    cameras: D.cameras, clearTreesNear, groundAt, resetPersistent, conceptLook, zomeGlass: glass, farmFix,
     THREE, U, H0, D, L: D.L, meta: D.meta, heightAt, scene, camera, renderer, style, colors,
     land, trees, blocks, sky, sun, hemi, pano, PANO, panoPos, planned, labels, models, placeModel, placeZomes, realWorld,
     // ground height as currently displayed (it rises with the cut) — matches displayH() in the shaders

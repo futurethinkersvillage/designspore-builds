@@ -17,21 +17,22 @@ export async function setup(ctx) {
   outline = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: '#EA824E', transparent: true, depthTest: false }));
   outline.renderOrder = 20; ctx.scene.add(outline);
 
-  const shop = [-62, -30], ms = [-32.5, 320], hs = heightAt(shop[0], shop[1]), hm = heightAt(ms[0], ms[1]);
+  const shop = [-45, -29];   // the real workshop (-42.5,-11.5) + shop (-48,-48) on the drone photo (the plan's spot was ~20 m off)
+  const ms = [-32.5, 320], hs = heightAt(shop[0], shop[1]), hm = heightAt(ms[0], ms[1]);
   // [t, east, north, height, frameH, heading°, pitch°, fov°]
   // today's shop, then north over the creek to the planned Maker Space, ending at its open doors (they face south)
   rig = R.makeRig([
     // (the film's blend covers t < 0.3, so the shop is held just after it)
     // looking WSW at the shop: the creekside zome rows are behind the camera, so 'today' shows only what exists
-    [0.00, shop[0], shop[1], hs + 3, 44, 256, -22, 45],
-    [0.30, shop[0], shop[1], hs + 3, 34, 252, -20, 45],
-    [0.44, shop[0], shop[1], hs + 3, 30, 250, -18, 45],
+    [0.00, shop[0], shop[1], hs + 3, 52, 250, -26, 45],
+    [0.30, shop[0], shop[1], hs + 3, 46, 248, -24, 45],
+    [0.44, shop[0], shop[1], hs + 3, 42, 246, -22, 45],
     [0.58, -47, 145, heightAt(-47, 145), 150, 330, -34, 45],   // up over the canopy (the low pass brushed huge near trees)
     [0.74, ms[0], ms[1], hm + 3, 56, 0, -22, 45],
     [1.00, ms[0] - 9, ms[1], hm + 2.5, 19, 0, -9, 45],   // building right of centre, clear of the caption
   ]);
 
-  shopCard = makeStatCard(ctx, { at: [shop[0], shop[1] - 6], big: '', small: 'Today · the shop', heading: 252, lift: 3 });
+  shopCard = makeStatCard(ctx, { at: [-44, -26], big: '', small: 'Today · the shop', heading: 248, lift: 3 });
   const mk = (eyebrow, h1) => {
     const c = document.createElement('div'); c.className = 'cap';
     c.innerHTML = `<div class="eyebrow">${eyebrow}</div><h1>${h1}</h1>`;

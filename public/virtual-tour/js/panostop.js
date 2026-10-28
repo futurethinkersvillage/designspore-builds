@@ -10,8 +10,8 @@ import { makePano } from './pano.js';
 export const PANOS = {
   // ~4.5 m WNW of the barrel, facing its door; Hemp Creek + footbridge to the N, bunk cabin to the SSW
   sauna:    { file: 'sauna',    at: [-98.6, -60.1],   eye: 1.6, yaw0: 231, title: 'The cedar sauna on Hemp Creek' },
-  // ~12 m E of the main shower house; office + golf carts and the forest-school playground beyond
-  shower:   { file: 'shower',   at: [-68.8, 63.3],    eye: 1.6, yaw0: 148, title: 'Shower house & campground' },
+  // ~12 m ENE of the main shower house; the office + golf carts and the forest-school playground beyond (to the W)
+  shower:   { file: 'shower',   at: [-69.5, 110.4],   eye: 1.6, yaw0: 97,  title: 'Shower house & campground' },   // re-solved 10-28 from the real shower house + trampoline
   // (DomeLake1 — "Lake & Field" — is NOT used: it shows the dome at its earlier spot. Mike, 10-28)
   // inside the event gazebo (kitchen wall to the NW, open entrance to the SE)
   gazebo:   { file: 'gazebo',   at: [-597, -226],     eye: 1.7, yaw0: 19,  title: 'Inside the gazebo' },   // set so the arrival view is the tables + open side

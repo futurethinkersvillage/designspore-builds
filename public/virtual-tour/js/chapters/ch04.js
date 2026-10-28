@@ -22,12 +22,12 @@ export async function setup(ctx) {
     pano.key(0.40, 106, -6),
     pano.key(0.47, 104, -6),
     pano.key(0.70, 8, -3),
-    [1.00, -65, 123, gA(-65, 123) + 2, 44, 350, -24, 45],
+    [1.00, -82, 129, gA(-82, 129) + 2, 40, 340, -26, 45],   // the real forest-school playground (trampoline, fort), by the office
   ]);
   cards = [
     makeStatCard(ctx, { at: [-117, -100], big: '3', small: 'Bunk cabins', heading: 326, lift: 18 }),
     makeStatCard(ctx, { at: [-104.8, -59.2], big: '', small: 'Cedar sauna', heading: 342, lift: 14 }),
-    makeStatCard(ctx, { at: [-65, 118], big: '', small: 'Forest school', heading: 350, lift: 3 }),   // low: seen from above, never mirrored
+    makeStatCard(ctx, { at: [-78, 126], big: '', small: 'Forest school', heading: 350, lift: 3 }),   // low: seen from above, never mirrored
   ];
   // during the photo: name what we're looking at
   capCreek = document.createElement('div'); capCreek.className = 'cap';
