@@ -25,6 +25,7 @@ type Award = {
   low: number;
   high: number;
   costNote?: string;
+  feature?: boolean;
 };
 
 const AWARDS: Award[] = [
@@ -165,6 +166,25 @@ const AWARDS: Award[] = [
     low: 110,
     high: 350,
   },
+  {
+    name: "The Open Prize",
+    form: "Commission",
+    photo: "dome-at-sunset",
+    alt: "The geodesic dome at sunset",
+    pitch: "No brief, no problem to solve: the most astonishing work anyone can make. The one award that tests nothing.",
+    box: [
+      "No theme and no required use",
+      "Open worldwide; every entry passes a safety review",
+      "Five shortlisted artists paid to make the work, 55/30/15",
+      "Shown on site in guest season, still standing after one winter",
+    ],
+    win: "An independent jury picks one. No score and no test, on purpose. The shortlist is paid either way.",
+    missing: "Jury, safety reviewer, where finished works live. Added after the panels, so not priced or red-teamed",
+    low: 150,
+    high: 450,
+    costNote: "Rough estimate from similar commissions, not a panel figure",
+    feature: true,
+  },
 ];
 
 const FUNNEL: [string, number, string][] = [
@@ -175,6 +195,7 @@ const FUNNEL: [string, number, string][] = [
 
 const MONEY: [string, number, number][] = [
   ["Eight awards and ladder, one edition", 3.1, 5.8],
+  ["The Open Prize (added later, rough)", 0.15, 0.3],
   ["Operator, legal, reserve", 1.4, 3.25],
   ["AI-Off at real trial scale", 1.2, 2.2],
   ["Shared test site and instruments", 1.0, 1.75],
@@ -194,7 +215,7 @@ const GATHER: [string, string][] = [
 const OPEN: [string, string][] = [
   ["Is this a story or a menu?", "The panel says the old categories were a filing system. The winter-testing line is the proposed fix, and “test sites are scarce” is still an inference."],
   ["Where is the displaced worker?", "The most exciting entries are robots doing work. Only the Apprenticeship and the AI-Off Test speak to people's capability."],
-  ["Does pure art come back?", "You asked for it. Only the Walking Sculpture and small grants survived; the Open Prize lost points for having no clean win test, which may be the rubric's bias."],
+  ["Is pure art worth a place?", "The Open Prize is back by choice. Reviewers marked it down for having no test and no tie to this place, which may be the rubric's bias. The one-winter rule is a new answer to that, and no reviewer has seen it."],
   ["Are food and culture enough?", "Tractor Zero has no crop task, so it isn't a food award yet. Culture lives mostly in Gather."],
   ["Founder tools", "The zome generator, Village Stack and digital twin kept appearing. Awards must stay open to any tool."],
 ];
@@ -226,9 +247,9 @@ function AwardCard({ award, index }: { award: Award; index: number }) {
   const range = `C$${award.low}K–${award.high >= 1000 ? "1M" : `${award.high}K`}`;
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]">
-      <div className="relative aspect-[16/9] bg-off-white">
-        <Image src={`${IMG}/${award.photo}.webp`} alt={award.alt} fill sizes="(max-width: 768px) 100vw, 520px" className="object-cover" />
+    <article className={`flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)] ${award.feature ? "md:col-span-2" : ""}`}>
+      <div className={`relative bg-off-white ${award.feature ? "aspect-[16/9] md:aspect-[21/8]" : "aspect-[16/9]"}`}>
+        <Image src={`${IMG}/${award.photo}.webp`} alt={award.alt} fill sizes={award.feature ? "(max-width: 768px) 100vw, 1080px" : "(max-width: 768px) 100vw, 520px"} className="object-cover" />
         <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-[12px] font-medium text-white">
           {index + 1} · {award.form}
         </span>
@@ -294,7 +315,7 @@ export default function PrizeReviewPage() {
             Where claims about cheap housing, machines, power and AI-era learning get tested in public, through a real winter.
           </h1>
           <p className="mt-6 max-w-[620px] text-[17px] leading-[1.6] text-white/80 sm:text-[19px]">
-            Eight proposed awards, with open results. We set the constraints; entrants invent inside them.
+            Nine proposed awards, with open results. We set the constraints; entrants invent inside them. Eight test a claim, and one exists purely to astonish.
           </p>
         </div>
       </section>
@@ -319,7 +340,7 @@ export default function PrizeReviewPage() {
             ))}
           </div>
           <p className="mt-8 max-w-[680px] text-[16px] leading-[1.6] text-ink/70">
-            Of the 30 on the shortlist, the red team kept one as it was, changed 19 and cut 10. Reviewers were separate from the people who wrote the ideas.
+            Of the 30 on the shortlist, the red team kept one as it was, changed 19 and cut 10. Reviewers were separate from the people who wrote the ideas. A ninth, pure art, was added afterward by choice: The Open Prize scored 53 out of 100, near the bottom of the art group.
           </p>
         </div>
       </section>
@@ -327,8 +348,8 @@ export default function PrizeReviewPage() {
       {/* Awards */}
       <section className="px-4 pb-16 sm:px-6 sm:pb-24">
         <div className="mx-auto max-w-[1080px]">
-          <Eyebrow>The eight</Eyebrow>
-          <H2>Each award is a box, a test and a price</H2>
+          <Eyebrow>The nine</Eyebrow>
+          <H2>Each award is a box, a way to win and a price</H2>
           <p className="mt-5 max-w-[680px] text-[16px] leading-[1.6] text-ink/70">
             Photos are for mood only; none of these has been built, run or quoted. Every cost is a panel estimate for one edition, on the same scale.
           </p>
@@ -343,7 +364,7 @@ export default function PrizeReviewPage() {
       {/* Ladder */}
       <section className="bg-white px-4 py-16 sm:px-6 sm:py-24">
         <div className="mx-auto max-w-[1080px]">
-          <Eyebrow>Around the eight</Eyebrow>
+          <Eyebrow>Around the nine</Eyebrow>
           <H2>A way in for smaller builders</H2>
           <div className="mt-10 grid gap-8 md:grid-cols-3">
             <div>
@@ -391,7 +412,7 @@ export default function PrizeReviewPage() {
             {[
               ["C$3–4M", "First stage: operator, evaluator, instruments, an AI-Off pilot, the Ember Test and Prompt to Part"],
               ["~C$15M", "Staged ceiling. Later stages release only on published results"],
-              ["C$8.2–16.25M", "What the program adds up to, low to central, with no quotes behind it"],
+              ["C$8.35–16.55M", "What the program adds up to, low to central, with no quotes behind it"],
             ].map(([value, text]) => (
               <div key={value} className="rounded-2xl bg-white p-6">
                 <p className="font-serif text-[2.2rem] leading-none text-ink">{value}</p>
@@ -400,7 +421,7 @@ export default function PrizeReviewPage() {
             ))}
           </div>
 
-          <h3 className="mt-14 text-[16px] font-medium text-ink">Where the central C$16.25M goes (C$M)</h3>
+          <h3 className="mt-14 text-[16px] font-medium text-ink">Where the central C$16.55M goes (C$M)</h3>
           <div className="mt-5 space-y-4">
             {MONEY.map(([label, low, central]) => (
               <div key={label} title={`${label}: C$${low}M low, C$${central}M central`}>
