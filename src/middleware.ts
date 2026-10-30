@@ -73,23 +73,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  // Private evaluation page: own password (not the investor one), no HTML until authed.
-  // Deliberately absent from robots.txt and the sitemap so the path isn't advertised.
+  // Evaluation draft: open to anyone with the link, kept out of search until approved.
   if (pathname === "/prize-review" || pathname.startsWith("/prize-review/")) {
-    const validToken = process.env.REVIEW_AUTH_TOKEN;
-    if (!validToken || request.cookies.get("review_auth")?.value !== validToken) {
-      return NextResponse.redirect(new URL("/review-access", request.url));
-    }
     const res = NextResponse.next();
     res.headers.set("x-is-dashboard", "1");
-    res.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet, noimageindex");
-    res.headers.set("Cache-Control", "private, no-store");
-    return res;
-  }
-  if (pathname === "/review-access") {
-    const res = NextResponse.next();
-    res.headers.set("x-is-dashboard", "1");
-    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    res.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
     return res;
   }
 

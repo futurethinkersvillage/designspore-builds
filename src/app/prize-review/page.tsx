@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
-// /prize-review: private visual summary of the grant evaluation (Funding/grants/eval/results.md).
-// Keep this a server component with no client children, so its text never lands in the
-// public _next/static chunks. Middleware gates it first; the cookie check below is a second lock.
-// ⚠️ Never put the land dispute, investor payouts or the land price on this page, gated or not.
-
-export const dynamic = "force-dynamic";
+// /prize-review: visual summary of the grant evaluation (Funding/grants/eval/results.md). Open link, noindex.
+// ⚠️ Public: never put the land dispute, investor payouts, the land price or revenue on this page.
 
 export const metadata: Metadata = {
-  title: "Private",
-  robots: { index: false, follow: false, noarchive: true, nosnippet: true, noimageindex: true },
+  title: "Prize Review",
+  robots: { index: false, follow: false, noarchive: true },
 };
 
 const IMG = "/images/grants";
@@ -145,7 +139,7 @@ const AWARDS: Award[] = [
     pitch: "The award aimed most directly at people AI displaces: paid training into real trades.",
     box: [
       "Paid training on real builds",
-      "Third-party sites until the site is settled",
+      "Run on third-party training sites",
       "Registered training sponsor",
       "Stipends go to apprentices",
     ],
@@ -278,11 +272,7 @@ function AwardCard({ award, index }: { award: Award; index: number }) {
   );
 }
 
-export default async function PrizeReviewPage() {
-  const validToken = process.env.REVIEW_AUTH_TOKEN;
-  const token = (await cookies()).get("review_auth")?.value;
-  if (!validToken || token !== validToken) redirect("/review-access");
-
+export default function PrizeReviewPage() {
   return (
     <div className="bg-off-white text-ink">
       {/* Hero */}
@@ -298,7 +288,7 @@ export default async function PrizeReviewPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10" />
         <div className="relative mx-auto w-full max-w-[1080px]">
           <p className="mb-5 text-[12px] font-medium uppercase tracking-[0.22em] text-amber">
-            Private working draft · Evaluation of 30 Oct 2026
+            Working draft · Evaluation of 30 Oct 2026
           </p>
           <h1 className="max-w-[900px] font-serif text-[2.7rem] font-light leading-[1.04] text-white sm:text-[4.6rem]">
             Where claims about cheap housing, machines, power and AI-era learning get tested in public, through a real winter.
@@ -427,10 +417,7 @@ export default async function PrizeReviewPage() {
             ))}
           </div>
           <p className="mt-8 max-w-[680px] text-[16px] leading-[1.6] text-ink/70">
-            Multi-year testing is the strongest reason to spend more. Bigger purses are the weakest: they mostly buy prestige. C$3M a year is about 12 times current revenue, from a team that has never run a prize.
-          </p>
-          <p className="mt-4 max-w-[680px] text-[14px] leading-[1.6] text-ink/50">
-            Program only. Land is left off this page and handled in the internal notes. Still to settle: whether the $10–20M goal meant USD or CAD.
+            Multi-year testing is the strongest reason to spend more. Bigger purses are the weakest: they mostly buy prestige.
           </p>
         </div>
       </section>
