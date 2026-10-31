@@ -50,8 +50,8 @@ export function InterestForm() {
       </div>
       <select name="role" aria-label="What brings you here" defaultValue="" required className={input}>
         <option value="" disabled className={option}>What brings you here?</option>
-        <option className={option}>I might fund this: send me the briefing</option>
-        <option className={option}>I'd enter a prize: send me the draft rules</option>
+        <option className={option}>I might fund this: let's talk</option>
+        <option className={option}>I'd enter a prize: tell me when rules are ready</option>
         <option className={option}>I'd help write the rules or judge</option>
         <option className={option}>My company might sponsor tools or a class</option>
         <option className={option}>I've lost work or can't get in: tell me about The Relaunch</option>
