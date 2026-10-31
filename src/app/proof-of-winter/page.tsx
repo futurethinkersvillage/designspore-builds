@@ -49,8 +49,8 @@ const PRIZES: Prize[] = [
   {
     name: "The Relaunch",
     field: "Work",
-    photo: `${IMG}/makerspace-workshop.webp`,
-    alt: "The makerspace workshop",
+    photo: `${IMG}/bunk-cabins.webp`,
+    alt: "Bunk cabins on the property",
     pitch: "Say you're 24, you did everything right, and the entry-level job is gone. Here's a month, C$10K and a workshop. Are you still earning after the winter?",
     purse: "C$10K each, 20 people to start",
     first: "May 2028",
@@ -61,7 +61,9 @@ const PRIZES: Prize[] = [
       "Groups of five, May to October, so it fits the lodging we have",
       "A month with the shop, mentors and any AI tools",
       "Leave with something to sell: a product, a service, a repair business",
-      "With 20 people this is a pilot, not proof. If it looks promising, it gets first call on second-run money, to 40 more",
+      "Graduates get first call on paid jobs: the winter measurement crew, Trial Days and prize support",
+      "Independent ethics review; the month can split into two stays, and we plan to welcome families on RV sites",
+      "With 20 people this is a pilot, not proof. We publish a pass mark before it starts; if it clears, it gets first call on second-run money, for up to 60 more",
     ],
     why: (
       <>
@@ -70,7 +72,7 @@ const PRIZES: Prize[] = [
       </>
     ),
     cost: "C$400–700K, including the evaluator",
-    open: "Evaluator; the rules for paying individuals through a charity; a month away is hard for parents, and we don't have a good answer yet.",
+    open: "Evaluator, ethics board, and the rules for paying individuals through a charity.",
   },
   {
     name: "Tractor Zero",
@@ -95,7 +97,7 @@ const PRIZES: Prize[] = [
         <Src href="https://www.farm-equipment.com/articles/21992-what-it-takes-to-sell-and-service-autonomy-kits">was nearly US$65,000 plus US$10,000 a year</Src> in 2023. We think safe unattended work on an old machine is the hard part, so that&apos;s what gets tested.
       </>
     ),
-    cost: "C$250–500K",
+    cost: "C$280–500K",
     open: "Insurance quote, WorkSafeBC rules, safety reviewer, what the safety system costs.",
   },
   {
@@ -106,7 +108,7 @@ const PRIZES: Prize[] = [
     pitch: "A work of art as tall as a giraffe walks across the fairway in autumn. In spring, it has to do it again.",
     purse: "C$750K commission",
     first: "Models 2030, walks 2031–32",
-    who: "Artist and engineer teams; five paid to build a 1 m model",
+    who: "Artist and engineer teams; five paid C$25K each to build a 1 m model",
     win: "200 m unassisted in under an hour, twice, either side of winter.",
     rules: [
       "Self-propelled and stepping, at least 5 m tall",
@@ -119,7 +121,7 @@ const PRIZES: Prize[] = [
         Machines like this are usually city projects: <Src href="https://actu.fr/occitanie/toulouse_31555/grand-spectacle-de-la-machine-a-toulouse-voici-combien-va-couter-ce-show-exceptionnel_61677916.html">Toulouse&apos;s far larger Minotaure cost €2.5M to build</Src>. Can a smaller one be done for a fraction, in the open?
       </>
     ),
-    cost: "C$800K–1.8M",
+    cost: "C$1–1.8M",
     open: "Whether C$750K buys 5 m is unproven. We need an engineer's estimate; the model round tests it too. Steel in kind, crowd insurance.",
   },
   {
@@ -136,6 +138,7 @@ const PRIZES: Prize[] = [
       "Cost cap per m² set after independent materials pricing, before rules open",
       "Receipts audited, AI use disclosed, plans published",
       "Fits on one trailer, four people assemble it",
+      "Five shortlisted teams get C$20K toward materials",
       "Nobody sleeps in it: heaters and humidity simulate two people",
       "Walls and roof must also pass an ember test at an accredited lab, after a winter outdoors",
     ],
@@ -144,7 +147,7 @@ const PRIZES: Prize[] = [
         Wildfire-resistant features <Src href="https://headwaterseconomics.org/natural-hazards/wildfire/construction-costs-for-wildfire-resistant-homes/">added 2–3% to a US$500K California home</Src> in one study. Whether the cheapest kit houses can pass is the open question.
       </>
     ),
-    cost: "C$450K–1.2M",
+    cost: "C$500K–1.2M",
     open: "Permit route for test structures, engineer, lab quote, and which ember standard applies in Canada.",
   },
   {
@@ -169,7 +172,7 @@ const PRIZES: Prize[] = [
         <Src href="https://fm.kuac.org/changing-arctic/2017-06-30/acep-competition-seeks-solutions-to-high-energy-costs-in-remote-alaskan-communities">Alaska&apos;s 2017 microgrid competition</Src>, whose US$308,000 prize was lab time, and which wasn&apos;t aimed at garage inventors. This one is open to them.
       </>
     ),
-    cost: "C$250–750K",
+    cost: "C$400–750K",
     open: "Inspector, generator rules, and a sourced baseline for what emergency camps burn today.",
   },
   {
@@ -181,7 +184,7 @@ const PRIZES: Prize[] = [
     purse: "C$100K",
     first: "Autumn 2028, retest spring 2029",
     who: "Teams building AI tutors and learning methods",
-    win: "The tutor whose learners score highest on the task with no AI, live in autumn and proctored six months later. Anyone who misses the retest counts as a zero.",
+    win: "The tutor whose learners score highest on the task with no AI, live in autumn and proctored six months later, on site or at a test centre near the learner. Anyone who misses the retest counts as a zero.",
     rules: [
       "Adult volunteers, 30 per tutor, assigned by lottery",
       "A hands-on skill revealed on the day, in the shop",
@@ -202,8 +205,8 @@ const PRIZES: Prize[] = [
   {
     name: "Prompt to Part",
     field: "Making",
-    photo: `${IMG}/valley-river.webp`,
-    alt: "The river running through the valley",
+    photo: `${IMG}/makerspace-workshop.webp`,
+    alt: "The makerspace workshop",
     pitch: "Our first year here, almost every machine broke. Describe the broken part out loud, and hold the new one that day.",
     purse: "C$100K",
     first: "Autumn 2028 to spring 2029",
@@ -216,7 +219,7 @@ const PRIZES: Prize[] = [
       "Install day open to the public",
     ],
     why: <>Every farm, resort and remote town has a shed of machines waiting on a part. Real breakage is harder to fake than a demo.</>,
-    cost: "C$110–350K",
+    cost: "C$150–350K",
     open: "Liability for parts used elsewhere. AI labs may close this gap quickly; if so, the prize will say so.",
   },
   {
@@ -241,14 +244,14 @@ const PRIZES: Prize[] = [
         The closest precedent for open entry and a big purse is <Src href="https://en.wikipedia.org/wiki/ArtPrize">ArtPrize</Src>, which needed a whole downtown. This asks for a course in a valley. Nothing&apos;s been installed yet.
       </>
     ),
-    cost: "C$350–750K",
+    cost: "C$450–750K",
     open: "Jury, safety reviewer, and whether people will travel for it.",
   },
 ];
 
 const MONEY: [string, string, number][] = [
-  ["The eight prizes, one run each", "2.8–6.45", 6.45],
-  ["Operator, legal, reserve (20%)", "1.2–2.5", 2.5],
+  ["The eight prizes, one run each", "3.3–6.45", 6.45],
+  ["Operator, legal, reserve (20% on top)", "1.3–2.5", 2.5],
   ["Shared instruments and measurement crew", "1.0–1.75", 1.75],
   ["Second runs, only if results earn them", "1.0–1.5", 1.5],
   ["Second winters and 12-month follow-ups", "0.5–1.0", 1.0],
@@ -329,6 +332,7 @@ function PrizeCard({ prize }: { prize: Prize }) {
             {prize.open}
           </p>
         </details>
+        <a href="#talk" className="mt-1 inline-flex min-h-[44px] items-center text-[15px] font-medium text-ink underline underline-offset-4">{prize.name === "The Relaunch" ? "Tell me when this opens" : "I'd enter this"}</a>
       </div>
     </article>
   );
@@ -344,7 +348,7 @@ export default function ProofOfWinterPage() {
         <div className="relative mx-auto w-full max-w-[1080px]">
           <p className="mb-5 text-[12px] font-medium uppercase tracking-[0.22em] text-amber">A proposal · Clearwater, BC, Canada</p>
           <h1 className="font-serif text-[3.4rem] font-light leading-[1] text-white sm:text-[6rem]">Everything works in July.</h1>
-          <p className="mt-5 font-serif text-[1.7rem] leading-tight text-white sm:text-[2.2rem]">Proof of Winter: eight prizes that only pay if it still works in spring.</p>
+          <p className="mt-5 font-serif text-[1.7rem] leading-tight text-white sm:text-[2.2rem]">Proof of Winter: eight public challenges, one test. Does it still work in spring?</p>
           <p className="mt-4 max-w-[680px] text-[17px] leading-[1.55] text-white/85 sm:text-[19px]">
             For machines, houses, power, learning, new work and art, on a 400-acre golf and RV resort surrounded by Wells Gray Park. We set the constraints. You invent. Results go public.
           </p>
@@ -388,7 +392,7 @@ export default function ProofOfWinterPage() {
           <Eyebrow>The eight prizes</Eyebrow>
           <H2>Eight prizes, one question</H2>
           <p className="mt-5 max-w-[680px] text-[17px] leading-[1.6] text-ink/70">
-            These are draft rules and proposed numbers, and none has opened. Dates assume funding by mid-2027. Teams are published by name; people in The Relaunch never are. Each prize will set a minimum score. If nobody reaches it, runners-up share part of the purse and the rest moves to small grants.
+            These are draft rules and proposed numbers, and none has opened. Dates assume funding by mid-2027. Teams are published by name; people in The Relaunch never are. Entry would be free. Teams pay for their own builds, while site access, test instruments and a place to camp during test weeks are on us, and about 20% of each purse goes out as milestone money before the finale. Each prize will set a minimum score. If nobody reaches it, runners-up share part of the purse and the rest moves to small grants.
           </p>
           <div id="relaunch" className="mt-10 grid scroll-mt-4 gap-5 md:grid-cols-2">
             {PRIZES.map((prize) => (
@@ -440,7 +444,7 @@ export default function ProofOfWinterPage() {
             <p>
               What we couldn&apos;t find is a place where an outsider can bring a cheap claim, run it beside rivals through a winter, and see the results published by name, failures included, for a prize. If it exists, <a href="#talk" className="underline underline-offset-2">tell us</a>.
             </p>
-            <p>This isn&apos;t the Arctic. It&apos;s a freeze-thaw, snow-on-the-ground winter of the kind many people live in, 123 km north of Kamloops on Highway 5, <Src href="https://wellsgray.ca/plan/">about 477 km from Vancouver</Src>, with a shop, a road and guests to watch.</p>
+            <p>This isn&apos;t the Arctic. It&apos;s a freeze-thaw, snow-on-the-ground winter of the kind many people live in, 123 km north of Kamloops on Highway 5, <Src href="https://wellsgray.ca/plan/">about 477 km from Vancouver</Src>, with a shop, a road, and guests from May to October.</p>
           </div>
         </div>
       </section>
@@ -472,7 +476,7 @@ export default function ProofOfWinterPage() {
                 ))}
               </dl>
               <p className="mt-6">
-                Also here: a small makerspace, a 120-person gazebo with a commercial kitchen, a geodesic dome, a private lake and a first summer of forest school in 2026. Otherworld, a BC festival, plans three test festivals here in 2027, with volunteer crews arriving early to build.
+                Also here: a small makerspace, a 120-person gazebo with a commercial kitchen, a geodesic dome, a private lake and a forest school that ran for the first time in summer 2026. Otherworld, a BC festival, plans three test festivals here in 2027, with volunteer crews arriving early to build.
               </p>
             </div>
           </div>
@@ -513,7 +517,7 @@ export default function ProofOfWinterPage() {
           <Eyebrow>Toolmakers and sponsors</Eyebrow>
           <H2>Put your machines where it&apos;s hard</H2>
           <div className="mt-8 space-y-4 text-[17px] leading-[1.65] text-ink/80">
-            <p>Our makerspace is small today, and we plan to expand it to work in most materials. Entrants would need lasers, CNC, printers, batteries, sensors and steel. You&apos;d see your gear used by serious builders, on camera, in real conditions, for 10M+ all-time downloads and a list of ~10,000 people who like knowing how things are made.</p>
+            <p>Our makerspace is small today, and we plan to expand it to work in most materials. Entrants would need lasers, CNC, printers, batteries, sensors and steel. Your gear would be used by serious builders, on camera, in real conditions. Our reach so far is 10M+ all-time downloads and a list of about 10,000; we&apos;ll share current numbers when we talk.</p>
             <dl className="space-y-3">
               {[
                 ["Tool partner: in kind", "Your tools in the shop and in entrants' hands."],
@@ -544,7 +548,7 @@ export default function ProofOfWinterPage() {
             {[
               ["Stage 1 · 2027–29", "Up to C$4M", "Operator, quotes, first instruments and crew. The Relaunch pilot, Tractor Zero, the AI-Off Games, Prompt to Part."],
               ["Stage 2 · 2029–31", "To about C$10M", "The Winter House, Village on a Trailer, the sculpture models, the first six holes, follow-ups."],
-              ["Stage 3 · 2031–32", "To C$15M", "The walk, the rest of the Open Course, and second runs, starting with The Relaunch."],
+              ["Stage 3 · 2031–32", "To C$15M", "The walk, the rest of the Open Course, and second runs, with The Relaunch first in line."],
             ].map(([stage, value, text]) => (
               <div key={stage} className="rounded-2xl bg-off-white p-6">
                 <p className="text-[12px] uppercase tracking-[0.14em] text-ink/50">{stage}</p>
@@ -571,7 +575,7 @@ export default function ProofOfWinterPage() {
             ))}
             <div className="flex items-baseline justify-between gap-4 border-t border-ink/15 pt-3 text-[15px]">
               <span className="font-medium text-ink">Total</span>
-              <span className="font-medium text-ink">7.3–15</span>
+              <span className="font-medium text-ink">8.0–15</span>
             </div>
           </div>
           <p className="mt-6 max-w-[760px] text-[14px] leading-[1.6] text-ink/60">
@@ -609,7 +613,7 @@ export default function ProofOfWinterPage() {
         <div className="mx-auto max-w-[680px]">
           <Eyebrow light>Start here</Eyebrow>
           <H2 light>Tell us where you fit</H2>
-          <p className="mt-5 mb-8 text-[17px] leading-[1.6] text-white/75">This is a proposal, so telling us what&apos;s wrong with it counts. It isn&apos;t an application or a donation form. Your note goes to Mike and Euvie, and nobody else. We&apos;ll write back, and we&apos;ll tell you when full rules are ready.</p>
+          <p className="mt-5 mb-8 text-[17px] leading-[1.6] text-white/75">This is a proposal, so telling us what&apos;s wrong with it counts. It isn&apos;t an application or a donation form. Your note comes to us and isn&apos;t shared. We&apos;ll write back, and we&apos;ll tell you when full rules are ready.</p>
           <InterestForm />
           <p className="mt-10 border-t border-white/10 pt-6 text-[13px] leading-[1.6] text-white/50">
             Proof of Winter is a proposal by Mike Gilliland and Euvie Ivanova of Portal.Place and Future Thinkers, Clearwater, BC, Canada. Questions: <a className="underline" href="mailto:mike@futurethinkers.org">mike@futurethinkers.org</a>
