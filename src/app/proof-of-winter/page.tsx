@@ -61,7 +61,7 @@ const PRIZES: Prize[] = [
       "Groups of five, May to October, so it fits the lodging we have",
       "A month with the shop, mentors and any AI tools",
       "Leave with something to sell: a product, a service, a repair business",
-      "Graduates get first call on paid jobs: the winter measurement crew, Trial Days and prize support",
+      "Graduates get first call on paid jobs: the winter measurement crew, Trial Days and prize support. That pay doesn't count in the income test",
       "Independent ethics review; the month can split into two stays, and we plan to welcome families on RV sites",
       "With 20 people this is a pilot, not proof. We publish a pass mark before it starts; if it clears, it gets first call on second-run money, for up to 60 more",
     ],
@@ -112,7 +112,7 @@ const PRIZES: Prize[] = [
     win: "200 m unassisted in under an hour, twice, either side of winter.",
     rules: [
       "Self-propelled and stepping, at least 5 m tall",
-      "Working 1 m models first, then one team commissioned",
+      "Working 1 m models first. One team is commissioned only if an independent engineer prices the walk within budget; if not, it shrinks or waits",
       "Paid in stages: 55%, 30%, then 15% after the second walk",
       "Exclusion zone and a dead-man stop",
     ],
@@ -249,9 +249,20 @@ const PRIZES: Prize[] = [
   },
 ];
 
+const GLANCE: [string, string][] = [
+  ["The Relaunch", "Are they still earning?"],
+  ["Tractor Zero", "Does it still run alone, safely?"],
+  ["The Walking Sculpture", "Does it walk again?"],
+  ["The Winter House", "Did it stay warm, and at what cost?"],
+  ["Village on a Trailer", "Who used the least fuel in the cold?"],
+  ["The AI-Off Games", "Is the skill still there with AI off?"],
+  ["Prompt to Part", "Is the part still working?"],
+  ["The Open Course", "Is it still standing, and still astonishing?"],
+];
+
 const MONEY: [string, string, number][] = [
   ["The eight prizes, one run each", "3.3–6.45", 6.45],
-  ["Operator, legal, reserve (20% on top)", "1.3–2.5", 2.5],
+  ["Operator, legal, reserve (20% of the rest)", "1.3–2.5", 2.5],
   ["Shared instruments and measurement crew", "1.0–1.75", 1.75],
   ["Second runs, only if results earn them", "1.0–1.5", 1.5],
   ["Second winters and 12-month follow-ups", "0.5–1.0", 1.0],
@@ -260,7 +271,7 @@ const MONEY: [string, string, number][] = [
 ];
 
 const NOT_YET: [string, string][] = [
-  ["Who holds the site", "The resort is held by a private company, and we're among its owners. So any spending there would be at cost, disclosed and independently reviewed. Long term we'd like the site held by a non-profit; that's separate and not in this budget."],
+  ["Who holds the site", "The resort is held by a private company, and we're among its owners. So any spending there would be at cost, published, and approved by the independent panel, and we wouldn't vote on it. Long term we'd like the site held by a non-profit; that's separate and not in this budget."],
   ["Funder", "None yet. We aren't accepting gifts today; this is the start of the conversation."],
   ["Legal vehicle", "To be set with charity counsel before any gift, including whether tax receipts are possible."],
   ["Judges, council, evaluators", "None named, and none has agreed."],
@@ -288,10 +299,10 @@ function Fact({ label, value }: { label: string; value: string }) {
   );
 }
 
-function PrizeCard({ prize }: { prize: Prize }) {
+function PrizeCard({ prize, lead }: { prize: Prize; lead: boolean }) {
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]">
-      <div className="relative aspect-[16/8] bg-off-white">
+      <div className={`relative aspect-[16/8] bg-off-white ${lead ? "" : "hidden md:block"}`}>
         <Image src={prize.photo} alt={prize.alt} fill sizes="(max-width: 768px) 100vw, 520px" className="object-cover" />
         <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-[12px] font-medium text-white">{prize.field}</span>
       </div>
@@ -355,7 +366,7 @@ export default function ProofOfWinterPage() {
           <nav aria-label="Choose your path" className="mt-7 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
             {[
               ["#prizes", "I'd enter"],
-              ["#relaunch", "I need a way back in"],
+              ["#relaunch", "I'm starting over"],
               ["#funders", "I might fund it"],
               ["#council", "I'd write the rules"],
               ["#sponsors", "I'd sponsor it"],
@@ -394,9 +405,27 @@ export default function ProofOfWinterPage() {
           <p className="mt-5 max-w-[680px] text-[17px] leading-[1.6] text-ink/70">
             These are draft rules and proposed numbers, and none has opened. Dates assume funding by mid-2027. Teams are published by name; people in The Relaunch never are. Entry would be free. Teams pay for their own builds, while site access, test instruments and a place to camp during test weeks are on us, and about 20% of each purse goes out as milestone money before the finale. Each prize will set a minimum score. If nobody reaches it, runners-up share part of the purse and the rest moves to small grants.
           </p>
-          <div id="relaunch" className="mt-10 grid scroll-mt-4 gap-5 md:grid-cols-2">
-            {PRIZES.map((prize) => (
-              <PrizeCard key={prize.name} prize={prize} />
+          <div className="mt-8 overflow-hidden rounded-2xl bg-white">
+            <table className="w-full text-left text-[14px] leading-snug sm:text-[15px]">
+              <thead>
+                <tr className="text-[12px] uppercase tracking-[0.1em] text-ink/50">
+                  <th scope="col" className="px-4 py-3 font-normal">Prize</th>
+                  <th scope="col" className="py-3 pr-4 font-normal">The test after winter</th>
+                </tr>
+              </thead>
+              <tbody>
+                {GLANCE.map(([name, test]) => (
+                  <tr key={name} className="border-t border-ink/10">
+                    <th scope="row" className="w-[38%] px-4 py-2.5 font-medium text-ink">{name}</th>
+                    <td className="py-2.5 pr-4 text-ink/75">{test}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div id="relaunch" className="mt-8 grid scroll-mt-4 gap-5 md:grid-cols-2">
+            {PRIZES.map((prize, i) => (
+              <PrizeCard key={prize.name} prize={prize} lead={i < 3} />
             ))}
           </div>
           <div className="mt-8 rounded-2xl border border-ink/10 p-6 sm:p-8">
@@ -520,9 +549,9 @@ export default function ProofOfWinterPage() {
             <p>Our makerspace is small today, and we plan to expand it to work in most materials. Entrants would need lasers, CNC, printers, batteries, sensors and steel. Your gear would be used by serious builders, on camera, in real conditions. Our reach so far is 10M+ all-time downloads and a list of about 10,000; we&apos;ll share current numbers when we talk.</p>
             <dl className="space-y-3">
               {[
-                ["Tool partner: in kind", "Your tools in the shop and in entrants' hands."],
-                ["Round sponsor: from C$25K", "A named Maker Games round, with your tools as the prize."],
-                ["Class sponsor: from C$100K", "A named class in a prize, plus honest footage and open results."],
+                ["Tool partner: in kind", "Your tools in the shop and in entrants' hands, your name on the shop wall, and a film of what they made."],
+                ["Round sponsor: from C$25K", "A Maker Games round in your name, your tools as the prize, one episode and the full results."],
+                ["Class sponsor: from C$100K", "A prize class in your name, a film of the season, the test data, and a seat at Trial Days."],
               ].map(([tier, text]) => (
                 <div key={tier}>
                   <dt className="font-medium text-ink">{tier}</dt>
@@ -530,7 +559,7 @@ export default function ProofOfWinterPage() {
                 </div>
               ))}
             </dl>
-            <p>These tiers are proposals. Sponsors don&apos;t judge. If your machine fails, that gets published too, and so does how you fixed it. No sponsors are signed yet.</p>
+            <p>These tiers are proposals. Our first ask is tools for the first Maker Games. Sponsors don&apos;t judge. If your machine fails, that gets published too, and so does how you fixed it. No sponsors are signed yet.</p>
           </div>
           <a href="#talk" className="mt-4 inline-flex min-h-[44px] items-center text-[15px] font-medium text-terracotta underline underline-offset-4">Talk to us about a class</a>
         </div>
@@ -542,7 +571,7 @@ export default function ProofOfWinterPage() {
           <Eyebrow>For funders</Eyebrow>
           <H2>Up to C$15M over five years, released on results</H2>
           <p className="mt-6 max-w-[680px] text-[18px] leading-[1.6] text-ink/80">
-            The AI age is short on honest tests. You&apos;d fund one: what actually holds up, for machines and for people, with results anyone can check. You&apos;d help write the first rules. And if something fails, you&apos;ll see that too.
+            Every company says its robot, tutor or house works. You&apos;d fund the place where it has to, in public, with results anyone can check. You&apos;d help write the first rules. And if something fails, you&apos;ll see that too.
           </p>
           <div className="mt-10 grid gap-4 md:grid-cols-3">
             {[
@@ -557,8 +586,11 @@ export default function ProofOfWinterPage() {
               </div>
             ))}
           </div>
+          <div className="mt-6 max-w-[760px] rounded-2xl border border-ink/10 p-5 text-[15px] leading-[1.55] text-ink/75">
+            <p><span className="font-medium text-ink">You don&apos;t have to start at the top. </span>About C$1M hires the operator, gets the real quotes and runs Prompt to Part in public. About C$4M is all of Stage 1. C$15M is the whole five years.</p>
+          </div>
           <p className="mt-6 max-w-[760px] text-[16px] leading-[1.6] text-ink/75">
-            Each stage is released only after an independent panel, with no founders on it, checks results against tests published in advance. Money would be pledged and drawn by stage, so what isn&apos;t earned isn&apos;t spent.
+            Each stage is released only after a panel of three to five people with no financial tie to us or the site checks results against tests published in advance. Money would be pledged and drawn by stage, so what isn&apos;t earned isn&apos;t spent.
           </p>
           <h3 className="mt-12 text-[16px] font-medium text-ink">Where it goes (C$M, low to high)</h3>
           <div className="mt-5 max-w-[760px] space-y-4">
