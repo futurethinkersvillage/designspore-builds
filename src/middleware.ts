@@ -73,8 +73,15 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  // Evaluation draft: open to anyone with the link, kept out of search until approved.
+  // The first draft's address.
   if (pathname === "/prize-review" || pathname.startsWith("/prize-review/")) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/proof-of-winter";
+    return NextResponse.redirect(url, 307);
+  }
+
+  // Proof of Winter draft: open to anyone with the link, kept out of search until approved.
+  if (pathname === "/proof-of-winter") {
     const res = NextResponse.next();
     res.headers.set("x-is-dashboard", "1");
     res.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
