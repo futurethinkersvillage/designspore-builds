@@ -299,10 +299,10 @@ function Fact({ label, value }: { label: string; value: string }) {
   );
 }
 
-function PrizeCard({ prize, lead }: { prize: Prize; lead: boolean }) {
+function PrizeCard({ prize }: { prize: Prize }) {
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]">
-      <div className={`relative aspect-[16/8] bg-off-white ${lead ? "" : "hidden md:block"}`}>
+      <div className="relative aspect-[16/8] bg-off-white">
         <Image src={prize.photo} alt={prize.alt} fill sizes="(max-width: 768px) 100vw, 520px" className="object-cover" />
         <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-[12px] font-medium text-white">{prize.field}</span>
       </div>
@@ -343,7 +343,7 @@ function PrizeCard({ prize, lead }: { prize: Prize; lead: boolean }) {
             {prize.open}
           </p>
         </details>
-        <a href="#talk" className="mt-1 inline-flex min-h-[44px] items-center text-[15px] font-medium text-ink underline underline-offset-4">{prize.name === "The Relaunch" ? "Tell me when this opens" : "I'd enter this"}</a>
+        <a href={prize.name === "The Relaunch" ? "#talk-relaunch" : "#talk-enter"} className="mt-1 inline-flex min-h-[44px] items-center text-[15px] font-medium text-ink underline underline-offset-4">{prize.name === "The Relaunch" ? "Tell me when this opens" : "I'd enter this"}</a>
       </div>
     </article>
   );
@@ -361,7 +361,7 @@ export default function ProofOfWinterPage() {
           <h1 className="font-serif text-[3.4rem] font-light leading-[1] text-white sm:text-[6rem]">Everything works in July.</h1>
           <p className="mt-5 font-serif text-[1.7rem] leading-tight text-white sm:text-[2.2rem]">Proof of Winter: eight public challenges, one test. Does it still work in spring?</p>
           <p className="mt-4 max-w-[680px] text-[17px] leading-[1.55] text-white/85 sm:text-[19px]">
-            For machines, houses, power, learning, new work and art, on a 400-acre golf and RV resort surrounded by Wells Gray Park. We set the constraints. You invent. Results go public.
+            For people locked out of first jobs or automated out of old ones, and for machines, houses, power, learning and art, on a 400-acre golf and RV resort surrounded by Wells Gray Park. We set the constraints. You invent. Results go public.
           </p>
           <nav aria-label="Choose your path" className="mt-7 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
             {[
@@ -424,18 +424,32 @@ export default function ProofOfWinterPage() {
             </table>
           </div>
           <div id="relaunch" className="mt-8 grid scroll-mt-4 gap-5 md:grid-cols-2">
-            {PRIZES.map((prize, i) => (
-              <PrizeCard key={prize.name} prize={prize} lead={i < 3} />
+            {PRIZES.slice(0, 2).map((prize) => (
+              <PrizeCard key={prize.name} prize={prize} />
             ))}
           </div>
+          <div className="mt-5">
+            <PrizeCard prize={PRIZES[2]} />
+          </div>
+          <details className="group mt-5">
+            <summary className="flex min-h-[52px] cursor-pointer list-none items-center justify-center rounded-full border border-ink/25 px-6 text-[15px] font-medium text-ink transition hover:border-ink">
+              <span className="group-open:hidden">See the other five prizes +</span>
+              <span className="hidden group-open:inline">Hide the other five −</span>
+            </summary>
+            <div className="mt-5 grid gap-5 md:grid-cols-2">
+              {PRIZES.slice(3).map((prize) => (
+                <PrizeCard key={prize.name} prize={prize} />
+              ))}
+            </div>
+          </details>
           <div className="mt-8 rounded-2xl border border-ink/10 p-6 sm:p-8">
             <h3 className="font-serif text-[1.6rem] leading-tight text-ink">Smaller ways in</h3>
             <div className="mt-4 grid gap-6 text-[15px] leading-[1.55] text-ink/75 md:grid-cols-3">
               <p><span className="font-medium text-ink">The Maker Games.</span> A yearly 48-hour build weekend, with the Carve-Off and Golf Cart Reborn as rounds. Winners earn a credit toward Tractor Zero or Prompt to Part. It runs only if sponsors cover half.</p>
-              <p><span className="font-medium text-ink">Winter Salad.</span> A C$25K bounty: fresh greens every week through January, off-grid, for one human hour a week, weighed and metered.</p>
+              <p><span className="font-medium text-ink">Winter Salad.</span> A C$25K robotics bounty: machines do the work, one human hour a week, and fresh greens come out every week through January, off-grid, weighed and metered.</p>
               <p><span className="font-medium text-ink">Seven and Seventy.</span> Micro-grants up to C$5K for builds a 7-year-old and a 70-year-old make together. We publish what works, so families can copy it.</p>
             </div>
-            <a href="#talk" className="mt-6 inline-flex min-h-[44px] items-center text-[15px] font-medium text-terracotta underline underline-offset-4">Tell us what you&apos;d enter</a>
+            <a href="#talk-enter" className="mt-6 inline-flex min-h-[44px] items-center text-[15px] font-medium text-terracotta underline underline-offset-4">Tell us what you&apos;d enter</a>
           </div>
         </div>
       </section>
@@ -473,6 +487,7 @@ export default function ProofOfWinterPage() {
             <p>
               What we couldn&apos;t find is a place where an outsider can bring a cheap claim, run it beside rivals through a winter, and see the results published by name, failures included, for a prize. If it exists, <a href="#talk" className="underline underline-offset-2">tell us</a>.
             </p>
+            <p>Nor is this XPRIZE, with its giant single moonshots, or Edge City, which gathers people in pop-up villages. We&apos;ve learned from both. This is smaller and stranger: one place, one test, and a winter nobody can talk their way past.</p>
             <p>This isn&apos;t the Arctic. It&apos;s a freeze-thaw, snow-on-the-ground winter of the kind many people live in, 123 km north of Kamloops on Highway 5, <Src href="https://wellsgray.ca/plan/">about 477 km from Vancouver</Src>, with a shop, a road, and guests from May to October.</p>
           </div>
         </div>
@@ -505,7 +520,7 @@ export default function ProofOfWinterPage() {
                 ))}
               </dl>
               <p className="mt-6">
-                Also here: a small makerspace, a 120-person gazebo with a commercial kitchen, a geodesic dome, a private lake and a forest school that ran for the first time in summer 2026. Otherworld, a BC festival, plans three test festivals here in 2027, with volunteer crews arriving early to build.
+                Also here: a small makerspace, a 120-person gazebo with a commercial kitchen, a geodesic dome, a private lake and a forest school that ran in summer 2026. Otherworld, a BC festival, plans three test festivals here in 2027, with volunteer crews arriving early to build.
               </p>
             </div>
           </div>
@@ -536,7 +551,7 @@ export default function ProofOfWinterPage() {
           <p className="mt-8 max-w-[680px] text-[15px] leading-[1.6] text-white/60">
             Culture isn&apos;t a prize here. It&apos;s what happens when these people spend a week around the same fire. Nobody has been named yet, so the first ten help decide who comes next.
           </p>
-          <a href="#talk" className="mt-6 inline-flex min-h-[48px] items-center rounded-full bg-amber px-7 text-[15px] font-medium text-white transition hover:bg-amber/90">Ask about a seat</a>
+          <a href="#talk-council" className="mt-6 inline-flex min-h-[48px] items-center rounded-full bg-amber px-7 text-[15px] font-medium text-white transition hover:bg-amber/90">Ask about a seat</a>
         </div>
       </section>
 
@@ -561,7 +576,7 @@ export default function ProofOfWinterPage() {
             </dl>
             <p>These tiers are proposals. Our first ask is tools for the first Maker Games. Sponsors don&apos;t judge. If your machine fails, that gets published too, and so does how you fixed it. No sponsors are signed yet.</p>
           </div>
-          <a href="#talk" className="mt-4 inline-flex min-h-[44px] items-center text-[15px] font-medium text-terracotta underline underline-offset-4">Talk to us about a class</a>
+          <a href="#talk-sponsor" className="mt-4 inline-flex min-h-[44px] items-center text-[15px] font-medium text-terracotta underline underline-offset-4">Talk to us about a class</a>
         </div>
       </section>
 
@@ -575,9 +590,9 @@ export default function ProofOfWinterPage() {
           </p>
           <div className="mt-10 grid gap-4 md:grid-cols-3">
             {[
-              ["Stage 1 · 2027–29", "Up to C$4M", "Operator, quotes, first instruments and crew. The Relaunch pilot, Tractor Zero, the AI-Off Games, Prompt to Part."],
-              ["Stage 2 · 2029–31", "To about C$10M", "The Winter House, Village on a Trailer, the sculpture models, the first six holes, follow-ups."],
-              ["Stage 3 · 2031–32", "To C$15M", "The walk, the rest of the Open Course, and second runs, with The Relaunch first in line."],
+              ["Stage 1 · 2027–29", "Up to C$4M", "Operator, quotes, first instruments and crew. Up to C$1.95M for The Relaunch pilot, Tractor Zero, the AI-Off Games and Prompt to Part."],
+              ["Stage 2 · 2029–31", "To about C$10M", "Up to C$2.4M for the Winter House, Village on a Trailer, the sculpture models and the first six holes. Plus follow-ups and crew."],
+              ["Stage 3 · 2031–32", "To C$15M", "Up to C$2.1M for the walk and the rest of the Open Course, then C$1.5M for second runs, with The Relaunch first in line."],
             ].map(([stage, value, text]) => (
               <div key={stage} className="rounded-2xl bg-off-white p-6">
                 <p className="text-[12px] uppercase tracking-[0.14em] text-ink/50">{stage}</p>
@@ -607,13 +622,13 @@ export default function ProofOfWinterPage() {
             ))}
             <div className="flex items-baseline justify-between gap-4 border-t border-ink/15 pt-3 text-[15px]">
               <span className="font-medium text-ink">Total</span>
-              <span className="font-medium text-ink">8.0–15</span>
+              <span className="font-medium text-ink">7.9–15</span>
             </div>
           </div>
           <p className="mt-6 max-w-[760px] text-[14px] leading-[1.6] text-ink/60">
             These are our estimates, with no quotes behind them yet; getting quotes is the first job of Stage 1. Purses total about C$2.4M. A prize run also pays for testing, safety, judging and filming, and each prize&apos;s rules show its full estimate.
           </p>
-          <a href="#talk" className="mt-6 inline-flex min-h-[48px] items-center rounded-full bg-amber px-7 text-[15px] font-medium text-white transition hover:bg-amber/90">Ask for a conversation</a>
+          <a href="#talk-fund" className="mt-6 inline-flex min-h-[48px] items-center rounded-full bg-amber px-7 text-[15px] font-medium text-white transition hover:bg-amber/90">Ask for a conversation</a>
         </div>
       </section>
 
@@ -642,7 +657,10 @@ export default function ProofOfWinterPage() {
 
       {/* Talk */}
       <section id="talk" className="scroll-mt-4 bg-warm-dark px-4 py-16 sm:px-6 sm:py-24">
-        <div className="mx-auto max-w-[680px]">
+        <div className="relative mx-auto max-w-[680px]">
+          {["fund", "enter", "council", "sponsor", "relaunch"].map((id) => (
+            <span key={id} id={`talk-${id}`} className="absolute -top-16" aria-hidden />
+          ))}
           <Eyebrow light>Start here</Eyebrow>
           <H2 light>Tell us where you fit</H2>
           <p className="mt-5 mb-8 text-[17px] leading-[1.6] text-white/75">This is a proposal, so telling us what&apos;s wrong with it counts. It isn&apos;t an application or a donation form. Your note comes to us and isn&apos;t shared. We&apos;ll write back, and we&apos;ll tell you when full rules are ready.</p>

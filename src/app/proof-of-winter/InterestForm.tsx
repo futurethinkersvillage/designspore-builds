@@ -1,21 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const ROLES: Record<string, { label: string; next: string }> = {
+  "#talk-fund": { label: "I might fund this: let's talk", next: "Next: a call with Mike and Euvie, then a private briefing on structure and numbers." },
+  "#talk-enter": { label: "I'd enter a prize: tell me when rules are ready", next: "Next: we'll send full rules when they're ready, and your note helps shape them." },
+  "#talk-council": { label: "I'd help write the rules or judge", next: "Next: a conversation about who should be in the room, including you." },
+  "#talk-sponsor": { label: "My company might sponsor tools or a class", next: "Next: we'll send current audience numbers and talk through what fits your tools." },
+  "#talk-relaunch": { label: "I've lost work or can't get in: tell me about The Relaunch", next: "Next: we'll tell you when it opens. Your situation stays private." },
+};
 
 // Reuses /api/contact (Resend → Mike's inbox). Interest only: this is not an application or a donation form.
 export function InterestForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [role, setRole] = useState("");
+
+  // Each audience's button lands here with its own topic chosen.
+  useEffect(() => {
+    const pick = () => {
+      const match = ROLES[window.location.hash];
+      if (match) setRole(match.label);
+    };
+    pick();
+    window.addEventListener("hashchange", pick);
+    return () => window.removeEventListener("hashchange", pick);
+  }, []);
+
+  const next = Object.values(ROLES).find((r) => r.label === role)?.next;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
     const fd = new FormData(e.currentTarget);
-    const role = fd.get("role") || "Something else";
+    const topic = fd.get("role") || "Something else";
     const body = {
       name: fd.get("name"),
       email: fd.get("email"),
-      subject: `Proof of Winter: ${role}`,
-      message: `${role}\n\n${fd.get("message") || "(no message)"}`,
+      subject: `Proof of Winter: ${topic}`,
+      message: `${topic}\n\n${fd.get("message") || "(no message)"}`,
     };
     try {
       const res = await fetch("/api/contact", {
@@ -48,7 +70,7 @@ export function InterestForm() {
         <input name="name" required aria-label="Your name" placeholder="Your name" className={input} autoComplete="name" />
         <input name="email" required type="email" aria-label="Email" placeholder="Email" className={input} autoComplete="email" />
       </div>
-      <select name="role" aria-label="What brings you here" defaultValue="" required className={input}>
+      <select name="role" aria-label="What brings you here" value={role} onChange={(e) => setRole(e.target.value)} required className={input}>
         <option value="" disabled className={option}>What brings you here?</option>
         <option className={option}>I might fund this: let's talk</option>
         <option className={option}>I'd enter a prize: tell me when rules are ready</option>
@@ -57,6 +79,7 @@ export function InterestForm() {
         <option className={option}>I've lost work or can't get in: tell me about The Relaunch</option>
         <option className={option}>You've got something wrong, and here's what</option>
       </select>
+      {next && <p className="text-[14px] leading-[1.5] text-white/70">{next}</p>}
       <textarea name="message" rows={4} aria-label="Message" placeholder="What would you enter, change or want to know? (optional)" className={input} />
       <button
         type="submit"
