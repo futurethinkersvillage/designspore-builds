@@ -1,6 +1,7 @@
 // Checkpoint 1 (chapters 1–2) as a timeline over the shared world: the sheet → the land rising → the real land →
 // the aerial 360° → Wells Gray Park. apply(p) is a pure function of p (0..1). Used by index.html and film.html.
 import { makeRig, seg } from './rig.js';
+import { SQ } from './sheet.js';
 
 export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
   const $ = s => document.querySelector(s);
@@ -14,9 +15,11 @@ export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
     const aspect = innerWidth / innerHeight;
     const sheetFrame = aspect >= 1.2 ? Math.max(1800, 3120 / aspect) * 1.03 : Math.max(1900, 1600 / aspect);
     rig = makeRig(keys || [
-      [0.00, 0, 0, -135, sheetFrame * 1.12, 0, -90, 2.5],
-      [0.05, 0, 0, -135, sheetFrame, 0, -90, 2.5],
-      [0.17, 0, 0, 30, sheetFrame * 0.98, 0, -90, 30],
+      // heading SQ (-2.6°): the parcel's long edges run 2.6° off true east–west, so the camera turns to square them
+      // with the sheet's frame (Mike 10-29: "the property boundary is off-kilter"); sheet.js turns the frame to match
+      [0.00, 0, 0, -135, sheetFrame * 1.12, SQ, -90, 2.5],
+      [0.05, 0, 0, -135, sheetFrame, SQ, -90, 2.5],
+      [0.17, 0, 0, 30, sheetFrame * 0.98, SQ, -90, 30],
       [0.34, -170, 220, 330, 1900, 12, -16, 44],  // high enough to clear the exaggerated hills, low enough to see the sky
       [0.52, -230, 20, 50, 1300, 338, -30, 46],   // the property itself: golf, lake, campground, planned linework
       [0.61, -220, 10, 50, 1200, 333, -31, 46],   // hold on it while the plan is up
@@ -26,7 +29,8 @@ export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
       [0.70, pp[0], pp[1], panoPos.y, 0, 345, -82, 56],
       [0.75, pp[0], pp[1], panoPos.y, 0, 345, -82, 56],   // frozen through the dissolve
       [0.86, pp[0], pp[1], panoPos.y, 0, 352, -8, 56],
-      [1.00, pp[0], pp[1], panoPos.y, 0, 22, -5, 56],
+      [0.965, pp[0], pp[1], panoPos.y, 0, 89, -5, 56],   // (Mike 10-30: pan more) a 97° sweep across the park, ~27°/s, then STOP
+      [1.00, pp[0], pp[1], panoPos.y, 0, 89, -5, 56],    // still: the photo fades out here, never during the move (Mike 10-31, frame 1025)
     ]);
   };
   buildRig();
@@ -48,8 +52,8 @@ export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
     U.uPaperShade.value = seg(p, 0.08, 0.22);
     U.uFurniture.value = 1 - seg(p, 0.08, 0.16);   // gone before the push-in reaches the frame edge
     U.uPlanOverlay.value = style.plan3d ? 0 : seg(p, 0.40, 0.50); // brand palettes draw the plan in 3D instead (planned.js)
-    U.uGrade.value = seg(p, 0.6, 0.72);
-    U.uTreeFade.value = 1 - seg(p, 0.655, 0.695);   // trees seen from straight above read as black discs: gone before the hand-off
+    U.uGrade.value = seg(p, 0.6, 0.72) * (1 - seg(p, 0.9, 0.95));   // back to the chapters' look behind the opaque photo: no pop at the hand-off
+    U.uTreeFade.value = 1 - seg(p, 0.655, 0.695) + seg(p, 0.9, 0.95);   // trees seen from straight above read as black discs: gone before the hand-off
     U.uExag.value = 1 + 0.5 * (seg(p, 0.12, 0.26) - seg(p, 0.40, 0.48));       // the drawing rises tall, then settles to true
     U.uTide.value = p < 0.49 ? -40 + 740 * Math.pow(seg(p, 0.28, 0.49), 1.7) : 700 + 1400 * seg(p, 0.49, 0.555); // lingers on the valley floor
     const skyT = seg(p, 0.20, 0.36), realT = U.uFinish.value;
@@ -69,6 +73,7 @@ export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
     if (style.pano === 'fade') op = seg(p, 0.685, 0.76);
     else if (style.pano === 'iris') { iris = Math.max(0, 1.3 * seg(p, 0.67, 0.775) - 0.03); op = iris > 0 ? 1 : 0; } // iris < 0 would mean "no mask"
     else op = seg(p, 0.70, 0.75); // dolly: dissolve only once the camera sits exactly where the drone was
+    op *= 1 - seg(p, 0.968, 0.998);
     if (Q.has('panoAlpha')) { op = Number(Q.get('panoAlpha')); iris = -1; } // alignment check
     pano.mat.uniforms.uOpacity.value = op; pano.mat.uniforms.uIris.value = iris;
     pano.mat.uniforms.uWarm.value = 1 - seg(p, 0.75, 0.84);
@@ -87,7 +92,7 @@ export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
     // ---- words ----
     caps.place.style.opacity = seg(p, 0.40, 0.44) - seg(p, 0.495, 0.525);       // says its piece before the callouts return
     caps.place.style.transform = `translateY(${(1 - seg(p, 0.40, 0.46)) * 14}px)`;
-    caps.park.style.opacity = seg(p, 0.82, 0.87);   // once the tilt reaches the horizon
+    caps.park.style.opacity = seg(p, 0.82, 0.87) - seg(p, 0.945, 0.965);   // once the tilt reaches the horizon
     caps.park.style.transform = `translateY(${(1 - seg(p, 0.82, 0.89)) * 14}px)`;
     caps.hint.style.opacity = 0.7 * (1 - seg(p, 0, 0.03));
     caps.title.style.opacity = 1 - seg(p, 0.06, 0.14);

@@ -72,7 +72,7 @@ export function build({ lod = 'high' } = {}) {
   for (const x of [-PLAT_W / 2 + 0.1, PLAT_W / 2 - 0.1]) for (const z of [-PLAT_L / 2 + 0.1, 0, PLAT_L / 2 - 0.1])
     box(0.14, PLAT_H - 0.2 + 0.001, 0.14, timberDark, x, (PLAT_H - 0.2) / 2, z, g);       // blocks
   if (hi) {
-    const mat = new THREE.MeshStandardMaterial({ color: 0x55524d, roughness: 1 });
+    const mat = new THREE.MeshStandardMaterial({ color: 0x1d1d1f, roughness: 1 });   // black in every photo
     box(0.9, 0.012, 0.55, mat, 0, PLAT_H + 0.006, ZF + 0.32, g);                         // door mat on landing
   }
 
@@ -151,11 +151,11 @@ export function build({ lod = 'high' } = {}) {
     box(0.05, 0.04, 0.16, steel, px, CY + 0.85, ZB - 0.07, g);                        // wall bracket
   }
 
-  // ---------- black deck box beside the platform (wood / supplies) ----------
+  // ---------- black deck box beside the platform (wood / supplies): on the right as you face the door (sauna 360) ----------
   if (hi) {
     const black = new THREE.MeshStandardMaterial({ color: 0x1d1d1f, roughness: 0.6 });
-    box(0.6, 0.58, 1.15, black, -PLAT_W / 2 - 0.45, 0.29, ZB + 0.35, g);
-    box(0.64, 0.05, 1.19, black, -PLAT_W / 2 - 0.45, 0.6, ZB + 0.35, g);
+    box(0.6, 0.58, 1.15, black, PLAT_W / 2 + 0.45, 0.29, ZB + 0.35, g);
+    box(0.64, 0.05, 1.19, black, PLAT_W / 2 + 0.45, 0.6, ZB + 0.35, g);
   }
   return g;
 }

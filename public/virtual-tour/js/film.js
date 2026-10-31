@@ -13,11 +13,12 @@ import { panoState } from './panostop.js';
 const CHAPTERS = ['ch03', 'ch04', 'ch05', 'ch06', 'ch07', 'ch08', 'ch09', 'ch10', 'ch11', 'ch12'];
 const CP1_SECONDS = 34;
 const BLEND = 0.3;    // share of a chapter spent easing the camera in from the previous chapter's last view
+const DISSOLVE = 0.8; // seconds at a chapter's start: the last frame of the previous one dissolves away, the camera still (Mike 10-31: objects, light and captions all cut)
 
 const Q = new URLSearchParams(location.search);
 const REC = Q.has('rec');
 const style = pickStyle();
-const MOBILE = !new URLSearchParams(location.search).has('hq') && Math.min(screen.width, screen.height) < 700;   // ?hq: force desktop quality
+const MOBILE = !new URLSearchParams(location.search).has('hq') && /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) && Math.min(screen.width, screen.height) < 700;   // a real phone only: the screen size alone misfired on a hidden pane and stripped the models (Mike 10-30)
 if (REC) document.documentElement.classList.add('rec');
 const $ = s => document.querySelector(s);
 $('.ld-logo').innerHTML = markImg(72);
@@ -57,6 +58,7 @@ async function init() {
   const sharedModels = new Set(Object.values(E.models));
 
   // ---- load chapters, recording what each one adds to the scene and the HUD ----
+  if (Q.has('keeptrees')) E.clearTreesNear = () => {};   // review only: the forest with no clearing (tools/visibility_review.mjs)
   const ctx = { ...E, rig, hud, markImg, REC };
   const chapters = [];
   for (const id of CHAPTERS) {
@@ -66,7 +68,7 @@ async function init() {
     base();
     ctx.rig = rigFor(id, E.cameras);
     await mod.setup(ctx);
-    const objs = scene.children.filter(o => !sceneBefore.has(o) && !sharedModels.has(o));
+    const objs = scene.children.filter(o => !sceneBefore.has(o) && !sharedModels.has(o) && !o.userData.always);
     const els = [...hud.children].filter(e => !hudBefore.has(e));
     // the camera pose the chapter ends on (for the blend into the next one)
     mod.update(1, ctx);
@@ -81,15 +83,33 @@ async function init() {
   }
   // sample every chapter's camera path and clear trees from those corridors
   const path = [];
-  for (const c of chapters) for (let t = 0; t <= 1.0001; t += 0.02) { base(); c.mod.update(t, ctx); path.push(camera.position.clone()); }
+  // the lens's own path, plus its line of sight for 50 m (cut 10: in the new dense canopy the ch08 shop was hidden by
+  // trees between the camera and the subject, not on the path)
+  const fwd = new THREE.Vector3(), sight = [];
+  for (const c of chapters) for (let t = 0; t <= 1.0001; t += 0.02) {
+    base(); panoState.op = 0; c.mod.update(t, ctx); path.push(camera.position.clone());
+    if (panoState.op > 0.01) continue;   // while a real 360 is up its own view shows, and the trees it pans past must stay
+    camera.getWorldDirection(fwd); for (let d = 6; d <= 90; d += 4) sight.push(camera.position.clone().addScaledVector(fwd, d));
+  }
+  E.clearTreesNear(sight, 6);
   E.clearTreesNear(path);
+  // the whole-film trees don't stand in any camera's way either, on the chapters' paths or the blends between them
+  if (ctx.photoTrees) {
+    const flown = [...path]; chapters.forEach((c, k) => { if (k) for (let w = 0; w <= 1; w += 0.05) flown.push(chapters[k - 1].endPose.pos.clone().lerp(c.startPose.pos, w)); });
+    const m = new THREE.Matrix4(), zero = new THREE.Matrix4().makeScale(0, 0, 0);
+    for (let i = 0; i < ctx.photoTrees.count; i++) { ctx.photoTrees.getMatrixAt(i, m); const x = m.elements[12], z = m.elements[14], top = m.elements[13] + m.elements[5]; if (flown.some(p => p.y < top + 4 && Math.hypot(p.x - x, p.z - z) < 8)) ctx.photoTrees.setMatrixAt(i, zero); }
+    ctx.photoTrees.instanceMatrix.needsUpdate = true;
+  }
+  const always = scene.children.filter(o => o.userData.always);
+  const showAlways = on => always.forEach(o => { o.visible = on && (!o.userData.maxDist || camera.position.distanceTo(o.userData.centre) < o.userData.maxDist); });
   const cp1End = (() => { cp1.apply(1); return { pos: camera.position.clone(), quat: camera.quaternion.clone(), fov: camera.fov }; })();
 
   // ---- global timeline: weights = seconds ----
   const total = CP1_SECONDS + chapters.reduce((a, c) => a + c.seconds, 0);
   let acc = CP1_SECONDS / total;
   const ranges = chapters.map(c => { const a = acc; acc += c.seconds / total; return [a, acc]; });
-  let active = -2;
+  let active = -2, prevWrap = null;
+  const handoff = { k: -1, x: 1 };
   const show = i => {
     if (i === active) return;
     chapters.forEach((c, k) => {
@@ -97,13 +117,15 @@ async function init() {
       c.objs.forEach(o => { o.visible = on ? o.userData.filmVisible : false; });
       c.wrap.style.display = on ? '' : 'none';
     });
+    prevWrap = null;
     if (i >= 0) base();
     active = i;
   };
 
-  const q = new THREE.Quaternion();
+  const q = new THREE.Quaternion(), e0 = new THREE.Euler(), e1 = new THREE.Euler(), e2 = new THREE.Euler();
   function apply(p) {
-    if (p < CP1_SECONDS / total) { if (active !== -1) { show(-1); base(); } cp1.apply(p / (CP1_SECONDS / total)); legend.style.opacity = 0; return; }
+    handoff.x = 1;
+    if (p < CP1_SECONDS / total) { if (active !== -1) { show(-1); base(); } cp1.apply(p / (CP1_SECONDS / total)); legend.style.opacity = 0; showAlways(p > 0.9 * CP1_SECONDS / total); return; }   // (in behind the opaque aerial photo)
     const i = ranges.findIndex(([a, b]) => p <= b) ?? chapters.length - 1;
     const k = i < 0 ? chapters.length - 1 : i;
     show(k);
@@ -111,33 +133,80 @@ async function init() {
     U.uTime.value = REC ? p * total : performance.now() / 1000;
     panoState.op = 0; c.mod.update(t, ctx);
     // captions wait until the camera has arrived
-    const capFade = rig.smooth(rig.clamp((t - BLEND * 0.8) / (BLEND * 0.4)));
+    const blend = c.mod.meta.blend ?? BLEND;   // a chapter with a 360 stop has its camera arrive before the photo fades in (Mike 10-31, frame 1767)
+    const capFade = rig.smooth(rig.clamp((t - blend * 0.8) / (blend * 0.4)));
     c.wrap.style.opacity = String(capFade);
     // legend: in once the 360° hands over to 3D, out as the finale turns back into the sheet
     legend.style.opacity = String((k === 0 ? rig.seg(t, 0.2, 0.35) : k === chapters.length - 1 ? 1 - rig.seg(t, 0.45, 0.55) : c.mod.meta.legend === false ? 0 : 1) * (1 - panoState.op));
     // ease the camera in from where the previous chapter (or the 360° ending) left it
-    const u = rig.clamp(t / BLEND), w = u * u * u * (u * (u * 6 - 15) + 10);   // smootherstep: no jolt at either end
-    // leaving the 360° photo: it dissolves away as the camera eases out of the drone's spot (no hard cut back to 3D)
-    if (k === 0 && w < 1) {
-      E.pano.mesh.visible = true; E.pano.mat.uniforms.uOpacity.value = 1 - rig.smooth(rig.clamp(t / (BLEND * 0.8)));
-      E.pano.mat.uniforms.uIris.value = -1; E.pano.mat.uniforms.uWarm.value = 0;
-    } else if (k === 0) E.pano.mesh.visible = false;
+    const hold = k ? DISSOLVE / c.seconds : 0;   // the camera waits out the dissolve
+    if (t < hold) { handoff.k = k; handoff.x = rig.smooth(t / hold); }
+    const shown = handoff.x < 1 ? chapters[k - 1].wrap : null;   // the last chapter's captions fade with its picture
+    if (prevWrap && prevWrap !== shown) prevWrap.style.display = 'none';
+    if (shown) { shown.style.display = ''; shown.style.opacity = String(1 - handoff.x); } prevWrap = shown;
+    const u = rig.clamp((t - hold) / (blend - hold)), w = u * u * u * (u * (u * 6 - 15) + 10);   // smootherstep: no jolt at either end
+    if (k === 0) E.pano.mesh.visible = false;   // the aerial photo has already faded out, with the camera still (cp1.js; Mike 10-31, frame 1025)
     if (w < 1) {
       const from = k === 0 ? cp1End : chapters[k - 1].endPose;
       const toPos = camera.position.clone(), toQuat = camera.quaternion.clone(), toFov = camera.fov;
       // arc up and over instead of skimming across: lift the midpoint by a share of the distance travelled
-      const lift = Math.min(from.pos.distanceTo(toPos) * 0.18, 220) * Math.sin(Math.PI * w);
+      const lift = (c.mod.meta.lift ?? 1) * Math.min(from.pos.distanceTo(toPos) * 0.18, 220) * Math.sin(Math.PI * w);
       camera.position.copy(from.pos).lerp(toPos, w); camera.position.y += lift;
-      q.copy(from.quat).slerp(toQuat, w); camera.quaternion.copy(q);
+      if (c.mod.meta.blendTurn) {   // a turn near 180°: heading + pitch, so the slerp can't flip direction half way ("bounces back") or roll
+        e0.setFromQuaternion(from.quat, 'YXZ'); e1.setFromQuaternion(toQuat, 'YXZ');
+        const wrap = a => ((a % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
+        e2.setFromQuaternion(c.startPose.quat, 'YXZ');   // which way round is settled once, from the chapter's first pose
+        const dy = wrap(e2.y - e0.y) + wrap(e1.y - e2.y);
+        e1.set(e0.x + (e1.x - e0.x) * w, e0.y + dy * w, 0, 'YXZ'); camera.quaternion.setFromEuler(e1);
+      } else { q.copy(from.quat).slerp(toQuat, w); camera.quaternion.copy(q); }
       camera.fov = from.fov + (toFov - from.fov) * w; camera.near = 1; camera.far = 80000; camera.updateProjectionMatrix();
     }
+    showAlways(true);
   }
+
+  // ---- the dissolve: the previous chapter's last frame, held in a texture and drawn over the new chapter ----
+  const size = new THREE.Vector2();
+  let held = null, heldFor = -1;
+  const overlayU = { map: { value: null }, a: { value: 0 } };
+  const overlay = new THREE.Scene(), overlayCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  overlay.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ uniforms: overlayU, transparent: true, depthTest: false, depthWrite: false, toneMapped: false,
+    vertexShader: 'varying vec2 vU; void main() { vU = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }',
+    fragmentShader: 'uniform sampler2D map; uniform float a; varying vec2 vU; void main() { gl_FragColor = vec4(texture2D(map, vU).rgb, a); }' })));   // already display pixels: no tone mapping, no colour conversion
+  overlay.children[0].frustumCulled = false;
+  const holdLastFrame = p => {
+    const k = handoff.k; renderer.getDrawingBufferSize(size);
+    if (!held || held.image.width !== size.x || held.image.height !== size.y) { held?.dispose(); held = new THREE.FramebufferTexture(size.x, size.y); overlayU.map.value = held; heldFor = -1; }
+    if (heldFor === k) return;
+    show(k - 1); panoState.op = 0; chapters[k - 1].mod.update(1, ctx); showAlways(true); E.render();
+    renderer.copyFramebufferToTexture(held); heldFor = k;
+    apply(p);
+  };
+  const render = p => {
+    if (handoff.x < 1) holdLastFrame(p);
+    E.render();
+    if (handoff.x < 1) { const ac = renderer.autoClear; renderer.autoClear = false; overlayU.a.value = 1 - handoff.x; renderer.render(overlay, overlayCam); renderer.autoClear = ac; }
+  };
 
   // scroll length follows the film's length
   $('#scroller').style.height = `${Math.round(total / 34 * 900)}vh`;
 
+  // frame counter (Mike 10-29: "so that I can reference specific points of camera movement"): film time, frame at
+  // 30 fps, the chapter and its own second. Shown on the scroll page, never in recordings; ?nocounter hides it.
+  const counter = document.createElement('div');
+  counter.style.cssText = 'position:fixed;left:10px;top:10px;z-index:60;font:600 12px/1.35 ui-monospace,Consolas,monospace;color:#F2EDE8;'
+    + 'background:rgba(26,23,32,.78);border:1px solid rgba(234,130,78,.55);border-radius:4px;padding:5px 8px;pointer-events:none;white-space:pre';
+  if (!REC && !Q.has('nocounter')) document.body.appendChild(counter);
+  const cp1Share = CP1_SECONDS / total;
+  const showCounter = p => {
+    const sec = p * total, f = Math.round(sec * 30);
+    let where;
+    if (p < cp1Share) where = `ch01–02  ${(p / cp1Share * CP1_SECONDS).toFixed(1)}s`;
+    else { const i = Math.max(0, ranges.findIndex(([a, b]) => p <= b)), [a, b] = ranges[i], c = chapters[i]; where = `${c.id}  ${((p - a) / (b - a) * c.seconds).toFixed(1)}s of ${c.seconds}`; }
+    counter.textContent = `frame ${String(f).padStart(4, '0')}   ${sec.toFixed(1)}s
+${where}`;
+  };
   let P = 0, drawn = -1;
-  const frame = () => { if (need || P !== drawn || P > 0.33 * CP1_SECONDS / total) { apply(P); E.render(); drawn = P; need = false; } };
+  const frame = () => { if (need || P !== drawn || P > 0.33 * CP1_SECONDS / total) { apply(P); render(P); drawn = P; need = false; showCounter(P); } };
   apply(0.5 * CP1_SECONDS / total); renderer.compile(scene, camera); apply(0); E.render();
   $('#loader').classList.add('done'); if (REC) $('#loader').style.display = 'none';
   if (REC) {

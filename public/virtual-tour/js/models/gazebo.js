@@ -206,6 +206,7 @@ export function build({ lod = 'high' } = {}) {
     const pit = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.8, 0.5, 12), stone); pit.position.y = F + 0.25; g.add(pit);
     const ash = new THREE.Mesh(new THREE.CircleGeometry(0.55, 12), new THREE.MeshStandardMaterial({ color: 0x2c2724, roughness: 1 }));
     ash.rotation.x = -Math.PI / 2; ash.position.y = F + 0.51; g.add(ash);
+    const lid = new THREE.Mesh(new THREE.CylinderGeometry(0.82, 0.82, 0.12, 20), new THREE.MeshStandardMaterial({ color: 0x8a6238, roughness: 0.8 })); lid.position.y = F + 0.58; g.add(lid);
     const tbl = new THREE.MeshStandardMaterial({ color: 0x8e5a44, roughness: 0.9 });
     const table = (x, z, ry) => {
       const t = new THREE.Group(); t.name = 'picnic_table'; t.position.set(x, F, z); t.rotation.y = ry; g.add(t);
@@ -215,8 +216,7 @@ export function build({ lod = 'high' } = {}) {
     };
     for (let k = 1; k < 8; k++) {
       const phi = k * Math.PI / 4, n = dirOf(phi);
-      table(n.x * 4.6, n.z * 4.6, phi);
-      if (k % 2 === 0 && k !== 4) { const m = dirOf(phi); table(m.x * 2.4, m.z * 2.4, phi + Math.PI / 2); }
+      table(n.x * 4.7, n.z * 4.7, phi);   // a clean ring of separate tables, as in Gazebo Interior.jpg (the inner ring overlapped them)
     }
   }
   return g;

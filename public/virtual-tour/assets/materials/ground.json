@@ -1,0 +1,86 @@
+{
+ "layers": [
+  {
+   "name": "lawn",
+   "id": "Grass004",
+   "size": 2.2,
+   "mean": [
+    0.1269,
+    0.1625,
+    0.0306
+   ]
+  },
+  {
+   "name": "fairway",
+   "id": "Grass001",
+   "size": 2.0,
+   "mean": [
+    0.0572,
+    0.1084,
+    0.0185
+   ]
+  },
+  {
+   "name": "worn",
+   "id": "Ground037",
+   "size": 2.6,
+   "mean": [
+    0.3365,
+    0.3116,
+    0.1104
+   ]
+  },
+  {
+   "name": "yard",
+   "id": "Ground081",
+   "size": 2.2,
+   "mean": [
+    0.3122,
+    0.2583,
+    0.1283
+   ]
+  },
+  {
+   "name": "road",
+   "id": "Gravel035",
+   "size": 1.8,
+   "mean": [
+    0.2301,
+    0.2337,
+    0.2082
+   ]
+  },
+  {
+   "name": "dirt",
+   "id": "Ground079S",
+   "size": 2.6,
+   "mean": [
+    0.4695,
+    0.3242,
+    0.1743
+   ]
+  },
+  {
+   "name": "forest",
+   "id": "Ground085",
+   "size": 2.6,
+   "mean": [
+    0.2097,
+    0.1304,
+    0.0666
+   ]
+  },
+  {
+   "name": "cobble",
+   "id": "Rocks022",
+   "size": 2.4,
+   "mean": [
+    0.3434,
+    0.3159,
+    0.2829
+   ]
+  }
+ ],
+ "res": 1024,
+ "credit": "ambientCG.com (CC0)"
+}

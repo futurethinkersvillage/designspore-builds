@@ -1,59 +1,43 @@
 // Chapter 6 — The gazebo: the heart. A low flight west across the golf / disc-golf fairways, past the real
-// permaculture garden and Top House, to the 120-person event gazebo. A framed real photo shows the inside today;
-// then a co-working café is drawn into it as amber linework — clearly a CONCEPT (the café does not exist yet).
-import { panoStop } from '../panostop.js';
+// permaculture garden and Top House, to the 120-person event gazebo; then, with the camera nearly still, the gazebo converts into the planned co-working café (js/models/gazebo_cafe.js:
+// glazing, furniture, café counter, laptops, lights — Mike 10-29; replaces the old orange concept boxes).
+import * as CAFE from '../models/gazebo_cafe.js';
 
-export const meta = { id: 'ch06', title: 'The gazebo: the heart', seconds: 13, animated: true };
+export const meta = { id: 'ch06', title: 'The gazebo: the heart', seconds: 14, animated: true, blendTurn: true };   // the blend's slerp flipped direction at frame 3144: one 114° jump
 
-let rig, cap, capCafe, tag, photo, cafe, pano, tables = [], cafeMats = [];
+let DUSKH, DUSKT, glowL, SUN0 = 1, HEMI0 = 1, rig, cap, capCafe, tag, photo, cafe, gzObj, tables = [];
 
 function el(html, css) { const d = document.createElement('div'); d.innerHTML = html; if (css) d.style.cssText = css; return d; }
 
 export async function setup(ctx) {
   const { THREE, rig: R, heightAt } = ctx;
+  SUN0 = ctx.sun.intensity; HEMI0 = ctx.hemi.intensity; DUSKH = new THREE.Color('#e8a878'); DUSKT = new THREE.Color('#4a4a80');
+  glowL = new THREE.PointLight(0xffc78a, 0, 28, 1.6); glowL.position.set(-597, heightAt(-597, -226) + 2.6, 226); ctx.scene.add(glowL);
   const gz = await ctx.placeModel('gazebo');
   tables = []; gz.traverse(o => { if (o.name === 'picnic_table') tables.push(o); });   // cleared away as the café draws in
   await ctx.placeModel('top_house');
   ctx.blocks.visible = false;
   const G = { x: -597, y: -226, rotY: 0.6615 }, h = heightAt(G.x, G.y); // where the drone survey shows it (engine.js PLACE)
 
-  // ---- café concept: counter, long tables with benches, pendant lights — amber edges over a faint glassy fill ----
-  cafe = new THREE.Group(); cafe.position.set(G.x, h + 0.25, -G.y); cafe.rotation.y = G.rotY;
-  const amber = new THREE.Color('#EA824E');
-  const add = (w, hh, d, x, y, z) => {
-    const geo = new THREE.BoxGeometry(w, hh, d);
-    const fill = new THREE.MeshBasicMaterial({ color: amber, transparent: true, opacity: 0, depthWrite: false });
-    const edge = new THREE.LineBasicMaterial({ color: amber, transparent: true, opacity: 0 });
-    const m = new THREE.Mesh(geo, fill), e = new THREE.LineSegments(new THREE.EdgesGeometry(geo), edge);
-    const o = new THREE.Group(); o.position.set(x, y + hh / 2, z); o.add(m, e); cafe.add(o);
-    fill.userData.k = 0.32; edge.userData.k = 1; cafeMats.push(fill, edge);   // a fuller amber body so the café reads on the grey floor
-  };
-  add(5.2, 1.1, 0.9, 0, 0, -4.6);                       // coffee counter at the back
-  add(1.6, 1.9, 0.6, 2.9, 0, -5.2);                     // espresso / shelving
-  for (const z of [-1.6, 0.6, 2.8]) for (const x of [-3, 3]) {
-    add(2.6, 0.75, 0.9, x, 0, z);                       // long work tables
-    add(2.6, 0.45, 0.32, x, 0, z - 0.75); add(2.6, 0.45, 0.32, x, 0, z + 0.75); // benches
-  }
-  for (const x of [-3, 0, 3]) add(0.5, 0.35, 0.5, x, 2.55, 0.6);   // pendant lamps
-  ctx.scene.add(cafe);
+  // ---- the planned co-working café, laid over the gazebo exactly where the gazebo stands ----
+  const gp = ctx.PLACE.gazebo[0];
+  cafe = CAFE.build({ lod: ctx.MOBILE ? 'low' : 'high' });
+  cafe.position.set(gp.x, heightAt(gp.x, gp.y), -gp.y); cafe.rotation.y = gp.rotY || 0;
+  CAFE.setStage(cafe, 0); cafe.visible = false; ctx.scene.add(cafe);
+  gzObj = gz.children[0];
 
   // [t, east, north, height, frameH, heading°, pitch°, fov°]
-  // in over the fairways to the open side (faces SE), into the real 360° photo taken inside, a slow look around,
-  // then back out under the eave where the café concept draws into the 3D gazebo
-  pano = await panoStop(ctx, 'gazebo');
+  // in over the fairways to the open side (faces SE), then a hold on the gazebo as it is today, then — camera almost
+  // still — it converts into the café. (Mike 10-30: "we don't need the gazebo 360 image … it looks bad": no photo stop.)
   rig = R.makeRig([
     [0.00, -540, -205, h + 10, 90, 250, -22, 45],
-    [0.30, G.x, G.y, h + 3, 26, 318, -14, 45],
-    pano.key(0.40, 296, -10),
-    pano.key(0.43, 300, -10),
-    pano.key(0.61, 362, -8),    // a real look around (~60°), level horizon
-    // out under the eave while the photo still covers the screen (it sits at infinity), then it fades: never inside the beams
-    [0.66, G.x, G.y, h + 2, 13, 366, -9, 45],
-    [1.00, G.x, G.y, h + 1.8, 9, 370, -6, 45],   // a slow push in under the eave while the café draws
+    [0.36, G.x, G.y, h + 1.8, 16, 330, -9, 50],    // the open front
+    [0.62, G.x - 1.4, G.y - 0.6, h + 1.8, 15.5, 334, -8, 50],    // hold: today's gazebo, the first line reads
+    [1.00, G.x - 2.7, G.y - 1.2, h + 1.8, 15, 336, -6, 50],    // a slow push while it converts; the building sits right of the caption
   ]);
 
   const mark = h => ctx.markImg(h);
-  cap = el('<div class="eyebrow">The heart · here today</div><h1>The 120-person gazebo</h1>' +
+  cap = el('<div class="eyebrow">The heart · here today</div><h1 style="white-space:nowrap;font-size:clamp(30px,4vw,56px)">The 120-person gazebo</h1>' +
     '<p style="font:400 15px/1.45 Inter,sans-serif;margin:12px 0 0;opacity:.9">Weddings, meetups, celebrations and community dinners.</p>');
   cap.className = 'cap'; cap.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', mark(40)); ctx.hud.appendChild(cap);
   capCafe = el('<div class="eyebrow">Next</div><h1>Ready to become<br>a co-working café.</h1>');
@@ -70,20 +54,18 @@ export function update(t, ctx) {
   const s = ctx.rig.seg;
   ctx.U.uWaterAmt.value = 0.3;
   rig.apply(ctx.camera, t);
-  cap.style.opacity = s(t, 0.3, 0.38) - s(t, 0.58, 0.64);   // after the blend; gone before the photo dissolves out
-  cap.style.transform = `translateY(${(1 - s(t, 0.08, 0.2)) * 14}px)`;
-  pano.set(s(t, 0.34, 0.42) * (1 - s(t, 0.67, 0.76)));   // the real inside (replaces the old framed photo)
+  cap.style.opacity = s(t, 0.34, 0.39) - s(t, 0.6, 0.63);   // on the hold
+  cap.style.transform = `translateY(${(1 - s(t, 0.34, 0.42)) * 14}px)`;
   photo.style.opacity = 0;
-  const draw = s(t, 0.68, 0.88);           // café draws in, piece by piece
-  cafe.children.forEach((o, i) => {
-    const k = s(draw, i / cafe.children.length * 0.7, i / cafe.children.length * 0.7 + 0.3);
-    o.scale.set(1, Math.max(k, 0.001), 1);
-    o.children.forEach(c => { c.material.opacity = c.material.userData.k * k; });
-  });
-  cafe.visible = draw > 0.001;
-  // today's picnic tables are taken away while the real photo still covers the screen (scaling them read as debris)
-  tables.forEach(o => { o.visible = t < 0.69; });
-  capCafe.style.opacity = s(t, 0.74, 0.84);
-  capCafe.style.transform = `translateY(${(1 - s(t, 0.74, 0.86)) * 14}px)`;
-  tag.style.opacity = s(t, 0.7, 0.78);   // with the first amber lines, not before
+  // the conversion plays while the camera holds: glazing, furniture, café, laptops, then the lights come on
+  const k = s(t, 0.6, 0.85);   // ~3 s, in stages: glazing, furniture, café, laptops, lights; then a real hold on the finished café (i12)
+  CAFE.setStage(cafe, k); cafe.visible = k > 0.001;
+  if (gzObj) CAFE.clearGazebo(gzObj, s(t, 0.68, 0.76));   // today's tables make way as the new furniture arrives (no empty-deck beat)
+  // the lights come on visibly (i3 review: the pendants stayed dark in daylight): warm glow ×3 at the end
+  const on = s(t, 0.82, 0.92); if (on > 0) cafe.traverse(m => { const u = m.material?.userData; if (u?.glow) m.material.emissiveIntensity = u.baseEmissive * on * 22; });   // (i7: ×3 barely showed)
+  // the evening comes on as the lights do, so they actually read (i12)
+  const dusk = s(t, 0.8, 0.95); ctx.U.uLight.value.set(1 - 0.3 * dusk, 1 - 0.4 * dusk, 1 - 0.45 * dusk); ctx.sun.intensity = SUN0 * (1 - 0.35 * dusk); ctx.hemi.intensity = HEMI0 * (1 - 0.3 * dusk); glowL.intensity = 260 * on; { const u = ctx.sky.mat.uniforms; u.uHorizon.value.copy(ctx.colors.horizon).lerp(DUSKH, dusk); u.uTop.value.copy(ctx.colors.skyTop).lerp(DUSKT, dusk); ctx.U.uFog.value.copy(u.uHorizon.value); }
+  capCafe.style.opacity = s(t, 0.64, 0.68);
+  capCafe.style.transform = `translateY(${(1 - s(t, 0.64, 0.71)) * 14}px)`;
+  tag.style.opacity = 0;
 }

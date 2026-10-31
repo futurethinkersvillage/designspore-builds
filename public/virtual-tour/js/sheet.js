@@ -3,6 +3,9 @@
 import { drawMark } from './brand.js';
 
 export const SHEET = { x0: -1560, x1: 1560, y0: -900, y1: 900, px: 4096 }; // just around the parcel, so the plan fills the frame
+// the parcel's long edges run 2.6° off true east–west: the sheet views turn the camera by SQ and the frame / title
+// block / north arrow are drawn turned the other way, so the boundary sits square in the frame (Mike 10-29)
+export const SQ = -2.6;
 
 const EXISTING_BUILDINGS = ['utility_buildings', 'accomodations_for_rent', 'public_areas', 'bathroom_shower_house'];
 const RV = ['full_service_rv_sites', 'power_water_rv_sites', 'regular_rv_sites'];
@@ -124,6 +127,9 @@ export async function drawSheets(L, style) {
   // ---- frame, north arrow, scale bar, title block: own canvas, fades out when the camera tilts ----
   const furniture = document.createElement('canvas'); furniture.width = W; furniture.height = H;
   c = furniture.getContext('2d');
+  // turned (and shrunk to stay on the sheet) so it is square on screen when the camera looks down at heading SQ;
+  // (the north arrow turns with it: 2.6° off true north, too small to read)
+  c.translate(W / 2, H / 2); c.rotate(SQ * Math.PI / 180); c.scale(0.93, 0.93); c.translate(-W / 2, -H / 2);
   const m = 30;
   c.strokeStyle = ink; c.lineWidth = 2.4 * K; c.strokeRect(m, m, W - 2 * m, H - 2 * m);
   c.lineWidth = 0.8 * K; c.strokeRect(m + 9 * K, m + 9 * K, W - 2 * m - 18 * K, H - 2 * m - 18 * K);

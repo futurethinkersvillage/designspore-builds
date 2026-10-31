@@ -46,7 +46,7 @@ const DOOR = { hw: 0.6, top: DECK_H + 2.12, zf: RMAX + 0.11, zb: 1.55 };   // gl
 
 // ---- colours ------------------------------------------------------------------------------------------------
 const C = {
-  shell: new THREE.Color('#a2a5a7'), seam: new THREE.Color('#6a6d70'), frame: new THREE.Color('#2f3336'),
+  shell: new THREE.Color('#d6cdb9'), seam: new THREE.Color('#6a6d70'), frame: new THREE.Color('#2f3336'),
   portal: new THREE.Color('#3b3f43'), glass: new THREE.Color('#7d5a38'), sky: new THREE.Color('#62707a'),
   deck: new THREE.Color('#8a6a4b'), fascia: new THREE.Color('#74563b'), gap: new THREE.Color('#3a2c21'),
   flue: new THREE.Color('#2b2c2e'), lamp: new THREE.Color('#ffe2b0'),
@@ -295,7 +295,7 @@ function sizeScale(size) { const s = SIZES[size] || SIZES['5m'], b = SIZES['5m']
 
 export function mergedMaterials() {
   return [
-    new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.62, metalness: 0.12 }),
+    new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.7, metalness: 0.0 }),
     new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.25, metalness: 0.0, emissive: 0xffaa55, emissiveIntensity: 0.85 }),
   ];
 }

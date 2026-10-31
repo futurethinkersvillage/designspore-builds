@@ -9,24 +9,24 @@ import { makePano } from './pano.js';
 
 export const PANOS = {
   // ~4.5 m WNW of the barrel, facing its door; Hemp Creek + footbridge to the N, bunk cabin to the SSW
-  sauna:    { file: 'sauna',    at: [-98.6, -60.1],   eye: 1.6, yaw0: 231, title: 'The cedar sauna on Hemp Creek' },
+  sauna:    { file: 'sauna',    at: [-85.12, -42.86], eye: 2.04, yaw0: 248.33, title: 'The cedar sauna on Hemp Creek' },   // moved with the sauna (Mike re-placed it ~21 m NE, 10-29); yaw0 is compass-true, unchanged
   // ~12 m ENE of the main shower house; the office + golf carts and the forest-school playground beyond (to the W)
-  shower:   { file: 'shower',   at: [-69.5, 110.4],   eye: 1.6, yaw0: 97,  title: 'Shower house & campground' },   // re-solved 10-28 from the real shower house + trampoline
+  shower:   { file: 'shower',   at: [-66.57, 115.63],  eye: 3.01, yaw0: 73.96, floorAt: [-76.05, 101.56], title: 'Shower house & campground' },   // solved 10-31 from 8 landmarks (tools/pano_solve_shower.py, rms 0.9°): the photo was taken from ~3 m up, ~11 m off the gable and level with the back wall; eye = above the house's ground
   // (DomeLake1 — "Lake & Field" — is NOT used: it shows the dome at its earlier spot. Mike, 10-28)
   // inside the event gazebo (kitchen wall to the NW, open entrance to the SE)
   gazebo:   { file: 'gazebo',   at: [-597, -226],     eye: 1.7, yaw0: 19,  title: 'Inside the gazebo' },   // set so the arrival view is the tables + open side
 };
 // how much of a real photo is on screen right now (the film hides its "concept" legend over real photos)
 export const panoState = { op: 0 };
-const SMALL = Math.min(screen.width, screen.height) < 700 && !new URLSearchParams(location.search).has('hq');
+const SMALL = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) && Math.min(screen.width, screen.height) < 700 && !new URLSearchParams(location.search).has('hq');
 
 export async function panoStop(ctx, id) {
   const P = PANOS[id];
   const p = makePano(`assets/pano/${P.file}_360${SMALL ? '_m' : ''}.jpg`, P.yaw0);
-  p.mat.uniforms.uDissolve.value = 1; p.mat.uniforms.uIris.value = -1;
+  p.mat.uniforms.uDissolve.value = 0; p.mat.uniforms.uIris.value = -1;   // straight crossfade (cut 10 reviews: the patch dissolve read as blotchy blocks)
   ctx.scene.add(p.mesh);
   await p.ready;
-  const z = ctx.groundAt(P.at[0], P.at[1]) + P.eye;
+  const z = ctx.groundAt(...(P.floorAt || P.at)) + P.eye;
   // a small cream tag in the corner while the photo is up (the real-world twin of the CONCEPT tag)
   const tag = document.createElement('div');
   tag.style.cssText = 'position:absolute;right:max(16px,3vw);top:max(16px,3vh);font:600 11px/1 Inter,sans-serif;letter-spacing:.18em;color:#F2EDE8;border:1px solid rgba(242,237,232,.7);padding:7px 10px;border-radius:2px;background:rgba(26,23,32,.55);opacity:0;text-transform:uppercase';

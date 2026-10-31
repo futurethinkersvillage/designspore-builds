@@ -22,12 +22,15 @@ export function makeRig(keyframes) {
   const interp = (p, c) => {
     let i = 0; while (i < KF.length - 2 && p > KF[i + 1][0]) i++;
     const k0 = KF[i], k1 = KF[i + 1], dt = k1[0] - k0[0], t = clamp((p - k0[0]) / dt);
+    // monotone (Fritsch–Carlson) tangents: smooth through each key but never overshooting between two keys — a
+    // "hold" next to a big move used to slide ~20 m away and back (Mike 10-29: superfluous camera movement)
     const tan = j => {
       if (j === 0 || j === KF.length - 1) return 0;
-      const a = KF[j - 1], b = KF[j + 1];
-      if (a[c] === KF[j][c] || b[c] === KF[j][c]) return 0;
-      if ((KF[j][c] - a[c]) * (b[c] - KF[j][c]) < 0) return 0;
-      return (b[c] - a[c]) / (b[0] - a[0]);
+      const a = KF[j - 1], b = KF[j + 1], k = KF[j];
+      const dl = (k[c] - a[c]) / (k[0] - a[0]), dr = (b[c] - k[c]) / (b[0] - k[0]);
+      if (dl === 0 || dr === 0 || dl * dr < 0) return 0;
+      const m = (b[c] - a[c]) / (b[0] - a[0]);
+      return Math.sign(m) * Math.min(Math.abs(m), 3 * Math.min(Math.abs(dl), Math.abs(dr)));
     };
     const m0 = tan(i) * dt, m1 = tan(i + 1) * dt, t2 = t * t, t3 = t2 * t;
     return (2 * t3 - 3 * t2 + 1) * k0[c] + (t3 - 2 * t2 + t) * m0 + (-2 * t3 + 3 * t2) * k1[c] + (t3 - t2) * m1;
@@ -47,7 +50,7 @@ export function makeRig(keyframes) {
     apply(camera, p) {
       const { pos, A, P, fov, dist } = at(p);
       camera.position.copy(pos); camera.rotation.order = 'YXZ'; camera.rotation.set(P, -A, 0);
-      camera.fov = fov; camera.near = Math.max(1, dist - 4000); camera.far = dist + 60000;
+      camera.fov = fov; camera.near = dist < 5 ? 0.2 : Math.max(1, dist - 4000); camera.far = dist + 60000;
       camera.updateProjectionMatrix();
       return { pos, A, P, fov, dist };
     },

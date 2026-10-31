@@ -5,15 +5,17 @@ import * as THREE from 'three';
 import { drawSheets } from './sheet.js';
 import { makeLand, heightSampler, U, H0 } from './land.js';
 import { buildMosaic, tileCount } from './imagery.js';
-import { placeTrees, makeTrees, makeBuildings } from './objects.js';
+import { placeTrees, makeTrees, makeBuildings, makeRocks } from './objects.js';
 import { makePano, makeSky } from './pano.js';
 import { makePlanned } from './planned.js';
 import { makeWaterMask } from './water.js';
 import { makeLandCover } from './landcover.js';
+import { loadGround } from './ground.js';
 import { addSurfaceDetail, glows } from './surface.js';
 import { makeLabels } from './labels.js';
 import { polysOf } from './sheet.js';
 import { build as buildFarm } from './models/farm_concept.js';
+import { build as buildFarmDetails } from './models/farm_details.js';
 
 // The aerial pano: where the drone was and which way the photo's left edge faces. Registered against the drone
 // orthophoto with tools/pano_register.py (heading agrees with the DEM skyline fit, tools/pano_align.py: 206.5°).
@@ -36,6 +38,7 @@ async function load({ style, MOBILE, progress, FAST }) {
   const tick = (n = 1) => { loaded += n; progress?.(Math.min(1, loaded / total)); };
   const get = (u, t = 'json') => fetch(u).then(r => { if (!r.ok) throw new Error(u); return r[t](); });
   const cameras = await fetch('data/cameras.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).catch(() => ({}));   // camera paths saved from the editor
+  const placements = await fetch('data/placements.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).catch(() => ({}));   // model positions set by hand in the placer (js/placer.js)
   const [meta, L, nearBuf, farBuf, water] = await Promise.all([get('data/meta.json'), get('data/layers.json'),
     get('data/terrain_near.f32', 'arrayBuffer'), get('data/terrain_far.f32', 'arrayBuffer'), get('data/water.json')]);
   const near = new Float32Array(nearBuf), far = new Float32Array(farBuf);
@@ -55,7 +58,7 @@ async function load({ style, MOBILE, progress, FAST }) {
   const sheets = await drawSheets(L, style); tick();
   const [nearM, farM, midM] = await Promise.all([buildMosaic(meta.merc_near, nearHalf, nearZoom, tick), buildMosaic(meta.merc_far, farHalf, farZoom, tick),
     MOBILE || FAST ? null : buildMosaic(meta.merc_near, 1300, 17, tick)]);  // z17 around the property: crisper fly-over ground
-  return { meta, L, near, far, droneImg, droneSample, sheets, nearM, farM, midM, water, cameras };
+  return { meta, L, near, far, droneImg, droneSample, sheets, nearM, farM, midM, water, cameras, placements };
 }
 
 export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) {
@@ -66,8 +69,12 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   // (Mike, 10-28; measured on the drone photo: build/topdown/hole4_fits.jpg). Move the core farm onto the real
   // fairway: rotate -3.3° (bearing) about the hole's middle, then 20 m west. The 2D sheet keeps the plan as drawn.
   const farmFix = (x, y) => {
-    const t = -3.3 * Math.PI / 180, s = Math.sin(t), c = Math.cos(t), px = -481.8, py = -25.6, dx = x - px, dy = y - py;
-    return [px + dx * c + dy * s - 20, py - dx * s + dy * c];
+    // (10-29, Mike: "still a few metres off") turned 0.6° less and 4 m further west: the south end now clears the
+    // pond (~6 m west), the north end moves ~2 m — checked over the drone photo (build/acc/farm_align.jpg)
+    // (10-30, measured on the class map) the real fairway's axis leans 1.36° east going north, centre x = -495.8 at y = 0;
+    // the plan's beds sit at +3.43°: turned 4.79° so they lie square across the fairway (the old -2.7° turned them away to 6°)
+    const t = 4.79 * Math.PI / 180, s = Math.sin(t), c = Math.cos(t), px = -481.8, py = -25.6, dx = x - px, dy = y - py;
+    return [px + dx * c + dy * s - 30.3, py - dx * s + dy * c + 8];   // + 8 m north (Mike 10-29, frame 3710: "pushed up or forward a bit")
   };
   {
     const ring = r => r.map(p => farmFix(p[0], p[1]));
@@ -77,6 +84,17 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
         if (f.t === 'Polygon' && core(f.c[0])) f.c = f.c.map(ring);
         else if (f.t === 'MultiPolygon') f.c = f.c.map(poly => core(poly[0]) ? poly.map(ring) : poly);
       }
+    }
+    // (Mike 10-30, screenshot) the plan's 'north strip' (long thin beds and a swale running 700 m east at y ~170) is gone: it
+    // lay across the open fairways as garbage. The top beds, which fanned out over the wetland, are replaced by clean rows
+    // that fill the end of the hole, square to its axis (x = -495.8 + 0.0237 y), up to y 198.
+    const cy = r => r.reduce((a, p) => a + p[1], 0) / r.length, cx = r => r.reduce((a, p) => a + p[0], 0) / r.length;
+    const keep = r => cx(r) < -440 && cy(r) <= 138;
+    D.L.farm_market_garden = (D.L.farm_market_garden || []).flatMap(f => { const ps = f.t === 'Polygon' ? [f.c] : f.c; return ps.filter(p => keep(p[0])).map(c => ({ ...f, t: 'Polygon', c })); });
+    D.L.farm_swales = (D.L.farm_swales || []).filter(f => { const l = f.t === 'LineString' ? f.c : (f.t === 'Polygon' ? f.c[0] : f.c[0]?.[0] || f.c[0]); return cx(l) < -440; });
+    for (let y = 141; y <= 198; y += 6.1) {
+      const xc = -495.8 + 0.0237 * y, hw = 21 - Math.max(0, y - 175) * 0.25, e = [Math.cos(0.0237), -Math.sin(0.0237)], n = [Math.sin(0.0237), Math.cos(0.0237)], P = (u, v) => [xc + e[0] * u + n[0] * v, y + e[1] * u + n[1] * v];
+      D.L.farm_market_garden.push({ t: 'Polygon', p: { kind: 'bed' }, c: [[P(-hw, -2.1), P(hw, -2.1), P(hw, 2.1), P(-hw, 2.1), P(-hw, -2.1)]] });
     }
     for (const f of D.L.farm_labels || []) if (f.t === 'Point' && f.c[0] < -440) f.c = farmFix(f.c[0], f.c[1]);
   }
@@ -99,6 +117,9 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     land.setHi(await Promise.all(HI.map(b => buildMosaic(D.meta.merc_near, 0, 20, null, { bounds: b, url, clear: true, noSample: true }))));
   }
   { const lc = makeLandCover({ meta: D.meta, L: D.L, droneSample: D.droneSample, waterCanvas: wm.tex.image, waterRect: wm.rect, res: MOBILE ? 2 : 1 }); land.setLand(lc.tex, lc.rect); }
+  // clean-realism ground (style A): CC0 materials over the ground-type map; ?photoground keeps the old photo look
+  let ground = null;
+  if (!MOBILE && !Q.has('photoground')) { ground = await loadGround(); land.setGround(ground); }
   // no trees standing in water: read the mask back (blue channel = water)
   const wc = wm.tex.image, wd = wc.getContext('2d').getImageData(0, 0, wc.width, wc.height).data, wres = (wm.rect.z - wm.rect.x) / wc.width;
   const isWater = (x, y) => { const i = Math.floor((wm.rect.w - y) / wres) * wc.width + Math.floor((x - wm.rect.x) / wres); return wd[i * 4 + 2] > 60; };
@@ -131,22 +152,106 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     // ---- real things picked on the drone photo (10-28; Mike: model what's up close, verified with photos) ----
     rv: [{ x: -20, y: 212.5, rotY: -2.269, variant: 'fifth', size: 11 }, { x: -38, y: 192.5, rotY: -2.304, variant: 'fifth', size: 10.5 }, { x: -50, y: 179, rotY: -1.047, variant: 'trailer', size: 7 }, { x: -18, y: 160.6, rotY: -2.094, variant: 'trailer', size: 8.5 }, { x: 10, y: 191, rotY: -2.618, variant: 'trailer', size: 7.5 }, { x: -58.3, y: 145.5, rotY: -2.897, variant: 'trailer', size: 6 }, { x: -79.7, y: -110.9, rotY: -0.803, variant: 'trailer', size: 9 }],   // parked RVs on their real spots in the campground (tools/find_rvs.py + picks; none by the shop — Mike: no junk there)
     shed: [{ x: -42.5, y: -11.5, rotY: -0.436, variant: 'workshop' }, { x: -48, y: -48, rotY: -0.628, variant: 'shop' },
-      { x: -36, y: -113.5, rotY: -1.571, variant: 'storage' }, { x: -88, y: -63, rotY: 0, variant: 'darkshed' }],   // the plan's building layer is ~20 m off: these sit on the real roofs
-    footbridge: [{ x: -103, y: -42, rotY: -2.443, size: 13 }],   // over Hemp Creek, N of the sauna (sauna 360)
-    props: [{ x: -80.1, y: 134.5, rotY: 0, variant: 'trampoline' }, { x: -83.7, y: 130.6, rotY: 0, variant: 'tetherball' }, { x: -85, y: 123.4, rotY: 0.5, variant: 'fort' }, { x: -71.4, y: 133.6, rotY: -0.744, variant: 'logs', size: 20 }, { x: -89.4, y: 115.6, rotY: 0.471, variant: 'golfcart' }, { x: -87, y: 116.5, rotY: 0.471, variant: 'golfcart' }, { x: -84.9, y: 117.4, rotY: 0.471, variant: 'golfcart' }, { x: -83.1, y: 118.3, rotY: 0.471, variant: 'golfcart' }, { x: -19.3, y: 225.2, rotY: 0.0, variant: 'picnic' }, { x: -11.2, y: 225.2, rotY: 0.7, variant: 'picnic' }, { x: -15.2, y: 220, rotY: 1.4, variant: 'picnic' }, { x: -31.9, y: 196.9, rotY: 2.1, variant: 'picnic' }, { x: -8.3, y: 203.9, rotY: 2.8, variant: 'picnic' }, { x: -4.8, y: 183.1, rotY: 0.36, variant: 'picnic' }, { x: 20, y: 209, rotY: 1.06, variant: 'picnic' }, { x: 25.2, y: 228.7, rotY: 1.76, variant: 'picnic' }, { x: 17.1, y: 203.3, rotY: 2.46, variant: 'picnic' }, { x: -7.9, y: 169.3, rotY: 0.02, variant: 'picnic' }, { x: -15.2, y: 175, rotY: 0.72, variant: 'picnic' }],   // playground, golf carts by the office, logs, picnic tables on the loop pads
-    sauna_setting: [{ x: -97, y: -57, rotY: 0.6, variant: 'deck' }, { x: -106, y: -52, rotY: 1.92, variant: 'boulders', size: 15 }],
+      { x: -36, y: -113.5, rotY: -1.571, variant: 'storage' }, { x: -79, y: -58.5, rotY: -1.5, variant: 'woodshed' }],   // the plan's building layer is ~20 m off: these sit on the real roofs
+    footbridge: [{ x: -93.2, y: -21.7, rotY: -2.164, size: 15 }],   // the concrete road bridge over Hemp Creek N of the sauna: 15 m deck NW–SE across the creek, on the drone photo (10-29)
+    entrance_sign: [{ x: -704, y: -225, rotY: -0.9 }],   // at the highway turn-off: drone video 0:00, facing the road; survey shows it at the driveway mouth
+    props: [{ x: -80.1, y: 134.5, rotY: 0, variant: 'trampoline' }, { x: -83.7, y: 130.6, rotY: 0, variant: 'tetherball' }, { x: -85, y: 123.4, rotY: 0.5, variant: 'fort' }, { x: -71.4, y: 133.6, rotY: -0.744, variant: 'logs', size: 20 }, { x: -89.4, y: 115.6, rotY: 0.471, variant: 'golfcart' }, { x: -87, y: 116.5, rotY: 0.471, variant: 'golfcart' }, { x: -84.9, y: 117.4, rotY: 0.471, variant: 'golfcart' }, { x: -83.1, y: 118.3, rotY: 0.471, variant: 'golfcart' }, { x: -19.3, y: 225.2, rotY: 0.0, variant: 'picnic' }, { x: -11.2, y: 225.2, rotY: 0.7, variant: 'picnic' }, { x: -15.2, y: 220, rotY: 1.4, variant: 'picnic' }, { x: -31.9, y: 196.9, rotY: 2.1, variant: 'picnic' }, { x: -8.3, y: 203.9, rotY: 2.8, variant: 'picnic' }, { x: -4.8, y: 183.1, rotY: 0.36, variant: 'picnic' }, { x: 20, y: 209, rotY: 1.06, variant: 'picnic' }, { x: 25.2, y: 228.7, rotY: 1.76, variant: 'picnic' }, { x: 17.1, y: 203.3, rotY: 2.46, variant: 'picnic' }, { x: -7.9, y: 169.3, rotY: 0.02, variant: 'picnic' }, { x: -15.2, y: 175, rotY: 0.72, variant: 'picnic' }, { x: -80.5, y: -53.5, rotY: 0.2, variant: 'picnic' }, { x: -94.5, y: 133, rotY: 2.6075, variant: 'golfnet', size: 38 }, { x: 22, y: 268, rotY: 0.6, variant: 'shelter' }, { x: 44, y: 248, rotY: 2.1, variant: 'shelter' }, { x: 4, y: 286, rotY: 3.4, variant: 'outhouse' }, { x: -586, y: -236, rotY: 0.6615, variant: 'washroom' }, { x: -497, y: 200, rotY: 0, variant: 'flagpin' }, { x: -428, y: 135, rotY: 0, variant: 'flagpin' }, { x: -530, y: -222, rotY: 0, variant: 'flagpin' }, { x: -128, y: -154, rotY: 0.9, variant: 'picnic' }, { x: -131, y: -147, rotY: 0, variant: 'firepit', scale: 0.7 }, { x: -96, y: 106, rotY: 0.8, variant: 'quonset' }, { x: -620, y: -212, rotY: 0.66, variant: 'garden' }, { x: -74.4, y: 143.5, rotY: 0.6, variant: 'pit' }, { x: -71.2, y: 140.9, rotY: 0.6, variant: 'pit' }, { x: -66, y: 152, rotY: 0.6, variant: 'pit' }, { x: -63.5, y: 149.5, rotY: 0.6, variant: 'pit' }, { x: -58.5, y: 153.5, rotY: 2.2, variant: 'binshed' }],   // playground, golf carts by the office, logs, picnic tables on the loop pads, the bench by the sauna woodshed
+    // from the sauna 360 (10-29): chair deck right by the photographer, chairs facing the creek (WSW); the boulder line
+    // runs along the far side of the road from the bridge approach east; one big rock at the deck's corner
+    sauna_setting: [{ x: -98.8, y: -57.6, rotY: -1.22, variant: 'deck' }, { x: -95, y: -46.5, rotY: 1.22, variant: 'boulders', size: 18 },
+      { x: -97.6, y: -54.7, rotY: 0, variant: 'boulders', size: 0.1 }],
     shower_house: [{ x: -79, y: 103, rotY: 0.639, variant: 'main' }, { x: -94, y: -132, rotY: 2.173, variant: 'field' }],   // main = the long building with decks + ramps on the drone photo (Mike, 10-28; was on empty gravel)
   };
+  // hand placements from the in-scene placer override the coded ones: { slug: { index: { x, y, rotY } } }
+  for (const [slug, byI] of Object.entries(D.placements || {})) for (const [i, v] of Object.entries(byI)) if (PLACE[slug]?.[i]) Object.assign(PLACE[slug][i], v);
+  // RVs parked on ~45 % of the plan's RV sites (i8: the '45 RV sites' card sat over an empty loop; the drone photo shows
+  // it busy). Long axis along each site's longest edge; never within 9 m of the RVs placed by hand above.
+  {
+    const zomeSites = ['cabins', 'lake_cabins'].flatMap(n => D.L[n] || []).flatMap(f => polysOf(f).map(q => { const r = q[0]; return [0, 1].map(k => r.reduce((a, p) => a + p[k], 0) / r.length); }));
+    const hand = PLACE.rv.slice(), h = i => Math.abs(Math.sin(i * 127.1 + 311.7) * 43758.5453) % 1;
+    ['full_service_rv_sites', 'power_water_rv_sites', 'regular_rv_sites'].flatMap(n => D.L[n] || []).flatMap(f => polysOf(f).map(q => q[0])).forEach((r, i) => {
+      const c = [0, 1].map(k => r.slice(0, -1).reduce((a, q) => a + q[k], 0) / (r.length - 1));
+      if (![[0, 0], [4, 0], [-4, 0], [0, 4], [0, -4]].some(([dx, dy]) => isWater(c[0] + dx, c[1] + dy) || [6, 8, 9].includes(ground?.classAt(c[0] + dx, c[1] + dy)))) {   // every site has its table, fire ring and service post (Mike 10-31: scour the photos)
+        const sd = Math.floor(h(i + 0.9) * 9) + 1, far = zomeSites.every(([x, y]) => Math.hypot(x - c[0], y - c[1]) >= 13);
+        if (far) { let e = [0, 0]; for (let k = 0; k < r.length - 1; k++) { const d = [r[k + 1][0] - r[k][0], r[k + 1][1] - r[k][1]]; if (Math.hypot(...d) > Math.hypot(...e)) e = d; } const el = Math.hypot(...e) || 1, sd2 = h(i + 0.2) > 0.5 ? 1 : -1; PLACE.props.push({ x: c[0] + e[1] / el * 5 * sd2, y: c[1] - e[0] / el * 5 * sd2, rotY: Math.atan2(e[0], e[1]), variant: 'campsite', size: sd }); }   // beside the RV, not under it
+      }
+      if (h(i) > 0.45) return;
+      if (hand.some(q => Math.hypot(q.x - c[0], q.y - c[1]) < 9)) return;
+      if (zomeSites.some(([x, y]) => Math.hypot(x - c[0], y - c[1]) < 13)) return;   // never on a planned zome site (Mike 10-30)
+      // not on or by water, nor in the forest (i8: one landed on the creek)
+      if ([[0, 0], [5, 0], [-5, 0], [0, 5], [0, -5]].some(([dx, dy]) => isWater(c[0] + dx, c[1] + dy) || [6, 8, 9].includes(ground?.classAt(c[0] + dx, c[1] + dy)))) return;
+      let e = [0, 0]; for (let k = 0; k < r.length - 1; k++) { const d = [r[k + 1][0] - r[k][0], r[k + 1][1] - r[k][1]]; if (Math.hypot(...d) > Math.hypot(...e)) e = d; }
+      const big = h(i + 0.5) > 0.6;
+      PLACE.rv.push({ x: c[0], y: c[1], rotY: Math.atan2(e[0], e[1]) + (h(i + 0.3) > 0.5 ? Math.PI : 0), variant: big ? 'fifth' : 'trailer', size: big ? 10 : 6.5 + 2 * h(i + 0.7) });
+    });
+  }
+  // Level building pads (Mike 10-29: the ground under the gazebo and the top house sloped and clipped through them):
+  // the terrain grid (10 m) is flattened to each building's mean ground height inside its footprint and blended back
+  // over the next ~12 m, before anything is placed — so models, trees and the ground all agree.
+  {
+    const PADR = { gazebo: 9, top_house: 9, bottom_house: 8, office: 7, dome: 7, shower_house: 9, sauna: 3, bunk_cabin: 4, shed: 7, maker_space: 15 };
+    const m = D.meta.terrain_near, a = D.near, n = m.size, res = m.res, orig = Float32Array.from(a);
+    const sample = (x, y) => { const c = (x + m.half) / res, r = (m.half - y) / res, i = Math.floor(r), j = Math.floor(c), fx = c - j, fy = r - i;
+      return (orig[i * n + j] * (1 - fx) + orig[i * n + j + 1] * fx) * (1 - fy) + (orig[(i + 1) * n + j] * (1 - fx) + orig[(i + 1) * n + j + 1] * fx) * fy; };
+    for (const [slug, R] of Object.entries(PADR)) for (const pl of PLACE[slug] || (slug === 'maker_space' ? [{ x: -32.5, y: 320 }] : [])) {   // (the Maker Space is placed by its own meta, not PLACE)
+      if (pl.variant === 'storage') continue;
+      let hsum = 0, hn = 0;
+      for (let dy = -R; dy <= R; dy += R / 2) for (let dx = -R; dx <= R; dx += R / 2) { hsum += sample(pl.x + dx, pl.y + dy); hn++; }
+      const hp = hsum / hn, inner = R + 4, outer = R + 16;
+      const j0 = Math.floor((pl.x - outer + m.half) / res), j1 = Math.ceil((pl.x + outer + m.half) / res);
+      const i0 = Math.floor((m.half - pl.y - outer) / res), i1 = Math.ceil((m.half - pl.y + outer) / res);
+      for (let i = Math.max(0, i0); i <= Math.min(n - 1, i1); i++) for (let j = Math.max(0, j0); j <= Math.min(n - 1, j1); j++) {
+        const x = -m.half + j * res, y = m.half - i * res, d = Math.hypot(x - pl.x, y - pl.y);
+        const w = d <= inner ? 1 : d >= outer ? 0 : 1 - (d - inner) / (outer - inner);
+        if (w > 0) a[i * n + j] = a[i * n + j] * (1 - w * w * (3 - 2 * w)) + hp * (w * w * (3 - 2 * w));
+      }
+    }
+    land.refreshNear();
+  }
   const EXISTING = ['gazebo', 'top_house', 'bottom_house', 'office', 'dome', 'bunk_cabin', 'shower_house', 'sauna', 'horse_corrals',
-    'rv', 'shed', 'footbridge', 'sauna_setting', 'props'];
+    'rv', 'shed', 'footbridge', 'sauna_setting', 'props', 'entrance_sign'];
   const siteC = n => (D.L[n] || []).flatMap(f => polysOf(f).map(p => { const r = p[0]; return [r.reduce((a, q) => a + q[0], 0) / r.length, r.reduce((a, q) => a + q[1], 0) / r.length]; }));
-  const clear = [...Object.entries(PLACE).flatMap(([k, ps]) => ps.map(p => [p.x, p.y, k === 'gazebo' ? 11 : 8])),
-    ...siteC('cabins').map(c => [...c, 7]), ...siteC('lake_cabins').map(c => [...c, 7]), ...siteC('maker_space').map(c => [...c, 16]), ...siteC('event_gazebo').map(c => [...c, 12]),
+  // keep-out per model: half its size + a crown radius (Mike 10-29: trees intersected the 3D models)
+  const CLEARR = { gazebo: 14, top_house: 12, bottom_house: 12, office: 11, dome: 11, shower_house: 13, sauna: 7, bunk_cabin: 7, shed: 11,
+    rv: 8, props: 5, sauna_setting: 6, horse_corrals: 22, footbridge: 11 };
+  const clear = [...Object.entries(PLACE).flatMap(([k, ps]) => ps.map(p => [p.x, p.y, CLEARR[k] || 9])),
+    ...siteC('cabins').map(c => [...c, 11]), ...siteC('lake_cabins').map(c => [...c, 11]),   // room round each zome site (i3: rows hidden in trees)
+    ...siteC('maker_space').map(c => [...c, 22]), ...siteC('event_gazebo').map(c => [...c, 12]),
+    [-22, 302, 9],   // the Maker Space's south-east approach: a spruce there blocked ch08's end frame (i9)
     // nor in the planned farm's beds, greenhouses, barn, mandala and pond (the food forest keeps its trees)
     ...siteC('farm_market_garden').map(c => [...c, 12]), ...siteC('farm_greenhouses').map(c => [...c, 20]), ...siteC('farm_buildings').map(c => [...c, 10]),
     ...siteC('farm_mandala_garden').map(c => [...c, 9]), ...siteC('farm_pond').map(c => [...c, 28])]; // no trees standing in the buildings
-  const spots = placeTrees({ heightAt, droneSample: D.droneSample, nearSample: D.nearM.sample, L: D.L, isWater, clear, half: MOBILE ? 1600 : 2900, spacing: MOBILE ? 8 : 6, max: MOBILE ? 35000 : FAST ? 50000 : 170000 });
+  // the learned canopy map over the survey (tools/ground_classes.py): trees where the photo shows canopy
+  const canopy = await (async () => {
+    try {
+      const [gj, im] = await Promise.all([fetch('data/groundclass.json').then(r => r.json()), new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = 'data/canopy.png'; })]);
+      const c = document.createElement('canvas'); c.width = im.width; c.height = im.height; const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(im, 0, 0);
+      const px = g.getImageData(0, 0, im.width, im.height).data, n = im.width * im.height, data = new Uint8Array(n), cover = new Uint8Array(n);
+      const cls = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = 'data/groundclass.png'; });
+      g.drawImage(cls, 0, 0); const cp = g.getImageData(0, 0, im.width, im.height).data;
+      const clsMap = new Uint8Array(n); for (let k = 0; k < n; k++) clsMap[k] = cp[k * 4];
+      for (let k = 0; k < n; k++) { data[k] = px[k * 4]; cover[k] = cp[k * 4] !== 255 ? 1 : 0; }   // cover = inside the survey
+      const [tops, chm] = await Promise.all([fetch('data/treetops.json').then(r => r.json()).catch(() => null), new Promise(ok => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = 'data/chm.png'; })]);
+      let measured = null;
+      if (tops && chm) { g.clearRect(0, 0, im.width, im.height); g.drawImage(chm, 0, 0); const ch = g.getImageData(0, 0, im.width, im.height).data;
+        measured = (x, y) => { const k = Math.floor((gj.rect[3] - y) / gj.res) * im.width + Math.floor((x - gj.rect[0]) / gj.res); return ch[k * 4 + 3] > 0; }; }
+      return { rect: gj.rect, res: gj.res, w: im.width, h: im.height, data, cover, cls: clsMap, tops, measured };
+    } catch { return null; }
+  })();
+  const spots = placeTrees({ canopy, heightAt, droneSample: D.droneSample, nearSample: D.nearM.sample, L: D.L, isWater, clear, half: MOBILE ? 1600 : 2900, spacing: MOBILE ? 10 : 8, max: MOBILE ? 35000 : FAST ? 50000 : 170000 });
   const trees = makeTrees(spots); trees.visible = !Q.has('notrees'); scene.add(trees);
+  if (ground?.classAt) {
+    const rocks = [], hh = (x, y, k) => { const v = Math.sin(x * 12.99 + y * 78.23 + k) * 43758.5453; return v - Math.floor(v); };
+    for (let x = -360; x < 260; x += 2.5) for (let y = -360; y < 460; y += 2.5) {
+      if (Math.hypot(x + 93.2, y + 21.7) < 13) continue;   // clear of the footbridge
+      const cl = ground.classAt(x, y);
+      if (cl === 8 || cl === undefined) continue;
+      const wet = cl === 9 || isWater(x, y);
+      if (wet && hh(x, y, 1) < 0.2) rocks.push([x, y, heightAt(x, y), 0.45 + hh(x, y, 2) * 1.0]);
+      else if (cl === 7 && hh(x, y, 3) < 0.1) rocks.push([x, y, heightAt(x, y), 0.3 + hh(x, y, 4) * 0.6]);
+    }
+    if (rocks.length) scene.add(makeRocks(rocks.slice(0, 5000)));
+  }
   const blocks = makeBuildings(D.L, heightAt); scene.add(blocks); // simple extruded footprints; chapters swap in the detailed models
 
   const hemi = new THREE.HemisphereLight(0xdfe9ff, 0x4a4632, 1.1); scene.add(hemi);
@@ -182,6 +287,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     for (const pl of places) {
       const o = mod.build({ lod, variant: pl.variant, size: pl.size });
       o.position.set(pl.x, heightAt(pl.x, pl.y), -pl.y); o.rotation.y = pl.rotY || 0;
+      if (!at && PLACE[slug]) o.userData.place = { slug, i: PLACE[slug].indexOf(pl) };   // so the placer can move it
       group.add(o);
     }
     addSurfaceDetail(group);   // boards, shingles, grain and weathering for close-ups
@@ -194,7 +300,16 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     for (const name of which) for (const f of D.L[name] || []) for (const poly of polysOf(f)) {
       const r = poly[0]; const c = [r.reduce((a, p) => a + p[0], 0) / r.length, r.reduce((a, p) => a + p[1], 0) / r.length];
       const e = [r[1][0] - r[0][0], r[1][1] - r[0][1]];
-      at.push({ x: c[0], y: c[1], rotY: Math.atan2(e[0], e[1]), size: name === 'cabins' ? '6m' : '5m' }); // Trillium sizes that fit the 7 m / 6 m wide sites
+      let rotY = Math.atan2(e[0], e[1]);
+      // lakeside: the quarter turn (square to the site) whose door + steps face the lake (Mike 10-29: "rotated 90°
+      // counterclockwise so the stairs face the lake" — +90° for nearly every site)
+      if (name === 'lake_cabins') {
+        const L0 = [-38, -235], to = Math.atan2(L0[0] - c[0], L0[1] - c[1]);
+        let best = rotY, bd = 9;
+        for (let q = 0; q < 4; q++) { const r = rotY + q * Math.PI / 2, d = Math.abs(Math.atan2(Math.sin(Math.PI - r - to), Math.cos(Math.PI - r - to))); if (d < bd) { bd = d; best = r; } }
+        rotY = best;
+      }
+      at.push({ x: c[0], y: c[1], rotY, size: name === 'cabins' ? '6m' : '5m' }); // Trillium sizes that fit the 7 m / 6 m wide sites
     }
     return placeModel('zome', { lod, at });
   }
@@ -267,6 +382,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   const maker = await placeModel('maker_space', { lod: MOBILE ? 'low' : 'high' });
   const farm = buildFarm({ L: D.L, ground: groundAt, lod: MOBILE ? 'low' : 'high' });
   farm.userData.uGrow.value = 1.25; farm.userData.outline.material.opacity = 0; scene.add(farm); models.farm_concept = farm;
+  farm.add(buildFarmDetails({ L: D.L, ground: groundAt, lod: MOBILE ? 'low' : 'high' }));   // crops, fence, tractor, coop… (Mike 10-30)
   // the new event gazebo (no model yet): a simple concept octagon pavilion on its plan footprint
   {
     const f = D.L.event_gazebo?.[0];
@@ -289,7 +405,31 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   glass.forEach(m => { m.emissiveIntensity = 0.42; });   // a soft warm glaze, not lit windows of a built village (chapters may raise it at night)
   const PERSIST0 = { farmGlass: farm.userData.materials.glass.emissiveIntensity, zomeGlass: glass.map(m => m.emissiveIntensity) };
   // chapters may tweak these persistent things; the film puts them back at every chapter change
+  // Trees hidden inside an area for one chapter only (Mike 10-29: the festival grounds cleared at night, but the real
+  // forest stays in the 'here today' shots). treesIn(rings) -> id; hideTrees(id, on); resetPersistent shows them again.
+  const treeSets = [];
+  function treesIn(rings) { treeSets.push({ rings, on: false, saved: [] }); return treeSets.length - 1; }
+  function hideTrees(id, on) {
+    const S = treeSets[id]; if (!S || S.on === on) return;
+    S.on = on;
+    if (!on) { for (const [o, i, mm] of S.saved) { o.setMatrixAt(i, mm); o.instanceMatrix.needsUpdate = true; } S.saved = []; return; }
+    const inside = (x, y, r) => { let c = false; for (let i = 0, j = r.length - 1; i < r.length; j = i++) { const [xi, yi] = r[i], [xj, yj] = r[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
+    const box = S.rings.map(r => r.reduce((a, [x, y]) => [Math.min(a[0], x), Math.min(a[1], y), Math.max(a[2], x), Math.max(a[3], y)], [1e9, 1e9, -1e9, -1e9]));
+    const m = new THREE.Matrix4(), zero = new THREE.Matrix4().makeScale(0, 0, 0);
+    trees.traverse(o => {   // the trees only (the art's LED strings are big instanced meshes too)
+      if (!o.isInstancedMesh || o.count < 500) return;
+      for (let i = 0; i < o.count; i++) {
+        o.getMatrixAt(i, m); const x = m.elements[12], y = -m.elements[14];
+        if (m.elements[5] === 0) continue;
+        if (S.rings.some((r, k) => x > box[k][0] && x < box[k][2] && y > box[k][1] && y < box[k][3] && inside(x, y, r))) { S.saved.push([o, i, m.clone()]); o.setMatrixAt(i, zero); }
+      }
+      o.instanceMatrix.needsUpdate = true;
+    });
+  }
+
   function resetPersistent() {
+    U.uEdge.value.copy(srgb(style.edge));   // ch12 dims the tide line; every other chapter starts from the brand amber
+    for (const S of treeSets) hideTrees(treeSets.indexOf(S), false);
     for (const g of Object.values(models)) if (g.userData.persistent) { g.visible = true; g.children.forEach(o => o.scale.set(1, 1, 1)); }
     farm.userData.outline.material.opacity = 0; farm.userData.uGrow.value = 1.25;
     farm.userData.materials.glass.emissiveIntensity = PERSIST0.farmGlass;
@@ -319,22 +459,38 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   // passes through. Nothing shrinks or pops on screen; the trees just aren't planted where the lens flies.
   // Only trees the lens would actually hit go: within r metres sideways AND tall enough to reach the camera.
   // (It was 90 m in 3D distance, which stripped real spruce stands around the campground — cut-6 photo check.)
+  // Hide trees the lens would pass through or brush: the camera path is resampled every 2 m (sparse samples left
+  // whole trees standing between them on fast moves), and a tree goes when the camera passes within its crown
+  // radius + a margin while lower than the tree top + 8 m (cut 10: dense canopy-map forest filled the ch08 shop shot).
   function clearTreesNear(points, r = 12) {
-    const m = new THREE.Matrix4(), p = new THREE.Vector3(), zero = new THREE.Matrix4().makeScale(0, 0, 0), r2 = r * r;
-    scene.traverse(o => {
+    const dense = [];
+    for (let k = 0; k < points.length; k++) {
+      const a = points[k], b = points[k + 1] || a, n = Math.max(1, Math.ceil(a.distanceTo(b) / 2));
+      for (let j = 0; j < n; j++) dense.push(a.clone().lerp(b, j / n));
+    }
+    const m = new THREE.Matrix4(), p = new THREE.Vector3(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), zero = new THREE.Matrix4().makeScale(0, 0, 0);
+    const cell = 40, grid = new Map(), key = (x, z) => `${Math.floor(x / cell)},${Math.floor(z / cell)}`;
+    for (const c of dense) { const k = key(c.x, c.z); if (!grid.has(k)) grid.set(k, []); grid.get(k).push(c); }
+    trees.traverse(o => {   // the trees only (the art's LED strings are big instanced meshes too)
       if (!o.isInstancedMesh || o.count < 500) return;
       for (let i = 0; i < o.count; i++) {
-        o.getMatrixAt(i, m); p.setFromMatrixPosition(m);
-        for (const c of points) { const dx = p.x - c.x, dz = p.z - c.z; if (dx * dx + dz * dz < r2 && c.y < p.y + 40) { o.setMatrixAt(i, zero); break; } }
+        o.getMatrixAt(i, m); m.decompose(p, q, sc);
+        if (sc.y === 0) continue;
+        const rr = r < 10 ? 0.16 * sc.y + 2 : Math.max(r, 0.18 * sc.y + 7), top = p.y + sc.y + 8, gx = Math.floor(p.x / cell), gz = Math.floor(p.z / cell);
+        let hit = false;
+        for (let ax = gx - 1; ax <= gx + 1 && !hit; ax++) for (let az = gz - 1; az <= gz + 1 && !hit; az++) {
+          for (const c of grid.get(`${ax},${az}`) || []) { const dx = p.x - c.x, dz = p.z - c.z; if (dx * dx + dz * dz < rr * rr && c.y < top) { hit = true; break; } }
+        }
+        if (hit) o.setMatrixAt(i, zero);
       }
       o.instanceMatrix.needsUpdate = true;
     });
   }
 
   return {
-    cameras: D.cameras, clearTreesNear, groundAt, resetPersistent, conceptLook, zomeGlass: glass, farmFix,
+    cameras: D.cameras, clearTreesNear, treesIn, hideTrees, groundAt, resetPersistent, conceptLook, zomeGlass: glass, farmFix,
     THREE, U, H0, D, L: D.L, meta: D.meta, heightAt, scene, camera, renderer, style, colors,
-    land, trees, blocks, sky, sun, hemi, pano, PANO, panoPos, planned, labels, models, placeModel, placeZomes, realWorld,
+    land, trees, blocks, sky, sun, hemi, pano, PANO, panoPos, planned, labels, models, placeModel, placeZomes, realWorld, PLACE, ground,
     // ground height as currently displayed (it rises with the cut) — matches displayH() in the shaders
     shown: h => Math.min(h, U.uCut.value) * U.uExag.value,
     bufferSize: () => renderer.getDrawingBufferSize(tmp2),

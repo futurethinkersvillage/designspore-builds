@@ -1,10 +1,11 @@
 // Chapter 10 · Places to stay — down the creekside zomes, then on to the lakeside rows, at golden hour with warm
 // light in the windows. Zomes are a CONCEPT (nothing built yet): the caption and the callouts say so.
 import * as THREE from 'three';
+import { lakeMirror } from '../mirror.js';
 
-export const meta = { id: 'ch10', title: 'Places to stay', seconds: 12, animated: false };
+export const meta = { id: 'ch10', title: 'Places to stay', seconds: 16, animated: false };
 
-let rig, cap, vign, cards = [], glass = [], halos = [], G = {};
+let rig, cap, cap2, dip, vign, cards = [], glass = [], halos = [], G = {};
 function meshGround(ctx) {   // ground height exactly as the terrain mesh draws it (same triangles)
   const m = ctx.meta.terrain_near, a = ctx.D.near, n = m.size, H0 = ctx.H0;
   return (x, y) => {
@@ -41,9 +42,13 @@ export async function setup(ctx) {
   const { rig: R, scene } = ctx, ground = meshGround(ctx);
   const zomes = ctx.models.zome;   // the persistent zomes (engine.js seats them on the slope with skirt + shadow)
   vign = document.getElementById('vignette');
+  // a soft fill from the camera's side: the low sun is ahead of the lens here, so everything read as black lumps (i11)
+  { const l = new THREE.DirectionalLight(0xffe2c4, 2.3); l.position.set(700, 350, -350); ctx.scene.add(l); ctx.scene.add(l.target); }
   const haloTex = radial([[0, 'rgba(255,214,150,1)'], [0.25, 'rgba(255,170,90,0.55)'], [1, 'rgba(255,140,60,0)']]);
   glass = ctx.zomeGlass;
   zomes.updateMatrixWorld(true);
+  if (!ctx.MOBILE) lakeMirror(ctx, ctx.L.lakes[0].c[0][0]);
+  ctx.clearTreesNear([[72, -196], [56, -200], [40, -206], [24, -212], [10, -218]].map(([x, y]) => new THREE.Vector3(x, 0, -y)), 18);   // the view over the row to the lake (i16: spruce across it at 12-16 s)
   for (const z of zomes.children) {   // warm window halos: this chapter's own sprites, so they leave with it
     const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false, opacity: 0 }));
     halo.position.copy(z.localToWorld(new THREE.Vector3(0, 1.5, 2.3))); halo.scale.set(5, 5, 1); scene.add(halo); halos.push(halo.material);
@@ -51,23 +56,28 @@ export async function setup(ctx) {
 
   // start at a creekside zome's door, rise along the row, then settle on the lakeside zomes by the water
   rig = R.makeRig([
-    [0.00, 96, 214, ground(96, 214) + 2, 26, 208, -12, 48],
-    [0.45, 60, 150, ground(60, 150) + 2, 70, 205, -20, 48],
-    // up and over the hill between the two rows (it hid the zomes for ~2 s when the camera stayed low)
-    [0.72, 30, -60, ground(30, -60), 300, 220, -34, 48],
-    [1.00, -2, -242, ground(-2, -242) + 2, 75, 250, -20, 48],   // lakeside row with the lake beyond (W)
+    // (Mike 10-30, ~frame 4069, with a drawn path) ONE straight, constant-speed glide down the creekside row, then —
+    // no cut — over the hill to the lakeside zomes and a slow pan along them, looking west over them to the lake.
+    // (seconds / 16)
+    [0.00, 80, 182, ground(80, 182) + 2, 62, 215, -27, 48],
+    [0.1875, 18, 87, ground(18, 87) + 2, 62, 215, -27, 48],
+    [0.375, -44, -8, ground(-44, -8) + 2, 62, 215, -27, 48],
+    [0.48, -20, -85, ground(-20, -85), 215, 240, -30, 48],   // up over the hill between the rows
+    [0.59, 4, -165, ground(4, -165) + 2, 80, 262, -26, 48],  // the lakeside row's north end
+    [0.88, -6, -212, ground(-6, -212) + 2, 50, 262, -15, 48],
+    [1.00, -12, -214, ground(-12, -214) + 2, 44, 262, -13, 48],   // low beside the row, the lake mirror beyond (i18: a conveyor belt from above)   // a real stop before the trees (i13)  // a slow truck south along it (~16 m/s)
   ]);
   const plan = '#EA824E';
   cards = [
-    [[95, 236], 'Creekside zomes', '38 sites · planned', [10, 6], 10, 0.0, 0.42],
-    [[34, -262], 'Lakeside zomes', '31 sites · planned', [8, -6], 4, 0.62, 1.01],   // on the open lawn beside the row, off the lake
-  ].map(([at, text, sub, off, lift, a, b]) => {
+    // (i7: the creekside card left the frame as the camera pushed in — anchored ahead in the row now; both larger)
+    [[-20, 30], 'Creekside zomes', '38 sites · planned', [12, 4], 8, 0.06, 0.22, 0.2],
+  ].map(([at, text, sub, off, lift, a, b, sz]) => {
     const m = card(text, sub, plan), gy = ground(at[0], at[1]);
     m.position.set(at[0] + off[0], gy + lift, -(at[1] + off[1]));
     const pin = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(at[0], gy + 4.5, -at[1]), m.position.clone()]),
       new THREE.LineBasicMaterial({ color: plan, transparent: true, depthTest: false, depthWrite: false }));
     pin.renderOrder = 21; scene.add(m, pin);
-    return { m, pin, a, b };
+    return { m, pin, a, b, sz };
   });
 
   // golden hour (ch09 ends here) easing a little deeper toward dusk for ch11
@@ -78,7 +88,7 @@ export async function setup(ctx) {
     top: [new THREE.Color('#5a5b8c'), new THREE.Color('#4a4a80')], hz: [new THREE.Color('#f0c39a'), new THREE.Color('#eba77f')],
     fog: [new THREE.Color('#e7b98f'), new THREE.Color('#d99a78')], sunC: [new THREE.Color('#ffb26b'), new THREE.Color('#ff9a55')],
     sunI: [2.9, 2.6],   // a stronger warm key (reviewer: flat light, not golden hour)
-    hemiS: [new THREE.Color('#b9a7c4'), new THREE.Color('#a493b8')], hemiG: [new THREE.Color('#4a3a2c'), new THREE.Color('#3e3028')], hemiI: [0.55, 0.48],
+    hemiS: [new THREE.Color('#b9a7c4'), new THREE.Color('#a493b8')], hemiG: [new THREE.Color('#4a3a2c'), new THREE.Color('#3e3028')], hemiI: [0.95, 0.8],
   };
 
   cap = document.createElement('div'); cap.className = 'cap';
@@ -86,32 +96,43 @@ export async function setup(ctx) {
     '<h1>Places to stay</h1><p style="font:400 clamp(15px,1.5vw,19px)/1.45 Inter,sans-serif;margin:12px 0 0;max-width:30em;opacity:.92">Zomes for builders, founders and families, plugged into the campground’s existing power and water.</p>';
   cap.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40));
   ctx.hud.appendChild(cap);
+  // the lakeside row gets its own line (i7: after the cut the only text was a small card)
+  cap2 = document.createElement('div'); cap2.className = 'cap';
+  cap2.innerHTML = '<div class="eyebrow">Places to stay<span style="margin-left:14px;padding:3px 9px;border:1px solid #EA824E;border-radius:99px;color:#EA824E;letter-spacing:.16em">Planned</span></div>' +
+    '<h1 style="white-space:nowrap">By the swimming lake</h1><p style="font:400 clamp(15px,1.5vw,19px)/1.45 Inter,sans-serif;margin:12px 0 0;max-width:30em;opacity:.92">31 zome sites on the lawn, a few steps from the water.</p>';
+  cap2.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40));
+  ctx.hud.appendChild(cap2);
+  // the dip: a full-screen brand-dark veil
+  dip = document.createElement('div'); dip.style.cssText = 'position:absolute;inset:0;background:#1A1720;opacity:0;pointer-events:none';
+  ctx.hud.insertBefore(dip, ctx.hud.firstChild);
 }
 
 export function update(t, ctx) {
   const { U, rig: R, sky, sun, hemi } = ctx, s = R.seg, k = s(t, 0.3, 1);
   const L = (pair, out) => out.copy(pair[0]).lerp(pair[1], k), N = pair => pair[0] + (pair[1] - pair[0]) * k;
-  L(G.sun, U.uSunDir.value).normalize(); sun.position.copy(U.uSunDir.value).multiplyScalar(1000); sky.mat.uniforms.uSun.value.copy(U.uSunDir.value);
+  L(G.sun, U.uSunDir.value).normalize(); sun.position.copy(U.uSunDir.value).multiplyScalar(1000); sky.mat.uniforms.uSun.value.copy(U.uSunDir.value).setY(-0.16).normalize();
   L(G.light, U.uLight.value); L(G.top, sky.mat.uniforms.uTop.value); U.uSkyTop.value.copy(sky.mat.uniforms.uTop.value);
   L(G.hz, sky.mat.uniforms.uHorizon.value); L(G.fog, U.uFog.value); ctx.renderer.setClearColor(U.uFog.value);
   L(G.sunC, sun.color); sun.intensity = N(G.sunI); L(G.hemiS, hemi.color); L(G.hemiG, hemi.groundColor); hemi.intensity = N(G.hemiI);
   vign.style.opacity = 0.8 + 0.1 * k;
-  U.uWaterAmt.value = 0.3 + 0.7 * s(t, 0.45, 0.7);   // the atlas creek line runs metres off the photo: keep it faint up close
+  U.uWaterAmt.value = 1;   // (i8: held at 0.3 the creek read as an isolated pond; the class map's creek is accurate)
 
   rig.apply(ctx.camera, t);
 
   const glow = 0.55 + 0.6 * k;   // windows warm up as the light goes (gently: 2.6 read as a lit-up blob)
   for (const m of glass) m.emissiveIntensity = glow;
-  for (const m of halos) m.opacity = 0.35 + 0.35 * k;
+  for (const m of halos) m.opacity = 0.12 + 0.14 * k;   // (i11: read as small fires)
 
   const cam = ctx.camera, lens = Math.tan(cam.fov * Math.PI / 360), tilt = Math.min(1 / Math.max(Math.abs(Math.sin(cam.rotation.x)), 0.42), 2.3);
   for (const c of cards) {
     c.m.rotation.set(-Math.PI / 2, 0, 0); c.m.rotateOnWorldAxis(new THREE.Vector3(0, 1, 0), cam.rotation.y);   // face-up, text square to the view
     const op = s(t, c.a, c.a + 0.06) * (1 - s(t, c.b - 0.06, c.b));
     c.m.visible = c.pin.visible = op > 0.002;
-    const kk = cam.position.distanceTo(c.m.position) * lens * 0.15;
+    const kk = cam.position.distanceTo(c.m.position) * lens * c.sz;
     c.m.scale.set(kk, kk * tilt, 1); c.m.material.opacity = op; c.pin.material.opacity = op * 0.8;
   }
-  cap.style.opacity = s(t, 0.06, 0.18) - s(t, 0.9, 0.99);
+  cap.style.opacity = s(t, 0.04, 0.1) - s(t, 0.42, 0.46);   // on the creekside glide
+  cap2.style.opacity = s(t, 0.56, 0.61);                       // as soon as the lakeside row is up (i8: 3.5 s without words)
+  dip.style.opacity = 0;   // (Mike 10-30: no cut to the lakeside zomes — the camera flies there)   // ~0.5 s down, ~0.5 s up; dark through the move
   cap.style.transform = `translateY(${(1 - s(t, 0.06, 0.2)) * 14}px)`;
 }

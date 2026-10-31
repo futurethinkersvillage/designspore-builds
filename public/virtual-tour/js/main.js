@@ -10,7 +10,7 @@ import { checkpoint1 } from './cp1.js';
 const Q = new URLSearchParams(location.search);
 const REC = Q.has('rec');
 const style = pickStyle();
-const MOBILE = Math.min(screen.width, screen.height) < 700;
+const MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) && Math.min(screen.width, screen.height) < 700;
 if (REC) document.documentElement.classList.add('rec');
 document.querySelector('.ld-logo').innerHTML = markImg(72);
 document.querySelector('.st-logo').innerHTML = markImg(40);

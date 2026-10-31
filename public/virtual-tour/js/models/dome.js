@@ -32,6 +32,46 @@ export const meta = {
 const DECK_W = 7.0, DECK_L = 10.0, DECK_H = 0.3;
 const FREQ = 3;
 const RING_H = 0.28, R = 2.45, DOME_Z = 1.55;   // dome centre sits 1.55 m toward +Z from deck centre
+const DOOR_HW = 0.5, DOOR_HD = 2.0;             // door dormer half-width + height (the shell is cut away inside it)
+const SHELL_ROT = -Math.PI / 4;                 // Mike 2026-10-28: the panel pattern turns 45° clockwise
+const UP = new THREE.Vector3(0, 1, 0);
+// the dormer's footprint through the shell, in the shell's own (unturned) frame: |x| < half-width, y < height, z > 0
+const DOOR_CUT = [[1, 0, 0, -DOOR_HW], [-1, 0, 0, -DOOR_HW], [0, 1, 0, -DOOR_HD], [0, 0, -1, 0]];
+const toDoor = v => v.applyAxisAngle(UP, SHELL_ROT);
+
+// Remove the parts of a mesh that fall inside a convex region (inside = every plane a·x+b·y+c·z+d < 0), slicing
+// triangles exactly on the planes and interpolating every attribute, so the cut edge meets the dormer with no gap.
+function cutConvex(geo, planes, toFrame) {
+  const src = geo.index ? geo.toNonIndexed() : geo, names = Object.keys(src.attributes), A = names.map(n => src.attributes[n]);
+  const out = names.map(() => []), pos = src.attributes.position;
+  const vert = i => ({ d: A.map(a => Array.from(a.array.slice(i * a.itemSize, (i + 1) * a.itemSize))), q: toFrame(new THREE.Vector3().fromBufferAttribute(pos, i)) });
+  const side = (v, p) => p[0] * v.q.x + p[1] * v.q.y + p[2] * v.q.z + p[3];
+  const mix = (a, b, t) => ({ d: a.d.map((x, k) => x.map((v, c) => v + (b.d[k][c] - v) * t)), q: a.q.clone().lerp(b.q, t) });
+  const clip = (poly, p, sgn) => {        // keep sgn·side >= 0
+    const r = [];
+    for (let i = 0; i < poly.length; i++) {
+      const a = poly[i], b = poly[(i + 1) % poly.length], sa = sgn * side(a, p), sb = sgn * side(b, p);
+      if (sa >= 0) r.push(a);
+      if ((sa >= 0) !== (sb >= 0)) r.push(mix(a, b, sa / (sa - sb)));
+    }
+    return r;
+  };
+  const emit = poly => { for (let t = 1; t < poly.length - 1; t++) for (const v of [poly[0], poly[t], poly[t + 1]]) v.d.forEach((x, k) => out[k].push(...x)); };
+  for (let i = 0; i < pos.count; i += 3) {
+    const tri = [vert(i), vert(i + 1), vert(i + 2)];
+    if (planes.some(p => tri.every(v => side(v, p) >= 0))) { emit(tri); continue; }   // wholly outside one plane
+    // outside = (outside plane 0) + (inside 0, outside 1) + (inside 0 and 1, outside 2) + …
+    for (let k = 0; k < planes.length; k++) {
+      let poly = tri;
+      for (let j = 0; j < k && poly.length >= 3; j++) poly = clip(poly, planes[j], -1);
+      if (poly.length >= 3) poly = clip(poly, planes[k], 1);
+      if (poly.length >= 3) emit(poly);
+    }
+  }
+  const g = new THREE.BufferGeometry();
+  names.forEach((n, k) => g.setAttribute(n, new THREE.Float32BufferAttribute(out[k], A[k].itemSize)));
+  return g;
+}
 
 // ---------- geodesic (Goldberg) cells ----------
 function goldbergCells(freq) {
@@ -111,13 +151,21 @@ function box(w, h, d, mat, x, y, z, parent) {
 function adirondack(mat, lod) {
   const c = new THREE.Group();
   if (lod === 'low') { box(0.7, 0.9, 0.8, mat, 0, 0.45, 0, c); return c; }
-  // front of the chair faces -Z (local)
-  const seat = box(0.56, 0.05, 0.6, mat, 0, 0.36, 0.02, c); seat.rotation.x = -0.12;
-  const back = box(0.58, 0.95, 0.04, mat, 0, 0.78, 0.36, c); back.rotation.x = -0.38;
-  box(0.1, 0.03, 0.78, mat, -0.36, 0.58, -0.02, c); box(0.1, 0.03, 0.78, mat, 0.36, 0.58, -0.02, c);   // arms
+  // front of the chair faces -Z (local): seat slopes down toward the back, a tall fan of back slats reclines
+  // backward, wide flat arms (PXL_20240801_175245752-EDIT.jpg)
+  for (let i = 0; i < 5; i++) {                       // seat slats, front edge higher
+    const s = box(0.56, 0.03, 0.09, mat, 0, 0.4 - i * 0.025, -0.26 + i * 0.11, c); s.rotation.x = 0.2;
+  }
+  [-0.22, -0.11, 0, 0.11, 0.22].forEach((x, i) => {  // back slats, the middle ones tallest
+    const h = 0.85 + (2 - Math.abs(i - 2)) * 0.06;
+    const s = box(0.085, h, 0.025, mat, x * (1 + 0.15), 0.3 + h / 2 * Math.cos(0.42), 0.26 + h / 2 * Math.sin(0.42), c);
+    s.rotation.x = 0.42; s.rotation.z = -x * 0.35;
+  });
+  box(0.58, 0.05, 0.03, mat, 0, 0.62, 0.42, c);                                                         // back rail
+  box(0.13, 0.03, 0.8, mat, -0.37, 0.6, 0.0, c); box(0.13, 0.03, 0.8, mat, 0.37, 0.6, 0.0, c);          // arms
   box(0.05, 0.58, 0.07, mat, -0.33, 0.29, -0.3, c); box(0.05, 0.58, 0.07, mat, 0.33, 0.29, -0.3, c);    // front legs
-  const rl = box(0.05, 0.08, 0.75, mat, -0.3, 0.2, 0.12, c); rl.rotation.x = 0.35;
-  const rr = box(0.05, 0.08, 0.75, mat, 0.3, 0.2, 0.12, c); rr.rotation.x = 0.35;
+  const rl = box(0.05, 0.1, 0.8, mat, -0.3, 0.2, 0.1, c); rl.rotation.x = 0.3;                          // rear runners
+  const rr = box(0.05, 0.1, 0.8, mat, 0.3, 0.2, 0.1, c); rr.rotation.x = 0.3;
   return c;
 }
 
@@ -146,7 +194,7 @@ export function build({ lod = 'high' } = {}) {
   ring.position.set(0, DECK_H + RING_H / 2, DOME_Z); g.add(ring);
   const lip = new THREE.Mesh(new THREE.RingGeometry(R - 0.12, R + 0.07, hi ? 24 : 12), black);
   lip.rotation.x = -Math.PI / 2; lip.position.set(0, yb, DOME_Z); g.add(lip);
-  const floorM = new THREE.MeshStandardMaterial({ color: 0x77706a, roughness: 0.9 });
+  const floorM = new THREE.MeshStandardMaterial({ color: 0x4f4036, roughness: 0.8 });   // dark stained plywood (Dome Interior.jpg)
   const fl = new THREE.Mesh(new THREE.CircleGeometry(R - 0.1, hi ? 20 : 10), floorM);
   fl.rotation.x = -Math.PI / 2; fl.position.set(0, yb + 0.005, DOME_Z); g.add(fl);
 
@@ -160,8 +208,8 @@ export function build({ lod = 'high' } = {}) {
   const cCentre = C(0xf6f7f6), cMid = C(0xeef0ef), cEdge = C(0xe1e4e5), cSeam = C(0xfbfbfa), cFrame = C(0xf2f3f3);
   const push = (v, c) => { pos.push(v.x, v.y, v.z); col.push(c.r, c.g, c.b); return pos.length / 3 - 1; };
   const S = (u, r) => u.clone().normalize().multiplyScalar(r);
-  const BUL = 0.075;
-  let nClear = 0;
+    let nClear = 0;
+  const ledPolys = [];
   for (const cell of cells) {
     const c0 = cell.c.clone().applyMatrix4(spin);
     if (c0.y < -0.2) continue;
@@ -182,11 +230,12 @@ export function build({ lod = 'high' } = {}) {
         cpos.push(NaN, k, b); // marker (k, base) — unpacked below
         nClear++; continue;
       }
-      const ci = push(S(ctr, R + 0.04), cCentre.clone().multiplyScalar(tone));
+      const ci = push(poly.reduce((a, q) => a.add(S(q, R)), new THREE.Vector3()).divideScalar(k), cCentre.clone().multiplyScalar(tone));
       const ei = poly.map(q => push(S(q, R), cEdge));
       for (let i = 0; i < k; i++) idx.push(ci, ei[i], ei[(i + 1) % k]);
       continue;
     }
+    ledPolys.push(poly);
     const seam = poly.map(q => push(S(q, R - 0.015), clear ? cFrame : cSeam));
     const qn = poly.map(q => ctr.clone().lerp(q, 0.88));
     if (clear) {
@@ -197,9 +246,12 @@ export function build({ lod = 'high' } = {}) {
       cpos.push(NaN, k, b); nClear++;
       continue;
     }
-    const ed = qn.map(q => push(S(q, R + 0.005), cEdge.clone().multiplyScalar(tone)));
-    const md = poly.map(q => push(S(ctr.clone().lerp(q, 0.5), R + BUL * 0.78), cMid.clone().multiplyScalar(tone)));
-    const ci = push(S(ctr, R + BUL), cCentre.clone().multiplyScalar(tone));
+    // flat panels (Mike 2026-10-29: the real ones are fairly flat, not puffy): every point on the plane of the
+    // panel's corners, only the seams sit on the sphere
+    const Cq = poly.map(q => S(q, R + 0.005)), Cc = Cq.reduce((a, b) => a.clone().add(b), new THREE.Vector3()).divideScalar(k);
+    const ed = Cq.map(q => push(Cc.clone().lerp(q, 0.88), cEdge.clone().multiplyScalar(tone)));
+    const md = Cq.map(q => push(Cc.clone().lerp(q, 0.5), cMid.clone().multiplyScalar(tone)));
+    const ci = push(Cc, cCentre.clone().multiplyScalar(tone));
     for (let i = 0; i < k; i++) {
       const j = (i + 1) % k;
       idx.push(seam[i], seam[j], ed[j], seam[i], ed[j], ed[i]);
@@ -211,10 +263,11 @@ export function build({ lod = 'high' } = {}) {
   shellGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   shellGeo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
   shellGeo.setIndex(idx); shellGeo.computeVertexNormals();
+  const shellCut = cutConvex(shellGeo, DOOR_CUT, toDoor);   // no panels inside the door dormer
   const shellMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.22, metalness: 0.05, side: THREE.DoubleSide, emissive: 0xfff4e6, emissiveIntensity: 0.12 });
   shellMat.userData.noSurface = true;   // no board/shingle lines on the panels
   shellMat.shadowSide = THREE.BackSide;
-  const shell = new THREE.Mesh(shellGeo, shellMat); shell.position.set(0, yb, DOME_Z); g.add(shell);
+  const shell = new THREE.Mesh(shellCut, shellMat); shell.name = 'dome_shell'; shell.position.set(0, yb, DOME_Z); g.add(shell);
 
   // clear panes (unpack fans)
   const cp = [], ci2 = [];
@@ -233,12 +286,78 @@ export function build({ lod = 'high' } = {}) {
   const paneGeo = new THREE.BufferGeometry();
   paneGeo.setAttribute('position', new THREE.Float32BufferAttribute(cp, 3)); paneGeo.setIndex(ci2); paneGeo.computeVertexNormals();
   const paneMat = new THREE.MeshStandardMaterial({ color: 0x8fa3b4, roughness: 0.08, metalness: 0.5, transparent: true, opacity: 0.32, side: THREE.DoubleSide, depthWrite: false });
-  const panes = new THREE.Mesh(paneGeo, paneMat); panes.position.set(0, yb, DOME_Z); panes.renderOrder = 2; g.add(panes);
+  const panes = new THREE.Mesh(cutConvex(paneGeo, DOOR_CUT, toDoor), paneMat); panes.position.set(0, yb, DOME_Z); panes.renderOrder = 2; g.add(panes);
+  // Mike (2026-10-28): only the shell's panel pattern (and its clear window band) turns 45° clockwise; the door,
+  // deck and furniture stay where they are
+  shell.rotation.y = panes.rotation.y = SHELL_ROT;
+
+  // ---------- RGB LED strips (Mike 2026-10-29) ----------
+  // One strip on every seam where two panels meet: each shared edge once (no doubling), none along the base where
+  // the panels meet the ring. The real dome has LED strings on its seams (PXL_20240519_0134*.jpg). Drawn as discrete
+  // LEDs (~10 cm apart) running one WLED-style effect Mike picked (2026-10-29) from a set of five: a smooth
+  // purple-pink rising wave. Clock = the film's time (globalThis.FT_TIME, set in land.js) so recordings
+  // are repeatable; wall time in the model preview.
+  if (hi) {
+    const seen = new Set(), P = [], D = [], Ld = [], Ac = [], I = [], RL = R + 0.012, HWD = 0.024, SEG = 4, PITCH = 0.1;
+    const k3 = v => `${v.x.toFixed(3)},${v.y.toFixed(3)},${v.z.toFixed(3)}`;
+    let led = 0;
+    for (const poly of ledPolys) for (let i = 0; i < poly.length; i++) {
+      const a = poly[i], b = poly[(i + 1) % poly.length];
+      if (a.y < 0.01 && b.y < 0.01) continue;                       // base edge, sits on the ring
+      const ka = k3(a), kb = k3(b), key = ka < kb ? ka + '|' + kb : kb + '|' + ka;
+      if (seen.has(key)) continue; seen.add(key);
+      const n = Math.max(2, Math.round(a.angleTo(b) * RL / PITCH)), base = P.length / 3;
+      for (let s = 0; s <= SEG; s++) {
+        const p = a.clone().lerp(b, s / SEG).normalize(), t = b.clone().sub(a).normalize();
+        const side = new THREE.Vector3().crossVectors(t, p).normalize().multiplyScalar(HWD);
+        const c = p.clone().multiplyScalar(RL);
+        for (const sg of [1, -1]) {
+          P.push(c.x + side.x * sg, c.y + side.y * sg, c.z + side.z * sg); D.push(p.x, p.y, p.z);
+          Ld.push(led + (s / SEG) * n); Ac.push(sg);
+        }
+      }
+      for (let s = 0; s < SEG; s++) { const q = base + s * 2; I.push(q, q + 1, q + 3, q, q + 3, q + 2); }
+      led += n + 1;
+    }
+    const lg = new THREE.BufferGeometry();
+    lg.setAttribute('position', new THREE.Float32BufferAttribute(P, 3)); lg.setAttribute('aDir', new THREE.Float32BufferAttribute(D, 3));
+    lg.setAttribute('aLed', new THREE.Float32BufferAttribute(Ld, 1)); lg.setAttribute('aAcross', new THREE.Float32BufferAttribute(Ac, 1));
+    lg.setIndex(I);
+    const lm = new THREE.ShaderMaterial({
+      uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib.fog, { uTime: { value: 0 } }]),
+      vertexShader: `attribute vec3 aDir; attribute float aLed; attribute float aAcross;
+        varying vec3 vDir; varying float vLed; varying float vAcross;
+        #include <fog_pars_vertex>
+        void main() { vDir = aDir; vLed = aLed; vAcross = aAcross;
+          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0); gl_Position = projectionMatrix * mvPosition;
+          #include <fog_vertex>
+        }`,
+      fragmentShader: `uniform float uTime; varying vec3 vDir; varying float vLed; varying float vAcross;
+        #include <fog_pars_fragment>
+        vec3 hsv(float h, float s, float v) { vec3 k = clamp(abs(mod(h * 6.0 + vec3(0.0, 4.0, 2.0), 6.0) - 3.0) - 1.0, 0.0, 1.0); return v * mix(vec3(1.0), k, s); }
+        void main() {
+          // the smooth purple-pink "rising wave" Mike picked: soft bands of blue→violet→pink rolling up the dome
+          float az = atan(vDir.x, vDir.z) / 6.2831853, w = 0.5 + 0.5 * sin(vDir.y * 9.0 - uTime * 3.0);
+          vec3 c = hsv(fract(0.55 + 0.3 * w + az * 0.2), 1.0, 0.2 + 0.8 * w);
+          float led = 1.0 - smoothstep(0.22, 0.42, abs(fract(vLed) - 0.5));     // a bright dot per LED
+          float across = 1.0 - smoothstep(0.35, 1.0, abs(vAcross));
+          float lum = max(max(c.r, c.g), c.b);                                    // unlit LEDs fade out, not dark dashes
+          gl_FragColor = vec4(c * (0.45 + 1.1 * led), across * (0.55 + 0.45 * led) * mix(0.15, 1.0, smoothstep(0.08, 0.5, lum)));
+          #include <fog_fragment>
+        }`,
+      fog: true, transparent: true, depthWrite: false, side: THREE.DoubleSide, toneMapped: false,
+    });
+    lm.userData.noSurface = true;
+    const leds = new THREE.Mesh(cutConvex(lg, DOOR_CUT, toDoor), lm); leds.name = 'dome_leds'; leds.renderOrder = 3;
+    leds.onBeforeRender = () => { lm.uniforms.uTime.value = globalThis.FT_TIME ? globalThis.FT_TIME.value : performance.now() / 1000; };
+    shell.add(leds);
+  }
 
   // ---------- door dormer (+Z) ----------
   const frameM = new THREE.MeshStandardMaterial({ color: 0xb3b9c0, roughness: 0.4, metalness: 0.12, side: THREE.DoubleSide });
+  frameM.userData.noSurface = true;   // smooth aluminium, no siding lines
   const glassM = new THREE.MeshStandardMaterial({ color: 0x4a5661, roughness: 0.1, metalness: 0.55 });
-  const HW = 0.5, HD = 2.0, ZF = R + 0.09;
+  const HW = DOOR_HW, HD = DOOR_HD, ZF = R + 0.09;
   const zs = (x, y) => Math.sqrt(Math.max(0, R * R - x * x - y * y));
   {
     const P = [], I = [];
@@ -262,22 +381,80 @@ export function build({ lod = 'high' } = {}) {
     const front = box(2 * HW + 0.06, HD + 0.04, 0.05, frameM, 0, yb + HD / 2, DOME_Z + ZF, g);
     const gl = box(2 * HW - 0.16, HD - 0.16, 0.02, glassM, 0, yb + HD / 2 - 0.02, DOME_Z + ZF + 0.03, g);
     if (hi) box(0.03, 0.18, 0.03, black, HW - 0.14, yb + 1.0, DOME_Z + ZF + 0.05, g); // handle
+    // the inside face of the door (Mike 2026-10-29: it has to read from inside the dome too)
+    box(2 * HW - 0.16, HD - 0.16, 0.02, glassM, 0, yb + HD / 2 - 0.02, DOME_Z + ZF - 0.03, g);
+    if (hi) box(0.03, 0.18, 0.03, black, HW - 0.14, yb + 1.0, DOME_Z + ZF - 0.05, g);
   }
   box(0.9, 0.18, 0.42, black, 0, DECK_H + 0.09, DOME_Z + ZF + 0.34, g);               // black step
 
   // ---------- interior (seen through the panoramic window) ----------
+  // Laid out from Dome Interior.jpg (taken just inside the door, looking in: the opaque wall on the left, the clear
+  // window band ahead-right) and PXL_20240519_014325376 (the same room seen through the window). Coordinates are
+  // from the dome centre, door = +Z, window band centred 45° clockwise of -Z (toward +X/-Z):
+  //  - queen bed with its head against the left (-X) wall, foot toward the room; black knit throw across the foot
+  //    with a tray, wine bottle + two glasses; pillows + the "stay awhile" cushion at the head
+  //  - nightstand + white lamp at the far corner of the head
+  //  - small round table in a floor-length black cloth with a lantern, just inside the clear band straight ahead,
+  //    a black chair with a cushion either side of it facing the table
+  //  - grey shag rug along the foot of the bed (the dreamcatcher is left out: it poked through the shell)
   if (hi) {
-    const white = new THREE.MeshStandardMaterial({ color: 0xe9e9e6, roughness: 0.8 });
-    box(1.65, 0.55, 2.05, white, 0.95, yb + 0.28, DOME_Z + 0.1, g);
-    box(1.7, 0.04, 0.6, black, 0.95, yb + 0.57, DOME_Z - 0.55, g);                    // black throw
-    box(1.65, 0.9, 0.08, white, 0.95, yb + 0.45, DOME_Z + 1.15, g);                   // headboard/pillows
-    const t = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.72, 10), black);
-    t.position.set(-1.0, yb + 0.36, DOME_Z - 1.0); g.add(t);
+    const inner = new THREE.Group(); inner.position.set(0, yb, DOME_Z);
+    const M = (color, rough = 0.85, extra = {}) => new THREE.MeshStandardMaterial({ color, roughness: rough, ...extra });
+    const white = M(0xeeeeea), linen = M(0xf4f3ef, 0.95), knit = M(0x262626, 1), wood = M(0x1f1a17, 0.7), cush = M(0xb8b2a8, 0.95);
+    const cyl = (r1, r2, h, mat, x, y, z, seg = 14) => { const o = new THREE.Mesh(new THREE.CylinderGeometry(r1, r2, h, seg), mat); o.position.set(x, y, z); inner.add(o); return o; };
+    // bed: long axis along X, head at x ≈ -2.05, foot at x ≈ -0.05
+    const bx = -1.05, bz = -0.05;
+    box(2.0, 0.32, 1.6, M(0x8d8a86), bx, 0.16, bz, inner);
+    box(1.98, 0.2, 1.68, linen, bx, 0.42, bz, inner);
+    for (const z of [-0.4, 0.4]) box(0.4, 0.16, 0.72, white, bx - 0.78, 0.6, bz + z, inner);
+    const sa = box(0.12, 0.36, 0.6, white, bx - 0.55, 0.68, bz + 0.25, inner); sa.rotation.z = -0.35;   // "stay awhile"
+    box(0.62, 0.05, 1.74, knit, bx + 0.62, 0.54, bz, inner);                                             // black knit throw
+    cyl(0.22, 0.22, 0.02, M(0x9a9da0, 0.3, { metalness: 0.7 }), bx + 0.55, 0.575, bz - 0.3);              // tray
+    cyl(0.04, 0.04, 0.3, M(0x3a1414, 0.2), bx + 0.6, 0.73, bz - 0.4, 8);                                   // wine
+    const glass = M(0xdfe8ee, 0.05, { transparent: true, opacity: 0.45 });
+    for (const dz of [-0.2, -0.1]) cyl(0.035, 0.025, 0.16, glass, bx + 0.45 + dz, 0.665, bz - 0.25 + dz, 8);
+    // a nightstand + lamp either side of the head, mirrored about the bed's centre line (Mike 2026-10-29)
+    const shade = M(0xf6efe0, 0.9, { emissive: 0xffd9a0, emissiveIntensity: 0.6 });
+    for (const nz of [bz - 1.2, bz + 1.2]) {
+      box(0.4, 0.5, 0.38, wood, -1.55, 0.25, nz, inner);
+      cyl(0.06, 0.08, 0.2, white, -1.55, 0.6, nz, 10);
+      cyl(0.1, 0.12, 0.24, shade, -1.55, 0.82, nz, 12);
+    }
+    // grey shag rug square to the foot of the bed, centred on it
+    const rug = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 2.0), M(0x7d7c7a, 1)); rug.rotation.x = -Math.PI / 2; rug.position.set(bx + 1.0 + 0.7, 0.012, bz); inner.add(rug);
+    // small dresser with a coffee maker, just left of the door seen from inside (Mike 2026-10-29); front faces the
+    // dome centre, set in far enough that its back corners clear the curved wall
+    {
+      const dr = new THREE.Group(), dd = new THREE.Vector2(0.49, 0.87).normalize().multiplyScalar(1.95);
+      dr.position.set(dd.x, 0, dd.y); dr.rotation.y = Math.atan2(dd.x, dd.y); inner.add(dr);   // local front = -Z
+      const body = M(0xd9d2c5, 0.7), seam = M(0xb9b1a3, 0.8), knob = M(0x3a3a3a, 0.4, { metalness: 0.6 });
+      box(0.8, 0.74, 0.42, body, 0, 0.37, 0, dr); box(0.84, 0.03, 0.45, body, 0, 0.755, 0, dr);
+      for (const y of [0.17, 0.4, 0.62]) { box(0.74, 0.19, 0.012, seam, 0, y, -0.216, dr); for (const x of [-0.2, 0.2]) box(0.05, 0.025, 0.025, knob, x, y, -0.23, dr); }
+      const blk = M(0x1b1b1d, 0.45);
+      box(0.2, 0.34, 0.24, blk, -0.15, 0.94, 0.02, dr);                                                       // coffee maker
+      box(0.2, 0.06, 0.3, blk, -0.15, 1.08, -0.01, dr);                                                       // its hood
+      const pot = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.075, 0.16, 12), M(0xcfd8de, 0.05, { transparent: true, opacity: 0.4 })); pot.position.set(-0.15, 0.86, -0.12); dr.add(pot);
+      const brew = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.07, 0.08, 12), M(0x2a160c, 0.3)); brew.position.set(-0.15, 0.82, -0.12); dr.add(brew);
+      for (const x of [0.12, 0.26]) { const mug = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.04, 0.1, 10), white); mug.position.set(x, 0.82, -0.05); dr.add(mug); }
+    }
+    // round table in a floor-length black cloth with a lantern, a chair either side facing it
+    const tx = 0.15, tz = -1.75;
+    cyl(0.34, 0.42, 0.74, knit, tx, 0.37, tz, 16);
+    box(0.14, 0.26, 0.14, M(0x1a1a1a, 0.5, { metalness: 0.4 }), tx, 0.87, tz, inner);
+    box(0.09, 0.16, 0.09, M(0xffc77a, 0.5, { emissive: 0xffb45c, emissiveIntensity: 0.9 }), tx, 0.87, tz, inner);
+    for (const [cx, cz, ry] of [[tx - 0.6, tz + 0.1, -Math.PI / 2], [tx + 0.6, tz + 0.1, Math.PI / 2]]) {   // chairs face -Z unrotated
+      const ch = new THREE.Group(); ch.position.set(cx, 0, cz); ch.rotation.y = ry; inner.add(ch);
+      box(0.42, 0.05, 0.42, wood, 0, 0.45, 0, ch); box(0.38, 0.04, 0.38, cush, 0, 0.49, 0, ch);
+      for (const [lx, lz] of [[-0.18, -0.18], [0.18, -0.18], [-0.18, 0.18], [0.18, 0.18]]) box(0.035, 0.45, 0.035, wood, lx, 0.225, lz, ch);
+      for (const lx of [-0.18, 0.18]) box(0.035, 0.45, 0.035, wood, lx, 0.7, 0.18, ch);
+      box(0.4, 0.12, 0.03, wood, 0, 0.86, 0.18, ch);
+    }
+    g.add(inner);
   }
 
-  // Mike (2026-10-27): the dome sits rotated 90° clockwise on its deck. Turn only the dome (shell, door, step,
-  // interior) about its own centre; the deck and the furniture on it were already right.
-  const pivot = new THREE.Group(); pivot.position.set(0, 0, DOME_Z); pivot.rotation.y = -Math.PI / 2;
+  // Mike (2026-10-27): the dome sits rotated 90° clockwise on its deck; (2026-10-28) now 90° counterclockwise from
+  // that. Turn only the dome (shell, door, step, interior) about its own centre; the deck and furniture stay put.
+  const pivot = new THREE.Group(); pivot.position.set(0, 0, DOME_Z); pivot.rotation.y = 0;
   for (const o of g.children.slice(domeStart)) { o.position.z -= DOME_Z; pivot.add(o); }
   g.add(pivot);
 
@@ -285,26 +462,29 @@ export function build({ lod = 'high' } = {}) {
   const red = new THREE.MeshStandardMaterial({ color: 0xc42222, roughness: 0.6 });
   if (hi) {
     const rugM = new THREE.MeshStandardMaterial({ color: 0x8e9398, roughness: 1 });
-    const rug = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 2.4), rugM);
+    const rug = new THREE.Mesh(new THREE.PlaneGeometry(3.0, 2.4), rugM);
     rug.rotation.x = -Math.PI / 2; rug.position.set(0, DECK_H + 0.006, -2.6); g.add(rug);
   }
-  for (const [x, ry] of [[-0.55, 0.15], [0.6, -0.15]]) {
+  // Mike (2026-10-29): the little black table sits between the two chairs, chairs spread so nothing clips
+  for (const [x, ry] of [[-0.88, 0.15], [0.88, -0.15]]) {
     const ch = adirondack(red, lod); ch.position.set(x, DECK_H, -2.7); ch.rotation.y = ry; g.add(ch);
   }
   if (hi) { // closed cantilever umbrella on its weighted cross base (NW side of the deck)
     const pole = new THREE.MeshStandardMaterial({ color: 0x2a2a2c, roughness: 0.5, metalness: 0.4 });
     const canvasM = new THREE.MeshStandardMaterial({ color: 0xebe8e1, roughness: 0.85 });
-    const ux = 2.75, uz = -0.9;
+    // Mike (2026-10-29): stand further out on the deck, clear of the dome; the canopy hangs entirely beside the
+    // pole (centre 1.6 m out on the arm, radius 1.45) so it never cuts through its own stand, shading the chairs
+    const ux = 2.9, uz = -2.6, off = 1.6;
     box(1.0, 0.1, 0.22, black, ux, DECK_H + 0.05, uz, g); box(0.22, 0.1, 1.0, black, ux, DECK_H + 0.05, uz, g);
-    box(0.07, 2.5, 0.07, pole, ux, DECK_H + 1.25, uz, g);
-    const arm = box(1.05, 0.05, 0.05, pole, ux - 0.45, DECK_H + 2.62, uz, g); arm.rotation.z = -0.25;
-    // open, as in the photos (Dome1.jpeg): a wide white canopy hanging from the arm
+    box(0.07, 2.85, 0.07, pole, ux, DECK_H + 1.425, uz, g);
+    box(off + 0.05, 0.05, 0.05, pole, ux - off / 2, DECK_H + 2.82, uz, g);                         // arm
+    box(0.05, 0.1, 0.05, pole, ux - off, DECK_H + 2.75, uz, g);                                    // hanger
     const can = new THREE.Mesh(new THREE.ConeGeometry(1.45, 0.55, 8, 1, true), new THREE.MeshStandardMaterial({ color: 0xf2efe8, roughness: 0.85, side: THREE.DoubleSide }));
-    can.position.set(ux - 0.95, DECK_H + 2.45, uz); g.add(can);
-    box(0.06, 0.4, 0.06, pole, ux - 0.95, DECK_H + 2.5, uz, g);
-    // a small round table under it
-    const tbl = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.04, 14), black); tbl.position.set(ux - 0.95, DECK_H + 0.72, uz); g.add(tbl);
-    box(0.05, 0.7, 0.05, pole, ux - 0.95, DECK_H + 0.36, uz, g);
+    can.position.set(ux - off, DECK_H + 2.45, uz); g.add(can);
+    // the little black side table, between the chairs
+    const tbl = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.04, 14), black); tbl.position.set(0, DECK_H + 0.55, -2.75); g.add(tbl);
+    box(0.05, 0.53, 0.05, pole, 0, DECK_H + 0.265, -2.75, g);
+    box(0.36, 0.03, 0.36, black, 0, DECK_H + 0.015, -2.75, g);
   }
   return g;
 }

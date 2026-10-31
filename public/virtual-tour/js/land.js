@@ -9,6 +9,7 @@ export const H0 = 600;
 
 // One set of uniforms shared by every material in the scene.
 export const U = {
+  uGroundView: { value: 0 },   // 0 painted materials, 1 drone photo, 2 satellite only (placer toggle)
   uCut: { value: -200 },        // the rising cut plane (height above H0)
   uStep: { value: 0 },          // terrace height for the stepped style (0 = smooth)
   uSmooth: { value: 1 },        // 0 = terraced, 1 = true terrain
@@ -42,6 +43,7 @@ export const U = {
   uLight: { value: new THREE.Vector3(1, 1, 1) },   // multiplies the real ground (dusk / night chapters)
   uWaterAmt: { value: 1 },                          // water strength (the atlas creek lines are off by metres up close)
 };
+globalThis.FT_TIME = U.uTime;   // shared clock for animated models (dome LEDs): film time when recording
 
 export const REVEAL_GLSL = /* glsl */`
 uniform float uCut, uStep, uSmooth, uReveal, uRevealMode, uFinish, uExag, uTide;
@@ -130,6 +132,7 @@ uniform vec3 uBands[4];
 uniform vec3 uDroneGain, uTideGlow, uContourCol, uContourIdxCol, uSkyTop;
 uniform sampler2D tWater; uniform vec4 uWaterRect; uniform float uTime, uHasWater, uTreeFade, uWaterAmt; uniform vec3 uLight;
 uniform sampler2D tLand; uniform vec4 uLandRect; uniform float uHasLand;
+uniform highp sampler2DArray tGround; uniform sampler2D tGroundB, tGroundC; uniform float uHasGround, uGroundView, uGroundSize[8]; uniform vec3 uGroundMean[8];   // clean-realism ground (js/ground.js); class weights 0–3 come in tLand
 uniform sampler2D tHi0, tHi1, tHi2; uniform vec3 uHiUA[3], uHiUB[3], uHiVA[3], uHiVB[3]; uniform float uHiN;   // zoom-20 drone patches over the close-up areas   // land cover: r grass, g fairway, b water, a path/gravel
 uniform sampler2D tSheet, tOverlay, tFurniture, tNear, tFar, tDrone, tMid;
 uniform vec3 uMidUA, uMidUB, uMidVA, uMidVB; uniform float uHasMid;
@@ -181,6 +184,54 @@ vec3 detailGround(vec3 photo, vec2 xy, float dist, vec2 dUV) {
   col = mix(col, vec3(0.62, 0.56, 0.33), 0.18 * c.r * near * smoothstep(0.66, 0.86, band(xy + 7.0, 2.2, px)));
   return col;
 }
+// Clean-realism ground (Mike chose style A, 10-29): the ground-type map picks a CC0 material per spot; each is tiled
+// in world space with a second, rotated + rescaled lookup blended in by low-frequency noise so the repeat never
+// shows; class edges are broken up with noise; colour leans 50% toward the place's own (very low-pass) photo colour;
+// the material's normal map shades it. The photo comes back with distance (the film's high shots keep the survey).
+vec3 groundMat(vec3 photo, vec2 xy, float dist, vec2 dUV, vec3 n) {
+  vec2 g = (xy - uLandRect.xy) / (uLandRect.zw - uLandRect.xy);
+  if (g.x <= 0.0 || g.y <= 0.0 || g.x >= 1.0 || g.y >= 1.0) return photo;
+  float near = 1.0 - smoothstep(600.0, 1500.0, dist);   // the autumn photo only from high up: it carried every grass patch into the mid-distance (Mike 10-31)
+  if (near <= 0.0) return photo;
+  vec4 wa = texture2D(tLand, g, 1.2), wb = texture2D(tGroundB, g, 1.2);   // the class edges blurred over ~3 m (i11: hard 'camouflage' blobs)
+  float w[8]; w[0] = wa.r; w[1] = wa.g; w[2] = wa.b; w[3] = wa.a; w[4] = wb.r; w[5] = wb.g; w[6] = wb.b; w[7] = wb.a;
+  // one grass: lawn, worn ground and forest floor are all fairway; only roads, yards, dirt, cobble and water differ (Mike 10-31)
+  w[1] += w[0] + w[2] + w[6]; w[0] = 0.0; w[2] = 0.0; w[6] = 0.0;
+  float tot0 = 0.0; for (int i = 0; i < 8; i++) tot0 += w[i];
+  if (tot0 < 0.02) return photo;                                   // outside the survey
+  float tot = 0.0;
+  for (int i = 0; i < 8; i++) {                                    // natural, irregular edges between ground types
+    // gentle, low-frequency wobble only (Mike 10-29: the painted ground was blotchy next to the drone photo)
+    float nz = vnoise(xy * 0.18 + float(i) * 17.3) * 0.7 + vnoise(xy * 0.6 + float(i) * 5.1) * 0.3;
+    w[i] = w[i] * (0.8 + 0.4 * nz); tot += w[i];
+  }
+  vec3 lp = texture2D(tDrone, dUV, 5.0).rgb * uDroneGain;          // the place's own colour, ~10 m blur
+  vec3 col = vec3(0.0), nt = vec3(0.0);
+  float mixN = smoothstep(0.3, 0.7, vnoise(xy * 0.045));
+  mat2 rot = mat2(0.8, -0.6, 0.6, 0.8);
+  for (int i = 0; i < 8; i++) {
+    float wi = w[i] / max(tot, 1e-4);
+    if (wi < 0.01) continue;
+    vec2 uv = xy / uGroundSize[i], uv2 = rot * uv * 0.71 + vec2(0.37, 0.61);
+    float L = float(i);
+    vec3 c = mix(texture(tGround, vec3(uv, L)).rgb, texture(tGround, vec3(uv2, L)).rgb, mixN);
+    vec3 nn = mix(texture(tGround, vec3(uv, L + 8.0)).rgb, texture(tGround, vec3(uv2, L + 8.0)).rgb, mixN) * 2.0 - 1.0;
+    c = pow(c, vec3(2.2));                                         // the array is stored raw: sRGB -> linear here
+    float grain = 1.0 - 0.8 * smoothstep(30.0, 220.0, dist);       // the material's grain fades with distance (i11: speckle from the air)
+    c = mix(uGroundMean[i], c, grain);
+    vec3 ratio = clamp(lp / max(uGroundMean[i], vec3(0.01)), vec3(0.45), vec3(1.9));
+    // the drone survey is autumn: grass follows its light and dark but keeps a summer green (photos: luminous mown fairways)
+    vec3 rg = i < 2 ? vec3(1.5, 2.05, 1.0) : (i >= 2 && i <= 5) ? vec3(1.0, 0.98, 0.94) : ratio;   // road, yard, dirt: dusty grey-tan as in the photos, not yellow (Mike 10-31)
+    if (i == 1) c *= 1.0 + 0.09 * grain * (smoothstep(-0.12, 0.12, sin(dot(xy, vec2(0.6, 0.8)) * 0.7)) - 0.5);   // the mower's stripes (drone video)
+    if (i >= 2 && i <= 5) c = mix(vec3(dot(c, vec3(0.3, 0.6, 0.1))), c, 0.45);   // the gravel texture itself reads yellow
+    col += wi * c * mix(vec3(1.0), rg, 0.85);                   // follow the photo's own colour there, so patches agree with the place (i11)
+    nt += wi * nn * grain;
+  }
+  // normal-map shading relative to the terrain's own (the main lighting multiplies in after this)
+  vec3 pn = normalize(n + vec3(nt.x, 0.0, -nt.y) * 0.9);
+  float shade = (0.80 + 0.36 * max(dot(pn, uSunDir), 0.0)) / (0.80 + 0.36 * max(dot(n, uSunDir), 0.0));
+  return mix(photo, col * shade, near * clamp(tot0, 0.0, 1.0));
+}
 float ripple(vec2 q) { return vnoise(q * 0.32) * 0.6 + vnoise(q * 0.85 + 7.3) * 0.3 + vnoise(q * 2.1 - 3.1) * 0.1; }
 // Water from the mask (water.js): moving ripples downstream, sky reflection with fresnel, sun glints.
 vec3 water(vec3 land, vec2 xy, vec3 wpos) {
@@ -188,8 +239,24 @@ vec3 water(vec3 land, vec2 xy, vec3 wpos) {
   if (uHasWater < 0.5 || wUV.x < 0.0 || wUV.y < 0.0 || wUV.x > 1.0 || wUV.y > 1.0) return land;
   vec4 m = texture2D(tWater, wUV);
   float amt = smoothstep(0.08, 0.6, m.b);
-  if (amt < 0.001) return land;
   vec2 dir = (m.rg - 0.5) * 2.0;                                  // downstream (east, north); ~0 on still water
+  // over the survey the clean ground carries its own water, traced from the photo (exact, unlike the atlas creek
+  // lines); the flow direction still comes from the atlas, blurred so it reaches the real channel
+  float traced = 0.0;
+  if (uHasGround > 0.5 && uGroundView < 0.5) {
+    vec2 g = (xy - uLandRect.xy) / (uLandRect.zw - uLandRect.xy);
+    vec4 gc = (g.x > 0.0 && g.y > 0.0 && g.x < 1.0 && g.y < 1.0) ? texture2D(tGroundC, g) : vec4(0.0);
+    if (gc.g > 0.5) {
+      traced = 1.0; amt = smoothstep(0.25, 0.75, gc.r);
+      // still vs flowing comes from the ground map itself (b = creek channel), smooth at 0.5 m — the old 2 m atlas
+      // lookup made the lake switch look in blocks (Mike 10-29: "why's it so pixelated?"); the flow DIRECTION still
+      // comes from the (very blurred) atlas, only on the creek
+      vec4 mb = texture2D(tWater, wUV, 6.0);
+      vec2 fd = mb.b > 0.02 ? normalize((mb.rg - 0.5) + vec2(1e-4)) : vec2(0.0, -1.0);
+      dir = fd * smoothstep(0.3, 0.7, gc.b);
+    }
+  }
+  if (amt < 0.001) return land;
   float still = 1.0 - clamp(length(dir) * 1.5, 0.0, 1.0);
   vec2 q = xy - dir * uTime * 1.8 + vec2(0.31, 0.23) * uTime * still;
   float e = 0.5, h0 = ripple(q), hx = ripple(q + vec2(e, 0.0)), hy = ripple(q + vec2(0.0, e));
@@ -201,15 +268,23 @@ vec3 water(vec3 land, vec2 xy, vec3 wpos) {
   vec3 sky = mix(uFog, uSkyTop, clamp(R.y * 1.6 + 0.35 * still, 0.0, 1.0));   // still water mirrors the sky, not the haze
   // creeks take the bank's tone; still water (the swimming lake, ponds) is a clear blue-green that mirrors the sky
   // (photo check: Swimming Lake.jpg is a blue mirror, the drone photo's lake reads as dirt)
-  vec3 deep = mix(mix(vec3(0.05, 0.08, 0.07), land * 0.55, 0.4), vec3(0.04, 0.1, 0.12), still);   // dark, muted (from above it read bright cyan)
-  vec3 wc = mix(deep, sky, clamp(0.12 + fres + 0.12 * still, 0.0, mix(0.55, 0.62, still)));
+  // one water colour everywhere (Mike 10-29: creeks and lakes read as two different waters): the same dark
+  // blue-green body and sky reflection; creeks only differ by their ripples, flow and a touch of their bed showing
+  // (cut 10 reviews: the creek read as grey asphalt, the lake as a grey slab) — a clearer green-teal body, lighter
+  // and milkier on the glacial creek, and less of the hazy sky so it never goes grey
+  vec3 deep = mix(vec3(0.04, 0.1, 0.1), vec3(0.09, 0.15, 0.13), 0.45 * (1.0 - still));   // darker, as in Creek/The Creek.jpg
+  vec3 wc = mix(deep, sky * vec3(0.85, 0.95, 1.05), clamp(0.08 + fres * 0.8 + 0.22 * still, 0.0, 0.42 + 0.2 * still));
+  { float az = atan(R.x, R.z), tops = 0.05 * vnoise(vec2(az * 26.0, 3.0)) + 0.02 * vnoise(vec2(az * 90.0, 8.0)), mirror = (1.0 - smoothstep(0.26 + tops, 0.34 + tops, R.y)) * still; wc = mix(wc, vec3(0.022, 0.05, 0.035) + sky * 0.05, mirror * 0.85); }
   wc += vec3(1.0, 0.9, 0.72) * pow(max(dot(R, uSunDir), 0.0), 70.0) * 0.18;  // a soft sheen, never sparkles
   float streak = vn((xy - dir * uTime * 1.2) * vec2(0.6, 0.6)) * (1.0 - still);
   wc *= 0.95 + 0.1 * streak;
-  float creekKeep = mix(0.45, 0.0, still);   // creeks: let the real (photographed) creek show through
+  // white water: broken foam where the creek runs over its cobbles (DJI_0286, Creek View 1/2)
+  float foam = smoothstep(0.62, 0.9, vn((xy - dir * uTime * 2.2) * vec2(0.9, 0.9)) * 0.7 + vn(xy * 3.1 - dir * uTime * 3.0) * 0.3);
+  wc = mix(wc, vec3(0.78, 0.82, 0.8), foam * 0.22 * (1.0 - still));   // (i12: cartoon foam blotches)
+  float creekKeep = mix(0.2, 0.0, still) * (1.0 - traced);   // atlas creeks off the survey: a little of the photographed creek shows through
   // chapters turn uWaterAmt down because the atlas CREEK lines sit a few metres off the photo's; lakes are exact, so
   // still water keeps its full surface
-  float amtK = mix(uWaterAmt, 1.0, still * still);
+  float amtK = max(mix(uWaterAmt, 1.0, still * still), traced);
   return mix(land, wc, amt * (1.0 - creekKeep) * uTreeFade * amtK);
 }
 vec2 quadUV(vec2 p, vec3 uA, vec3 uB, vec3 vA, vec3 vB) {
@@ -256,7 +331,8 @@ void main() {
     if (uHasMid > 0.5) { vec2 muv = quadUV(vXY, uMidUA, uMidUB, uMidVA, uMidVB); real = mix(real, texture2D(tMid, muv).rgb, inside(muv, 0.08)); }
   }
   vec2 dUV = (vXY - uDroneRect.xy) / (uDroneRect.zw - uDroneRect.xy);
-  if (dUV.x > 0.0 && dUV.y > 0.0 && dUV.x < 1.0 && dUV.y < 1.0) {
+  // uGroundView (the placer's view toggle): 0 painted materials, 1 drone photo, 2 satellite only
+  if (uGroundView < 1.5 && dUV.x > 0.0 && dUV.y > 0.0 && dUV.x < 1.0 && dUV.y < 1.0) {
     vec4 d = texture2D(tDrone, dUV);
     vec3 dc = d.rgb * uDroneGain;
     dc = mix(vec3(dot(dc, vec3(0.299, 0.587, 0.114))), dc, 1.0);   // the photo's own colour (0.86 dulled the fairways)   // the real greens (photo check: fairways read olive-brown when tamed)
@@ -272,8 +348,9 @@ void main() {
       float filled = smoothstep(0.025, 0.07, dot(hc.rgb, vec3(0.333)));   // the z20 survey has black dropout blocks: skip them
       real = mix(real, hdc, hc.a * inside(huv, 0.02) * d.a * filled);
     }
-    real = mix(real, detailGround(real, vXY, length(vW - cameraPosition), dUV), d.a);
+    if (uHasGround < 0.5 || uGroundView > 0.5) real = mix(real, detailGround(real, vXY, length(vW - cameraPosition), dUV), d.a);
   }
+  if (uHasGround > 0.5 && uGroundView < 0.5) real = groundMat(real, vXY, length(vW - cameraPosition), dUV, n);
   real *= 0.80 + 0.36 * ndl;
   real *= vec3(1.04, 1.0, 0.94);   // late-afternoon warmth
   real = water(real, vXY, vW);
@@ -325,6 +402,8 @@ export function makeLand({ meta, near, far, sheetTex, overlayTex, furnitureTex, 
     tWater: { value: null }, uWaterRect: { value: new THREE.Vector4() }, uHasWater: { value: 0 },
     tLand: { value: null }, uLandRect: { value: new THREE.Vector4() }, uHasLand: { value: 0 },
     tHi0: { value: null }, tHi1: { value: null }, tHi2: { value: null }, uHiN: { value: 0 },
+    tGround: { value: null }, tGroundB: { value: null }, tGroundC: { value: null }, uHasGround: { value: 0 }, uGroundSize: { value: new Array(8).fill(2) },
+    uGroundMean: { value: [0, 1, 2, 3, 4, 5, 6, 7].map(() => new THREE.Vector3(0.2, 0.2, 0.2)) },
     uHiUA: { value: [0, 1, 2].map(() => new THREE.Vector3()) }, uHiUB: { value: [0, 1, 2].map(() => new THREE.Vector3()) },
     uHiVA: { value: [0, 1, 2].map(() => new THREE.Vector3()) }, uHiVB: { value: [0, 1, 2].map(() => new THREE.Vector3()) },
     tSheet: { value: sheetTex }, tOverlay: { value: overlayTex }, tFurniture: { value: furnitureTex }, tDrone: { value: droneTex },
@@ -345,6 +424,8 @@ export function makeLand({ meta, near, far, sheetTex, overlayTex, furnitureTex, 
   const farMesh = new THREE.Mesh(grid(far, fm.size, fm.half, nm.half), farMat);
   nearMesh.frustumCulled = farMesh.frustumCulled = false;
   const group = new THREE.Group(); group.add(farMesh, nearMesh);
+  // rebuild the near terrain after its heights were edited in place (building pads, engine.js)
+  const refreshNear = () => { const old = nearMesh.geometry; nearMesh.geometry = grid(near, nm.size, nm.half, 0); old.dispose(); };
 
   const setImagery = (nearMosaic, farMosaic, midMosaic) => {
     if (midMosaic) {
@@ -367,7 +448,12 @@ export function makeLand({ meta, near, far, sheetTex, overlayTex, furnitureTex, 
   };
   const setLand = (tex, rect) => { uniforms.tLand.value = tex; uniforms.uLandRect.value.copy(rect); uniforms.uHasLand.value = 1; };
   const setWater = w => { uniforms.tWater.value = w.tex; uniforms.uWaterRect.value.copy(w.rect); uniforms.uHasWater.value = 1; };
-  return { group, setImagery, setWater, setLand, setHi };
+  const setGround = gr => {   // replaces the land-cover detail (tLand) with the ground-type weights
+    uniforms.tLand.value = gr.tA; uniforms.uLandRect.value.copy(gr.rect); uniforms.uHasLand.value = 1;
+    uniforms.tGroundB.value = gr.tB; uniforms.tGroundC.value = gr.tC; uniforms.tGround.value = gr.mats; uniforms.uGroundSize.value = gr.sizes; uniforms.uGroundMean.value = gr.means;
+    uniforms.uHasGround.value = 1;
+  };
+  return { group, setImagery, setWater, setLand, setHi, setGround, refreshNear };
 }
 
 // Bilinear terrain height (true metres above H0) at local x (east), y (north).

@@ -1,5 +1,5 @@
 // Simple gabled outbuildings for the real roofs the site plan had misplaced (picked on the drone photo, 10-28):
-// the workshop, the shop, the storage building by the containers, and the dark shed behind the sauna.
+// the workshop, the shop, the storage building by the containers; plus the open woodshed ~20 m behind the sauna.
 // variant = one of VARIANTS below. Long axis along z; doors on the +z gable.
 import * as THREE from 'three';
 
@@ -9,10 +9,28 @@ export const VARIANTS = {
   workshop: { w: 6.5, d: 12, h: 3.2, roof: 0x8a9096, wall: 0x7a5a40 },   // grey metal roof, stained boards
   shop:     { w: 7, d: 14, h: 3.6, roof: 0xc9ccce, wall: 0x8c6a4c },     // the long white/grey roof
   storage:  { w: 10, d: 16, h: 4.2, roof: 0xb7bcc0, wall: 0x9a8a78 },    // big storage building by the containers
-  darkshed: { w: 4, d: 5, h: 2.6, roof: 0x3a2e28, wall: 0x4a3a30 },      // behind the sauna
 };
 
+// The woodshed behind the sauna, as the sauna 360 shows it (bearing ~86°, ~20 m): a low open-fronted lean-to on
+// posts, dark roof sloping to the back, slatted back and side walls, firewood stacked inside. Open front = +z.
+function woodshed(lod) {
+  const g = new THREE.Group(), W = 4.6, D = 2.8, HF = 2.3, HB = 1.8;
+  const post = new THREE.MeshStandardMaterial({ color: 0x4b3b2e, roughness: 0.9 });
+  const roofM = new THREE.MeshStandardMaterial({ color: 0x2f2a26, roughness: 0.6, metalness: 0.3, side: THREE.DoubleSide });
+  const box = (w, h, d, x, y, z, m) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, y, z); g.add(o); return o; };
+  for (const x of [-W / 2, 0, W / 2]) { box(0.14, HF, 0.14, x, HF / 2, D / 2, post); box(0.14, HB, 0.14, x, HB / 2, -D / 2, post); }
+  const roof = box(W + 0.5, 0.05, Math.hypot(D + 0.6, HF - HB), 0, (HF + HB) / 2 + 0.05, 0, roofM); roof.rotation.x = Math.atan2(HF - HB, D + 0.6);
+  const n = lod === 'low' ? 3 : 8;                          // slatted back + side walls
+  for (let i = 0; i < n; i++) { const y = 0.15 + i * (HB - 0.3) / (n - 1); box(W, 0.12, 0.03, 0, y, -D / 2, post); for (const s of [-1, 1]) box(0.03, 0.12, D, s * W / 2, y, 0, post); }
+  if (lod !== 'low') {                                       // firewood stacked along the back
+    const wood = new THREE.MeshStandardMaterial({ color: 0x9a7a58, roughness: 1 });
+    const stack = new THREE.Mesh(new THREE.BoxGeometry(W - 0.4, 1.2, 1.0), wood); stack.position.set(0, 0.6, -D / 2 + 0.6); g.add(stack);
+  }
+  return g;
+}
+
 export function build({ lod = 'high', variant = 'workshop' } = {}) {
+  if (variant === 'woodshed') return woodshed(lod);
   const v = VARIANTS[variant] || VARIANTS.workshop, g = new THREE.Group();
   const wall = new THREE.MeshStandardMaterial({ color: v.wall, roughness: 0.9 });
   const roofM = new THREE.MeshStandardMaterial({ color: v.roof, roughness: 0.45, metalness: 0.35, side: THREE.DoubleSide });

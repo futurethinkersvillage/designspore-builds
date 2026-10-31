@@ -3,7 +3,7 @@
 import { campWorld, makeStatCard } from './ch03.js';
 import { panoStop } from '../panostop.js';
 
-export const meta = { id: 'ch04', title: 'Creek, sauna & forest school', seconds: 13, animated: true };
+export const meta = { id: 'ch04', title: 'Creek, sauna & forest school', seconds: 25, animated: true, blend: 0.2 };   // the camera lands on the photo's spot (0.216) before it fades in (0.224) (Mike 10-31, frame 1767)
 
 let rig, cap, capCreek, blocks2, forest, cards, pano;
 export async function setup(ctx) {
@@ -17,17 +17,26 @@ export async function setup(ctx) {
   // the photo dissolves back and the camera rises up the creek to forest school
   pano = await panoStop(ctx, 'sauna');
   rig = R.makeRig([
-    [0.00, -119, -100, gA(-119, -100) + 2, 42, 229, -18, 45],
-    [0.28, -94.3, -61.3, gA(-94.3, -61.3) + 1.2, 16, 106, -12, 52],
-    pano.key(0.40, 106, -6),
-    pano.key(0.47, 104, -6),
-    pano.key(0.70, 8, -3),
-    [1.00, -82, 129, gA(-82, 129) + 2, 40, 340, -26, 45],   // the real forest-school playground (trampoline, fort), by the office
+    [0.00, -105.4, -86, gA(-105.4, -86) + 2, 42, 57, -30, 45],   // already facing the sauna (NE): no swing round   // over the bunk cabins where Mike placed them, above the crowns (cut 11)
+    [0.168, -81.45, -45.06, gA(-81.45, -45.06) + 1.2, 16, 123.3, -12, 52],   // the sauna where Mike placed it (10-29)
+    // 360 rule (Mike 10-29: transitions while the camera moves are jarring): arrive and STOP on the photo spot, fade
+    // the photo in while still, turn slowly, stop, fade it out while still, and only then move on
+    pano.key(0.216, 123.3, -6),
+    pano.key(0.34, 123.3, -6),    // still: the photo fades in, then the caption reads
+    // (Mike 10-30: "360 photos should pan more … probably 180") a slow 180° pan LEFT, ~22°/s: from the sauna past the
+    // red chairs and the bridge, then west down the creek (i7: the caption says "on Hemp Creek")
+    pano.key(0.66, -56.7, -6),
+    pano.key(0.712, -56.7, -6),   // still: the photo fades out
+    // then ONE straight move north up the creek to the playground, turning only 60° (i3: a sideways sweep past the
+    // domes and an empty fairway), and a hold there
+    [0.80, -84, 40, gA(-84, 40) + 6, 30, -24, -14, 45],   // one level arc, no hop up and down (i15)   // (i8) up off the creek at once, not skimming the water
+    [0.88, -80, 133, gA(-80, 133) + 1, 16, 25, -12, 45],   // (i12) low, looking across the fort at the trampoline     // the real forest-school playground (trampoline, fort), by the office
+    [1.00, -80, 133, gA(-80, 133) + 1, 15, 25, -12, 45],     // hold while the forest-school line reads
   ]);
   cards = [
-    makeStatCard(ctx, { at: [-117, -100], big: '3', small: 'Bunk cabins', heading: 326, lift: 18 }),
-    makeStatCard(ctx, { at: [-104.8, -59.2], big: '', small: 'Cedar sauna', heading: 342, lift: 14 }),
-    makeStatCard(ctx, { at: [-78, 126], big: '', small: 'Forest school', heading: 350, lift: 3 }),   // low: seen from above, never mirrored
+    makeStatCard(ctx, { at: [-101, -81], big: '3', small: 'Bunk cabins', heading: 42, lift: 4 }),   // (i7: it sat behind the lens)
+    makeStatCard(ctx, { at: [-81.45, -45.06], big: '', small: 'Cedar sauna', heading: 342, lift: 14 }),
+    makeStatCard(ctx, { at: [-76, 128], big: '', small: 'Forest school', heading: 30, lift: 2.5 }),   // low: seen from above, never mirrored
   ];
   // during the photo: name what we're looking at
   capCreek = document.createElement('div'); capCreek.className = 'cap';
@@ -48,12 +57,12 @@ export function update(t, ctx) {
   ctx.U.uWaterAmt.value = 0.25;   // the atlas creek line sits a few metres off the real one: keep it a hint
   rig.apply(ctx.camera, t);
   // the photo fades while the camera already climbs out (it sits at infinity, so the climb doesn't shift it)
-  pano.set(s(t, 0.36, 0.45) * (1 - s(t, 0.71, 0.81)));
-  cards[0].update(s(t, 0.0, 0.14) * (1 - s(t, 0.2, 0.28)), ctx.camera, 0.15);
+  pano.set(s(t, 0.224, 0.27) * (1 - s(t, 0.67, 0.71)));
+  cards[0].update(0, ctx.camera, 0.15);   // (i15: skewed and unreadable)
   cards[1].update(0, ctx.camera, 0.12);   // the photo's own tag names the sauna
-  cards[2].update(s(t, 0.7, 0.86), ctx.camera, 0.12);
-  capCreek.style.opacity = s(t, 0.34, 0.42) - s(t, 0.68, 0.74);
-  capCreek.style.transform = `translateY(${(1 - s(t, 0.34, 0.46)) * 14}px)`;
-  cap.style.opacity = s(t, 0.74, 0.84);   // the forest-school line arrives with the playground
-  cap.style.transform = `translateY(${(1 - s(t, 0.74, 0.86)) * 14}px)`;
+  cards[2].update(0, ctx.camera, 0.12);   // (i13: the caption names it; the card only cluttered the frame)
+  capCreek.style.opacity = s(t, 0.24, 0.255) - s(t, 0.335, 0.35);   // read on the still photo (~2 s)
+  capCreek.style.transform = `translateY(${(1 - s(t, 0.24, 0.29)) * 14}px)`;
+  cap.style.opacity = s(t, 0.86, 0.89);   // (i9: ~3.5 s now)   // the forest-school line arrives as the camera settles on the playground
+  cap.style.transform = `translateY(${(1 - s(t, 0.84, 0.9)) * 14}px)`;
 }
