@@ -88,6 +88,13 @@ export function middleware(request: NextRequest) {
     return res;
   }
 
+  // /zomes is a self-contained static page (public/zomes), served at its own clean URL.
+  if (pathname === "/zomes") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/zomes/index.html";
+    return NextResponse.rewrite(url);
+  }
+
   // Full-screen routes (no Nav/Footer/Chat) — reuse the dashboard chrome flag.
   if (
     pathname === "/mind-map" || pathname.startsWith("/mind-map/") ||
