@@ -97,6 +97,43 @@ export function build({ lod = 'high', variant = 'picnic', size = 10 } = {}) {
     const iron = M(0x2c2a28, 0.6, 0.4);   // two steel fire rings by the post, a black stove box out front
     for (const [x, z] of [[1.4, 1.9], [0.5, 2.15]]) { const r = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.24, 14, 1, true), new THREE.MeshStandardMaterial({ color: 0x4a3f38, roughness: 0.7, metalness: 0.4, side: THREE.DoubleSide })); r.position.set(x, 0.12, z); g.add(r); }
     box(g, iron, 0.55, 0.6, 0.45, -2.4, 0.4, 3.1); for (const [dx, dz] of [[-0.2, -0.16], [0.2, -0.16], [-0.2, 0.16], [0.2, 0.16]]) box(g, iron, 0.05, 0.12, 0.05, -2.4 + dx, 0.06, 3.1 + dz);
+  } else if (variant === 'leanto' || variant === 'redouthouse') {   // the lean-to + outhouse by the Bottom House (drone video 19:16-19:22, roof sizes off the survey; its fence left out, Mike 11-01)
+    const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'); x.fillStyle = '#4a3a30'; x.fillRect(0, 0, 256, 256);
+    let sd = 5; const rn = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+    for (let r = 0; r < 12; r++) for (let q = -1; q < 12; q++) { const v = 0.75 + rn() * 0.5; x.fillStyle = `rgb(${124 * v},${100 * v},${82 * v})`; x.fillRect((q + (r % 2) * 0.5) * 22, r * 22, 21, 19); }
+    const st = new THREE.CanvasTexture(c); st.colorSpace = THREE.SRGBColorSpace; st.wrapS = st.wrapT = THREE.RepeatWrapping; st.anisotropy = 8; st.repeat.set(2.5, 2.5);
+    const shingle = new THREE.MeshStandardMaterial({ map: st, roughness: 0.95 }), stain = M(0xa63a26, 0.8);
+    const roof = (W, D, H, R, ox, oz) => {
+      const a = Math.atan2(R, W / 2 + ox), L = Math.hypot(W / 2 + ox, R), cy = H + R / 2 - ox * R / (W / 2 + ox) / 2;
+      for (const s of [-1, 1]) {
+        const p = box(g, shingle, L + 0.1, 0.07, D + oz * 2, s * (W / 4 + ox / 2), cy, 0); p.rotation.z = -s * a;
+        for (const e of [-1, 1]) { const f = box(g, stain, L + 0.1, 0.16, 0.05, s * (W / 4 + ox / 2), cy - 0.05, e * (D / 2 + oz)); f.rotation.z = -s * a; }
+        const eave = box(g, stain, 0.05, 0.16, D + oz * 2, s * (W / 2 + ox), H - 0.04, 0);
+      }
+      return { a, L, cy };
+    };
+    const gable = (W, R, H, z) => { const t = new THREE.Mesh(new THREE.ExtrudeGeometry(new THREE.Shape([new THREE.Vector2(-W / 2, 0), new THREE.Vector2(W / 2, 0), new THREE.Vector2(0, R)]), { depth: 0.06, bevelEnabled: false }), stain); t.position.set(0, H, z); g.add(t); };
+    if (variant === 'leanto') {
+      // +z = the open gable; a gable roof on four red posts a side, boarded in above the tie beam, closed red back wall; a white and olive motorhome inside; a skylight on the -x slope
+      const W = 3.6, D = 6.6, H = 2.6, R = 1.15, ox = 0.6, oz = 0.45;
+      for (const s of [-1, 1]) { for (let i = 0; i < 4; i++) box(g, stain, 0.16, H + 0.5, 0.16, s * W / 2, (H - 0.5) / 2, -D / 2 + i * D / 3); box(g, stain, 0.14, 0.2, D, s * W / 2, H - 0.1, 0); }
+      box(g, stain, W + 0.2, 0.28, 0.14, 0, H - 0.04, D / 2); gable(W, R, H, D / 2 - 0.03); gable(W, R, H, -D / 2 - 0.03);
+      box(g, stain, W, H + 0.3, 0.1, 0, (H - 0.3) / 2, -D / 2);
+      const r = roof(W, D, H, R, ox, oz);
+      const sky = box(g, M(0xe8ecec, 0.3, 0.2), 0.8, 0.05, 1.1, -(W / 4 + ox / 2) - 0.1, r.cy + 0.1, 0.3); sky.rotation.z = r.a;
+      const frame = box(g, M(0x2a2a2c, 0.6), 0.9, 0.04, 1.2, -(W / 4 + ox / 2) - 0.1, r.cy + 0.08, 0.3); frame.rotation.z = r.a;
+      const cream = M(0xe9e6da, 0.6), olive = M(0xa9a24a, 0.6);
+      box(g, cream, 2.3, 1.15, 5.7, 0, 1.75, -0.25); box(g, olive, 2.32, 0.75, 5.72, 0, 0.82, -0.25); box(g, M(0x1f2428, 0.3), 2.34, 0.42, 1.0, 0, 1.75, 2.1); box(g, M(0x1f2428, 0.3), 2.34, 0.4, 3.2, 0, 1.85, -0.9);
+      for (const s of [-1, 1]) for (const z of [-1.6, 1.2]) { const w = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.22, 12), black); w.rotation.z = Math.PI / 2; w.position.set(s * 1.1, 0.36, z); g.add(w); }
+    } else {
+      // +z = the door: dark door with a small window, vertical boards, a shingled gable on a skid with a dark mat in front
+      const W = 1.3, D = 1.3, H = 2.05, R = 0.42;
+      box(g, stain, W, H + 0.3, D, 0, (H + 0.3) / 2 - 0.2, 0);
+      for (let i = 0; i < 6; i++) for (const z of [-D / 2 - 0.005, D / 2 + 0.005]) box(g, M(0x7a2a1c, 0.8), 0.015, H, 0.01, -W / 2 + (i + 0.5) * W / 6, H / 2, z);
+      gable(W, R, H, D / 2 - 0.03); gable(W, R, H, -D / 2 - 0.03); roof(W, D, H, R, 0.2, 0.2);
+      box(g, M(0x8f3222, 0.8), 0.74, 1.85, 0.04, 0, 1.0, D / 2 + 0.03); box(g, M(0x1b1d20, 0.3), 0.18, 0.46, 0.05, 0, 1.45, D / 2 + 0.04);
+      box(g, M(0xb9b4a8, 0.9), W + 0.3, 0.3, D + 1.0, 0, -0.04, 0.35); box(g, M(0x23232a, 1), W - 0.1, 0.03, 0.55, 0, 0.12, D / 2 + 0.38);
+    }
   } else if (variant === 'pit') {          // a horseshoe pit on the lawn by the tetherball (drone video 13:52, 14:30): sand in a timber frame, reaching below ground on a slope
     box(g, M(0xcbb994, 1), 1.5, 0.3, 2.4, 0, 0.0, 0);
     for (const s of [-1, 1]) { box(g, wood, 0.1, 0.34, 2.5, s * 0.78, 0.02, 0); box(g, wood, 1.66, 0.34, 0.1, 0, 0.02, s * 1.22); }
@@ -139,8 +176,9 @@ export function build({ lod = 'high', variant = 'picnic', size = 10 } = {}) {
   } else if (variant === 'logs') {         // log bumpers end to end along +z
     for (let z = 0; z < size; z += 3.1) { const l = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.2, 3, 8), M(0xcfc6b4, 0.95)); l.rotation.x = Math.PI / 2; l.position.set(0, 0.18, z + 1.5); g.add(l); }
   } else {                                  // picnic table
-    box(g, wood, 0.8, 0.06, 1.8, 0, 0.76, 0);
-    for (const s of [-1, 1]) { box(g, wood, 0.28, 0.05, 1.8, s * 0.62, 0.45, 0); box(g, wood, 1.5, 0.06, 0.08, 0, 0.4, s * 0.7); box(g, wood, 0.08, 0.78, 0.08, 0, 0.38, s * 0.7); }
+    const top = M(0x2c6d77, 0.6), rail = M(0xb9bcbd, 0.5, 0.4);   // the campground's tables: teal tops on a steel frame (drone video 1:10, 13:30)
+    box(g, top, 0.8, 0.06, 1.8, 0, 0.76, 0);
+    for (const s of [-1, 1]) { box(g, top, 0.28, 0.05, 1.8, s * 0.62, 0.45, 0); box(g, rail, 1.5, 0.05, 0.05, 0, 0.4, s * 0.7); box(g, rail, 0.05, 0.78, 0.05, 0, 0.38, s * 0.7); }
   }
   return g;
 }
