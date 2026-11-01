@@ -223,6 +223,7 @@ vec3 groundMat(vec3 photo, vec2 xy, float dist, vec2 dUV, vec3 n) {
     // the drone survey is autumn: grass follows its light and dark but keeps a summer green (photos: luminous mown fairways)
     vec3 rg = i < 2 ? vec3(1.5, 2.05, 1.0) : (i >= 2 && i <= 5) ? vec3(1.0, 0.98, 0.94) : ratio;   // road, yard, dirt: dusty grey-tan as in the photos, not yellow (Mike 10-31)
     if (i == 1) c *= 1.0 + 0.09 * grain * (smoothstep(-0.12, 0.12, sin(dot(xy, vec2(0.6, 0.8)) * 0.7)) - 0.5);   // the mower's stripes (drone video)
+    if (i == 4) c *= 0.38;   // the highway is dark asphalt (drone video 14:36); this layer rendered near-white up close
     if (i >= 2 && i <= 5) c = mix(vec3(dot(c, vec3(0.3, 0.6, 0.1))), c, 0.45);   // the gravel texture itself reads yellow
     col += wi * c * mix(vec3(1.0), rg, 0.85);                   // follow the photo's own colour there, so patches agree with the place (i11)
     nt += wi * nn * grain;
@@ -273,7 +274,7 @@ vec3 water(vec3 land, vec2 xy, vec3 wpos) {
   // (cut 10 reviews: the creek read as grey asphalt, the lake as a grey slab) — a clearer green-teal body, lighter
   // and milkier on the glacial creek, and less of the hazy sky so it never goes grey
   vec3 deep = mix(vec3(0.04, 0.1, 0.1), vec3(0.09, 0.15, 0.13), 0.45 * (1.0 - still));   // darker, as in Creek/The Creek.jpg
-  vec3 wc = mix(deep, sky * vec3(0.85, 0.95, 1.05), clamp(0.08 + fres * 0.8 + 0.22 * still, 0.0, 0.42 + 0.2 * still));
+  vec3 wc = mix(deep, sky * vec3(0.85, 0.95, 1.05), clamp(0.05 + fres * 0.6 + 0.15 * still, 0.0, 0.22 + 0.25 * still));   // the creek is dark, with white only in its rapids (drone video 13:32)
   { float az = atan(R.x, R.z), tops = 0.05 * vnoise(vec2(az * 26.0, 3.0)) + 0.02 * vnoise(vec2(az * 90.0, 8.0)), mirror = (1.0 - smoothstep(0.26 + tops, 0.34 + tops, R.y)) * still; wc = mix(wc, vec3(0.022, 0.05, 0.035) + sky * 0.05, mirror * 0.85); }
   wc += vec3(1.0, 0.9, 0.72) * pow(max(dot(R, uSunDir), 0.0), 70.0) * 0.18;  // a soft sheen, never sparkles
   float streak = vn((xy - dir * uTime * 1.2) * vec2(0.6, 0.6)) * (1.0 - still);

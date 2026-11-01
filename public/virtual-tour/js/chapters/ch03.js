@@ -157,6 +157,7 @@ export async function setup(ctx) {
   // turns from the shower house to the office and the forest-school playground (Mike: get close, use the 360s)
   const gA = ctx.groundAt;
   pano = await panoStop(ctx, 'shower');
+  ctx.clearTreesNear([[5, 122], [-8, 118], [-22, 114], [-36, 110]].map(([x, y]) => new THREE.Vector3(x, gA(x, y) + 22, -y)), 13);   // the title shot's sight line: pines filled its left side
   {
     const m = new THREE.Matrix4(), c = new THREE.Color(), im = new THREE.InstancedMesh(photoConifer(), new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide }), PHOTO_TREES.length);
     PHOTO_TREES.forEach(([h, d, H], i) => { const a = h * Math.PI / 180, x = pano.at[0] + Math.sin(a) * d, y = pano.at[1] + Math.cos(a) * d; m.makeScale(H, H, H).setPosition(x, heightAt(x, y) - 0.2, -y); im.setMatrixAt(i, m); im.setColorAt(i, c.setScalar(0.85 + (i % 4) * 0.1)); });

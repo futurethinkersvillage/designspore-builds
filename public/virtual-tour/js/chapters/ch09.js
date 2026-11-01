@@ -3,7 +3,8 @@
 import * as THREE from 'three';
 import { build as buildFarm } from '../models/farm_concept.js';
 
-export const meta = { id: 'ch09', title: 'Growing food', seconds: 14, animated: false };
+let signRig;
+export const meta = { id: 'ch09', title: 'Growing food', seconds: 22.5, animated: false, blend: 4 / 22.5 };   // 8.5 s first: in to the entrance sign, a hold, on to the garden (Mike 10-31: model the sign). The old 14 s follow unchanged
 
 let cap2, rig, cap, farm, vign, cards = [], G = {};
 // flat, face-up callout card (same language as js/labels.js): spaced caps, hairline, small sub-line
@@ -52,6 +53,13 @@ export async function setup(ctx) {
   const gh = (x, y, d = 2) => ground(x, y) + d;
   const F = (t, x, y, fh, hd, pt) => { const [fx, fy] = ctx.farmFix(x, y); return [t, fx, fy, gh(fx, fy), fh, hd, pt, 48]; };
   ctx.clearTreesNear([[-660, -250], [-650, -240], [-640, -230]].map(([x, y]) => new THREE.Vector3(x, 0, -y)), 14);   // a spruce filled the left of the opening (i16)
+  const SG = ctx.PLACE.entrance_sign[0], sh = gh(SG.x, SG.y, 2.6);
+  signRig = R.makeRig([
+    [0.00, SG.x, SG.y, sh, 11, 36.7, -3, 40],
+    [0.47, SG.x, SG.y, sh, 11, 36.7, -3, 40],     // arrives (film blend, 4 s)
+    [0.76, SG.x, SG.y, sh, 10, 36.7, -3, 40],     // a real hold on it
+    [1.00, -620, -212, gh(-620, -212), 44, 48, -20, 36],   // one move on to the garden
+  ]);
   rig = R.makeRig([
     // the real permaculture garden is held just after the film's blend (t < 0.3), then on to the planned farm
     [0.00, -620, -212, gh(-620, -212), 44, 48, -20, 36],   // (i12: on the real garden's beds)
@@ -108,6 +116,7 @@ export async function setup(ctx) {
 }
 
 export function update(t, ctx) {
+  const raw = t * meta.seconds; t = Math.max(0, raw - 8.5) / 14;
   const { U, rig: R, sky, sun, hemi } = ctx, s = R.seg, k = s(t, 0, 0.45);
   // golden hour eases in
   U.uSunDir.value.copy(G.sun0).lerp(G.sun1, k).normalize();
@@ -143,4 +152,5 @@ export function update(t, ctx) {
   cap.style.opacity = s(t, 0.08, 0.2) - s(t, 0.56, 0.62);
   cap2.style.opacity = s(t, 0.66, 0.74);   // off the farm once the camera is over it
   cap.style.transform = `translateY(${(1 - s(t, 0.12, 0.26)) * 14}px)`;
+  if (raw < 8.5) signRig.apply(ctx.camera, raw / 8.5);
 }

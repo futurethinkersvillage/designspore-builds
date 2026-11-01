@@ -134,6 +134,11 @@ export function build({ lod = 'high', variant = 'picnic', size = 10 } = {}) {
       box(g, M(0x8f3222, 0.8), 0.74, 1.85, 0.04, 0, 1.0, D / 2 + 0.03); box(g, M(0x1b1d20, 0.3), 0.18, 0.46, 0.05, 0, 1.45, D / 2 + 0.04);
       box(g, M(0xb9b4a8, 0.9), W + 0.3, 0.3, D + 1.0, 0, -0.04, 0.35); box(g, M(0x23232a, 1), W - 0.1, 0.03, 0.55, 0, 0.12, D / 2 + 0.38);
     }
+  } else if (variant === 'cartbridge') {   // the cart bridge on the west path (drone video 9:16): rust-red plank deck, white rails, timber abutments. Along z
+    const L = 9, W = 2.4, red2 = M(0x8a4a3a, 0.9);
+    box(g, red2, W, 0.14, L, 0, 0.7, 0); for (const s of [-1, 1]) { box(g, wood, 0.16, 0.34, L, s * W / 2, 0.52, 0); box(g, white, 0.08, 0.08, L, s * (W / 2 - 0.02), 1.65, 0); box(g, white, 0.05, 0.05, L, s * (W / 2 - 0.02), 1.2, 0); for (let i = 0; i <= 5; i++) box(g, white, 0.08, 1.0, 0.08, s * (W / 2 - 0.02), 1.2, -L / 2 + i * L / 5); }
+    for (const e of [-1, 1]) { box(g, M(0x7a6a55, 1), W + 0.6, 1.0, 1.4, 0, 0.15, e * (L / 2 + 0.3)); }
+    for (let i = 0; i < 18; i++) box(g, M(0x5a3226, 0.9), W, 0.01, 0.02, 0, 0.775, -L / 2 + (i + 0.5) * L / 18);
   } else if (variant === 'pit') {          // a horseshoe pit on the lawn by the tetherball (drone video 13:52, 14:30): sand in a timber frame, reaching below ground on a slope
     box(g, M(0xcbb994, 1), 1.5, 0.3, 2.4, 0, 0.0, 0);
     for (const s of [-1, 1]) { box(g, wood, 0.1, 0.34, 2.5, s * 0.78, 0.02, 0); box(g, wood, 1.66, 0.34, 0.1, 0, 0.02, s * 1.22); }

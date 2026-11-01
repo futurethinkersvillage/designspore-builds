@@ -154,8 +154,8 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     shed: [{ x: -42.5, y: -11.5, rotY: -0.436, variant: 'workshop' }, { x: -48, y: -48, rotY: -0.628, variant: 'shop' },
       { x: -36, y: -113.5, rotY: -1.571, variant: 'storage' }, { x: -79, y: -58.5, rotY: -1.5, variant: 'woodshed' }],   // the plan's building layer is ~20 m off: these sit on the real roofs
     footbridge: [{ x: -93.2, y: -21.7, rotY: -2.164, size: 15 }],   // the concrete road bridge over Hemp Creek N of the sauna: 15 m deck NW–SE across the creek, on the drone photo (10-29)
-    entrance_sign: [{ x: -704, y: -225, rotY: -0.9 }],   // at the highway turn-off: drone video 0:00, facing the road; survey shows it at the driveway mouth
-    props: [{ x: -80.1, y: 134.5, rotY: 0, variant: 'trampoline' }, { x: -83.7, y: 130.6, rotY: 0, variant: 'tetherball' }, { x: -85, y: 123.4, rotY: 0.5, variant: 'fort' }, { x: -71.4, y: 133.6, rotY: -0.744, variant: 'logs', size: 20 }, { x: -89.4, y: 115.6, rotY: 0.471, variant: 'golfcart' }, { x: -87, y: 116.5, rotY: 0.471, variant: 'golfcart' }, { x: -84.9, y: 117.4, rotY: 0.471, variant: 'golfcart' }, { x: -83.1, y: 118.3, rotY: 0.471, variant: 'golfcart' }, { x: -19.3, y: 225.2, rotY: 0.0, variant: 'picnic' }, { x: -11.2, y: 225.2, rotY: 0.7, variant: 'picnic' }, { x: -15.2, y: 220, rotY: 1.4, variant: 'picnic' }, { x: -31.9, y: 196.9, rotY: 2.1, variant: 'picnic' }, { x: -8.3, y: 203.9, rotY: 2.8, variant: 'picnic' }, { x: -4.8, y: 183.1, rotY: 0.36, variant: 'picnic' }, { x: 20, y: 209, rotY: 1.06, variant: 'picnic' }, { x: 25.2, y: 228.7, rotY: 1.76, variant: 'picnic' }, { x: 17.1, y: 203.3, rotY: 2.46, variant: 'picnic' }, { x: -7.9, y: 169.3, rotY: 0.02, variant: 'picnic' }, { x: -15.2, y: 175, rotY: 0.72, variant: 'picnic' }, { x: -80.5, y: -53.5, rotY: 0.2, variant: 'picnic' }, { x: -94.5, y: 133, rotY: 2.6075, variant: 'golfnet', size: 38 }, { x: 22, y: 268, rotY: 0.6, variant: 'shelter' }, { x: 44, y: 248, rotY: 2.1, variant: 'shelter' }, { x: 4, y: 286, rotY: 3.4, variant: 'outhouse' }, { x: -586, y: -236, rotY: 0.6615, variant: 'washroom' }, { x: -497, y: 200, rotY: 0, variant: 'flagpin' }, { x: -428, y: 135, rotY: 0, variant: 'flagpin' }, { x: -530, y: -222, rotY: 0, variant: 'flagpin' }, { x: -128, y: -154, rotY: 0.9, variant: 'picnic' }, { x: -131, y: -147, rotY: 0, variant: 'firepit', scale: 0.7 }, { x: -96, y: 106, rotY: 0.8, variant: 'quonset' }, { x: -620, y: -212, rotY: 0.66, variant: 'garden' }, { x: -74.4, y: 143.5, rotY: 0.6, variant: 'pit' }, { x: -71.2, y: 140.9, rotY: 0.6, variant: 'pit' }, { x: -66, y: 152, rotY: 0.6, variant: 'pit' }, { x: -63.5, y: 149.5, rotY: 0.6, variant: 'pit' }, { x: -58.5, y: 153.5, rotY: 2.2, variant: 'binshed' }, { x: 1.7, y: 252, rotY: 0.0, variant: 'picnic' }, { x: -4.7, y: 245.4, rotY: 1.3, variant: 'picnic' }, { x: -1.3, y: 244.7, rotY: 2.6, variant: 'picnic' }, { x: -8.4, y: 237.2, rotY: 0.76, variant: 'picnic' }, { x: 31.7, y: 234.8, rotY: 2.06, variant: 'picnic' }, { x: 25.7, y: 229, rotY: 0.22, variant: 'picnic' }, { x: 26, y: 225.9, rotY: 1.52, variant: 'picnic' }, { x: 24.6, y: 218.1, rotY: 2.82, variant: 'picnic' }, { x: 28.7, y: 213.8, rotY: 0.98, variant: 'picnic' }, { x: 25.3, y: 207.5, rotY: 2.28, variant: 'picnic' }, { x: 17.2, y: 203.1, rotY: 0.44, variant: 'picnic' }, { x: -1.3, y: 180.6, rotY: 1.74, variant: 'picnic' }, { x: -14.7, y: 175.2, rotY: 3.04, variant: 'picnic' }, { x: -7.9, y: 168.8, rotY: 1.2, variant: 'picnic' }, { x: -216.1, y: 72.2, rotY: 2.786, variant: 'leanto' }, { x: -222.5, y: 61.7, rotY: 1.15, variant: 'redouthouse' }, { x: -205.6, y: 56, rotY: 1.28, variant: 'logs', size: 10 }],   // playground, golf carts by the office, logs, picnic tables on the loop pads, the bench by the sauna woodshed
+    entrance_sign: [{ x: -697, y: -211, rotY: -0.64 }],   // at the highway turn-off: drone video 0:00, facing the road; survey shows it at the driveway mouth
+    props: [{ x: -80.1, y: 134.5, rotY: 0, variant: 'trampoline' }, { x: -83.7, y: 130.6, rotY: 0, variant: 'tetherball' }, { x: -85, y: 123.4, rotY: 0.5, variant: 'fort' }, { x: -71.4, y: 133.6, rotY: -0.744, variant: 'logs', size: 20 }, { x: -89.4, y: 115.6, rotY: 0.471, variant: 'golfcart' }, { x: -87, y: 116.5, rotY: 0.471, variant: 'golfcart' }, { x: -84.9, y: 117.4, rotY: 0.471, variant: 'golfcart' }, { x: -83.1, y: 118.3, rotY: 0.471, variant: 'golfcart' }, { x: -19.3, y: 225.2, rotY: 0.0, variant: 'picnic' }, { x: -11.2, y: 225.2, rotY: 0.7, variant: 'picnic' }, { x: -15.2, y: 220, rotY: 1.4, variant: 'picnic' }, { x: -31.9, y: 196.9, rotY: 2.1, variant: 'picnic' }, { x: -8.3, y: 203.9, rotY: 2.8, variant: 'picnic' }, { x: -4.8, y: 183.1, rotY: 0.36, variant: 'picnic' }, { x: 20, y: 209, rotY: 1.06, variant: 'picnic' }, { x: 25.2, y: 228.7, rotY: 1.76, variant: 'picnic' }, { x: 17.1, y: 203.3, rotY: 2.46, variant: 'picnic' }, { x: -7.9, y: 169.3, rotY: 0.02, variant: 'picnic' }, { x: -15.2, y: 175, rotY: 0.72, variant: 'picnic' }, { x: -80.5, y: -53.5, rotY: 0.2, variant: 'picnic' }, { x: -94.5, y: 133, rotY: 2.6075, variant: 'golfnet', size: 38 }, { x: 22, y: 268, rotY: 0.6, variant: 'shelter' }, { x: 44, y: 248, rotY: 2.1, variant: 'shelter' }, { x: 4, y: 286, rotY: 3.4, variant: 'outhouse' }, { x: -586, y: -236, rotY: 0.6615, variant: 'washroom' }, { x: -497, y: 200, rotY: 0, variant: 'flagpin' }, { x: -428, y: 135, rotY: 0, variant: 'flagpin' }, { x: -530, y: -222, rotY: 0, variant: 'flagpin' }, { x: -128, y: -154, rotY: 0.9, variant: 'picnic' }, { x: -131, y: -147, rotY: 0, variant: 'firepit', scale: 0.7 }, { x: -96, y: 106, rotY: 0.8, variant: 'quonset' }, { x: -620, y: -212, rotY: 0.66, variant: 'garden' }, { x: -74.4, y: 143.5, rotY: 0.6, variant: 'pit' }, { x: -71.2, y: 140.9, rotY: 0.6, variant: 'pit' }, { x: -66, y: 152, rotY: 0.6, variant: 'pit' }, { x: -63.5, y: 149.5, rotY: 0.6, variant: 'pit' }, { x: -58.5, y: 153.5, rotY: 2.2, variant: 'binshed' }, { x: 1.7, y: 252, rotY: 0.0, variant: 'picnic' }, { x: -4.7, y: 245.4, rotY: 1.3, variant: 'picnic' }, { x: -1.3, y: 244.7, rotY: 2.6, variant: 'picnic' }, { x: -8.4, y: 237.2, rotY: 0.76, variant: 'picnic' }, { x: 31.7, y: 234.8, rotY: 2.06, variant: 'picnic' }, { x: 25.7, y: 229, rotY: 0.22, variant: 'picnic' }, { x: 26, y: 225.9, rotY: 1.52, variant: 'picnic' }, { x: 24.6, y: 218.1, rotY: 2.82, variant: 'picnic' }, { x: 28.7, y: 213.8, rotY: 0.98, variant: 'picnic' }, { x: 25.3, y: 207.5, rotY: 2.28, variant: 'picnic' }, { x: 17.2, y: 203.1, rotY: 0.44, variant: 'picnic' }, { x: -1.3, y: 180.6, rotY: 1.74, variant: 'picnic' }, { x: -14.7, y: 175.2, rotY: 3.04, variant: 'picnic' }, { x: -7.9, y: 168.8, rotY: 1.2, variant: 'picnic' }, { x: -216.1, y: 72.2, rotY: 2.786, variant: 'leanto' }, { x: -222.5, y: 61.7, rotY: 1.15, variant: 'redouthouse' }, { x: -205.6, y: 56, rotY: 1.28, variant: 'logs', size: 10 }, { x: -550.5, y: -174.5, rotY: 1.97, variant: 'cartbridge' }],   // playground, golf carts by the office, logs, picnic tables on the loop pads, the bench by the sauna woodshed
     // from the sauna 360 (10-29): chair deck right by the photographer, chairs facing the creek (WSW); the boulder line
     // runs along the far side of the road from the bridge approach east; one big rock at the deck's corner
     sauna_setting: [{ x: -98.8, y: -57.6, rotY: -1.22, variant: 'deck' }, { x: -95, y: -46.5, rotY: 1.22, variant: 'boulders', size: 18 },
@@ -251,6 +251,21 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
       else if (cl === 7 && hh(x, y, 3) < 0.1) rocks.push([x, y, heightAt(x, y), 0.3 + hh(x, y, 4) * 0.6]);
     }
     if (rocks.length) scene.add(makeRocks(rocks.slice(0, 5000)));
+    // from the drone video: reeds round the golf ponds (15:00-15:24), red-osier shrubs along the creek's cobble banks (0:40-1:10)
+    const reeds = [], shrubs = [];
+    for (let x = -600; x < 130; x += 1.4) for (let y = -300; y < 330; y += 1.4) {
+      const cl = ground.classAt(x, y); if (cl === undefined || cl === 255) continue;
+      if (cl === 8) { let edge = false; for (let k = 0; k < 8 && !edge; k++) edge = ground.classAt(x + Math.cos(k * 0.785) * 3, y + Math.sin(k * 0.785) * 3) !== 8; if (edge && x < -150 && hh(x, y, 5) < 0.55) reeds.push([x, y, heightAt(x, y)]); }
+      else if (cl === 7 && hh(x, y, 6) < 0.045 && Math.hypot(x + 93.2, y + 21.7) > 13) shrubs.push([x, y, heightAt(x, y)]);
+    }
+    const stems = (n, rr, h) => { const p = []; for (let a = 0; a < n; a++) { const t = a * 2.4, r = rr * (0.3 + (a % 4) * 0.25), c = Math.cos(t), s = Math.sin(t), w = 0.02 + h * 0.012; p.push(c * r * 0.25 - s * w, 0, s * r * 0.25 + c * w, c * r * 0.25 + s * w, 0, s * r * 0.25 - c * w, c * r, h * (0.75 + (a % 3) * 0.12), s * r); } const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3)); return g; };
+    const dm = new THREE.Object3D();
+    for (const [list, geo, col, sc] of [[reeds, stems(14, 0.55, 1.5), 0x8a8452, 1], [shrubs, stems(22, 0.8, 1.5), 0x8e3a30, 1.2]]) {
+      if (!list.length) continue;
+      const mat = new THREE.MeshBasicMaterial({ color: col, side: THREE.DoubleSide }), im = new THREE.InstancedMesh(geo, mat, Math.min(list.length, 9000));
+      for (let i = 0; i < im.count; i++) { const [x, y, h] = list[i]; dm.position.set(x, h + 0.3, -y); dm.rotation.y = hh(x, y, 7) * 6.28; dm.scale.setScalar(sc * (0.7 + hh(x, y, 8) * 0.7)); dm.updateMatrix(); im.setMatrixAt(i, dm.matrix); }
+      im.frustumCulled = false; scene.add(im);
+    }
   }
   const blocks = makeBuildings(D.L, heightAt); scene.add(blocks); // simple extruded footprints; chapters swap in the detailed models
 
@@ -296,7 +311,9 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   }
   // zomes on every planned cabin site (creekside + lakeside), door toward the site's long axis
   async function placeZomes({ lod = 'low', which = ['cabins', 'lake_cabins'] } = {}) {
-    const at = [];
+    const at = [], CREEK = ['z6-onebed', 'z6-loft', 'z75-twobed', 'z6-family', 'z5-ensuite', 'gl-z6-garden', 'z6-access', 'z75-loft', 'z9-threebed', 'z6-onebed', 'gl-z6-tub', 'z75-family'],
+      LAKE = ['z5-ensuite', 'z5-loft', 'z6-onebed', 'gl-z5-tub', 'z5-guest', 'z6-loft', 'z5-loft', 'gl-z5-garden'], ACORN = ['gl-acorn-tub', 'acorn-sauna', 'acorn-sleep', 'gl-acorn-seed'];
+    const count = { cabins: 0, lake_cabins: 0 };
     for (const name of which) for (const f of D.L[name] || []) for (const poly of polysOf(f)) {
       const r = poly[0]; const c = [r.reduce((a, p) => a + p[0], 0) / r.length, r.reduce((a, p) => a + p[1], 0) / r.length];
       const e = [r[1][0] - r[0][0], r[1][1] - r[0][1]];
@@ -309,9 +326,14 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
         for (let q = 0; q < 4; q++) { const r = rotY + q * Math.PI / 2, d = Math.abs(Math.atan2(Math.sin(Math.PI - r - to), Math.cos(Math.PI - r - to))); if (d < bd) { bd = d; best = r; } }
         rotY = best;
       }
-      at.push({ x: c[0], y: c[1], rotY, size: name === 'cabins' ? '6m' : '5m' }); // Trillium sizes that fit the 7 m / 6 m wide sites
+      const i = count[name]++, list = name === 'cabins' ? CREEK : LAKE;
+      at.push({ x: c[0], y: c[1], rotY, variant: list[i % list.length], row: name, i });
     }
-    return placeModel('zome', { lod, at });
+    // Acorns between the creekside zomes (15 m apart), never beside a 9 m (their row is the only one with the room)
+    const creek = at.filter(a => a.row === 'cabins'), big = a => a.variant.startsWith('z9');
+    creek.forEach((a, k) => { const b = creek[k + 1]; if (!b || k % 3 !== 1 || big(a) || big(b) || Math.hypot(a.x - b.x, a.y - b.y) > 18) return; at.push({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2, rotY: a.rotY, variant: ACORN[Math.floor(k / 3) % ACORN.length] }); });
+    const g = await placeModel('zome_site', { lod, at }); models.zome = g; delete models.zome_site;
+    return g;
   }
 
   // every existing building as its detailed model; the old extruded footprint blocks stay hidden (Mike: use the models)
@@ -368,16 +390,29 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     for (const z of zomes.children) {
       const x = z.position.x, y = -z.position.z, a = z.rotation.y, cu = Math.cos(a), su = Math.sin(a);
       const at = (u, v) => [x + u * cu + v * su, y - (-u * su + v * cu)];
-      const hs = [[-2.5, -3.6], [2.5, -3.6], [2.5, 3.6], [-2.5, 3.6], [0, 0]].map(([u, v]) => groundAt(...at(u, v)));
+      const K = (z.userData.baseOut || 5) / 5;   // sized to this zome
+      const hs = [[-2.5 * K, -2.5 * K], [2.5 * K, -2.5 * K], [2.5 * K, 3.6 * K], [-2.5 * K, 3.6 * K], [0, 0]].map(([u, v]) => groundAt(...at(u, v)));
       const top = Math.max(...hs), low = Math.min(...hs);
       z.position.y = top - 0.04;
       const drop = top - low + 0.3;
-      const sk = new THREE.Mesh(new THREE.BoxGeometry(4.5, drop, 5.2), skirtMat); sk.position.set(0, 0.3 - drop / 2, -0.3); sk.userData.noConcept = true; z.add(sk);
-      const sh = new THREE.Mesh(new THREE.PlaneGeometry(10, 12, 5, 6).rotateX(-Math.PI / 2), shadowMat);
+      const sk = new THREE.Mesh(new THREE.BoxGeometry(4.2 * K, drop, 4.2 * K), skirtMat); sk.position.set(0, 0.3 - drop / 2, 0); sk.userData.noConcept = true; z.add(sk);
+      const sh = new THREE.Mesh(new THREE.PlaneGeometry(10 * K, 11 * K, 5, 6).rotateX(-Math.PI / 2), shadowMat);
       const pp = sh.geometry.attributes.position;
       for (let i = 0; i < pp.count; i++) { const [gx, gy] = at(pp.getX(i), pp.getZ(i)); pp.setY(i, groundAt(gx, gy) + 0.12 - z.position.y); }
       sh.userData.noConcept = true; z.add(sh);
     }
+  }
+  // one mesh per material for all the zomes: ~1,000 draw calls made the zome shots the slowest in the film (the sites stay as empty anchors for ch10's window halos)
+  const zomeMerged = new THREE.Group(); zomeMerged.name = 'zome_merged';
+  {
+    const { mergeGeometries } = await import('three/addons/utils/BufferGeometryUtils.js'), byMat = new Map();
+    zomes.updateMatrixWorld(true);
+    zomes.traverse(o => { if (!o.isMesh) return; (byMat.has(o.material) ? byMat : byMat.set(o.material, [])).get(o.material).push(o); });
+    for (const [mat, list] of byMat) {
+      const m = new THREE.Mesh(mergeGeometries(list.map(o => { const g = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry.clone(); return g.applyMatrix4(o.matrixWorld); })), mat);
+      m.name = list[0].name; m.renderOrder = list[0].renderOrder; m.frustumCulled = false; zomeMerged.add(m); list.forEach(o => { o.visible = false; });
+    }
+    scene.add(zomeMerged); models.zome_merged = zomeMerged;
   }
   const maker = await placeModel('maker_space', { lod: MOBILE ? 'low' : 'high' });
   const farm = buildFarm({ L: D.L, ground: groundAt, lod: MOBILE ? 'low' : 'high' });
@@ -399,9 +434,9 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   }
   // Mike (10-28) retired the "planned must read as concept" rule: planned models keep their own materials now.
   // conceptLook stays available (exported) in case a chapter wants it back.
-  for (const g of [zomes, maker, farm, models.event_gazebo].filter(Boolean)) addSurfaceDetail(g);
+  for (const g of [zomeMerged, maker, farm, models.event_gazebo].filter(Boolean)) addSurfaceDetail(g);
   for (const g of Object.values(models)) g.userData.persistent = true;
-  const glass = []; zomes.traverse(o => { if (o.material && !Array.isArray(o.material) && glows(o.material)) glass.push(o.material); });
+  const glass = []; zomeMerged.traverse(o => { if (o.material && !Array.isArray(o.material) && (glows(o.material) || o.name === 'glass') && !glass.includes(o.material)) glass.push(o.material); });
   glass.forEach(m => { m.emissiveIntensity = 0.42; });   // a soft warm glaze, not lit windows of a built village (chapters may raise it at night)
   const PERSIST0 = { farmGlass: farm.userData.materials.glass.emissiveIntensity, zomeGlass: glass.map(m => m.emissiveIntensity) };
   // chapters may tweak these persistent things; the film puts them back at every chapter change

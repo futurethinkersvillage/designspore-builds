@@ -12,12 +12,14 @@ export function build({ L, ground, lod = 'high' }) {
   const h = i => Math.abs(Math.sin(i * 127.1 + 311.7) * 43758.5453) % 1;
   const lists = { bellBody: [], bellTop: [], dome: [], van: [], cab: [], trailer: [], roof: [], pole: [], chair: [], pit: [], flag: [] };
   const fires = [];
-  const TENT = [0xf1e9d6, 0xe8dcc0, 0xf4efe4], DOME = [0xb5683a, 0x4a7f7a, 0xa04a3c, 0x55709f, 0xb89a4a, 0xd8d0c0, 0x7a5f8f], VAN = [0xe6e4dc, 0x3f8f8a, 0xd8743c, 0xc9c5ba, 0x4f6fa8], FLAG = [0xEA824E, 0xAF695E, 0x73516F, 0xf2c23a, 0x2f8f8a];
+  const TENT = [0xf1e9d6, 0xe8dcc0, 0xf4efe4], DOME = [0x8f6a45, 0x4f6f5f, 0x8a4a38, 0x56687f, 0xa88f5a, 0xcfc7b4, 0x5f5a6f], CANOPY = [0xe2dac6, 0xc9bfa6, 0xd6c8a8, 0x9aa58a],   /* canvas colours: saturated squares read as confetti from the air (Mike) */ VAN = [0xe6e4dc, 0x3f8f8a, 0xd8743c, 0xc9c5ba, 0x4f6fa8], FLAG = [0xEA824E, 0xAF695E, 0x73516F, 0xf2c23a, 0x2f8f8a];
   const put = (list, x, y, sx, sy, sz, ry, c, lift = 0) => list.push([x, ground(x, y) + lift, y, sx, sy, sz, ry, c]);
 
+  const worn = [];
   (L.camp_plots || []).forEach((f, i) => {
     const r = ringOf(f), n = r.length - 1;
     const c = [0, 1].map(k => r.slice(0, n).reduce((a, p) => a + p[k], 0) / n);
+    worn.push([c[0], ground(c[0], c[1]) + 0.32, c[1], 15 + h(i + 0.6) * 5, 1, 13 + h(i + 0.7) * 5, h(i) * 3, 0]);
     let e = [1, 0], len = 0; for (let k = 0; k < n; k++) { const d = [r[k + 1][0] - r[k][0], r[k + 1][1] - r[k][1]], l = Math.hypot(...d); if (l > len) { len = l; e = [d[0] / l, d[1] / l]; } }
     const m = [-e[1], e[0]], ry = Math.atan2(e[0], e[1]) + (h(i + 0.43) - 0.5) * 1.4;
     const ju = (h(i + 0.13) - 0.5) * 5, jv = (h(i + 0.19) - 0.5) * 5;   // each plot's camp sits off-centre: no grid (i11)
@@ -36,7 +38,7 @@ export function build({ L, ground, lod = 'high' }) {
     } else { bell(0, 2.4, 1.15); }
     // a shade canopy on many plots
     if (h(i + 0.11) > 0.45) {
-      const [x, y] = P(-3.5 + a * 2, -2.8); put(lists.roof, x, y, 1, 1, 1, ry, FLAG[Math.floor(a * FLAG.length)], 2.4);
+      const [x, y] = P(-3.5 + a * 2, -2.8); put(lists.roof, x, y, 1, 1, 1, ry, CANOPY[Math.floor(a * CANOPY.length)], 2.4);
       if (hi) for (const [du, dv] of [[-1.7, -1.7], [1.7, -1.7], [-1.7, 1.7], [1.7, 1.7]]) { const [px, py] = P(-3.5 + a * 2 + du, -2.8 + dv); put(lists.pole, px, py, 1, 2.4, 1, 0, 0x8a8f94, 1.2); }
     }
     // fire pit with chairs round it, on most plots
@@ -73,6 +75,16 @@ export function build({ L, ground, lod = 'high' }) {
     list.forEach(([x, y, z, sx, sy, sz, ry, c], i) => { dummy.position.set(x, y, -z); dummy.rotation.set(0, ry, 0); dummy.scale.set(sx, sy, sz); dummy.updateMatrix(); m.setMatrixAt(i, dummy.matrix); m.setColorAt(i, col.set(c)); });
     m.frustumCulled = false; group.add(m);
   };
+  // what sets a camp on the ground from the air: trodden grass round each plot, a soft shadow under everything that stands
+  const softTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'), g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, '#fff'); g.addColorStop(0.55, '#999'); g.addColorStop(1, '#000'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
+  const plane = new THREE.PlaneGeometry(1, 1).rotateX(-Math.PI / 2);
+  const wornM = new THREE.MeshBasicMaterial({ color: 0xffffff, alphaMap: softTex, transparent: true, opacity: 0.55, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+  const shadM = new THREE.MeshBasicMaterial({ color: 0x0b0d08, alphaMap: softTex, transparent: true, opacity: 0.5, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+  const shad = [];
+  for (const [list, w, d] of [[lists.bellBody, 7, 7], [lists.dome, 4, 4.5], [lists.van, 4, 6.5], [lists.trailer, 4.5, 9.5], [lists.roof, 5.4, 5.4], [marqBody, 9, 9], [stall, 6, 5], [loo, 7, 3.2]])
+    for (const [x, y, z, sx, , sz, ry] of list) shad.push([x + 0.5, ground(x, z) + 0.36, z - 0.3, w * sx, 1, d * sz, ry, 0]);
+  inst(worn, plane, wornM); inst(shad, plane, shadM);
+  group.children.forEach(o => { o.renderOrder = 3; });
   inst(lists.bellBody, new THREE.CylinderGeometry(2.3, 2.3, 0.9, hi ? 12 : 8), tentM);
   inst(lists.bellTop, new THREE.ConeGeometry(2.45, 2.2, hi ? 12 : 8), tentM);
   inst(lists.dome, new THREE.SphereGeometry(1.2, hi ? 10 : 7, hi ? 6 : 4, 0, Math.PI * 2, 0, Math.PI / 2), tentM);
@@ -84,7 +96,14 @@ export function build({ L, ground, lod = 'high' }) {
   inst(lists.chair, new THREE.BoxGeometry(0.5, 0.8, 0.5), gearM);
   inst(lists.pit, new THREE.CylinderGeometry(0.55, 0.6, 0.3, 10), gearM);
   inst(lists.flag, new THREE.BoxGeometry(0.04, 0.8, 1.4), gearM);
-  inst(lane, new THREE.BoxGeometry(6, 0.12, 8.2), gearM);
+  // the lane: one ribbon draped on the ground, not a row of boxes that stepped up the slope
+  const laneM = new THREE.MeshBasicMaterial({ color: 0xffffff, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+  if (lane.length > 1) {
+    const pos = [], idx = [], a0 = lane[0][6], nx = Math.cos(a0), ny = -Math.sin(a0);
+    lane.forEach(([x, , y], i) => { for (const o of [-2.6, 2.6]) { const w = o * (1 + 0.14 * Math.sin(i * 1.7 + o)), px = x + nx * w, py = y + ny * w; pos.push(px, ground(px, py) + 0.34, -py); } if (i) { const q = (i - 1) * 2; idx.push(q, q + 2, q + 1, q + 1, q + 2, q + 3); } });
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); laneM.side = THREE.DoubleSide;
+    const m = new THREE.Mesh(g, laneM); m.frustumCulled = false; m.renderOrder = 3; group.add(m);
+  }
   inst(marqBody, new THREE.CylinderGeometry(2.4, 2.4, 2.3, 8), tentM);
   inst(marqTop, new THREE.ConeGeometry(2.7, 2.1, 8), tentM);
   inst(stall, new THREE.BoxGeometry(3.6, 2.4, 2.6), gearM);
@@ -98,6 +117,8 @@ export function build({ L, ground, lod = 'high' }) {
     setLight(l, inside = 1) {
       tentM.color.setRGB(l.x * 0.85 + 0.2 * inside, l.y * 0.85 + 0.15 * inside, l.z * 0.85 + 0.08 * inside);
       gearM.color.setRGB(l.x * 0.9, l.y * 0.9, l.z * 0.9);
+      laneM.color.setRGB(l.x * 0.42, l.y * 0.38, l.z * 0.28);
+      wornM.color.setRGB(l.x * 0.34, l.y * 0.36, l.z * 0.16);
     },
   };
 }

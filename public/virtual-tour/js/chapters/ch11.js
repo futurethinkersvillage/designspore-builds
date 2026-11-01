@@ -114,7 +114,7 @@ export async function setup(ctx) {
     const on = 0.16 + 0.12 * d / 800;
     add(f.c[0], f.c[1], 16, 55, col, on, 'landing'); add(f.c[0], f.c[1], 12, 18, new THREE.Color('#ffd2a8'), on, 'core');
     beam(f.c[0], f.c[1], 14 + (i % 4) * 4, 70 + (i % 5) * 14, col, on);
-    pool(f.c[0], f.c[1], 60, col, on);
+    pool(f.c[0], f.c[1], 32, col, on);
   });
   // path lights every 9 m along the whole trail (Mike 10-29: "that hiking trail line should be more visible … so we
   // can continue to track it"): small warm lamps that read as a dotted line of light from far away and as lamps up close
@@ -122,7 +122,7 @@ export async function setup(ctx) {
     const c = f.c; let carry = 0;
     for (let i = 0; i < c.length - 1; i++) {
       const [ax, ay] = c[i], [bx, by] = c[i + 1], len = Math.hypot(bx - ax, by - ay);
-      for (let s = carry; s < len; s += 9) { const k = s / len; add(ax + (bx - ax) * k, ay + (by - ay) * k, 1.0, 5.5, new THREE.Color('#ffc890'), 0.2 + 0.05 * ((i * 7) % 10) / 10, 'path'); }
+      for (let s = carry; s < len; s += 9) { const k = s / len; add(ax + (bx - ax) * k, ay + (by - ay) * k, 1.0, 3, new THREE.Color('#ffc890'), 0.2 + 0.05 * ((i * 7) % 10) / 10, 'path'); }
       carry = (carry - len) % 9; if (carry < 0) carry += 9;
     }
   }
@@ -142,9 +142,9 @@ export async function setup(ctx) {
   {
     const pts = []; let sd = 5; const rnd = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
     while (pts.length < (ctx.MOBILE ? 150 : 620)) { const d = 13 + 45 * Math.sqrt(rnd()), a = -Math.PI / 4 + (rnd() - 0.5) * 1.15 * (1 - 0.3 * d / 58); pts.push([-193 + Math.cos(a) * d, -242 + Math.sin(a) * d]); }
-    crowd2 = new THREE.InstancedMesh(new THREE.CapsuleGeometry(0.22, 1.2, 2, 6), new THREE.MeshBasicMaterial({ color: 0xffffff }), pts.length);
+    crowd2 = new THREE.InstancedMesh(new THREE.CapsuleGeometry(0.2, 1.05, 2, 6), new THREE.MeshBasicMaterial({ color: 0xffffff }), pts.length);
     const dm = new THREE.Object3D(), cc = new THREE.Color(), c0 = new THREE.Color(0x2e2029), c1 = new THREE.Color(0x14111a);   // lit by the stage, falling off to the back (i17: barely visible)
-    pts.forEach(([x, y], i) => { dm.position.set(x, ctx.groundAt(x, y) + 0.85, -y); dm.scale.setScalar(0.9 + rnd() * 0.2); dm.updateMatrix(); crowd2.setMatrixAt(i, dm.matrix); crowd2.setColorAt(i, cc.copy(c0).lerp(c1, Math.min(1, (Math.hypot(x + 193, y + 242) - 13) / 40))); });
+    pts.forEach(([x, y], i) => { dm.position.set(x, ctx.groundAt(x, y) + 0.85, -y); dm.scale.set(1, 0.85 + rnd() * 0.3, 1); dm.updateMatrix(); crowd2.setMatrixAt(i, dm.matrix); crowd2.setColorAt(i, cc.copy(c0).lerp(c1, Math.min(1, (Math.hypot(x + 193, y + 242) - 13) / 40))); });
     crowd2.frustumCulled = false; scene.add(crowd2);
     const heads = new THREE.InstancedMesh(new THREE.SphereGeometry(0.17, 8, 6), crowd2.material, pts.length);
     pts.forEach(([x, y], i) => { dm.position.set(x, ctx.groundAt(x, y) + 1.72, -y); dm.scale.setScalar(1); dm.updateMatrix(); heads.setMatrixAt(i, dm.matrix); heads.setColorAt(i, cc.copy(c0).lerp(c1, Math.min(1, (Math.hypot(x + 193, y + 242) - 13) / 40))); }); heads.frustumCulled = false; crowd2.add(heads); crowd2.position.set(0, 0, 0);
@@ -246,26 +246,20 @@ export async function setup(ctx) {
   // 6 m, feathered at its sides and ends; shown only in the festival chapters
   {
     const cv = document.createElement('canvas'); cv.width = cv.height = 256; const g = cv.getContext('2d');
-    g.fillStyle = '#3a3226'; g.fillRect(0, 0, 256, 256);
+    g.fillStyle = '#39452a'; g.fillRect(0, 0, 256, 256);   // moss green: mostly grass-coloured, as the rest of the land now
     let sd = 7; const rnd = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
     for (let i = 0; i < 2600; i++) {   // needles, twigs, a little moss
       const x = rnd() * 256, y = rnd() * 256, a = rnd() * Math.PI, l = 3 + rnd() * 9, k = rnd();
-      g.strokeStyle = k < 0.55 ? `rgba(${110 + rnd() * 40},${78 + rnd() * 25},${48 + rnd() * 15},.55)` : k < 0.85 ? `rgba(${60 + rnd() * 20},${48 + rnd() * 15},${34},.6)` : `rgba(${62},${88 + rnd() * 30},${46},.5)`;
+      g.strokeStyle = k < 0.2 ? `rgba(${110 + rnd() * 40},${88 + rnd() * 25},${48 + rnd() * 15},.45)` : k < 0.45 ? `rgba(${40 + rnd() * 20},${50 + rnd() * 15},${30},.6)` : `rgba(${72},${108 + rnd() * 30},${50},.55)`;
       g.lineWidth = 0.8 + rnd() * 1.4; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke();
     }
     const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.anisotropy = 8;
-    const W = 170, step = 4, total = cum[cum.length - 1], segs = Math.ceil(total / step), cols = Math.ceil(W / step);
-    const pos = [], uv = [], al = [], idx = [];
-    for (let i = 0; i <= segs; i++) {
-      const sA = Math.min(total, i * step), p = at(sA), q = at(Math.min(total, sA + 3)), r = at(Math.max(0, sA - 3));
-      let dx = q[0] - r[0], dy = q[1] - r[1]; const l = Math.hypot(dx, dy) || 1; dx /= l; dy /= l;
-      for (let j = 0; j <= cols; j++) {
-        const o = -W / 2 + j * step, x = p[0] + dy * o, y = p[1] - dx * o;
-        pos.push(x, ctx.groundAt(x, y) + 0.3, -y); uv.push(x / 6, y / 6);
-        al.push(Math.min(1, (W / 2 - Math.abs(o)) / 70) * Math.min(1, sA / 30, (total - sA) / 30));
-      }
-    }
-    for (let i = 0; i < segs; i++) for (let j = 0; j < cols; j++) { const a = i * (cols + 1) + j, b = a + cols + 1; idx.push(a, b, a + 1, b, b + 1, a + 1); }
+    // a draped grid round the whole flown branch, faded by distance from the path (a ribbon this wide folded over itself on the bends: hard edges)
+    const R = 300, step = 6, xs = T1.map(p => p[0]), ys = T1.map(p => p[1]), x0 = Math.min(...xs) - R, x1 = Math.max(...xs) + R, y0 = Math.min(...ys) - R, y1 = Math.max(...ys) + R;
+    const nx = Math.ceil((x1 - x0) / step), ny = Math.ceil((y1 - y0) / step), pos = [], uv = [], al = [], idx = [];
+    const dist = (x, y) => { let d = 1e9; for (let i = 0; i < T1.length - 1; i += 2) { const [ax, ay] = T1[i], [bx, by] = T1[Math.min(i + 2, T1.length - 1)], ex = bx - ax, ey = by - ay, u = Math.max(0, Math.min(1, ((x - ax) * ex + (y - ay) * ey) / (ex * ex + ey * ey || 1))); d = Math.min(d, Math.hypot(x - ax - ex * u, y - ay - ey * u)); } return d; };
+    for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) { const x = x0 + i * step, y = y0 + j * step; pos.push(x, ctx.groundAt(x, y) + 0.3, -y); uv.push(x / 6, y / 6); al.push(Math.min(1, Math.max(0, (R - dist(x, y)) / 50))); }
+    for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) { const a = j * (nx + 1) + i, b = a + nx + 1; idx.push(a, b, a + 1, b, b + 1, a + 1); }
     const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
     geo.setAttribute('fe', new THREE.Float32BufferAttribute(al, 1)); geo.setIndex(idx);
     const m = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false });
@@ -366,7 +360,7 @@ export function update(t, ctx) {
     const d = cam.position.distanceTo(g.s.position);
     const near = g.kind === 'pool' ? 0.25 + 0.75 * seg(d, 40, 170) : g.kind === 'path' || g.kind === 'bulb' ? 1 : g.kind === 'core' || g.kind === 'beam' ? seg(d, 10, 40) : g.kind === 'landing' ? seg(d, 40, 120) : seg(d, 260, 760);   // (i8: the beacons had faded out at exactly the glide's range)
     const dive = g.kind === 'beam' ? 1 - seg(t, 0.36, 0.42) + seg(t, 0.66, 0.72) : 1;   // (i9: the dive flew through a beam)
-    g.s.material.opacity = on * fl * near * dive * ({ lantern: 0.4, pool: 0.3, beam: 0.85, core: 0.4, path: 0.55, bulb: 0.95 }[g.kind] || 0.55);
+    g.s.material.opacity = on * fl * near * dive * ({ lantern: 0.4, pool: 0.18, beam: 0.85, core: 0.4, path: 0.45, bulb: 0.95 }[g.kind] || 0.55);
     g.s.visible = on > 0.001 && near > 0.001;
   }
   const show = seg(t, 0.0, 0.08);   // the stage glows from the first frame (i9)

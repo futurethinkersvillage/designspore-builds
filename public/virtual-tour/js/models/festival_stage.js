@@ -42,7 +42,7 @@ export function build({ lod = 'high' } = {}) {
     for (const z of [-TZ, TZ, 0]) for (let x = -W / 2 + 0.6; x < W / 2 - 0.4; x += 0.9) for (const oy of [-0.24, 0.24]) br.push([x, HT + oy, z, Math.PI / 2, 0]);
     const bm = new THREE.InstancedMesh(new THREE.BoxGeometry(0.035, 0.72, 0.035), brM, br.length);
     br.forEach(([x, y, z, ry, tilt], i) => { dm.position.set(x, y, z); dm.rotation.set(0, ry, tilt); dm.updateMatrix(); bm.setMatrixAt(i, dm.matrix); }); g.add(bm);
-    const fz = D / 2 + 15, fx = 14, tent = M(0x17181b, 0.9), desk = M(0x26282c, 0.6);
+    const fz = D / 2 + 15, fx = 27,   /* out of the closing shot: its black roof cut across the corner */ tent = M(0x17181b, 0.9), desk = M(0x26282c, 0.6);
     for (const x of [-2.6, 2.6]) for (const z of [-2, 2]) box(truss, 0.09, 2.7, 0.09, fx + x, 1.35, fz + z);
     const fr = new THREE.Mesh(new THREE.ConeGeometry(4, 1.1, 4).rotateY(Math.PI / 4).scale(1, 1, 0.8), tent); fr.position.set(fx, 3.25, fz); g.add(fr);
     box(desk, 3.4, 1.0, 0.9, fx, 0.5, fz); const scr = new THREE.MeshBasicMaterial({ color: 0xffb27a, toneMapped: false }); box(scr, 0.8, 0.5, 0.03, fx - 0.8, 1.3, fz - 0.2); box(scr, 0.8, 0.5, 0.03, fx + 0.8, 1.3, fz - 0.2);
