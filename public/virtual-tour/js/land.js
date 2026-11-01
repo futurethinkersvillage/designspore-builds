@@ -219,8 +219,8 @@ vec3 groundMat(vec3 photo, vec2 xy, float dist, vec2 dUV, vec3 n) {
     if (wi < 0.01) continue;
     if (i == 6) { col += wi * photo; continue; }
     if (((i >= 2 && i <= 5) || i == 7) && !(xy.x > -50.0 && xy.y < 135.0 && xy.y > -300.0)) {   // real ground: the scan itself, baked RVs and tarps held down, a little material grain up close
-      vec3 pc = clamp(photo, lowP * 0.62, lowP * 1.22); vec3 mg = texture(tGround, vec3(xy / uGroundSize[i], float(i))).rgb;
-      col += wi * pc * mix(1.0, 0.82 + 0.36 * dot(mg, vec3(0.3, 0.6, 0.1)) / max(dot(pow(uGroundMean[i], vec3(0.45)), vec3(0.3, 0.6, 0.1)), 0.01), 1.0 - smoothstep(20.0, 80.0, dist)); continue; }
+      vec3 pc = max(clamp(photo, lowP * 0.62, lowP * 1.22), uGroundMean[i] * 0.72 * (1.0 - smoothstep(25.0, 70.0, dist))); vec3 mg = texture(tGround, vec3(xy / uGroundSize[i], float(i))).rgb;
+      col += wi * pc * mix(1.0, 0.7 + 0.6 * dot(mg, vec3(0.3, 0.6, 0.1)) / max(dot(pow(uGroundMean[i], vec3(0.45)), vec3(0.3, 0.6, 0.1)), 0.01), 1.0 - smoothstep(20.0, 80.0, dist)); continue; }
     vec2 uv = xy / uGroundSize[i], uv2 = rot * uv * 0.71 + vec2(0.37, 0.61);
     float L = float(i);
     vec3 c = mix(texture(tGround, vec3(uv, L)).rgb, texture(tGround, vec3(uv2, L)).rgb, mixN);
@@ -296,7 +296,7 @@ vec3 water(vec3 land, vec2 xy, vec3 wpos) {
   // chapters turn uWaterAmt down because the atlas CREEK lines sit a few metres off the photo's; lakes are exact, so
   // still water keeps its full surface
   float amtK = max(mix(uWaterAmt, 1.0, still * still), traced);
-  if (traced > 0.5) { vec3 wet = land * vec3(0.5, 0.56, 0.6) + sky * (0.03 + fres * 0.35) + vec3(0.78, 0.82, 0.8) * foam * 0.1 * (1.0 - still) + vec3(1.0, 0.9, 0.72) * pow(max(dot(R, uSunDir), 0.0), 70.0) * 0.12; return mix(land, wet, amt * uTreeFade * mix(1.0, 0.35, still)); }   // (grid review 11-01: flat colour over a brown creek and reedy ponds)
+  if (traced > 0.5) { vec3 wet = land * vec3(0.5, 0.56, 0.6) + sky * (0.03 + fres * 0.35) + vec3(0.78, 0.82, 0.8) * foam * 0.1 * (1.0 - still) + vec3(1.0, 0.9, 0.72) * pow(max(dot(R, uSunDir), 0.0), 70.0) * 0.12; return mix(land, wet, amt * uTreeFade * mix(1.0, 0.72, still)); }   // (grid review 11-01: flat colour over a brown creek and reedy ponds)
   return mix(land, wc, amt * (1.0 - creekKeep) * uTreeFade * amtK);   // (grid review 11-01: flat blue over a brown creek and reedy ponds)
 }
 vec2 quadUV(vec2 p, vec3 uA, vec3 uB, vec3 vA, vec3 vB) {

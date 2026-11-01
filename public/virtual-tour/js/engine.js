@@ -231,8 +231,8 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     'rv', 'shed', 'footbridge', 'sauna_setting', 'props', 'entrance_sign'];
   const siteC = n => (D.L[n] || []).flatMap(f => polysOf(f).map(p => { const r = p[0]; return [r.reduce((a, q) => a + q[0], 0) / r.length, r.reduce((a, q) => a + q[1], 0) / r.length]; }));
   // keep-out per model: half its size + a crown radius (Mike 10-29: trees intersected the 3D models)
-  const CLEARR = { gazebo: 14, top_house: 12, bottom_house: 12, office: 11, dome: 11, shower_house: 13, sauna: 7, bunk_cabin: 7, shed: 11,
-    rv: 8, props: 5, sauna_setting: 6, horse_corrals: 22, footbridge: 11 };
+  const CLEARR = { gazebo: 14, top_house: 12, bottom_house: 12, office: 11, dome: 11, shower_house: 13, sauna: 5, bunk_cabin: 5, shed: 11,
+    rv: 4, props: 2.5, sauna_setting: 2, horse_corrals: 22, footbridge: 11 };
   const clear = [...Object.entries(PLACE).flatMap(([k, ps]) => ps.map(p => [p.x, p.y, CLEARR[k] || 9])),
     ...siteC('cabins').map(c => [...c, 11]), ...siteC('lake_cabins').map(c => [...c, 11]),   // room round each zome site (i3: rows hidden in trees)
     ...V.courts.map(c => [c.x, c.y, c.r * 0.72]), ...V.paths.flatMap(p => p.kind === 'spur' ? [] : p.pts.filter((_, i) => i % 3 === 0).map(q => [q[0], q[1], 2.8])), [(V.lot[0][0] + V.lot[2][0]) / 2, (V.lot[0][1] + V.lot[2][1]) / 2, 24],

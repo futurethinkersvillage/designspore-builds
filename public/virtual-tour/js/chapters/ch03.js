@@ -23,7 +23,7 @@ function photoConifer() {
     const k = i / 11, r = 0.115 * (1 - k * 0.92), h = 0.13 * (1 - k * 0.4), g = new THREE.ConeGeometry(r, h, 14, 1, true), p = g.attributes.position, v = 0.8 + (i % 3) * 0.14;
     for (let j = 0; j < p.count; j++) if (p.getY(j) < 0) { const f = 0.66 + 0.34 * ((j + i) % 2); p.setXYZ(j, p.getX(j) * f, p.getY(j) - (1 - f) * h * 0.4, p.getZ(j) * f); }
     g.computeVertexNormals(); g.translate(0, 0.05 + k * 0.82 + h / 2, 0); g.rotateY(i * 0.9);
-    parts.push(paint(g, [0.19 * v, 0.33 * v, 0.2 * v]));
+    parts.push(paint(g, [0.12 * v, 0.23 * v, 0.14 * v]));   // near black-green in the 360
   }
   return mergeGeometries(parts.map(g => { g = g.index ? g.toNonIndexed() : g; g.deleteAttribute('uv'); return g; }));
 }

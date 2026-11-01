@@ -197,7 +197,7 @@ async function init() {
   const counter = document.createElement('div');
   counter.style.cssText = 'position:fixed;left:10px;top:10px;z-index:60;font:600 12px/1.35 ui-monospace,Consolas,monospace;color:#F2EDE8;'
     + 'background:rgba(26,23,32,.78);border:1px solid rgba(234,130,78,.55);border-radius:4px;padding:5px 8px;pointer-events:none;white-space:pre';
-  if (!REC && !Q.has('nocounter')) document.body.appendChild(counter);
+  if (!REC && (Q.has('counter') || location.hostname === 'localhost')) document.body.appendChild(counter);   // public page: only with ?counter
   const cp1Share = CP1_SECONDS / total;
   const showCounter = p => {
     const sec = p * total, f = Math.round(sec * 30);

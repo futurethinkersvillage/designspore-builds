@@ -72,7 +72,10 @@ export async function setup(ctx) {
   stars.renderOrder = -1; stars.frustumCulled = false; scene.add(stars);
 
   // ---- lights: sprites with additive blending ----
+  // the thousands of small lamps as one draw call each kind, not a sprite apiece (the trail glide ran at 88 ms a frame)
+  const small = { path: { p: [], c: [], size: 3.2 }, bulb: { p: [], c: [], size: 1.1 } };
   const add = (x, y, lift, size, color, on, kind) => {
+    if (small[kind]) { small[kind].p.push(x, heightAt(x, y) + lift, -y); small[kind].c.push(color.r, color.g, color.b); return; }
     const m = new THREE.SpriteMaterial({ map: tex, color, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, depthTest: kind === 'path' || kind === 'bulb' || kind === 'core' });   // big halos over the trees: tree cut-outs tore them into 'flames' (i12)
     const s = new THREE.Sprite(m); s.position.set(x, heightAt(x, y) + lift, -y); s.scale.setScalar(size); s.renderOrder = 23;
     scene.add(s); glows.push({ s, size, on, kind, ph: (x * 0.37 + y * 0.11) % 6.28 });
@@ -136,6 +139,7 @@ export async function setup(ctx) {
     }
   }
   pool(-193, -242, 70, AMBER, 0.12);
+  const smallReady = () => { for (const [kind, S] of Object.entries(small)) { if (!S.p.length) continue; const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(S.p, 3)); g.setAttribute('color', new THREE.Float32BufferAttribute(S.c, 3)); const pts = new THREE.Points(g, new THREE.PointsMaterial({ map: tex, size: S.size, vertexColors: true, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })); pts.frustumCulled = false; pts.renderOrder = 23; pts.scale.setScalar(1); scene.add(pts); glows.push({ s: pts, size: 0, on: kind === 'path' ? 0.22 : 0.15, kind, ph: 0 }); } };
   // the planned event pavilion stood black in the night meadow (i9): warm light inside it
   { const l = new THREE.PointLight(0xffc890, 220, 40, 2); l.position.set(-140, heightAt(-140, -278) + 3, 278); scene.add(l); add(-140, -278, 9, 26, new THREE.Color('#ffc890'), 0.1, 'lantern'); const l2 = new THREE.PointLight(0xffd8b0, 300, 60, 2); l2.position.set(-140, heightAt(-140, -278) + 16, 278); scene.add(l2); }
   // the crowd in front of the stage: dark figures fanned over the meadow (i12)
@@ -270,6 +274,7 @@ export async function setup(ctx) {
     forestFloor = new THREE.Mesh(geo, m); forestFloor.renderOrder = 3; scene.add(forestFloor);
   }
 
+  smallReady();
   // [t, east, north, height, frameH, heading°, pitch°, fov°] — the whole chapter looks north-west: toward the stage's
   // front, along the trail and back at the campus, so no move needs a big turn (Mike 10-29 frame list)
   const gA = ctx.groundAt, O = [-62, -398];
