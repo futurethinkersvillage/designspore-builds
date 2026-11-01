@@ -9,7 +9,7 @@ import { makePano } from './pano.js';
 
 export const PANOS = {
   // ~4.5 m WNW of the barrel, facing its door; Hemp Creek + footbridge to the N, bunk cabin to the SSW
-  sauna:    { file: 'sauna',    at: [-85.12, -42.86], eye: 2.04, yaw0: 248.33, title: 'The cedar sauna on Hemp Creek' },   // moved with the sauna (Mike re-placed it ~21 m NE, 10-29); yaw0 is compass-true, unchanged
+  sauna:    { file: 'sauna',    at: [-85.6, -44.05], eye: 2.04, yaw0: 231, title: 'The cedar sauna on Hemp Creek' },   // moved with the sauna (Mike re-placed it ~21 m NE, 10-29); yaw0 is compass-true, unchanged
   // ~12 m ENE of the main shower house; the office + golf carts and the forest-school playground beyond (to the W)
   shower:   { file: 'shower',   at: [-66.57, 115.63],  eye: 3.01, yaw0: 73.96, floorAt: [-76.05, 101.56], title: 'Shower house & campground' },   // solved 10-31 from 8 landmarks (tools/pano_solve_shower.py, rms 0.9°): the photo was taken from ~3 m up, ~11 m off the gable and level with the back wall; eye = above the house's ground
   // (DomeLake1 — "Lake & Field" — is NOT used: it shows the dome at its earlier spot. Mike, 10-28)

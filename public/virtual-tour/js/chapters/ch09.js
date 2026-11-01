@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { build as buildFarm } from '../models/farm_concept.js';
 
 let signRig;
-export const meta = { id: 'ch09', title: 'Growing food', seconds: 22.5, animated: false, blend: 4 / 22.5 };   // 8.5 s first: in to the entrance sign, a hold, on to the garden (Mike 10-31: model the sign). The old 14 s follow unchanged
+export const meta = { id: 'ch09', title: 'Growing food', seconds: 18.86, animated: false, blend: 4 / 18.86 };   // 8.5 s first: in to the entrance sign, a hold, on to the garden (Mike 10-31: model the sign). The old 14 s follow unchanged
 
 let cap2, rig, cap, farm, vign, cards = [], G = {};
 // flat, face-up callout card (same language as js/labels.js): spaced caps, hairline, small sub-line
@@ -53,12 +53,12 @@ export async function setup(ctx) {
   const gh = (x, y, d = 2) => ground(x, y) + d;
   const F = (t, x, y, fh, hd, pt) => { const [fx, fy] = ctx.farmFix(x, y); return [t, fx, fy, gh(fx, fy), fh, hd, pt, 48]; };
   ctx.clearTreesNear([[-660, -250], [-650, -240], [-640, -230]].map(([x, y]) => new THREE.Vector3(x, 0, -y)), 14);   // a spruce filled the left of the opening (i16)
-  const SG = ctx.PLACE.entrance_sign[0], sh = gh(SG.x, SG.y, 2.6);
+  const SG = ctx.PLACE.entrance_sign[0], cd = 16, cx = SG.x - Math.sin(36.7 * Math.PI / 180) * cd, cy = SG.y - Math.cos(36.7 * Math.PI / 180) * cd, sh = Math.max(gh(SG.x, SG.y, 2.7), ground(cx, cy) + 2.0 + Math.tan(3 * Math.PI / 180) * cd);   // the road's cut is higher than the sign's foot: the lens went under the ground (Mike 11-01, frame 4956)
   signRig = R.makeRig([
     [0.00, SG.x, SG.y, sh, 11, 36.7, -3, 40],
     [0.47, SG.x, SG.y, sh, 11, 36.7, -3, 40],     // arrives (film blend, 4 s)
     [0.76, SG.x, SG.y, sh, 10, 36.7, -3, 40],     // a real hold on it
-    [1.00, -620, -212, gh(-620, -212), 44, 48, -20, 36],   // one move on to the garden
+    [1.00, -620, -212, gh(-620, -212), 48, 44, -20, 36],   // one move on
   ]);
   rig = R.makeRig([
     // the real permaculture garden is held just after the film's blend (t < 0.3), then on to the planned farm
@@ -77,7 +77,6 @@ export async function setup(ctx) {
   const real = '#F2EDE8', plan = '#EA824E';
   cards = [
     // (i7: one card at a time, each clear of its building)
-    [[-620, -212], 'Permaculture garden', 'Here today', real, [4, -9], 2, 0.06, 0.3],   // pinned on the beds (i11)
     // (i8: five cards at ~0.7 s each were unreadable — three, ~2.5 s each)
     [[-485, -105], 'Barn & greenhouses', 'Planned', plan, [-24, 8], 5, 0.44, 0.62],
     [[-495, -12], 'Market garden', 'Planned', plan, [4, 3], 3, 0.62, 0.82],   // (i11: clipped by the right edge)
@@ -116,7 +115,7 @@ export async function setup(ctx) {
 }
 
 export function update(t, ctx) {
-  const raw = t * meta.seconds; t = Math.max(0, raw - 8.5) / 14;
+  const raw = t * meta.seconds; t = 0.26 + Math.max(0, raw - 8.5) / 14;   // (the old hold on the garden is gone: Mike 11-01)
   const { U, rig: R, sky, sun, hemi } = ctx, s = R.seg, k = s(t, 0, 0.45);
   // golden hour eases in
   U.uSunDir.value.copy(G.sun0).lerp(G.sun1, k).normalize();
@@ -149,7 +148,7 @@ export function update(t, ctx) {
     c.m.scale.set(k, k * tilt, 1); c.m.material.opacity = op; c.pin.material.opacity = op * 0.8;
   }
   cap.querySelector('.eyebrow span').style.opacity = s(t, 0.3, 0.36);   // not over the 'here today' garden (i15)
-  cap.style.opacity = s(t, 0.08, 0.2) - s(t, 0.56, 0.62);
+  cap.style.opacity = s(raw, 8.8, 9.8) - s(t, 0.56, 0.62);
   cap2.style.opacity = s(t, 0.66, 0.74);   // off the farm once the camera is over it
   cap.style.transform = `translateY(${(1 - s(t, 0.12, 0.26)) * 14}px)`;
   if (raw < 8.5) signRig.apply(ctx.camera, raw / 8.5);

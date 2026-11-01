@@ -77,7 +77,8 @@ export function build({ lod = 'high', variant = 'picnic', size = 10 } = {}) {
   } else if (variant === 'shelter') {      // the campground's red timber picnic shelter (Campsite/19.jpg, 20.jpg): six posts with
     // knee braces on gravel, a steep brown shingle gable with a boarded end, a picnic table and a stone fire ring under it
     // (rebuilt 10-31 from the same photos: four posts, not six; the gable boarded in with two dark red panels; open ground under it, a stove and two steel rings)
-    const stain = M(0x9c3f28, 0.8), shingle = M(0x5f4c3f, 0.95), W = 4.2, D = 5.0, H = 2.55, R = 1.75, OX = 0.65, OZ = 0.55, slope = Math.atan2(R, W / 2 + OX), L0 = Math.hypot(W / 2 + OX, R);
+    // size 1 = the teal roof, 2 = the metal roof (video 5:10, the two by the field)
+    const stain = M(0x8a5a38, 0.85), shingle = M(size === 2 ? 0xc4c8c8 : 0x2f7f78, 0.7, size === 2 ? 0.4 : 0), W = 3.0, D = 3.6, H = 2.3, R = 0.9, OX = 0.45, OZ = 0.4, slope = Math.atan2(R, W / 2 + OX), L0 = Math.hypot(W / 2 + OX, R);
     for (const x of [-W / 2, W / 2]) for (const z of [-D / 2, D / 2]) {
       box(g, stain, 0.22, H, 0.22, x, H / 2, z);
       const along = box(g, stain, 0.12, 0.12, 1.25, x, H - 0.42, z - Math.sign(z) * 0.44); along.rotation.x = Math.sign(z) * 0.78;   // knee braces, both ways
@@ -95,8 +96,8 @@ export function build({ lod = 'high', variant = 'picnic', size = 10 } = {}) {
         g.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ map: t, roughness: 0.85, side: THREE.DoubleSide }))); } }
     box(g, wood, 0.8, 0.06, 1.9, -0.4, 0.76, 0.1); for (const s of [-1, 1]) { box(g, wood, 0.28, 0.05, 1.9, -0.4 + s * 0.62, 0.45, 0.1); for (const z of [-0.55, 0.75]) { const leg = box(g, wood, 0.07, 0.86, 0.07, -0.4 + s * 0.22, 0.38, z); leg.rotation.z = -s * 0.5; } }
     const iron = M(0x2c2a28, 0.6, 0.4);   // two steel fire rings by the post, a black stove box out front
-    for (const [x, z] of [[1.4, 1.9], [0.5, 2.15]]) { const r = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.24, 14, 1, true), new THREE.MeshStandardMaterial({ color: 0x4a3f38, roughness: 0.7, metalness: 0.4, side: THREE.DoubleSide })); r.position.set(x, 0.12, z); g.add(r); }
-    box(g, iron, 0.55, 0.6, 0.45, -2.4, 0.4, 3.1); for (const [dx, dz] of [[-0.2, -0.16], [0.2, -0.16], [-0.2, 0.16], [0.2, 0.16]]) box(g, iron, 0.05, 0.12, 0.05, -2.4 + dx, 0.06, 3.1 + dz);
+    for (const [x, z] of [[1.0, 2.9]]) { const r = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.24, 14, 1, true), new THREE.MeshStandardMaterial({ color: 0x4a3f38, roughness: 0.7, metalness: 0.4, side: THREE.DoubleSide })); r.position.set(x, 0.12, z); g.add(r); }
+    box(g, M(0x7a6a55, 1), W + 1.0, 0.14, D + 1.0, 0, 0.0, 0); void iron;   // a timber floor to pitch on
   } else if (variant === 'leanto' || variant === 'redouthouse') {   // the lean-to + outhouse by the Bottom House (drone video 19:16-19:22, roof sizes off the survey; its fence left out, Mike 11-01)
     const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'); x.fillStyle = '#4a3a30'; x.fillRect(0, 0, 256, 256);
     let sd = 5; const rn = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
@@ -139,6 +140,8 @@ export function build({ lod = 'high', variant = 'picnic', size = 10 } = {}) {
     box(g, red2, W, 0.14, L, 0, 0.7, 0); for (const s of [-1, 1]) { box(g, wood, 0.16, 0.34, L, s * W / 2, 0.52, 0); box(g, white, 0.08, 0.08, L, s * (W / 2 - 0.02), 1.65, 0); box(g, white, 0.05, 0.05, L, s * (W / 2 - 0.02), 1.2, 0); for (let i = 0; i <= 5; i++) box(g, white, 0.08, 1.0, 0.08, s * (W / 2 - 0.02), 1.2, -L / 2 + i * L / 5); }
     for (const e of [-1, 1]) { box(g, M(0x7a6a55, 1), W + 0.6, 1.0, 1.4, 0, 0.15, e * (L / 2 + 0.3)); }
     for (let i = 0; i < 18; i++) box(g, M(0x5a3226, 0.9), W, 0.01, 0.02, 0, 0.775, -L / 2 + (i + 0.5) * L / 18);
+  } else if (variant === 'parkedrv') {   // the two long white trailers by the top house (survey)
+    box(g, white, 2.5, 2.7, 10, 0, 1.75, 0); box(g, M(0x2a2c2e, 0.4), 2.54, 0.6, 3, 0, 2.2, 1.5); for (const s of [-1, 1]) { const w = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.38, 0.22, 12), black); w.rotation.z = Math.PI / 2; w.position.set(s * 1.15, 0.38, -1); g.add(w); }
   } else if (variant === 'pit') {          // a horseshoe pit on the lawn by the tetherball (drone video 13:52, 14:30): sand in a timber frame, reaching below ground on a slope
     box(g, M(0xcbb994, 1), 1.5, 0.3, 2.4, 0, 0.0, 0);
     for (const s of [-1, 1]) { box(g, wood, 0.1, 0.34, 2.5, s * 0.78, 0.02, 0); box(g, wood, 1.66, 0.34, 0.1, 0, 0.02, s * 1.22); }

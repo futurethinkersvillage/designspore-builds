@@ -89,10 +89,12 @@ async function init() {
   for (const c of chapters) for (let t = 0; t <= 1.0001; t += 0.02) {
     base(); panoState.op = 0; c.mod.update(t, ctx); path.push(camera.position.clone());
     if (panoState.op > 0.01) continue;   // while a real 360 is up its own view shows, and the trees it pans past must stay
-    camera.getWorldDirection(fwd); for (let d = 6; d <= 90; d += 4) sight.push(camera.position.clone().addScaledVector(fwd, d));
+    camera.getWorldDirection(fwd); for (let d = 6; d <= 22; d += 4) sight.push(camera.position.clone().addScaledVector(fwd, d));
   }
-  E.clearTreesNear(sight, 6);
-  E.clearTreesNear(path);
+  E.clearTreesNear(sight, 3);
+  // the held shots keep their view clear: a pine right at the lens filled the frame (frames 2400, 5760)
+  for (const [k, t0] of [[1, 0.83], [1, 0.9], [7, 0.2], [7, 0.24]]) { base(); chapters[k].mod.update(t0, ctx); camera.getWorldDirection(fwd); E.clearTreesNear([6, 18, 30].map(d => camera.position.clone().addScaledVector(fwd, d)), 12); }
+  E.clearTreesNear(path, 6);
   // the whole-film trees don't stand in any camera's way either, on the chapters' paths or the blends between them
   if (ctx.photoTrees) {
     const flown = [...path]; chapters.forEach((c, k) => { if (k) for (let w = 0; w <= 1; w += 0.05) flown.push(chapters[k - 1].endPose.pos.clone().lerp(c.startPose.pos, w)); });
@@ -101,7 +103,7 @@ async function init() {
     ctx.photoTrees.instanceMatrix.needsUpdate = true;
   }
   const always = scene.children.filter(o => o.userData.always);
-  const showAlways = on => always.forEach(o => { o.visible = on && (!o.userData.maxDist || camera.position.distanceTo(o.userData.centre) < o.userData.maxDist); });
+  const showAlways = on => always.forEach(o => { o.visible = on && (!o.userData.maxDist || camera.position.distanceTo(o.userData.centre) < o.userData.maxDist); if (o.userData.maxDist) U.uLakeMirror.value = o.visible ? 1 : 0; });
   const cp1End = (() => { cp1.apply(1); return { pos: camera.position.clone(), quat: camera.quaternion.clone(), fov: camera.fov }; })();
 
   // ---- global timeline: weights = seconds ----

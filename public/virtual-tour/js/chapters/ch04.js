@@ -17,16 +17,16 @@ export async function setup(ctx) {
   // the photo dissolves back and the camera rises up the creek to forest school
   pano = await panoStop(ctx, 'sauna');
   rig = R.makeRig([
-    [0.00, -105.4, -86, gA(-105.4, -86) + 2, 42, 57, -30, 45],   // already facing the sauna (NE): no swing round   // over the bunk cabins where Mike placed them, above the crowns (cut 11)
-    [0.168, -81.45, -45.06, gA(-81.45, -45.06) + 1.2, 16, 123.3, -12, 52],   // the sauna where Mike placed it (10-29)
+    [0.00, -105.4, -86, gA(-105.4, -86) + 2, 42, 40, -30, 45],   // already facing the sauna (NE): no swing round   // over the bunk cabins where Mike placed them, above the crowns (cut 11)
+    [0.168, -81.45, -45.06, gA(-81.45, -45.06) + 1.2, 16, 106, -12, 52],   // the sauna where Mike placed it (10-29)
     // 360 rule (Mike 10-29: transitions while the camera moves are jarring): arrive and STOP on the photo spot, fade
     // the photo in while still, turn slowly, stop, fade it out while still, and only then move on
-    pano.key(0.216, 123.3, -6),
-    pano.key(0.34, 123.3, -6),    // still: the photo fades in, then the caption reads
+    pano.key(0.216, 106, -6),
+    pano.key(0.34, 106, -6),    // still: the photo fades in, then the caption reads
     // (Mike 10-30: "360 photos should pan more … probably 180") a slow 180° pan LEFT, ~22°/s: from the sauna past the
     // red chairs and the bridge, then west down the creek (i7: the caption says "on Hemp Creek")
-    pano.key(0.66, -56.7, -6),
-    pano.key(0.712, -56.7, -6),   // still: the photo fades out
+    pano.key(0.66, -74, -6),
+    pano.key(0.712, -74, -6),   // still: the photo fades out
     // then ONE straight move north up the creek to the playground, turning only 60° (i3: a sideways sweep past the
     // domes and an empty fairway), and a hold there
     [0.80, -84, 40, gA(-84, 40) + 6, 30, -24, -14, 45],   // one level arc, no hop up and down (i15)   // (i8) up off the creek at once, not skimming the water

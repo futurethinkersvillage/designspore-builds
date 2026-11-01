@@ -53,7 +53,7 @@ export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
     U.uFurniture.value = 1 - seg(p, 0.08, 0.16);   // gone before the push-in reaches the frame edge
     U.uPlanOverlay.value = style.plan3d ? 0 : seg(p, 0.40, 0.50); // brand palettes draw the plan in 3D instead (planned.js)
     U.uGrade.value = seg(p, 0.6, 0.72) * (1 - seg(p, 0.9, 0.95));   // back to the chapters' look behind the opaque photo: no pop at the hand-off
-    U.uTreeFade.value = 1 - seg(p, 0.655, 0.695) + seg(p, 0.9, 0.95);   // trees seen from straight above read as black discs: gone before the hand-off
+    U.uTreeFade.value = 1 - seg(p, 0.725, 0.75) + seg(p, 0.9, 0.95);   // only behind the photo (Mike 11-01, frame 710: all the trees vanished)   // trees seen from straight above read as black discs: gone before the hand-off
     U.uExag.value = 1 + 0.5 * (seg(p, 0.12, 0.26) - seg(p, 0.40, 0.48));       // the drawing rises tall, then settles to true
     U.uTide.value = p < 0.49 ? -40 + 740 * Math.pow(seg(p, 0.28, 0.49), 1.7) : 700 + 1400 * seg(p, 0.49, 0.555); // lingers on the valley floor
     const skyT = seg(p, 0.20, 0.36), realT = U.uFinish.value;

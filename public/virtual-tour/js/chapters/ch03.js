@@ -145,7 +145,7 @@ let rig, cap, capPan, blocks2, forest, pano;
 // read off the photo, so the 3D and the photo match through the fades.
 const PHOTO_TREES = [[164, 34, 24], [171, 44, 27], [177, 52, 22], [183, 56, 29], [189, 54, 26], [195, 60, 31], [201, 58, 28], [207, 62, 33], [213, 66, 30], [220, 70, 32],   // behind the house, past the RV
   [158, 28, 18], [152, 30, 20],   // the near ones, far left of the arrival view
-  [8, 14, 15], [16, 11, 11], [24, 12, 13]];   // the spruce + bush at the right of the view it ends on
+  [8, 14, 24], [16, 11, 26], [28, 13, 20], [38, 15, 22]];   // the spruce + bush at the right of the view it ends on
 export async function setup(ctx) {
   const { rig: R, heightAt } = ctx;
   ({ blocks2, forest } = await campWorld(ctx));

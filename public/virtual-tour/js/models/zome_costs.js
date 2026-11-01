@@ -86,23 +86,24 @@ export function costPlan(p) {
   if (p.sky) win += 10 * P('sky');
   if (win) add('shell', 'Windows and skylights', win);
   // ---- interior build + furniture --------------------------------------------------------------------------------
-  let furn = 0, n = {}, wallM = 0, doors = 0;
+  const furn = new Map(), n = {}; let wallM = 0, doors = 0;
+  const fa = (label, v, q = 1) => { const e = furn.get(label) || [0, 0]; e[0] += v; e[1] += q; furn.set(label, e); };
   for (const it of p.items) {
     n[it.k] = (n[it.k] || 0) + 1;
     if (it.k === 'wall') { const m = Math.hypot(it.a[0] - it.b[0], it.a[1] - it.b[1]); wallM += m; if (it.door !== undefined) doors++; continue; }
     const k = KINDS[it.k], w = it.w || k.w, d = it.d || k.d;
-    if (it.k === 'counter') furn += w * 1100 + ((it.appl || ['sink', 'hob']).includes('hob') ? 700 : 0) + ((it.appl || []).includes('espresso') ? 1800 : 0);
-    else if (it.k === 'island') furn += w * 1400;
-    else if (it.k === 'servebar') furn += w * 1200;
-    else if (it.k === 'table') furn += w * 250;
-    else if (it.k === 'hottub') furn += w < 1.9 ? 5500 : w < 2.5 ? 7700 : 14000;
-    else if (it.k === 'bed_raised') furn += w * d * 260;
-    else if (FIT[it.k]) furn += FIT[it.k][0];
+    if (it.k === 'counter') fa('Kitchen run', w * 1100 + ((it.appl || ['sink', 'hob']).includes('hob') ? 700 : 0) + ((it.appl || []).includes('espresso') ? 1800 : 0));
+    else if (it.k === 'island') fa('Island', w * 1400);
+    else if (it.k === 'servebar') fa('Serving bar', w * 1200);
+    else if (it.k === 'table') fa('Table', w * 250);
+    else if (it.k === 'hottub') fa('Cedar hot tub', w < 1.9 ? 5500 : w < 2.5 ? 7700 : 14000);
+    else if (it.k === 'bed_raised') fa('Raised bed', w * d * 260);
+    else if (FIT[it.k] && FIT[it.k][0]) fa(k.label, FIT[it.k][0]);
   }
   const wallsCost = wallM * 2.3 * 58 + doors * 350;
   if (wallM) add('fit', 'Partitions and interior doors', wallsCost);
   if (p.loft) add('fit', 'Loft structure and railing', Z.polyArea(p.loft.poly) * 210 + 600);
-  add('fit', 'Furniture and fixtures', furn);
+  for (const [label, [v, q]] of [...furn].sort((a, b) => b[1][0] - a[1][0])) add('fit', q > 1 ? `${label} × ${q}` : label, v);
   add('fit', 'Lighting and small items', floorA * 35);
   if (!p.glass && !n.woodstove && !n.saunastove) add('fit', 'Electric baseboard heat', floorA * 40);
   // ---- trades ---------------------------------------------------------------------------------------------------------
@@ -145,6 +146,7 @@ export function costPlan(p) {
   // low / high: materials and trades move differently
   const low = (goods * 0.88 + (subtotalPre - goods) * 0.8) * (1 + 0.1) * 1.11, high = (goods * 1.2 + (subtotalPre - goods) * 1.4) * (1 + 0.2) * 1.12;
   return {
+    polyUp: round(clearA * 1.4 * (P('pc16') - P('pc8'))), totalHours: round(hrs),
     id: p.id, lines: L, shell: sum('shell'), fit: sum('fit'), trades: sum('trades'), logistics: sum('logistics'), permits: sum('permits'), contingency: round(contingency), tax: round(tax), subtotal: round(subtotal), low: round(low), high: round(high),
     volunteerHours: round(vol), leadHours: round(lead), volunteerValue: round(vol * R.volunteerRate), crewDays: round(vol / (5 * 8)), perM2: round(subtotal / floorA), areas: { cladA: +cladA.toFixed(1), clearA: +clearA.toFixed(1), seam: +seam.toFixed(1), floorA: +floorA.toFixed(1), panels },
   };

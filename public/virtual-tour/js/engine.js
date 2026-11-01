@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { drawSheets } from './sheet.js';
 import { makeLand, heightSampler, U, H0 } from './land.js';
 import { buildMosaic, tileCount } from './imagery.js';
+import { REAL_LAKE } from './mirror.js';
 import { placeTrees, makeTrees, makeBuildings, makeRocks } from './objects.js';
 import { makePano, makeSky } from './pano.js';
 import { makePlanned } from './planned.js';
@@ -62,6 +63,7 @@ async function load({ style, MOBILE, progress, FAST }) {
 }
 
 export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) {
+  const V = await fetch('data/village.json').then(r => r.json());   // the zome village's master plan (tools/village_design.py)
   const FAST = Q.has('fast'); // ?fast=1: quicker previews while developing (no z17 imagery, fewer trees)
   const D = await load({ style, MOBILE, progress, FAST });
   const heightAt = heightSampler(D.meta, D.near, D.far);
@@ -155,15 +157,23 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
       { x: -36, y: -113.5, rotY: -1.571, variant: 'storage' }, { x: -79, y: -58.5, rotY: -1.5, variant: 'woodshed' }],   // the plan's building layer is ~20 m off: these sit on the real roofs
     footbridge: [{ x: -93.2, y: -21.7, rotY: -2.164, size: 15 }],   // the concrete road bridge over Hemp Creek N of the sauna: 15 m deck NW–SE across the creek, on the drone photo (10-29)
     entrance_sign: [{ x: -697, y: -211, rotY: -0.64 }],   // at the highway turn-off: drone video 0:00, facing the road; survey shows it at the driveway mouth
-    props: [{ x: -80.1, y: 134.5, rotY: 0, variant: 'trampoline' }, { x: -83.7, y: 130.6, rotY: 0, variant: 'tetherball' }, { x: -85, y: 123.4, rotY: 0.5, variant: 'fort' }, { x: -71.4, y: 133.6, rotY: -0.744, variant: 'logs', size: 20 }, { x: -89.4, y: 115.6, rotY: 0.471, variant: 'golfcart' }, { x: -87, y: 116.5, rotY: 0.471, variant: 'golfcart' }, { x: -84.9, y: 117.4, rotY: 0.471, variant: 'golfcart' }, { x: -83.1, y: 118.3, rotY: 0.471, variant: 'golfcart' }, { x: -19.3, y: 225.2, rotY: 0.0, variant: 'picnic' }, { x: -11.2, y: 225.2, rotY: 0.7, variant: 'picnic' }, { x: -15.2, y: 220, rotY: 1.4, variant: 'picnic' }, { x: -31.9, y: 196.9, rotY: 2.1, variant: 'picnic' }, { x: -8.3, y: 203.9, rotY: 2.8, variant: 'picnic' }, { x: -4.8, y: 183.1, rotY: 0.36, variant: 'picnic' }, { x: 20, y: 209, rotY: 1.06, variant: 'picnic' }, { x: 25.2, y: 228.7, rotY: 1.76, variant: 'picnic' }, { x: 17.1, y: 203.3, rotY: 2.46, variant: 'picnic' }, { x: -7.9, y: 169.3, rotY: 0.02, variant: 'picnic' }, { x: -15.2, y: 175, rotY: 0.72, variant: 'picnic' }, { x: -80.5, y: -53.5, rotY: 0.2, variant: 'picnic' }, { x: -94.5, y: 133, rotY: 2.6075, variant: 'golfnet', size: 38 }, { x: 22, y: 268, rotY: 0.6, variant: 'shelter' }, { x: 44, y: 248, rotY: 2.1, variant: 'shelter' }, { x: 4, y: 286, rotY: 3.4, variant: 'outhouse' }, { x: -586, y: -236, rotY: 0.6615, variant: 'washroom' }, { x: -497, y: 200, rotY: 0, variant: 'flagpin' }, { x: -428, y: 135, rotY: 0, variant: 'flagpin' }, { x: -530, y: -222, rotY: 0, variant: 'flagpin' }, { x: -128, y: -154, rotY: 0.9, variant: 'picnic' }, { x: -131, y: -147, rotY: 0, variant: 'firepit', scale: 0.7 }, { x: -96, y: 106, rotY: 0.8, variant: 'quonset' }, { x: -620, y: -212, rotY: 0.66, variant: 'garden' }, { x: -74.4, y: 143.5, rotY: 0.6, variant: 'pit' }, { x: -71.2, y: 140.9, rotY: 0.6, variant: 'pit' }, { x: -66, y: 152, rotY: 0.6, variant: 'pit' }, { x: -63.5, y: 149.5, rotY: 0.6, variant: 'pit' }, { x: -58.5, y: 153.5, rotY: 2.2, variant: 'binshed' }, { x: 1.7, y: 252, rotY: 0.0, variant: 'picnic' }, { x: -4.7, y: 245.4, rotY: 1.3, variant: 'picnic' }, { x: -1.3, y: 244.7, rotY: 2.6, variant: 'picnic' }, { x: -8.4, y: 237.2, rotY: 0.76, variant: 'picnic' }, { x: 31.7, y: 234.8, rotY: 2.06, variant: 'picnic' }, { x: 25.7, y: 229, rotY: 0.22, variant: 'picnic' }, { x: 26, y: 225.9, rotY: 1.52, variant: 'picnic' }, { x: 24.6, y: 218.1, rotY: 2.82, variant: 'picnic' }, { x: 28.7, y: 213.8, rotY: 0.98, variant: 'picnic' }, { x: 25.3, y: 207.5, rotY: 2.28, variant: 'picnic' }, { x: 17.2, y: 203.1, rotY: 0.44, variant: 'picnic' }, { x: -1.3, y: 180.6, rotY: 1.74, variant: 'picnic' }, { x: -14.7, y: 175.2, rotY: 3.04, variant: 'picnic' }, { x: -7.9, y: 168.8, rotY: 1.2, variant: 'picnic' }, { x: -216.1, y: 72.2, rotY: 2.786, variant: 'leanto' }, { x: -222.5, y: 61.7, rotY: 1.15, variant: 'redouthouse' }, { x: -205.6, y: 56, rotY: 1.28, variant: 'logs', size: 10 }, { x: -550.5, y: -174.5, rotY: 1.97, variant: 'cartbridge' }],   // playground, golf carts by the office, logs, picnic tables on the loop pads, the bench by the sauna woodshed
+    props: [{ x: -80.1, y: 134.5, rotY: 0, variant: 'trampoline' }, { x: -83.7, y: 130.6, rotY: 0, variant: 'tetherball' }, { x: -85, y: 123.4, rotY: 0.5, variant: 'fort' }, { x: -71.4, y: 133.6, rotY: -0.744, variant: 'logs', size: 20 }, { x: -89.4, y: 115.6, rotY: 0.471, variant: 'golfcart' }, { x: -87, y: 116.5, rotY: 0.471, variant: 'golfcart' }, { x: -84.9, y: 117.4, rotY: 0.471, variant: 'golfcart' }, { x: -83.1, y: 118.3, rotY: 0.471, variant: 'golfcart' }, { x: -19.3, y: 225.2, rotY: 0.0, variant: 'picnic' }, { x: -11.2, y: 225.2, rotY: 0.7, variant: 'picnic' }, { x: -15.2, y: 220, rotY: 1.4, variant: 'picnic' }, { x: -31.9, y: 196.9, rotY: 2.1, variant: 'picnic' }, { x: -8.3, y: 203.9, rotY: 2.8, variant: 'picnic' }, { x: -4.8, y: 183.1, rotY: 0.36, variant: 'picnic' }, { x: 20, y: 209, rotY: 1.06, variant: 'picnic' }, { x: 25.2, y: 228.7, rotY: 1.76, variant: 'picnic' }, { x: 17.1, y: 203.3, rotY: 2.46, variant: 'picnic' }, { x: -7.9, y: 169.3, rotY: 0.02, variant: 'picnic' }, { x: -15.2, y: 175, rotY: 0.72, variant: 'picnic' }, { x: -80.5, y: -53.5, rotY: 0.2, variant: 'picnic' }, { x: -94.5, y: 133, rotY: 2.6075, variant: 'golfnet', size: 38 }, { x: 4, y: 286, rotY: 3.4, variant: 'outhouse' }, { x: -620, y: -212, rotY: 0.6615, variant: 'washroom' }, { x: -497, y: 200, rotY: 0, variant: 'flagpin' }, { x: -428, y: 135, rotY: 0, variant: 'flagpin' }, { x: -530, y: -222, rotY: 0, variant: 'flagpin' }, { x: -128, y: -154, rotY: 0.9, variant: 'picnic' }, { x: -131, y: -147, rotY: 0, variant: 'firepit', scale: 0.7 }, { x: -96, y: 106, rotY: 0.8, variant: 'quonset' }, { x: -640, y: -232, rotY: 0.93, variant: 'parkedrv' }, { x: -636, y: -229, rotY: 0.93, variant: 'parkedrv' }, { x: -74.4, y: 143.5, rotY: 0.6, variant: 'pit' }, { x: -71.2, y: 140.9, rotY: 0.6, variant: 'pit' }, { x: -66, y: 152, rotY: 0.6, variant: 'pit' }, { x: -63.5, y: 149.5, rotY: 0.6, variant: 'pit' }, { x: -58.5, y: 153.5, rotY: 2.2, variant: 'binshed' }, { x: -216.1, y: 72.2, rotY: 2.786, variant: 'leanto' }, { x: -222.5, y: 61.7, rotY: 1.15, variant: 'redouthouse' }, { x: -205.6, y: 56, rotY: 1.28, variant: 'logs', size: 10 }, { x: -550.5, y: -174.5, rotY: 1.97, variant: 'cartbridge' }],   // playground, golf carts by the office, logs, picnic tables on the loop pads, the bench by the sauna woodshed
     // from the sauna 360 (10-29): chair deck right by the photographer, chairs facing the creek (WSW); the boulder line
     // runs along the far side of the road from the bridge approach east; one big rock at the deck's corner
-    sauna_setting: [{ x: -98.8, y: -57.6, rotY: -1.22, variant: 'deck' }, { x: -95, y: -46.5, rotY: 1.22, variant: 'boulders', size: 18 },
+    sauna_setting: [{ x: -98.8, y: -57.6, rotY: -2.356, variant: 'deck' }, { x: -95, y: -46.5, rotY: 1.22, variant: 'boulders', size: 18 },
       { x: -97.6, y: -54.7, rotY: 0, variant: 'boulders', size: 0.1 }],
     shower_house: [{ x: -79, y: 103, rotY: 0.639, variant: 'main' }, { x: -94, y: -132, rotY: 2.173, variant: 'field' }],   // main = the long building with decks + ramps on the drone photo (Mike, 10-28; was on empty gravel)
   };
+  // the village replaces the plan's two rows: everything that reads the sites (map, sheet, keep-outs) follows
+  { const oct = z => { const r = []; for (let k = 0; k <= 8; k++) r.push([z.x + Math.cos(k * 0.785) * 5, z.y + Math.sin(k * 0.785) * 5]); return { t: 'Polygon', p: {}, c: [r] }; };
+    D.L.cabins = V.zomes.filter(z => z.hamlet !== 'Lake Quarter').map(oct); D.L.lake_cabins = V.zomes.filter(z => z.hamlet === 'Lake Quarter').map(oct);
+    PLACE.zomepad = V.zomes.map(z => ({ x: z.x, y: z.y })); }
   // hand placements from the in-scene placer override the coded ones: { slug: { index: { x, y, rotY } } }
   for (const [slug, byI] of Object.entries(D.placements || {})) for (const [i, v] of Object.entries(byI)) if (PLACE[slug]?.[i]) Object.assign(PLACE[slug][i], v);
+  PLACE.shed.splice(2, 1);   // the storage building beside the village goes with the development (Mike 11-01, frame 5677)
+  PLACE.rv = PLACE.rv.filter(r => r.y < 100);   // RVs stand on the plan's numbered sites, not where they were on survey day (Mike 11-01: a clusterfuck)
+  for (const [x, y, rotY, size] of [[-91.5, -109, 0.55, 1], [-75, -99, 0.55, 2]]) PLACE.props.push({ x, y, rotY, variant: 'shelter', size });   // the two covered tent sites (Mike 11-01, video 5:10)
+  PLACE.rv = PLACE.rv.filter(r => Math.hypot(r.x + 79.7, r.y + 110) > 12 || r.y > -100);
   // RVs parked on ~45 % of the plan's RV sites (i8: the '45 RV sites' card sat over an empty loop; the drone photo shows
   // it busy). Long axis along each site's longest edge; never within 9 m of the RVs placed by hand above.
   {
@@ -175,21 +185,21 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
         const sd = Math.floor(h(i + 0.9) * 9) + 1, far = zomeSites.every(([x, y]) => Math.hypot(x - c[0], y - c[1]) >= 13);
         if (far) { let e = [0, 0]; for (let k = 0; k < r.length - 1; k++) { const d = [r[k + 1][0] - r[k][0], r[k + 1][1] - r[k][1]]; if (Math.hypot(...d) > Math.hypot(...e)) e = d; } const el = Math.hypot(...e) || 1, sd2 = h(i + 0.2) > 0.5 ? 1 : -1; PLACE.props.push({ x: c[0] + e[1] / el * 5 * sd2, y: c[1] - e[0] / el * 5 * sd2, rotY: Math.atan2(e[0], e[1]), variant: 'campsite', size: sd }); }   // beside the RV, not under it
       }
-      if (h(i) > 0.45) return;
+      if (h(i) > 0.62) return;
       if (hand.some(q => Math.hypot(q.x - c[0], q.y - c[1]) < 9)) return;
       if (zomeSites.some(([x, y]) => Math.hypot(x - c[0], y - c[1]) < 13)) return;   // never on a planned zome site (Mike 10-30)
       // not on or by water, nor in the forest (i8: one landed on the creek)
       if ([[0, 0], [5, 0], [-5, 0], [0, 5], [0, -5]].some(([dx, dy]) => isWater(c[0] + dx, c[1] + dy) || [6, 8, 9].includes(ground?.classAt(c[0] + dx, c[1] + dy)))) return;
       let e = [0, 0]; for (let k = 0; k < r.length - 1; k++) { const d = [r[k + 1][0] - r[k][0], r[k + 1][1] - r[k][1]]; if (Math.hypot(...d) > Math.hypot(...e)) e = d; }
       const big = h(i + 0.5) > 0.6;
-      PLACE.rv.push({ x: c[0], y: c[1], rotY: Math.atan2(e[0], e[1]) + (h(i + 0.3) > 0.5 ? Math.PI : 0), variant: big ? 'fifth' : 'trailer', size: big ? 10 : 6.5 + 2 * h(i + 0.7) });
+      PLACE.rv.push({ x: c[0], y: c[1], rotY: Math.atan2(e[0], e[1]) + (r[0][0] * e[1] - r[0][1] * e[0] > 0 ? Math.PI : 0), variant: big ? 'fifth' : 'trailer', size: big ? 10 : 6.5 + 2 * h(i + 0.7) });
     });
   }
   // Level building pads (Mike 10-29: the ground under the gazebo and the top house sloped and clipped through them):
   // the terrain grid (10 m) is flattened to each building's mean ground height inside its footprint and blended back
   // over the next ~12 m, before anything is placed — so models, trees and the ground all agree.
   {
-    const PADR = { gazebo: 9, top_house: 9, bottom_house: 8, office: 7, dome: 7, shower_house: 9, sauna: 3, bunk_cabin: 4, shed: 7, maker_space: 15 };
+    const PADR = { zomepad: 2, entrance_sign: 12, gazebo: 9, top_house: 9, bottom_house: 8, office: 7, dome: 7, shower_house: 9, sauna: 3, bunk_cabin: 4, shed: 7, maker_space: 15 };
     const m = D.meta.terrain_near, a = D.near, n = m.size, res = m.res, orig = Float32Array.from(a);
     const sample = (x, y) => { const c = (x + m.half) / res, r = (m.half - y) / res, i = Math.floor(r), j = Math.floor(c), fx = c - j, fy = r - i;
       return (orig[i * n + j] * (1 - fx) + orig[i * n + j + 1] * fx) * (1 - fy) + (orig[(i + 1) * n + j] * (1 - fx) + orig[(i + 1) * n + j + 1] * fx) * fy; };
@@ -208,6 +218,15 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     }
     land.refreshNear();
   }
+  // the lake: one surface. Bed dug under it, bank raised to meet it, on the terrain grid, before anything is placed (Mike 11-01, frame 5831)
+  let lakeLevel = 0;
+  { const m = D.meta.terrain_near, a = D.near, n = m.size, res = m.res, rawAt = (x, y) => { const c = (x + m.half) / res, r = (m.half - y) / res, i = Math.floor(r), j = Math.floor(c), fx = c - j, fy = r - i; return (a[i * n + j] * (1 - fx) + a[i * n + j + 1] * fx) * (1 - fy) + (a[(i + 1) * n + j] * (1 - fx) + a[(i + 1) * n + j + 1] * fx) * fy; };
+    const hs = REAL_LAKE.map(([x, y]) => rawAt(x, y)).sort((p, q) => p - q), L = hs[Math.floor(hs.length * 0.3)];
+    const inside = (x, y) => { let c = false; for (let i = 0, j = REAL_LAKE.length - 1; i < REAL_LAKE.length; j = i++) { const [xi, yi] = REAL_LAKE[i], [xj, yj] = REAL_LAKE[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
+    const edge = (x, y) => Math.min(...REAL_LAKE.map(q => Math.hypot(q[0] - x, q[1] - y)));
+    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { const x = -m.half + j * res, y = m.half - i * res; if (x < -120 || x > 60 || y < -340 || y > -140) continue;
+      const d = edge(x, y); if (inside(x, y)) a[i * n + j] = L - 0.8; else if (d < 15) a[i * n + j] = L - 0.3; else if (d < 34) a[i * n + j] = Math.max(a[i * n + j], L + 0.15 + (d - 15) * 0.02); }
+    land.refreshNear?.(); lakeLevel = L; }
   const EXISTING = ['gazebo', 'top_house', 'bottom_house', 'office', 'dome', 'bunk_cabin', 'shower_house', 'sauna', 'horse_corrals',
     'rv', 'shed', 'footbridge', 'sauna_setting', 'props', 'entrance_sign'];
   const siteC = n => (D.L[n] || []).flatMap(f => polysOf(f).map(p => { const r = p[0]; return [r.reduce((a, q) => a + q[0], 0) / r.length, r.reduce((a, q) => a + q[1], 0) / r.length]; }));
@@ -216,6 +235,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     rv: 8, props: 5, sauna_setting: 6, horse_corrals: 22, footbridge: 11 };
   const clear = [...Object.entries(PLACE).flatMap(([k, ps]) => ps.map(p => [p.x, p.y, CLEARR[k] || 9])),
     ...siteC('cabins').map(c => [...c, 11]), ...siteC('lake_cabins').map(c => [...c, 11]),   // room round each zome site (i3: rows hidden in trees)
+    ...V.courts.map(c => [c.x, c.y, c.r * 0.72]), ...V.paths.flatMap(p => p.kind === 'spur' ? [] : p.pts.filter((_, i) => i % 3 === 0).map(q => [q[0], q[1], 2.8])), [(V.lot[0][0] + V.lot[2][0]) / 2, (V.lot[0][1] + V.lot[2][1]) / 2, 24],
     ...siteC('maker_space').map(c => [...c, 22]), ...siteC('event_gazebo').map(c => [...c, 12]),
     [-22, 302, 9],   // the Maker Space's south-east approach: a spruce there blocked ch08's end frame (i9)
     // nor in the planned farm's beds, greenhouses, barn, mandala and pond (the food forest keeps its trees)
@@ -235,7 +255,11 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
       let measured = null;
       if (tops && chm) { g.clearRect(0, 0, im.width, im.height); g.drawImage(chm, 0, 0); const ch = g.getImageData(0, 0, im.width, im.height).data;
         measured = (x, y) => { const k = Math.floor((gj.rect[3] - y) / gj.res) * im.width + Math.floor((x - gj.rect[0]) / gj.res); return ch[k * 4 + 3] > 0; }; }
-      return { rect: gj.rect, res: gj.res, w: im.width, h: im.height, data, cover, cls: clsMap, tops, measured };
+      let open = null, nearCreek = null;
+      if (tops && chm) { const ch2 = g.getImageData(0, 0, im.width, im.height).data, at = (x, y) => Math.floor((gj.rect[3] - y) / gj.res) * im.width + Math.floor((x - gj.rect[0]) / gj.res);
+        open = (x, y) => { const k = at(x, y) * 4; return ch2[k + 3] > 0 && ch2[k] < 30; };   // the height map covers this spot and says under 3 m: open ground, no tree (Mike 11-01: field trees wrong)
+        nearCreek = (x, y) => { for (let a = 0; a < 8; a++) for (const d of [8, 16, 26]) { const k = at(x + Math.cos(a * 0.785) * d, y + Math.sin(a * 0.785) * d); if (clsMap[k] === 9) return true; } return false; }; }
+      return { rect: gj.rect, res: gj.res, w: im.width, h: im.height, data, cover, cls: clsMap, tops: tops?.trees, topsBounds: tops?.bounds, measured, open, nearCreek };
     } catch { return null; }
   })();
   const spots = placeTrees({ canopy, heightAt, droneSample: D.droneSample, nearSample: D.nearM.sample, L: D.L, isWater, clear, half: MOBILE ? 1600 : 2900, spacing: MOBILE ? 10 : 8, max: MOBILE ? 35000 : FAST ? 50000 : 170000 });
@@ -247,8 +271,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
       const cl = ground.classAt(x, y);
       if (cl === 8 || cl === undefined) continue;
       const wet = cl === 9 || isWater(x, y);
-      if (wet && hh(x, y, 1) < 0.2) rocks.push([x, y, heightAt(x, y), 0.45 + hh(x, y, 2) * 1.0]);
-      else if (cl === 7 && hh(x, y, 3) < 0.1) rocks.push([x, y, heightAt(x, y), 0.3 + hh(x, y, 4) * 0.6]);
+      if (cl === 9 && hh(x, y, 1) < 0.035) rocks.push([x, y, heightAt(x, y), 0.35 + hh(x, y, 2) * 0.7]);   // (Mike 11-01: rocks thrown everywhere: keep a few in the creek, none on paths or banks)
     }
     if (rocks.length) scene.add(makeRocks(rocks.slice(0, 5000)));
     // from the drone video: reeds round the golf ponds (15:00-15:24), red-osier shrubs along the creek's cobble banks (0:40-1:10)
@@ -256,7 +279,6 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     for (let x = -600; x < 130; x += 1.4) for (let y = -300; y < 330; y += 1.4) {
       const cl = ground.classAt(x, y); if (cl === undefined || cl === 255) continue;
       if (cl === 8) { let edge = false; for (let k = 0; k < 8 && !edge; k++) edge = ground.classAt(x + Math.cos(k * 0.785) * 3, y + Math.sin(k * 0.785) * 3) !== 8; if (edge && x < -150 && hh(x, y, 5) < 0.55) reeds.push([x, y, heightAt(x, y)]); }
-      else if (cl === 7 && hh(x, y, 6) < 0.045 && Math.hypot(x + 93.2, y + 21.7) > 13) shrubs.push([x, y, heightAt(x, y)]);
     }
     const stems = (n, rr, h) => { const p = []; for (let a = 0; a < n; a++) { const t = a * 2.4, r = rr * (0.3 + (a % 4) * 0.25), c = Math.cos(t), s = Math.sin(t), w = 0.02 + h * 0.012; p.push(c * r * 0.25 - s * w, 0, s * r * 0.25 + c * w, c * r * 0.25 + s * w, 0, s * r * 0.25 - c * w, c * r, h * (0.75 + (a % 3) * 0.12), s * r); } const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3)); return g; };
     const dm = new THREE.Object3D();
@@ -311,27 +333,8 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   }
   // zomes on every planned cabin site (creekside + lakeside), door toward the site's long axis
   async function placeZomes({ lod = 'low', which = ['cabins', 'lake_cabins'] } = {}) {
-    const at = [], CREEK = ['z6-onebed', 'z6-loft', 'z75-twobed', 'z6-family', 'z5-ensuite', 'gl-z6-garden', 'z6-access', 'z75-loft', 'z9-threebed', 'z6-onebed', 'gl-z6-tub', 'z75-family'],
-      LAKE = ['z5-ensuite', 'z5-loft', 'z6-onebed', 'gl-z5-tub', 'z5-guest', 'z6-loft', 'z5-loft', 'gl-z5-garden'], ACORN = ['gl-acorn-tub', 'acorn-sauna', 'acorn-sleep', 'gl-acorn-seed'];
-    const count = { cabins: 0, lake_cabins: 0 };
-    for (const name of which) for (const f of D.L[name] || []) for (const poly of polysOf(f)) {
-      const r = poly[0]; const c = [r.reduce((a, p) => a + p[0], 0) / r.length, r.reduce((a, p) => a + p[1], 0) / r.length];
-      const e = [r[1][0] - r[0][0], r[1][1] - r[0][1]];
-      let rotY = Math.atan2(e[0], e[1]);
-      // lakeside: the quarter turn (square to the site) whose door + steps face the lake (Mike 10-29: "rotated 90°
-      // counterclockwise so the stairs face the lake" — +90° for nearly every site)
-      if (name === 'lake_cabins') {
-        const L0 = [-38, -235], to = Math.atan2(L0[0] - c[0], L0[1] - c[1]);
-        let best = rotY, bd = 9;
-        for (let q = 0; q < 4; q++) { const r = rotY + q * Math.PI / 2, d = Math.abs(Math.atan2(Math.sin(Math.PI - r - to), Math.cos(Math.PI - r - to))); if (d < bd) { bd = d; best = r; } }
-        rotY = best;
-      }
-      const i = count[name]++, list = name === 'cabins' ? CREEK : LAKE;
-      at.push({ x: c[0], y: c[1], rotY, variant: list[i % list.length], row: name, i });
-    }
-    // Acorns between the creekside zomes (15 m apart), never beside a 9 m (their row is the only one with the room)
-    const creek = at.filter(a => a.row === 'cabins'), big = a => a.variant.startsWith('z9');
-    creek.forEach((a, k) => { const b = creek[k + 1]; if (!b || k % 3 !== 1 || big(a) || big(b) || Math.hypot(a.x - b.x, a.y - b.y) > 18) return; at.push({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2, rotY: a.rotY, variant: ACORN[Math.floor(k / 3) % ACORN.length] }); });
+    void which;
+    const at = V.zomes.map(z => ({ x: z.x, y: z.y, rotY: z.rotY, variant: `${z.plan}|${z.finish}|${z.tour ? 1 : 0}` }));
     const g = await placeModel('zome_site', { lod, at }); models.zome = g; delete models.zome_site;
     return g;
   }
@@ -414,6 +417,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     }
     scene.add(zomeMerged); models.zome_merged = zomeMerged;
   }
+  { const VL = await import('./models/village_land.js'); const vl = VL.build({ V, ground: groundAt, level: lakeLevel - H0, lod: MOBILE ? 'low' : 'high' }); scene.add(vl); models.village_land = vl; }
   const maker = await placeModel('maker_space', { lod: MOBILE ? 'low' : 'high' });
   const farm = buildFarm({ L: D.L, ground: groundAt, lod: MOBILE ? 'low' : 'high' });
   farm.userData.uGrow.value = 1.25; farm.userData.outline.material.opacity = 0; scene.add(farm); models.farm_concept = farm;
@@ -511,7 +515,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
       for (let i = 0; i < o.count; i++) {
         o.getMatrixAt(i, m); m.decompose(p, q, sc);
         if (sc.y === 0) continue;
-        const rr = r < 10 ? 0.16 * sc.y + 2 : Math.max(r, 0.18 * sc.y + 7), top = p.y + sc.y + 8, gx = Math.floor(p.x / cell), gz = Math.floor(p.z / cell);
+        const rr = r < 10 ? Math.min(0.16 * sc.y + 2, r + 1) : Math.max(r, 0.18 * sc.y + 7), top = p.y + sc.y + 8, gx = Math.floor(p.x / cell), gz = Math.floor(p.z / cell);
         let hit = false;
         for (let ax = gx - 1; ax <= gx + 1 && !hit; ax++) for (let az = gz - 1; az <= gz + 1 && !hit; az++) {
           for (const c of grid.get(`${ax},${az}`) || []) { const dx = p.x - c.x, dz = p.z - c.z; if (dx * dx + dz * dz < rr * rr && c.y < top) { hit = true; break; } }
@@ -523,7 +527,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   }
 
   return {
-    cameras: D.cameras, clearTreesNear, treesIn, hideTrees, groundAt, resetPersistent, conceptLook, zomeGlass: glass, farmFix,
+    village: V, get lakeLevel() { return lakeLevel - H0; }, cameras: D.cameras, clearTreesNear, treesIn, hideTrees, groundAt, resetPersistent, conceptLook, zomeGlass: glass, farmFix,
     THREE, U, H0, D, L: D.L, meta: D.meta, heightAt, scene, camera, renderer, style, colors,
     land, trees, blocks, sky, sun, hemi, pano, PANO, panoPos, planned, labels, models, placeModel, placeZomes, realWorld, PLACE, ground,
     // ground height as currently displayed (it rises with the cut) — matches displayH() in the shaders

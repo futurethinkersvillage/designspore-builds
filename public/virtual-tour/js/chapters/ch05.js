@@ -53,8 +53,8 @@ export async function setup(ctx) {
 
   // the end frame's near trees, off the lens (i13: trunks filled the right third)
   if (!ctx.MOBILE) lakeMirror(ctx, ctx.L.lakes[0].c[0][0]);
-  ctx.clearTreesNear([[-208, -113], [-192, -122], [-176, -130], [-160, -138]].map(([x, y]) => new ctx.THREE.Vector3(x, 0, -y)), 14);   // the sight line over the dome to the lake
-  ctx.clearTreesNear([0, 12, 24, 36, 48].map(d => { const x = DX - 73 + 0.83 * d + 12, y = DY + 50 - 0.56 * d - 12; return new ctx.THREE.Vector3(x, gA(x, y) + 5, -y); }), 24);
+  ctx.clearTreesNear([[-208, -113], [-192, -122], [-176, -130], [-160, -138]].map(([x, y]) => new ctx.THREE.Vector3(x, 0, -y)), 5);   // the sight line over the dome to the lake
+  ctx.clearTreesNear([0, 12, 24, 36, 48].map(d => { const x = DX - 73 + 0.83 * d + 12, y = DY + 50 - 0.56 * d - 12; return new ctx.THREE.Vector3(x, gA(x, y) + 5, -y); }), 6);   // (grid review 11-01: 24 m took out the creek line Mike wants)
   // dandelions round the deck (Dome/PXL_20240518_203625592, Dome1)
   {
     const { THREE } = ctx; let sd = 3; const rnd = () => (sd = (sd * 16807) % 2147483647) / 2147483647, dm = new THREE.Object3D();

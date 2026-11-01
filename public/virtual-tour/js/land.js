@@ -41,6 +41,7 @@ export const U = {
   uSkyTop: { value: new THREE.Color('#3f6fa8') },
   uTreeFade: { value: 1 },
   uLight: { value: new THREE.Vector3(1, 1, 1) },   // multiplies the real ground (dusk / night chapters)
+  uLakeMirror: { value: 0 },                        // the lake's surface is the mirror (js/mirror.js): no second water on the land under it
   uWaterAmt: { value: 1 },                          // water strength (the atlas creek lines are off by metres up close)
 };
 globalThis.FT_TIME = U.uTime;   // shared clock for animated models (dome LEDs): film time when recording
@@ -130,7 +131,7 @@ uniform vec3 uPaper, uEdge, uFog, uSunDir;
 uniform float uFogDensity, uPaperShade, uPlanOverlay, uContour, uContourIndex, uHill, uHoleHalf, uTerraceLines, uFurniture, uGrade, uUseBands;
 uniform vec3 uBands[4];
 uniform vec3 uDroneGain, uTideGlow, uContourCol, uContourIdxCol, uSkyTop;
-uniform sampler2D tWater; uniform vec4 uWaterRect; uniform float uTime, uHasWater, uTreeFade, uWaterAmt; uniform vec3 uLight;
+uniform sampler2D tWater; uniform vec4 uWaterRect; uniform float uTime, uHasWater, uTreeFade, uWaterAmt, uLakeMirror; uniform vec3 uLight;
 uniform sampler2D tLand; uniform vec4 uLandRect; uniform float uHasLand;
 uniform highp sampler2DArray tGround; uniform sampler2D tGroundB, tGroundC; uniform float uHasGround, uGroundView, uGroundSize[8]; uniform vec3 uGroundMean[8];   // clean-realism ground (js/ground.js); class weights 0–3 come in tLand
 uniform sampler2D tHi0, tHi1, tHi2; uniform vec3 uHiUA[3], uHiUB[3], uHiVA[3], uHiVB[3]; uniform float uHiN;   // zoom-20 drone patches over the close-up areas   // land cover: r grass, g fairway, b water, a path/gravel
@@ -191,12 +192,16 @@ vec3 detailGround(vec3 photo, vec2 xy, float dist, vec2 dUV) {
 vec3 groundMat(vec3 photo, vec2 xy, float dist, vec2 dUV, vec3 n) {
   vec2 g = (xy - uLandRect.xy) / (uLandRect.zw - uLandRect.xy);
   if (g.x <= 0.0 || g.y <= 0.0 || g.x >= 1.0 || g.y >= 1.0) return photo;
-  float near = 1.0 - smoothstep(600.0, 1500.0, dist);   // the autumn photo only from high up: it carried every grass patch into the mid-distance (Mike 10-31)
+  float near = 1.0 - smoothstep(900.0, 2200.0, dist);   // the autumn photo only from high up: it carried every grass patch into the mid-distance (Mike 10-31)
   if (near <= 0.0) return photo;
   vec4 wa = texture2D(tLand, g, 1.2), wb = texture2D(tGroundB, g, 1.2);   // the class edges blurred over ~3 m (i11: hard 'camouflage' blobs)
   float w[8]; w[0] = wa.r; w[1] = wa.g; w[2] = wa.b; w[3] = wa.a; w[4] = wb.r; w[5] = wb.g; w[6] = wb.b; w[7] = wb.a;
   // one grass: lawn, worn ground and forest floor are all fairway; only roads, yards, dirt, cobble and water differ (Mike 10-31)
-  w[1] += w[0] + w[2] + w[6]; w[0] = 0.0; w[2] = 0.0; w[6] = 0.0;
+  float fg = 1.0 - smoothstep(120.0, 320.0, dist);   // the forest stays the scan's own trees from the air; the floor under them is grass only up close
+  w[1] += w[0] + w[2] + w[6] * fg; w[0] = 0.0; w[2] = 0.0; w[6] *= 1.0 - fg;
+  vec3 Yw = vec3(0.3, 0.6, 0.1), lowP = texture2D(tDrone, dUV, 4.0).rgb * uDroneGain;
+  float detail = clamp(dot(photo, Yw) / max(dot(lowP, Yw), 0.015), 0.5, 1.55);   // tracks, mower lines, tree shadows: from the scan
+  float broad = clamp(dot(texture2D(tDrone, dUV, 6.5).rgb * uDroneGain, Yw) / max(dot(uGroundMean[1], Yw), 0.01), 0.62, 1.45);
   float tot0 = 0.0; for (int i = 0; i < 8; i++) tot0 += w[i];
   if (tot0 < 0.02) return photo;                                   // outside the survey
   float tot = 0.0;
@@ -212,6 +217,10 @@ vec3 groundMat(vec3 photo, vec2 xy, float dist, vec2 dUV, vec3 n) {
   for (int i = 0; i < 8; i++) {
     float wi = w[i] / max(tot, 1e-4);
     if (wi < 0.01) continue;
+    if (i == 6) { col += wi * photo; continue; }
+    if (((i >= 2 && i <= 5) || i == 7) && !(xy.x > -50.0 && xy.y < 135.0 && xy.y > -300.0)) {   // real ground: the scan itself, baked RVs and tarps held down, a little material grain up close
+      vec3 pc = clamp(photo, lowP * 0.62, lowP * 1.22); vec3 mg = texture(tGround, vec3(xy / uGroundSize[i], float(i))).rgb;
+      col += wi * pc * mix(1.0, 0.82 + 0.36 * dot(mg, vec3(0.3, 0.6, 0.1)) / max(dot(pow(uGroundMean[i], vec3(0.45)), vec3(0.3, 0.6, 0.1)), 0.01), 1.0 - smoothstep(20.0, 80.0, dist)); continue; }
     vec2 uv = xy / uGroundSize[i], uv2 = rot * uv * 0.71 + vec2(0.37, 0.61);
     float L = float(i);
     vec3 c = mix(texture(tGround, vec3(uv, L)).rgb, texture(tGround, vec3(uv2, L)).rgb, mixN);
@@ -221,9 +230,9 @@ vec3 groundMat(vec3 photo, vec2 xy, float dist, vec2 dUV, vec3 n) {
     c = mix(uGroundMean[i], c, grain);
     vec3 ratio = clamp(lp / max(uGroundMean[i], vec3(0.01)), vec3(0.45), vec3(1.9));
     // the drone survey is autumn: grass follows its light and dark but keeps a summer green (photos: luminous mown fairways)
-    vec3 rg = i < 2 ? vec3(1.5, 2.05, 1.0) : (i >= 2 && i <= 5) ? vec3(1.0, 0.98, 0.94) : ratio;   // road, yard, dirt: dusty grey-tan as in the photos, not yellow (Mike 10-31)
+    // grass: summer colour with 30% of the scan's own hue, its light + dark and fine detail; gravel + dirt keep the scan's tyre tracks
+    vec3 rg = i < 2 ? mix(vec3(1.08, 1.2, 0.88), lowP / max(uGroundMean[i], vec3(0.01)) * vec3(0.95, 1.15, 0.8), 0.3) * mix(1.0, broad, 0.4) * pow(detail, 0.85) : (i >= 2 && i <= 5) ? vec3(1.0, 0.98, 0.94) : ratio;
     if (i == 1) c *= 1.0 + 0.09 * grain * (smoothstep(-0.12, 0.12, sin(dot(xy, vec2(0.6, 0.8)) * 0.7)) - 0.5);   // the mower's stripes (drone video)
-    if (i == 4) c *= 0.38;   // the highway is dark asphalt (drone video 14:36); this layer rendered near-white up close
     if (i >= 2 && i <= 5) c = mix(vec3(dot(c, vec3(0.3, 0.6, 0.1))), c, 0.45);   // the gravel texture itself reads yellow
     col += wi * c * mix(vec3(1.0), rg, 0.85);                   // follow the photo's own colour there, so patches agree with the place (i11)
     nt += wi * nn * grain;
@@ -238,6 +247,7 @@ float ripple(vec2 q) { return vnoise(q * 0.32) * 0.6 + vnoise(q * 0.85 + 7.3) * 
 vec3 water(vec3 land, vec2 xy, vec3 wpos) {
   vec2 wUV = (xy - uWaterRect.xy) / (uWaterRect.zw - uWaterRect.xy);
   if (uHasWater < 0.5 || wUV.x < 0.0 || wUV.y < 0.0 || wUV.x > 1.0 || wUV.y > 1.0) return land;
+  if (uLakeMirror > 0.5 && xy.x > -80.0 && xy.x < 30.0 && xy.y > -300.0 && xy.y < -165.0) return land;
   vec4 m = texture2D(tWater, wUV);
   float amt = smoothstep(0.08, 0.6, m.b);
   vec2 dir = (m.rg - 0.5) * 2.0;                                  // downstream (east, north); ~0 on still water
@@ -261,7 +271,7 @@ vec3 water(vec3 land, vec2 xy, vec3 wpos) {
   float still = 1.0 - clamp(length(dir) * 1.5, 0.0, 1.0);
   vec2 q = xy - dir * uTime * 1.8 + vec2(0.31, 0.23) * uTime * still;
   float e = 0.5, h0 = ripple(q), hx = ripple(q + vec2(e, 0.0)), hy = ripple(q + vec2(0.0, e));
-  float k = mix(0.28, 0.16, still);   // gentle surface: no glittery chop
+  float k = mix(0.14, 0.16, still);   // gentle surface: no glittery chop
   vec3 N = normalize(vec3(-(hx - h0) / e * k, 1.0, (hy - h0) / e * k)); // three.js z = south
   vec3 V = normalize(cameraPosition - wpos);
   float fres = 0.04 + 0.6 * pow(1.0 - max(dot(N, V), 0.0), 5.0);
@@ -278,15 +288,16 @@ vec3 water(vec3 land, vec2 xy, vec3 wpos) {
   { float az = atan(R.x, R.z), tops = 0.05 * vnoise(vec2(az * 26.0, 3.0)) + 0.02 * vnoise(vec2(az * 90.0, 8.0)), mirror = (1.0 - smoothstep(0.26 + tops, 0.34 + tops, R.y)) * still; wc = mix(wc, vec3(0.022, 0.05, 0.035) + sky * 0.05, mirror * 0.85); }
   wc += vec3(1.0, 0.9, 0.72) * pow(max(dot(R, uSunDir), 0.0), 70.0) * 0.18;  // a soft sheen, never sparkles
   float streak = vn((xy - dir * uTime * 1.2) * vec2(0.6, 0.6)) * (1.0 - still);
-  wc *= 0.95 + 0.1 * streak;
+  wc *= 0.98 + 0.04 * streak;   // (Mike 11-01: the streaks read as splines)
   // white water: broken foam where the creek runs over its cobbles (DJI_0286, Creek View 1/2)
-  float foam = smoothstep(0.62, 0.9, vn((xy - dir * uTime * 2.2) * vec2(0.9, 0.9)) * 0.7 + vn(xy * 3.1 - dir * uTime * 3.0) * 0.3);
-  wc = mix(wc, vec3(0.78, 0.82, 0.8), foam * 0.22 * (1.0 - still));   // (i12: cartoon foam blotches)
+  float foam = smoothstep(0.66, 0.92, vn((xy - dir * uTime * 2.2) * vec2(0.45, 0.45)) * 0.8 + vn(xy * 1.3 - dir * uTime * 3.0) * 0.2);
+  wc = mix(wc, vec3(0.78, 0.82, 0.8), foam * 0.14 * (1.0 - still));   // (i12: cartoon foam blotches)
   float creekKeep = mix(0.2, 0.0, still) * (1.0 - traced);   // atlas creeks off the survey: a little of the photographed creek shows through
   // chapters turn uWaterAmt down because the atlas CREEK lines sit a few metres off the photo's; lakes are exact, so
   // still water keeps its full surface
   float amtK = max(mix(uWaterAmt, 1.0, still * still), traced);
-  return mix(land, wc, amt * (1.0 - creekKeep) * uTreeFade * amtK);
+  if (traced > 0.5) { vec3 wet = land * vec3(0.5, 0.56, 0.6) + sky * (0.03 + fres * 0.35) + vec3(0.78, 0.82, 0.8) * foam * 0.1 * (1.0 - still) + vec3(1.0, 0.9, 0.72) * pow(max(dot(R, uSunDir), 0.0), 70.0) * 0.12; return mix(land, wet, amt * uTreeFade * mix(1.0, 0.35, still)); }   // (grid review 11-01: flat colour over a brown creek and reedy ponds)
+  return mix(land, wc, amt * (1.0 - creekKeep) * uTreeFade * amtK);   // (grid review 11-01: flat blue over a brown creek and reedy ponds)
 }
 vec2 quadUV(vec2 p, vec3 uA, vec3 uB, vec3 vA, vec3 vB) {
   vec3 q = vec3(p.x * p.x, p.x * p.y, p.y * p.y) * 1e-4;

@@ -148,18 +148,21 @@ export function placeTrees({ heightAt, droneSample, nearSample, L, isWater = () 
     && canopy.cover[(Math.floor((canopy.rect[3] - y) / canopy.res) * canopy.w + Math.floor((x - canopy.rect[0]) / canopy.res))];
   const canopyAt = (x, y) => canopy.data[Math.floor((canopy.rect[3] - y) / canopy.res) * canopy.w + Math.floor((x - canopy.rect[0]) / canopy.res)] > 127;
   // the survey's real treetops (tools/treetops.py, Mike 10-31: "exact positions"): each at its measured spot and height. The height map stops at 25.5 m, so those vary upward
-  const tops5 = {}, nearTop = (x, y) => { const a = Math.floor(x / 6), b = Math.floor(y / 6); for (let i = -1; i < 2; i++) for (let j = -1; j < 2; j++) for (const [p, q] of tops5[`${a + i},${b + j}`] || []) if ((x - p) ** 2 + (y - q) ** 2 < 30) return true; return false; };
-  if (canopy?.tops) for (const [px, py, h0] of canopy.tops) {
-    if (clear.some(([qx, qy, qr]) => (px - qx) ** 2 + (py - qy) ** 2 < 0.36 * qr * qr) || isWater(px, py)) continue;   // a measured tree only gives way to what's really under it, not to a keep-out margin
+  const creekTops = spotsKeep; const tops5 = {}, nearTop = (x, y) => { const a = Math.floor(x / 6), b = Math.floor(y / 6); for (let i = -1; i < 2; i++) for (let j = -1; j < 2; j++) for (const [p, q] of tops5[`${a + i},${b + j}`] || []) if ((x - p) ** 2 + (y - q) ** 2 < 30) return true; return false; };
+  const TB = canopy?.topsBounds, inTB = (x, y) => TB && x > TB[0] && x < TB[1] && y > TB[2] && y < TB[3];   // the cross-referenced layers (tools/sat_trees.py) decide here: no guessing on top of them
+  if (canopy?.tops) for (const [px, py, h0, broadC] of canopy.tops) {
+    if (broadC && !canopy.nearCreek?.(px, py)) continue;   // pines only (Mike), except the creek line he asked for
+    if (clear.some(([qx, qy, qr]) => (px - qx) ** 2 + (py - qy) ** 2 < 0.36 * qr * qr) || [8, 9].includes(canopy.cls[Math.floor((canopy.rect[3] - py) / canopy.res) * canopy.w + Math.floor((px - canopy.rect[0]) / canopy.res)])) continue;   // a measured tree only gives way to what's really under it, not to a keep-out margin
     const c = droneSample(px, py) || nearSample(px, py) || [40, 60, 30];
     (tops5[`${Math.floor(px / 6)},${Math.floor(py / 6)}`] ??= []).push([px, py]);
+    creekTops.add(out.length / 6);
     out.push(px, py, heightAt(px, py), h0 >= 25 ? 25 + rnd() * 9 : h0, rnd(), (c[0] << 16) | (c[1] << 8) | c[2]);
   }
   if (canopy) {
     const sp = 7, [cx0, cy0, cx1, cy1] = canopy.rect;   // 7 m apart, big trees (Mike 10-29, twice: way too dense)
     for (let y = cy0 + sp / 2; y < cy1; y += sp) for (let x = cx0 + sp / 2; x < cx1; x += sp) {
       const px = x + (rnd() - 0.5) * sp * 0.8, py = y + (rnd() - 0.5) * sp * 0.8;
-      if (!inSurvey(px, py) || !canopyAt(px, py) || nearTop(px, py)) continue;   // the canopy map fills in only where no measured tree stands
+      if (!inSurvey(px, py) || !canopyAt(px, py) || inTB(px, py) || nearTop(px, py) || canopy.open?.(px, py)) continue;   // the canopy map fills in only where no measured tree stands
       // how deep inside the canopy this spot is (0.75 m steps, 8 directions): edge trees are sized so their crown
       // (radius ≈ 0.14 × height) stays inside the real canopy, the way forest edges taper to smaller trees
       let depth = 0;
@@ -173,6 +176,7 @@ export function placeTrees({ heightAt, droneSample, nearSample, L, isWater = () 
       if (clear.some(([qx, qy, qr]) => (px - qx) ** 2 + (py - qy) ** 2 < qr * qr)) continue;
       if (isWater(px, py)) continue;
       const c = droneSample(px, py) || nearSample(px, py) || [40, 60, 30];
+      if (canopy.nearCreek?.(px, py)) creekTops.add(out.length / 6);
       out.push(px, py, heightAt(px, py), Math.min(20 + rnd() * 14, maxH), rnd(), (c[0] << 16) | (c[1] << 8) | c[2]);
     }
   }
@@ -182,7 +186,7 @@ export function placeTrees({ heightAt, droneSample, nearSample, L, isWater = () 
     const sp = 9, [cx0, cy0, cx1, cy1] = canopy.rect, clsAt = (x, y) => canopy.cls[Math.floor((canopy.rect[3] - y) / canopy.res) * canopy.w + Math.floor((x - canopy.rect[0]) / canopy.res)];
     for (let y = cy0 + sp; y < cy1 - sp; y += sp) for (let x = cx0 + sp; x < cx1 - sp; x += sp) {
       const px = x + (rnd() - 0.5) * sp * 0.8, py = y + (rnd() - 0.5) * sp * 0.8;
-      if (!inSurvey(px, py) || canopyAt(px, py) || clsAt(px, py) === 9 || clsAt(px, py) === 8 || isWater(px, py)) continue;
+      if (inTB(px, py) || !inSurvey(px, py) || canopyAt(px, py) || clsAt(px, py) === 9 || clsAt(px, py) === 8 || isWater(px, py)) continue;
       let near = false, tooNear = false;
       for (let k = 0; k < 8; k++) { if (clsAt(px + Math.cos(k * 0.785) * 18, py + Math.sin(k * 0.785) * 18) === 9) near = true; if (clsAt(px + Math.cos(k * 0.785) * 5, py + Math.sin(k * 0.785) * 5) === 9) tooNear = true; }
       if (!near || tooNear) continue;
@@ -190,6 +194,7 @@ export function placeTrees({ heightAt, droneSample, nearSample, L, isWater = () 
       if (!(c[1] > c[0] * 1.06 && c[1] > c[2] * 1.03 && (c[0] + c[1] + c[2]) / 3 < 95)) continue;
       if (clear.some(([qx, qy, qr]) => (px - qx) ** 2 + (py - qy) ** 2 < qr * qr)) continue;
       if (boxes.some(([b, r]) => px > b[0] && px < b[2] && py > b[1] && py < b[3] && inPoly(px, py, r))) continue;
+      creekTops.add(out.length / 6);
       out.push(px, py, heightAt(px, py), 13 + rnd() * 13, rnd(), (c[0] << 16) | (c[1] << 8) | c[2]);
     }
   }
@@ -225,15 +230,16 @@ export function placeTrees({ heightAt, droneSample, nearSample, L, isWater = () 
 // spots = flat [x, y, groundH, height, rnd, rgb] per tree. Two shapes so the forest isn't a field of identical cones;
 // each tree takes its colour from the imagery under it, so the 3D forest matches the photo it stands on.
 const FOLIAGE = new THREE.Color(0x2c4424);
+export const spotsKeep = new Set();   // measured trees by the creek: real conifers and all, always drawn as pine (Mike 11-01: the creek line was missing them)
 export function makeTrees(spots) {
   const group = new THREE.Group();
-  const all = []; for (let i = 0; i < spots.length; i += 6) all.push(spots.slice(i, i + 6));
+  const all = []; for (let i = 0; i < spots.length; i += 6) { const t = spots.slice(i, i + 6); t.keep = spotsKeep.has(i / 6); all.push(t); }
   // One forest everywhere (Mike 10-29: different-looking trees inside the property line; "they're mostly pine"). The
   // valley is Interior Cedar–Hemlock / Douglas-fir country: mostly lodgepole pine, then Douglas-fir / hybrid spruce,
   // with aspen / birch / cottonwood only where the canopy is clearly yellow-green broadleaf. The same rule and the
   // same colours apply on and off the drone survey (the autumn drone photo and the summer satellite photo no longer
   // set the look), so the property line doesn't show.
-  const broad = t => { const r = (t[5] >> 16) & 255, g = (t[5] >> 8) & 255, b = t[5] & 255; return (r + g + b) / 3 > 70 && g > b * 2.1 && r > g * 0.82; };
+  const broad = t => { if (t.keep) return false; const r = (t[5] >> 16) & 255, g = (t[5] >> 8) & 255, b = t[5] & 255; return (r + g + b) / 3 > 70 && g > b * 2.1 && r > g * 0.82; };
   const kinds = [[roundTreeGeometry(), all.filter(t => !broad(t) && t[4] < 0.65)], [treeGeometry(), all.filter(t => !broad(t) && t[4] >= 0.65)]];   // pines only (Mike 10-31): the broadleaf spots stay empty
   const SPECIES = [new THREE.Color(0x35552e), new THREE.Color(0x274632)];   // (darker: the drone video's spruce read almost black-green)
   //   // pine, fir/spruce

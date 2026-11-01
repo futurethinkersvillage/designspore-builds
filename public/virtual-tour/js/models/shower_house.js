@@ -642,7 +642,7 @@ function buildField(hi) {
 // The garden bed along the NE deck, either side of the ramp (shower_360; Mike 10-31, frame 1272: "an actual garden bed"):
 // dug dark soil edged with river cobbles (their band sits where the photo's does), planted in loose rows: broad-leaved
 // perennials, ornamental grass and flowering clumps. Then the spruce at the deck's back corner and two giants behind the roof.
-function plantGeo(kind) {   // one plant, ~1 m across, as coloured leaf blades that arch out from the crown
+export function plantGeo(kind) {   // one plant, ~1 m across, as coloured leaf blades that arch out from the crown
   const p = [], c = [], n = [], rn = rnd(kind === 'leafy' ? 11 : kind === 'grass' ? 23 : 37);
   const dark = kind === 'grass' ? [0.17, 0.25, 0.1] : [0.06, 0.15, 0.06], light = kind === 'grass' ? [0.42, 0.47, 0.2] : [0.2, 0.36, 0.13];
   const blades = kind === 'heads' ? 0 : kind === 'leafy' ? 11 : kind === 'grass' ? 46 : 14;
@@ -729,7 +729,7 @@ function addSetting(g, hi) {
   }
   // spruces: the one behind the deck's back corner, the giants behind the gable, seen in the 360 (the forest keep-out clears the rest)
   const trunk = new THREE.MeshStandardMaterial({ color: 0x3f3226, roughness: 1 }), needles = [0x2c4f33, 0x335a39, 0x28482f].map(c => new THREE.MeshStandardMaterial({ color: c, roughness: 1, flatShading: true, side: THREE.DoubleSide }));
-  for (const [x, z, H, w, low] of [[10.6, -9.4, 11, 1.9, 0.01], [-9.6, -6.7, 21, 3.4, 0.14], [-11.2, -12.3, 24, 3.6, 0.14]]) {   // (the near one is bushy right to the ground in the photo)
+  for (const [x, z, H, w, low] of [[8.5, -8.2, 13, 2.6, 0.01], [-9.6, -6.7, 21, 3.4, 0.14], [-11.2, -12.3, 24, 3.6, 0.14]]) {   // (the near one is bushy right to the ground in the photo)
     const t = new THREE.Group(); t.position.set(x, 0, z); g.add(t);
     const c = new THREE.Mesh(new THREE.CylinderGeometry(H * 0.006, H * 0.016, H * 0.5, 6), trunk); c.position.y = H * 0.25; t.add(c);
     const tiers = hi ? 24 : 4;
