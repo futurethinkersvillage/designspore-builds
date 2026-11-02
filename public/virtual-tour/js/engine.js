@@ -387,7 +387,8 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   // zomes on every planned cabin site, seated on the real slope: a timber skirt fills the gap, a soft contact shadow below
   const zomes = await placeZomes({ lod: MOBILE ? 'low' : 'high' });
   {
-    const skirtMat = new THREE.MeshStandardMaterial({ color: 0x3a2c21, roughness: 0.95 });
+    const grassT = (() => { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'); g.fillStyle = '#6f8f43'; g.fillRect(0, 0, 256, 256); let sd = 3; const r = () => (sd = (sd * 16807) % 2147483647) / 2147483647; for (let i = 0; i < 9000; i++) { g.strokeStyle = r() < 0.5 ? `rgba(${60 + r() * 30},${90 + r() * 40},${30},.5)` : `rgba(${130 + r() * 40},${160 + r() * 30},${70},.45)`; const x = r() * 256, y = r() * 256; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (r() - 0.5) * 5, y + (r() - 0.5) * 5); g.stroke(); } const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; })();
+    const skirtMat = new THREE.MeshStandardMaterial({ map: grassT, vertexColors: true, transparent: true, depthWrite: false, roughness: 1, side: THREE.DoubleSide }); skirtMat.userData.noSurface = true;
     const shadowMat = new THREE.MeshBasicMaterial({ map: radialTex([[0, 'rgba(0,0,0,0.6)'], [0.55, 'rgba(0,0,0,0.35)'], [1, 'rgba(0,0,0,0)']]),
       transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
     for (const z of zomes.children) {
@@ -398,7 +399,14 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
       const top = Math.max(...hs), low = Math.min(...hs);
       const zc = groundAt(...at(0, 0)); z.position.y = Math.min(top, zc + 0.7) - 0.04;
       const drop = z.position.y - low + 0.3;
-      const sk = new THREE.Mesh(new THREE.BoxGeometry(4.2 * K, drop, 4.2 * K), skirtMat); sk.position.set(0, 0.3 - drop / 2, 0); sk.userData.noConcept = true; z.add(sk);
+      // a shaped earth pad, not a block (Mike 11-01): flat under the zome, grading out to the real ground on every side
+      { const r1 = 2.6 * K, r2 = r1 + Math.min(5, Math.max(1.8, (z.position.y - low) * 2.4)), N = 28, pos = [0, 0.03, 0], idx = [], cols = [1, 1, 1, 1], uvs = [0, 0];
+        for (let k = 0; k < N; k++) { const a = k / N * Math.PI * 2, c = Math.cos(a), s = Math.sin(a), wob = 1 + 0.1 * Math.sin(a * 3 + x);
+          pos.push(c * r1, 0.03, s * r1); cols.push(1, 1, 1, 1); uvs.push(c * r1 / 4, s * r1 / 4);
+          for (const u of [0.45, 1]) { const rr = r1 + (r2 * wob - r1) * u, g = groundAt(...at(c * rr, s * rr)) - z.position.y; pos.push(c * rr, u === 1 ? g - 0.02 : g + (0.03 - g) * 0.42 * (1 - u) * 2, s * rr); cols.push(1, 1, 1, u === 1 ? 0 : 1); uvs.push(c * rr / 4, s * rr / 4); } }
+        for (let k = 0; k < N; k++) { const a = 1 + k * 3, b = 1 + ((k + 1) % N) * 3; idx.push(0, b, a); for (let j = 0; j < 2; j++) idx.push(a + j, b + j, a + j + 1, a + j + 1, b + j, b + j + 1); }
+        const eg = new THREE.BufferGeometry(); eg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); eg.setIndex(idx); eg.setAttribute('color', new THREE.Float32BufferAttribute(cols, 4)); eg.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2)); eg.computeVertexNormals();
+        const sk = new THREE.Mesh(eg, skirtMat); sk.userData.noConcept = true; z.add(sk); }
       const sh = new THREE.Mesh(new THREE.PlaneGeometry(10 * K, 11 * K, 5, 6).rotateX(-Math.PI / 2), shadowMat);
       const pp = sh.geometry.attributes.position;
       for (let i = 0; i < pp.count; i++) { const [gx, gy] = at(pp.getX(i), pp.getZ(i)); pp.setY(i, groundAt(gx, gy) + 0.12 - z.position.y); }
