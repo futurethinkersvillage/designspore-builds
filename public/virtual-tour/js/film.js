@@ -2,6 +2,7 @@
 // Each chapter keeps the objects + captions it created in setup() to itself (shown only while it plays), starts from
 // a clean "real world" state, and the camera blends from where the previous chapter ended.  film.html[?rec=1]
 import * as THREE from 'three';
+import { mergeStatic } from './merge_static.js';
 import { pickStyle } from './styles.js';
 import { markImg } from './brand.js';
 import { createEngine } from './engine.js';
@@ -112,6 +113,7 @@ async function init() {
   const ranges = chapters.map(c => { const a = acc; acc += c.seconds / total; return [a, acc]; });
   let active = -2, prevWrap = null;
   const handoff = { k: -1, x: 1 };
+  let syncLights = () => {};
   const show = i => {
     if (i === active) return;
     chapters.forEach((c, k) => {
@@ -175,17 +177,25 @@ async function init() {
     vertexShader: 'varying vec2 vU; void main() { vU = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }',
     fragmentShader: 'uniform sampler2D map; uniform float a; varying vec2 vU; void main() { gl_FragColor = vec4(texture2D(map, vU).rgb, a); }' })));   // already display pixels: no tone mapping, no colour conversion
   overlay.children[0].frustumCulled = false;
+  // upright phones: the shots are framed for a wide screen, so a tall one cut off signs, buildings and map labels at the sides. Widen the lens by up to a third.
+  const widened = draw => {
+    const a = camera.aspect; if (a >= 1) return draw();
+    const f = camera.fov, k = 1 + 0.35 * Math.min(1, (1 - a) / 0.54);
+    camera.fov = 2 * Math.atan(Math.tan(f * Math.PI / 360) * k) * 180 / Math.PI; camera.updateProjectionMatrix();
+    draw();
+    camera.fov = f; camera.updateProjectionMatrix();
+  };
   const holdLastFrame = p => {
     const k = handoff.k; renderer.getDrawingBufferSize(size);
     if (!held || held.image.width !== size.x || held.image.height !== size.y) { held?.dispose(); held = new THREE.FramebufferTexture(size.x, size.y); overlayU.map.value = held; heldFor = -1; }
     if (heldFor === k) return;
-    show(k - 1); panoState.op = 0; chapters[k - 1].mod.update(1, ctx); showAlways(true); E.render();
+    show(k - 1); panoState.op = 0; chapters[k - 1].mod.update(1, ctx); showAlways(true); syncLights(); widened(E.render);
     renderer.copyFramebufferToTexture(held); heldFor = k;
     apply(p);
   };
   const render = p => {
     if (handoff.x < 1) holdLastFrame(p);
-    E.render();
+    syncLights(); widened(E.render);
     if (handoff.x < 1) { const ac = renderer.autoClear; renderer.autoClear = false; overlayU.a.value = 1 - handoff.x; renderer.render(overlay, overlayCam); renderer.autoClear = ac; }
   };
 
@@ -209,7 +219,45 @@ ${where}`;
   };
   let P = 0, drawn = -1;
   const frame = () => { if (need || P !== drawn || P > 0.33 * CP1_SECONDS / total) { apply(P); render(P); drawn = P; need = false; showCounter(P); } };
-  apply(0.5 * CP1_SECONDS / total); renderer.compile(scene, camera); apply(0); E.render();
+  { let was = 0, now = 0; for (const k of ['maker_space', 'props', 'office', 'dome', 'shower_house', 'footbridge', 'shed', 'gazebo', 'sauna', 'sauna_setting', 'bunk_cabin', 'entrance_sign', 'top_house', 'bottom_house', 'horse_corrals']) if (E.models[k]) { const [a, b] = mergeStatic(E.models[k]); was += a; now += b; } console.log('merged', was, 'parts into', now); }
+  // the lake's reflection draws the whole scene a second time: nothing far from the water can show in it, so it draws only the land, trees, zomes and dome
+  if (ctx._lakeMirror) { const m = ctx._lakeMirror, box = new THREE.Box3(), mid = new THREE.Vector3(), far = [];
+    for (const o of [...Object.values(E.models), ...chapters.flatMap(c => c.objs.filter(x => !x.isLight))]) { if (!o?.isObject3D || far.includes(o) || o === E.models.zome_merged || o === E.models.village_land || o === E.models.dome) continue; box.setFromObject(o); if (!box.isEmpty() && (o.userData.slug || Object.values(E.models).includes(o) || box.getCenter(mid).distanceTo(m.userData.centre) > 450 + box.getSize(mid.clone()).length() / 2)) far.push(o); }
+    const draw = m.onBeforeRender; m.onBeforeRender = function (...a) { const was = far.map(o => o.visible); far.forEach(o => { o.visible = false; }); draw.apply(this, a); far.forEach((o, i) => { o.visible = was[i]; }); };
+    console.log('mirror skips', far.length, 'models'); }
+  // One fixed set of lights for the whole film: three rebuilds every shader when the number of lights changes, and chapter lights
+  // switching on and off cost a first viewing about 50 s of freezes (tools/stall_check.mjs). The chapters' own lights stay as the
+  // settings; only the fixed set is ever drawn with.
+  const chapterLights = [];
+  scene.traverse(o => { if (o.isLight && o !== sun && o !== hemi) { chapterLights.push(o); o.layers.set(31); } });
+  const lit = o => { for (; o; o = o.parent) if (!o.visible) return false; return true; };
+  const most = { dir: 0, point: 0 };
+  chapters.forEach((c, k) => { show(k); for (let t = 0; t <= 1.001; t += 0.1) { c.mod.update(t, ctx); const on = chapterLights.filter(lit); most.dir = Math.max(most.dir, on.filter(l => l.isDirectionalLight).length); most.point = Math.max(most.point, on.filter(l => l.isPointLight).length); } });
+  const fixed = { dir: Array.from({ length: most.dir }, () => new THREE.DirectionalLight(0xffffff, 0)), point: Array.from({ length: most.point }, () => new THREE.PointLight(0xffffff, 0)) };
+  [...fixed.dir, ...fixed.point].forEach(l => scene.add(l));
+  const tgt = new THREE.Vector3();
+  syncLights = () => {
+    let d = 0, p = 0;
+    for (const l of chapterLights) {
+      if (l.intensity <= 0 || !lit(l)) continue;
+      const f = l.isPointLight ? fixed.point[p++] : fixed.dir[d++];
+      if (!f) continue;
+      f.color.copy(l.color); f.intensity = l.intensity; l.updateWorldMatrix(true, false); f.position.setFromMatrixPosition(l.matrixWorld);
+      if (l.isPointLight) { f.distance = l.distance; f.decay = l.decay; } else { l.target.updateWorldMatrix(true, false); f.position.sub(tgt.setFromMatrixPosition(l.target.matrixWorld)); }
+    }
+    for (; d < fixed.dir.length; d++) fixed.dir[d].intensity = 0;
+    for (; p < fixed.point.length; p++) fixed.point[p].intensity = 0;
+  };
+  apply(0.5 * CP1_SECONDS / total); syncLights();
+  // everything the film will ever draw is built while the loader is up, not at the moment it first appears: every shader, the lake mirror's own versions of them, every texture
+  { const builds = [renderer.compileAsync(scene, camera)], rt = ctx._lakeMirror?.getRenderTarget();
+    if (rt) { renderer.setRenderTarget(rt); builds.push(renderer.compileAsync(scene, camera)); renderer.setRenderTarget(null); }
+    await Promise.all(builds);
+    const seen = new Set(), send = t => { if (t?.isTexture && !seen.has(t) && t.image && !t.isRenderTargetTexture && !t.isFramebufferTexture && !t.isDepthTexture && !t.isVideoTexture) { seen.add(t); renderer.initTexture(t); } };
+    scene.traverse(o => { for (const m of [o.material].flat()) { if (!m) continue; Object.values(m).forEach(send); if (m.uniforms) Object.values(m.uniforms).forEach(u => send(u.value)); } }); }
+  // and one draw every few seconds of film behind the loader, so meshes reach the graphics card now too (the freeze at frame ~450 was 10,000 buffers at once)
+  for (let t = 3; t < total; t += 6) { apply(t / total); syncLights(); E.render(); }
+  apply(0); syncLights(); E.render();
   $('#loader').classList.add('done'); if (REC) $('#loader').style.display = 'none';
   if (REC) {
     window.FT = { render: async p => { P = p; need = true; frame(); await new Promise(r => requestAnimationFrame(r)); }, style: style.key, total, E, apply };
