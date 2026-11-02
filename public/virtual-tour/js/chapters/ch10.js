@@ -62,10 +62,10 @@ export async function setup(ctx) {
     return [K(t0, s.x + s.fx * (s.R + out), s.y + s.fy * (s.R + out), eye + 1.6, s.hd, -8), K(t0 + 1.6, s.x + s.fx * door, s.y + s.fy * door, eye, s.hd, -2), K(t0 + 2.8, inX, inY, eye, s.hd, -3), K(t0 + 5, inX, inY, eye, s.hd - look, -5), K(t0 + 7.2, inX, inY, eye, s.hd + look, -4), K(t0 + 8.4, inX, inY, eye, s.hd, -2), K(t0 + 9.6, s.x + s.fx * door, s.y + s.fy * door, eye, s.hd, -2), K(t0 + 11, s.x + s.fx * (s.R + out), s.y + s.fy * (s.R + out), eye + 1.6, s.hd, -8)]; };
   const T1 = stop(1), T2 = stop(2), T3 = stop(3);
   rig = R.makeRig([
-    [0.0, 30, -60, ground(30, -60), 520, 96, -23, 46],                 // the whole village, hill behind it, creek before it
-    [5.5, 30, -60, ground(30, -60), 460, 98, -24, 46],                 // (the film's blend lands here)
-    [9.5, 34, -40, ground(34, -40), 240, 118, -30, 46],                // over the creek, the hamlets separate
-    [13.5, 34, 10, ground(34, 10), 90, 165, -24, 48],                  // down over Creek Terrace, looking along the main path
+    [0.0, 30, -60, ground(30, -60), 500, 96, -32, 46],                 // the whole village, hill behind it, creek before it
+    [5.5, 30, -60, ground(30, -60), 430, 98, -34, 46],                 // (the film's blend lands here)
+    [9.5, 34, -40, ground(34, -40), 240, 118, -42, 46],                // over the creek, the hamlets separate
+    [13.5, 34, 10, ground(34, 10), 90, 165, -34, 48],                  // down over Creek Terrace, looking along the main path
     ...walk(T1, 16, 62),
     [29.5, 32, -88, ground(32, -88) + 4, 130, 182, -27, 50],            // along the path to the Commons
     ...walk(T2, 31, 70),

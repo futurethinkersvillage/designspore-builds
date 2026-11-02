@@ -23,7 +23,7 @@ export function lakeMirror(ctx, _plan) {
           vec4 uv = vUv; float r = sin(vP.x * 0.9 + vP.y * 0.35) * sin(vP.y * 1.3 - vP.x * 0.2) + 0.5 * sin(vP.x * 2.3 - vP.y * 1.7);
           uv.xy += vec2(0.0012, 0.0035) * r * uv.w;
           vec3 c = texture2DProj(tDiffuse, uv).rgb;
-          c = min(mix(vec3(dot(c, vec3(0.3, 0.6, 0.1))), c, 0.45) * vec3(0.72, 0.84, 0.92), vec3(0.12, 0.17, 0.22));   // deep blue-black in the drone video; a pink dusk sky made it salmon
+          c = min(c * vec3(0.3, 0.38, 0.44), vec3(0.055, 0.09, 0.125));   // deep blue-black in the drone video; a pink dusk sky made it salmon
           gl_FragColor = vec4(mix(vec3(0.02, 0.05, 0.06), c, 0.78), 1.0);
           #include <tonemapping_fragment>
           #include <colorspace_fragment>

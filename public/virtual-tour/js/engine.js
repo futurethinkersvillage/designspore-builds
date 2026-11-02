@@ -199,7 +199,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   // the terrain grid (10 m) is flattened to each building's mean ground height inside its footprint and blended back
   // over the next ~12 m, before anything is placed — so models, trees and the ground all agree.
   {
-    const PADR = { zomepad: 2, entrance_sign: 12, gazebo: 9, top_house: 9, bottom_house: 8, office: 7, dome: 7, shower_house: 9, sauna: 3, bunk_cabin: 4, shed: 7, maker_space: 15 };
+    const PADR = { zomepad: 5.5, entrance_sign: 12, gazebo: 9, top_house: 9, bottom_house: 8, office: 7, dome: 7, shower_house: 9, sauna: 3, bunk_cabin: 4, shed: 7, maker_space: 15 };
     const m = D.meta.terrain_near, a = D.near, n = m.size, res = m.res, orig = Float32Array.from(a);
     const sample = (x, y) => { const c = (x + m.half) / res, r = (m.half - y) / res, i = Math.floor(r), j = Math.floor(c), fx = c - j, fy = r - i;
       return (orig[i * n + j] * (1 - fx) + orig[i * n + j + 1] * fx) * (1 - fy) + (orig[(i + 1) * n + j] * (1 - fx) + orig[(i + 1) * n + j + 1] * fx) * fy; };
@@ -231,7 +231,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     'rv', 'shed', 'footbridge', 'sauna_setting', 'props', 'entrance_sign'];
   const siteC = n => (D.L[n] || []).flatMap(f => polysOf(f).map(p => { const r = p[0]; return [r.reduce((a, q) => a + q[0], 0) / r.length, r.reduce((a, q) => a + q[1], 0) / r.length]; }));
   // keep-out per model: half its size + a crown radius (Mike 10-29: trees intersected the 3D models)
-  const CLEARR = { gazebo: 14, top_house: 12, bottom_house: 12, office: 11, dome: 11, shower_house: 13, sauna: 5, bunk_cabin: 5, shed: 11,
+  const CLEARR = { gazebo: 14, top_house: 12, bottom_house: 12, office: 11, dome: 11, shower_house: 13, zomepad: 12, sauna: 5, bunk_cabin: 5, shed: 11,
     rv: 4, props: 2.5, sauna_setting: 2, horse_corrals: 22, footbridge: 11 };
   const clear = [...Object.entries(PLACE).flatMap(([k, ps]) => ps.map(p => [p.x, p.y, CLEARR[k] || 9])),
     ...siteC('cabins').map(c => [...c, 11]), ...siteC('lake_cabins').map(c => [...c, 11]),   // room round each zome site (i3: rows hidden in trees)
@@ -396,8 +396,8 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
       const K = (z.userData.baseOut || 5) / 5;   // sized to this zome
       const hs = [[-2.5 * K, -2.5 * K], [2.5 * K, -2.5 * K], [2.5 * K, 3.6 * K], [-2.5 * K, 3.6 * K], [0, 0]].map(([u, v]) => groundAt(...at(u, v)));
       const top = Math.max(...hs), low = Math.min(...hs);
-      z.position.y = top - 0.04;
-      const drop = top - low + 0.3;
+      const zc = groundAt(...at(0, 0)); z.position.y = Math.min(top, zc + 0.7) - 0.04;
+      const drop = z.position.y - low + 0.3;
       const sk = new THREE.Mesh(new THREE.BoxGeometry(4.2 * K, drop, 4.2 * K), skirtMat); sk.position.set(0, 0.3 - drop / 2, 0); sk.userData.noConcept = true; z.add(sk);
       const sh = new THREE.Mesh(new THREE.PlaneGeometry(10 * K, 11 * K, 5, 6).rotateX(-Math.PI / 2), shadowMat);
       const pp = sh.geometry.attributes.position;
@@ -518,7 +518,8 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
         const rr = r < 10 ? Math.min(0.16 * sc.y + 2, r + 1) : Math.max(r, 0.18 * sc.y + 7), top = p.y + sc.y + 8, gx = Math.floor(p.x / cell), gz = Math.floor(p.z / cell);
         let hit = false;
         for (let ax = gx - 1; ax <= gx + 1 && !hit; ax++) for (let az = gz - 1; az <= gz + 1 && !hit; az++) {
-          for (const c of grid.get(`${ax},${az}`) || []) { const dx = p.x - c.x, dz = p.z - c.z; if (dx * dx + dz * dz < rr * rr && c.y < top) { hit = true; break; } }
+          for (const c of grid.get(`${ax},${az}`) || []) { const dx = p.x - c.x, dz = p.z - c.z; if (r < 10) { const u = Math.max(0, (c.y - p.y) / sc.y), rc = 0.15 * sc.x * (1 - u) + 0.8; if (u < 1.05 && dx * dx + dz * dz < rc * rc) { hit = true; break; } continue; }   // small clearing = only a tree the lens really passes through, cone by cone (grid review 11-01: it was taking whole corridors)
+            if (dx * dx + dz * dz < rr * rr && c.y < top) { hit = true; break; } }
         }
         if (hit) o.setMatrixAt(i, zero);
       }
