@@ -3,7 +3,7 @@
 export const CLIPS = [
   { id: 'camp', ch: 'ch03', a: 0.3, b: 0.56, n: 86, cap: 'The campground · drone' },
   { id: 'rapids', ch: 'ch04', a: 0.18, b: 0.42, n: 75, cap: 'Hemp Creek · drone' },
-  { id: 'dome', ch: 'ch05', a: 0.1, b: 0.6, n: 223, cap: 'Building the dome' },
+  { id: 'dome', ch: 'ch05', a: 0.1, b: 0.6, n: 223, cap: 'The dome · build to first snow' },
   { id: 'ponds', ch: 'ch06', a: 0.3, b: 0.49, n: 75, cap: 'The golf course · drone' },
   { id: 'gazebo', ch: 'ch06', a: 0.64, b: 0.765, n: 51, cap: 'The community gazebo' },
 ];

@@ -108,7 +108,7 @@ async function init() {
     ctx.photoTrees.instanceMatrix.needsUpdate = true;
   }
   const always = scene.children.filter(o => o.userData.always);
-  const showAlways = on => always.forEach(o => { o.visible = on && (!o.userData.maxDist || camera.position.distanceTo(o.userData.centre) < o.userData.maxDist); if (o.userData.maxDist) U.uLakeMirror.value = o.visible ? 1 : 0; });
+  const showAlways = on => always.forEach(o => { o.visible = on && (!o.userData.maxDist || camera.position.distanceTo(o.userData.centre) < o.userData.maxDist); if (o.userData.maxDist) U.uLakeMirror.value = o.visible ? 1 : 0; if (o.userData.far) o.userData.far.visible = on && !o.visible; });   // far off, plain water stands in (r1103: the dug bed showed as a tan slab from the air)
   const cp1End = (() => { cp1.apply(1); return { pos: camera.position.clone(), quat: camera.quaternion.clone(), fov: camera.fov }; })();
 
   // ---- global timeline: weights = seconds ----
@@ -157,7 +157,7 @@ async function init() {
     makerGrow(k, t);
     // captions wait until the camera has arrived
     const blend = c.mod.meta.blend ?? BLEND;   // a chapter with a 360 stop has its camera arrive before the photo fades in (Mike 10-31, frame 1767)
-    const capFade = rig.smooth(rig.clamp((t - blend * 0.8) / (blend * 0.4)));
+    const capFade = rig.smooth(rig.clamp((t - (c.mod.meta.capsFrom ?? blend * 0.8)) / (blend * 0.4)));   // meta.capsFrom: words that belong over the move itself
     c.wrap.style.opacity = String(capFade);
     // legend: in once the 360° hands over to 3D, out as the finale turns back into the sheet
     legend.style.opacity = String((k === 0 ? rig.seg(t, 0.2, 0.35) : k === chapters.length - 1 ? 1 - rig.seg(t, 0.45, 0.55) : c.mod.meta.legend === false ? 0 : 1) * (1 - panoState.op));

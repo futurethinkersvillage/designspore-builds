@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import { polysOf } from '../sheet.js';
 
 const FACE = 25 * Math.PI / 180;   // the way the stage faces, as a math angle from east
-export const meta = { id: 'ch11', title: 'Festival grounds & light', seconds: 24, animated: true };
+export const meta = { id: 'ch11', title: 'Festival grounds & light', seconds: 24, animated: true, blend: 0.14 };   // (r1103: the default 7 s blend hid the opening caption and flew over plain forest)
 
 const AMBER = new THREE.Color('#EA824E'), TERRA = new THREE.Color('#AF695E'), MAUVE = new THREE.Color('#73516F');
 let landingFloor, landingBits = [], landingMats = [], rig, cap1, cap2, cap3, cap4, tag, lines, glows = [], stars, stageMats = [], cards = [], stage = null, stageGY = 0, STAGE, art = [], treeSet, meadow, forestFloor, camp, crowd2, trail2;
@@ -297,9 +297,9 @@ export async function setup(ctx) {
   const CX = 150, CY = -650, CH = 215;
   rig = R.makeRig([
     pose(0.00, CX, CY, CH, 322, -26, 340, 46),
-    pose(0.22, CX, CY, CH, 320, -25, 330, 46),     // hold: dusk falls over the grounds
-    pose(0.42, CX, CY, CH, 40, -17, 420, 46),      // pan across to the hiking trails, same spot
-    pose(0.54, CX, CY, CH, 42, -17, 420, 46),
+    pose(0.28, CX, CY, CH, 320, -25, 330, 46),     // hold: dusk falls over the grounds
+    pose(0.46, CX, CY, CH, 40, -17, 420, 46),      // pan across to the hiking trails, same spot
+    pose(0.58, CX, CY, CH, 42, -17, 420, 46),
     [0.78, -203 + 200, -241 + 90, gA(-203, -241) + 30, 200, 246, -18, 50],
     [0.88, -203, -241, gA(-203, -241) + 7, 44, 245, -8, 50],
     [1.00, -203, -241, gA(-203, -241) + 7, 38, 245, -8, 50],
@@ -367,10 +367,10 @@ export function update(t, ctx) {
   const show = seg(t, 0.0, 0.08);   // the stage glows from the first frame (i9)
   if (stage) STAGE.update(stage, U.uTime.value, show);
   for (const a of art) a.mod.update?.(a.o, U.uTime.value);
-  cap1.style.opacity = seg(t, 0.04, 0.07) - seg(t, 0.2, 0.23);   // in with the overview (i7: 2.4 s with no words)
+  cap1.style.opacity = seg(t, 0.12, 0.15) - seg(t, 0.26, 0.29);   // in with the overview (i7: 2.4 s with no words)
   cap2.style.opacity = seg(t, 0.8, 0.84);   // on the approach and the stage hold (i9, i11)
   cap4.style.opacity = 0;
-  cap3.style.opacity = seg(t, 0.42, 0.45) - seg(t, 0.56, 0.59);   // from the start of the dive (i9)
+  cap3.style.opacity = seg(t, 0.46, 0.49) - seg(t, 0.6, 0.63);   // from the start of the dive (i9)
   tag.style.opacity = seg(t, 0.05, 0.15);
 }
 

@@ -88,7 +88,7 @@ export function update(t, ctx) {
   ctx.labels.update(0, 0, ctx.shown, ctx.camera);
   ctx.planned.update(0, 1, 1, false);
   if (vignette) vignette.style.opacity = 0.5;   // warm-dark edges: the brand mood over the real land
-  cap.style.opacity = R.seg(t, 0.08, 0.2) - R.seg(t, 0.28, 0.32) + R.seg(t, 0.8, 0.84);   // (i9: back sooner — 3 s with nothing on screen)   // on the arrival, off for the inside photo, back on the final hold
+  cap.style.opacity = R.seg(t, 0.8, 0.84);   // once, on the final hold (r1103: the early one only flashed under the blend)   // (i9: back sooner — 3 s with nothing on screen)   // on the arrival, off for the inside photo, back on the final hold
   cap.style.transform = `translateY(${(1 - R.seg(t, 0.08, 0.24)) * 14}px)`;
   const p = 0;   // (the dome footage beside the 3D shows the inside now)   // inside the dome, while the camera is at its door (~2 s opaque; i7: 1.5 s was too short)
   photo.style.opacity = p;

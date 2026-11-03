@@ -5,7 +5,7 @@ import { LineSegments2 } from 'three/addons/lines/LineSegments2.js';
 import { LineSegmentsGeometry } from 'three/addons/lines/LineSegmentsGeometry.js';
 import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 
-export const meta = { id: 'ch07', title: 'Future development', seconds: 21, animated: false, legend: false };
+export const meta = { id: 'ch07', title: 'Future development', seconds: 21, animated: false, legend: false, capsFrom: 0 };   // the big title rides the climb (r1103: it never showed)
 
 // timed after the film's camera blend (t < 0.3), one phase every ~2 s
 const PHASES = [

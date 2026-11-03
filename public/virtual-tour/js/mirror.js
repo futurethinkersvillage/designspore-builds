@@ -33,6 +33,9 @@ export function lakeMirror(ctx, _plan) {
   m.rotation.x = -Math.PI / 2;
   m.position.y = ctx.lakeLevel;   // the engine dug the bed and raised the bank to this level: this is the only water surface on the lake (Mike 11-01, frame 5831)   // at the shoreline: from the lake's centre the terrain covered half of it, so the mirror showed as a patch
   m.userData.always = true; m.userData.maxDist = 1100; m.userData.centre = new THREE.Vector3(cx, m.position.y, -cy);   // the film shows it in every chapter, unless the camera is far off
+  // past maxDist the mirror is off: the same outline in the mirror's deep blue-black stands in, so the lake stays water from the air
+  const far = new THREE.Mesh(m.geometry, new THREE.MeshBasicMaterial({ color: new THREE.Color().setRGB(0.04, 0.068, 0.092) }));
+  far.rotation.x = -Math.PI / 2; far.position.y = m.position.y; far.visible = false; m.userData.far = far; ctx.scene.add(far);
   ctx.U.uLakeMirror.value = 1; ctx.scene.add(m); ctx._lakeMirror = m;
   return m;
 }
