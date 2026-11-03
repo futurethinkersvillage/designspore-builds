@@ -1,7 +1,7 @@
 // Chapter 8 — Frontier hands, AI-native minds. In to the planned Maker Space, a hold on the building, then through the
 // open door and round the inside: CNC, lasers, the 3D-printer wall, the woodshop, the tool wall, the coworking tables.
 
-export const meta = { id: 'ch08', title: 'Frontier hands, AI-native minds', seconds: 28, animated: false };
+export const meta = { id: 'ch08', title: 'Frontier hands, AI-native minds', seconds: 32, animated: false };
 
 let rig, capPlan, capIn, tag, maker, outline, stations = [];
 
@@ -22,18 +22,19 @@ export async function setup(ctx) {
   // doors, a hold on the building, through the open west door, then one slow walk up the middle, panning right round:
   // the CNC + lasers, the printer wall, the woodshop, the tool wall, back to the coworking tables. (seconds / 24)
   rig = R.makeRig([
-    [0.00, ms[0] - 4, ms[1] - 40, hm + 14, 60, 0, -18, 45],
-    [0.16, ms[0] - 3, ms[1], hm + 4, 34, -4, -10, 45],
-    [0.30, ms[0] - 0.4, ms[1] - 37.9, hm + 10.7, 0, -4, -10, 45],    // hold: the first line reads (~3.9 s); the same camera, held as a position so the walk in is one straight line (i18: shrink, then jump)
-    [0.44, ms[0] - 3.4, ms[1] - 12.5, eye, 0, -15, -3, 62],  // in through the open door, the CNC + lasers either side
-    [0.49, ms[0] - 1.6, ms[1] - 10, eye + 0.3, 0, -38, -5, 62],   // round the CNC, not through its gantry (i17)
-    [0.55, ms[0] - 2.6, ms[1] - 7, eye, 0, -62, -4, 62],     // left to the 3D-printer wall…
+    [0.000, ms[0] - 4, ms[1] - 40, hm + 14, 60, 0, -18, 45],
+    [0.160, ms[0] - 3, ms[1], hm + 4, 34, -4, -10, 45],
+    [0.300, ms[0] - 0.4, ms[1] - 37.9, hm + 10.7, 0, -4, -10, 45],    // hold: the first line reads (~3.9 s); the same camera, held as a position so the walk in is one straight line (i18: shrink, then jump)
+    [0.400, ms[0] - 0.4, ms[1] - 37.9, hm + 10.7, 0, -4, -10, 45],   // still held: the building finishes rising (Mike 11-03)
+    [0.536, ms[0] - 3.4, ms[1] - 12.5, eye, 0, -15, -3, 62],  // in through the open door, the CNC + lasers either side
+    [0.577, ms[0] - 1.6, ms[1] - 10, eye + 0.3, 0, -38, -5, 62],   // round the CNC, not through its gantry (i17)
+    [0.627, ms[0] - 2.6, ms[1] - 7, eye, 0, -62, -4, 62],     // left to the 3D-printer wall…
     // …then one sweep, always clockwise, round the room
-    [0.66, ms[0] - 3.4, ms[1] - 1, eye, 0, -20, -4, 62],   // the woodshop
-    [0.75, ms[0] - 3.2, ms[1] + 2, eye, 0, 15, -3, 62],    // the plans on the back wall
-    [0.83, ms[0] - 3, ms[1] + 3, eye, 0, 85, -3, 62],     // the tool wall, the mitre station, the lumber
-    [0.90, ms[0] - 3, ms[1] + 3, eye, 0, 150, -4, 62],    // round to the coworking tables and the glass doors
-    [1.00, ms[0] - 3, ms[1] + 3, eye, 0, 152, -4, 62],    // hold: the last line reads
+    [0.718, ms[0] - 3.4, ms[1] - 1, eye, 0, -20, -4, 62],   // the woodshop
+    [0.793, ms[0] - 3.2, ms[1] + 2, eye, 0, 15, -3, 62],    // the plans on the back wall
+    [0.859, ms[0] - 3, ms[1] + 3, eye, 0, 85, -3, 62],     // the tool wall, the mitre station, the lumber
+    [0.917, ms[0] - 3, ms[1] + 3, eye, 0, 150, -4, 62],    // round to the coworking tables and the glass doors
+    [1.000, ms[0] - 3, ms[1] + 3, eye, 0, 152, -4, 62],    // hold: the last line reads
   ]);
 
   const mk = (eyebrow, h1) => {
@@ -44,7 +45,7 @@ export async function setup(ctx) {
   };
   capPlan = mk('Planned · the Maker Space', 'Frontier hands,<br>AI-native minds.');
   // a short line for each station on the walk (i12: 15 s of unlabelled machines)
-  stations = [['CNC, lasers, 3D printers', 0.45, 0.62], ['Woodshop, robots, tools', 0.65, 0.85]].map(([text, a, b]) => {
+  stations = [['CNC, lasers, 3D printers', 0.544, 0.685], ['Woodshop, robots, tools', 0.71, 0.876]].map(([text, a, b]) => {
     const c = mk('Inside the Maker Space', `<span style="font-size:clamp(24px,3vw,40px);white-space:nowrap">${text}</span>`); return { c, a, b };
   });
   capIn = mk('Inside the Maker Space', '<span style="white-space:nowrap">Wood, code and robots</span><br>under one roof.');
@@ -63,10 +64,10 @@ export function update(t, ctx) {
   ctx.U.uWaterAmt.value = 0.35; // up close the atlas creek line sits off the real creek: keep it a hint
   // the maker space is part of the persistent world (concept look); it no longer pops up here
   outline.visible = false;   // no concept outline: planned things render as real buildings (Mike 10-28; cut 11 review)
-  capPlan.style.opacity = seg(t, 0.16, 0.19) - seg(t, 0.28, 0.305);   // on the hold outside, gone before the move
+  capPlan.style.opacity = seg(t, 0.16, 0.19) - seg(t, 0.385, 0.405);   // on the hold outside, gone before the move
   capPlan.style.transform = `translateY(${(1 - seg(t, 0.16, 0.21)) * 14}px)`;
   for (const k of stations) k.c.style.opacity = seg(t, k.a, k.a + 0.015) * (1 - seg(t, k.b - 0.015, k.b));
-  capIn.style.opacity = seg(t, 0.895, 0.92);                           // on the last sweep inside, when it settles
-  capIn.style.transform = `translateY(${(1 - seg(t, 0.895, 0.94)) * 14}px)`;
-  tag.style.opacity = seg(t, 0.52, 0.6);
+  capIn.style.opacity = seg(t, 0.913, 0.934);                           // on the last sweep inside, when it settles
+  capIn.style.transform = `translateY(${(1 - seg(t, 0.913, 0.95)) * 14}px)`;
+  tag.style.opacity = seg(t, 0.602, 0.669);
 }

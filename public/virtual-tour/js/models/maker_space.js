@@ -245,7 +245,7 @@ export function build({ lod = 'high' } = {}) {
   for (const x of [-5, 0, 5]) { box(warm, 0.16, 0.06, D - 3, x, B + HW - 0.6, 0); box(dark, 0.2, 0.05, D - 3, x, B + HW - 0.55, 0); const pool = new THREE.Mesh(new THREE.PlaneGeometry(3.4, D - 2).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xffd9a8, transparent: true, opacity: 0.16, blending: THREE.AdditiveBlending, depthWrite: false, alphaMap: softEdge() })); pool.position.set(x, B + 0.05, 0); g.add(pool); }
 
   if (hi) {
-    const I = new THREE.Group(); I.position.y = B; g.add(I);
+    const I = new THREE.Group(); I.name = 'interior'; I.position.y = B; g.add(I);
     // soft contact shadows under everything that stands on the floor (i11: furniture floated, 'catalogue' look)
     const aoTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'), r = x.createRadialGradient(32, 32, 6, 32, 32, 32); r.addColorStop(0, 'rgba(20,14,10,.62)'); r.addColorStop(0.7, 'rgba(20,14,10,.34)'); r.addColorStop(1, 'rgba(20,14,10,0)'); x.fillStyle = r; x.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
     const aoM = new THREE.MeshBasicMaterial({ map: aoTex, transparent: true, depthWrite: false });

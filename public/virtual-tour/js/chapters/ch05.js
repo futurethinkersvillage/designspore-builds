@@ -4,7 +4,7 @@
 import { makeBuildings } from '../objects.js';
 
 import { lakeMirror } from '../mirror.js';
-export const meta = { id: 'ch05', title: 'The dome & the lake', seconds: 22, animated: true };
+export const meta = { id: 'ch05', title: 'The dome & the lake', seconds: 30, animated: true };
 
 // The dome sits where the drone photo shows it (the plan polygon is ~10 m SW of it; models/notes/dome.md).
 const DOME = { x: -144.5, y: -145.5, rotY: 2.314 };
@@ -90,7 +90,7 @@ export function update(t, ctx) {
   if (vignette) vignette.style.opacity = 0.5;   // warm-dark edges: the brand mood over the real land
   cap.style.opacity = R.seg(t, 0.08, 0.2) - R.seg(t, 0.28, 0.32) + R.seg(t, 0.8, 0.84);   // (i9: back sooner — 3 s with nothing on screen)   // on the arrival, off for the inside photo, back on the final hold
   cap.style.transform = `translateY(${(1 - R.seg(t, 0.08, 0.24)) * 14}px)`;
-  const p = R.seg(t, 0.45, 0.48) - R.seg(t, 0.51, 0.54);   // inside the dome, while the camera is at its door (~2 s opaque; i7: 1.5 s was too short)
+  const p = 0;   // (the dome footage beside the 3D shows the inside now)   // inside the dome, while the camera is at its door (~2 s opaque; i7: 1.5 s was too short)
   photo.style.opacity = p;
   photo.style.transform = `translateY(${(1 - R.seg(t, 0.44, 0.5)) * 18}px)`;
   photo.querySelector('img').style.transform = `scale(${1.04 + 0.06 * R.seg(t, 0.28, 0.5)})`;

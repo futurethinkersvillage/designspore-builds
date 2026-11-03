@@ -80,7 +80,8 @@ export async function setup(ctx) {
     furnish(T.site, T.plan, T.R, T.floorY);
     const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 1e5), seen = new Map(), fw = new THREE.Vector3(Math.sin(T.hd * D2R), 0, -Math.cos(T.hd * D2R)).normalize();
     plane.normal.copy(fw); plane.userData = {};
-    T.site.traverse(o => { if (!o.isMesh || o.userData.noConcept) return; if (!seen.has(o.material)) { const m = o.material.clone(); m.clippingPlanes = [plane]; m.side = THREE.DoubleSide; seen.set(o.material, m); } o.material = seen.get(o.material); });
+    const SHELL = new Set(['shingle', 'ply', 'timber', 'trim', 'pc', 'glass', 'wood']);
+    T.site.traverse(o => { if (!o.isMesh || o.userData.noConcept || !SHELL.has(o.name)) return; if (!seen.has(o.material)) { const m = o.material.clone(); m.clippingPlanes = [plane]; m.side = THREE.DoubleSide; seen.set(o.material, m); } o.material = seen.get(o.material); });
     return { T, plane, fw, centre: new THREE.Vector3(T.x, T.gy + 1, -T.y), win: [[11, 20.5], [27, 37], [44.5, 52.5]][n] };
   });
 

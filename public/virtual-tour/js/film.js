@@ -117,6 +117,20 @@ async function init() {
   const ranges = chapters.map(c => { const a = acc; acc += c.seconds / total; return [a, acc]; });
   let active = -2, prevWrap = null;
   const handoff = { k: -1, x: 1 };
+  // the maker space is new (Mike 11-03): not there before its chapter; in it, the building rises out of the ground, then the kit arrives piece by piece
+  const MAKER = CHAPTERS.indexOf('ch08'); let grow = null;
+  const makerGrow = (k, t) => {
+    const M = E.models.maker_space; if (!M || MAKER < 0) return;
+    if (k < MAKER) { M.visible = false; return; }
+    if (k > MAKER) return;
+    if (!grow) { const I = M.getObjectByName('interior'), box = new THREE.Box3(), at = o => { box.setFromObject(o); return box.isEmpty() ? 0 : box.min.y; };
+      const shell = M.children.filter(o => o !== I).map(o => ({ o, y: at(o) })).sort((p, q) => p.y - q.y);
+      const kit = I ? I.children.map(o => { box.setFromObject(o); const c = box.getCenter(new THREE.Vector3()); return { o, z: -c.z }; }).sort((p, q) => q.z - p.z) : [];
+      grow = { shell, kit }; }
+    const s = rig.seg;
+    grow.shell.forEach(({ o }, i) => { const a = 0.24 + 0.12 * i / grow.shell.length, k1 = s(t, a, a + 0.05); o.scale.y = Math.max(k1, 0.001); o.visible = k1 > 0.001; });
+    grow.kit.forEach(({ o }, i) => { const a = 0.43 + 0.2 * i / Math.max(1, grow.kit.length), k1 = s(t, a, a + 0.04), b = k1 < 1 ? 1 + 0.12 * Math.sin(k1 * Math.PI) : 1; o.scale.setScalar(Math.max(k1 * b, 0.001)); o.visible = k1 > 0.001; });
+  };
   let syncLights = () => {};
   const show = i => {
     if (i === active) return;
@@ -140,6 +154,7 @@ async function init() {
     const [a, b] = ranges[k], t = (p - a) / (b - a), c = chapters[k];
     U.uTime.value = REC ? p * total : performance.now() / 1000;
     panoState.op = 0; c.mod.update(t, ctx);
+    makerGrow(k, t);
     // captions wait until the camera has arrived
     const blend = c.mod.meta.blend ?? BLEND;   // a chapter with a 360 stop has its camera arrive before the photo fades in (Mike 10-31, frame 1767)
     const capFade = rig.smooth(rig.clamp((t - blend * 0.8) / (blend * 0.4)));
@@ -230,7 +245,7 @@ ${where}`;
   };
   let P = 0, drawn = -1;
   const frame = () => { if (need || P !== drawn || P > 0.33 * CP1_SECONDS / total) { apply(P); render(P); drawn = P; need = false; showCounter(P); showStatus(P); clips.update(P); } };
-  { let was = 0, now = 0; for (const k of ['maker_space', 'props', 'office', 'dome', 'shower_house', 'footbridge', 'shed', 'gazebo', 'sauna', 'sauna_setting', 'bunk_cabin', 'entrance_sign', 'top_house', 'bottom_house', 'horse_corrals']) if (E.models[k]) { const [a, b] = mergeStatic(E.models[k], REVIEW); was += a; now += b; } console.log('merged', was, 'parts into', now); }
+  { let was = 0, now = 0; for (const k of ['maker_space', 'props', 'office', 'dome', 'shower_house', 'footbridge', 'shed', 'gazebo', 'sauna', 'sauna_setting', 'bunk_cabin', 'entrance_sign', 'top_house', 'bottom_house', 'horse_corrals']) if (E.models[k]) { const [a, b] = mergeStatic(E.models[k], REVIEW, k === 'maker_space' ? 'interior' : undefined); was += a; now += b; } console.log('merged', was, 'parts into', now); }
   // the lake's reflection draws the whole scene a second time: nothing far from the water can show in it, so it draws only the land, trees, zomes and dome
   if (ctx._lakeMirror) { const m = ctx._lakeMirror, box = new THREE.Box3(), mid = new THREE.Vector3(), far = [];
     for (const o of [...Object.values(E.models), ...chapters.flatMap(c => c.objs.filter(x => !x.isLight))]) { if (!o?.isObject3D || far.includes(o) || o === E.models.zome_merged || o === E.models.village_land || o === E.models.dome) continue; box.setFromObject(o); if (!box.isEmpty() && (o.userData.slug || Object.values(E.models).includes(o) || box.getCenter(mid).distanceTo(m.userData.centre) > 450 + box.getSize(mid.clone()).length() / 2)) far.push(o); }
