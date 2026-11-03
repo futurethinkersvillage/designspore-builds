@@ -300,7 +300,19 @@ vec3 water(vec3 land, vec2 xy, vec3 wpos) {
   // chapters turn uWaterAmt down because the atlas CREEK lines sit a few metres off the photo's; lakes are exact, so
   // still water keeps its full surface
   float amtK = max(mix(uWaterAmt, 1.0, still * still), traced);
-  if (traced > 0.5) { vec3 wet = land * vec3(0.3, 0.36, 0.42) + sky * (0.03 + fres * 0.35) + vec3(0.78, 0.82, 0.8) * foam * 0.28 * (1.0 - still) + vec3(1.0, 0.9, 0.72) * pow(max(dot(R, uSunDir), 0.0), 70.0) * 0.12; return mix(land, mix(wet, wc, still * still), amt * uTreeFade); }   // (grid review 11-01: flat colour over a brown creek and reedy ponds)
+  if (traced > 0.5) {
+    // r1103: the darkened bed read as grey asphalt with white blobs beside the real footage (dark green-brown water, white rapids)
+    // one axis along Hemp Creek's run (NE to SW) with the atlas giving only the sign: following every bend of the blurred atlas marbled the streaks
+    vec2 fdn = vec2(-0.55, -0.83) * (dot(dir, vec2(-0.55, -0.83)) < 0.0 ? -1.0 : 1.0), fpp = vec2(-fdn.y, fdn.x);
+    float al = dot(xy, fdn), ac = dot(xy, fpp);
+    float rap = smoothstep(0.35, 0.75, vnoise(xy * 0.045 + 3.7));   // reaches of rapids between smooth glides
+    float s1 = vn(vec2(al * 0.2 - uTime * 2.6, ac * 1.5)), s2 = vn(vec2(al * 0.45 - uTime * 3.6, ac * 3.0 + 5.0));
+    float streaks = smoothstep(0.56, 0.9, s1 * 0.65 + s2 * 0.35) * (0.3 + 0.7 * rap);
+    vec3 body = mix(vec3(0.014, 0.024, 0.014), vec3(0.04, 0.06, 0.04), rap * 0.6);
+    body = mix(body, land * 0.3, 0.1);   // a hint of the bed
+    vec3 wet = body + sky * (0.015 + fres * 0.16) * vec3(0.8, 0.9, 1.0) + vec3(1.0, 0.9, 0.72) * pow(max(dot(R, uSunDir), 0.0), 60.0) * 0.16;
+    wet = mix(wet, vec3(0.78, 0.82, 0.8), streaks * 0.7 * (1.0 - still));
+    return mix(land, mix(wet, wc, still * still), amt * uTreeFade); }   // (grid review 11-01: flat colour over a brown creek and reedy ponds)
   return mix(land, wc, amt * (1.0 - creekKeep) * uTreeFade * amtK);   // (grid review 11-01: flat blue over a brown creek and reedy ponds)
 }
 vec2 quadUV(vec2 p, vec3 uA, vec3 uB, vec3 vA, vec3 vB) {

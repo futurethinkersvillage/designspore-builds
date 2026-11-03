@@ -145,15 +145,19 @@ async function init() {
   };
 
   const q = new THREE.Quaternion(), e0 = new THREE.Euler(), e1 = new THREE.Euler(), e2 = new THREE.Euler();
+  const PLANNED = ['zome', 'zome_merged', 'village_land', 'event_gazebo'], FUT_K = CHAPTERS.indexOf(FUTURE_FROM);
+  const planned = (on, force) => PLANNED.forEach(n => { const o = E.models[n]; if (o && (force || !on)) o.visible = on; });
   function apply(p) {
     handoff.x = 1;
-    if (p < CP1_SECONDS / total) { if (active !== -1) { show(-1); base(); } cp1.apply(p / (CP1_SECONDS / total)); legend.style.opacity = 0; showAlways(p > 0.9 * CP1_SECONDS / total); return; }   // (in behind the opaque aerial photo)
+    if (p < CP1_SECONDS / total) { if (active !== -1) { show(-1); base(); } cp1.apply(p / (CP1_SECONDS / total)); planned(false); legend.style.opacity = 0; showAlways(p > 0.9 * CP1_SECONDS / total); return; }   // (in behind the opaque aerial photo)
     const i = ranges.findIndex(([a, b]) => p <= b) ?? chapters.length - 1;
     const k = i < 0 ? chapters.length - 1 : i;
     show(k);
     const [a, b] = ranges[k], t = (p - a) / (b - a), c = chapters[k];
     U.uTime.value = REC ? p * total : performance.now() / 1000;
-    panoState.op = 0; c.mod.update(t, ctx);
+    panoState.op = 0; if (k >= FUT_K) planned(true, true);
+    c.mod.update(t, ctx);
+    if (k < FUT_K) planned(false);   // after the chapter's own update, so nothing planned shows in a 'here today' shot
     makerGrow(k, t);
     // captions wait until the camera has arrived
     const blend = c.mod.meta.blend ?? BLEND;   // a chapter with a 360 stop has its camera arrive before the photo fades in (Mike 10-31, frame 1767)
