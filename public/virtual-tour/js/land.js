@@ -17,6 +17,7 @@ export const U = {
   uRevealMode: { value: 0 },    // 0 wipe · 1 radial · 2 by height
   uFinish: { value: 0 },        // 0..1 global "everything real" (reaches the far mountains)
   uPaperShade: { value: 0 },    // light the paper model once it has depth
+  uMapEx: { value: 0 }, uMapPl: { value: 0 }, uMapPulse: { value: 0 }, uMapPulseWhich: { value: 0 },   // the opening map: dim or blink existing (cream) and planned (amber) linework
   uPlanOverlay: { value: 0 },   // planned linework on the real land
   uPaper: { value: new THREE.Color() },
   uEdge: { value: new THREE.Color() },
@@ -128,6 +129,7 @@ void main() {
 const FRAG = /* glsl */`
 ${REVEAL_GLSL}
 uniform vec3 uPaper, uEdge, uFog, uSunDir;
+uniform float uMapEx, uMapPl, uMapPulse, uMapPulseWhich;
 uniform float uFogDensity, uPaperShade, uPlanOverlay, uContour, uContourIndex, uHill, uHoleHalf, uTerraceLines, uFurniture, uGrade, uUseBands;
 uniform vec3 uBands[4];
 uniform vec3 uDroneGain, uTideGlow, uContourCol, uContourIdxCol, uSkyTop;
@@ -218,7 +220,7 @@ vec3 groundMat(vec3 photo, vec2 xy, float dist, vec2 dUV, vec3 n) {
     float wi = w[i] / max(tot, 1e-4);
     if (wi < 0.01) continue;
     if (i == 6) { col += wi * photo; continue; }
-    if (((i >= 2 && i <= 5) || i == 7) && !(xy.x > -50.0 && xy.y < 135.0 && xy.y > -300.0)) {   // real ground: the scan itself, baked RVs and tarps held down, a little material grain up close
+    if (((i >= 2 && i <= 5) || i == 7) && !(xy.x > -30.0 && xy.x < 170.0 && xy.y < 280.0 && xy.y > -300.0)) {   // real ground: the scan itself, baked RVs and tarps held down, a little material grain up close
       vec3 pc = max(clamp(photo, lowP * 0.62, lowP * 1.22), uGroundMean[i] * 0.72 * (1.0 - smoothstep(25.0, 70.0, dist)));
       { float Lp = dot(photo, vec3(0.3, 0.6, 0.1)), Lm = dot(uGroundMean[i], vec3(0.3, 0.6, 0.1)), odd = clamp(smoothstep(0.0, 0.05, photo.b - photo.r) + smoothstep(1.5, 2.2, Lp / Lm), 0.0, 1.0); pc = mix(pc, lowP * 0.5 + uGroundMean[i] * 0.5, odd); } vec3 mg = texture(tGround, vec3(xy / uGroundSize[i], float(i))).rgb;
       col += wi * pc * mix(1.0, 0.7 + 0.6 * dot(mg, vec3(0.3, 0.6, 0.1)) / max(dot(pow(uGroundMean[i], vec3(0.45)), vec3(0.3, 0.6, 0.1)), 0.01), 1.0 - smoothstep(20.0, 80.0, dist)); continue; }
@@ -241,7 +243,8 @@ vec3 groundMat(vec3 photo, vec2 xy, float dist, vec2 dUV, vec3 n) {
   // normal-map shading relative to the terrain's own (the main lighting multiplies in after this)
   vec3 pn = normalize(n + vec3(nt.x, 0.0, -nt.y) * 0.9);
   float shade = (0.80 + 0.36 * max(dot(pn, uSunDir), 0.0)) / (0.80 + 0.36 * max(dot(n, uSunDir), 0.0));
-  return mix(photo, col * shade, near * clamp(tot0, 0.0, 1.0));
+  float field = smoothstep(-305.0, -350.0, xy.y) * (1.0 - smoothstep(110.0, 160.0, xy.x));
+  return mix(photo, col * shade, near * clamp(tot0, 0.0, 1.0) * (1.0 - field));
 }
 float ripple(vec2 q) { return vnoise(q * 0.32) * 0.6 + vnoise(q * 0.85 + 7.3) * 0.3 + vnoise(q * 2.1 - 3.1) * 0.1; }
 // Water from the mask (water.js): moving ripples downstream, sky reflection with fresnel, sun glints.
@@ -325,6 +328,7 @@ void main() {
   vec2 sUV = (vXY - uSheetRect.xy) / (uSheetRect.zw - uSheetRect.xy);
   if (sUV.x > 0.0 && sUV.y > 0.0 && sUV.x < 1.0 && sUV.y < 1.0) {
     vec4 s = texture2D(tSheet, sUV);
+    { float pl = smoothstep(0.08, 0.28, s.r - s.b); s.a *= 1.0 - mix(uMapEx, uMapPl, pl); float on = mix(1.0 - pl, pl, uMapPulseWhich); s.rgb = min(s.rgb * (1.0 + 0.9 * uMapPulse * on), vec3(1.0)); }
     paper = mix(paper, s.rgb, s.a);
     vec4 fu = texture2D(tFurniture, sUV);
     paper = mix(paper, fu.rgb, fu.a * uFurniture);

@@ -3,7 +3,7 @@
 import { makeRig, seg } from './rig.js';
 import { SQ } from './sheet.js';
 
-export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
+export function checkpoint1(E, { style, Q, REC, onResize, keys, cp1Seconds = 50 } = {}) {
   const $ = s => document.querySelector(s);
   const { U, camera, renderer, sky, pano, planned, labels, colors, PANO, panoPos } = E;
   const { paper, horizon, skyTop, drawHorizon, drawTop } = colors;
@@ -13,6 +13,7 @@ export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
   let rig;
   const buildRig = () => {
     const aspect = innerWidth / innerHeight;
+    const SHOWER_HEADING = (Math.atan2(-70 - pp[0], 102 - pp[1]) / D2R + 360) % 360, SHOWER_PITCH = -Math.atan2(panoPos.y - E.groundAt(-70, 102), Math.hypot(-70 - pp[0], 102 - pp[1])) / D2R;
     const sheetFrame = aspect >= 1.2 ? Math.max(1800, 3120 / aspect) * 1.03 : Math.max(1900, 1600 / aspect);
     rig = makeRig(keys || [
       // heading SQ (-2.6°): the parcel's long edges run 2.6° off true east–west, so the camera turns to square them
@@ -30,7 +31,10 @@ export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
       [0.75, pp[0], pp[1], panoPos.y, 0, 345, -82, 56],   // frozen through the dissolve
       [0.86, pp[0], pp[1], panoPos.y, 0, 352, -8, 56],
       [0.965, pp[0], pp[1], panoPos.y, 0, 89, -5, 56],   // (Mike 10-30: pan more) a 97° sweep across the park, ~27°/s, then STOP
-      [1.00, pp[0], pp[1], panoPos.y, 0, 89, -5, 56],    // still: the photo fades out here, never during the move (Mike 10-31, frame 1025)
+      [1.00, pp[0], pp[1], panoPos.y, 0, 89, -5, 56],
+      // Mike 11-02: still in the photo, tilt all the way back down until it points at the shower house; only then to 3D
+      [1.13, pp[0], pp[1], panoPos.y, 0, SHOWER_HEADING, SHOWER_PITCH, 56],
+      [1.21, pp[0], pp[1], panoPos.y, 0, SHOWER_HEADING, SHOWER_PITCH, 56],   // still: the photo fades out here
     ]);
   };
   buildRig();
@@ -38,7 +42,23 @@ export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
 
   const caps = { place: $('#cap-place'), park: $('#cap-park'), hint: $('#hint'), credit: $('#credit'), title: $('#sheet-title'), vignette: $('#vignette') };
 
-  function apply(p) {
+  // the opening map explains itself (Mike 11-02): first what's here, then what's planned, each blinking with a big title, on a held sheet
+  const bigT = document.createElement('div');
+  bigT.style.cssText = 'position:fixed;left:0;right:0;top:9vh;text-align:center;pointer-events:none;opacity:0;color:#F2EDE8;text-shadow:0 2px 24px rgba(10,8,14,.9)';
+  bigT.innerHTML = '<div class="k" style="font:600 clamp(11px,1.3vw,15px)/1 Inter,sans-serif;letter-spacing:.24em;text-transform:uppercase"></div><div class="h" style="font:500 clamp(36px,6.2vw,92px)/1.02 Cormorant,Georgia,serif;margin-top:12px"></div>';
+  document.body.appendChild(bigT); caps.big = bigT;
+  const HOLD_AT = 1.7, HOLD = 9, TAIL = 7;   // seconds: into the film, the held sheet, the added 360 tilt
+  const clock = p => { const s = p * cp1Seconds; return s < HOLD_AT ? s / 34 : s < HOLD_AT + HOLD ? HOLD_AT / 34 : (s - HOLD) / 34; };
+  const hold01 = p => Math.max(0, Math.min(1, (p * cp1Seconds - HOLD_AT) / HOLD));
+  function apply(p0) {
+    const k = hold01(p0), p = clock(p0);
+    { const A = seg(k, 0.03, 0.09) * (1 - seg(k, 0.47, 0.52)), B = seg(k, 0.53, 0.59) * (1 - seg(k, 0.93, 0.99)), pulse = 0.5 + 0.5 * Math.cos(k * HOLD * 2 * Math.PI / 1.1);
+      U.uMapEx.value = B * 0.85; U.uMapPl.value = A * 0.85;   // the other group steps back
+      U.uMapPulse.value = (A + B) * pulse;   // the group being named blinks
+      U.uMapPulseWhich.value = B > A ? 1 : 0;
+      bigT.style.opacity = Math.max(A, B); bigT.style.display = REC && A + B < 0.01 ? 'none' : '';
+      if (A > B) { bigT.querySelector('.k').textContent = 'Existing infrastructure'; bigT.querySelector('.k').style.color = '#F2EDE8'; bigT.querySelector('.h').textContent = 'What we already have'; }
+      else { bigT.querySelector('.k').textContent = 'Future development'; bigT.querySelector('.k').style.color = '#EA824E'; bigT.querySelector('.h').textContent = 'What we plan to build'; } }
     // ---- land ----
     // ink / blueprint / night: the land rises as a drawing during the dolly zoom, then turns real.
     // survey: the land turns real as the cut passes it, so it rises later, once the camera has tilted to see it.
@@ -52,9 +72,9 @@ export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
     U.uPaperShade.value = seg(p, 0.08, 0.22);
     U.uFurniture.value = 1 - seg(p, 0.08, 0.16);   // gone before the push-in reaches the frame edge
     U.uPlanOverlay.value = style.plan3d ? 0 : seg(p, 0.40, 0.50); // brand palettes draw the plan in 3D instead (planned.js)
-    U.uGrade.value = seg(p, 0.6, 0.72) * (1 - seg(p, 0.9, 0.95));   // back to the chapters' look behind the opaque photo: no pop at the hand-off
-    U.uTreeFade.value = 1 - seg(p, 0.725, 0.75) + seg(p, 0.9, 0.95);   // only behind the photo (Mike 11-01, frame 710: all the trees vanished)   // trees seen from straight above read as black discs: gone before the hand-off
-    U.uExag.value = 1 + 0.5 * (seg(p, 0.12, 0.26) - seg(p, 0.40, 0.48));       // the drawing rises tall, then settles to true
+    U.uGrade.value = seg(p, 0.6, 0.72) * (1 - seg(p, 1.05, 1.12));   // back to the chapters' look behind the opaque photo: no pop at the hand-off
+    U.uTreeFade.value = 1 - seg(p, 0.725, 0.75) + seg(p, 1.05, 1.12);   // only behind the photo (Mike 11-01, frame 710: all the trees vanished)   // trees seen from straight above read as black discs: gone before the hand-off
+    U.uExag.value = 1;   // true heights all the way (Mike 11-02: the mountains shrank at frames 419-532 when this settled)
     U.uTide.value = p < 0.49 ? -40 + 740 * Math.pow(seg(p, 0.28, 0.49), 1.7) : 700 + 1400 * seg(p, 0.49, 0.555); // lingers on the valley floor
     const skyT = seg(p, 0.20, 0.36), realT = U.uFinish.value;
     const hz = drawHorizon.clone().lerp(horizon, realT);
@@ -73,7 +93,7 @@ export function checkpoint1(E, { style, Q, REC, onResize, keys } = {}) {
     if (style.pano === 'fade') op = seg(p, 0.685, 0.76);
     else if (style.pano === 'iris') { iris = Math.max(0, 1.3 * seg(p, 0.67, 0.775) - 0.03); op = iris > 0 ? 1 : 0; } // iris < 0 would mean "no mask"
     else op = seg(p, 0.70, 0.75); // dolly: dissolve only once the camera sits exactly where the drone was
-    op *= 1 - seg(p, 0.968, 0.998);
+    op *= 1 - seg(p, 1.14, 1.20);
     if (Q.has('panoAlpha')) { op = Number(Q.get('panoAlpha')); iris = -1; } // alignment check
     pano.mat.uniforms.uOpacity.value = op; pano.mat.uniforms.uIris.value = iris;
     pano.mat.uniforms.uWarm.value = 1 - seg(p, 0.75, 0.84);

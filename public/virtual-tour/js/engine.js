@@ -56,6 +56,8 @@ async function load({ style, MOBILE, progress, FAST }) {
     if (px < 0 || py < 0 || px >= dc.width || py >= dc.height) return null;
     const i = (py * dc.width + px) * 4; return dd[i + 3] > 200 ? [dd[i], dd[i + 1], dd[i + 2]] : null;
   };
+  // Mike 11-02: the farm is out of the film, plan and all (its models and layers stay on disk, ready for later)
+  for (const k of Object.keys(L)) if (k.startsWith('farm')) L[k] = [];
   const sheets = await drawSheets(L, style); tick();
   const [nearM, farM, midM] = await Promise.all([buildMosaic(meta.merc_near, nearHalf, nearZoom, tick), buildMosaic(meta.merc_far, farHalf, farZoom, tick),
     MOBILE || FAST ? null : buildMosaic(meta.merc_near, 1300, 17, tick)]);  // z17 around the property: crisper fly-over ground
@@ -102,6 +104,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   }
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: REC });
+  renderer.localClippingEnabled = true;   // ch10's zome cross-sections
   renderer.setPixelRatio(REC ? 1 : Math.min(devicePixelRatio, MOBILE ? 1.5 : 2));
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(40, 1, 10, 100000);
@@ -166,7 +169,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   };
   // the village replaces the plan's two rows: everything that reads the sites (map, sheet, keep-outs) follows
   { const oct = z => { const r = []; for (let k = 0; k <= 8; k++) r.push([z.x + Math.cos(k * 0.785) * 5, z.y + Math.sin(k * 0.785) * 5]); return { t: 'Polygon', p: {}, c: [r] }; };
-    D.L.cabins = V.zomes.filter(z => z.hamlet !== 'Lake Quarter').map(oct); D.L.lake_cabins = V.zomes.filter(z => z.hamlet === 'Lake Quarter').map(oct);
+    D.L.cabins = V.zomes.filter(z => z.hamlet !== 'Lakeside').map(oct); D.L.lake_cabins = V.zomes.filter(z => z.hamlet === 'Lakeside').map(oct);
     PLACE.zomepad = V.zomes.map(z => ({ x: z.x, y: z.y })); }
   // hand placements from the in-scene placer override the coded ones: { slug: { index: { x, y, rotY } } }
   for (const [slug, byI] of Object.entries(D.placements || {})) for (const [i, v] of Object.entries(byI)) if (PLACE[slug]?.[i]) Object.assign(PLACE[slug][i], v);
@@ -195,11 +198,22 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
       PLACE.rv.push({ x: c[0], y: c[1], rotY: Math.atan2(e[0], e[1]) + (r[0][0] * e[1] - r[0][1] * e[0] > 0 ? Math.PI : 0), variant: big ? 'fifth' : 'trailer', size: big ? 10 : 6.5 + 2 * h(i + 0.7) });
     });
   }
+  // The RV park, playground, office and shower-house ground are flat (Mike 11-02). The 30 m DEM rides over this area with a few metres of slope: level it, blending back over 30 m.
+  {
+    const m = D.meta.terrain_near, a = D.near, n = m.size, res = m.res;
+    const pts = ['full_service_rv_sites', 'power_water_rv_sites', 'regular_rv_sites'].flatMap(k => (D.L[k] || []).flatMap(f => polysOf(f).map(p => { const r = p[0]; return [r.reduce((s, q) => s + q[0], 0) / r.length, r.reduce((s, q) => s + q[1], 0) / r.length]; }))).filter(([x]) => x > -120);
+    pts.push([-72, 128], [-85, 123], [-65, 123], [-98, 64], [-75, 49], [-60, 90]);
+    const at = (x, y) => a[Math.round((m.half - y) / res) * n + Math.round((x + m.half) / res)], hs = pts.map(([x, y]) => at(x, y)).sort((p, q) => p - q), lv = hs[hs.length >> 1];
+    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { const x = -m.half + j * res, y = m.half - i * res; if (x < -170 || x > 100 || y < -60 || y > 290) continue;
+      let d = 1e9; for (const p of pts) { const q = Math.hypot(p[0] - x, p[1] - y); if (q < d) d = q; }
+      const w = d <= 14 ? 1 : d >= 44 ? 0 : 1 - (d - 14) / 30; if (w > 0) { const k = w * w * (3 - 2 * w); a[i * n + j] = a[i * n + j] * (1 - k) + lv * k; } }
+    land.refreshNear();
+  }
   // Level building pads (Mike 10-29: the ground under the gazebo and the top house sloped and clipped through them):
   // the terrain grid (10 m) is flattened to each building's mean ground height inside its footprint and blended back
   // over the next ~12 m, before anything is placed — so models, trees and the ground all agree.
   {
-    const PADR = { zomepad: 5.5, entrance_sign: 12, gazebo: 9, top_house: 9, bottom_house: 8, office: 7, dome: 7, shower_house: 9, sauna: 3, bunk_cabin: 4, shed: 7, maker_space: 15 };
+    const PADR = { zomepad: 5.5, entrance_sign: 7, gazebo: 9, top_house: 9, bottom_house: 8, office: 7, dome: 7, shower_house: 9, sauna: 3, bunk_cabin: 4, shed: 7, maker_space: 15 };
     const m = D.meta.terrain_near, a = D.near, n = m.size, res = m.res, orig = Float32Array.from(a);
     const sample = (x, y) => { const c = (x + m.half) / res, r = (m.half - y) / res, i = Math.floor(r), j = Math.floor(c), fx = c - j, fy = r - i;
       return (orig[i * n + j] * (1 - fx) + orig[i * n + j + 1] * fx) * (1 - fy) + (orig[(i + 1) * n + j] * (1 - fx) + orig[(i + 1) * n + j + 1] * fx) * fy; };
@@ -224,8 +238,10 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     const hs = REAL_LAKE.map(([x, y]) => rawAt(x, y)).sort((p, q) => p - q), L = hs[Math.floor(hs.length * 0.3)];
     const inside = (x, y) => { let c = false; for (let i = 0, j = REAL_LAKE.length - 1; i < REAL_LAKE.length; j = i++) { const [xi, yi] = REAL_LAKE[i], [xj, yj] = REAL_LAKE[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
     const edge = (x, y) => Math.min(...REAL_LAKE.map(q => Math.hypot(q[0] - x, q[1] - y)));
-    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { const x = -m.half + j * res, y = m.half - i * res; if (x < -120 || x > 60 || y < -340 || y > -140) continue;
-      const d = edge(x, y); if (inside(x, y)) a[i * n + j] = L - 0.8; else if (d < 15) a[i * n + j] = L - 0.3; else if (d < 34) a[i * n + j] = Math.max(a[i * n + j], L + 0.15 + (d - 15) * 0.02); }
+    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { const x = -m.half + j * res, y = m.half - i * res; if (x < -160 || x > 130 || y < -410 || y > -90) continue;
+      const d = edge(x, y); if (inside(x, y)) { a[i * n + j] = L - 0.8; continue; }
+      // a beach (Mike 11-02): the ground comes out of the water gently and stays gentle back past the last zomes, then the real hill rises behind
+      const beach = L + 0.2 + Math.min(d, 62) * 0.04, t = d <= 62 ? 0 : d >= 96 ? 1 : (d - 62) / 34, k = t * t * (3 - 2 * t), h = a[i * n + j]; a[i * n + j] = h > beach ? beach * (1 - k) + h * k : d < 34 ? beach : h; }
     land.refreshNear?.(); lakeLevel = L; }
   const EXISTING = ['gazebo', 'top_house', 'bottom_house', 'office', 'dome', 'bunk_cabin', 'shower_house', 'sauna', 'horse_corrals',
     'rv', 'shed', 'footbridge', 'sauna_setting', 'props', 'entrance_sign'];
@@ -235,7 +251,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
     rv: 4, props: 2.5, sauna_setting: 2, horse_corrals: 22, footbridge: 11 };
   const clear = [...Object.entries(PLACE).flatMap(([k, ps]) => ps.map(p => [p.x, p.y, CLEARR[k] || 9])),
     ...siteC('cabins').map(c => [...c, 11]), ...siteC('lake_cabins').map(c => [...c, 11]),   // room round each zome site (i3: rows hidden in trees)
-    ...V.courts.map(c => [c.x, c.y, c.r * 0.72]), ...V.paths.flatMap(p => p.kind === 'spur' ? [] : p.pts.filter((_, i) => i % 3 === 0).map(q => [q[0], q[1], 2.8])), [(V.lot[0][0] + V.lot[2][0]) / 2, (V.lot[0][1] + V.lot[2][1]) / 2, 24],
+    ...V.courts.map(c => [c.x, c.y, c.r * 0.72]), ...V.paths.flatMap(p => p.kind === 'spur' ? [] : p.pts.filter((_, i) => i % 3 === 0).map(q => [q[0], q[1], 2.8])), ...(V.parking || []).map(k => [k.x, k.y, 7]),
     ...siteC('maker_space').map(c => [...c, 22]), ...siteC('event_gazebo').map(c => [...c, 12]),
     [-22, 302, 9],   // the Maker Space's south-east approach: a spruce there blocked ch08's end frame (i9)
     // nor in the planned farm's beds, greenhouses, barn, mandala and pond (the food forest keeps its trees)
@@ -418,7 +434,9 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   {
     const { mergeGeometries } = await import('three/addons/utils/BufferGeometryUtils.js'), byMat = new Map();
     zomes.updateMatrixWorld(true);
-    zomes.traverse(o => { if (!o.isMesh) return; (byMat.has(o.material) ? byMat : byMat.set(o.material, [])).get(o.material).push(o); });
+    // the zomes the tour opens in cross-section (ch10) keep their own meshes
+    const opened = new Set(); zomes.children.forEach((z, i) => { if (V.zomes[i]?.tour) z.traverse(c => opened.add(c)); });
+    zomes.traverse(o => { if (!o.isMesh || opened.has(o)) return; (byMat.has(o.material) ? byMat : byMat.set(o.material, [])).get(o.material).push(o); });
     for (const [mat, list] of byMat) {
       const m = new THREE.Mesh(mergeGeometries(list.map(o => { const g = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry.clone(); return g.applyMatrix4(o.matrixWorld); })), mat);
       m.name = list[0].name; m.renderOrder = list[0].renderOrder; m.frustumCulled = false; zomeMerged.add(m); list.forEach(o => { o.visible = false; });
@@ -428,7 +446,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   { const VL = await import('./models/village_land.js'); const vl = VL.build({ V, ground: groundAt, level: lakeLevel - H0, lod: MOBILE ? 'low' : 'high' }); scene.add(vl); models.village_land = vl; }
   const maker = await placeModel('maker_space', { lod: MOBILE ? 'low' : 'high' });
   const farm = buildFarm({ L: D.L, ground: groundAt, lod: MOBILE ? 'low' : 'high' });
-  farm.userData.uGrow.value = 1.25; farm.userData.outline.material.opacity = 0; scene.add(farm); models.farm_concept = farm;
+  farm.userData.uGrow.value = 1.25; farm.userData.outline.material.opacity = 0; 
   farm.add(buildFarmDetails({ L: D.L, ground: groundAt, lod: MOBILE ? 'low' : 'high' }));   // crops, fence, tractor, coop… (Mike 10-30)
   // the new event gazebo (no model yet): a simple concept octagon pavilion on its plan footprint
   {

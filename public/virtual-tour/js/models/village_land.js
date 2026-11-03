@@ -1,5 +1,5 @@
 // The landscape of the zome village (data/village.json, tools/village_design.py): flower beds at the steps, fire circles, the green,
-// a play court, shared vegetable beds, path lamps and benches, the arrival lot with its cars and carts, a dock on the lake.
+// a play court, shared vegetable beds, path lamps and benches, small parking bays beside the homes, a dock on the lake.
 // All instanced. Local metres (x = east, y = north, three z = -north). Planned; none of it exists yet.
 import * as THREE from 'three';
 import { plantGeo } from './shower_house.js';
@@ -40,13 +40,10 @@ export function build({ V, ground, level, lod = 'high' }) {
   // lamps every 14 m on the main paths, a bench now and then
   let n = 0;
   for (const p of V.paths) { if (p.kind === 'spur') continue; let d = 0; for (let i = 1; i < p.pts.length; i++) { const [ax, ay] = p.pts[i - 1], [bx, by] = p.pts[i], l = Math.hypot(bx - ax, by - ay); d += l; if (d >= 14) { d = 0; n++; const nx = (by - ay) / (l || 1), ny = -(bx - ax) / (l || 1), s = n % 2 ? 1 : -1, px = bx + nx * s * (p.w / 2 + 0.5), py = by + ny * s * (p.w / 2 + 0.5); add('lamppost', px, py, 1, 1, 1, 0, 0x2b2b2e, 0.65); add('lampglow', px, py, 1, 1, 1, 0, 0xffe2b0, 1.35); if (n % 5 === 0) add('logbench', bx - nx * s * (p.w / 2 + 0.9), by - ny * s * (p.w / 2 + 0.9), 1, 1, 1, Math.atan2(bx - ax, by - ay) + 1.57, 0x6d4d33, 0.26); } } }
-  // arrival lot: cars + carts in rows, a split-rail edge, a wayfinding post
-  { const [a, b, c, d] = V.lot, CARS = [0x8d9194, 0x2f3a4a, 0xd6d4cc, 0x6a2f28, 0x3b4a3a];
-    for (let row = 0; row < 2; row++) for (let k = 0; k < 8; k++) { if (H(row * 8 + k) > 0.72) continue; const u = (k + 0.5) / 8, v = row ? 0.16 : 0.84, ex = a[0] + (b[0] - a[0]) * u, ey = a[1] + (b[1] - a[1]) * u, fx = d[0] + (c[0] - d[0]) * u, fy = d[1] + (c[1] - d[1]) * u, x = ex + (fx - ex) * v, y = ey + (fy - ey) * v, ry = 0.14 + (row ? Math.PI : 0), col0 = CARS[(row * 3 + k) % CARS.length]; add('carbody', x, y, 1, 1, 1, ry, col0, 0.55); add('carcab', x + Math.sin(ry) * -0.2, y - Math.cos(ry) * -0.2, 1, 1, 1, ry, 0x23282c, 1.15); }
-    for (let k = 0; k < 4; k++) { const x = b[0] + 3, y = b[1] + 4 + k * 2.2; add('cart', x, y, 1, 1, 1, 1.57, 0xecebe6, 0.55); add('cartroof', x, y, 1, 1, 1, 1.57, 0xecebe6, 1.75); }
-    const P = [a, b, c, d, a]; for (let e = 0; e < 3; e++) { const [p, q] = [P[e === 1 ? 2 : e === 2 ? 3 : 0], P[e === 1 ? 3 : e === 2 ? 4 : 1]]; for (let u = 0; u <= 1.001; u += 0.1) add('railpost', p[0] + (q[0] - p[0]) * u, p[1] + (q[1] - p[1]) * u, 1, 1, 1, 0, 0x6a5038, 0.5); }
-    add('signpost', b[0] + 8, b[1] + 15, 1, 1, 1, 0, 0x5d4632, 1.2); add('signboard', b[0] + 8, b[1] + 15, 1, 1, 1, -1.2, 0xe8e0cc, 1.95);
-  }
+  // a small parking bay beside each group of homes (Mike 11-02)
+  { const CARS = [0x8d9194, 0x2f3a4a, 0xd6d4cc, 0x6a2f28, 0x3b4a3a];
+    (V.parking || []).forEach((k, pi) => { const c = Math.cos(k.ang), s = Math.sin(k.ang);
+      for (let q = 0; q < k.n; q++) { if (H(pi * 9 + q) > 0.75) continue; const u = (q - (k.n - 1) / 2) * 3, x = k.x + u * c, y = k.y - u * s, col0 = CARS[(pi + q) % CARS.length]; add('carbody', x, y, 1, 1, 1, k.ang, col0, 0.55); add('carcab', x, y, 1, 1, 1, k.ang, 0x23282c, 1.15); } }); }
   const R = (w, h, d) => new THREE.BoxGeometry(w, h, d), Cy = (a, b, h, s = 12) => new THREE.CylinderGeometry(a, b, h, hi ? s : 6);
   const GEO = { soil: new THREE.CylinderGeometry(0.55, 0.6, 0.2, 12), stone: new THREE.TorusGeometry(1.1, 0.24, 6, 14).rotateX(Math.PI / 2), ember: Cy(0.95, 0.95, 0.06), logbench: Cy(0.2, 0.22, 2.2, 8).rotateZ(Math.PI / 2), table: R(0.8, 0.06, 1.9), seat: R(0.28, 0.05, 1.9), sand: new THREE.CylinderGeometry(4.5, 4.7, 0.15, 18), swingpost: Cy(0.05, 0.06, 2.4, 6), swingbar: R(3.8, 0.08, 0.08), rbed: R(3.0, 0.5, 1.2), lamppost: Cy(0.035, 0.05, 1.3, 6), lampglow: new THREE.SphereGeometry(0.11, 8, 6), carbody: R(1.8, 0.7, 4.4), carcab: R(1.6, 0.6, 2.2), cart: R(1.2, 0.55, 2.3), cartroof: R(1.25, 0.05, 1.7), railpost: Cy(0.07, 0.08, 1, 6), signpost: Cy(0.07, 0.09, 2.4, 6), signboard: R(1.5, 0.7, 0.05) };
   ['leafy', 'grass', 'flower'].forEach(k => { GEO[k] = plantGeo(k); });

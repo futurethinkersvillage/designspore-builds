@@ -4,8 +4,10 @@ import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
 const KEEP_NAMES = new Set(['picnic_table']);
-export function mergeStatic(root) {
+export function mergeStatic(root, keepParts) {
   root.updateWorldMatrix(true, true);
+  // the review layer names what was clicked: the part names and boxes are kept before the merge removes them
+  if (keepParts) { root.userData.parts = []; root.traverse(o => { if (o === root || !(o.name || o.parent === root)) return; const box = new THREE.Box3().setFromObject(o); if (!box.isEmpty() && (o.name || root.children.length > 1)) root.userData.parts.push({ name: o.name || `${root.name || 'part'} ${root.children.indexOf(o) + 1}`, box }); }); }
   const inv = root.matrixWorld.clone().invert(), groups = new Map();
   root.traverse(o => {
     if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh || Array.isArray(o.material) || o.children.length || o.onBeforeRender !== THREE.Object3D.prototype.onBeforeRender) return;

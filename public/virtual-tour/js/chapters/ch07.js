@@ -5,39 +5,30 @@ import { LineSegments2 } from 'three/addons/lines/LineSegments2.js';
 import { LineSegmentsGeometry } from 'three/addons/lines/LineSegmentsGeometry.js';
 import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 
-export const meta = { id: 'ch07', title: 'The build-up', seconds: 16, animated: false, legend: false };
+export const meta = { id: 'ch07', title: 'Future development', seconds: 21, animated: false, legend: false };
 
 // timed after the film's camera blend (t < 0.3), one phase every ~2 s
 const PHASES = [
-  // at = where its label stands on the land; the camera leans toward it while it is the active row (Mike 10-29: "the
-  // camera could shift slightly on each item")
-  { name: 'Phase 2', what: 'Maker space · creekside zomes', rings: ['maker_space', 'cabins'], sites: [], t: [0.17, 0.33], at: [-30, 300] },
-  { name: 'Phase 3', what: 'Lakeside zomes · event pavilion', rings: ['event_gazebo', 'lake_cabins'], sites: [], t: [0.33, 0.49], at: [-20, -215] },   // (i8: 'gazebo' read as the existing one)
-  { name: 'In parallel', what: 'Festival grounds · stage · art trail', rings: ['festival_grounds', 'event_space'], lines: ['discovery_trail'], t: [0.49, 0.65], lit: 0.17, at: [-100, -420] },
-  { name: 'The farm', what: 'Greenhouses · barn · gardens', rings: ['farmland', 'farm_greenhouses', 'farm_buildings'], t: [0.65, 0.81], at: [-470, 10] },
+  // at = where its label stands on the land; the camera leans toward it while it is the active row
+  { name: 'Co-working café', rings: [], t: [0.24, 0.36], at: [-597, -226] },
+  { name: 'Maker space', rings: ['maker_space'], t: [0.36, 0.48], at: [-30, 318] },
+  { name: 'Creekside zomes', rings: ['creekside_cabin_boundary'], t: [0.48, 0.6], at: [60, 150] },
+  { name: 'Lakeside zomes', rings: ['lake_cabins'], t: [0.6, 0.72], at: [30, -230] },
+  { name: 'Festival grounds · stage · art trails', short: 'Festival', rings: ['festival_grounds', 'event_space'], lines: ['discovery_trail'], t: [0.72, 0.84], at: [-100, -420] },
 ];
 
-let rig, cap, tag, scrim, phaseEls = [], traces = [], pins = [];
+let rig, cap, tag, scrim, big, phaseEls = [], traces = [], pins = [];
 const polys = f => f.t === 'Polygon' ? [f.c] : f.t === 'MultiPolygon' ? f.c : [];
 const lines = f => f.t === 'LineString' ? [f.c] : f.t === 'MultiLineString' ? f.c : [];
 
 export async function setup(ctx) {
   const { THREE, rig: R, L, scene } = ctx, ground = ctx.groundAt;
   const AMBER = new THREE.Color('#EA824E');
-  { const pp = (L.camp_plots || []).flatMap(polys).map(p => p[0][0]); if (pp.length) PHASES[2].at = [pp.reduce((a, q) => a + q[0], 0) / pp.length, pp.reduce((a, q) => a + q[1], 0) / pp.length]; }   // the pin on the meadow itself (i15)
+  { const pp = (L.camp_plots || []).flatMap(polys).map(p => p[0][0]); if (pp.length) PHASES[4].at = [pp.reduce((a, q) => a + q[0], 0) / pp.length, pp.reduce((a, q) => a + q[1], 0) / pp.length]; }   // the pin on the meadow itself (i15)
   const glowTex = (() => {
     const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d');
     const gr = g.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(255,190,120,1)'); gr.addColorStop(0.5, 'rgba(234,130,78,0.5)'); gr.addColorStop(1, 'rgba(234,130,78,0)');
     g.fillStyle = gr; g.fillRect(0, 0, 64, 64); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
-  })();
-  // the farm highlight is the real footprint of the farm as built (hull of its moved beds, greenhouses and barn, +3 m),
-  // not the plan's wider 'farmland' shape, which sat off the fairway (Mike 10-30, twice)
-  const farmHull = (() => {
-    const pts = ['farm_market_garden', 'farm_greenhouses', 'farm_buildings', 'farm_mandala_garden'].flatMap(n => L[n] || []).flatMap(polys).map(p => p[0]).filter(r => r.reduce((a, q) => a + q[0], 0) / r.length < -440).flat();
-    const c = [pts.reduce((a, q) => a + q[0], 0) / pts.length, pts.reduce((a, q) => a + q[1], 0) / pts.length];
-    const sorted = [...pts].sort((a, b) => a[0] - b[0] || a[1] - b[1]), cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]), half = list => { const h = []; for (const q of list) { while (h.length > 1 && cross(h[h.length - 2], h[h.length - 1], q) <= 0) h.pop(); h.push(q); } h.pop(); return h; };
-    const hull = [...half(sorted), ...half([...sorted].reverse())].map(q => { const d = Math.hypot(q[0] - c[0], q[1] - c[1]) || 1; return [q[0] + (q[0] - c[0]) / d * 3, q[1] + (q[1] - c[1]) / d * 3]; });
-    return [[...hull, hull[0]]];
   })();
   const fix = (n, r) => r;
   for (const ph of PHASES) {
@@ -50,8 +41,7 @@ export async function setup(ctx) {
         pos.push(p[0], ground(p[0], p[1]) + 1.5, -p[1], q[0], ground(q[0], q[1]) + 1.5, -q[1]);
       }
     };
-    if (ph.name === 'The farm') for (const r of farmHull) for (let i = 0; i < r.length - 1; i++) seg(r[i], r[i + 1]);
-    for (const n of ph.rings) if (!(ph.name === 'The farm' && n === 'farmland')) for (const f of L[n] || []) for (const p of polys(f)) { const r = fix(n, p[0]); for (let i = 0; i < r.length - 1; i++) seg(r[i], r[i + 1]); }
+    for (const n of ph.rings) for (const f of L[n] || []) for (const p of polys(f)) { const r = fix(n, p[0]); for (let i = 0; i < r.length - 1; i++) seg(r[i], r[i + 1]); }
     for (const n of ph.lines || []) for (const f of L[n] || []) for (const l of lines(f)) for (let i = 0; i < l.length - 1; i++) seg(l[i], l[i + 1]);
     // fat screen-space lines (reviewers: the 1 px outlines were lost against the green from this height)
     const geo = new LineSegmentsGeometry().setPositions(pos);
@@ -65,7 +55,7 @@ export async function setup(ctx) {
       s.position.set(c[0], ground(c[0], c[1]) + 3, -c[1]); s.scale.set(24, 24, 1); s.renderOrder = 19; scene.add(s); glows.push(s.material);   // a small dot per site (i7: 40 m glows smeared into 'fire')
     }
     // and a broad glow over each footprint, so the phase reads from 1 km up
-    for (const n of ph.rings) if (!(ph.name === 'The farm' && n === 'farmland')) for (const f of L[n] || []) for (const p of polys(f)) {
+    for (const n of ph.rings) for (const f of L[n] || []) for (const p of polys(f)) {
       const r = fix(n, p[0]), c = [r.reduce((a, q) => a + q[0], 0) / r.length, r.reduce((a, q) => a + q[1], 0) / r.length];
       const rad = Math.max(...r.map(q => Math.hypot(q[0] - c[0], q[1] - c[1])));
       const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: AMBER, transparent: true, opacity: 0, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending }));
@@ -83,17 +73,22 @@ export async function setup(ctx) {
   // behind the panel): look point = the phase's label spot moved ~0.22 frame-widths west (screen-left at heading ~8°)
   const F = 880, west = 0.22 * F * 1.78;
   PHASES.forEach((ph, i) => {
-    const hd = 9 - i, r = [Math.cos(hd * Math.PI / 180), -Math.sin(hd * Math.PI / 180)];
+    const hd = 9 - i * 0.6, r = [Math.cos(hd * Math.PI / 180), -Math.sin(hd * Math.PI / 180)];
     // half-way from the wide view's centre to that ideal (Mike: "shift slightly"): enough to clear the panel, short moves
-    const f = i === 3 ? 0.8 : i === 2 ? 0.55 : 0.3,   /* the farm clear of the panel (10-30) */ x = c[0] + f * (ph.at[0] - west * r[0] - c[0]), y = c[1] + f * (ph.at[1] - west * r[1] - c[1]);   // (i7: 0.55 read as swings)
-    K.push([ph.t[0] + (i === 3 ? 0.1 : 0.06), x, y, h, F, hd, -48, 42], [ph.t[1] - 0.005, x, y, h, F, hd, -48, 42]);   // ~1.4 s move, then a still hold
+    const f = 0.35, x = c[0] + f * (ph.at[0] - west * r[0] - c[0]), y = c[1] + f * (ph.at[1] - west * r[1] - c[1]);   // (i7: 0.55 read as swings)
+    K.push([ph.t[0] + 0.05, x, y, h, F, hd, -48, 42], [ph.t[1] - 0.005, x, y, h, F, hd, -48, 42]);   // ~1.4 s move, then a still hold
   });
   { const l = K[K.length - 1]; K.push([1.0, ...l.slice(1)]); }   // the headline lands on the last lean: no extra move (i7)
   rig = R.makeRig(K);
 
   const hud = ctx.hud;
+  // the turn in the story (Mike 11-02): everything before this is here today
+  big = document.createElement('div');
+  big.style.cssText = 'position:absolute;inset:0;display:grid;place-content:center;text-align:center;pointer-events:none;opacity:0;color:#F2EDE8;background:radial-gradient(ellipse at center,rgba(26,23,32,.72) 0%,rgba(26,23,32,.35) 55%,rgba(26,23,32,0) 80%)';
+  big.innerHTML = '<div style="font:600 clamp(11px,1.3vw,15px)/1 Inter,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#EA824E">From here on, the plan</div><div style="font:500 clamp(44px,8vw,120px)/1 Cormorant,Georgia,serif;margin-top:14px">Future development</div>';
+  hud.appendChild(big);
   cap = document.createElement('div'); cap.className = 'cap';
-  cap.innerHTML = '<div class="eyebrow">What we’re building</div><h1>Built in phases,<br>on land that’s ready.</h1>';
+  cap.innerHTML = '<div class="eyebrow">Future development</div><h1>All of it on land<br>that’s ready.</h1>';
   cap.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40));
   hud.appendChild(cap);
   // a warm-dark scrim behind the headline (it sat on busy forest)
@@ -111,20 +106,19 @@ export async function setup(ctx) {
   const label = (text, solid) => `<span class="lbl" style="display:inline-block;font:700 15px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;padding:5px 8px 4px;border-radius:2px;border:1px solid #EA824E;${solid ? 'background:#EA824E;color:#1A1720' : 'color:#EA824E'}">${text}</span>`;
   {   // where it starts: what is already here
     const el = document.createElement('div'); el.style.cssText = 'opacity:.62;color:#F2EDE8;padding:8px 12px;border-left:4px solid transparent';
-    el.innerHTML = '<div style="font:600 12px/1.2 Inter,sans-serif;letter-spacing:.2em;color:#F2EDE8;text-transform:uppercase">✓ Phase 1 · today</div>'
+    el.innerHTML = '<div style="font:600 12px/1.2 Inter,sans-serif;letter-spacing:.2em;color:#F2EDE8;text-transform:uppercase">✓ Here today</div>'
       + '<div style="font:500 23px/1.15 Cormorant,Georgia,serif;margin-top:4px">RV park · golf · cabins · dome · gazebo</div>';
     ledger.appendChild(el);
   }
   for (const ph of PHASES) {
     const el = document.createElement('div');
     el.style.cssText = 'color:#F2EDE8;padding:8px 12px;border-left:4px solid transparent;border-radius:2px;transform-origin:left center';
-    el.innerHTML = `<div><span class="tick" style="display:inline-block;width:0;overflow:hidden;white-space:nowrap;color:#EA824E;font:700 13px/1 Inter,sans-serif;vertical-align:middle">✓&nbsp;</span>${label(ph.name, false)}</div>`
-      + `<div style="font:500 23px/1.15 Cormorant,Georgia,serif;margin-top:5px">${ph.what}</div>`;
+    el.innerHTML = `<div><span class="tick" style="display:inline-block;width:0;overflow:hidden;white-space:nowrap;color:#EA824E;font:700 13px/1 Inter,sans-serif;vertical-align:middle">✓&nbsp;</span>${label(ph.name, false)}</div>`;
     ledger.appendChild(el); phaseEls.push(el);
     // the matching label on the land
     const pin = document.createElement('div');
     pin.style.cssText = 'position:absolute;left:0;top:0;transform:translate(-50%,-100%);opacity:0;pointer-events:none;display:grid;justify-items:center';
-    pin.innerHTML = `${label(ph.name, true)}<div style="width:2px;height:26px;background:#EA824E"></div><div style="width:9px;height:9px;border-radius:50%;background:#EA824E;box-shadow:0 0 0 4px rgba(234,130,78,.3)"></div>`;
+    pin.innerHTML = `${label(ph.short || ph.name, true)}<div style="width:2px;height:26px;background:#EA824E"></div><div style="width:9px;height:9px;border-radius:50%;background:#EA824E;box-shadow:0 0 0 4px rgba(234,130,78,.3)"></div>`;
     hud.appendChild(pin); pins.push(pin);
   }
   hud.appendChild(ledger); phaseEls.box = ledger;
@@ -137,9 +131,9 @@ export function update(t, ctx) {
     const t0 = ph.lit ?? ph.t[0], on = seg(t, t0, t0 + 0.09), next = i < traces.length - 1 ? seg(t, ph.t[1], ph.t[1] + 0.06) : 0;
     line.geometry.instanceCount = Math.floor(n / 2 * on);   // traced on, segment by segment
     const db = ctx.bufferSize(); line.material.resolution.set(db.x, db.y);
-    line.material.opacity = on * (1 - 0.7 * next * (1 - seg(t, 0.81, 0.86)));   // all phases equal under the headline (i13)   // dims once the next phase starts; gone under the headline (i7)
+    line.material.opacity = on * (1 - 0.7 * next * (1 - seg(t, 0.84, 0.88)));   // all phases equal under the headline (i13)   // dims once the next phase starts; gone under the headline (i7)
     const flash = on * (1 - seg(t, ph.t[0] + 0.09, ph.t[1]));   // brightest while its ledger row is the active one
-    glows.forEach(m => { m.opacity = (0.1 + 0.16 * flash) * on * (1 - 0.6 * next) * (1 - seg(t, 0.81, 0.86)); });   // a hint of light; the crisp outline is the plan (big glows read as fire)
+    glows.forEach(m => { m.opacity = (0.1 + 0.16 * flash) * on * (1 - 0.6 * next) * (1 - seg(t, 0.84, 0.88)); });   // a hint of light; the crisp outline is the plan (big glows read as fire)
     // row state: act = this row is the one being shown; done = shown already
     // row state: sharp handoff, the old row off before the new one comes on (i11)
     const off = i < traces.length - 1 ? seg(t, ph.t[1] - 0.012, ph.t[1]) : 0;
@@ -153,10 +147,11 @@ export function update(t, ctx) {
     // the same label on the land, over the phase's site
     const pin = pins[i], v = new ctx.THREE.Vector3(ph.at[0], ctx.groundAt(ph.at[0], ph.at[1]) + 4, -ph.at[1]).project(ctx.camera);
     pin.style.left = `${(v.x + 1) / 2 * innerWidth}px`; pin.style.top = `${(1 - v.y) / 2 * innerHeight}px`;
-    pin.style.opacity = String(act * (v.z < 1 ? 1 : 0) * (1 - seg(t, 0.81, 0.83)));
+    pin.style.opacity = String(act * (v.z < 1 ? 1 : 0) * (1 - seg(t, 0.84, 0.86)));
   });
   // the ledger leaves as one piece (panel + text) before the headline comes in
-  phaseEls.box.style.opacity = String(seg(t, 0.04, 0.09) * (1 - seg(t, 0.81, 0.83)));   // a short, clean exit
-  cap.style.opacity = seg(t, 0.84, 0.88); scrim.style.opacity = seg(t, 0.83, 0.88);
+  phaseEls.box.style.opacity = String(seg(t, 0.2, 0.24) * (1 - seg(t, 0.84, 0.86)));   // a short, clean exit
+  big.style.opacity = seg(t, 0.03, 0.07) * (1 - seg(t, 0.18, 0.22));
+  cap.style.opacity = seg(t, 0.87, 0.9); scrim.style.opacity = seg(t, 0.86, 0.9);
   tag.style.opacity = seg(t, 0.22, 0.3);
 }

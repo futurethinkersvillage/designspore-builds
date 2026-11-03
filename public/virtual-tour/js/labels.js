@@ -41,7 +41,7 @@ export function makeLabels(L, heightAt, { existing = '#F2EDE8', planned = '#EA82
     [P('Gazebo'), 'Gazebo', 0, [-150, 40, 40]], [cen('golf_course'), 'Golf · disc golf', 0, [-330, 60, 40]],
     [P('Campsite'), 'Campground', 0, [60, 120, 60]], [P('The Dome'), 'Dome', 0, [-170, -40, 40]], [cen('lakes'), 'Lake', 0, [-190, -90, 40]],
     [cen('maker_space'), 'Maker space', 1, [70, 70, 90]], [cen('cabins'), 'Creekside zomes', 1, [110, -10, 30]],
-    [cen('lake_cabins'), 'Lakeside zomes', 1, [110, -70, 30]], [cen('farmland'), 'Farm', 1, [-200, 120, 60]],
+    [cen('lake_cabins'), 'Lakeside zomes', 1, [110, -70, 30]],
     [cen('festival_grounds'), 'Festival grounds', 1, [140, -60, 30]], [cen('discovery_trail'), 'Art trail', 1, [200, 150, 60]],
   ];
   const groups = [new THREE.Group(), new THREE.Group()], items = [[], []];

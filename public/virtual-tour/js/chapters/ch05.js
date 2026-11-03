@@ -4,7 +4,7 @@
 import { makeBuildings } from '../objects.js';
 
 import { lakeMirror } from '../mirror.js';
-export const meta = { id: 'ch05', title: 'The dome & the lake', seconds: 18, animated: true };
+export const meta = { id: 'ch05', title: 'The dome & the lake', seconds: 22, animated: true };
 
 // The dome sits where the drone photo shows it (the plan polygon is ~10 m SW of it; models/notes/dome.md).
 const DOME = { x: -144.5, y: -145.5, rotY: 2.314 };
@@ -47,8 +47,9 @@ export async function setup(ctx) {
     // (i8) then a short rise and a 60° turn left to look south past the dome to the lake: dome in front, water beyond
     // (i10: the old end had the dome behind the camera) one slow orbit round the dome, from its door side to its far side,
     // until the lake sits beyond it
-    [0.82, -102, -148, gA(-102, -148) + 2, 60, 468, -16.5, 30],   // aimed past the dome: it sits low in the frame, the water a real band (i15)   // (i11: a longer lens from the same spot: dome ~25 % of the width, the water a real band)
-    [1.00, -102, -148, gA(-102, -148) + 2, 58, 468, -16.5, 30],
+    // Mike 11-02 (frame ~2900): the old swoop went behind trees. One straight rise on the dome's far side: the dome below, the whole lake beyond it
+    [0.82, -108, -176, gA(-108, -176), 118, 122, -27, 44],
+    [1.00, -106, -178, gA(-106, -178), 112, 122, -27, 44],
   ]);
 
   // the end frame's near trees, off the lens (i13: trunks filled the right third)
@@ -89,8 +90,8 @@ export function update(t, ctx) {
   if (vignette) vignette.style.opacity = 0.5;   // warm-dark edges: the brand mood over the real land
   cap.style.opacity = R.seg(t, 0.08, 0.2) - R.seg(t, 0.28, 0.32) + R.seg(t, 0.8, 0.84);   // (i9: back sooner — 3 s with nothing on screen)   // on the arrival, off for the inside photo, back on the final hold
   cap.style.transform = `translateY(${(1 - R.seg(t, 0.08, 0.24)) * 14}px)`;
-  const p = R.seg(t, 0.3, 0.35) - R.seg(t, 0.5, 0.54);   // inside the dome, while the camera is at its door (~2 s opaque; i7: 1.5 s was too short)
+  const p = R.seg(t, 0.45, 0.48) - R.seg(t, 0.51, 0.54);   // inside the dome, while the camera is at its door (~2 s opaque; i7: 1.5 s was too short)
   photo.style.opacity = p;
-  photo.style.transform = `translateY(${(1 - R.seg(t, 0.28, 0.38)) * 18}px)`;
+  photo.style.transform = `translateY(${(1 - R.seg(t, 0.44, 0.5)) * 18}px)`;
   photo.querySelector('img').style.transform = `scale(${1.04 + 0.06 * R.seg(t, 0.28, 0.5)})`;
 }

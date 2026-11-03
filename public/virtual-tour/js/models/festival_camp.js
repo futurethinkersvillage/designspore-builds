@@ -52,7 +52,7 @@ export function build({ L, ground, lod = 'high' }) {
 
   // the festival street: marquees and food stalls on an arc behind the crowd, facing the stage; a wide gravel lane from the
   // street down the middle of the camp; a timber gate with banners where it meets the grounds; toilet blocks along it
-  const SP = [-193, -242], lane = [], marqBody = [], marqTop = [], stall = [], stallTop = [], loo = [], banner = [];
+  const SP = [-203, -241], lane = [], marqBody = [], marqTop = [], stall = [], stallTop = [], loo = [], banner = [];
   for (let k = -9; k <= 9; k++) {
     const a = -Math.PI / 4 + k * 0.105, r = 72 + (k % 2) * 3, x = SP[0] + Math.cos(a) * r, y = SP[1] + Math.sin(a) * r, gy = ground(x, y);
     if (k % 3 === 0) { marqBody.push([x, gy + 1.15, y, 1.3, 1, 1.3, -a, 0xd9cfbc]); marqTop.push([x, gy + 3.35, y, 1.3, 1, 1.3, -a, 0xd9cfbc]); }

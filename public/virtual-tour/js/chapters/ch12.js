@@ -22,12 +22,12 @@ export async function setup(ctx) {
   const sheetFrame = aspect >= 1.2 ? Math.max(1800, 3120 / aspect) * 1.03 : Math.max(1900, 1600 / aspect);
   const shift = sheetFrame * aspect * 0.07, SHX = shift * Math.cos(SQ * Math.PI / 180), SHY = -shift * Math.sin(SQ * Math.PI / 180);   // the plan sits right of the words (i18)
   rig = R.makeRig([
-    [0.00, -193, -242, ctx.groundAt(-193, -242) + 7, 38, -46, -8, 50],   // where chapter 11 ends: on the lit stage (heading 314 = -46)
-    [0.12, -193, -242, ctx.groundAt(-193, -242) + 7, 60, -40, -24, 48],   // ease up off the stage first, then the long rise (Mike 10-29: back out to frame ~4600)
+    [0.00, -203, -241, ctx.groundAt(-203, -241) + 7, 38, 245, -8, 50],   // where chapter 11 ends: on the lit stage (heading 314 = -46)
+    [0.12, -203, -241, ctx.groundAt(-203, -241) + 7, 60, 250, -24, 48],   // ease up off the stage first, then the long rise (Mike 10-29: back out to frame ~4600)
     // (retimed 10-28: the slow orbit dragged and the closing card held only ~2 s)
-    [0.27, -120, -180, ctx.groundAt(-120, -180), 320, -20, -55, 44],   // (i7: 60 m → 1700 m in 3 s lurched) a waypoint on the climb
-    [0.43, 30, -60, 60, 1700, 8, -84, 38],        // rising to nearly straight down, turning north-up early (a 90° swing late read as disorienting)
-    [0.49, 0, 0, 30, sheetFrame * 0.98, SQ, -90, 30],
+    [0.27, -120, -180, ctx.groundAt(-120, -180), 320, 300, -55, 44],   // (i7: 60 m → 1700 m in 3 s lurched) a waypoint on the climb
+    // Mike 11-02: it reached its spot, then rotated and moved again in the last 100 frames. Square to the sheet by here, then only the lens changes
+    [0.43, -SHX, -SHY, 60, sheetFrame * 0.9, SQ, -88, 38],
     [0.60, -SHX, -SHY, -135, sheetFrame, SQ, -90, 2.5],  // chapter 1's opening frame: long lens, flat sheet, squared to the parcel
     [1.00, -SHX, -SHY, -135, sheetFrame * 1.005, SQ, -90, 2.5],   // still (i15)
   ]);

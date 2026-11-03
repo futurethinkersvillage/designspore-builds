@@ -1,11 +1,13 @@
 // Chapter 10 · Places to stay — down the creekside zomes, then on to the lakeside rows, at golden hour with warm
 // light in the windows. Zomes are a CONCEPT (nothing built yet): the caption and the callouts say so.
+import { furnish } from '../models/boho_decor.js';
 import * as THREE from 'three';
 import { lakeMirror } from '../mirror.js';
 
 const shore3 = V => V.dock.x + 26;
-export const meta = { id: 'ch10', title: 'The zome village', seconds: 62, animated: false, blend: 5.5 / 62 };
+export const meta = { id: 'ch10', title: 'The zome village', seconds: 58, animated: false, blend: 5.5 / 58 };
 
+let cuts = [];
 let rig, cap, cap2, capA, capB, capC, dip, vign, cards = [], glass = [], halos = [], G = {};
 function meshGround(ctx) {   // ground height exactly as the terrain mesh draws it (same triangles)
   const m = ctx.meta.terrain_near, a = ctx.D.near, n = m.size, H0 = ctx.H0;
@@ -54,26 +56,33 @@ export async function setup(ctx) {
     halo.position.copy(z.localToWorld(new THREE.Vector3(0, 1.5, 2.3))); halo.scale.set(5, 5, 1); scene.add(halo); halos.push(halo.material);
   }
 
-  // from far back over the golf course, the whole village at once (Mike 11-01), down the main path, and into three zomes on foot
-  const V = ctx.village, sites = ctx.models.zome.children, D2R = Math.PI / 180, S = 62;
-  const stop = n => { const i = V.zomes.findIndex(z => z.tour === n), z = V.zomes[i], fx = Math.sin(z.rotY), fy = -Math.cos(z.rotY), hd = (Math.atan2(-fx, -fy) / D2R + 360) % 360, gy = sites[i].position.y, type = z.plan.includes('z75') ? 3.95 : z.plan.includes('z6') ? 3.25 : 2.6;
-    return { x: z.x, y: z.y, fx, fy, hd, floor: gy + 0.35, R: type }; };
-  const walk = (s, t0, look) => { const out = 8, door = s.R + 0.3, inK = s.R < 3 ? 0 : 0.42, inX = s.x + s.fx * s.R * inK, inY = s.y + s.fy * s.R * inK, eye = s.floor + 1.6, K = (sec, x, y, h, hd, p) => [sec / S, x, y, h, 0.01, hd, p, 60];
-    return [K(t0, s.x + s.fx * (s.R + out), s.y + s.fy * (s.R + out), eye + 1.6, s.hd, -8), K(t0 + 1.6, s.x + s.fx * door, s.y + s.fy * door, eye, s.hd, -2), K(t0 + 2.8, inX, inY, eye, s.hd, -3), K(t0 + 5, inX, inY, eye, s.hd - look, -5), K(t0 + 7.2, inX, inY, eye, s.hd + look, -4), K(t0 + 8.4, inX, inY, eye, s.hd, -2), K(t0 + 9.6, s.x + s.fx * door, s.y + s.fy * door, eye, s.hd, -2), K(t0 + 11, s.x + s.fx * (s.R + out), s.y + s.fy * (s.R + out), eye + 1.6, s.hd, -8)]; };
+  // Mike 11-02: the whole creekside zone, then a temporary cross-section at each stop: the camera stays outside at an angle, the near half of the zome slides away to show its
+  // furnished interior, closes up again, and the tour moves on. Inside his zones only: creekside north to south, then lakeside.
+  const V = ctx.village, sites = ctx.models.zome.children, D2R = Math.PI / 180, S = meta.seconds;
+  const stop = n => { const i = V.zomes.findIndex(z => z.tour === n), z = V.zomes[i], fx = Math.sin(z.rotY), fy = -Math.cos(z.rotY), hd = (Math.atan2(-fx, -fy) / D2R + 360) % 360, type = z.plan.includes('z75') ? 3.95 : z.plan.includes('z9') ? 4.7 : z.plan.includes('z6') ? 3.25 : 2.6;
+    return { i, x: z.x, y: z.y, hd: hd + 32, floorY: 0.35, gy: sites[i].position.y, R: type, plan: z.plan, site: sites[i] }; };
   const T1 = stop(1), T2 = stop(2), T3 = stop(3);
+  const look = (s, t0, t1) => { const F = s.R * 3.3, gh = s.gy + 1.1; return [[t0 / S, s.x, s.y, gh, F * 1.25, s.hd, -24, 42], [(t0 + 1.2) / S, s.x, s.y, gh, F, s.hd, -24, 42], [t1 / S, s.x + 0.02, s.y, gh, F * 0.96, s.hd, -23, 42]]; };
   rig = R.makeRig([
-    [0.0, 30, -60, ground(30, -60), 500, 96, -32, 46],                 // the whole village, hill behind it, creek before it
-    [5.5, 30, -60, ground(30, -60), 430, 98, -34, 46],                 // (the film's blend lands here)
-    [9.5, 34, -40, ground(34, -40), 240, 118, -42, 46],                // over the creek, the hamlets separate
-    [13.5, 34, 10, ground(34, 10), 90, 165, -34, 48],                  // down over Creek Terrace, looking along the main path
-    ...walk(T1, 16, 62),
-    [29.5, 32, -88, ground(32, -88) + 4, 130, 182, -27, 50],            // along the path to the Commons
-    ...walk(T2, 31, 70),
-    [44, 25, -168, ground(25, -168) + 4, 130, 190, -26, 50],            // on south to the lake
-    ...walk(T3, 45.5, 55),
-    [58.5, shore3(V), -225, ctx.lakeLevel + 6, 90, 262, -14, 48],      // the lake walk, the water beyond
-    [62, shore3(V) - 1, -228, ctx.lakeLevel + 5, 80, 262, -13, 48],
-  ].map(k => k));
+    [0.0 / S, 55, 120, ground(55, 120), 420, 72, -38, 46],                  // the whole creekside zone, the hook of the hill above it
+    [5.5 / S, 55, 120, ground(55, 120), 390, 72, -40, 46],                  // (the film's blend lands here)
+    [9.0 / S, T1.x, T1.y, ground(T1.x, T1.y), 90, T1.hd, -34, 46],
+    ...look(T1, 11, 20.5),
+    [24.5 / S, T2.x, T2.y + 24, ground(T2.x, T2.y + 24), 80, T2.hd - 8, -30, 46],     // on down the zone to the Commons
+    ...look(T2, 27, 37),
+    [41.5 / S, 10, -225, ctx.lakeLevel, 150, 95, -24, 46],                 // south to the lake, from over the water
+    ...look(T3, 44.5, 52.5),
+    [56 / S, shore3(V) - 6, -238, ctx.lakeLevel + 3, 95, 82, -13, 46],   // from over the water: the beach, the row of zomes, the hill behind
+    [58 / S, shore3(V) - 6, -240, ctx.lakeLevel + 3, 90, 82, -12, 46],
+  ]);
+  // the opened zomes: furnished, with their own materials so one plane can cut just that zome
+  cuts = [T1, T2, T3].map((T, n) => {
+    furnish(T.site, T.plan, T.R, T.floorY);
+    const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 1e5), seen = new Map(), fw = new THREE.Vector3(Math.sin(T.hd * D2R), 0, -Math.cos(T.hd * D2R)).normalize();
+    plane.normal.copy(fw); plane.userData = {};
+    T.site.traverse(o => { if (!o.isMesh || o.userData.noConcept) return; if (!seen.has(o.material)) { const m = o.material.clone(); m.clippingPlanes = [plane]; m.side = THREE.DoubleSide; seen.set(o.material, m); } o.material = seen.get(o.material); });
+    return { T, plane, fw, centre: new THREE.Vector3(T.x, T.gy + 1, -T.y), win: [[11, 20.5], [27, 37], [44.5, 52.5]][n] };
+  });
 
   // golden hour (ch09 ends here) easing a little deeper toward dusk for ch11
   const U = ctx.U, sky = ctx.sky.mat.uniforms;
@@ -88,18 +97,18 @@ export async function setup(ctx) {
 
   cap = document.createElement('div'); cap.className = 'cap';
   cap.innerHTML = '<div class="eyebrow">Places to stay<span style="margin-left:14px;padding:3px 9px;border:1px solid #EA824E;border-radius:99px;color:#EA824E;letter-spacing:.16em">Planned</span></div>' +
-    '<h1>The zome village</h1><p style="font:400 clamp(15px,1.5vw,19px)/1.45 Inter,sans-serif;margin:12px 0 0;max-width:30em;opacity:.92">Six hamlets round a shared commons. Cars stop at the gate: everything past it is on foot.</p>';
+    '<h1>The zome village</h1><p style="font:400 clamp(15px,1.5vw,19px)/1.45 Inter,sans-serif;margin:12px 0 0;max-width:30em;opacity:.92">Along the creek and round the lake, grouped by colour: shared halls, cabins, family homes and work-stay.</p>';
   cap.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40));
   ctx.hud.appendChild(cap);
   // the lakeside row gets its own line (i7: after the cut the only text was a small card)
   cap2 = document.createElement('div'); cap2.className = 'cap';
   cap2.innerHTML = '<div class="eyebrow">Places to stay<span style="margin-left:14px;padding:3px 9px;border:1px solid #EA824E;border-radius:99px;color:#EA824E;letter-spacing:.16em">Planned</span></div>' +
-    '<h1 style="white-space:nowrap">The Lake Quarter</h1><p style="font:400 clamp(15px,1.5vw,19px)/1.45 Inter,sans-serif;margin:12px 0 0;max-width:30em;opacity:.92">Cabins on the shore, a spa, a sauna and a dock.</p>';
+    '<h1 style="white-space:nowrap">Lakeside</h1><p style="font:400 clamp(15px,1.5vw,19px)/1.45 Inter,sans-serif;margin:12px 0 0;max-width:30em;opacity:.92">Cabins looking over the beach, a spa, a sauna and a dock.</p>';
   cap2.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40));
   ctx.hud.appendChild(cap2);
   const say = (eyebrow, h) => { const d = document.createElement('div'); d.className = 'cap'; d.innerHTML = `<div class="eyebrow">${eyebrow}</div><h1>${h}</h1>`; d.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40)); ctx.hud.appendChild(d); return d; };
-  capA = say('A private cabin · planned', 'Home, on a shared court.'); capB = say('The Commons · planned', 'Eat, work and meet<br>under one roof.'); capC = say('The bathhouse · planned', 'A hot tub under<br>the panels.');
-  for (const T of [T1, T2, T3]) { const l = new THREE.PointLight(0xffdfb8, 3.5, 14, 1.2); l.position.set(T.x, T.floor + 3.1, -T.y); scene.add(l); }
+  capA = say('A creekside cabin', 'Home, simply furnished.'); capB = say('The Commons', 'A café, and room<br>to work and meet.'); capC = say('The bathhouse', 'A hot tub under<br>the panels.');
+  for (const T of [T1, T2, T3]) { const l = new THREE.PointLight(0xffdfb8, 9, 16, 1.2); l.position.set(T.x, T.gy + 3, -T.y); scene.add(l); }
   // the dip: a full-screen brand-dark veil
   dip = document.createElement('div'); dip.style.cssText = 'position:absolute;inset:0;background:#1A1720;opacity:0;pointer-events:none';
   ctx.hud.insertBefore(dip, ctx.hud.firstChild);
@@ -130,7 +139,9 @@ export function update(t, ctx) {
     c.m.scale.set(kk, kk * tilt, 1); c.m.material.opacity = op; c.pin.material.opacity = op * 0.8;
   }
   const sec = t * meta.seconds, line = (c, a, b) => { c.style.opacity = s(sec, a, a + 0.8) - s(sec, b, b + 0.8); };
-  line(cap, 5.5, 12); line(capA, 17.5, 26); line(capB, 32.5, 41); line(capC, 46.5, 55); cap2.style.opacity = s(sec, 57.5, 58.5);
+  line(cap, 5, 9); line(capA, 13, 19.5); line(capB, 29, 36); line(capC, 46.5, 51.5); cap2.style.opacity = s(sec, 54, 55);
+  for (const c of cuts) { const [a, b] = c.win, open = s(sec, a + 1.6, a + 3.2) * (1 - s(sec, b - 1.6, b)), dist = c.T.R + 2 - open * (c.T.R + 2.1);   // the plane sweeps from in front of the zome to just past its middle
+    c.plane.normal.copy(c.fw); c.plane.constant = open > 0.001 ? -c.fw.dot(c.centre) + dist : 1e5; }
   dip.style.opacity = 0;   // (Mike 10-30: no cut to the lakeside zomes — the camera flies there)   // ~0.5 s down, ~0.5 s up; dark through the move
   cap.style.transform = `translateY(${(1 - s(t, 0.06, 0.2)) * 14}px)`;
 }

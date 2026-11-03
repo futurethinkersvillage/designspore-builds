@@ -3,6 +3,7 @@
 // a clean "real world" state, and the camera blends from where the previous chapter ended.  film.html[?rec=1]
 import * as THREE from 'three';
 import { mergeStatic } from './merge_static.js';
+import { makeClips } from './clips.js';
 import { pickStyle } from './styles.js';
 import { markImg } from './brand.js';
 import { createEngine } from './engine.js';
@@ -11,13 +12,16 @@ import * as rig from './rig.js';
 import { rigFor } from './rig.js';
 import { panoState } from './panostop.js';
 
-const CHAPTERS = ['ch03', 'ch04', 'ch05', 'ch06', 'ch07', 'ch08', 'ch09', 'ch10', 'ch11', 'ch12'];
-const CP1_SECONDS = 34;
+// Mike 11-02: what's here (ch03-ch06), then the big turn to future development (ch07): the gazebo's café, maker space, village, festival. The farm is out.
+const CHAPTERS = ['ch03', 'ch04', 'ch05', 'ch06', 'ch07', 'ch06b', 'ch08', 'ch10', 'ch11', 'ch12'];
+const FUTURE_FROM = 'ch07';
+const CP1_SECONDS = 50;   // 34 + 9 on the opening map + 7 tilting the 360 back down
 const BLEND = 0.3;    // share of a chapter spent easing the camera in from the previous chapter's last view
 const DISSOLVE = 0.8; // seconds at a chapter's start: the last frame of the previous one dissolves away, the camera still (Mike 10-31: objects, light and captions all cut)
 
 const Q = new URLSearchParams(location.search);
 const REC = Q.has('rec');
+const REVIEW = !REC && location.hostname === 'localhost' && !Q.has('noreview');   // Mike's comment tools (js/review.js): never on the public page
 const style = pickStyle();
 const MOBILE = !new URLSearchParams(location.search).has('hq') && /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) && Math.min(screen.width, screen.height) < 700;   // a real phone only: the screen size alone misfired on a hidden pane and stripped the models (Mike 10-30)
 if (REC) document.documentElement.classList.add('rec');
@@ -30,7 +34,7 @@ async function init() {
   const E = await createEngine({ style, canvas: $('#gl'), REC, MOBILE, Q, progress: f => { $('.ld-bar i').style.width = `${f * 100}%`; } });
   const { scene, camera, renderer, U, sun, hemi, sky } = E;
   let need = true;
-  const cp1 = checkpoint1(E, { style, Q, REC, onResize: () => { need = true; }, keys: E.cameras.cp1?.keys });
+  const cp1 = checkpoint1(E, { style, Q, REC, onResize: () => { need = true; }, keys: E.cameras.cp1?.keys, cp1Seconds: CP1_SECONDS });
   const hud = $('.hud');
   // a quiet legend for the whole tour: planned things (zomes, maker space, farm…) are often in view, so the key to
   // reading them is always on screen once the land is real
@@ -51,6 +55,7 @@ async function init() {
     E.trees.visible = true; E.blocks.visible = false;
     E.resetPersistent(); U.uTideGlow.value.copy(TG0);
     caps0.forEach(c => { c.style.opacity = 0; });
+    U.uMapEx.value = U.uMapPl.value = U.uMapPulse.value = 0;
   };
   const TG0 = U.uTideGlow.value.clone();
   const SUN0 = U.uSunDir.value.clone(), SUNC0 = sun.color.clone(), SUNI0 = sun.intensity;
@@ -94,7 +99,6 @@ async function init() {
   }
   E.clearTreesNear(sight, 3);
   // the held shots keep their view clear: a pine right at the lens filled the frame (frames 2400, 5760)
-  for (const [k, t0] of [[1, 0.83], [1, 0.9], [7, 0.2], [7, 0.24]]) { base(); chapters[k].mod.update(t0, ctx); camera.getWorldDirection(fwd); E.clearTreesNear([6, 18, 30].map(d => camera.position.clone().addScaledVector(fwd, d)), 12); }
   E.clearTreesNear(path, 6);
   // the whole-film trees don't stand in any camera's way either, on the chapters' paths or the blends between them
   if (ctx.photoTrees) {
@@ -209,6 +213,13 @@ async function init() {
     + 'background:rgba(26,23,32,.78);border:1px solid rgba(234,130,78,.55);border-radius:4px;padding:5px 8px;pointer-events:none;white-space:pre';
   if (!REC && (Q.has('counter') || location.hostname === 'localhost')) document.body.appendChild(counter);   // public page: only with ?counter
   const cp1Share = CP1_SECONDS / total;
+  // where we are in the story, all film long (Mike 11-02): what's here, then what's planned
+  const status = document.createElement('div');
+  status.style.cssText = 'position:fixed;top:max(14px,2.2vh);left:50%;transform:translateX(-50%);z-index:50;font:600 clamp(10px,1vw,12px)/1 Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;padding:9px 14px;border-radius:3px;background:rgba(26,23,32,.8);pointer-events:none;white-space:nowrap;transition:opacity .4s';
+  document.body.appendChild(status);
+  const futureAt = ranges[CHAPTERS.indexOf(FUTURE_FROM)][0], endAt = ranges[CHAPTERS.indexOf('ch12')][0], existingAt = cp1Share * 0.62;
+  const clips = makeClips({ ranges, chapterIds: CHAPTERS, total, phone: MOBILE });
+  const showStatus = p => { const fut = p >= futureAt; status.textContent = fut ? 'Future development' : 'Here today'; status.style.color = fut ? '#EA824E' : '#F2EDE8'; status.style.border = `1px solid ${fut ? '#EA824E' : 'rgba(242,237,232,.55)'}`; status.style.opacity = p > existingAt && p < endAt ? 1 : 0; };
   const showCounter = p => {
     const sec = p * total, f = Math.round(sec * 30);
     let where;
@@ -218,8 +229,8 @@ async function init() {
 ${where}`;
   };
   let P = 0, drawn = -1;
-  const frame = () => { if (need || P !== drawn || P > 0.33 * CP1_SECONDS / total) { apply(P); render(P); drawn = P; need = false; showCounter(P); } };
-  { let was = 0, now = 0; for (const k of ['maker_space', 'props', 'office', 'dome', 'shower_house', 'footbridge', 'shed', 'gazebo', 'sauna', 'sauna_setting', 'bunk_cabin', 'entrance_sign', 'top_house', 'bottom_house', 'horse_corrals']) if (E.models[k]) { const [a, b] = mergeStatic(E.models[k]); was += a; now += b; } console.log('merged', was, 'parts into', now); }
+  const frame = () => { if (need || P !== drawn || P > 0.33 * CP1_SECONDS / total) { apply(P); render(P); drawn = P; need = false; showCounter(P); showStatus(P); clips.update(P); } };
+  { let was = 0, now = 0; for (const k of ['maker_space', 'props', 'office', 'dome', 'shower_house', 'footbridge', 'shed', 'gazebo', 'sauna', 'sauna_setting', 'bunk_cabin', 'entrance_sign', 'top_house', 'bottom_house', 'horse_corrals']) if (E.models[k]) { const [a, b] = mergeStatic(E.models[k], REVIEW); was += a; now += b; } console.log('merged', was, 'parts into', now); }
   // the lake's reflection draws the whole scene a second time: nothing far from the water can show in it, so it draws only the land, trees, zomes and dome
   if (ctx._lakeMirror) { const m = ctx._lakeMirror, box = new THREE.Box3(), mid = new THREE.Vector3(), far = [];
     for (const o of [...Object.values(E.models), ...chapters.flatMap(c => c.objs.filter(x => !x.isLight))]) { if (!o?.isObject3D || far.includes(o) || o === E.models.zome_merged || o === E.models.village_land || o === E.models.dome) continue; box.setFromObject(o); if (!box.isEmpty() && (o.userData.slug || Object.values(E.models).includes(o) || box.getCenter(mid).distanceTo(m.userData.centre) > 450 + box.getSize(mid.clone()).length() / 2)) far.push(o); }
@@ -270,5 +281,8 @@ ${where}`;
   gsap.ticker.add(x => lenis.raf(x * 1000)); gsap.ticker.lagSmoothing(0);
   ScrollTrigger.create({ trigger: '#scroller', start: 'top top', end: 'bottom bottom', onUpdate: s => { P = s.progress; } });
   renderer.setAnimationLoop(frame);
+  if (REVIEW) (await import('./review.js')).review({ E, total, ranges, chapters, panoState, mirror: ctx._lakeMirror, Q, getP: () => P,
+    setP: p => { lenis.scrollTo(p * (document.documentElement.scrollHeight - innerHeight), { immediate: true, force: true }); P = p; },
+    draw: p => { apply(p); render(p); } });
 }
 init().catch(e => { console.error(e); $('.ld-note').textContent = 'Could not load: ' + e.message; });

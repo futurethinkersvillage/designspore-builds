@@ -8,7 +8,7 @@ import * as THREE from 'three';
 export const meta = {
   name: 'Festival stage (planned)', layer: 'event_space', match: 'polygon centroid, front toward the meadow (SE)',
   footprint: [20, 14], height: 13,
-  place: { x: -193, y: -242, rotY: Math.PI / 4 },
+  place: { x: -203, y: -241, rotY: Math.PI / 4 + 70 * Math.PI / 180 },
   sources: ['data/layers.json event_space (about 24 x 35 m)'],
   notes: 'Planned. Mid-size festival stage. update(g, t, on) animates the LED wall and the moving-head beams.',
 };

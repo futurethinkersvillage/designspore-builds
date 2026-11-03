@@ -4,7 +4,6 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { makeBuildings } from '../objects.js';
-import { panoStop } from '../panostop.js';
 
 // ---- a forest that stays standing near a low camera (the engine's trees shrink away inside ~420 m) ----
 // Same spots and imagery colours as the engine's trees (read back from its instances); a finer conifer inside the
@@ -135,74 +134,39 @@ export function campWorld(ctx) {
   return ctx._campWorld;
 }
 
-export const meta = { id: 'ch03', title: 'Six seasons in', seconds: 25.25, animated: true, blend: 7.35 / 25.25, lift: 0, blendTurn: true };   // one straight descent, no arc
-// film seconds -> the keys' own time (their fractions were written for a 19.5 s chapter): 4 s more for the descent from the
-// aerial (Mike 10-31: it whipped round), 1.8 s more holding on the title. Then the camera arrives exactly as the hold begins.
-const clock = t => { const x = t * meta.seconds; return x < 4 ? 0 : x < 7.35 ? (x - 4) / 3.35 * 0.172 : x < 12.35 ? 0.172 + (x - 7.35) / 5 * 0.166 : 0.338 + (x - 12.35) / 12.9 * 0.662; };
+export const meta = { id: 'ch03', title: 'Six seasons in', seconds: 24, animated: true, blend: 6 / 24, lift: 0, blendTurn: true };
 
-let rig, cap, capPan, blocks2, forest, pano;
-// what the shower-house 360 sees that the survey's forest doesn't have here, as [heading, metres from the photo's spot, height]
-// read off the photo, so the 3D and the photo match through the fades.
-const PHOTO_TREES = [[164, 34, 24], [171, 44, 27], [177, 52, 22], [183, 56, 29], [189, 54, 26], [195, 60, 31], [201, 58, 28], [207, 62, 33], [213, 66, 30], [220, 70, 32],   // behind the house, past the RV
-  [158, 28, 18], [152, 30, 20],   // the near ones, far left of the arrival view
-  [8, 14, 24], [16, 11, 26], [28, 13, 20], [38, 15, 22]];   // the spruce + bush at the right of the view it ends on
+let rig, cap, capPlay, blocks2, forest;
 export async function setup(ctx) {
-  const { rig: R, heightAt } = ctx;
+  const { rig: R } = ctx;
   ({ blocks2, forest } = await campWorld(ctx));
-
-  const g = (x, y, up = 0) => [x, y, heightAt(x, y) + up];
-  // high over the creek looking SW down the whole campground strip, then down to treetops at the office + shower house
-  const A = g(-70, 10), B = g(-70, 60), C = g(-88, 70);
-  // calm: one descending push over the campground, then down into the real 360° photo by the shower house, which
-  // turns from the shower house to the office and the forest-school playground (Mike: get close, use the 360s)
-  const gA = ctx.groundAt;
-  pano = await panoStop(ctx, 'shower');
-  ctx.clearTreesNear([[5, 122], [-8, 118], [-22, 114], [-36, 110]].map(([x, y]) => new THREE.Vector3(x, gA(x, y) + 22, -y)), 13);   // the title shot's sight line: pines filled its left side
-  {
-    const m = new THREE.Matrix4(), c = new THREE.Color(), im = new THREE.InstancedMesh(photoConifer(), new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide }), PHOTO_TREES.length);
-    PHOTO_TREES.forEach(([h, d, H], i) => { const a = h * Math.PI / 180, x = pano.at[0] + Math.sin(a) * d, y = pano.at[1] + Math.cos(a) * d; m.makeScale(H, H, H).setPosition(x, heightAt(x, y) - 0.2, -y); im.setMatrixAt(i, m); im.setColorAt(i, c.setScalar(0.85 + (i % 4) * 0.1)); });
-    im.frustumCulled = false; im.userData.always = true; ctx.scene.add(im); ctx.photoTrees = im;   // the whole film (Mike 10-31: they vanished as ch04 began)
-    ctx.clearTreesNear([40, 48, 56, 64].map(d => new THREE.Vector3(pano.at[0] + Math.sin(353.4 * Math.PI / 180) * d, 0, -(pano.at[1] + Math.cos(353.4 * Math.PI / 180) * d))), 4);   // the one tree standing where the photo has open ground
-  }
+  const gA = ctx.groundAt, SH = [-70, 102], PL = [-74, 128];
+  // Mike 11-02: straight down from the 360 onto the shower house, then a brief run over the playground. No photos here now (the 360 stays in assets for reference).
   rig = R.makeRig([
-    // camera economy (Mike 10-29: "superfluous camera movements, and camera timing"): ONE descent onto the campground,
-    // a real HOLD while the title and the two cards read, then into the 360 photo with a slow, short look-around
-    // (times in seconds / 19.5)
-    [0.00, -45, 110, gA(-45, 110), 230, 255, -36, 45],   // already facing the way it will land: one turn, in the blend
-    [0.172, -60, 105, gA(-60, 105), 66, 255, -30, 46],      // the campground: shower house, office, RV loop (i7: lower, so the push into the photo is short)
-    [0.338, -61, 105, gA(-61, 105), 63, 254, -29, 46],      // hold while both stat cards read (i7: ~1 s each was too short)
-    // one eased push (~1.8 s) straight to the photographer's spot, no intermediate key (i3: half a second of lurch)
-    pano.key(0.431, 210, -9),   // facing the shower house — the camera STOPS here
-    pano.key(0.492, 210, -9),   // still: the photo fades in (Mike 10-29: never fade while moving)
-    // (Mike 10-30: "360 photos should pan more … probably 180") a slow 180° pan, clockwise: the shower house, the office
-    // and golf carts, the forest-school playground, then round to the RVs and the trees (~22°/s)
-    pano.key(0.903, 335, -3),   // (past here it is only a bush)
-    pano.key(0.933, 335, -3),   // still: the photo fades out here, BEFORE the chapter ends (Mike 10-30: ~frame 1450 the
-    pano.key(1.00, 335, -3),    // photo vanished mid-move as ch04 took over — a cut). Facing NE, as ch04 opens
+    [0.00, SH[0], SH[1], gA(...SH), 240, 8, -66, 46],
+    [0.27, SH[0], SH[1], gA(...SH), 44, 12, -30, 46],
+    [0.56, SH[0] + 1, SH[1], gA(...SH), 40, 12, -28, 46],   // hold while the title and numbers read
+    [0.78, PL[0], PL[1], gA(...PL), 36, 12, -30, 46],
+    [1.00, PL[0] + 2, PL[1] + 9, gA(...PL), 32, 12, -28, 46],
   ]);
-
   cap = document.createElement('div'); cap.className = 'cap';
   cap.innerHTML = '<div class="eyebrow">Six seasons in</div><h1>A working resort</h1>' +
-    // the numbers belong to the title (Mike 10-31, frame 1202: lying on the ground in perspective they looked out of place)
     '<div style="display:flex;margin-top:18px">' +
-    [['45', 'RV sites'], ['~3,000', 'Guests a year']].map(([n, l], i) => `<div style="${i ? 'margin-left:26px;padding-left:26px;border-left:1px solid rgba(242,237,232,.45)' : ''}"><div style="font:500 clamp(30px,3.8vw,50px)/1 Cormorant,Georgia,serif">${n}</div><div style="margin-top:7px;font:500 11.5px/1.2 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;opacity:.9">${l}</div></div>`).join('') + '</div>';
+    [['45', 'RV sites'], ['~3,000', 'Guests a year']].map(([n, l], i) => `<div style="${i ? 'margin-left:26px;padding-left:26px;border-left:1px solid rgba(242,237,232,.45)' : ''}"><div style="font:500 clamp(30px,3.8vw,50px)/1 Cormorant,Georgia,serif">${n}</div><div style="margin-top:7px;font:500 11.5px/1.2 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.9">${l}</div></div>`).join('') + '</div>';
   cap.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40));
   ctx.hud.appendChild(cap);
-  // a line during the photo's pan (i12: 11 s without words), as it passes the office and the playground
-  capPan = document.createElement('div'); capPan.className = 'cap';
-  capPan.innerHTML = '<div class="eyebrow">The campground</div><h1 style="white-space:nowrap">Shower house, golf carts, playground</h1>';
-  capPan.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40));
-  ctx.hud.appendChild(capPan);
+  capPlay = document.createElement('div'); capPlay.className = 'cap';
+  capPlay.innerHTML = '<div class="eyebrow">The playground</div><h1 style="font-size:clamp(32px,4.6vw,60px);line-height:1.04">Kids’ forest school ran its<br>first summer in 2026.</h1>';
+  capPlay.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40));
+  ctx.hud.appendChild(capPlay);
 }
 
 export function update(t, ctx) {
-  const s = ctx.rig.seg; t = clock(t);
+  const s = ctx.rig.seg;
   ctx.blocks.visible = false; blocks2.visible = false; ctx.trees.visible = true; forest.visible = false; // one forest for the whole film (no swapping)
-  ctx.U.uWaterAmt.value = 1 - 0.8 * s(t, 0.12, 0.37);
+  ctx.U.uWaterAmt.value = 0.25;
   rig.apply(ctx.camera, t);
-  // the photo is gone again before the chapter ends (the next chapter's blend starts from this spot in 3D)
-  pano.set(s(t, 0.437, 0.487) * (1 - s(t, 0.94, 0.985)));
-  cap.style.opacity = s(t, 0.148, 0.185) - s(t, 0.33, 0.35);   // off before the photo: the photo carries its own tag
-  cap.style.transform = `translateY(${(1 - s(t, 0.135, 0.23)) * 14}px)`;
-  capPan.style.opacity = s(t, 0.6, 0.64) - s(t, 0.84, 0.88);
+  cap.style.opacity = s(t, 0.26, 0.32) - s(t, 0.54, 0.58);
+  cap.style.transform = `translateY(${(1 - s(t, 0.26, 0.36)) * 14}px)`;
+  capPlay.style.opacity = s(t, 0.72, 0.78) - s(t, 0.96, 1);
 }

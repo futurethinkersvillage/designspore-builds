@@ -5,6 +5,7 @@
 import * as THREE from 'three';
 import { polysOf } from '../sheet.js';
 
+const FACE = 25 * Math.PI / 180;   // the way the stage faces, as a math angle from east
 export const meta = { id: 'ch11', title: 'Festival grounds & light', seconds: 24, animated: true };
 
 const AMBER = new THREE.Color('#EA824E'), TERRA = new THREE.Color('#AF695E'), MAUVE = new THREE.Color('#73516F');
@@ -104,7 +105,7 @@ export async function setup(ctx) {
     const s = new THREE.Mesh(geo, m); s.renderOrder = 18; scene.add(s); glows.push({ s, size: 0, on, kind: 'pool', ph: 0 });
   };
   // stage (the halo is kept small: the real stage rig carries the light now)
-  add(-193, -242, 10, 60, AMBER, 0.12, 'stage'); add(-193, -242, 5, 24, new THREE.Color('#ffd9b0'), 0.12, 'stage');
+  add(-203, -241, 10, 60, AMBER, 0.12, 'stage'); add(-203, -241, 5, 24, new THREE.Color('#ffd9b0'), 0.12, 'stage');
   // festival lanterns over the camp plots
   L.camp_plots.forEach((f, i) => {
     if (i % 3) return; const r = f.c[0];
@@ -130,22 +131,22 @@ export async function setup(ctx) {
     }
   }
   // festoon strings fanned out from the stage over the audience meadow: warm bulbs every 2 m on a sagging line
-  const SP = [-193, -242];   // the stage faces SE (bearing 135°)
+  const SP = [-203, -241];   // the stage faces out of the pocket, bearing 65°
   for (let k = -3; k <= 3; k++) {
-    const a = -Math.PI / 4 + k * 0.2;   // fan of 7 strings, 11° apart
+    const a = FACE + k * 0.2;   // fan of 7 strings, 11° apart
     for (let d = 16; d <= 70; d += 2) {   // from the deck's front edge out (i8: bulbs ran across the deck)
       const u = (d - 16) / 54, sag = 7 - 3 * Math.sin(Math.PI * u);
       add(SP[0] + Math.cos(a) * d, SP[1] + Math.sin(a) * d, sag, 0.75, new THREE.Color(k % 2 ? '#ffd7a0' : '#ffb27a'), 0.14 + 0.01 * Math.abs(k), 'bulb');
     }
   }
-  pool(-193, -242, 70, AMBER, 0.12);
+  pool(-203, -241, 70, AMBER, 0.12);
   const smallReady = () => { for (const [kind, S] of Object.entries(small)) { if (!S.p.length) continue; const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(S.p, 3)); g.setAttribute('color', new THREE.Float32BufferAttribute(S.c, 3)); const pts = new THREE.Points(g, new THREE.PointsMaterial({ map: tex, size: S.size, vertexColors: true, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })); pts.frustumCulled = false; pts.renderOrder = 23; pts.scale.setScalar(1); scene.add(pts); glows.push({ s: pts, size: 0, on: kind === 'path' ? 0.22 : 0.15, kind, ph: 0 }); } };
   // the planned event pavilion stood black in the night meadow (i9): warm light inside it
   { const l = new THREE.PointLight(0xffc890, 220, 40, 2); l.position.set(-140, heightAt(-140, -278) + 3, 278); scene.add(l); add(-140, -278, 9, 26, new THREE.Color('#ffc890'), 0.1, 'lantern'); const l2 = new THREE.PointLight(0xffd8b0, 300, 60, 2); l2.position.set(-140, heightAt(-140, -278) + 16, 278); scene.add(l2); }
   // the crowd in front of the stage: dark figures fanned over the meadow (i12)
   {
     const pts = []; let sd = 5; const rnd = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
-    while (pts.length < (ctx.MOBILE ? 150 : 620)) { const d = 13 + 45 * Math.sqrt(rnd()), a = -Math.PI / 4 + (rnd() - 0.5) * 1.15 * (1 - 0.3 * d / 58); pts.push([-193 + Math.cos(a) * d, -242 + Math.sin(a) * d]); }
+    while (pts.length < (ctx.MOBILE ? 150 : 620)) { const d = 13 + 45 * Math.sqrt(rnd()), a = FACE + (rnd() - 0.5) * 1.15 * (1 - 0.3 * d / 58); pts.push([-203 + Math.cos(a) * d, -241 + Math.sin(a) * d]); }
     crowd2 = new THREE.InstancedMesh(new THREE.CapsuleGeometry(0.2, 1.05, 2, 6), new THREE.MeshBasicMaterial({ color: 0xffffff }), pts.length);
     const dm = new THREE.Object3D(), cc = new THREE.Color(), c0 = new THREE.Color(0x2e2029), c1 = new THREE.Color(0x14111a);   // lit by the stage, falling off to the back (i17: barely visible)
     pts.forEach(([x, y], i) => { dm.position.set(x, ctx.groundAt(x, y) + 0.85, -y); dm.scale.set(1, 0.85 + rnd() * 0.3, 1); dm.updateMatrix(); crowd2.setMatrixAt(i, dm.matrix); crowd2.setColorAt(i, cc.copy(c0).lerp(c1, Math.min(1, (Math.hypot(x + 193, y + 242) - 13) / 40))); });
@@ -153,6 +154,21 @@ export async function setup(ctx) {
     const heads = new THREE.InstancedMesh(new THREE.SphereGeometry(0.17, 8, 6), crowd2.material, pts.length);
     pts.forEach(([x, y], i) => { dm.position.set(x, ctx.groundAt(x, y) + 1.72, -y); dm.scale.setScalar(1); dm.updateMatrix(); heads.setMatrixAt(i, dm.matrix); heads.setColorAt(i, cc.copy(c0).lerp(c1, Math.min(1, (Math.hypot(x + 193, y + 242) - 13) / 40))); }); heads.frustumCulled = false; crowd2.add(heads); crowd2.position.set(0, 0, 0);
   }   // (above the roof: i11, it read as a black hole)
+  // the grounds around the crowd (Mike 11-02: more detail): market stalls in an arc behind it, a bar, flags, light towers, picnic tables
+  {
+    const box = (w, h, d) => new THREE.BoxGeometry(w, h, d), solid = c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.85, emissive: c, emissiveIntensity: 0.12 });
+    const place = (geo, mat, x, y, up, ry = 0) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, ctx.groundAt(x, y) + up, -y); m.rotation.y = ry; scene.add(m); return m; };
+    const ARC = (d, a) => [-203 + Math.cos(FACE + a) * d, -241 + Math.sin(FACE + a) * d], CANVAS = [0xd9c6a0, 0xb5532e, 0xd19a3a, 0x2f6f6b, 0xe8ddc8, 0x8c3b2f];
+    for (let k = 0; k < 13; k++) { const a = -0.95 + k * 0.158, [x, y] = ARC(78, a), ry = Math.PI / 2 - (FACE + a) + Math.PI / 2;
+      place(box(4.6, 2.2, 3.4), solid(0x6b5a44), x, y, 1.1, ry);
+      const top = place(new THREE.ConeGeometry(3.6, 1.5, 4), solid(CANVAS[k % 6]), x, y, 2.95, ry + Math.PI / 4);
+      place(box(4.2, 0.9, 0.5), solid(0x8a6a4a), x - Math.cos(FACE + a) * 2, y - Math.sin(FACE + a) * 2, 0.45, ry);
+      add(x - Math.cos(FACE + a) * 2.2, y - Math.sin(FACE + a) * 2.2, 2.3, 7, new THREE.Color('#ffd7a0'), 0.16 + k * 0.004, 'lantern'); }
+    for (let k = 0; k < 16; k++) { const a = -1.2 + k * 0.16, [x, y] = ARC(62 + (k % 2) * 3, a); place(new THREE.CylinderGeometry(0.05, 0.06, 7, 6), solid(0x3a3128), x, y, 3.5); const f = place(new THREE.PlaneGeometry(1.1, 2.6), new THREE.MeshStandardMaterial({ color: CANVAS[k % 6], side: THREE.DoubleSide, emissive: CANVAS[k % 6], emissiveIntensity: 0.2 }), x + 0.55, y, 5.6, k * 0.4); }
+    for (const a of [-0.9, 0.9]) { const [x, y] = ARC(46, a); place(new THREE.CylinderGeometry(0.2, 0.3, 11, 8), solid(0x26262a), x, y, 5.5); place(box(1.8, 0.8, 0.6), solid(0x1b1b1f), x, y, 11, Math.PI / 2 - FACE); add(x, y, 11, 16, new THREE.Color('#fff1da'), 0.2, 'lantern'); }
+    { const [x, y] = ARC(66, 1.32); place(box(9, 2.6, 3), solid(0x7a5233), x, y, 1.3, 0.4); place(box(10, 0.2, 5), solid(0x4a3322), x, y, 3.3, 0.4); add(x, y, 3, 12, new THREE.Color('#ffcf90'), 0.2, 'lantern'); }
+    for (let k = 0; k < 14; k++) { const a = -0.7 + k * 0.11, [x, y] = ARC(70 + (k % 3) * 1.5 - 4, a); place(box(2, 0.08, 0.9), solid(0x8a6a4a), x, y, 0.76, k * 0.5); place(box(2, 0.06, 0.3), solid(0x8a6a4a), x + 0.7, y, 0.46, k * 0.5); place(box(2, 0.06, 0.3), solid(0x8a6a4a), x - 0.7, y, 0.46, k * 0.5); }
+  }
   // this chapter's own stage, not the engine's shared model (Mike 10-30, ~frame 5062: ch11 and ch12 shared one object, so
   // the film's chapter switch hid it and ch12 showed it again — it popped)
   STAGE = await import('../models/festival_stage.js');
@@ -173,9 +189,8 @@ export async function setup(ctx) {
   const landingCards = [['Moss Cathedral', 300, 215]]   // (i11: two, ~2 s each — the four at ~0.6 s never read)
     .map(([n, s0, s1]) => [...lm(n), 14, n, 'Art landing · planned', tOf(s0), tOf(s1), 14]);   // (i9: all on the right — the left ones sat on the trail headline)   // (i8: lift 14, in once the camera is level)
   for (const [x, y, lift, text, sub, a, b, off = 25] of [
-    [-193, -242, 45, 'Stage', 'Planned', 0.28, 0.36],
-    ...landingCards,
-    [-193, -242, 13, 'Stage', 'Planned', 0.85, 1.01, 12],
+    [-203, -241, 45, 'Stage', 'Planned', 0.28, 0.36],
+    [-203, -241, 13, 'Stage', 'Planned', 0.85, 1.01, 12],
   ]) {
     const gy = heightAt(x, y), m = card(text, sub); m.position.set(x + off, gy + lift, -y); scene.add(m);
     const pg = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x, gy + 2, -y), new THREE.Vector3(x + off, gy + lift, -y)]);
@@ -187,10 +202,9 @@ export async function setup(ctx) {
   // festival grounds cleared of trees while the festival plays (the real forest stays in the 'here today' chapters)
   const fgRings = L.festival_grounds.flatMap(f => polysOf(f).map(p => p[0]));
   // (+ the stage's own plot and the audience meadow in front of it, which sit just outside the grounds' outline)
-  const crowd = Array.from({ length: 24 }, (_, i) => { const a = i / 24 * Math.PI * 2; return [-193 + 28 + Math.cos(a) * 75, -242 - 28 + Math.sin(a) * 75]; });
-  // and a 30 m corridor along the flown stretch of trail, so the lamp line reads from the glide (i11)
-  const corridor = (() => { const a = [], b = []; for (let s = 0; s <= 400; s += 20) { const p = at(s), q = at(s + 5), r = at(s - 5), l = Math.hypot(q[0] - r[0], q[1] - r[1]) || 1, nx = (q[1] - r[1]) / l, ny = -(q[0] - r[0]) / l; a.push([p[0] + nx * 15, p[1] + ny * 15]); b.unshift([p[0] - nx * 15, p[1] - ny * 15]); } return [...a, ...b, a[0]]; })();
-  treeSet = ctx.treesIn([...fgRings, ...L.event_space.flatMap(f => polysOf(f).map(p => p[0])), crowd, corridor, ...L.landings.map(f => Array.from({ length: 16 }, (_, i) => { const a = i / 16 * 6.283; return [f.c[0] + Math.cos(a) * 16, f.c[1] + Math.sin(a) * 16]; }))]);
+  // Mike 11-02: no trees come down out here. Only the stage's own plot and the crowd in front of it stay clear.
+  const crowd = Array.from({ length: 24 }, (_, i) => { const a = i / 24 * Math.PI * 2; return [-203 + Math.cos(FACE) * 28 + Math.cos(a) * 34, -241 + Math.sin(FACE) * 28 + Math.sin(a) * 34]; });
+  treeSet = ctx.treesIn([crowd]);
   // …and the ground there reads as an open mown meadow, not the aerial photo of the forest that stood on it: a grass
   // sheet draped on the terrain, cut to the grounds' outline by an alpha mask
   {
@@ -211,7 +225,7 @@ export async function setup(ctx) {
     for (let i = 0; i < P.count; i++) { const x = b[0] + w / 2 + P.getX(i), y = b[1] + h / 2 - P.getZ(i); P.setX(i, x); P.setZ(i, -y); P.setY(i, ctx.groundAt(x, y) + 0.25); }
     geo.computeVertexNormals();
     meadow = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.02, depthWrite: true }));   // lit like the land (uLight) in update
-    meadow.renderOrder = 2; scene.add(meadow);
+    meadow.renderOrder = 2; meadow.visible = false;   // (Mike 11-02: the field keeps its own look)
   }
   // the campground on the meadow, plot by plot (Mike 10-30), with a small fire glow at each pit
   {
@@ -278,35 +292,17 @@ export async function setup(ctx) {
   // [t, east, north, height, frameH, heading°, pitch°, fov°] — the whole chapter looks north-west: toward the stage's
   // front, along the trail and back at the campus, so no move needs a big turn (Mike 10-29 frame list)
   const gA = ctx.groundAt, O = [-62, -398];
-  // the trail flight is ONE straight, constant-speed glide over the branch, heading held (Mike 10-29: following every
-  // bend of the trail read as janky): the look point runs along the chord from Kindling Circle to Firefly Bend, at a
-  // height that rises evenly with the ground (no bobbing over each knoll) and clears the highest ground under it
-  const A = at(S0 - 38), B = at(S1), hd = (Math.atan2(B[0] - A[0], B[1] - A[1]) * 180 / Math.PI + 360) % 360;
-  const lerp2 = k => [A[0] + (B[0] - A[0]) * k, A[1] + (B[1] - A[1]) * k];
-  const hA = gA(...A), hB = gA(...B);
-  let lift = 30; for (let k = 0; k <= 1; k += 0.02) lift = Math.max(lift, gA(...lerp2(k)) - (hA + (hB - hA) * k) + 30);   // (i8: higher again — above the crowns, the lamp line reads)
-  // down to one landing and a real stop on it (i15: path, lanterns and timber never read from above the crowns), then on
-  const LD = lm('Moss Cathedral');
-  const trail = [[TA, A[0], A[1], hA + lift, 56, hd, -32, 52], [TA + 0.055, LD[0], LD[1], gA(...LD) + 2, 24, hd, -20, 52], [TA + 0.125, LD[0] + 0.5, LD[1] + 0.5, gA(...LD) + 2, 22, hd, -20, 52], [TB, B[0], B[1], hB + lift, 56, hd, -30, 52]];
+  // Mike 11-02: no trail close-ups (no art that doesn't exist). From the view over the grounds the camera pans across to the trails, then moves to the stage.
+  const pose = (t, cx, cy, ch, hd, pitch, frame, fov) => { const d = frame / (2 * Math.tan(fov * Math.PI / 360)), c = Math.cos(pitch * Math.PI / 180), s = Math.sin(pitch * Math.PI / 180), a = hd * Math.PI / 180, x = cx + Math.sin(a) * c * d, y = cy + Math.cos(a) * c * d; return [t, x, y, ch + s * d, frame, hd, pitch, fov]; };
+  const CX = 150, CY = -650, CH = 215;
   rig = R.makeRig([
-    // (i9: 24 s, tighter overview, words throughout)
-    [0.00, -40, -430, 50, 380, 326, -25, 44],
-    [0.104, O[0], O[1], 48, 340, 320, -24, 46],
-    [0.1875, O[0] - 1, O[1] + 1, 48, 300, 320, -24, 46],          // hold: dusk falls, the first line reads
-    // (frame ~4300: "a subtle punch-in zoom on the festival grounds") a slow dolly in on the grounds — it also
-    // halves the dive that follows (i5: 535 m/s peak when it was a lens zoom from 1 km out)
-    [0.292, -110, -420, 40, 210, 322, -23, 46],
-    [0.333, -112, -418, 40, 200, 322, -23, 46],
-    // (4500–4600: "zoom in and fly along the trail to see the art installations close up") down onto the trail
-    ...trail,
-    // across to the stage's front, beams sweeping toward the lens (lifted over the crowns on the way: i6 skimmed
-    // through them); hold while it plays
-    // (i7: aimed at the stage the whole way, so it grows in the frame instead of sliding in at the edge)
-    [0.75, B[0] + (-193 - B[0]) * 0.6, B[1] + (-242 - B[1]) * 0.6, gA(-193, -242) + 45, 220, 252, -22, 52],
-    [0.854, -193, -242, gA(-193, -242) + 7, 44, 312, -8, 50],
-    // hold while the show plays and the closing line reads; ch12 rises out from here (i5: flying 1.1 km back out to
-    // the overview peaked at 460 m/s — ch12's own rise is the zoom back out)
-    [1.00, -193, -242, gA(-193, -242) + 7, 38, 314, -8, 50],
+    pose(0.00, CX, CY, CH, 322, -26, 340, 46),
+    pose(0.22, CX, CY, CH, 320, -25, 330, 46),     // hold: dusk falls over the grounds
+    pose(0.42, CX, CY, CH, 40, -17, 420, 46),      // pan across to the hiking trails, same spot
+    pose(0.54, CX, CY, CH, 42, -17, 420, 46),
+    [0.78, -203 + 200, -241 + 90, gA(-203, -241) + 30, 200, 246, -18, 50],
+    [0.88, -203, -241, gA(-203, -241) + 7, 44, 245, -8, 50],
+    [1.00, -203, -241, gA(-203, -241) + 7, 38, 245, -8, 50],
   ]);
 
   const mk = (eyebrow, h) => {
@@ -314,10 +310,10 @@ export async function setup(ctx) {
     d.innerHTML = `<div class="eyebrow">${eyebrow}</div><h1>${h}</h1>`;
     d.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40)); ctx.hud.appendChild(d); return d;
   };
-  cap1 = mk('Culture is infrastructure', 'Art isn’t a late amenity.<br>It starts now.');
-  cap2 = mk('Festival grounds · 35 acres · stage · 16 art landings', 'Art festivals in 2027.');
+  cap1 = mk('Festival grounds', 'Art isn’t a late amenity.<br>It starts now.');
+  cap2 = mk('Festival grounds · stage · art trails', 'Art festivals in 2027.');
   // the trail gets its own line while the camera glides along it (i8: 18 s with no words)
-  cap3 = mk('The discovery trail', '16 art landings<br>through the forest.');
+  cap3 = mk('The discovery trail', 'Hiking and art trails<br>through the forest.');
   cap4 = mk('Festival camping', 'Tents and vans,<br>plot by plot.');
   tag = document.createElement('div');
   tag.style.cssText = 'position:absolute;top:22px;right:22px;font:600 11px/1 Inter,sans-serif;letter-spacing:.22em;color:#EA824E;border:1px solid rgba(234,130,78,.7);padding:8px 12px;border-radius:2px;background:rgba(26,23,32,.55);opacity:0';
@@ -372,9 +368,9 @@ export function update(t, ctx) {
   if (stage) STAGE.update(stage, U.uTime.value, show);
   for (const a of art) a.mod.update?.(a.o, U.uTime.value);
   cap1.style.opacity = seg(t, 0.04, 0.07) - seg(t, 0.2, 0.23);   // in with the overview (i7: 2.4 s with no words)
-  cap2.style.opacity = seg(t, 0.72, 0.76);   // on the approach and the stage hold (i9, i11)
-  cap4.style.opacity = seg(t, 0.235, 0.26) - seg(t, 0.36, 0.385);
-  cap3.style.opacity = seg(t, 0.4, 0.44) - seg(t, 0.64, 0.67);   // from the start of the dive (i9)
+  cap2.style.opacity = seg(t, 0.8, 0.84);   // on the approach and the stage hold (i9, i11)
+  cap4.style.opacity = 0;
+  cap3.style.opacity = seg(t, 0.42, 0.45) - seg(t, 0.56, 0.59);   // from the start of the dive (i9)
   tag.style.opacity = seg(t, 0.05, 0.15);
 }
 
