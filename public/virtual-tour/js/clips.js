@@ -1,5 +1,5 @@
 // Real footage in the film (Mike 11-02): short pieces of one continuous shot, each following the scroll forwards and backwards. A clip is a folder of numbered JPEGs (tools/make_clips.sh),
-// fetched as the film nears it. Windows are fractions of their chapter. drone = the 3D camera holds the drone's first view, so it dissolves in; the others are cut-ins from the 3 Years video.
+// fetched (and decoded off the main thread) as the film nears it. Windows are fractions of their chapter. drone = the 3D camera holds the drone's first view, so it dissolves in; the others are cut-ins from the 3 Years video.
 export const CLIPS = [
   { id: 'rapids', ch: 'ch04', a: 0.18, b: 0.42, n: 75, fade: 0.8, cap: 'Hemp Creek · drone footage' },
   { id: 'dome', ch: 'ch05', a: 0.31, b: 0.44, n: 43, fade: 0.25, cap: 'Building the dome' },
@@ -17,7 +17,7 @@ export function makeClips({ ranges, chapterIds, total, phone }) {
   document.body.appendChild(label);
   const g = c.getContext('2d');
   const list = CLIPS.map(k => { const i = chapterIds.indexOf(k.ch), [A, B] = ranges[i], w = B - A; return { ...k, p0: A + w * k.a, p1: A + w * k.b, imgs: null }; }).filter(k => Number.isFinite(k.p0));
-  const fetchIt = k => { if (k.imgs) return; k.imgs = Array.from({ length: k.n }, (_, i) => { const im = new Image(); im.decoding = 'async'; im.src = `${dir}/${k.id}/${String(i + 1).padStart(3, '0')}.jpg`; im.decode().catch(() => {}); return im;   // decoded off the main thread before it's drawn }); };
+  const fetchIt = k => { if (k.imgs) return; k.imgs = Array.from({ length: k.n }, (_, i) => { const im = new Image(); im.decoding = 'async'; im.src = `${dir}/${k.id}/${String(i + 1).padStart(3, '0')}.jpg`; im.decode().catch(() => {}); return im; }); };
   let shown = null, lastDrawn = '', drawnFor = '';
   return {
     update(p) {
