@@ -17,7 +17,7 @@ export function makeClips({ ranges, chapterIds, total, phone }) {
   document.body.appendChild(label);
   const g = c.getContext('2d');
   const list = CLIPS.map(k => { const i = chapterIds.indexOf(k.ch), [A, B] = ranges[i], w = B - A; return { ...k, p0: A + w * k.a, p1: A + w * k.b, imgs: null }; }).filter(k => Number.isFinite(k.p0));
-  const fetchIt = k => { if (k.imgs) return; k.imgs = Array.from({ length: k.n }, (_, i) => { const im = new Image(); im.src = `${dir}/${k.id}/${String(i + 1).padStart(3, '0')}.jpg`; return im; }); };
+  const fetchIt = k => { if (k.imgs) return; k.imgs = Array.from({ length: k.n }, (_, i) => { const im = new Image(); im.decoding = 'async'; im.src = `${dir}/${k.id}/${String(i + 1).padStart(3, '0')}.jpg`; im.decode().catch(() => {}); return im;   // decoded off the main thread before it's drawn }); };
   let shown = null, lastDrawn = '', drawnFor = '';
   return {
     update(p) {
