@@ -1,7 +1,7 @@
 // The gazebo's future (moved here 11-02: it's future development, so it follows the title in ch07): with the camera nearly still, today's gazebo converts into the planned
 // co-working café (js/models/gazebo_cafe.js): glazing, furniture, café counter, laptops, lights.
 import * as CAFE from '../models/gazebo_cafe.js';
-export const meta = { id: 'ch06b', title: 'Co-working café', seconds: 13, animated: true, blendTurn: true };
+export const meta = { id: 'ch06b', title: 'Co-working café', seconds: 13, animated: true, blend: 0.02, cut: true };   // r1103b: cross-fade from the ledger map onto the gazebo, no plunge
 let DUSKH, DUSKT, glowL, SUN0 = 1, HEMI0 = 1, rig, capCafe, cafe, gzObj, tables = [];
 export async function setup(ctx) {
   const { THREE, rig: R, heightAt } = ctx;

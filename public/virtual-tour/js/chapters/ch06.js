@@ -3,7 +3,7 @@
 // glazing, furniture, café counter, laptops, lights — Mike 10-29; replaces the old orange concept boxes).
 import * as CAFE from '../models/gazebo_cafe.js';
 
-export const meta = { id: 'ch06', title: 'The gazebo: the heart', seconds: 27, animated: true, blendTurn: true };   // the blend's slerp flipped direction at frame 3144: one 114° jump
+export const meta = { id: 'ch06', title: 'The gazebo: the heart', seconds: 27, animated: true, blend: 0.02, cut: true };   // r1103b: cross-fade straight onto the pond (the glide in was 6 s with no subject)   // the blend's slerp flipped direction at frame 3144: one 114° jump
 let rig, cap, tag, photo, gzObj, tables = [];
 
 function el(html, css) { const d = document.createElement('div'); d.innerHTML = html; if (css) d.style.cssText = css; return d; }
@@ -32,6 +32,7 @@ export async function setup(ctx) {
     [0.92, SG.x, SG.y, sh, 11, 36.7, -3, 40],   // on to the sign at the gate
     [1.00, SG.x, SG.y, sh, 10.4, 36.7, -3, 40],
   ]);
+  ctx.clearTreesInView(R.views(rig, 0, 1, 0.02), 1.6, 0.45);   // no cone looming at the lens (corners included) on the way to the gazebo and the sign (r1103b: trunks filled the frame at 23 s)
   const mark = h => ctx.markImg(h);
   cap = el('<div class="eyebrow">The heart · here today</div><h1 style="white-space:nowrap;font-size:clamp(30px,4vw,56px)">The 120-person gazebo</h1>' +
     '<p style="font:400 15px/1.45 Inter,sans-serif;margin:12px 0 0;opacity:.9">Weddings, meetups, celebrations and community dinners.</p>');

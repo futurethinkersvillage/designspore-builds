@@ -5,7 +5,7 @@ import { LineSegments2 } from 'three/addons/lines/LineSegments2.js';
 import { LineSegmentsGeometry } from 'three/addons/lines/LineSegmentsGeometry.js';
 import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 
-export const meta = { id: 'ch07', title: 'Future development', seconds: 21, animated: false, legend: false, capsFrom: 0 };   // the big title rides the climb (r1103: it never showed)
+export const meta = { id: 'ch07', title: 'Future development', seconds: 21, animated: false, legend: false, capsFrom: 0, blend: 0.02, cut: true };   // r1103b: cross-fade to the aerial, the title held still (it rode a 3 s rocket climb)   // the big title rides the climb (r1103: it never showed)
 
 // timed after the film's camera blend (t < 0.3), one phase every ~2 s
 const PHASES = [
@@ -75,7 +75,7 @@ export async function setup(ctx) {
   PHASES.forEach((ph, i) => {
     const hd = 9 - i * 0.6, r = [Math.cos(hd * Math.PI / 180), -Math.sin(hd * Math.PI / 180)];
     // half-way from the wide view's centre to that ideal (Mike: "shift slightly"): enough to clear the panel, short moves
-    const f = 0.35, x = c[0] + f * (ph.at[0] - west * r[0] - c[0]), y = c[1] + f * (ph.at[1] - west * r[1] - c[1]);   // (i7: 0.55 read as swings)
+    const f = 0.2, x = c[0] + f * (ph.at[0] - west * r[0] - c[0]), y = c[1] + f * (ph.at[1] - west * r[1] - c[1]);   // (i7: 0.55 read as swings; r1103b: 0.35 still re-framed the map for every row)
     K.push([ph.t[0] + 0.05, x, y, h, F, hd, -48, 42], [ph.t[1] - 0.005, x, y, h, F, hd, -48, 42]);   // ~1.4 s move, then a still hold
   });
   { const l = K[K.length - 1]; K.push([1.0, ...l.slice(1)]); }   // the headline lands on the last lean: no extra move (i7)
