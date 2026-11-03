@@ -7,12 +7,12 @@ export async function setup(ctx) {
   const { rig: R } = ctx, gA = ctx.groundAt;
   ({ blocks2, forest } = await campWorld(ctx));
   const S = [-81.45, -45.06], C = [-105.4, -86], RP = [-60, 58];
-  ctx.clearTreesNear([0, 10, 20, 30].map(d => new ctx.THREE.Vector3(RP[0] - Math.sin(115 * Math.PI / 180) * d, 0, -(RP[1] - Math.cos(115 * Math.PI / 180) * d))), 11);   // nothing stands between the lens and the creek in the footage
+  ctx.clearTreesNear([0, 10, 20, 30].map(d => new ctx.THREE.Vector3(RP[0] - Math.sin(92 * Math.PI / 180) * d, 0, -(RP[1] - Math.cos(92 * Math.PI / 180) * d))), 11);   // nothing stands between the lens and the creek in the footage
   rig = R.makeRig([
     // the drone's own view of the rapids (video 0:48): the camera arrives and stops, the footage dissolves in and out over the hold (js/clips.js)
-    [0.00, RP[0], RP[1], gA(...RP), 24, 115, -38, 46],
-    [0.20, RP[0], RP[1], gA(...RP), 24, 115, -38, 46],
-    [0.48, RP[0], RP[1], gA(...RP), 24, 115, -38, 46],
+    [0.00, RP[0], RP[1], gA(...RP), 24, 92, -38, 46],
+    [0.17, RP[0], RP[1], gA(...RP), 24, 92, -38, 46],
+    [0.48, RP[0], RP[1], gA(...RP), 24, 92, -38, 46],
     [0.62, S[0], S[1], gA(...S) + 1.2, 19, 106, -13, 48],
     [0.76, S[0], S[1], gA(...S) + 1.2, 17, 108, -12, 48],   // hold on the sauna
     [0.90, C[0], C[1], gA(...C) + 2, 34, 222, -20, 46],     // on along the creek to the cabins' doors

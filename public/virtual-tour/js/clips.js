@@ -1,7 +1,7 @@
 // Real footage in the film (Mike 11-02): short pieces of one continuous shot, each following the scroll forwards and backwards. A clip is a folder of numbered JPEGs (tools/make_clips.sh),
 // fetched as the film nears it. Windows are fractions of their chapter. drone = the 3D camera holds the drone's first view, so it dissolves in; the others are cut-ins from the 3 Years video.
 export const CLIPS = [
-  { id: 'rapids', ch: 'ch04', a: 0.22, b: 0.46, n: 75, fade: 0.8, cap: 'Hemp Creek · drone footage' },
+  { id: 'rapids', ch: 'ch04', a: 0.18, b: 0.42, n: 75, fade: 0.8, cap: 'Hemp Creek · drone footage' },
   { id: 'dome', ch: 'ch05', a: 0.31, b: 0.44, n: 43, fade: 0.25, cap: 'Building the dome' },
   { id: 'ponds', ch: 'ch06', a: 0.3, b: 0.49, n: 75, fade: 0.8, cap: 'The golf course · drone footage' },
   { id: 'gazebo', ch: 'ch06', a: 0.68, b: 0.755, n: 30, fade: 0.2, cap: 'At the gazebo' },
