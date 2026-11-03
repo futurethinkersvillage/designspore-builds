@@ -173,7 +173,7 @@ async function init() {
     if (shown) { shown.style.display = ''; shown.style.opacity = String(1 - handoff.x); } prevWrap = shown;
     const u = rig.clamp((t - hold) / (blend - hold)), w = u * u * u * (u * (u * 6 - 15) + 10);   // smootherstep: no jolt at either end
     if (k === 0) E.pano.mesh.visible = false;   // the aerial photo has already faded out, with the camera still (cp1.js; Mike 10-31, frame 1025)
-    if (w < 1) {
+    if (w < 1 && !c.mod.meta.cut) {   // meta.cut: no flight in; the hand-off dissolve cross-fades straight to the chapter's own first view
       const from = k === 0 ? cp1End : chapters[k - 1].endPose;
       const toPos = camera.position.clone(), toQuat = camera.quaternion.clone(), toFov = camera.fov;
       // arc up and over instead of skimming across: lift the midpoint by a share of the distance travelled

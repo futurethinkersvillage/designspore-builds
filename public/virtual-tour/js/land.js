@@ -234,7 +234,8 @@ vec3 groundMat(vec3 photo, vec2 xy, float dist, vec2 dUV, vec3 n) {
     vec3 ratio = clamp(lp / max(uGroundMean[i], vec3(0.01)), vec3(0.45), vec3(1.9));
     // the drone survey is autumn: grass follows its light and dark but keeps a summer green (photos: luminous mown fairways)
     // grass: summer colour with 30% of the scan's own hue, its light + dark and fine detail; gravel + dirt keep the scan's tyre tracks
-    vec3 rg = i < 2 ? mix(vec3(1.08, 1.2, 0.88), lowP / max(uGroundMean[i], vec3(0.01)) * vec3(0.95, 1.15, 0.8), 0.3) * mix(1.0, broad, 0.4) * pow(detail, 0.85) : (i >= 2 && i <= 5) ? vec3(1.0, 0.98, 0.94) : ratio;
+    bool vgl = i == 7 && xy.x > -30.0 && xy.x < 170.0 && xy.y < 280.0 && xy.y > -300.0;   // cobbles in the village take the gravel tone: the scan's blue tarps tinted them like oil (r1103)
+    vec3 rg = i < 2 ? mix(vec3(1.08, 1.2, 0.88), lowP / max(uGroundMean[i], vec3(0.01)) * vec3(0.95, 1.15, 0.8), 0.3) * mix(1.0, broad, 0.4) * pow(detail, 0.85) : ((i >= 2 && i <= 5) || vgl) ? vec3(1.0, 0.98, 0.94) : ratio;
     if (i == 1) c *= 1.0 + 0.09 * grain * (smoothstep(-0.12, 0.12, sin(dot(xy, vec2(0.6, 0.8)) * 0.7)) - 0.5);   // the mower's stripes (drone video)
     if (i >= 2 && i <= 5) c = mix(vec3(dot(c, vec3(0.3, 0.6, 0.1))), c, 0.45);   // the gravel texture itself reads yellow
     col += wi * c * mix(vec3(1.0), rg, 0.85);                   // follow the photo's own colour there, so patches agree with the place (i11)
@@ -263,6 +264,7 @@ vec3 water(vec3 land, vec2 xy, vec3 wpos) {
     vec4 gc = (g.x > 0.0 && g.y > 0.0 && g.x < 1.0 && g.y < 1.0) ? texture2D(tGroundC, g) : vec4(0.0);
     if (gc.g > 0.5) {
       traced = 1.0; amt = smoothstep(0.25, 0.75, gc.r);
+      if (gc.b < 0.5 && xy.x > -30.0 && xy.x < 170.0 && xy.y > -165.0 && xy.y < 280.0) amt = 0.0;   // still puddles in the village gravel shimmered like oil (r1103); the creek and the lake keep theirs
       // still vs flowing comes from the ground map itself (b = creek channel), smooth at 0.5 m — the old 2 m atlas
       // lookup made the lake switch look in blocks (Mike 10-29: "why's it so pixelated?"); the flow DIRECTION still
       // comes from the (very blurred) atlas, only on the creek

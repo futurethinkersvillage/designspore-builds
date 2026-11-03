@@ -282,10 +282,10 @@ function doorLeaf(B, cx, y0, H, W, z, F, opts = {}) {   // full-lite door + fram
   B.obox('timber', 0, 0, 0, cx - hx, cx + hx, y0 + H - fw, y0 + H, zb, zf, fc);
   B.obox('timber', 0, 0, 0, cx - hx, cx + hx, y0, y0 + 0.02, zb, zf, hex('#191a1b'));
   const leaves = opts.leaves || 1, lw = (W - 2 * fw) / leaves;
-  if (doorOpen) {   // walk-through viewer: each leaf stands open into the room
+  if (doorOpen) {   // walk-through viewer: each leaf stands open, swung outward
     for (let l = 0; l < leaves; l++) {
       const hinge = l === 0 ? cx - hx + fw : cx + hx - fw, s = l === 0 ? 1 : -1, zg = z - depth;
-      B.obox('timber', 0, 0, 0, hinge, hinge + s * 0.045, y0 + 0.02, y0 + H - fw, zg - lw, zg, F === FINISHES.cedar ? PAL.walnut : PAL.char);
+      B.obox('timber', 0, 0, 0, hinge, hinge + s * 0.045, y0 + 0.02, y0 + H - fw, z, z + lw, F === FINISHES.cedar ? PAL.walnut : PAL.char);   // swung out onto the deck
     }
     return;
   }
@@ -517,7 +517,7 @@ function assemble({ type = 'z6', door, finish = 'slate', glass = null, glaze = [
   if (plan && interior && hi) addPlan(B, plan, Z);
   if (figure && hi) {   // scale figure on the ground beside the steps
     const halfW = Z.door === 'A' ? Math.max(Z.info.A.Xo, Z.info.A.Xb) + 0.32 : Z.door === 'B' ? Z.info.B.deckW / 2 : Z.info.C.deckW / 2;
-    const front = Z.door === 'A' ? Z.info.A.Zo + (Z.K === 7 ? 0.62 : 0.72) : Z.door === 'B' ? Z.info.B.Zc + Z.info.B.deckDepth : Z.info.C.dF + Z.info.C.deckFront;
+    const front = Z.info.landing.z1;
     addFigure(B, -(halfW + 0.6), front - 0.15, -20, Z);
   }
   return { B, Z };

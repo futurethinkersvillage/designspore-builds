@@ -15,10 +15,10 @@ export function build({ V, ground, level, lod = 'high' }) {
   const add = (kind, x, y, sx, sy, sz, ry, c, lift = 0, base = null) => { if (!lists.has(kind)) lists.set(kind, []); lists.get(kind).push([x, (base ?? ground(x, y)) + lift, y, sx, sy, sz, ry, c]); };
   const FLOW = [0xf0c63c, 0xe9e4d6, 0xd9708c, 0xb377c9, 0xe88a3c, 0x8fb4e0];
   const bed = (x, y, w, d, ry, i) => {   // dug soil with a loose row of plants
-    add('soil', x, y, w * 1.5, 0.4, d * 1.5, ry, 0x4a3a2a, 0.06);
+    // (r1103: the soil slab read as a door-high dark tub on the graded pads; the plants alone make the bed)
     const n = Math.max(8, Math.round(w * d * 5)), c = Math.cos(ry), s = Math.sin(ry);
     for (let k = 0; k < n; k++) { const u = (H(i * 7 + k) - 0.5) * w * 0.8, v = (H(i * 11 + k * 3) - 0.5) * d * 0.8, px = x + u * c + v * s, py = y + u * s - v * c, q = H(i + k * 0.37);
-      add(q < 0.45 ? 'leafy' : q < 0.7 ? 'grass' : 'flower', px, py, 0.9 + q * 0.6, 0.9 + q * 0.6, 0.9 + q * 0.6, k, q < 0.7 ? 0xffffff : FLOW[(i + (k >> 2)) % FLOW.length], 0.12); }
+      add(q < 0.45 ? 'leafy' : q < 0.7 ? 'grass' : 'flower', px, py, 0.7 + q * 0.4, 0.7 + q * 0.4, 0.7 + q * 0.4, k, q < 0.7 ? 0xffffff : FLOW[(i + (k >> 2)) % FLOW.length], 0.02); }
   };
   V.zomes.forEach((z, i) => {
     const R = RAD[typ(z.plan)], fx = Math.sin(z.rotY), fy = -Math.cos(z.rotY), lx = -fy, ly = fx;

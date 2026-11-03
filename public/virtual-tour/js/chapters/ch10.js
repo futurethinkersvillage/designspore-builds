@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { lakeMirror } from '../mirror.js';
 
 const shore3 = V => V.dock.x + 26;
-export const meta = { id: 'ch10', title: 'The zome village', seconds: 58, animated: false, blend: 5.5 / 58 };
+export const meta = { id: 'ch10', title: 'The zome village', seconds: 58, animated: false, blend: 0.02, cut: true };   // r1103: the flight up out of the maker space and back down was 10 s of travel; a cross-fade instead
 
 let cuts = [];
 let rig, cap, cap2, capA, capB, capC, dip, vign, cards = [], glass = [], halos = [], G = {};
@@ -62,19 +62,27 @@ export async function setup(ctx) {
   const stop = n => { const i = V.zomes.findIndex(z => z.tour === n), z = V.zomes[i], fx = Math.sin(z.rotY), fy = -Math.cos(z.rotY), hd = (Math.atan2(-fx, -fy) / D2R + 360) % 360, type = z.plan.includes('z75') ? 3.95 : z.plan.includes('z9') ? 4.7 : z.plan.includes('z6') ? 3.25 : 2.6;
     return { i, x: z.x, y: z.y, hd: hd + 32, floorY: 0.35, gy: sites[i].position.y, R: type, plan: z.plan, site: sites[i] }; };
   const T1 = stop(1), T2 = stop(2), T3 = stop(3);
+  const turn = (a, b) => ((b - a) % 360 + 540) % 360 - 180;   // the short way round
   const look = (s, t0, t1) => { const F = s.R * 3.3, gh = s.gy + 1.1; return [[t0 / S, s.x, s.y, gh, F * 1.25, s.hd, -24, 42], [(t0 + 1.2) / S, s.x, s.y, gh, F, s.hd, -24, 42], [t1 / S, s.x + 0.02, s.y, gh, F * 0.96, s.hd, -23, 42]]; };
   rig = R.makeRig([
-    [0.0 / S, 55, 120, ground(55, 120), 420, 72, -38, 46],                  // the whole creekside zone, the hook of the hill above it
-    [5.5 / S, 55, 120, ground(55, 120), 390, 72, -40, 46],                  // (the film's blend lands here)
-    [9.0 / S, T1.x, T1.y, ground(T1.x, T1.y), 90, T1.hd, -34, 46],
-    ...look(T1, 11, 20.5),
-    [24.5 / S, T2.x, T2.y + 24, ground(T2.x, T2.y + 24), 80, T2.hd - 8, -30, 46],     // on down the zone to the Commons
-    ...look(T2, 27, 37),
-    [41.5 / S, 10, -225, ctx.lakeLevel, 150, 95, -24, 46],                 // south to the lake, from over the water
-    ...look(T3, 44.5, 52.5),
+    // r1103: held wide shot for the title, then each move is a rise above the crowns, a glide, and a descent
+    [0.0 / S, 55, 120, ground(55, 120), 300, 135, -36, 46],                 // the whole creekside zone, from the north-west: the first stop is ahead
+    [4.6 / S, 55, 120, ground(55, 120), 290, 137, -37, 46],                 // held while 'The zome village' is read
+    [9.0 / S, T1.x, T1.y, ground(T1.x, T1.y), 70, T1.hd, -32, 46],
+    ...look(T1, 11, 20),
+    // the turn between stops is spread over the whole move (r1103: 163 deg in 2.5 s swung the camera round)
+    [22.5 / S, T1.x, T1.y, T1.gy + 1.1, 64, T1.hd + turn(T1.hd, T2.hd) * 0.38, -40, 46],   // up and back off the cabin
+    [25.0 / S, T2.x, T2.y, T2.gy + 1.1, 64, T1.hd + turn(T1.hd, T2.hd) * 0.76, -40, 46],   // across above the crowns to the Commons
+    ...look(T2, 27.5, 36.5),
+    [39.0 / S, (T2.x + 10) / 2, (T2.y - 225) / 2, ground((T2.x + 10) / 2, (T2.y - 225) / 2), 130, T2.hd + turn(T2.hd, 95) * 0.5, -36, 46],   // up over the trees, on south
+    [41.8 / S, 10, -225, ctx.lakeLevel, 150, 95, -24, 46],                 // the lake, from over the water
+    ...look(T3, 45, 52.5),
     [56 / S, shore3(V) - 6, -238, ctx.lakeLevel + 3, 95, 82, -13, 46],   // from over the water: the beach, the row of zomes, the hill behind
     [58 / S, shore3(V) - 6, -240, ctx.lakeLevel + 3, 90, 82, -12, 46],
   ]);
+  // nothing between the lens and the view on the moves between stops (r1103: trunks filled 40% of the frame at 25 s)
+  const path = a => Array.from({ length: 25 }, (_, i) => rig.at((a[0] + (a[1] - a[0]) * i / 24) / S).pos);
+  for (const w of [[4.6, 11], [20, 27.5], [36.5, 45]]) ctx.clearTreesNear(path(w), 12);
   // the opened zomes: furnished, with their own materials so one plane can cut just that zome
   cuts = [T1, T2, T3].map((T, n) => {
     furnish(T.site, T.plan, T.R, T.floorY);
@@ -82,7 +90,7 @@ export async function setup(ctx) {
     plane.normal.copy(fw); plane.userData = {};
     const SHELL = new Set(['shingle', 'ply', 'timber', 'trim', 'pc', 'glass', 'wood']);
     T.site.traverse(o => { if (!o.isMesh || o.userData.noConcept || !SHELL.has(o.name)) return; if (!seen.has(o.material)) { const m = o.material.clone(); m.clippingPlanes = [plane]; m.side = THREE.DoubleSide; seen.set(o.material, m); } o.material = seen.get(o.material); });
-    return { T, plane, fw, centre: new THREE.Vector3(T.x, T.gy + 1, -T.y), win: [[11, 20.5], [27, 37], [44.5, 52.5]][n] };
+    return { T, plane, fw, centre: new THREE.Vector3(T.x, T.gy + 1, -T.y), win: [[11, 20], [27.5, 36.5], [45, 52.5]][n] };
   });
 
   // golden hour (ch09 ends here) easing a little deeper toward dusk for ch11
@@ -140,7 +148,7 @@ export function update(t, ctx) {
     c.m.scale.set(kk, kk * tilt, 1); c.m.material.opacity = op; c.pin.material.opacity = op * 0.8;
   }
   const sec = t * meta.seconds, line = (c, a, b) => { c.style.opacity = s(sec, a, a + 0.8) - s(sec, b, b + 0.8); };
-  line(cap, 5, 9); line(capA, 13, 19.5); line(capB, 29, 36); line(capC, 46.5, 51.5); cap2.style.opacity = s(sec, 54, 55);
+  line(cap, 0.9, 4.4); line(capA, 13, 19); line(capB, 29.5, 35.5); line(capC, 46.5, 51.5); cap2.style.opacity = s(sec, 54, 55);
   for (const c of cuts) { const [a, b] = c.win, open = s(sec, a + 1.6, a + 3.2) * (1 - s(sec, b - 1.6, b)), dist = c.T.R + 2 - open * (c.T.R + 2.1);   // the plane sweeps from in front of the zome to just past its middle
     c.plane.normal.copy(c.fw); c.plane.constant = open > 0.001 ? -c.fw.dot(c.centre) + dist : 1e5; }
   dip.style.opacity = 0;   // (Mike 10-30: no cut to the lakeside zomes — the camera flies there)   // ~0.5 s down, ~0.5 s up; dark through the move

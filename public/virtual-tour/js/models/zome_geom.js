@@ -191,7 +191,9 @@ export function zome(typeKey, doorKey) {
     // the printed wall panel D short side lands within 30 mm of ring 4, so the eave is tied to that ring
     const eaveY = Y(4), tp = Math.tan(B.pitch * D), apexY = eaveY + X * tp;
     const r2 = P(2, 0), r3 = P(3, 18), r4 = P(4, 36);
-    info.B = { ...B, X, Zc, dG, eaveY, apexY, r2, r3, r4 };
+    // doors open outward, so the entry deck runs at least a leaf's width plus 150 mm past the wall (the plan prints deckDepth)
+    const deckDepth = Math.max(B.deckDepth, dG - Zc + B.hdr / 2 + 0.15);
+    info.B = { ...B, deckDepthPlan: B.deckDepth, deckDepth, X, Zc, dG, eaveY, apexY, r2, r3, r4 };
     info.doorW = B.hdr; info.doorH = B.trim; info.doorZ = dG; info.doorCX = 0;
     info.dormerPoly = [[X, dG], [X, Zc], [r3[0], r3[2]], [r2[0], r2[2]], [-r3[0], r3[2]], [-X, Zc], [-X, dG]];
     const n1 = v.norm(v.cross(v.sub([X, eaveY, dG], [0, apexY, dG]), v.sub(r2, [0, apexY, dG])));
@@ -200,7 +202,7 @@ export function zome(typeKey, doorKey) {
       const ax = Math.abs(x);
       return apexY + (nr[0] * (0 - ax) + nr[2] * (dG - z)) / nr[1] - 0.14;
     };
-    porch = [[B.deckW / 2, dG], [-B.deckW / 2, dG], [-B.deckW / 2, Zc + B.deckDepth], [B.deckW / 2, Zc + B.deckDepth]];
+    porch = [[B.deckW / 2, dG], [-B.deckW / 2, dG], [-B.deckW / 2, Zc + deckDepth], [B.deckW / 2, Zc + deckDepth]];
   } else {
     const C = T.C, r3 = P(3, 18), r5 = P(5, 18), c0 = P(K, 0), c36 = P(K, 36);
     const mid = v.lerp(c0, c36, 0.5);
@@ -211,12 +213,18 @@ export function zome(typeKey, doorKey) {
     floor = [[Xf, dF], [mid[0], mid[2]], [c36[0], c36[2]], [r72[0], r72[2]]];
     for (const p of around) if (Math.abs(az(p)) > 73) floor.push([p[0], p[2]]);
     floor.push([-r72[0], r72[2]], [-c36[0], c36[2]], [-mid[0], mid[2]], [-Xf, dF]);
-    info.C = { ...C, r3, r5, mid, dF, Xf };
+    const deckFront = Math.max(C.deckFront, C.W / 2 + 0.15);
+    info.C = { ...C, deckFrontPlan: C.deckFront, deckFront, r3, r5, mid, dF, Xf };
     info.doorW = C.W; info.doorH = C.H; info.doorZ = dF; info.doorCX = 0;
     info.dormerPoly = [[Xf, dF], [mid[0], mid[2]], [r3[0], r3[2]], [-r3[0], r3[2]], [-mid[0], mid[2]], [-Xf, dF]];
     info.dormerCeil = () => floorY + C.frameH - 0.12;
-    porch = [[C.deckW / 2, dF], [-C.deckW / 2, dF], [-C.deckW / 2, dF + C.deckFront], [C.deckW / 2, dF + C.deckFront]];
+    porch = [[C.deckW / 2, dF], [-C.deckW / 2, dF], [-C.deckW / 2, dF + deckFront], [C.deckW / 2, dF + deckFront]];
   }
+
+  // ---- the landing outside the door (deck the door leaf swings over)
+  if (door === 'A') { const A = info.A; info.landing = { x: Math.max(A.Xo, A.Xb) + 0.32, z0: A.zp - 0.02, z1: A.Zo + (K === 7 ? 0.62 : 0.72) }; }
+  else if (door === 'B') info.landing = { x: info.B.deckW / 2, z0: info.B.dG, z1: info.B.Zc + info.B.deckDepth };
+  else info.landing = { x: info.C.deckW / 2, z0: info.C.dF, z1: info.C.dF + info.C.deckFront };
 
   // ---- interior surface ----------------------------------------------------------------------------------------
   const planes = faces.map(f => ({ n: f.n, d: f.d - inset }));
