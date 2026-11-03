@@ -124,12 +124,20 @@ async function init() {
     if (k < MAKER) { M.visible = false; return; }
     if (k > MAKER) return;
     if (!grow) { const I = M.getObjectByName('interior'), box = new THREE.Box3(), at = o => { box.setFromObject(o); return box.isEmpty() ? 0 : box.min.y; };
-      const shell = M.children.filter(o => o !== I).map(o => ({ o, y: at(o) })).sort((p, q) => p.y - q.y);
+      // the unmerged leftovers (sign, floor, roof groups) sit in the model's own group next to the interior: unpack it so each piece builds in its stage
+      const parts = M.children.flatMap(o => o !== I && o.isGroup && I && o.children.includes(I) ? o.children.filter(c => c !== I) : o === I ? [] : [o]);
+      const stOf = o => { let st; o.traverse(c => { if (st === undefined && c.isMesh) st = [c.material].flat()[0]?.userData?.stage; }); return st ?? 2; };
+      const shell = parts.map(o => ({ o, y: at(o), st: stOf(o), y0: o.position.y }));
       const kit = I ? I.children.map(o => { box.setFromObject(o); const c = box.getCenter(new THREE.Vector3()); return { o, z: -c.z }; }).sort((p, q) => q.z - p.z) : [];
       grow = { shell, kit }; }
     const s = rig.seg;
-    grow.shell.forEach(({ o }, i) => { const a = 0.24 + 0.12 * i / grow.shell.length, k1 = s(t, a, a + 0.05); o.scale.y = Math.max(k1, 0.001); o.visible = k1 > 0.001; });
-    grow.kit.forEach(({ o }, i) => { const a = 0.43 + 0.2 * i / Math.max(1, grow.kit.length), k1 = s(t, a, a + 0.04), b = k1 < 1 ? 1 + 0.12 * Math.sin(k1 * Math.PI) : 1; o.scale.setScalar(Math.max(k1 * b, 0.001)); o.visible = k1 > 0.001; });
+    // in stages, as it would really go up (r1103): slab, timber frame, walls, windows, roof lowered on, then the sign
+    const ST = [[0.03, 0.07], [0.07, 0.13], [0.13, 0.19], [0.18, 0.22], [0.21, 0.27], [0.27, 0.3]];
+    grow.shell.forEach(({ o, st, y0 }) => { const [a, b] = ST[st] || ST[2], k1 = s(t, a, b);
+      if (st === 4) { o.scale.y = 1; o.position.y = y0 + (1 - k1) * 7; } else o.scale.y = Math.max(st === 5 ? 1 : k1, 0.001);
+      if (st === 5 || st === 3) [o.material].flat().forEach(m => { m.transparent = true; m.opacity = k1 * (m.userData.op0 ??= m.opacity); });
+      o.visible = k1 > 0.001; });
+    grow.kit.forEach(({ o }, i) => { const a = 0.32 + 0.16 * i / Math.max(1, grow.kit.length), k1 = s(t, a, a + 0.04), b = k1 < 1 ? 1 + 0.12 * Math.sin(k1 * Math.PI) : 1; o.scale.setScalar(Math.max(k1 * b, 0.001)); o.visible = k1 > 0.001; });
   };
   let syncLights = () => {};
   const show = i => {

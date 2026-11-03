@@ -23,6 +23,7 @@ function cloud(it, Z) {
   drawItem(B, { ...it, x: 0, z: 0, r: 0, y: Z.floorY }, Z);
   const seen = new Set(), pts = [], stove = it.k === 'woodstove' || it.k === 'saunastove';
   for (const name in B.b) {
+    if (name === 'plant') continue;   // leaves may brush the panels
     const a = B.b[name].pos;
     for (let i = 0; i < a.length; i += 3) {
       const lx = a[i], ly = a[i + 1] - Z.floorY, lz = a[i + 2];
@@ -41,7 +42,7 @@ export function poke(it, Z) {
   let worst = 0;
   for (const [lx, ly, lz] of pts) {
     const x = it.x + lx * c + lz * s, z = it.z - lx * s + lz * c, yy = y + ly;
-    if (Z.insideAt(x, yy, z)) continue;
+    if (yy < Z.y0 + 0.01 || Z.insideAt(x, yy, z)) continue;   // below the base ring the wall is the vertical base band (floor outline checks that)
     let pen = 0; for (const p of Z.planes) pen = Math.max(pen, p.n[0] * x + p.n[1] * yy + p.n[2] * z - p.d);
     worst = Math.max(worst, pen);
   }
@@ -75,7 +76,7 @@ function kit(type, door) {
     if (it.skip || it.a0 !== undefined || KINDS[k].soft || KINDS[k].plant && k !== 'bed_raised') return it;
     const to = o.to || [0, it.y !== undefined ? -0.4 : 0], L = Math.hypot(x - to[0], z - to[1]) || 1;
     const hh = it.low ? 0.3 : (k === 'stair' || k === 'shipstair' || k === 'ladder' ? 0.1 : undefined);
-    for (let q = 0; q < 110 && !fits(it, Z, hh); q++) { it.x -= (x - to[0]) / L * 0.01; it.z -= (z - to[1]) / L * 0.01; }
+    for (let q = 0; q < Math.min(110, L / 0.01) && !fits(it, Z, hh); q++) { it.x -= (x - to[0]) / L * 0.01; it.z -= (z - to[1]) / L * 0.01; }   // never past the target
     return it;
   };
   const W = (k, az, o = {}) => {
@@ -91,7 +92,7 @@ function kit(type, door) {
   // loft: floor plate running back from the straight open edge at zFront, clipped to the shell
   const loft = (y, zFront, o = {}) => {
     const pts = []; const clear = o.clear === undefined ? 0.03 : o.clear;
-    const reach = (ax, az) => { let last = 0; for (let t = 0; t < Z.R(5) + 1; t += 0.01) { const x = t * ax, z = zFront + t * az; if (!Z.insideAt(x, y + clear, z) || !Z.inFloor(x, z)) break; last = t; } return last; };
+    const reach = (ax, az) => { let last = 0; for (let t = 0; t < Z.R(5) + 1; t += 0.01) { const x = t * ax, z = zFront + t * az; if (!Z.insideAt(x, Z.floorY + y + clear, z) || !Z.inFloor(x, z)) break; last = t; } return last; };
     for (let a = 90; a <= 270; a += 6) { const ax = Math.sin(a * D), az = Math.cos(a * D), t = reach(ax, az); pts.push([+(t * ax).toFixed(3), +(zFront + t * az).toFixed(3)]); }
     pts[0][1] = zFront; pts[pts.length - 1][1] = zFront;
     return { y: Z.floorY + y, deckH: y, zFront, poly: pts, stairGap: o.gap || null, posts: o.posts || null };
@@ -114,7 +115,7 @@ const DEFS = [
   { id: 'acorn-sauna', type: 'acorn', name: 'Plan Sauna', use: 'Sauna', seats: 6, note: 'The use Trillium drew it for: curved bench sections screwed to the frame, stove opposite the door.', glaze: [[3, 90, 'home']],
     make: ({ F, W }) => { F('arcbench', 0, 0, 0, { a0: 52, a1: 142, r0: 0.72, r1: 1.2 }); F('arcbench', 0, 0, 0, { a0: -142, a1: -52, r0: 0.72, r1: 1.2 }); F('saunastove', 0, -0.72, 0); void W; } },
   { id: 'acorn-sleep', entryFill: true, type: 'acorn', name: 'Sleep Pod', use: 'Overnight pod', sleeps: 2, note: 'A double bed wall to wall across the widest flats. You step straight onto it: there is no other floor.', glaze: [[3, 162, 'home'], [3, -162, 'home']], sky: true,
-    make: ({ F }) => { F('double', 0, -0.08, 90); } },
+    make: ({ F }) => { F('double', 0, -0.08, 90, { nohb: 1 }); } },
   { id: 'acorn-desk', type: 'acorn', name: 'Focus Pod', use: 'One-person office', seats: 1, note: 'One desk, one chair and a wall of shelves. Standing room only in the middle.', glaze: [[3, 90, 'home'], [3, -90, 'home']],
     make: ({ W }) => { W('desk', 180, { w: 1.2, d: 0.6 }); W('bookshelf', 90, { w: 0.8, h: 1.1 }); W('planter', -90); } },
   { id: 'acorn-tea', type: 'acorn', name: 'Tea Room', use: 'Tea / meditation', seats: 4, note: 'Sitting on the floor suits the low edge: every cushion has headroom for a seated person.', glaze: [[3, 162, 'tri'], [3, -162, 'tri']], sky: true,
@@ -247,7 +248,7 @@ const DEFS = [
   { id: 'gl-acorn-seed', type: 'acorn', glass: 'all', group: 'Garden', name: 'Seedling Acorn', use: 'Seed starting + herbs', note: 'Tiny propagation house: benches round the edge, hanging baskets in the middle.',
     make: ({ W, F }) => { W('potting', 90, { w: 0.85, d: 0.5 }); W('potting', -90, { w: 0.85, d: 0.5 }); W('bed_raised', 180, { w: 1.0, d: 0.5 }); F('hanging', 0, 0, 0); F('hanging', 0.25, -0.35, 0); F('hanging', -0.28, -0.3, 0); } },
   { id: 'gl-acorn-star', entryFill: true, type: 'acorn', glass: 'upper', group: 'Other', name: 'Star Pod', use: 'One-night stargazing bed', sleeps: 2, note: 'Solid lower rows for privacy, clear above the mattress. Same bed layout as the Sleep Pod.',
-    make: ({ F }) => { F('double', 0, -0.08, 90); } },
+    make: ({ F }) => { F('double', 0, -0.08, 90, { nohb: 1 }); } },
 
   { id: 'gl-z5-garden', type: 'z5', glass: 'all', group: 'Garden', name: 'Kitchen Garden', use: 'Raised beds + potting', note: 'Raised beds on the flats, a walking loop, a potting bench. The tall middle holds a fig or dwarf citrus.',
     make: ({ W, F }) => { for (const a of [72, 108, 144, -72, -108, -144]) W('bed_raised', a, { w: 1.02, d: 0.7 }); W('potting', 180, { w: 1.0 }); F('tree', 0, -0.2, 0, { w: 1.0, d: 1.0, h: 2.9 }); F('hanging', 0.8, 0.8, 0); F('hanging', -0.8, 0.8, 0); } },
@@ -497,6 +498,7 @@ export function planSvg(p) {
   const soft = p.items.filter(i => i.k === 'rug');
   const ground = p.items.filter(i => i.k !== 'rug' && i.y === undefined);
   for (const it of soft) s += itemSvg(it);
+  { const E = entryPath(Z); s += `<rect class="ep" x="${n2(-E.hw)}" y="${n2(E.z0)}" width="${n2(2 * E.hw)}" height="${n2(E.depth)}"/>`; }   // the way in, kept clear
   for (const it of ground) s += itemSvg(it);
   // entry door swing
   const dw = Z.info.doorW, dz = Z.info.doorZ;

@@ -178,7 +178,7 @@ export function build({ lod = 'high' } = {}) {
     c.fillText('M A K E R   S P A C E', 512, 50);
     const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
     const sign = new THREE.Mesh(new THREE.PlaneGeometry(7.6, 0.7), new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false }));
-    sign.position.set(0, B + HW - 0.1, FZ + 0.34); g.add(sign);
+    sign.position.set(0, B + HW - 0.1, FZ + 0.34); g.add(sign); sign.material.userData.stage = 5;
   }
   for (const x of [-W / 2 + 0.6, W / 2 - 0.6]) box(warm, 0.3, 0.08, 0.3, x, B + HW - 0.45, FZ + 0.3);
 
@@ -377,5 +377,8 @@ export function build({ lod = 'high' } = {}) {
     box(red, 0.45, 0.9, 0.6, WX - 1.3, 0.48, -5.2, I); for (let i = 0; i < 5; i++) box(steel, 0.02, 0.02, 0.54, WX - 1.54, 0.15 + i * 0.17, -5.2, I);
     cyl(red, 0.08, 0.08, 0.45, -WX + 0.15, 0.3, 10.8, I, 10); box(white, 0.04, 0.3, 0.4, WX, 1.5, 11, I);
   }
+  // build stage per material, read by film.js when the barn goes up in ch08 (r1103: growing merged pieces from the ground looked like a broken render)
+  const STAGE = new Map([[conc, 0], [floorM, 0], [glulam, 1], [frameM, 1], [cedar, 1], [clad, 2], [batten, 2], [lining, 2], [liningLong, 2], [glass, 3], [sky, 3], [roofM, 4], [rib, 4], [pv, 4], [pvFrame, 4], [ceil, 4], [warm, 5]]);
+  g.traverse(o => { if (o.isMesh && !Array.isArray(o.material) && STAGE.has(o.material)) o.material.userData.stage = STAGE.get(o.material); });
   return g;
 }
