@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import { polysOf } from '../sheet.js';
 
 const FACE = 25 * Math.PI / 180;   // the way the stage faces, as a math angle from east
-export const meta = { id: 'ch11', title: 'Festival grounds & light', seconds: 24, animated: true, blend: 0.14 };   // (r1103: the default 7 s blend hid the opening caption and flew over plain forest)
+export const meta = { id: 'ch11', title: 'Festival grounds & light', seconds: 24, animated: true, blend: 0.02, cut: true };   // (r1103: the default 7 s blend hid the opening caption and flew over plain forest)
 
 const AMBER = new THREE.Color('#EA824E'), TERRA = new THREE.Color('#AF695E'), MAUVE = new THREE.Color('#73516F');
 let landingFloor, landingBits = [], landingMats = [], rig, cap1, cap2, cap3, cap4, tag, lines, glows = [], stars, stageMats = [], cards = [], stage = null, stageGY = 0, STAGE, art = [], treeSet, meadow, forestFloor, camp, crowd2, trail2;
@@ -293,15 +293,16 @@ export async function setup(ctx) {
   // front, along the trail and back at the campus, so no move needs a big turn (Mike 10-29 frame list)
   const gA = ctx.groundAt, O = [-62, -398];
   // Mike 11-02: no trail close-ups (no art that doesn't exist). From the view over the grounds the camera pans across to the trails, then moves to the stage.
-  const pose = (t, cx, cy, ch, hd, pitch, frame, fov) => { const d = frame / (2 * Math.tan(fov * Math.PI / 360)), c = Math.cos(pitch * Math.PI / 180), s = Math.sin(pitch * Math.PI / 180), a = hd * Math.PI / 180, x = cx + Math.sin(a) * c * d, y = cy + Math.cos(a) * c * d; return [t, x, y, ch + s * d, frame, hd, pitch, fov]; };
   const CX = 150, CY = -650, CH = 215;
   rig = R.makeRig([
-    pose(0.00, CX, CY, CH, 322, -26, 340, 46),
-    pose(0.28, CX, CY, CH, 320, -25, 330, 46),     // hold: dusk falls over the grounds
-    pose(0.46, CX, CY, CH, 40, -17, 420, 46),      // pan across to the hiking trails, same spot
-    pose(0.58, CX, CY, CH, 42, -17, 420, 46),
-    [0.78, -203 + 200, -241 + 90, gA(-203, -241) + 30, 200, 246, -18, 50],
-    [0.88, -203, -241, gA(-203, -241) + 7, 44, 245, -8, 50],
+    // a true pan from one fixed spot (frameH 0 = the camera itself): keyed by its aim, the camera swung ~500 m round the pan (r1103b: 1.7 km of travel)
+    [0.00, CX, CY, CH, 0, 322, -26, 46],
+    [0.28, CX, CY, CH, 0, 320, -25, 46],     // hold: night falls over the grounds while both lines read
+    [0.42, CX, CY, CH, 0, 40, -17, 46],      // pan across to the hiking trails
+    [0.48, CX, CY, CH, 0, 42, -17, 46],
+    // r1103b: one long eased descent to the stage (the dive was 9.9 s of lurching, 317 m/s)
+    [0.82, -203 + 200, -241 + 90, gA(-203, -241) + 30, 200, 246, -18, 50],
+    [0.91, -203, -241, gA(-203, -241) + 7, 44, 245, -8, 50],
     [1.00, -203, -241, gA(-203, -241) + 7, 38, 245, -8, 50],
   ]);
 
@@ -324,7 +325,7 @@ export function update(t, ctx) {
   const { U, sky, sun, hemi, renderer, rig: { seg } } = ctx;
   rig.apply(ctx.camera, t);
   ctx.hideTrees(treeSet, true);
-  const n = seg(t, 0.56, 0.8);   // golden dusk over the camp and the trail, so their detail reads; night arrives for the stage (10-31)
+  const n = Math.min(1, 0.3 + 0.7 * seg(t, 0.08, 0.6));   // dusk from the first frame, night by the trails (r1103b: sunlit ground under a pink sky until 15 s)   // golden dusk over the camp and the trail, so their detail reads; night arrives for the stage (10-31)
   const dusk = new THREE.Vector3(0.92, 0.72, 0.62), night = new THREE.Vector3(0.17, 0.18, 0.31);   // (i8: dusk 25 % brighter: the overview was muddy)   // blue hour, not black (reviewers); cooler, not a dimmed photo (i3)
   U.uLight.value.copy(dusk).lerp(night, Math.pow(n, 0.8));   // the forest floor drops back on the trail glide so the lamps carry it (i7)
   if (meadow) { const l = U.uLight.value; meadow.material.color.setRGB(l.x * 1.15, l.y * 1.15, l.z * 1.15); }
@@ -332,7 +333,7 @@ export function update(t, ctx) {
   if (trail2) trail2.setLight(U.uLight.value);
   if (landingFloor) { const l = U.uLight.value; landingFloor.material.color.setRGB(l.x * 1.5 + 0.06, l.y * 1.5 + 0.05, l.z * 1.3 + 0.03); landingMats.forEach(m => m.color.setHex(m === landingMats[0] ? 0x3f6a32 : m === landingMats[1] ? 0x77726a : 0x3a2a1e).multiply(new THREE.Color(l.x * 1.3 + 0.05, l.y * 1.3 + 0.05, l.z * 1.2 + 0.04))); }
   if (forestFloor) { const l = U.uLight.value; forestFloor.material.color.setRGB(l.x * 1.5, l.y * 1.4, l.z * 1.1); }   // warmer: lit by the trail lamps
-  const hz = new THREE.Color('#c27a5c').lerp(new THREE.Color('#73516F'), seg(t, 0.3, 0.58)).lerp(new THREE.Color('#231d33'), seg(t, 0.56, 0.8));
+  const hz = new THREE.Color('#c27a5c').lerp(new THREE.Color('#73516F'), 0.4 + 0.6 * seg(t, 0.0, 0.3)).lerp(new THREE.Color('#231d33'), seg(t, 0.36, 0.66));
   const top = new THREE.Color('#38387F').lerp(new THREE.Color('#0d0b16'), n);
   sky.mat.uniforms.uHorizon.value.copy(hz); sky.mat.uniforms.uTop.value.copy(top); sky.mat.uniforms.uOpacity.value = 1;
   sky.mat.uniforms.uSun.value.set(-0.9, -0.2, 0.3).normalize();   // sun below the horizon: no disc
@@ -351,26 +352,26 @@ export function update(t, ctx) {
     c.m.material.opacity = op; c.pin.material.opacity = op * 0.7; c.m.visible = c.pin.visible = op > 0.001;
   }
   // plan linework (drawn over everything) reads from high up only: out for the low flight, back for the wide end
-  const high = 1 - seg(t, 0.36, 0.45);
+  const high = 1 - seg(t, 0.48, 0.56);
   lines.forEach((l, i) => { l.material.opacity = l.userData.k * (i === 2 ? seg(t, 0.2, 0.28) : seg(t, 0.02 + i * 0.03, 0.09 + i * 0.03)) * high * (i === 1 ? 0.7 : 1); });
-  stars.position.copy(cam.position); stars.material.opacity = 0.8 * seg(t, 0.66, 0.82);
+  stars.position.copy(cam.position); stars.material.opacity = 0.8 * seg(t, 0.4, 0.7);
   for (const g of glows) {
     const on = seg(t, g.on, g.on + 0.06), fl = 0.9 + 0.1 * Math.sin(U.uTime.value * 3.1 + g.ph);   // ~1.8 s fade, never a pop
     // close to the lens the big stacked additive halos blow out to white: ease those down near the camera; the small
     // lamps (path, bulbs, cores) stay on so the art and the trail read up close
     const d = cam.position.distanceTo(g.s.position);
     const near = g.kind === 'pool' ? 0.25 + 0.75 * seg(d, 40, 170) : g.kind === 'path' || g.kind === 'bulb' ? 1 : g.kind === 'core' || g.kind === 'beam' ? seg(d, 10, 40) : g.kind === 'landing' ? seg(d, 40, 120) : seg(d, 260, 760);   // (i8: the beacons had faded out at exactly the glide's range)
-    const dive = g.kind === 'beam' ? 1 - seg(t, 0.36, 0.42) + seg(t, 0.66, 0.72) : 1;   // (i9: the dive flew through a beam)
+    const dive = g.kind === 'beam' ? 1 - seg(t, 0.52, 0.58) + seg(t, 0.74, 0.8) : 1;   // (i9: the dive flew through a beam)
     g.s.material.opacity = on * fl * near * dive * ({ lantern: 0.4, pool: 0.18, beam: 0.85, core: 0.4, path: 0.45, bulb: 0.95 }[g.kind] || 0.55);
     g.s.visible = on > 0.001 && near > 0.001;
   }
   const show = seg(t, 0.0, 0.08);   // the stage glows from the first frame (i9)
   if (stage) STAGE.update(stage, U.uTime.value, show);
   for (const a of art) a.mod.update?.(a.o, U.uTime.value);
-  cap1.style.opacity = seg(t, 0.12, 0.15) - seg(t, 0.26, 0.29);   // in with the overview (i7: 2.4 s with no words)
-  cap2.style.opacity = seg(t, 0.8, 0.84);   // on the approach and the stage hold (i9, i11)
-  cap4.style.opacity = 0;
-  cap3.style.opacity = seg(t, 0.46, 0.49) - seg(t, 0.6, 0.63);   // from the start of the dive (i9)
+  cap1.style.opacity = seg(t, 0.04, 0.07) - seg(t, 0.16, 0.18);   // in with the overview (i7: 2.4 s with no words)
+  cap2.style.opacity = seg(t, 0.84, 0.87);   // on the approach and the stage hold (i9, i11)
+  cap4.style.opacity = seg(t, 0.18, 0.21) - seg(t, 0.3, 0.33);   // the tent plots, on the same held overview (r1103b: never readable)
+  cap3.style.opacity = seg(t, 0.4, 0.43) - seg(t, 0.52, 0.55);   // from the start of the dive (i9)
   tag.style.opacity = seg(t, 0.05, 0.15);
 }
 

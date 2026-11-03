@@ -34,11 +34,13 @@ export async function setup(ctx) {
   // close on the dome, then rise and turn out to an overview of the swimming lake. (No 360° here: the Lake & Field
   // photo is from the dome's earlier spot — Mike, 10-28.)
   // (the film's blend covers t < 0.3: the dome beat comes after it, so the interior photo isn't half-faded)
+  const R6 = (x, y, hd) => [x + Math.cos(hd * Math.PI / 180) * 9, y - Math.sin(hd * Math.PI / 180) * 9];
   rig = R.makeRig([
     // (i8: 316–322 looked at the dome's BACK — its door, steps and deck face NE) from the door side, looking SW
     [0.00, DX, DY, gA(DX, DY) + 2, 60, 300, -30, 45],   // back on the panoramic-window + chair side (Mike 10-30)
-    [0.30, DX, DY, gA(DX, DY) + 1.6, 18, 316, -11, 45],
-    [0.54, DX, DY, gA(DX, DY) + 1.6, 16, 322, -10, 45],   // held until the inside photo has gone
+    // r1103b: the dome sits left of centre so the video window on the right never covers it (aim 9 m to its right)
+    [0.30, ...R6(DX, DY, 316), gA(DX, DY) + 1.6, 18, 316, -11, 45],
+    [0.54, ...R6(DX, DY, 322), gA(DX, DY) + 1.6, 16, 322, -10, 45],   // held while the dome footage plays
     // one eased pull-back and rise along the arrival line until the camera hangs over the lake, the water in the
     // foreground and the dome beyond it (i3: no second leg, no drift, no big turn; i4: the planned lake-shore zome
     // rows are behind the camera here, not filling a 'here today' frame), then a hold
@@ -48,8 +50,8 @@ export async function setup(ctx) {
     // (i10: the old end had the dome behind the camera) one slow orbit round the dome, from its door side to its far side,
     // until the lake sits beyond it
     // Mike 11-02 (frame ~2900): the old swoop went behind trees. One straight rise on the dome's far side: the dome below, the whole lake beyond it
-    [0.82, -108, -176, gA(-108, -176), 118, 122, -27, 44],
-    [1.00, -106, -178, gA(-106, -178), 112, 122, -27, 44],
+    [0.82, -118, -168, gA(-118, -168), 150, 122, -33, 44],   // (r1103b: aimed nearer the dome, so it sits above the title, not under it)
+    [1.00, -116, -170, gA(-116, -170), 144, 122, -33, 44],
   ]);
 
   // the end frame's near trees, off the lens (i13: trunks filled the right third)
@@ -88,8 +90,8 @@ export function update(t, ctx) {
   ctx.labels.update(0, 0, ctx.shown, ctx.camera);
   ctx.planned.update(0, 1, 1, false);
   if (vignette) vignette.style.opacity = 0.5;   // warm-dark edges: the brand mood over the real land
-  cap.style.opacity = R.seg(t, 0.8, 0.84);   // once, on the final hold (r1103: the early one only flashed under the blend)   // (i9: back sooner — 3 s with nothing on screen)   // on the arrival, off for the inside photo, back on the final hold
-  cap.style.transform = `translateY(${(1 - R.seg(t, 0.08, 0.24)) * 14}px)`;
+  cap.style.opacity = R.seg(t, 0.32, 0.35);   // once, from the held dome to the end (r1103b: nothing on screen for 24 s)   // (i9: back sooner — 3 s with nothing on screen)   // on the arrival, off for the inside photo, back on the final hold
+  cap.style.transform = `translateY(${(1 - R.seg(t, 0.32, 0.4)) * 14}px)`;
   const p = 0;   // (the dome footage beside the 3D shows the inside now)   // inside the dome, while the camera is at its door (~2 s opaque; i7: 1.5 s was too short)
   photo.style.opacity = p;
   photo.style.transform = `translateY(${(1 - R.seg(t, 0.44, 0.5)) * 18}px)`;

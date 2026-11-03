@@ -527,12 +527,26 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   // Hide trees the lens would pass through or brush: the camera path is resampled every 2 m (sparse samples left
   // whole trees standing between them on fast moves), and a tree goes when the camera passes within its crown
   // radius + a margin while lower than the tree top + 8 m (cut 10: dense canopy-map forest filled the ch08 shop shot).
+  // Trees that loom in the frame: closer to the lens than `ratio` × their height and inside the view cone (r1103b: cone
+  // trees filled the frame edges in ch03/ch10 though the lens passed above them). views = [{ pos, dir }] (dir unit).
+  function clearTreesInView(views, ratio = 1.5, cosA = 0.62) {
+    const m = new THREE.Matrix4(), p = new THREE.Vector3(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), zero = new THREE.Matrix4().makeScale(0, 0, 0), v = new THREE.Vector3();
+    trees.traverse(o => {
+      if (!o.isInstancedMesh || o.count < 500) return;
+      for (let i = 0; i < o.count; i++) {
+        o.getMatrixAt(i, m); m.decompose(p, q, sc); if (sc.y === 0) continue;
+        for (const w of views) { v.set(p.x, p.y + sc.y * 0.55, p.z).sub(w.pos); const d = v.length(); if (d < ratio * sc.y && v.dot(w.dir) > cosA * d) { o.setMatrixAt(i, zero); break; } }
+      }
+      o.instanceMatrix.needsUpdate = true;
+    });
+  }
   function clearTreesNear(points, r = 12) {
     const dense = [];
-    for (let k = 0; k < points.length; k++) {
-      const a = points[k], b = points[k + 1] || a, n = Math.max(1, Math.ceil(a.distanceTo(b) / 2));
-      for (let j = 0; j < n; j++) dense.push(a.clone().lerp(b, j / n));
-    }
+    for (const line of Array.isArray(points[0]) ? points : [points])   // an array of lines: each densified on its own, never joined to the next
+      for (let k = 0; k < line.length; k++) {
+        const a = line[k], b = line[k + 1] || a, n = Math.max(1, Math.ceil(a.distanceTo(b) / 2));
+        for (let j = 0; j < n; j++) dense.push(a.clone().lerp(b, j / n));
+      }
     const m = new THREE.Matrix4(), p = new THREE.Vector3(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), zero = new THREE.Matrix4().makeScale(0, 0, 0);
     const cell = 40, grid = new Map(), key = (x, z) => `${Math.floor(x / cell)},${Math.floor(z / cell)}`;
     for (const c of dense) { const k = key(c.x, c.z); if (!grid.has(k)) grid.set(k, []); grid.get(k).push(c); }
@@ -554,7 +568,7 @@ export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) 
   }
 
   return {
-    village: V, get lakeLevel() { return lakeLevel - H0; }, cameras: D.cameras, clearTreesNear, treesIn, hideTrees, groundAt, resetPersistent, conceptLook, zomeGlass: glass, farmFix,
+    village: V, get lakeLevel() { return lakeLevel - H0; }, cameras: D.cameras, clearTreesNear, clearTreesInView, treesIn, hideTrees, groundAt, resetPersistent, conceptLook, zomeGlass: glass, farmFix,
     THREE, U, H0, D, L: D.L, meta: D.meta, heightAt, scene, camera, renderer, style, colors,
     land, trees, blocks, sky, sun, hemi, pano, PANO, panoPos, planned, labels, models, placeModel, placeZomes, realWorld, PLACE, ground,
     // ground height as currently displayed (it rises with the cut) — matches displayH() in the shaders

@@ -83,6 +83,8 @@ export async function setup(ctx) {
   // nothing between the lens and the view on the moves between stops (r1103: trunks filled 40% of the frame at 25 s)
   const path = a => Array.from({ length: 25 }, (_, i) => rig.at((a[0] + (a[1] - a[0]) * i / 24) / S).pos);
   for (const w of [[4.6, 11], [20, 27.5], [36.5, 45]]) ctx.clearTreesNear(path(w), 12);
+  ctx.clearTreesNear(R.sightLines(rig, 9 / S, 1, 0.015), 6);
+  ctx.clearTreesInView(R.views(rig, 9 / S, 1, 0.015));   // nor looming at a frame edge   // and nothing standing in the line of sight to each stop (r1103b: a tree blocked a third of the frame at 27–36 s)
   // the opened zomes: furnished, with their own materials so one plane can cut just that zome
   cuts = [T1, T2, T3].map((T, n) => {
     furnish(T.site, T.plan, T.R, T.floorY);

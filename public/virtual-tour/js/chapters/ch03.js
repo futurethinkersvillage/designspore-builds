@@ -149,6 +149,8 @@ export async function setup(ctx) {
     [0.78, PL[0], PL[1], gA(...PL), 36, 12, -30, 46],
     [1.00, PL[0] + 2, PL[1] + 9, gA(...PL), 32, 12, -28, 46],
   ]);
+  ctx.clearTreesNear(R.sightLines(rig, 0.2, 1, 0.02), 6);
+  ctx.clearTreesInView(R.views(rig, 0.2, 1, 0.02));   // and no cone looming in a frame edge   // nothing standing between the lens and the shower house or the playground (r1103b)
   cap = document.createElement('div'); cap.className = 'cap';
   cap.innerHTML = '<div class="eyebrow">Six seasons in</div><h1>A working resort</h1>' +
     '<div style="display:flex;margin-top:18px">' +

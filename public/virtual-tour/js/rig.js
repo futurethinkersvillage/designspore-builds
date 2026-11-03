@@ -57,11 +57,23 @@ export function makeRig(keyframes) {
   };
 }
 
+// The lines from the lens to what it looks at, every `step` of the path from a to b, for engine.clearTreesNear (array of lines):
+// only trees that actually stand in a line of sight go (r1103b: cone trees filled the foreground in ch03 and ch10).
+export function sightLines(r, a = 0, b = 1, step = 0.02, u0 = 0.02, u1 = 0.88) {
+  const out = [];
+  for (let t = a; t <= b + 1e-9; t += step) { const { pos, A, P, dist } = r.at(t), f = fwd(A, P); out.push([u0, (u0 + u1) / 2, u1].map(u => pos.clone().addScaledVector(f, dist * u))); }
+  return out;
+}
+
+export function views(r, a = 0, b = 1, step = 0.02) {   // camera spots + view directions along the path, for engine.clearTreesInView
+  const out = []; for (let t = a; t <= b + 1e-9; t += step) { const { pos, A, P } = r.at(t); out.push({ pos, dir: fwd(A, P) }); } return out;
+}
+
 // A chapter's rig API with its saved camera path (from the editor, data/cameras.json) taking precedence over the
 // keyframes written in the chapter's code. The code's own keys are kept on rig.defaultKeys.
 export function rigFor(id, cameras = {}) {
   return {
-    clamp, smooth, seg, fwd,
+    clamp, smooth, seg, fwd, sightLines, views,
     makeRig(kf) {
       const r = makeRig(cameras[id]?.keys || kf);
       r.id = id; r.defaultKeys = kf.map(k => k.slice());
