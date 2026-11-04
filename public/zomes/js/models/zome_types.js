@@ -19,6 +19,8 @@ function hash(i) { const s = Math.sin(i * 127.1 + 311.7) * 43758.5453; return s 
 
 export const FINISHES = {
   slate: { name: 'Slate shingle (Mike’s concept renders)', base: hex('#a6a9a8'), alt: hex('#83888b'), warm: hex('#b7aa95'), seam: hex('#2a2c2e'), wall: hex('#b98a5a'), trim: hex('#2f3336') },
+  sage: { name: 'Sage shingle (family homes)', base: hex('#8b9682'), alt: hex('#727d6c'), warm: hex('#a3a48a'), seam: hex('#242a24'), wall: hex('#c9b48c'), trim: hex('#39402f') },
+  charcoal: { name: 'Charcoal shingle (work-stay)', base: hex('#54575a'), alt: hex('#414447'), warm: hex('#66615a'), seam: hex('#17181a'), wall: hex('#b0844f'), trim: hex('#1f2122') },
   cedar: { name: 'Cedar shingle (Trillium plan covers)', base: hex('#a2583a'), alt: hex('#8a4730'), warm: hex('#b56a44'), seam: hex('#241813'), wall: hex('#e5dcc4'), trim: hex('#4a3423') },
 };
 
@@ -92,7 +94,7 @@ function materialFor(b) {
     case 'ply': return mat(b, () => S({ vertexColors: true, map: plyTex(), roughness: 0.65 }));
     case 'pc': return mat(b, () => S({ color: 0xdfeee9, roughness: 0.18, metalness: 0, transparent: true, opacity: 0.24, side: sd, depthWrite: false }));
     case 'glass': return mat(b, () => S({ color: 0xbcd3d9, roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.32, side: sd, depthWrite: false, emissive: 0xffb268, emissiveIntensity: 0 }));
-    case 'water': return mat(b, () => S({ vertexColors: true, roughness: 0.12, metalness: 0.05, emissive: 0x1d6a78, emissiveIntensity: 0.45 }));
+    case 'water': return mat(b, () => S({ vertexColors: true, roughness: 0.55, metalness: 0.05, emissive: 0x1d6a78, emissiveIntensity: 0.45 }));
     case 'emit': return mat(b, () => S({ vertexColors: true, emissive: 0xff8a3c, emissiveIntensity: 1.6 }));
     case 'plant': return mat(b, () => S({ vertexColors: true, roughness: 0.75, flatShading: true }));
     default: return mat(b, () => S({ vertexColors: true, roughness: 0.68, side: b === 'furn' ? THREE.FrontSide : sd }));
@@ -280,10 +282,10 @@ function doorLeaf(B, cx, y0, H, W, z, F, opts = {}) {   // full-lite door + fram
   B.obox('timber', 0, 0, 0, cx - hx, cx + hx, y0 + H - fw, y0 + H, zb, zf, fc);
   B.obox('timber', 0, 0, 0, cx - hx, cx + hx, y0, y0 + 0.02, zb, zf, hex('#191a1b'));
   const leaves = opts.leaves || 1, lw = (W - 2 * fw) / leaves;
-  if (doorOpen) {   // walk-through viewer: each leaf stands open into the room
+  if (doorOpen) {   // walk-through viewer: each leaf stands open, swung outward
     for (let l = 0; l < leaves; l++) {
       const hinge = l === 0 ? cx - hx + fw : cx + hx - fw, s = l === 0 ? 1 : -1, zg = z - depth;
-      B.obox('timber', 0, 0, 0, hinge, hinge + s * 0.045, y0 + 0.02, y0 + H - fw, zg - lw, zg, F === FINISHES.cedar ? PAL.walnut : PAL.char);
+      B.obox('timber', 0, 0, 0, hinge, hinge + s * 0.045, y0 + 0.02, y0 + H - fw, z, z + lw, F === FINISHES.cedar ? PAL.walnut : PAL.char);   // swung out onto the deck
     }
     return;
   }
@@ -515,7 +517,7 @@ function assemble({ type = 'z6', door, finish = 'slate', glass = null, glaze = [
   if (plan && interior && hi) addPlan(B, plan, Z);
   if (figure && hi) {   // scale figure on the ground beside the steps
     const halfW = Z.door === 'A' ? Math.max(Z.info.A.Xo, Z.info.A.Xb) + 0.32 : Z.door === 'B' ? Z.info.B.deckW / 2 : Z.info.C.deckW / 2;
-    const front = Z.door === 'A' ? Z.info.A.Zo + (Z.K === 7 ? 0.62 : 0.72) : Z.door === 'B' ? Z.info.B.Zc + Z.info.B.deckDepth : Z.info.C.dF + Z.info.C.deckFront;
+    const front = Z.info.landing.z1;
     addFigure(B, -(halfW + 0.6), front - 0.15, -20, Z);
   }
   return { B, Z };

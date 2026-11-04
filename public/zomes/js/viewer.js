@@ -37,7 +37,7 @@ function makeWalker(Z, plan) {
   const outer = Z.planes.map(p => ({ n: p.n, d: p.d + Z.inset + Z.o + 0.28 }));
   const inShell = (x, z) => [0.35, 1.0, 1.7].some(y => outer.every(p => p.n[0] * x + p.n[1] * (y + Z.floorY) + p.n[2] * z <= p.d));
   const I = Z.info;
-  const land = Z.door === 'A' ? { x: Math.max(I.A.Xo, I.A.Xb) + 0.32, z0: I.A.zp - 0.02, z1: I.A.Zo + (Z.K === 7 ? 0.62 : 0.72) } : Z.door === 'B' ? { x: I.B.deckW / 2, z0: I.B.dG, z1: I.B.Zc + I.B.deckDepth } : { x: I.C.deckW / 2, z0: I.C.dF, z1: I.C.dF + I.C.deckFront };
+  const land = Z.info.landing;
   const steps = { x: Math.min(1.5, 2 * land.x * 0.72) / 2, z1: land.z1 + 0.28 * Math.max(1, Math.round(Z.floorY / 0.17)) };
   const onLanding = (x, z) => (Math.abs(x) < land.x && z > land.z0 && z < land.z1) || (Math.abs(x) < steps.x && z >= land.z1 && z < steps.z1);
   // door A's recessed porch sits inside the shell's outline

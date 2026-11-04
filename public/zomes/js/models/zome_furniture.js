@@ -124,7 +124,7 @@ export function drawItem(B, it, Z) {
       box(-hw + 0.02, hw - 0.02, low, low + 0.24, -hd + 0.02, hd - 0.02, shade(PAL.white, 0.97));   // mattress
       box(-hw + 0.01, hw - 0.01, low + 0.04, low + 0.28, -hd + 0.5, hd - 0.01, cover);             // duvet
       box(-hw + 0.01, hw - 0.01, low + 0.04, low + 0.3, hd - 0.55, hd - 0.05, throwCol);            // throw across the foot
-      if (it.k !== 'daybed' && !it.low) box(-hw - 0.01, hw + 0.01, 0.12, 0.95, -hd - 0.04, -hd + 0.01, PAL.oakDk);   // headboard
+      if (it.k !== 'daybed' && !it.low && !it.nohb) box(-hw - 0.01, hw + 0.01, 0.12, 0.95, -hd - 0.04, -hd + 0.01, PAL.oakDk);   // headboard
       const n = w > 1.2 ? 2 : 1;
       for (let i = 0; i < n; i++) { const px = n === 1 ? 0 : (i ? 1 : -1) * w / 4; B.ball('furn', LX(px, -hd + 0.28), y + low + 0.33, LZ(px, -hd + 0.28), w / (n * 2.6), 0.08, 0.2, PAL.white, i); }
       break;
