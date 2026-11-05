@@ -19,12 +19,21 @@
       "description": "Interactive 3D configurator for a WikiHouse Skylark 250 cabin — arrange modules, preview the build, and export the block list.",
       "order": 3
     },
-    "sculptgen": { "order": 1 },
+    "sculptgen": {
+      "order": 1
+    },
     "mask-generator": {
       "description": "Design a wearable CNC mask from your face measurements — AI-generated carving, stacked/egg-crate/rotary outputs, real cut files.",
       "order": 2
     },
-    "infinity-polyhedron-wiring": { "order": 4 }
+    "infinity-polyhedron-wiring": {
+      "order": 4
+    },
+    "wall-panel-generator": {
+      "title": "Wall Panel Generator",
+      "description": "Design a 3D-printed wall panel of hundreds of pieces — swirling blades, organic cells, radial rings — then export the print kit: Bambu Studio files with every piece numbered, a mounting frame or CNC backer, and a 1:1 assembly map.",
+      "order": 3
+    }
   },
   "extras": [
     {

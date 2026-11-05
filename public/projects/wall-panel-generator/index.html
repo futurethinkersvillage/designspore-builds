@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>wallgen</title>
+<meta name="description" content="Design a 3D-printed wall panel of hundreds of pieces in your browser, then export the print kit: Bambu Studio files, a mounting frame or CNC backer, and a 1:1 assembly map.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <script type="module" crossorigin src="/projects/wall-panel-generator/assets/index-BmQv0_ZL.js"></script>
+  <link rel="stylesheet" crossorigin href="/projects/wall-panel-generator/assets/index-UTw8FzHJ.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="mark" aria-hidden="true"></span>wallgen</div>
+  <input id="name" class="name" aria-label="Project name" maxlength="80">
+  <div class="top-actions">
+    <button id="undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
+    <button id="redo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">↷</button>
+    <button id="projects">Projects</button>
+    <button id="share">Copy link</button>
+    <button id="kit" class="primary">Print kit</button>
+  </div>
+</header>
+<main class="layout">
+  <aside id="panel" class="panel" aria-label="Panel settings"></aside>
+  <section class="stage">
+    <div id="view3d" class="view3d"></div>
+    <canvas id="plan" class="plan" hidden></canvas>
+    <div class="stage-bar">
+      <div class="seg" role="group" aria-label="View">
+        <button data-view="iso" class="on">Iso</button>
+        <button data-view="front">Front</button>
+        <button data-view="side">Side</button>
+        <button data-view="plan">Plan</button>
+      </div>
+      <label class="light">Light <input id="light" type="range" min="-80" max="80" value="35" aria-label="Light angle"></label>
+      <label class="light"><input id="showFrame" type="checkbox"> Show mounting</label>
+    </div>
+    <div id="busy" class="busy" hidden>Building…</div>
+    <div id="toast" class="toast" role="status" hidden></div>
+  </section>
+</main>
+<footer class="stats">
+  <div id="warn" class="warn"></div>
+  <dl id="numbers"></dl>
+</footer>
+<dialog id="dialog"></dialog>
+</body>
+</html>
