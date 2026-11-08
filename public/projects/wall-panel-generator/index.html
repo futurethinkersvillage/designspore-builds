@@ -8,12 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-  <script type="module" crossorigin src="/projects/wall-panel-generator/assets/index-BmQv0_ZL.js"></script>
-  <link rel="stylesheet" crossorigin href="/projects/wall-panel-generator/assets/index-UTw8FzHJ.css">
+  <script type="module" crossorigin src="/projects/wall-panel-generator/assets/index-BNAXeNA5.js"></script>
+  <link rel="stylesheet" crossorigin href="/projects/wall-panel-generator/assets/index-8bVi2Ma0.css">
 </head>
 <body>
 <header class="top">
   <div class="brand"><span class="mark" aria-hidden="true"></span>wallgen</div>
+  <div class="seg modeseg" role="group" aria-label="Mode"><button data-mode="panel" class="on">Single panel</button><button data-mode="zome">Zome</button></div>
   <input id="name" class="name" aria-label="Project name" maxlength="80">
   <div class="top-actions">
     <button id="undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
@@ -27,16 +28,26 @@
   <aside id="panel" class="panel" aria-label="Panel settings"></aside>
   <section class="stage">
     <div id="view3d" class="view3d"></div>
+    <div id="zome3d" class="view3d" hidden></div>
     <canvas id="plan" class="plan" hidden></canvas>
     <div class="stage-bar">
-      <div class="seg" role="group" aria-label="View">
+      <div class="seg" id="viewSeg" role="group" aria-label="View">
         <button data-view="iso" class="on">Iso</button>
         <button data-view="front">Front</button>
         <button data-view="side">Side</button>
         <button data-view="plan">Plan</button>
       </div>
-      <label class="light">Light <input id="light" type="range" min="-80" max="80" value="35" aria-label="Light angle"></label>
-      <label class="light"><input id="showFrame" type="checkbox"> Show mounting</label>
+      <div class="seg" id="zomeSeg" role="group" aria-label="Zome view" hidden>
+        <button data-zview="cutaway" class="on">Cutaway</button>
+        <button data-zview="inside">Inside</button>
+        <button data-zview="plan">Plan</button>
+      </div>
+      <div class="seg" id="zomeTool" role="group" aria-label="What a click does" hidden>
+        <button data-ztool="toggle" class="on">Click: art on/off</button>
+        <button data-ztool="select">Click: select</button>
+      </div>
+      <label class="light" id="lightCtl">Light <input id="light" type="range" min="-80" max="80" value="35" aria-label="Light angle"></label>
+      <label class="light" id="frameCtl"><input id="showFrame" type="checkbox"> Show mounting</label>
     </div>
     <div id="busy" class="busy" hidden>Building…</div>
     <div id="toast" class="toast" role="status" hidden></div>

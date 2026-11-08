@@ -31,7 +31,7 @@
     },
     "wall-panel-generator": {
       "title": "Wall Panel Generator",
-      "description": "Design a 3D-printed wall panel of hundreds of pieces — swirling blades, organic cells, radial rings — then export the print kit: Bambu Studio files with every piece numbered, a mounting frame or CNC backer, and a 1:1 assembly map.",
+      "description": "Design a 3D-printed wall panel of hundreds of pieces — swirling blades, organic cells, radial rings — plan art across a zome's panels, start from 26 ready-made designs, then export the print kit: Bambu Studio files with every piece numbered, a mounting frame or CNC backer, and a 1:1 assembly map.",
       "order": 3
     }
   },
