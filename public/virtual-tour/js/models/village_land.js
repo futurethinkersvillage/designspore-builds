@@ -39,7 +39,8 @@ export function build({ V, ground, level, lod = 'high' }) {
   });
   // lamps every 14 m on the main paths, a bench now and then
   let n = 0;
-  for (const p of V.paths) { if (p.kind === 'spur') continue; let d = 0; for (let i = 1; i < p.pts.length; i++) { const [ax, ay] = p.pts[i - 1], [bx, by] = p.pts[i], l = Math.hypot(bx - ax, by - ay); d += l; if (d >= 14) { d = 0; n++; const nx = (by - ay) / (l || 1), ny = -(bx - ax) / (l || 1), s = n % 2 ? 1 : -1, px = bx + nx * s * (p.w / 2 + 0.5), py = by + ny * s * (p.w / 2 + 0.5); add('lamppost', px, py, 1, 1, 1, 0, 0x2b2b2e, 0.65); add('lampglow', px, py, 1, 1, 1, 0, 0xffe2b0, 1.35); if (n % 5 === 0) add('logbench', bx - nx * s * (p.w / 2 + 0.9), by - ny * s * (p.w / 2 + 0.9), 1, 1, 1, Math.atan2(bx - ax, by - ay) + 1.57, 0x6d4d33, 0.26); } } }
+  for (const p of V.paths) { if (p.kind === 'spur' || p.kind === 'lane') continue;   // no lamps along the fire lane (dark sky)
+ let d = 0; for (let i = 1; i < p.pts.length; i++) { const [ax, ay] = p.pts[i - 1], [bx, by] = p.pts[i], l = Math.hypot(bx - ax, by - ay); d += l; if (d >= 14) { d = 0; n++; const nx = (by - ay) / (l || 1), ny = -(bx - ax) / (l || 1), s = n % 2 ? 1 : -1, px = bx + nx * s * (p.w / 2 + 0.5), py = by + ny * s * (p.w / 2 + 0.5); add('lamppost', px, py, 1, 1, 1, 0, 0x2b2b2e, 0.65); add('lampglow', px, py, 1, 1, 1, 0, V.lampColor ? parseInt(V.lampColor.slice(1), 16) : 0xffe2b0, 1.35); if (n % 5 === 0) add('logbench', bx - nx * s * (p.w / 2 + 0.9), by - ny * s * (p.w / 2 + 0.9), 1, 1, 1, Math.atan2(bx - ax, by - ay) + 1.57, 0x6d4d33, 0.26); } } }
   // a small parking bay beside each group of homes (Mike 11-02)
   { const CARS = [0x8d9194, 0x2f3a4a, 0xd6d4cc, 0x6a2f28, 0x3b4a3a];
     (V.parking || []).forEach((k, pi) => { const c = Math.cos(k.ang), s = Math.sin(k.ang);

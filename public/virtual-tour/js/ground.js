@@ -15,7 +15,7 @@ const pixels = (im, w = im.width, h = im.height) => {
 export async function loadGround() {
   const [gm, gc, cls, col, nrm, pnt] = await Promise.all([fetch('assets/materials/ground.json').then(r => r.json()), fetch('data/groundclass.json').then(r => r.json()),
     img('data/groundclass.png'), img('assets/materials/ground_color.webp'), img('assets/materials/ground_normal.webp'),
-    fetch('data/groundpaint.png', { cache: 'no-store' }).then(r => r.ok ? r.blob() : null).then(b => b && img(URL.createObjectURL(b))).catch(() => null)]);
+    fetch(`data/groundpaint${/^\d+$/.test(new URLSearchParams(location.search).get('village') || '') ? '_village' + new URLSearchParams(location.search).get('village') : ''}.png`, { cache: 'no-store' }).then(r => r.ok ? r.blob() : null).then(b => b && img(URL.createObjectURL(b))).catch(() => null)]);
   // materials -> one array texture (colour layers, then normal layers)
   const S = gm.res, N = gm.layers.length, arr = new Uint8Array(S * S * 4 * N * 2);
   arr.set(pixels(col), 0); arr.set(pixels(nrm), S * S * 4 * N);

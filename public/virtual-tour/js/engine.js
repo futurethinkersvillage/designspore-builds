@@ -65,7 +65,8 @@ async function load({ style, MOBILE, progress, FAST }) {
 }
 
 export async function createEngine({ style, canvas, REC, MOBILE, Q, progress }) {
-  const V = await fetch('data/village.json').then(r => r.json());   // the zome village's master plan (tools/village_design.py)
+  const VQ = /^\d+$/.test(Q.get('village') || '') ? Q.get('village') : '';   // ?village=0 previews Village 0 (data/village0.json); the default is Village 1 (2026-11-10)
+  const V = await fetch(`data/village${VQ}.json`).then(r => r.json());   // the zome village's master plan (tools/village_design.py)
   const FAST = Q.has('fast'); // ?fast=1: quicker previews while developing (no z17 imagery, fewer trees)
   const D = await load({ style, MOBILE, progress, FAST });
   const heightAt = heightSampler(D.meta, D.near, D.far);

@@ -12,7 +12,7 @@ const PHASES = [
   // at = where its label stands on the land; the camera leans toward it while it is the active row
   { name: 'Co-working café', rings: [], t: [0.24, 0.36], at: [-597, -226] },
   { name: 'Maker space', rings: ['maker_space'], t: [0.36, 0.48], at: [-30, 318] },
-  { name: 'Creekside zomes', rings: ['creekside_cabin_boundary'], t: [0.48, 0.6], at: [60, 150] },
+  { name: 'Village zomes', rings: ['cabins'], t: [0.48, 0.6], at: [90, 70] },   // Village 1 (11-10): the pods sit east of Mike's creekside zone (30 m from water)
   { name: 'Lakeside zomes', rings: ['lake_cabins'], t: [0.6, 0.72], at: [30, -230] },
   { name: 'Festival grounds · stage · art trails', short: 'Festival', rings: ['festival_grounds', 'event_space'], lines: ['discovery_trail'], t: [0.72, 0.84], at: [-100, -420] },
 ];

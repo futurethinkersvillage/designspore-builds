@@ -2,6 +2,7 @@
 // Quantities: the Trillium materials lists + the model's own panel areas and each layout's items. Unit prices: PRICES below.
 // Volunteer labour is reported as hours and a value, and is never added to the subtotal.
 import { KINDS } from './zome_furniture.js';
+export { OPTIONS, styleFactor } from './zome_options.js';   // configurator options (roofing, doors, lighting, styles)
 
 // src: 'R' = researched price (see SOURCES), 'A' = my allowance where no local price was published
 export const PRICES = {
@@ -22,7 +23,7 @@ export const PRICES = {
 export const FIT = {
   king: [1250, 'A'], queen: [1050, 'R'], double: [800, 'R'], single: [450, 'R'], bunk: [900, 'R'], daybed: [550, 'R'], sofa: [749, 'R'], sofabed: [1099, 'R'], loveseat: [549, 'R'], armchair: [399, 'R'], chair: [80, 'R'], stool: [60, 'A'], cushion: [40, 'A'],
   rtable: [350, 'A'], ctable: [170, 'R'], lowtable: [120, 'A'], bistro: [180, 'A'], desk: [480, 'R'], longdesk: [950, 'A'], bookshelf: [200, 'R'], wardrobe: [600, 'R'], cabinet: [220, 'A'], bench: [180, 'A'], rug: [250, 'R'], mat: [45, 'A'], massage: [950, 'A'], telescope: [900, 'A'], piano: [3500, 'A'], drums: [1200, 'A'], amp: [500, 'A'], easel: [120, 'A'], workbench: [450, 'A'], printer: [800, 'A'], booth: [3500, 'A'], screen: [1250, 'A'], kidtable: [150, 'A'], firebowl: [2200, 'A'], towel: [150, 'A'], fridge: [1100, 'A'], lounger: [180, 'A'],
-  toilet: [350, 'A'], vanity: [450, 'A'], shower: [1100, 'A'], rollshower: [2000, 'A'], woodstove: [5500, 'A'], saunastove: [3200, 'A'], plunge: [4500, 'R'], saunabox: [10620, 'R'], potting: [400, 'A'], tree: [350, 'A'], planter: [90, 'A'], hanging: [45, 'A'], pond: [900, 'A'], ladder: [300, 'A'], shipstair: [1200, 'A'], stair: [3000, 'A'], arcbench: [220, 'R'], idoor: [0, 'A'],
+  toilet: [350, 'A'], vanity: [450, 'A'], shower: [1100, 'A'], rollshower: [2000, 'A'], woodstove: [5500, 'A'], saunastove: [3200, 'A'], plunge: [4500, 'R'], saunabox: [10620, 'R'], potting: [400, 'A'], tree: [350, 'A'], planter: [90, 'A'], hanging: [45, 'A'], pond: [900, 'A'], ladder: [300, 'A'], shipstair: [1200, 'A'], stair: [3000, 'A'], arcbench: [220, 'R'], idoor: [0, 'A'], soaktub: [2400, 'A'], wheel: [1500, 'A'], kiln: [3500, 'A'],
 };
 
 export const RATES = {
@@ -36,9 +37,9 @@ const PLAN_BOM = {
   acorn: { frame: [['acx19', 2], ['l2x6x8', 16], ['l2x6x8', 4], ['pt2x4x8', 4], ['l2x4x8', 3]], deck: [['l2x4x8', 15], ['tg34', 2]], piers: 8, entry: [['l2x4x8', 6], ['l2x6x8', 2], ['tg34', 1]], entryPiers: 2, screwsFrame: 75, screwsDeck: 40 },
   z5: { frame: [['acx19', 2], ['l2x6x10', 21], ['l2x10x10', 5], ['pt2x4x10', 5], ['l2x4x8', 3]], deck: [['l2x6x12', 22], ['tg34', 7]], piers: 9, entry: [['l2x6x10', 6], ['tg34', 1]], entryPiers: 2, screwsFrame: 75, screwsDeck: 120, deckDerived: true },
   z6: { frame: [['acx19', 3], ['l2x6x12', 54], ['l2x6x8', 10], ['l2x4x8', 6]], deck: [['l2x6x12', 35], ['tg34', 10]], piers: 11, entry: [['l2x6x10', 8], ['tg34', 2]], entryPiers: 2, screwsFrame: 275, screwsDeck: 24 },
-  z75: { frame: [['l2x4x10', 115], ['l2x4x8', 20], ['l2x6x8', 3], ['cdx13', 6], ['l2x4x10', 20]], deck: [['l2x6x16', 20], ['l2x6x8', 30], ['tg34', 16]], piers: 21, entry: [['l2x6x12', 5], ['tg34', 1]], entryPiers: 2, screwsFrame: 300, screwsDeck: 191 },
+  z75: { frame: [['l2x4x10', 115], ['l2x4x8', 20], ['l2x6x8', 3], ['cdx13', 6], ['l2x4x10', 20]], deck: [['l2x6x16', 20], ['l2x6x8', 30], ['tg34', 16]], piers: 21, entry: [['l2x6x12', 9], ['l2x6x8', 3], ['tg34', 1]], entryPiers: 3, screwsFrame: 300, screwsDeck: 191 },
   z9: { frame: [['l2x4x12', 115], ['l2x4x10', 20], ['l2x6x8', 3]], deck: [['l2x6x16', 30], ['l2x6x8', 40], ['tg34', 21]], piers: 21, entryPiers: 3, screwsFrame: 300, screwsDeck: 191,
-    doorB: [['cdx13', 9], ['l2x4x10', 22], ['l2x6x16', 3], ['l2x6x12', 7], ['tg34', 1]], doorC: [['cdx13', 7], ['l2x4x10', 20], ['l2x6x12', 5], ['tg34', 1]] },
+    doorB: [['cdx13', 9], ['l2x4x10', 22], ['l2x6x16', 3], ['l2x6x12', 11], ['l2x6x8', 3], ['tg34', 1]], doorC: [['cdx13', 7], ['l2x4x10', 20], ['l2x6x12', 9], ['l2x6x8', 3], ['tg34', 1]] },   // 7.5/9 m entry decks deepened ~0.5 m so the outward doors land on them
 };
 const DOORWALL = { acorn: 0, z5: 0, z6: 0, z75: 24, z9: { B: 30, C: 22 } };
 const DOORHOURS = { A: 60, B: 150, C: 110 };
@@ -52,11 +53,11 @@ const TSBC = [[150, 16], [400, 38], [1000, 121], [2500, 217], [5000, 352], [1000
 export const tsbcPermit = v => { for (const [t, f] of TSBC) if (v <= t) return f; return 3884; };
 
 // layouts where the public use may change the building code class: costs below don't include that extra work
-export const PUBLIC_USE = ['z75-cafe', 'z9-dining', 'gl-z9-cafe', 'z9-class', 'gl-z75-class', 'z75-cowork', 'z9-maker', 'z9-yoga', 'z75-spa', 'gl-z75-spa', 'gl-z9-spa', 'gl-z6-tub', 'gl-z6-dining', 'z6-office'];
+export const PUBLIC_USE = ['z75-cafe', 'z9-dining', 'gl-z9-cafe', 'z9-class', 'gl-z75-class', 'z75-cowork', 'z9-maker', 'z9-yoga', 'z75-spa', 'gl-z75-spa', 'gl-z9-spa', 'gl-z6-tub', 'gl-z6-dining', 'z6-office', 'z75-dining', 'z75-yoga', 'z75-maker', 'z6-class', 'z6-kiosk', 'z5-wash'];
 
 export function costPlan(p) {
   const Z = p.Z, T = Z.T, bom = PLAN_BOM[p.type], P = k => PRICES[k][0];
-  const clearRows = p.glass === 'all' ? Infinity : p.glass === 'upper' ? Z.K - 2 : 0;
+  const clearRows = p.glass === 'all' ? Infinity : p.glass === 'upper' ? Z.K - 2 : p.glass === 'top' ? 2 : 0;
   let cladA = 0, clearA = 0, seam = 0, panels = 0;
   for (const f of Z.kept) { const a = polyA3(f.pts); if (f.row <= clearRows) clearA += a; else cladA += a; panels++; for (let i = 0; i < f.pts.length; i++) { const u = f.pts[i], w = f.pts[(i + 1) % f.pts.length]; seam += Math.hypot(u[0] - w[0], u[1] - w[1], u[2] - w[2]) / 2; } }
   const floorA = Z.stats.floorArea, heatSpec = T.frameDepth >= 0.089 || T.method === 'beveled' ? 'r12' : 'r12';
@@ -110,9 +111,9 @@ export function costPlan(p) {
   const R = RATES, hasKitchen = (n.counter || 0) + (n.servebar || 0) + (n.island || 0) > 0;
   const baths = Math.max(n.shower || 0, n.rollshower || 0, n.toilet || 0);
   const plumbedKitchen = p.items.some(i => (i.k === 'counter' && (i.appl || ['sink']).includes('sink')) || i.k === 'servebar');
-  const elec = p.id === 'acorn-sauna' ? R.electricMin * 0.6 : R.electricMin + floorA * R.electricPerM2 * (p.glass ? 0.45 : 1) + (hasKitchen ? R.electricKitchen : 0) + baths * R.electricBath + ((n.hottub || n.plunge) ? R.electricTub : 0) + (n.printer ? 800 : 0) + (n.booth ? 300 : 0);
+  const elec = p.id === 'acorn-sauna' ? R.electricMin * 0.6 : R.electricMin + floorA * R.electricPerM2 * (p.glass ? 0.45 : 1) + (hasKitchen ? R.electricKitchen : 0) + baths * R.electricBath + ((n.hottub || n.plunge) ? R.electricTub : 0) + (n.printer ? 800 : 0) + (n.booth ? 300 : 0) + (n.kiln ? 900 : 0);   // kiln needs its own 240 V circuit
   add('trades', 'Electrician', elec);
-  let plumb = baths * R.plumbBath + (plumbedKitchen ? R.plumbKitchen : 0) + (n.potting || n.bed_raised ? R.plumbHose : 0) + (n.hottub ? R.plumbTubFill * n.hottub : 0) + (n.plunge ? R.plumbTubFill : 0) + (n.hottub || n.plunge || n.saunabox ? R.plumbDrain : 0);
+  let plumb = baths * R.plumbBath + (plumbedKitchen ? R.plumbKitchen : 0) + (n.potting || n.bed_raised ? R.plumbHose : 0) + (n.hottub ? R.plumbTubFill * n.hottub : 0) + (n.plunge ? R.plumbTubFill : 0) + (n.soaktub ? R.plumbTubFill : 0) + (n.hottub || n.plunge || n.saunabox ? R.plumbDrain : 0);
   if (!baths && !plumbedKitchen && (n.vanity || n.shower)) plumb += R.plumbSingle;
   if (baths || plumbedKitchen) plumb += R.waterHeater;
   if (plumb) add('trades', 'Plumber', plumb);

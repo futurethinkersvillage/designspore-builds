@@ -1,4 +1,4 @@
-// Chapter 10 · Places to stay — down the creekside zomes, then on to the lakeside rows, at golden hour with warm
+// Chapter 10 · Places to stay — the hillside pods above the creek, the Commons by the lake, then the Lakeside row (Village 1, 11-10), at golden hour with warm
 // light in the windows. Zomes are a CONCEPT (nothing built yet): the caption and the callouts say so.
 import { furnish } from '../models/boho_decor.js';
 import * as THREE from 'three';
@@ -60,15 +60,26 @@ export async function setup(ctx) {
   // furnished interior, closes up again, and the tour moves on. Inside his zones only: creekside north to south, then lakeside.
   const V = ctx.village, sites = ctx.models.zome.children, D2R = Math.PI / 180, S = meta.seconds;
   const stop = n => { const i = V.zomes.findIndex(z => z.tour === n), z = V.zomes[i], fx = Math.sin(z.rotY), fy = -Math.cos(z.rotY), hd = (Math.atan2(-fx, -fy) / D2R + 360) % 360, type = z.plan.includes('z75') ? 3.95 : z.plan.includes('z9') ? 4.7 : z.plan.includes('z6') ? 3.25 : 2.6;
-    return { i, x: z.x, y: z.y, hd: hd + 32, floorY: 0.35, gy: sites[i].position.y, R: type, plan: z.plan, site: sites[i] }; };
+    // Village 1 (11-10): the view angle that keeps every other zome out of the shot (the Commons stop sat behind the dining room)
+    const rad = q => q.plan.includes('z75') ? 3.95 : q.plan.includes('z9') ? 4.7 : q.plan.includes('z6') ? 3.25 : q.plan.includes('z5') ? 2.6 : 1.65, F = type * 3.3 * 1.25 * Math.cos(24 * D2R);
+    let best = hd + 32, bs = -1e9;
+    for (let d = -80; d <= 80; d += 4) {
+      const h = (hd + d) * D2R, cx = z.x - Math.sin(h) * F, cy = z.y - Math.cos(h) * F; let sc = 1e9;
+      for (const q of V.zomes) { if (q === z) continue; for (let k = 0; k <= 10; k++) { const u = k / 10 * 0.8, px = cx + (z.x - cx) * u, py = cy + (z.y - cy) * u; sc = Math.min(sc, Math.hypot(q.x - px, q.y - py) - rad(q) - 1); } }
+      sc = Math.min(sc, 6) - Math.abs(d - 32) * 0.02;   // clear enough wins; then nearest the old three-quarter view
+      if (sc > bs) { bs = sc; best = hd + d; }
+    }
+    return { i, x: z.x, y: z.y, hd: (best + 360) % 360, floorY: 0.35, gy: sites[i].position.y, R: type, plan: z.plan, site: sites[i] }; };
   const T1 = stop(1), T2 = stop(2), T3 = stop(3);
+  const north = V.zomes.filter(z => !['Lakeside', 'The Commons'].includes(z.hamlet)), VC = [north.reduce((a, z) => a + z.x, 0) / north.length, north.reduce((a, z) => a + z.y, 0) / north.length];   // the north pods' middle
   const turn = (a, b) => ((b - a) % 360 + 540) % 360 - 180;   // the short way round
+  const OH = 102;   // the opening: from over the creek, looking east and well down over the pods (east of x 155 is coarse imagery; only the far background)
   const look = (s, t0, t1) => { const F = s.R * 3.3, gh = s.gy + 1.1; return [[t0 / S, s.x, s.y, gh, F * 1.25, s.hd, -24, 42], [(t0 + 1.2) / S, s.x, s.y, gh, F, s.hd, -24, 42], [t1 / S, s.x + 0.02, s.y, gh, F * 0.96, s.hd, -23, 42]]; };
   rig = R.makeRig([
     // r1103: held wide shot for the title, then each move is a rise above the crowns, a glide, and a descent
-    [0.0 / S, 55, 120, ground(55, 120), 300, 135, -36, 46],                 // the whole creekside zone, from the north-west: the first stop is ahead
-    [4.6 / S, 55, 120, ground(55, 120), 290, 137, -37, 46],                 // held while 'The zome village' is read
-    [9.0 / S, T1.x, T1.y, ground(T1.x, T1.y), 70, T1.hd, -32, 46],
+    [0.0 / S, VC[0], VC[1], ground(VC[0], VC[1]), 200, OH, -47, 46],       // the hillside pods, looking west over them to the creek (Village 1, 11-10: east of x 155 is only coarse imagery, keep it behind the lens)
+    [4.6 / S, VC[0], VC[1], ground(VC[0], VC[1]), 194, OH + 2, -48, 46],   // held while 'The zome village' is read
+    [9.0 / S, T1.x, T1.y, ground(T1.x, T1.y), 70, OH + 2 + turn(OH + 2, T1.hd), -32, 46],   // the short way round to the first stop
     ...look(T1, 11, 20),
     // the turn between stops is spread over the whole move (r1103: 163 deg in 2.5 s swung the camera round)
     [22.5 / S, T1.x, T1.y, T1.gy + 1.1, 64, T1.hd + turn(T1.hd, T2.hd) * 0.38, -40, 46],   // up and back off the cabin
@@ -82,9 +93,9 @@ export async function setup(ctx) {
   ]);
   // nothing between the lens and the view on the moves between stops (r1103: trunks filled 40% of the frame at 25 s)
   const path = a => Array.from({ length: 25 }, (_, i) => rig.at((a[0] + (a[1] - a[0]) * i / 24) / S).pos);
-  for (const w of [[4.6, 11], [20, 27.5], [36.5, 45]]) ctx.clearTreesNear(path(w), 12);
-  ctx.clearTreesNear(R.sightLines(rig, 9 / S, 1, 0.015), 6);
-  ctx.clearTreesInView(R.views(rig, 9 / S, 1, 0.015));   // nor looming at a frame edge   // and nothing standing in the line of sight to each stop (r1103b: a tree blocked a third of the frame at 27–36 s)
+  for (const w of [[0, 11], [20, 27.5], [36.5, 45]]) ctx.clearTreesNear(path(w), 16);   // (Village 1: a crown brushed the lens on the way down at 5-6 s)
+  ctx.clearTreesNear(R.sightLines(rig, 0, 1, 0.015), 6);
+  ctx.clearTreesInView(R.views(rig, 0, 1, 0.015));   // nor looming at a frame edge   // and nothing standing in the line of sight to each stop (r1103b: a tree blocked a third of the frame at 27–36 s)
   // the opened zomes: furnished, with their own materials so one plane can cut just that zome
   cuts = [T1, T2, T3].map((T, n) => {
     furnish(T.site, T.plan, T.R, T.floorY);
@@ -108,13 +119,13 @@ export async function setup(ctx) {
 
   cap = document.createElement('div'); cap.className = 'cap';
   cap.innerHTML = '<div class="eyebrow">Places to stay<span style="margin-left:14px;padding:3px 9px;border:1px solid #EA824E;border-radius:99px;color:#EA824E;letter-spacing:.16em">Planned</span></div>' +
-    '<h1>The zome village</h1><p style="font:400 clamp(15px,1.5vw,19px)/1.45 Inter,sans-serif;margin:12px 0 0;max-width:30em;opacity:.92">Along the creek and round the lake, grouped by colour: shared halls, cabins, family homes and work-stay.</p>';
+    '<h1>The zome village</h1><p style="font:400 clamp(15px,1.5vw,19px)/1.45 Inter,sans-serif;margin:12px 0 0;max-width:30em;opacity:.92">Above the creek and by the lake, grouped by colour: shared halls, cabins, family homes, work-stay and staff homes.</p>';
   cap.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40));
   ctx.hud.appendChild(cap);
   // the lakeside row gets its own line (i7: after the cut the only text was a small card)
   cap2 = document.createElement('div'); cap2.className = 'cap';
   cap2.innerHTML = '<div class="eyebrow">Places to stay<span style="margin-left:14px;padding:3px 9px;border:1px solid #EA824E;border-radius:99px;color:#EA824E;letter-spacing:.16em">Planned</span></div>' +
-    '<h1 style="white-space:nowrap">Lakeside</h1><p style="font:400 clamp(15px,1.5vw,19px)/1.45 Inter,sans-serif;margin:12px 0 0;max-width:30em;opacity:.92">Cabins looking over the beach, a spa, a sauna and a dock.</p>';
+    '<h1 style="white-space:nowrap">Lakeside</h1><p style="font:400 clamp(15px,1.5vw,19px)/1.45 Inter,sans-serif;margin:12px 0 0;max-width:30em;opacity:.92">Cabins above a wild shore, a spa, a sauna and a dock.</p>';
   cap2.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40));
   ctx.hud.appendChild(cap2);
   const say = (eyebrow, h) => { const d = document.createElement('div'); d.className = 'cap'; d.innerHTML = `<div class="eyebrow">${eyebrow}</div><h1>${h}</h1>`; d.querySelector('.eyebrow').insertAdjacentHTML('afterbegin', ctx.markImg(40)); ctx.hud.appendChild(d); return d; };
